@@ -1,0 +1,34 @@
+:root {
+  /* Fargepalett fra PowerPoint-temaet */
+  --cream: #fbf0e5;
+  --cream-dark: #e2d8ce;
+  --burgundy: #450d20;
+  --burgundy-2: #450d21;
+  --red: #ff303b;
+  --red-deep: #b72318;
+  --teal: #004047;
+  --mint: #78e8db;
+  --divider: #e2c3c9;
+
+  /* Skrifttyper: Gelica er bygget inn i appen via next/font/local
+     (se app/layout.tsx og app/fonts/). */
+  --font-serif: var(--font-gelica), Georgia, serif;
+  --font-sans: "DM Sans 14pt", "DM Sans", var(--font-dm-sans), Arial,
+    sans-serif;
+  --font-manrope-stack: "Manrope SemiBold", "Manrope", var(--font-manrope),
+    Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  background: #2a0813;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
