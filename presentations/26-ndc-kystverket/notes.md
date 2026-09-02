@@ -8,11 +8,13 @@ Disposisjon: trigger → hvem er Kystverket → generelt om dataplattform
 (serverless) → modellene oppå (MarTraf og MarU) → veien videre.
 
 Tall fra research (research/generelt-kystverket/):
+
 - ~90 basestasjoner, 4 operative AIS-satellitter (AISSat-4 opp mars 2026)
 - 2 mrd AIS-meldinger i 2006 → 8,9 mrd i 2021, data lagret tilbake til 2006
 - Åpne data under NLOD, sanntid via BarentsWatch API og rå TCP-strøm
 
 Formuleringer fra research (research/generell-dataplattform/):
+
 - Verbrekka alle definisjonene lander på: hente inn, lagre, transformere,
   dele – og styre
 - «Et datavarehus leverer rapporter, en dataplattform muliggjør kontinuerlig
@@ -30,8 +32,7 @@ Formuleringer fra research (research/generell-dataplattform/):
 
 ## trigger – Vi live-tracker alle skip
 
-Gå rett på: vi live-tracker alle skip i norske farvann.
-Ikke si hvem «vi» er ennå – la det henge litt.
+Se for deg at du er et skip
 
 ## nais – NAIS – sanntidsbildet
 
@@ -360,6 +361,7 @@ MarTraf = AIS-prosesseringsmodulen. Databricks, PySpark.
 Statiske meldinger (MMSI, navn, dimensjoner) versjoneres og slås sammen med
 skipsregisteret. Dynamiske meldinger (fart, kurs) vaskes for uteliggere.
 Fem berikelsessteg:
+
 1. Geografi på: havner (UN/LOCODE), kystkontur, ankringsområder,
    oljeinstallasjoner, oppdrettslokaliteter.
 2. Operasjonsfase – elleve faser, regler på avstand og fart. Eksempel som
@@ -441,8 +443,7 @@ seiler ut.
 MarU snur det: estimer fra observert aktivitet, og skill innenriks fra
 til/fra utlandet og gjennomfart.
 Avslutt kapittelet med 2016-historien: tidsserien starter i 2016, ikke fordi
-dataene mangler før det, men fordi vi bygde ut mange nye basestasjoner i
-2015. Bedre dekning ville gitt kunstig vekst i utslippene.
+dataene mangler før det, men fordi vi bygde ut mange nye basestasjoner i 2015. Bedre dekning ville gitt kunstig vekst i utslippene.
 Godt poeng: en endring i innsamlingen forplanter seg helt ut i statistikken.
 Derfor trenger du metadata og datakontrakter – ikke bare tall.
 
