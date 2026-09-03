@@ -9,19 +9,106 @@ import {
   DatakontraktBrudd,
 } from "@/components/figures/Datakontrakt";
 
-/* Slide 9 – Kapittel: Hva er en dataplattform */
+/* Kapittel: Hvorfor bygger alle dataplattform? */
 export function SlideHvaEr() {
   return (
     <ChapterSlide
-      title="Hva er en dataplattform"
-      subtitle="– grunnmuren i en datadrevet virksomhet"
+      title="Hvorfor bygger alle dataplattform?"
+      subtitle="Grunnmuren under alt som skal bruke data"
       titleSize={54}
       showLogo={false}
     />
   );
 }
 
-/* Slide 10 – Dataplattformer i hverdagen (hvorfor trengs de) */
+/* Uber-historien: det funket fint, helt til det ikke gjorde det */
+export function SlideUber() {
+  const akt = (
+    at: number,
+    y: number,
+    aar: string,
+    tekst: string,
+    farge: string,
+  ) => (
+    <Reveal at={at}>
+      <Box box={[90, y, 1100, 90]} style={{ display: "flex", gap: 40 }}>
+        <div
+          style={{
+            width: 150,
+            flexShrink: 0,
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(30),
+            color: farge,
+          }}
+        >
+          {aar}
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(21),
+            lineHeight: 1.4,
+            color: "var(--burgundy-2)",
+          }}
+        >
+          {tekst}
+        </div>
+      </Box>
+    </Reveal>
+  );
+  return (
+    <>
+      <Box box={[66, 70, 1100, 70]}>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(36),
+            color: "var(--burgundy)",
+          }}
+        >
+          Uber, 2014
+        </div>
+      </Box>
+      {akt(
+        1,
+        180,
+        "Starten",
+        "Noen terabyte fordelt på MySQL og Postgres. Ingeniørene skrev skript som limte kildene sammen. Det funket helt fint.",
+        "var(--teal)",
+      )}
+      {akt(
+        2,
+        300,
+        "Veksten",
+        "Så eksploderte selskapet. Hvert team hadde sin database, sitt skript, sin sannhet. Ingen kunne svare på enkle spørsmål om hele selskapet.",
+        "var(--burgundy)",
+      )}
+      {akt(
+        3,
+        420,
+        "Vendepunktet",
+        "Siloene sto i veien for alt de ville gjøre med dataene. Svaret ble én felles plattform. Av nødvendighet, ikke av prinsipp.",
+        "var(--red)",
+      )}
+      <Reveal at={4}>
+        <Box box={[90, 570, 1100, 60]}>
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(18),
+              color: "var(--red)",
+            }}
+          >
+            Du trenger ikke dataplattform fra dag én. Men fra en viss mengde
+            finnes det ikke noe alternativ.
+          </div>
+        </Box>
+      </Reveal>
+    </>
+  );
+}
+
+/* Dataplattformer i hverdagen: du brukte fire av dem i dag */
 export function SlideHvorfor() {
   const eksempler = [
     "Nettbutikken som foreslår varer",
@@ -40,7 +127,7 @@ export function SlideHvorfor() {
             color: "var(--burgundy-2)",
           }}
         >
-          Dataplattformer i hverdagen
+          Du brukte fire dataplattformer før du kom hit
         </div>
       </Box>
       <Reveal at={eksempler.length + 1}>
@@ -191,7 +278,7 @@ export function SlideMerEnnVarehus() {
               color: "var(--red)",
             }}
           >
-            – kontinuerlig, ikke bare til månedsrapporten
+            kontinuerlig, ikke bare til månedsrapporten
           </div>
         </Box>
       </Reveal>
@@ -204,7 +291,7 @@ export function SlideDataprodukt() {
   return (
     <ChapterSlide
       title="Dataprodukt"
-      subtitle="Kvalitetssikret, forvaltet, dokumentert – med tydelig eier"
+      subtitle="Kvalitetssikret, forvaltet, dokumentert. Og med en eier som svarer."
       showLogo={false}
     />
   );
@@ -309,10 +396,10 @@ export function SlideFeilerOrganisatorisk() {
           }}
         >
           <div style={{ color: "var(--burgundy)" }}>
-            Dataplattformer feiler sjelden teknisk
+            Dataplattformer feiler sjelden på teknologi
           </div>
           <div style={{ color: "var(--red)", ...linje2 }}>
-            De feiler organisatorisk
+            De feiler på mennesker
           </div>
         </div>
       </Box>

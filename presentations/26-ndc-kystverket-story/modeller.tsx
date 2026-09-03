@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Box, ChapterSlide, Reveal, pt } from "../parts";
+import { Box, ChapterSlide, Reveal, pt, useRevealStyle } from "../parts";
 
 function BarItem({
   box,
@@ -77,7 +77,7 @@ export function SlideModeller() {
   return (
     <ChapterSlide
       title="Fra posisjoner til utslipp"
-      subtitle="MarTraf og MarU – modellene som gjør AIS-punkter til kunnskap"
+      subtitle="MarTraf og MarU: modellene som gjør AIS-punkter til kunnskap"
       titleSize={54}
       showLogo={false}
     />
@@ -177,8 +177,189 @@ export function SlideModellFlyt() {
             }}
           >
             Forgjengeren Havbase gjorde alt i én modell. Nå har skipsregister,
-            geografi, trafikk og utslipp hvert sitt ansvar – og hvert sitt output
+            geografi, trafikk og utslipp hvert sitt ansvar, og hvert sitt output
             andre kan bygge på.
+          </div>
+        </Box>
+      </Reveal>
+    </>
+  );
+}
+
+/* Følg ett skip: fra rå punkter til en seilas med faser */
+export function SlideFolgEttSkip() {
+  const faser: [string, string, string][] = [
+    ["Ved kai", "Bergen, 22:40", "0 knop"],
+    ["Manøvrering", "ut Byfjorden", "≤ 3 knop"],
+    ["Cruising", "forbi Stad, 03:14", "9 knop"],
+    ["Ankring", "venter på kaiplass", "0,2 knop"],
+    ["Ved kai", "Ålesund, 09:15", "0 knop"],
+  ];
+  const linje = useRevealStyle(1);
+  return (
+    <>
+      <SlideTitle>Følg ett skip</SlideTitle>
+      <Box box={[72.4, 196, 1080, 40]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(17),
+            color: "var(--red)",
+          }}
+        >
+          3 800 AIS-punkter blir én seilas, havn til havn
+        </div>
+      </Box>
+      <Box
+        box={[110, 372, 1060, 3]}
+        style={{ background: "var(--cream-dark)", ...linje }}
+      />
+      {faser.map(([fase, sted, fart], i) => {
+        const x = 110 + i * 265;
+        const aktiv = i === 2;
+        return (
+          <Reveal key={sted} at={i + 1}>
+            <Box
+              box={[x - 14, 358, 30, 30]}
+              style={{
+                borderRadius: "50%",
+                background: aktiv ? "var(--red)" : "var(--teal)",
+                border: "4px solid var(--cream)",
+              }}
+            />
+            <Box box={[x - 100, 270, 230, 70]}>
+              <div
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: pt(22),
+                  color: aktiv ? "var(--red)" : "var(--burgundy)",
+                  textAlign: "center",
+                }}
+              >
+                {fase}
+              </div>
+            </Box>
+            <Box box={[x - 100, 410, 230, 80]}>
+              <div
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: pt(15),
+                  lineHeight: 1.4,
+                  color: "var(--burgundy-2)",
+                  textAlign: "center",
+                }}
+              >
+                {sted}
+                <br />
+                <span style={{ color: "#9a5068" }}>{fart}</span>
+              </div>
+            </Box>
+          </Reveal>
+        );
+      })}
+      <Reveal at={6}>
+        <Box box={[100, 560, 1080, 80]}>
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(18),
+              lineHeight: 1.4,
+              color: "var(--red)",
+              textAlign: "center",
+            }}
+          >
+            Uten fasene er alt bare «et skip». Med dem vet vi hva skipet holdt på
+            med i hvert eneste punkt. Og det er forskjellen på støy og kunnskap.
+          </div>
+        </Box>
+      </Reveal>
+    </>
+  );
+}
+
+/* Propellloven: derfor blir hvert punkt en beregning */
+export function SlidePropellloven() {
+  return (
+    <>
+      <SlideTitle>Propellloven</SlideTitle>
+      <Box
+        box={[90, 220, 1100, 110]}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(46),
+            color: "var(--burgundy)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          last = (fart / servicefart)
+          <sup style={{ fontSize: pt(28), color: "var(--red)" }}>3</sup>
+        </div>
+      </Box>
+      <Reveal at={1}>
+        <Box
+          box={[90, 345, 1100, 60]}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(22),
+              color: "var(--red)",
+            }}
+          >
+            Dobler du farten, åttedobler du effektbehovet.
+          </div>
+        </Box>
+      </Reveal>
+      <Reveal at={2}>
+        <Box
+          box={[90, 430, 1100, 60]}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(19),
+              color: "var(--burgundy-2)",
+            }}
+          >
+            × installert effekt × 0,85 × tiden siden forrige AIS-melding
+          </div>
+        </Box>
+      </Reveal>
+      <Reveal at={3}>
+        <Box
+          box={[90, 530, 1100, 80]}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: pt(30),
+              color: "var(--burgundy)",
+              textAlign: "center",
+            }}
+          >
+            Hvert AIS-punkt blir en utslippsberegning.
           </div>
         </Box>
       </Reveal>
@@ -189,11 +370,11 @@ export function SlideModellFlyt() {
 /* Maritim trafikkmodell – MarTraf */
 export function SlideMarTraf() {
   const steps = [
-    "Geografisk berikelse – havner, kystkontur, ankringsområder, oljeinstallasjoner",
-    "Operasjonsfase – elleve faser: cruising, manøvrering, ved kai, ankring, fiske, dynamisk posisjonering",
-    "Seilassegmenter – sammenhengende sekvenser, aldri kortere enn fem minutter",
-    "Komplette seilaser – havn til havn, med håndtering av hull i signalet",
-    "Trafikktype – innenriks, til og fra utlandet, gjennomfart",
+    "Geografisk berikelse: havner, kystkontur, ankringsområder, oljeinstallasjoner",
+    "Operasjonsfase: elleve faser, som cruising, manøvrering, ved kai, ankring, fiske, dynamisk posisjonering",
+    "Seilassegmenter: sammenhengende sekvenser, aldri kortere enn fem minutter",
+    "Komplette seilaser: havn til havn, med håndtering av hull i signalet",
+    "Trafikktype: innenriks, til og fra utlandet, gjennomfart",
   ];
   return (
     <>
@@ -227,8 +408,8 @@ export function SlideMarTraf() {
 /* MarTraf – de tekniske valgene */
 export function SlideMarTrafValg() {
   const items = [
-    "Full oppløsning – ingen nedsampling. Nedsampler du først, risikerer du å beholde støyen og kaste gyldige data",
-    "H3-indeksering på Databricks gjør romlige joins raske – på oppløsning 8 er «én celle unna» rundt 1 100 meter",
+    "Full oppløsning, ingen nedsampling. Nedsampler du først, risikerer du å beholde støyen og kaste gyldige data",
+    "H3-indeksering på Databricks gjør romlige joins raske. På oppløsning 8 er «én celle unna» rundt 1 100 meter",
     "Presisjonstapet er et bevisst valg: modellen trenger bare å vite innenfor eller utenfor, ikke nøyaktig avstand",
   ];
   return (
@@ -251,10 +432,10 @@ export function SlideMarTrafValg() {
 /* Maritim utslippsmodell – MarU */
 export function SlideMarU() {
   const items = [
-    "Bottom-up etter IMOs fjerde klimagasstudie og ICCT-metodikk",
-    "Lastfaktor = (fart over grunn / servicefart)³ – propellloven",
-    "Hvert AIS-punkt blir en utslippsberegning, med tiden siden forrige punkt som operasjonstid",
-    "Rundt 330 inputvariabler: utslippsfaktorer, svovelgrenser per sone, GWP-faktorer",
+    "Bottom-up etter IMOs fjerde klimagasstudie og ICCT-metodikk. Python og PySpark, åpen kildekode.",
+    "Hovedmotor fra propellloven. Hjelpemotorer og kjeler per operasjonsfase, derfor trengte vi fasene.",
+    "Rundt 330 inputvariabler: utslippsfaktorer, lavlastjusteringer, svovelgrenser per sone, GWP-faktorer",
+    "Skipsregister fra fire kilder slått sammen, med versjonering av alt som endrer seg",
   ];
   return (
     <>
@@ -288,10 +469,10 @@ export function SlideMarU() {
 /* MarU – ML for å fylle hull i registerdata */
 export function SlideMarUHull() {
   const items = [
-    "Skipsregistrene er hullete – særlig for de små fartøyene",
+    "Skipsregistrene er hullete, særlig for de små fartøyene",
     "Medianverdier per skipstype og lengdeintervall dekker det enkleste",
     "Nevrale nett estimerer servicefart, turtall og slagtype",
-    "Rundt 70 prosent manglet drivstofftype i 2022 og 2023 – den fylles etter IMOs metode",
+    "Rundt 70 prosent manglet drivstofftype i 2022 og 2023. Den fylles etter IMOs metode",
   ];
   return (
     <>
@@ -406,7 +587,7 @@ export function SlideMarUHvorfor() {
         box={[86.6, 370, 1080, 100]}
         lineH={88}
         size={20}
-        text="Men fartøy bunkrer i utlandet og seiler her – og bunkrer her og seiler ut. Tallene treffer ikke norske farvann"
+        text="Men fartøy bunkrer i utlandet og seiler her. Og bunkrer her og seiler ut. Tallene treffer ikke norske farvann"
       />
       <BarItem
         at={3}
@@ -425,8 +606,8 @@ export function SlideMarUHvorfor() {
               color: "var(--red)",
             }}
           >
-            Tidsserien starter i 2016 – vi bygde ut mange nye basestasjoner i
-            2015, og bedre dekning ville gitt kunstig vekst i utslippene
+            Tidsserien starter i 2016. Vi bygde ut mange nye basestasjoner i
+            2015, og bedre dekning ville sett ut som vekst i utslippene
           </div>
         </Box>
       </Reveal>

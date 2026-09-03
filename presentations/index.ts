@@ -3,6 +3,7 @@ import { resources } from "./00-resources";
 import { historienOmDataplattform } from "./01_historien_om_dataplattform";
 import { stoeDataplattform } from "./stoe-dataplattform";
 import { ndcKystverket } from "./26-ndc-kystverket";
+import { ndcKystverketStory } from "./26-ndc-kystverket-story";
 
 /**
  * Registeret over alle presentasjoner i appen.
@@ -13,6 +14,7 @@ export const PRESENTATIONS: PresentationDef[] = [
   historienOmDataplattform,
   stoeDataplattform,
   ndcKystverket,
+  ndcKystverketStory,
 ];
 
 export function getPresentation(id: string): PresentationDef | undefined {

@@ -149,7 +149,7 @@ export function SlideBatchStreamingValg() {
         punkter={[
           "rapporter og historiske analyser",
           "store volumer til lav kostnad",
-          "kilder som uansett leverer i bolker – f.eks. nattlige eksporter",
+          "kilder som uansett leverer i bolker, som nattlige eksporter",
         ]}
       />
       <ValgKort
@@ -179,7 +179,7 @@ export function SlideBatchStreamingValg() {
               textAlign: "center",
             }}
           >
-            I praksis trenger du som regel begge – start med batch, og legg til
+            I praksis trenger du som regel begge. Start med batch, og legg til
             streaming der ferske data faktisk endrer noe.
           </div>
         </Box>

@@ -190,7 +190,7 @@ export function SlideStordataCompute() {
   return (
     <>
       <MilesLogo />
-      <SlideTittel>Døgn med kjøretid – eller timer?</SlideTittel>
+      <SlideTittel>Døgn med kjøretid, eller timer?</SlideTittel>
       <Kort
         x={80}
         tittel="FAST KLYNGE"
@@ -229,7 +229,7 @@ export function SlideStordataCompute() {
               textAlign: "center",
             }}
           >
-            Regningen blir omtrent den samme – du betaler for arbeidet, ikke for
+            Regningen blir omtrent den samme. Du betaler for arbeidet, ikke for
             tiden det tar. Men du får svaret i dag i stedet for på fredag.
           </div>
         </Box>
@@ -305,7 +305,7 @@ export function SlideHais() {
   return (
     <>
       <MilesLogo />
-      <SlideTittel>HAIS – historisk uttrekk på bestilling</SlideTittel>
+      <SlideTittel>HAIS: historisk uttrekk på bestilling</SlideTittel>
       {steg(
         1,
         110,
