@@ -2,6 +2,11 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { PresentationDef } from "@/presentations";
+import {
+  chapterOf,
+  isChapterFullyHidden,
+  toggleChapterHidden,
+} from "@/presentations/chapters";
 
 /*
  * Synkronisert deck-tilstand på tvers av vinduer (samme nettleser) via
@@ -170,6 +175,32 @@ export function useSyncedDeck(presentation: PresentationDef) {
     [hidden, update]
   );
 
+  const toggleChapter = useCallback(
+    (chapterId: string) => {
+      const chapter = chapterOf(presentation, chapterId);
+      if (!chapter) return;
+      update({ hidden: toggleChapterHidden(chapter, hidden) });
+    },
+    [presentation, hidden, update]
+  );
+
+  const goChapter = useCallback(
+    (dir: 1 | -1) => {
+      const chapters = presentation.chapters;
+      if (!chapters?.length) return;
+      const currentId = slides[current]?.chapterId;
+      const idx = chapters.findIndex((c) => c.id === currentId);
+      if (idx < 0) return;
+      const next = chapters[idx + dir];
+      if (!next) return;
+      const first = slides.findIndex((s) => s.chapterId === next.id);
+      if (first >= 0) update({ current: first, step: 0 });
+    },
+    [presentation.chapters, slides, current, update]
+  );
+
+  const currentChapter = chapterOf(presentation, slides[current]?.chapterId);
+
   return {
     slides,
     current,
@@ -180,5 +211,11 @@ export function useSyncedDeck(presentation: PresentationDef) {
     go,
     goTo,
     toggleHidden,
+    toggleChapter,
+    goChapter,
+    currentChapter,
+    isCurrentChapterHidden: currentChapter
+      ? isChapterFullyHidden(currentChapter, hidden)
+      : false,
   };
 }

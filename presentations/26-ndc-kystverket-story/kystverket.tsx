@@ -13,8 +13,8 @@ export function SlideKystverket() {
         alt="Kystverket"
       />
       <ChapterSlide
-        title="Hvem lytter?"
-        subtitle="Kystverket tar ansvar for sjøveien"
+        title="Who's listening?"
+        subtitle="Kystverket takes responsibility for the sea route"
         showLogo={false}
       />
       <Box box={[430, 550, 420, 170]}>
@@ -39,7 +39,7 @@ export function SlideVisjon() {
           }}
         >
           <div style={{ color: "var(--burgundy)" }}>
-            Verdens sikreste og reneste kyst
+            The world&apos;s safest and cleanest coast
           </div>
           <div
             style={{
@@ -51,7 +51,7 @@ export function SlideVisjon() {
               ...linje2,
             }}
           >
-            Det er hele hvorfor-et. Alt annet er hvordan.
+            That&apos;s the whole why. Everything else is how.
           </div>
         </div>
       </Box>
@@ -117,28 +117,28 @@ export function SlideOppdrag() {
             color: "var(--burgundy)",
           }}
         >
-          Ett oppdrag, to halvdeler
+          One mission, two halves
         </div>
       </Box>
       {halvdel(
         1,
         66,
-        "Trygg og effektiv ferdsel",
+        "Safe and efficient passage",
         [
-          "Fyr, lykter og sjømerker langs hele kysten",
-          "Lostjenesten: kjentmann om bord på de store skipene",
-          "Sjøtrafikksentraler som ser trafikken døgnet rundt",
+          "Lighthouses, lights and sea marks along the whole coast",
+          "The pilot service: someone who knows the waters, on board the big ships",
+          "Vessel traffic centers watching the traffic around the clock",
         ],
         "var(--teal)",
       )}
       {halvdel(
         2,
         670,
-        "Beredskap mot akutt forurensning",
+        "Emergency response to acute pollution",
         [
-          "Depoter med lenser og utstyr langs kysten",
-          "Nødhavner som er vurdert på forhånd",
-          "Aksjonsledelse når det først går galt",
+          "Depots with booms and equipment along the coast",
+          "Emergency harbors assessed in advance",
+          "Incident command when things do go wrong",
         ],
         "var(--red)",
       )}
@@ -154,7 +154,7 @@ export function SlideOppdrag() {
               color: "var(--red)",
             }}
           >
-            Begge halvdelene starter med samme spørsmål: hvor er skipene akkurat nå?
+            Both halves start with the same question: where are the ships right now?
           </div>
         </Box>
       </Reveal>
@@ -216,12 +216,12 @@ export function SlideLyttepostene() {
             color: "var(--burgundy)",
           }}
         >
-          Lyttepostene
+          The listening posts
         </div>
       </Box>
-      {tall(1, 80, "~90", "basestasjoner på fastlandet og Svalbard", "var(--teal)")}
-      {tall(2, 460, "4", "egne satellitter over havområdene", "var(--teal)")}
-      {tall(3, 840, "8,9 mrd", "AIS-meldinger i 2021. I 2006 var det 2 milliarder", "var(--red)")}
+      {tall(1, 80, "~90", "base stations on the mainland and Svalbard", "var(--teal)")}
+      {tall(2, 460, "4", "satellites of its own over the ocean areas", "var(--teal)")}
+      {tall(3, 840, "8.9 bn", "AIS messages in 2021. In 2006 it was 2 billion", "var(--red)")}
       <Reveal at={4}>
         <Box
           box={[120, 440, 1040, 130]}
@@ -240,8 +240,8 @@ export function SlideLyttepostene() {
               textAlign: "center",
             }}
           >
-            Alt er lagret. Tilbake til 2006. Tjue år med hvert eneste skip som
-            har sagt hvor det er.
+            It&apos;s all stored. Back to 2006. Twenty years of every single ship
+            saying where it is.
           </div>
         </Box>
       </Reveal>
@@ -287,26 +287,26 @@ export function SlideAis() {
             color: "var(--burgundy-2)",
           }}
         >
-          AIS: laget for å ikke kollidere
+          AIS: built to avoid collisions
         </div>
       </Box>
       {item(
         1,
         [86.6, 265, 1050, 52.9],
         40,
-        "Skip kringkaster identitet, posisjon, fart og kurs over VHF. Alle rundt hører det."
+        "Ships broadcast identity, position, speed and course over VHF. Everyone nearby hears it."
       )}
       {item(
         2,
         [86.6, 360, 1050, 88.5],
         76.5,
-        "Fra et par sekunder til noen minutter mellom hver melding, avhengig av fart og status"
+        "From a couple of seconds to a few minutes between messages, depending on speed and status"
       )}
       {item(
         3,
         [86.6, 490, 1050, 88.5],
         76.5,
-        "Ingen planla det, men i dag er AIS ryggraden i trafikkovervåking, beredskap og statistikk"
+        "Nobody planned it, but today AIS is the backbone of traffic monitoring, emergency response and statistics"
       )}
     </>
   );
@@ -327,10 +327,10 @@ export function SlideSporsmalet() {
           }}
         >
           <div style={{ color: "var(--burgundy)" }}>
-            Så du har 8,9 milliarder meldinger i året.
+            So you&apos;ve got 8.9 billion messages a year.
           </div>
           <div style={{ color: "var(--red)", marginTop: 20, ...linje2 }}>
-            Hva gjør du med dem?
+            What do you do with them?
           </div>
         </div>
       </Box>

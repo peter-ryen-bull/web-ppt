@@ -39,7 +39,7 @@ export function BaatSignal() {
       viewBox={`0 0 ${W} ${H}`}
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="Båt på bølger med antenne som sender AIS-signal"
+      aria-label="Boat on waves with an antenna sending an AIS signal"
     >
       {/* Bakre bølge – glir sakte, i motfase */}
       <path

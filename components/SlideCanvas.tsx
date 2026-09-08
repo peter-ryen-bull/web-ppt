@@ -26,6 +26,28 @@ export function useContainerScale(ref: React.RefObject<HTMLDivElement | null>) {
   return scale;
 }
 
+/** Siste klikk-steg i sliden – brukes i miniatyrer og PDF-eksport. */
+export function lastStepOf(slide: SlideDef): number {
+  return slide.steps ?? Number.POSITIVE_INFINITY;
+}
+
+/** Selve sliden uten skalering – PDF-eksport fanger denne. */
+export function SlideSurface({
+  slide,
+  step,
+}: {
+  slide: SlideDef;
+  /** Gjeldende klikk-steg. Utelatt = vis alt (miniatyrer o.l.) */
+  step?: number;
+}) {
+  const Slide = slide.component;
+  return (
+    <StepContext.Provider value={step ?? Number.POSITIVE_INFINITY}>
+      <Slide />
+    </StepContext.Provider>
+  );
+}
+
 export function SlideCanvas({
   slide,
   scale,
@@ -36,7 +58,6 @@ export function SlideCanvas({
   /** Gjeldende klikk-steg. Utelatt = vis alt (miniatyrer o.l.) */
   step?: number;
 }) {
-  const Slide = slide.component;
   return (
     <div
       className={styles.canvas}
@@ -46,9 +67,7 @@ export function SlideCanvas({
         transform: `scale(${scale})`,
       }}
     >
-      <StepContext.Provider value={step ?? Number.POSITIVE_INFINITY}>
-        <Slide />
-      </StepContext.Provider>
+      <SlideSurface slide={slide} step={step} />
     </div>
   );
 }

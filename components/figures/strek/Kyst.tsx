@@ -30,7 +30,7 @@ export function Fyr() {
     `M ${210 - hw(y1)} ${y1} H ${210 + hw(y1)} L ${210 + hw(y2)} ${y2} H ${210 - hw(y2)} Z`;
 
   return (
-    <Figur w={W} h={H} label="Fyr på en holme med lyskjegler, og en liten skute i sjøen">
+    <Figur w={W} h={H} label="Lighthouse on an islet with light beams, and a small boat at sea">
       {/* Lyskjegler – veksler mellom venstre og høyre som en roterende linse */}
       <path d="M 199 58 L 24 38 V 78 Z" fill={ROD} stroke="none" opacity={0}>
         <animate
@@ -79,7 +79,7 @@ export function AisKjede() {
   const W = 420;
   const H = 150;
   return (
-    <Figur w={W} h={H} label="Skip som sender AIS-signal til basestasjon på land og satellitt">
+    <Figur w={W} h={H} label="Ship sending AIS signals to a base station on land and a satellite">
       <Duv dy={3} dur={3.4}>
         <Skute x={92} y={118} s={0.55} signal={false} />
         <Signal x={91} y={68} rot={70} radier={[14, 24, 34]} dur={3} />
@@ -132,7 +132,7 @@ export function Skipsradar() {
   const sy = cy + r * Math.sin(rad(sveipStart));
 
   return (
-    <Figur w={W} h={H} label="Radarbilde med skipsmarkører som lyser opp når sveipen passerer">
+    <Figur w={W} h={H} label="Radar view with ship markers lighting up as the sweep passes">
       <circle cx={cx} cy={cy} r={r} fill={KREM} stroke={TEAL} strokeWidth={2} />
       {[r / 3, (2 * r) / 3].map((rr) => (
         <circle key={rr} cx={cx} cy={cy} r={rr} stroke={TEAL} strokeWidth={1.2} opacity={0.5} />
@@ -186,7 +186,7 @@ export function Skipsradar() {
 /** Ren bølgestripe i full bredde – «strømmen» */
 export function Bolgestripe() {
   return (
-    <Figur w={1280} h={100} label="Bølger">
+    <Figur w={1280} h={100} label="Waves">
       <Bolger y={52} w={1280} h={100} amp={12} dur={11} />
     </Figur>
   );
@@ -224,7 +224,7 @@ export function SporTilUtslipp() {
   );
 
   return (
-    <Figur w={W} h={H} label="AIS-spor bak et skip som ender i et utslipp">
+    <Figur w={W} h={H} label="AIS track behind a ship that ends in emissions">
       <Duv dy={3} dur={3.6}>
         <Skute x={296} y={124} s={0.6} signal={false} />
         {royk(311, 78, 0)}

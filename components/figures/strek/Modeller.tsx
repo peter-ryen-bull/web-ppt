@@ -32,7 +32,7 @@ export function Seilas() {
     </g>
   );
   return (
-    <Figur w={340} h={120} label="Seilas fra havn til havn med manøvrering og cruising">
+    <Figur w={340} h={120} label="Voyage from port to port with maneuvering and cruising">
       <path d={ut} strokeDasharray="4 6" strokeWidth={2.2} />
       <path d={cruising} stroke={TEAL} strokeWidth={3} />
       <path d={inn} strokeDasharray="4 6" strokeWidth={2.2} />
@@ -55,7 +55,7 @@ export function Seilas() {
       </Tekst>
       <path d="M 186 110 h 18" strokeDasharray="4 5" strokeWidth={2.2} />
       <Tekst x={210} y={114} size={10.5} anchor="start">
-        manøvrering
+        maneuvering
       </Tekst>
     </Figur>
   );
@@ -79,7 +79,7 @@ export function HexRing() {
   }
   const [nx] = pos(1, 0);
   return (
-    <Figur w={300} h={140} label="Sekskantceller: én celle i midten og ringene rundt">
+    <Figur w={300} h={140} label="Hexagon cells: one cell in the middle and the rings around it">
       {celler.map(({ q, r, d }) => {
         const [x, y] = pos(q, r);
         if (d === 2) {
@@ -100,10 +100,10 @@ export function HexRing() {
       <circle cx={cx} cy={cy} r={2.2} fill={ROD} stroke="none" />
       <circle cx={nx} cy={cy} r={2.2} fill={ROD} stroke="none" />
       <Tekst x={252} y={66} size={11.5}>
-        én celle unna
+        one cell away
       </Tekst>
       <Tekst x={252} y={82} size={11.5} color={STREK} weight={600}>
-        ≈ 1 100 m
+        ≈ 1,100 m
       </Tekst>
     </Figur>
   );
@@ -116,7 +116,7 @@ export function Propell() {
   const blad =
     "M 0 -10 C 14 -26 22 -42 10 -54 C -2 -58 -11 -42 -7 -28 C -5 -20 -3 -14 0 -10 Z";
   return (
-    <Figur w={260} h={130} label="Propell som roterer">
+    <Figur w={260} h={130} label="Propeller spinning">
       <Roter cx={cx} cy={cy} dur={6}>
         {[0, 120, 240].map((g) => (
           <path key={g} d={blad} transform={`translate(${cx} ${cy}) rotate(${g})`} fill={KREM} strokeWidth={2.4} />
@@ -124,7 +124,7 @@ export function Propell() {
       </Roter>
       <circle cx={cx} cy={cy} r={10} fill={KREM} strokeWidth={2.4} />
       <Tekst x={cx} y={124} size={12.5}>
-        lastfaktor ∝ (fart / servicefart)³
+        load factor ∝ (speed / service speed)³
       </Tekst>
     </Figur>
   );
@@ -141,7 +141,7 @@ export function Soyler() {
   ];
   const base = 140;
   return (
-    <Figur w={560} h={180} label="Søyler for CO₂, metan, NOx, SOx og svevestøv">
+    <Figur w={560} h={180} label="Bars for CO₂, methane, NOx, SOx and particulate matter">
       <path d={`M 20 ${base} H 540`} strokeWidth={2} opacity={0.5} />
       {data.map((d, i) => {
         const cx = 70 + i * 110;
@@ -187,7 +187,7 @@ export function Kompass() {
   const cy = 78;
   const r = 56;
   return (
-    <Figur w={420} h={150} label="Kompass med nål som svinger">
+    <Figur w={420} h={150} label="Compass with a swinging needle">
       <circle cx={cx} cy={cy} r={r} fill={KREM} strokeWidth={3} />
       {[0, 45, 90, 135, 180, 225, 270, 315].map((g) => {
         const a = ((g - 90) * Math.PI) / 180;
@@ -217,12 +217,12 @@ export function Kompass() {
 /** Tre domenekataloger – hver med sin eier, sin regning og sitt forvaltningsansvar */
 export function TreKataloger() {
   const kataloger: { navn: string; ikon: IkonNavn; tekst: string }[] = [
-    { navn: "toll", ikon: "person", tekst: "egen eier" },
-    { navn: "ais", ikon: "mynt", tekst: "egen regning" },
-    { navn: "hr", ikon: "verktoy", tekst: "eget forvaltningsansvar" },
+    { navn: "customs", ikon: "person", tekst: "its own owner" },
+    { navn: "ais", ikon: "mynt", tekst: "its own bill" },
+    { navn: "hr", ikon: "verktoy", tekst: "its own stewardship" },
   ];
   return (
-    <Figur w={540} h={180} label="Tre kataloger med egen eier, egen regning og eget forvaltningsansvar">
+    <Figur w={540} h={180} label="Three catalogs, each with its own owner, its own bill and its own stewardship">
       {kataloger.map((k, i) => {
         const x = 30 + i * 170;
         return (

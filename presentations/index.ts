@@ -1,8 +1,10 @@
-import type { PresentationDef, SlideDef } from "./types";
+import type { ChapterDef, PresentationDef, SlideDef } from "./types";
 import { resources } from "./00-resources";
 import { historienOmDataplattform } from "./01_historien_om_dataplattform";
 import { stoeDataplattform } from "./stoe-dataplattform";
 import { ndcKystverketStory } from "./26-ndc-kystverket-story";
+
+export { definePresentation, embedAsChapter } from "./chapters";
 
 /**
  * Registeret over alle presentasjoner i appen.
@@ -19,4 +21,4 @@ export function getPresentation(id: string): PresentationDef | undefined {
   return PRESENTATIONS.find((p) => p.id === id);
 }
 
-export type { PresentationDef, SlideDef };
+export type { PresentationDef, SlideDef, ChapterDef };

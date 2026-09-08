@@ -40,8 +40,8 @@ function BarItem({
 export function SlideProsjekt() {
   return (
     <ChapterSlide
-      title="Historien om prosjektet"
-      subtitle="Fra én kilde til en plattform"
+      title="The story of the project"
+      subtitle="From one source to a platform"
       titleSize={60}
       showLogo={false}
     />
@@ -51,9 +51,9 @@ export function SlideProsjekt() {
 /* Dag én: hva vi hadde å starte med */
 export function SlideDagEn() {
   const linjer = [
-    ["Én kilde.", "AIS. Ikke noe annet."],
-    ["Ett lite team.", "Som også skulle sove om natta."],
-    ["Én strøm.", "Som aldri stopper. Ikke i jula, ikke i kuling, ikke når vi deployer."],
+    ["One source.", "AIS. Nothing else."],
+    ["One small team.", "Who also needed to sleep at night."],
+    ["One stream.", "It never stops. Not at Christmas, not in a gale, not when we deploy."],
   ];
   return (
     <>
@@ -65,7 +65,7 @@ export function SlideDagEn() {
             color: "var(--burgundy)",
           }}
         >
-          Dag én
+          Day one
         </div>
       </Box>
       {linjer.map(([stor, liten], i) => (
@@ -103,7 +103,7 @@ export function SlideAzureDatabricks() {
   return (
     <ChapterSlide
       title="Azure + Databricks"
-      subtitle="Verktøykassa vi valgte"
+      subtitle="The toolbox we picked"
       showLogo={false}
     />
   );
@@ -121,32 +121,32 @@ export function SlideAzure() {
             color: "var(--burgundy-2)",
           }}
         >
-          Azure: grunnmuren
+          Azure: the foundation
         </div>
       </Box>
       <BarItem
         at={1}
         box={[86.6, 250, 1050, 52.9]}
         lineH={40}
-        text="Lagring, nettverk og identitet som ferdige byggeklosser"
+        text="Storage, networking, and identity as ready-made building blocks"
       />
       <BarItem
         at={2}
         box={[86.6, 340, 1050, 52.9]}
         lineH={40}
-        text="Sikkerhet, tilgangsstyring og kostnadskontroll fra dag én"
+        text="Security, access control, and cost control from day one"
       />
       <BarItem
         at={3}
         box={[86.6, 430, 1050, 52.9]}
         lineH={40}
-        text="Alt som infrastruktur som kode. Plattformen kan gjenskapes fra repoet."
+        text="Everything as infrastructure as code. The platform can be rebuilt from the repo."
       />
       <BarItem
         at={4}
         box={[86.6, 520, 1050, 52.9]}
         lineH={40}
-        text="Kjedelig med vilje. Grunnmurer skal være kjedelige."
+        text="Boring on purpose. Foundations should be boring."
       />
     </>
   );
@@ -164,7 +164,7 @@ export function SlideDatabricks() {
             color: "var(--burgundy-2)",
           }}
         >
-          Databricks: motoren
+          Databricks: the engine
         </div>
       </Box>
       <Img
@@ -176,19 +176,19 @@ export function SlideDatabricks() {
         at={1}
         box={[86.6, 265, 740, 52.9]}
         lineH={40}
-        text="Lakehouse: datasjø og datavarehus i ett"
+        text="Lakehouse: data lake and data warehouse in one"
       />
       <BarItem
         at={2}
         box={[86.6, 360, 740, 52.9]}
         lineH={40}
-        text="Én motor (Spark) for både batch og streaming. Samme kode, samme tabeller."
+        text="One engine (Spark) for both batch and streaming. Same code, same tables."
       />
       <BarItem
         at={3}
         box={[86.6, 455, 740, 52.9]}
         lineH={40}
-        text="Unity Catalog: tilgang, lineage og katalog. Governance-laget i praksis."
+        text="Unity Catalog: access, lineage, and catalog. The governance layer in practice."
       />
     </>
   );
@@ -312,7 +312,7 @@ export function SlideTerraform() {
             color: "var(--burgundy)",
           }}
         >
-          Vi klikker ikke. Vi committer.
+          We don&apos;t click. We commit.
         </div>
       </Box>
       <Box box={[66, 160, 1100, 40]}>
@@ -323,23 +323,23 @@ export function SlideTerraform() {
             color: "var(--red)",
           }}
         >
-          Infrastruktur som kode. Terraform. Gjennom CI/CD.
+          Infrastructure as code. Terraform. Through CI/CD.
         </div>
       </Box>
-      <FlytBoks at={1} x={80} y={230} w={300} title="Pull request" sub="endringen ligger i git" />
+      <FlytBoks at={1} x={80} y={230} w={300} title="Pull request" sub="the change lives in git" />
       <FlytPil at={1} x={390} y={270} />
-      <FlytBoks at={2} x={440} y={230} w={300} title="terraform plan" sub="pipelinen viser hva som skjer" />
+      <FlytBoks at={2} x={440} y={230} w={300} title="terraform plan" sub="the pipeline shows what's going to happen" />
       <FlytPil at={2} x={750} y={270} />
-      <FlytBoks at={3} x={800} y={230} w={300} title="apply" sub="merge, så blir det virkelighet" />
+      <FlytBoks at={3} x={800} y={230} w={300} title="apply" sub="merge, and it becomes real" />
       <Punchline
         at={4}
         y={430}
-        text="Terraform beskriver Azure og Databricks. Ned til kataloger og storage-containere."
+        text="Terraform describes Azure and Databricks. Down to catalogs and storage containers."
       />
       <Punchline
         at={4}
         y={500}
-        text="Hele plattformen kan gjenskapes fra repoet. Også om noen sletter den."
+        text="The whole platform can be rebuilt from the repo. Even if someone deletes it."
       />
     </>
   );
@@ -348,10 +348,10 @@ export function SlideTerraform() {
 /* Fire Terraform-states */
 export function SlideFireStates() {
   const states: [string, string][] = [
-    ["workspace", "Databricks-arbeidsområdet. Det teamet logger inn i."],
-    ["storage accounts", "Lagring og containere. Inkludert raw."],
-    ["unity catalog", "Katalogene. Tilgangsstyring. Governance som kode."],
-    ["databricks_account", "Konto-nivå. Identitet, grupper, over workspace."],
+    ["workspace", "The Databricks workspace. The one the team logs into."],
+    ["storage accounts", "Storage and containers. Including raw."],
+    ["unity catalog", "The catalogs. Access control. Governance as code."],
+    ["databricks_account", "Account level. Identity, groups, above the workspace."],
   ];
   return (
     <>
@@ -363,7 +363,7 @@ export function SlideFireStates() {
             color: "var(--burgundy)",
           }}
         >
-          Fire states. Fire pipelines.
+          Four states. Four pipelines.
         </div>
       </Box>
       {states.map(([navn, tekst], i) => (
@@ -395,7 +395,7 @@ export function SlideFireStates() {
       <Punchline
         at={5}
         y={580}
-        text="En endring i lagring river ikke ned katalogen. Det er poenget med å splitte."
+        text="A change to storage doesn't tear down the catalog. That's the whole point of splitting."
       />
     </>
   );
@@ -465,23 +465,23 @@ export function SlideTerraformDabs() {
             color: "var(--burgundy)",
           }}
         >
-          Infrastruktur og logikk. To verktøy.
+          Infrastructure and logic. Two tools.
         </div>
       </Box>
-      {kolonne(1, 80, "TERRAFORM", "infrastruktur", [
-        "workspaces, lagring, containere",
-        "Unity Catalog, ned til katalog",
-        "når plattformen endrer seg",
+      {kolonne(1, 80, "TERRAFORM", "infrastructure", [
+        "workspaces, storage, containers",
+        "Unity Catalog, down to the catalog",
+        "when the platform changes",
       ])}
-      {kolonne(2, 680, "DABS", "logikk", [
-        "schemas, tabeller, jobs",
+      {kolonne(2, 680, "DABS", "logic", [
+        "schemas, tables, jobs",
         "Databricks Asset Bundles",
-        "når koden endrer seg",
+        "when the code changes",
       ])}
       <Punchline
         at={3}
         y={580}
-        text="Infrastrukturen skal være kjedelig. Logikken skal kunne endres ofte."
+        text="The infrastructure should be boring. The logic should be easy to change often."
       />
     </>
   );
@@ -490,9 +490,9 @@ export function SlideTerraformDabs() {
 /* Innlesing utenfor Databricks */
 export function SlideIngest() {
   const linjer = [
-    ["Prefect.", "Et Python-bibliotek for å orkestrere jobber. Ikke Databricks-jobs."],
-    ["Dumper i raw.", "Jobbene henter data og legger den i storage. Ferdig."],
-    ["Databricks leser derfra.", "Plattformen begynner når filen ligger der. Ikke når skipet sender."],
+    ["Prefect.", "A Python library for orchestrating jobs. Not Databricks jobs."],
+    ["Dumps into raw.", "The jobs fetch data and drop it in storage. Done."],
+    ["Databricks reads from there.", "The platform starts when the file lands. Not when the ship transmits."],
   ];
   return (
     <>
@@ -504,7 +504,7 @@ export function SlideIngest() {
             color: "var(--burgundy)",
           }}
         >
-          Innlesingen skjer utenfor Databricks.
+          Ingest happens outside Databricks.
         </div>
       </Box>
       {linjer.map(([stor, liten], i) => (
@@ -549,20 +549,20 @@ export function SlideIngestFlyt() {
             color: "var(--burgundy)",
           }}
         >
-          Hente. Dumpe. Så lakehouse.
+          Fetch. Dump. Then lakehouse.
         </div>
       </Box>
-      <FlytBoks at={1} x={40} title="Kilder" sub="AIS og det andre vi henter" />
+      <FlytBoks at={1} x={40} title="Sources" sub="AIS and the other things we fetch" />
       <FlytPil at={2} x={300} />
-      <FlytBoks at={2} x={340} title="Prefect" sub="Python-jobber, utenfor Databricks" />
+      <FlytBoks at={2} x={340} title="Prefect" sub="Python jobs, outside Databricks" />
       <FlytPil at={3} x={600} />
-      <FlytBoks at={3} x={640} title="Storage, raw" sub="containere Terraform har laget" />
+      <FlytBoks at={3} x={640} title="Storage, raw" sub="containers Terraform created" />
       <FlytPil at={4} x={900} />
-      <FlytBoks at={4} x={940} title="Databricks" sub="leser raw, skriver bronze" />
+      <FlytBoks at={4} x={940} title="Databricks" sub="reads raw, writes bronze" />
       <Punchline
         at={5}
         y={520}
-        text="To ansvar. Prefect får dataen inn. Databricks gjør den til noe noen kan bruke."
+        text="Two responsibilities. Prefect gets the data in. Databricks turns it into something people can use."
       />
     </>
   );
@@ -590,8 +590,8 @@ export function SlideStrommen() {
             width: "100%",
           }}
         >
-          <div style={{ color: "var(--burgundy)" }}>100 millioner rader.</div>
-          <div style={{ color: "var(--red)", ...linje2 }}>Hver dag.</div>
+          <div style={{ color: "var(--burgundy)" }}>100 million rows.</div>
+          <div style={{ color: "var(--red)", ...linje2 }}>Every day.</div>
         </div>
       </Box>
     </>
@@ -617,7 +617,7 @@ export function SlideRegnestykke() {
             color: "var(--burgundy)",
           }}
         >
-          ≈ 1 200 rader i sekundet. Døgnet rundt.
+          ≈ 1,200 rows per second. Around the clock.
         </div>
       </Box>
       <Reveal at={1}>
@@ -636,7 +636,7 @@ export function SlideRegnestykke() {
               color: "var(--red)",
             }}
           >
-            36,5 milliarder rader i året
+            36.5 billion rows per year
           </div>
         </Box>
       </Reveal>
@@ -658,8 +658,8 @@ export function SlideRegnestykke() {
               textAlign: "center",
             }}
           >
-            Hver rad er ett skip som sier: her er jeg, så fort går jeg, dit skal
-            jeg. Og i den raden er det mennesker.
+            Every row is one ship saying: here I am, this is how fast I&apos;m
+            going, this is where I&apos;m headed. And in that row, there are people.
           </div>
         </Box>
       </Reveal>
@@ -679,20 +679,20 @@ export function SlidePipeline() {
             color: "var(--burgundy)",
           }}
         >
-          Fra antenne til innsikt
+          From antenna to insight
         </div>
       </Box>
-      <FlytBoks at={1} x={40} title="AIS-nettverket" sub="~90 basestasjoner og 4 satellitter" />
+      <FlytBoks at={1} x={40} title="The AIS network" sub="~90 base stations and 4 satellites" />
       <FlytPil at={2} x={300} />
-      <FlytBoks at={2} x={340} title="Prefect" sub="jobber utenfor Databricks, dumper til raw" />
+      <FlytBoks at={2} x={340} title="Prefect" sub="jobs outside Databricks, dumping to raw" />
       <FlytPil at={3} x={600} />
-      <FlytBoks at={3} x={640} title="Lakehouse" sub="bronse → sølv → gull i Delta-tabeller" />
+      <FlytBoks at={3} x={640} title="Lakehouse" sub="bronze → silver → gold in Delta tables" />
       <FlytPil at={4} x={900} />
-      <FlytBoks at={4} x={940} title="Deling og innsikt" sub="API-er, dashbord og analyse" />
+      <FlytBoks at={4} x={940} title="Sharing and insight" sub="APIs, dashboards, and analytics" />
       <Punchline
         at={5}
         y={520}
-        text="100 millioner rader i døgnet, uten at vi drifter en eneste klynge"
+        text="100 million rows a day, without us running a single cluster"
       />
     </>
   );
@@ -701,9 +701,9 @@ export function SlidePipeline() {
 /* Databricks serverless */
 export function SlideServerless() {
   const lines = [
-    "Ingen klynger å starte, patche eller skalere",
-    "Kapasiteten følger strømmen: trafikktopper om dagen, stille netter",
-    "Vi betaler for det vi bruker, ikke for det vi frykter vi trenger",
+    "No clusters to start, patch, or scale",
+    "Capacity follows the stream: traffic peaks during the day, quiet nights",
+    "We pay for what we use, not for what we're afraid we might need",
   ];
   return (
     <>
@@ -725,7 +725,7 @@ export function SlideServerless() {
             width: "100%",
           }}
         >
-          Ingen klynger å vekke om natta
+          No clusters to wake up at night
         </div>
       </Box>
       <Box

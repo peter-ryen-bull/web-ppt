@@ -72,14 +72,14 @@ export function SlideStordataVolum() {
   return (
     <>
       <MilesLogo />
-      <SlideTittel>Strømmen er liten. Historikken er stor.</SlideTittel>
-      {tall(1, 80, VOLUM.perDogn, "rådata i døgnet", "var(--burgundy)")}
-      {tall(2, 460, VOLUM.perAar, "i året", "var(--burgundy)")}
+      <SlideTittel>The stream is small. The history is big.</SlideTittel>
+      {tall(1, 80, VOLUM.perDogn, "of raw data per day", "var(--burgundy)")}
+      {tall(2, 460, VOLUM.perAar, "per year", "var(--burgundy)")}
       {tall(
         3,
         840,
         VOLUM.historikk,
-        "AIS-historikk tilbake til 2006",
+        "of AIS history back to 2006",
         "var(--red)",
       )}
       <Reveal at={4}>
@@ -100,9 +100,9 @@ export function SlideStordataVolum() {
               textAlign: "center",
             }}
           >
-            Å ta imot 1 200 rader i sekundet er ikke det tunge. Det tunge er å
-            kjøre gjennom alt vi har samlet – på nytt – hver gang en modell
-            endrer seg.
+            Taking in 1,200 rows per second isn&apos;t the hard part. The hard
+            part is running through everything we&apos;ve collected – again –
+            every time a model changes.
           </div>
         </Box>
       </Reveal>
@@ -190,25 +190,25 @@ export function SlideStordataCompute() {
   return (
     <>
       <MilesLogo />
-      <SlideTittel>Døgn med kjøretid, eller timer?</SlideTittel>
+      <SlideTittel>Days of compute, or hours?</SlideTittel>
       <Kort
         x={80}
-        tittel="FAST KLYNGE"
+        tittel="FIXED CLUSTER"
         fraSteg={1}
         punkter={[
-          "størrelsen er bestemt før jobben starter",
-          "en full reprosessering kan bruke flere døgn",
-          "flere slike jobber samtidig, og de står i kø",
+          "the size is decided before the job starts",
+          "a full reprocessing can take several days",
+          "run a few of those at once, and they queue up",
         ]}
       />
       <Kort
         x={668}
-        tittel="AUTOSKALERING"
+        tittel="AUTOSCALING"
         fraSteg={4}
         punkter={[
-          "kapasiteten følger datamengden i jobben",
-          "døgn blir timer når vi kan bruke bredden",
-          "og alt skrus ned igjen når jobben er ferdig",
+          "capacity follows the amount of data in the job",
+          "days become hours when we can go wide",
+          "and everything scales back down when the job is done",
         ]}
       />
       <Reveal at={7}>
@@ -229,8 +229,8 @@ export function SlideStordataCompute() {
               textAlign: "center",
             }}
           >
-            Regningen blir omtrent den samme. Du betaler for arbeidet, ikke for
-            tiden det tar. Men du får svaret i dag i stedet for på fredag.
+            The bill ends up about the same. You pay for the work, not for how
+            long it takes. But you get the answer today instead of on Friday.
           </div>
         </Box>
       </Reveal>
@@ -305,17 +305,17 @@ export function SlideHais() {
   return (
     <>
       <MilesLogo />
-      <SlideTittel>HAIS: historisk uttrekk på bestilling</SlideTittel>
+      <SlideTittel>HAIS: historical extracts on demand</SlideTittel>
       {steg(
         1,
         110,
-        "Bestilling",
-        "tidsrom, område (WKT), skipstype eller MMSI",
+        "Request",
+        "time range, area (WKT), ship type, or MMSI",
       )}
       {pil(2, 425)}
-      {steg(2, 480, "Uttrekksjobb", "leser gjennom historikken og filtrerer")}
+      {steg(2, 480, "Extract job", "reads through the history and filters")}
       {pil(3, 795)}
-      {steg(3, 850, "Levering", "GeoParquet eller CSV på e-post")}
+      {steg(3, 850, "Delivery", "GeoParquet or CSV by email")}
       <Reveal at={4}>
         <Box
           box={[100, 460, 1080, 140]}
@@ -334,9 +334,9 @@ export function SlideHais() {
               textAlign: "center",
             }}
           >
-            Vi vet ikke om neste bestilling er ett fartøy i én uke eller alle
-            skip i ett år. Det er nettopp derfor serverless passer: jobben
-            bestemmer størrelsen, ikke vi.
+            We don&apos;t know if the next request is one vessel for one week or
+            every ship for a whole year. That&apos;s exactly why serverless fits:
+            the job decides the size, not us.
           </div>
         </Box>
       </Reveal>

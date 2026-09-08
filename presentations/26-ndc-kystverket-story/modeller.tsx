@@ -76,8 +76,8 @@ function SourceLink({ href, top = 662 }: { href: string; top?: number }) {
 export function SlideModeller() {
   return (
     <ChapterSlide
-      title="Fra posisjoner til utslipp"
-      subtitle="MarTraf og MarU: modellene som gjør AIS-punkter til kunnskap"
+      title="From positions to emissions"
+      subtitle="MarTraf and MarU: the models that turn AIS points into knowledge"
       titleSize={54}
       showLogo={false}
     />
@@ -150,14 +150,14 @@ export function SlideModellFlyt() {
 
   return (
     <>
-      <SlideTitle>Fire moduler, ikke én modell</SlideTitle>
-      {step(1, 40, "AIS-rådata", "statiske og dynamiske meldinger")}
+      <SlideTitle>Four modules, not one model</SlideTitle>
+      {step(1, 40, "Raw AIS data", "static and dynamic messages")}
       {arrow(2, 300)}
-      {step(2, 340, "MarTraf", "trafikkmodellen – vasker og beriker")}
+      {step(2, 340, "MarTraf", "the traffic model – cleans and enriches")}
       {arrow(3, 600)}
-      {step(3, 640, "MarU", "utslippsmodellen – energi og utslipp")}
+      {step(3, 640, "MarU", "the emissions model – energy and emissions")}
       {arrow(4, 900)}
-      {step(4, 940, "Statistikk og klimaregnskap", "kommune, fylke, havområde")}
+      {step(4, 940, "Statistics and climate accounts", "municipality, county, sea area")}
       <Reveal at={5}>
         <Box
           box={[100, 520, 1080, 80]}
@@ -176,9 +176,9 @@ export function SlideModellFlyt() {
               textAlign: "center",
             }}
           >
-            Forgjengeren Havbase gjorde alt i én modell. Nå har skipsregister,
-            geografi, trafikk og utslipp hvert sitt ansvar, og hvert sitt output
-            andre kan bygge på.
+            Its predecessor, Havbase, did everything in one model. Now the ship
+            registry, geography, traffic and emissions each have their own
+            responsibility, and their own output others can build on.
           </div>
         </Box>
       </Reveal>
@@ -189,16 +189,16 @@ export function SlideModellFlyt() {
 /* Følg ett skip: fra rå punkter til en seilas med faser */
 export function SlideFolgEttSkip() {
   const faser: [string, string, string][] = [
-    ["Ved kai", "Bergen, 22:40", "0 knop"],
-    ["Manøvrering", "ut Byfjorden", "≤ 3 knop"],
-    ["Cruising", "forbi Stad, 03:14", "9 knop"],
-    ["Ankring", "venter på kaiplass", "0,2 knop"],
-    ["Ved kai", "Ålesund, 09:15", "0 knop"],
+    ["At berth", "Bergen, 22:40", "0 knots"],
+    ["Maneuvering", "out of Byfjorden", "≤ 3 knots"],
+    ["Cruising", "past Stad, 03:14", "9 knots"],
+    ["Anchoring", "waiting for a berth", "0.2 knots"],
+    ["At berth", "Ålesund, 09:15", "0 knots"],
   ];
   const linje = useRevealStyle(1);
   return (
     <>
-      <SlideTitle>Følg ett skip</SlideTitle>
+      <SlideTitle>Follow one ship</SlideTitle>
       <Box box={[72.4, 196, 1080, 40]}>
         <div
           style={{
@@ -207,7 +207,7 @@ export function SlideFolgEttSkip() {
             color: "var(--red)",
           }}
         >
-          3 800 AIS-punkter blir én seilas, havn til havn
+          3,800 AIS points become one voyage, port to port
         </div>
       </Box>
       <Box
@@ -268,8 +268,9 @@ export function SlideFolgEttSkip() {
               textAlign: "center",
             }}
           >
-            Uten fasene er alt bare «et skip». Med dem vet vi hva skipet holdt på
-            med i hvert eneste punkt. Og det er forskjellen på støy og kunnskap.
+            Without the phases, everything is just “a ship”. With them, we know
+            what the ship was doing at every single point. And that's the
+            difference between noise and knowledge.
           </div>
         </Box>
       </Reveal>
@@ -281,7 +282,7 @@ export function SlideFolgEttSkip() {
 export function SlidePropellloven() {
   return (
     <>
-      <SlideTitle>Propellloven</SlideTitle>
+      <SlideTitle>The propeller law</SlideTitle>
       <Box
         box={[90, 220, 1100, 110]}
         style={{
@@ -298,7 +299,7 @@ export function SlidePropellloven() {
             whiteSpace: "nowrap",
           }}
         >
-          last = (fart / servicefart)
+          load = (speed / service speed)
           <sup style={{ fontSize: pt(28), color: "var(--red)" }}>3</sup>
         </div>
       </Box>
@@ -318,7 +319,7 @@ export function SlidePropellloven() {
               color: "var(--red)",
             }}
           >
-            Dobler du farten, åttedobler du effektbehovet.
+            Double the speed, and you need eight times the power.
           </div>
         </Box>
       </Reveal>
@@ -338,7 +339,7 @@ export function SlidePropellloven() {
               color: "var(--burgundy-2)",
             }}
           >
-            × installert effekt × 0,85 × tiden siden forrige AIS-melding
+            × installed power × 0.85 × the time since the last AIS message
           </div>
         </Box>
       </Reveal>
@@ -359,7 +360,7 @@ export function SlidePropellloven() {
               textAlign: "center",
             }}
           >
-            Hvert AIS-punkt blir en utslippsberegning.
+            Every AIS point becomes an emissions calculation.
           </div>
         </Box>
       </Reveal>
@@ -370,15 +371,15 @@ export function SlidePropellloven() {
 /* Maritim trafikkmodell – MarTraf */
 export function SlideMarTraf() {
   const steps = [
-    "Geografisk berikelse: havner, kystkontur, ankringsområder, oljeinstallasjoner",
-    "Operasjonsfase: elleve faser, som cruising, manøvrering, ved kai, ankring, fiske, dynamisk posisjonering",
-    "Seilassegmenter: sammenhengende sekvenser, aldri kortere enn fem minutter",
-    "Komplette seilaser: havn til havn, med håndtering av hull i signalet",
-    "Trafikktype: innenriks, til og fra utlandet, gjennomfart",
+    "Geographic enrichment: ports, coastline, anchoring areas, oil installations",
+    "Operational phase: eleven phases, like cruising, maneuvering, at berth, anchoring, fishing, dynamic positioning",
+    "Voyage segments: continuous sequences, never shorter than five minutes",
+    "Complete voyages: port to port, handling gaps in the signal",
+    "Traffic type: domestic, to and from abroad, transit",
   ];
   return (
     <>
-      <SlideTitle>Maritim trafikkmodell – MarTraf</SlideTitle>
+      <SlideTitle>The maritime traffic model – MarTraf</SlideTitle>
       <Box box={[72.4, 196, 1080, 40]}>
         <div
           style={{
@@ -387,7 +388,7 @@ export function SlideMarTraf() {
             color: "var(--red)",
           }}
         >
-          Fra rå posisjoner til seilaser du kan analysere
+          From raw positions to voyages you can analyze
         </div>
       </Box>
       {steps.map((text, i) => (
@@ -408,13 +409,13 @@ export function SlideMarTraf() {
 /* MarTraf – de tekniske valgene */
 export function SlideMarTrafValg() {
   const items = [
-    "Full oppløsning, ingen nedsampling. Nedsampler du først, risikerer du å beholde støyen og kaste gyldige data",
-    "H3-indeksering på Databricks gjør romlige joins raske. På oppløsning 8 er «én celle unna» rundt 1 100 meter",
-    "Presisjonstapet er et bevisst valg: modellen trenger bare å vite innenfor eller utenfor, ikke nøyaktig avstand",
+    "Full resolution, no downsampling. Downsample first, and you risk keeping the noise and throwing away valid data",
+    "H3 indexing on Databricks makes spatial joins fast. At resolution 8, “one cell away” is about 1,100 meters",
+    "The loss of precision is a deliberate choice: the model only needs to know inside or outside, not the exact distance",
   ];
   return (
     <>
-      <SlideTitle>Valgene som gjør det mulig</SlideTitle>
+      <SlideTitle>The choices that make it possible</SlideTitle>
       {items.map((text, i) => (
         <BarItem
           key={text}
@@ -432,14 +433,14 @@ export function SlideMarTrafValg() {
 /* Maritim utslippsmodell – MarU */
 export function SlideMarU() {
   const items = [
-    "Bottom-up etter IMOs fjerde klimagasstudie og ICCT-metodikk. Python og PySpark, åpen kildekode.",
-    "Hovedmotor fra propellloven. Hjelpemotorer og kjeler per operasjonsfase, derfor trengte vi fasene.",
-    "Rundt 330 inputvariabler: utslippsfaktorer, lavlastjusteringer, svovelgrenser per sone, GWP-faktorer",
-    "Skipsregister fra fire kilder slått sammen, med versjonering av alt som endrer seg",
+    "Bottom-up, following IMO's fourth greenhouse gas study and ICCT methodology. Python and PySpark, open source.",
+    "Main engine from the propeller law. Auxiliary engines and boilers per operational phase — that's why we needed the phases.",
+    "Around 330 input variables: emission factors, low-load adjustments, sulfur limits per zone, GWP factors",
+    "A ship registry merged from four sources, with versioning of everything that changes",
   ];
   return (
     <>
-      <SlideTitle>Maritim utslippsmodell – MarU</SlideTitle>
+      <SlideTitle>The maritime emissions model – MarU</SlideTitle>
       <Box box={[72.4, 196, 1080, 40]}>
         <div
           style={{
@@ -448,7 +449,7 @@ export function SlideMarU() {
             color: "var(--red)",
           }}
         >
-          Her møter volumet metoden
+          This is where the volume meets the method
         </div>
       </Box>
       {items.map((text, i) => (
@@ -469,14 +470,14 @@ export function SlideMarU() {
 /* MarU – ML for å fylle hull i registerdata */
 export function SlideMarUHull() {
   const items = [
-    "Skipsregistrene er hullete, særlig for de små fartøyene",
-    "Medianverdier per skipstype og lengdeintervall dekker det enkleste",
-    "Nevrale nett estimerer servicefart, turtall og slagtype",
-    "Rundt 70 prosent manglet drivstofftype i 2022 og 2023. Den fylles etter IMOs metode",
+    "The ship registries are full of holes, especially for the small vessels",
+    "Median values per ship type and length interval cover the easy cases",
+    "Neural nets estimate service speed, engine RPM and stroke type",
+    "Around 70 percent were missing fuel type in 2022 and 2023. We fill it using IMO's method",
   ];
   return (
     <>
-      <SlideTitle>Maskinlæring som datakvalitetsverktøy</SlideTitle>
+      <SlideTitle>ML as a data quality tool</SlideTitle>
       {items.map((text, i) => (
         <BarItem
           key={text}
@@ -496,7 +497,7 @@ export function SlideMarUHull() {
               color: "var(--red)",
             }}
           >
-            Modellen er åpen – hele beregningen kan leses på GitHub
+            The model is open — you can read the whole calculation on GitHub
           </div>
         </Box>
       </Reveal>
@@ -507,11 +508,11 @@ export function SlideMarUHull() {
 /* Hva kommer ut av MarU */
 export function SlideMarUUt() {
   const facts = [
-    "CO₂, metan, NOx, SOx, svevestøv",
-    "14 skipstyper, 9 størrelser",
-    "Kommune, fylke, havområde",
-    "Energibehov og landstrøm",
-    "Innenriks, utenriks, gjennomfart",
+    "CO₂, methane, NOx, SOx, particulate matter",
+    "14 ship types, 9 sizes",
+    "Municipality, county, sea area",
+    "Energy demand and shore power",
+    "Domestic, international, transit",
   ];
   return (
     <>
@@ -524,7 +525,7 @@ export function SlideMarUUt() {
             color: "var(--burgundy-2)",
           }}
         >
-          Hva kommer ut?
+          What comes out?
         </div>
         <div
           style={{
@@ -535,8 +536,8 @@ export function SlideMarUUt() {
             color: "var(--red)",
           }}
         >
-          Miljødirektoratet legger opp til å bruke MarU-tallene i klimaregnskapet
-          for kommunene
+          The Norwegian Environment Agency plans to use the MarU numbers in the
+          municipalities' climate accounts
         </div>
       </Box>
       {facts.map((f, i) => (
@@ -574,27 +575,27 @@ export function SlideMarUUt() {
 export function SlideMarUHvorfor() {
   return (
     <>
-      <SlideTitle>Hvorfor ikke bare bruke salgstall?</SlideTitle>
+      <SlideTitle>Why not just use sales numbers?</SlideTitle>
       <BarItem
         at={1}
         box={[86.6, 250, 1080, 100]}
         lineH={88}
         size={20}
-        text="Utslipp fra sjøfart er tradisjonelt regnet ut fra hvor mye drivstoff som selges i Norge"
+        text="Emissions from shipping are traditionally calculated from how much fuel is sold in Norway"
       />
       <BarItem
         at={2}
         box={[86.6, 370, 1080, 100]}
         lineH={88}
         size={20}
-        text="Men fartøy bunkrer i utlandet og seiler her. Og bunkrer her og seiler ut. Tallene treffer ikke norske farvann"
+        text="But ships bunker abroad and sail here. And bunker here and sail out. The numbers don't match Norwegian waters"
       />
       <BarItem
         at={3}
         box={[86.6, 490, 1080, 100]}
         lineH={88}
         size={20}
-        text="MarU regner fra observert aktivitet i stedet, og skiller innenriks fra gjennomfart"
+        text="MarU calculates from observed activity instead, and separates domestic traffic from transit"
       />
       <Reveal at={4}>
         <Box box={[86.6, 620, 1080, 60]}>
@@ -606,8 +607,8 @@ export function SlideMarUHvorfor() {
               color: "var(--red)",
             }}
           >
-            Tidsserien starter i 2016. Vi bygde ut mange nye basestasjoner i
-            2015, og bedre dekning ville sett ut som vekst i utslippene
+            The time series starts in 2016. We built a lot of new base stations
+            in 2015, and better coverage would have looked like rising emissions
           </div>
         </Box>
       </Reveal>

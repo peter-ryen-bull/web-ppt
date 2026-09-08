@@ -24,7 +24,7 @@ const SKJOLD =
 /** Skjold der haken tegner seg selv */
 export function SkjoldHake() {
   return (
-    <Figur w={420} h={150} label="Skjold med en hake som tegnes">
+    <Figur w={420} h={150} label="Shield with a checkmark being drawn">
       <path d={SKJOLD} fill={KREM} strokeWidth={3} />
       <path
         d="M 186 80 L 203 97 L 236 62"
@@ -55,7 +55,7 @@ export function SkjoldHake() {
 /** Hengelås som klikker igjen – foran et regelverk */
 export function Hengelas() {
   return (
-    <Figur w={420} h={150} label="Hengelås som låses foran et dokument">
+    <Figur w={420} h={150} label="Padlock locking in front of a document">
       {/* Regelverket */}
       <path d="M 120 50 h 44 l 14 14 v 60 h -58 z" fill={KREM} strokeWidth={2} />
       <path d="M 164 50 v 14 h 14" strokeWidth={2} />
@@ -85,7 +85,7 @@ export function Hengelas() {
 export function Automatikk() {
   const T = 6;
   return (
-    <Figur w={420} h={150} label="Tannhjul som går rundt ved siden av en sjekkliste som fylles ut">
+    <Figur w={420} h={150} label="Gears turning next to a checklist filling itself in">
       <Roter cx={120} cy={82} dur={14}>
         <path d={tannhjul(120, 82, 40, 9)} fill={KREM} />
       </Roter>
@@ -125,7 +125,7 @@ export function Automatikk() {
 export function BrikkeMedGnist() {
   const pins = [-16, 0, 16];
   return (
-    <Figur w={420} h={150} label="En brikke med en gnist inni, koblet til dataflyten">
+    <Figur w={420} h={150} label="A chip with a spark inside, wired into the data flow">
       <path d="M 110 76 H 158" strokeWidth={3} strokeDasharray="0 9" opacity={0.5} />
       <path d="M 262 76 H 310" strokeWidth={3} strokeDasharray="0 9" opacity={0.5} />
 
@@ -167,9 +167,9 @@ export function BrikkeMedGnist() {
 
 /** De fire effektene på rad */
 export function EffektRad() {
-  const deler = ["Kvalitet", "Etterlevelse", "Effektivitet", "Fremtidsrettet"];
+  const deler = ["Quality", "Compliance", "Efficiency", "Future-ready"];
   return (
-    <Figur w={1000} h={150} label="Kvalitet, etterlevelse, effektivitet og fremtidsrettet">
+    <Figur w={1000} h={150} label="Quality, compliance, efficiency and future-ready">
       {deler.map((tekst, i) => {
         const cx = 125 + i * 250;
         return (

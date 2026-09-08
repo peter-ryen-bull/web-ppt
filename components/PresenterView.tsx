@@ -35,7 +35,11 @@ export default function PresenterView({
     visibleIndexes,
     currentVisiblePos,
     go,
+    goChapter,
     toggleHidden,
+    toggleChapter,
+    currentChapter,
+    isCurrentChapterHidden,
   } = useSyncedDeck(presentation);
 
   const currentStageRef = useRef<HTMLDivElement>(null);
@@ -69,15 +73,22 @@ export default function PresenterView({
       } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
         e.preventDefault();
         go(-1);
+      } else if ((e.key === "h" || e.key === "H") && e.shiftKey) {
+        const id = slides[current]?.chapterId;
+        if (id) toggleChapter(id);
       } else if (e.key === "h" || e.key === "H") {
         toggleHidden(slides[current].id);
+      } else if (e.key === "[") {
+        goChapter(-1);
+      } else if (e.key === "]") {
+        goChapter(1);
       } else if (e.key === "v" || e.key === "V") {
         openAudience();
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go, toggleHidden, current, slides, openAudience]);
+  }, [go, goChapter, toggleHidden, toggleChapter, current, slides, openAudience]);
 
   // Neste synlige slide (den publikum ser etter neste tastetrykk)
   const nextIndex =
@@ -101,6 +112,9 @@ export default function PresenterView({
             ← Tilbake
           </Link>
           <span className={styles.title}>{presentation.title}</span>
+          {currentChapter && (
+            <span className={styles.chapter}>{currentChapter.title}</span>
+          )}
         </div>
         <div className={styles.headerGroup}>
           <span className={styles.clock}>
@@ -139,6 +153,9 @@ export default function PresenterView({
             Nå: {current + 1}. {currentSlide.name}
             {isCurrentHidden && (
               <span className={styles.hiddenTag}>skjult</span>
+            )}
+            {isCurrentChapterHidden && (
+              <span className={styles.hiddenTag}>kapittel skjult</span>
             )}
           </div>
           <div className={styles.stage} ref={currentStageRef}>
@@ -210,11 +227,12 @@ export default function PresenterView({
             : `${currentVisiblePos + 1} / ${visibleIndexes.length}`}
           <span className={styles.counterDetail}>
             (slide {current + 1} av {slides.length}
+            {currentChapter && ` · ${currentChapter.title}`}
             {maxStep > 0 && ` · steg ${step}/${maxStep}`})
           </span>
         </div>
         <div className={styles.hint}>
-          Publikum ser kun sliden – notater og teller vises bare her.
+          Publikum ser kun sliden – kapitler, notater og teller vises bare her.
         </div>
       </footer>
     </div>

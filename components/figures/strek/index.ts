@@ -13,6 +13,8 @@ export {
   Pakke,
   GovernanceTrio,
   TeknikkVsOrganisasjon,
+  RolleFigur,
+  type RolleHvem,
 } from "./Plattform";
 export { SkjoldHake, Hengelas, Automatikk, BrikkeMedGnist, EffektRad } from "./Effekter";
 export {

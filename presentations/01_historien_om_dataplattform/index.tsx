@@ -1,6 +1,6 @@
 import type { PresentationDef, SlideDef } from "../types";
-import { withNotes } from "../notes";
 import notesRaw from "./notes.md";
+import { definePresentation } from "../chapters";
 import { TIDSLINJE_STEG } from "./figurer";
 import {
   SlideForside,
@@ -42,17 +42,24 @@ const SLIDES: SlideDef[] = [
   { id: "datasjoen", name: "Datasjøen: lagre alt, rått", component: SlideDatasjoen },
   { id: "sjoen-speil", name: "Sjøen: løst og nytt problem", component: SlideSjoenSpeil },
   { id: "kap-skyen", name: "2012 · Skyen", component: SlideKapSkyen },
-  { id: "skyen", name: "Skill lagring fra regnekraft", component: SlideSkyen },
+  { id: "skyen", name: "Separer lagring og regnekraft", component: SlideSkyen },
   { id: "lakehouse", name: "To spor møtes: lakehouse", component: SlideLakehouse },
   { id: "arven", name: "Plattformen lag for lag", component: SlideArven },
   { id: "avslutning", name: "Problemet består", component: SlideAvslutning },
 ];
 
-export const historienOmDataplattform: PresentationDef = {
+export const historienOmDataplattform: PresentationDef = definePresentation({
   id: "01_historien_om_dataplattform",
   title: "Historien om dataplattformen",
   description:
     "Fra databasen via datavarehuset til lakehouse – hver fase speilet mot problemet den skulle løse, og hvorfor vi er der vi er.",
   date: "September 2026",
-  slides: withNotes(SLIDES, notesRaw),
-};
+  notes: notesRaw,
+  chapters: [
+    {
+      id: "historie",
+      title: "Historien om dataplattformen",
+      slides: SLIDES,
+    },
+  ],
+});

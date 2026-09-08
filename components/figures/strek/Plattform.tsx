@@ -2,8 +2,10 @@ import {
   bolgelinje,
   BLG,
   DUS,
+  Duv,
   Figur,
   KREM,
+  Menneske,
   MINT,
   Puls,
   ROD,
@@ -19,13 +21,13 @@ import { IkonI, type IkonNavn } from "./Ikoner";
 /*
  * Strek-figurer til dataplattform-kapittelet: grunnmuren, verbrekka,
  * bolk vs. strøm, varehus vs. plattform, dataproduktet som pakke,
- * governance-trioen og «teknikk vs. organisasjon».
+ * governance-trioen, «teknikk vs. organisasjon» og de fire rollene.
  */
 
 /** Hus på en grunnmur – grunnmuren er dataplattformen */
 export function Grunnmur() {
   return (
-    <Figur w={420} h={170} label="Et hus som står på en grunnmur">
+    <Figur w={420} h={170} label="A house standing on a foundation">
       <path d="M 40 150 H 380" strokeWidth={2} opacity={0.5} />
 
       {/* Huset */}
@@ -42,7 +44,7 @@ export function Grunnmur() {
         <Puls fra={0} til={0.9} dur={3.4} />
       </rect>
       <Tekst x={210} y={140} size={11} color={MINT} weight={600}>
-        DATAPLATTFORM
+        DATA PLATFORM
       </Tekst>
     </Figur>
   );
@@ -51,14 +53,14 @@ export function Grunnmur() {
 /** Verbrekka alle definisjonene lander på: hente inn → lagre → transformere → dele → styre */
 export function Verbrekke() {
   const steg: { navn: IkonNavn; tekst: string }[] = [
-    { navn: "innboks", tekst: "hente inn" },
-    { navn: "database", tekst: "lagre" },
-    { navn: "rotasjon", tekst: "transformere" },
-    { navn: "deling", tekst: "dele" },
-    { navn: "skjold", tekst: "styre" },
+    { navn: "innboks", tekst: "ingest" },
+    { navn: "database", tekst: "store" },
+    { navn: "rotasjon", tekst: "transform" },
+    { navn: "deling", tekst: "share" },
+    { navn: "skjold", tekst: "govern" },
   ];
   return (
-    <Figur w={1000} h={100} label="Hente inn, lagre, transformere, dele og styre">
+    <Figur w={1000} h={100} label="Ingest, store, transform, share and govern">
       {steg.map((s, i) => {
         const cx = 100 + i * 200;
         return (
@@ -86,7 +88,7 @@ export function BolkOgStrom() {
   const T = 8;
   const blokker = [116, 134, 152, 170];
   return (
-    <Figur w={420} h={150} label="Batch: bolker med faste intervaller. Streaming: en jevn strøm.">
+    <Figur w={420} h={150} label="Batch: chunks at fixed intervals. Streaming: a steady stream.">
       <defs>
         <clipPath id="bolk-strom-clip">
           <rect x={232} y={20} width={176} height={110} />
@@ -158,7 +160,7 @@ export function VarehusVsPlattform() {
   const T = 8;
   const ting: IkonNavn[] = ["soyler", "kode", "gnist"];
   return (
-    <Figur w={620} h={200} label="Datavarehus som leverer én rapport, mot en plattform som bærer dashbord, API og ML">
+    <Figur w={620} h={200} label="Data warehouse delivering one report, versus a platform carrying dashboards, API and ML">
       <path d="M 16 160 H 604" strokeWidth={2} opacity={0.5} />
 
       {/* Varehuset */}
@@ -189,7 +191,7 @@ export function VarehusVsPlattform() {
         <path d="M 221 124 h 18 M 221 132 h 18 M 221 140 h 12" strokeWidth={1.6} opacity={0.6} />
       </g>
       <Tekst x={110} y={184} size={12.5}>
-        rapport
+        report
       </Tekst>
 
       <path d="M 310 30 V 170" stroke="var(--cream-dark)" strokeWidth={1.5} strokeDasharray="2 7" />
@@ -209,7 +211,7 @@ export function VarehusVsPlattform() {
         );
       })}
       <Tekst x={470} y={184} size={12.5}>
-        dashbord · API · ML – kontinuerlig
+        dashboards · API · ML – continuous
       </Tekst>
     </Figur>
   );
@@ -218,7 +220,7 @@ export function VarehusVsPlattform() {
 /** Dataproduktet som en pakke: merket, forseglet og med kvalitetsstempel */
 export function Pakke() {
   return (
-    <Figur w={420} h={150} label="En pakke med merkelapp og kvalitetsstempel">
+    <Figur w={420} h={150} label="A package with a label and a quality stamp">
       <path d="M 150 60 L 180 36 H 280 L 250 60 Z" fill={KREM} />
       <path d="M 250 60 L 280 36 V 106 L 250 130 Z" fill={KREM} />
       <rect x={150} y={60} width={100} height={70} fill={KREM} />
@@ -241,12 +243,12 @@ export function Pakke() {
 /** Kontrakt, eier og katalog – de tre bæresøylene i governance */
 export function GovernanceTrio() {
   const deler: { navn: IkonNavn; tekst: string }[] = [
-    { navn: "kontrakt", tekst: "kontrakt" },
-    { navn: "person", tekst: "eierskap" },
-    { navn: "bok", tekst: "katalog" },
+    { navn: "kontrakt", tekst: "contract" },
+    { navn: "person", tekst: "ownership" },
+    { navn: "bok", tekst: "catalog" },
   ];
   return (
-    <Figur w={500} h={130} label="Datakontrakt, dataeierskap og datakatalog">
+    <Figur w={500} h={130} label="Data contract, data ownership and data catalog">
       {deler.map((d, i) => {
         const cx = 90 + i * 160;
         return (
@@ -276,7 +278,7 @@ export function TeknikkVsOrganisasjon() {
   const pil = (d: string) => <path d={d} stroke={ROD} strokeWidth={2.2} />;
 
   return (
-    <Figur w={800} h={200} label="Tannhjul som går rundt, og tre personer som peker i ulike retninger">
+    <Figur w={800} h={200} label="Gears turning, and three people pointing in different directions">
       {/* Teknikken */}
       <Roter cx={150} cy={104} dur={16}>
         <path d={tannhjul(150, 104, 46, 10)} fill={KREM} />
@@ -289,7 +291,7 @@ export function TeknikkVsOrganisasjon() {
       <circle cx={262} cy={134} r={14} fill={KREM} stroke={TEAL} strokeWidth={2} />
       <path d="M 255.5 134 l 4.5 4.5 L 269 129.5" stroke={TEAL} strokeWidth={2.4} />
       <Tekst x={190} y={186} size={12.5}>
-        teknikken går rundt
+        the tech keeps turning
       </Tekst>
 
       <path d="M 400 30 V 170" stroke="var(--cream-dark)" strokeWidth={1.5} strokeDasharray="2 7" />
@@ -308,8 +310,133 @@ export function TeknikkVsOrganisasjon() {
         {pil("M 704 50 H 736 M 728 42 L 736 50 L 728 58")}
       </Sving>
       <Tekst x={610} y={186} size={12.5} color={DUS}>
-        folkene drar i ulike retninger
+        the people pull in different directions
       </Tekst>
+    </Figur>
+  );
+}
+
+export type RolleHvem = "plattform" | "byggere" | "governance" | "konsumenter";
+
+function Skygge({ cx, cy = 258, rx = 54 }: { cx: number; cy?: number; rx?: number }) {
+  return (
+    <ellipse cx={cx} cy={cy} rx={rx} ry={9} fill="var(--cream-dark)" stroke="none" />
+  );
+}
+
+function Laptop({ x, y }: { x: number; y: number }) {
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      <rect x={0} y={0} width={54} height={36} rx={3} fill={KREM} />
+      <path d="M 10 10 h 16 M 10 18 h 28 M 10 26 h 20" stroke={TEAL} strokeWidth={1.8} />
+      <path d="M -6 36 L 60 36 L 66 44 H -12 Z" fill={KREM} />
+      <circle cx={48} cy={12} r={2.2} fill={ROD} stroke="none">
+        <Puls fra={0.25} til={1} dur={2.2} />
+      </circle>
+    </g>
+  );
+}
+
+function Skjold({ x, y }: { x: number; y: number }) {
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      <path
+        d="M 0 -38 L 26 -26 V 2 C 26 22 12 36 0 46 C -12 36 -26 22 -26 2 V -26 Z"
+        fill={KREM}
+        stroke={TEAL}
+        strokeWidth={2.6}
+      />
+      <path d="M -11 2 l 8 8 16 -16" stroke={ROD} strokeWidth={3} />
+    </g>
+  );
+}
+
+function Nettbrett({ x, y }: { x: number; y: number }) {
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      <rect x={0} y={0} width={44} height={56} rx={5} fill={KREM} />
+      <path d="M 8 42 H 36" strokeWidth={1.5} />
+      <rect x={10} y={24} width={6} height={18} rx={1} fill={TEAL} stroke="none" />
+      <rect x={19} y={14} width={6} height={28} rx={1} fill={ROD} stroke="none" />
+      <rect x={28} y={20} width={6} height={22} rx={1} fill={TEAL} stroke="none" />
+    </g>
+  );
+}
+
+const ROLLE_LABEL: Record<RolleHvem, string> = {
+  plattform: "The platform team that owns the foundation",
+  byggere: "Engineers and analysts building on the platform",
+  governance: "Governance setting the guardrails",
+  konsumenter: "BI and consumers using what comes out",
+};
+
+/** Én rolle som strekfigurer – brukes fire ganger på «Tydelige roller»-sliden */
+export function RolleFigur({ hvem }: { hvem: RolleHvem }) {
+  return (
+    <Figur w={300} h={300} strokeWidth={2.7} label={ROLLE_LABEL[hvem]}>
+      <g transform="translate(20 18)">
+        {hvem === "plattform" && (
+          <>
+            <Skygge cx={150} rx={52} />
+            <Duv dy={3.5} dur={3.6}>
+              <g>
+                <Roter cx={78} cy={176} dur={18}>
+                  <path d={tannhjul(78, 176, 32, 8)} fill={KREM} />
+                </Roter>
+                <circle cx={78} cy={176} r={9} fill={KREM} />
+              </g>
+              <Menneske x={162} y={250} s={1.38} arms="holdV" />
+            </Duv>
+          </>
+        )}
+
+        {hvem === "byggere" && (
+          <>
+            <Skygge cx={86} rx={40} />
+            <Skygge cx={178} rx={40} />
+            <Duv dy={3} dur={3.9}>
+              <Menneske x={78} y={250} s={1.12} arms="foran" />
+              <Laptop x={96} y={168} />
+            </Duv>
+            <Duv dy={3.5} dur={4.4}>
+              <Menneske x={184} y={250} s={1.12} arms="foran" />
+              <g transform="translate(198 170)">
+                <path d="M 0 0 h 28 l 10 10 v 32 h -38 z" fill={KREM} />
+                <path d="M 28 0 v 10 h 10" />
+                <path
+                  d="M 8 22 h 18 M 8 30 h 18 M 8 38 h 12"
+                  stroke={TEAL}
+                  strokeWidth={1.7}
+                />
+              </g>
+            </Duv>
+          </>
+        )}
+
+        {hvem === "governance" && (
+          <>
+            <Skygge cx={130} rx={50} />
+            <Duv dy={3} dur={4.1}>
+              <Menneske x={130} y={250} s={1.38} arms="foran" />
+              <Skjold x={140} y={184} />
+            </Duv>
+          </>
+        )}
+
+        {hvem === "konsumenter" && (
+          <>
+            <Skygge cx={86} rx={40} />
+            <Skygge cx={178} rx={40} />
+            <Duv dy={3.2} dur={3.7}>
+              <Menneske x={78} y={250} s={1.12} arms="foran" />
+              <Nettbrett x={100} y={156} />
+            </Duv>
+            <Duv dy={3.8} dur={4.5}>
+              <Menneske x={184} y={250} s={1.12} arms="heng" />
+            </Duv>
+          </>
+        )}
+      </g>
     </Figur>
   );
 }

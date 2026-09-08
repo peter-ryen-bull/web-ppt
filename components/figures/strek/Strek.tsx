@@ -305,6 +305,43 @@ export function Skute({
   );
 }
 
+const ARMER = {
+  heng: { v: "M 0 -70 L -22 -46", h: "M 0 -70 L 22 -46" },
+  akimbo: { v: "M 0 -70 L -28 -56 L -13 -36", h: "M 0 -70 L 28 -56 L 13 -36" },
+  foran: { v: "M 0 -70 L -2 -48 L 16 -36", h: "M 0 -70 L 18 -50 L 28 -36" },
+  pekeH: { v: "M 0 -70 L -20 -48", h: "M 0 -70 L 42 -62" },
+  holdV: { v: "M 0 -70 L -38 -52", h: "M 0 -70 L 20 -48" },
+} as const;
+
+export type MenneskeArmer = keyof typeof ARMER;
+
+/**
+ * Strekfigur-menneske. Origo er mellom føttene; hodet sitter ca. 94 over.
+ * Armene er egne baner så posene kan treffe laptop, skjold og pekeretning.
+ */
+export function Menneske({
+  x,
+  y,
+  s = 1,
+  arms = "heng",
+}: {
+  x: number;
+  y: number;
+  s?: number;
+  arms?: MenneskeArmer;
+}) {
+  const a = ARMER[arms];
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <circle cx={0} cy={-94} r={16.5} fill={KREM} />
+      <path d="M 0 -77.5 V -30" />
+      <path d={a.v} />
+      <path d={a.h} />
+      <path d="M -17 0 L 0 -30 L 17 0" />
+    </g>
+  );
+}
+
 /** Enkel skyform – bredde ca. 240, høyde ca. 110, origo øverst til venstre */
 export const SKYFORM =
   "M 50 108 A 30 30 0 0 1 46 50 A 44 44 0 0 1 130 32 A 34 34 0 0 1 194 58 A 27 27 0 0 1 196 108 Z";

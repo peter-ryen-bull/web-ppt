@@ -122,8 +122,8 @@ function IkonDeling() {
 
 const KOLONNER = [
   { label: "MMSI", x: 28 },
-  { label: "TID", x: 156 },
-  { label: "FART (KN)", x: 276 },
+  { label: "TIME", x: 156 },
+  { label: "SPEED (KN)", x: 276 },
 ];
 
 const RADER = [
@@ -135,22 +135,22 @@ const RADER = [
 
 /** Spørsmålene som henger ubesvart rundt den ensomme tabellen */
 const SPORSMAL: { x: number; y: number; text: string; lineTo: [number, number]; at: number }[] = [
-  { x: 300, y: 116, text: "Hva betyr feltene?", lineTo: [290, 150], at: 1.2 },
-  { x: 92, y: 462, text: "Hvor ferske er dataene?", lineTo: [140, 402], at: 2.0 },
-  { x: 268, y: 512, text: "Hvem svarer når noe ser rart ut?", lineTo: [330, 402], at: 2.8 },
+  { x: 300, y: 116, text: "What do the fields mean?", lineTo: [290, 150], at: 1.2 },
+  { x: 92, y: 462, text: "How fresh is the data?", lineTo: [140, 402], at: 2.0 },
+  { x: 268, y: 512, text: "Who answers when something looks off?", lineTo: [330, 402], at: 2.8 },
 ];
 
 /** Egenskapene som gjør tabellen til et produkt */
 const EGENSKAPER: { title: string; sub: string; icon: ReactNode }[] = [
-  { title: "Dokumentasjon", sub: "hva feltene betyr", icon: <IkonFil /> },
-  { title: "Tydelig eier", sub: "team-hav svarer", icon: <IkonPerson /> },
-  { title: "Datakontrakt", sub: "maskinlesbar avtale", icon: <IkonKontrakt /> },
-  { title: "Tilgang", sub: "API · SQL · BI", icon: <IkonDeling /> },
+  { title: "Documentation", sub: "what the fields mean", icon: <IkonFil /> },
+  { title: "Clear owner", sub: "team-ocean answers", icon: <IkonPerson /> },
+  { title: "Data contract", sub: "machine-readable agreement", icon: <IkonKontrakt /> },
+  { title: "Access", sub: "API · SQL · BI", icon: <IkonDeling /> },
 ];
 
 const EGENSKAPER_VENSTRE: { title: string; sub: string; icon: ReactNode }[] = [
-  { title: "Kvalitetstester", sub: "kjørt på hver eneste rad", icon: <IkonSkjold /> },
-  { title: "Ferskhet", sub: "SLA: ferskere enn 5 min", icon: <IkonKlokke /> },
+  { title: "Quality tests", sub: "run on every single row", icon: <IkonSkjold /> },
+  { title: "Freshness", sub: "SLA: fresher than 5 min", icon: <IkonKlokke /> },
 ];
 
 /* ---------- Byggeklosser ---------- */
@@ -221,10 +221,10 @@ export function DataproduktAnatomi() {
       viewBox={`0 0 ${W} ${H}`}
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="Dataprodukt: en ensom tabell til venstre, samme data pakket som produkt til høyre"
+      aria-label="Data product: a lonely table on the left, the same data packaged as a product on the right"
     >
-      <Pill cx={255} text="BARE EN TABELL" w={190} />
-      <Pill cx={910} text="ET DATAPRODUKT" w={200} />
+      <Pill cx={255} text="JUST A TABLE" w={190} />
+      <Pill cx={910} text="A DATA PRODUCT" w={200} />
 
       {/* Den ensomme tabellen – en fil dumpet i en bucket */}
       <g transform="translate(60 150)">
@@ -244,7 +244,7 @@ export function DataproduktAnatomi() {
           <IkonFil />
         </g>
         <text x={44} y={22.5} fontFamily={MONO} fontSize={12} fill={SUB_FARGE}>
-          ais_dump_siste_v2_FINAL.parquet
+          ais_dump_latest_v2_FINAL.parquet
         </text>
         {KOLONNER.map((k) => (
           <text
@@ -313,12 +313,12 @@ export function DataproduktAnatomi() {
       ))}
 
       <text x={255} y={560} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={SUB_FARGE}>
-        – en fil i en bucket er ikke et produkt
+        – a file in a bucket is not a product
       </text>
 
       {/* Produkttankegang: pilen over til produktet */}
       <text x={535} y={262} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill="var(--red)">
-        produkttankegang
+        product thinking
       </text>
       <path
         d="M 458 285 H 612"
@@ -352,11 +352,11 @@ export function DataproduktAnatomi() {
         fontSize={30}
         fill="var(--cream)"
       >
-        AIS-tracks
+        AIS tracks
       </text>
       <rect x={892} y={144} width={36} height={3} rx={1.5} fill="var(--mint)" />
       <text x={910} y={172} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={KREM_DUS}>
-        samme data – pakket som produkt
+        same data – packaged as a product
       </text>
 
       {/* Samme tabell, nå ryddig og versjonert */}
@@ -369,7 +369,7 @@ export function DataproduktAnatomi() {
         <text x={14} y={19} fontFamily={MONO} fontSize={11} fill={SUB_FARGE}>
           ais_tracks · v2.1.0
         </text>
-        {["MMSI", "TID", "FART"].map((label, j) => (
+        {["MMSI", "TIME", "SPEED"].map((label, j) => (
           <text
             key={label}
             x={[18, 110, 190][j]}
@@ -418,7 +418,7 @@ export function DataproduktAnatomi() {
         fontSize={15.5}
         fill="var(--red)"
       >
-        En tabell er en ingrediens. Dataproduktet er retten.
+        A table is an ingredient. The data product is the dish.
       </text>
     </svg>
   );

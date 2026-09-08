@@ -25,7 +25,7 @@ export function SkyMedKlosser() {
     { y: 56, w: 32 },
   ];
   return (
-    <Figur w={420} h={150} label="En sky med en stabel klosser inni">
+    <Figur w={420} h={150} label="A cloud with a stack of blocks inside">
       <Duv dy={4} dur={5}>
         <path d={SKYFORM} transform="translate(90 12)" fill={KREM} strokeWidth={3} />
         {klosser.map((k) => (
@@ -39,12 +39,12 @@ export function SkyMedKlosser() {
 /** Skyen hviler på tre byggeklosser: lagring, nettverk og identitet */
 export function SkyFundament() {
   const klosser: { navn: IkonNavn; tekst: string }[] = [
-    { navn: "database", tekst: "lagring" },
-    { navn: "nettverk", tekst: "nettverk" },
-    { navn: "nokkel", tekst: "identitet" },
+    { navn: "database", tekst: "storage" },
+    { navn: "nettverk", tekst: "network" },
+    { navn: "nokkel", tekst: "identity" },
   ];
   return (
-    <Figur w={420} h={160} label="En sky som hviler på klossene lagring, nettverk og identitet">
+    <Figur w={420} h={160} label="A cloud resting on the blocks storage, network and identity">
       <path d="M 40 140 H 380" strokeWidth={2} opacity={0.5} />
       {klosser.map((k, i) => {
         const x = 75 + i * 100;
@@ -70,7 +70,7 @@ export function Kapasitetsmaaler() {
   const r = 80;
   const ticks = [180, 210, 240, 270, 300, 330, 360];
   return (
-    <Figur w={240} h={130} label="Måler der nålen følger belastningen opp og ned">
+    <Figur w={240} h={130} label="Gauge where the needle follows the load up and down">
       <path d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`} strokeWidth={3} />
       {ticks.map((g) => {
         const a = (g * Math.PI) / 180;
@@ -98,10 +98,10 @@ export function Kapasitetsmaaler() {
       </g>
       <circle cx={cx} cy={cy} r={6} fill={KREM} strokeWidth={2.5} />
       <Tekst x={cx - r + 4} y={cy + 18} size={11}>
-        stille natt
+        quiet night
       </Tekst>
       <Tekst x={cx + r - 4} y={cy + 18} size={11}>
-        trafikktopp
+        traffic peak
       </Tekst>
     </Figur>
   );
@@ -112,7 +112,7 @@ export function Isfjell() {
   const W = 400;
   const H = 140;
   return (
-    <Figur w={W} h={H} label="Isfjell – en liten topp over vann og en stor masse under">
+    <Figur w={W} h={H} label="Iceberg – a small tip above water and a huge mass below">
       <Bolger y={46} w={W} h={H} amp={7} dur={10} />
       <Duv dy={3} dur={4.4}>
         <path
@@ -124,10 +124,10 @@ export function Isfjell() {
         <path d="M 170 46 L 190 12 L 212 30 L 234 46 Z" fill={KREM} strokeWidth={2.5} />
       </Duv>
       <Tekst x={246} y={18} size={12} anchor="start">
-        strømmen
+        the stream
       </Tekst>
       <Tekst x={200} y={98} size={13} color={TEAL} weight={600}>
-        historikken
+        the history
       </Tekst>
     </Figur>
   );
@@ -136,7 +136,7 @@ export function Isfjell() {
 /** Fast klynge: bestemt størrelse, og jobber som står i kø */
 export function KlyngeFast() {
   return (
-    <Figur w={200} h={60} label="Fast klynge med jobber i kø">
+    <Figur w={200} h={60} label="Fixed cluster with jobs in a queue">
       {[0, 1, 2, 3, 4, 5].map((i) => (
         <rect key={i} x={8 + i * 22} y={12} width={16} height={16} rx={3} fill={TEAL} stroke="none" />
       ))}
@@ -155,10 +155,10 @@ export function KlyngeFast() {
         </rect>
       ))}
       <Tekst x={74} y={48} size={10.5}>
-        bestemt på forhånd
+        decided up front
       </Tekst>
       <Tekst x={169} y={48} size={10.5}>
-        i kø
+        queued
       </Tekst>
     </Figur>
   );
@@ -168,7 +168,7 @@ export function KlyngeFast() {
 export function KlyngeAuto() {
   const T = 10;
   return (
-    <Figur w={200} h={60} label="Autoskalering – antall noder vokser og skrus ned igjen">
+    <Figur w={200} h={60} label="Autoscaling – the number of nodes grows and shrinks again">
       {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
         const inn = 0.08 + i * 0.05;
         const ut = 0.9 - i * 0.05;
@@ -188,7 +188,7 @@ export function KlyngeAuto() {
         );
       })}
       <Tekst x={100} y={48} size={10.5}>
-        følger datamengden
+        follows the data volume
       </Tekst>
     </Figur>
   );

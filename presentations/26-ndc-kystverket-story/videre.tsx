@@ -27,7 +27,7 @@ export function SlideTilbakeTilStad() {
             color: "var(--burgundy)",
           }}
         >
-          Klokka er 03:14.
+          It's 03:14.
         </div>
         <div
           style={{
@@ -38,7 +38,7 @@ export function SlideTilbakeTilStad() {
             ...linje2,
           }}
         >
-          Ti sekunder senere ligger meldingen i plattformen.
+          Ten seconds later, the message is in the platform.
         </div>
         <div
           style={{
@@ -49,7 +49,7 @@ export function SlideTilbakeTilStad() {
             ...linje3,
           }}
         >
-          Om et år ligger den i klimaregnskapet til en kommune.
+          A year from now, it's in a municipality's climate accounts.
         </div>
       </Box>
       <Reveal at={3}>
@@ -64,11 +64,11 @@ export function SlideTilbakeTilStad() {
 /* Takk, og «prøv selv» til utviklerne i salen */
 export function SlideTakk() {
   const lenker: [string, string][] = [
-    ["Sanntidskartet", "nais.kystverket.no"],
-    ["Historikk på bestilling", "hais.kystverket.no"],
-    ["Rå AIS-strøm over TCP", "153.44.253.27:5631"],
-    ["Live-API for utviklere", "developer.barentswatch.no"],
-    ["Hele utslippsmodellen", "github.com/Kystverket/maru"],
+    ["The live map", "nais.kystverket.no"],
+    ["Historical data on demand", "hais.kystverket.no"],
+    ["Raw AIS stream over TCP", "153.44.253.27:5631"],
+    ["Live API for developers", "developer.barentswatch.no"],
+    ["The whole emissions model", "github.com/Kystverket/maru"],
   ];
   return (
     <>
@@ -80,7 +80,7 @@ export function SlideTakk() {
             color: "var(--burgundy)",
           }}
         >
-          Takk.
+          Thanks.
         </div>
       </Box>
       <Box box={[66, 190, 600, 60]}>
@@ -91,7 +91,7 @@ export function SlideTakk() {
             color: "var(--red)",
           }}
         >
-          Alt dette er åpent. Prøv selv i pausen.
+          All of this is open. Try it yourself during the break.
         </div>
       </Box>
       <Box box={[66, 270, 700, 360]}>
@@ -162,7 +162,7 @@ export function SlideTakk() {
 export function SlideVeienVidere() {
   return (
     <ChapterSlide
-      title="Veien videre for dataplattformen"
+      title="The road ahead for the data platform"
       titleSize={54}
       showLogo={false}
     />
@@ -190,9 +190,9 @@ export function SlideHvorViSkal() {
 /* Slide 26d – Det domenene gir oss: tydelig eierskap, kostnad og forvaltning */
 export function SlideDomeneEffekt() {
   const punkter = [
-    ["Tydelig eierskap", "domenet eier sine data – og kontrakten"],
-    ["Tydelig kostnadssenter", "hver katalog har sin egen regning"],
-    ["Tydelig forvaltningsansvar", "hvem svarer når noe ryker"],
+    ["Clear ownership", "the domain owns its data — and the contract"],
+    ["Clear cost center", "each catalog has its own bill"],
+    ["Clear stewardship", "who answers when something breaks"],
   ];
   const linje2 = useRevealStyle(punkter.length + 1);
   return (
@@ -206,7 +206,7 @@ export function SlideDomeneEffekt() {
             color: "var(--burgundy-2)",
           }}
         >
-          Ett domene, én katalog
+          One domain, one catalog
         </div>
         <div
           style={{
@@ -218,7 +218,7 @@ export function SlideDomeneEffekt() {
             ...linje2,
           }}
         >
-            og dataproduktene finner du fortsatt på ett sted
+            and you still find the data products in one place
         </div>
       </Box>
       {punkter.map(([tittel, sub], i) => (
@@ -265,11 +265,11 @@ export function SlideDomeneEffekt() {
 /* Slide 27 – Dette vil vi få til */
 export function SlideVidereListe() {
   const facts = [
-    "SafeSeaNet, los og geodata inn",
-    "Dataprodukter med kontrakter",
-    "Sanntidsvarsling for beredskap",
-    "ML: ETA-prediksjon og avvik",
-    "Enda mer åpne data. Til dere.",
+    "SafeSeaNet, pilotage and geodata in",
+    "Data products with contracts",
+    "Real-time alerts for emergency response",
+    "ML: ETA prediction and anomalies",
+    "Even more open data. For you.",
   ];
   return (
     <>
@@ -282,7 +282,7 @@ export function SlideVidereListe() {
             color: "var(--burgundy-2)",
           }}
         >
-          Dette vil vi få til
+          What we want to achieve
         </div>
       </Box>
       {facts.map((f, i) => (

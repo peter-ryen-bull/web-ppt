@@ -134,29 +134,29 @@ function IkonDeling() {
 /* ---------- Innhold ---------- */
 
 const KILDER = [
-  { title: "Driftssystemer", sub: "ERP · CRM · fagsystem", icon: <IkonDatabase /> },
-  { title: "API", sub: "tjenester · integrasjoner", icon: <IkonKode /> },
-  { title: "Filer", sub: "dokumenter · eksporter", icon: <IkonFil /> },
-  { title: "Sensor / IoT", sub: "målinger · telemetri", icon: <IkonSignal /> },
+  { title: "Business systems", sub: "ERP · CRM · domain systems", icon: <IkonDatabase /> },
+  { title: "API", sub: "services · integrations", icon: <IkonKode /> },
+  { title: "Files", sub: "documents · exports", icon: <IkonFil /> },
+  { title: "Sensors / IoT", sub: "measurements · telemetry", icon: <IkonSignal /> },
 ];
 
 const KONSUMENTER = [
-  { title: "Automatisering", sub: "agenter · integrasjoner", icon: <IkonLyn /> },
-  { title: "Applikasjoner", sub: "app · minside", icon: <IkonVindu /> },
-  { title: "Innsikt & analyse", sub: "dashboard · KI-chat", icon: <IkonSoyler /> },
-  { title: "Maskinlæring", sub: "prediksjon · modeller", icon: <IkonGnist /> },
+  { title: "Automation", sub: "agents · integrations", icon: <IkonLyn /> },
+  { title: "Applications", sub: "apps · portals", icon: <IkonVindu /> },
+  { title: "Insight & analysis", sub: "dashboards · AI chat", icon: <IkonSoyler /> },
+  { title: "Machine learning", sub: "prediction · models", icon: <IkonGnist /> },
 ];
 
 const BUNNBARER = [
-  "OVERVÅKNING & FORVALTNING",
-  "INFRASTRUKTUR & SIKKERHET",
-  "SAMHANDLING & METODIKK",
+  "MONITORING & MANAGEMENT",
+  "INFRASTRUCTURE & SECURITY",
+  "COLLABORATION & METHODS",
 ];
 
 const LAG: { title: string; cap: string[]; icon?: ReactNode }[] = [
-  { title: "Lagring / arkiv", cap: ["rådata", "full historikk"], icon: <IkonDatabase /> },
-  { title: "Transformasjon", cap: ["vasking", "modellering"], icon: <IkonRotasjon /> },
-  { title: "Eksponering", cap: ["dataprodukter", "API · SQL · BI"], icon: <IkonDeling /> },
+  { title: "Storage", cap: ["raw data", "full history"], icon: <IkonDatabase /> },
+  { title: "Transformation", cap: ["cleaning", "modeling"], icon: <IkonRotasjon /> },
+  { title: "Serving", cap: ["data products", "API · SQL · BI"], icon: <IkonDeling /> },
 ];
 
 /* ---------- Byggeklosser ---------- */
@@ -313,7 +313,7 @@ function kurve(x1: number, y1: number, x2: number, y2: number) {
 
 function PlattformEnkel({ x, w }: { x: number; w: number }) {
   const cx = x + w / 2;
-  const tags = ["LAKEHOUSE", "STRØMMING", "KATALOG", "SQL"];
+  const tags = ["LAKEHOUSE", "STREAMING", "CATALOG", "SQL"];
   const tagW = tags.map((t) => 24 + t.length * 7.9);
   const totalW = tagW.reduce((a, b) => a + b, 0) + (tags.length - 1) * 12;
   let tx = cx - totalW / 2;
@@ -329,7 +329,7 @@ function PlattformEnkel({ x, w }: { x: number; w: number }) {
         fontSize={34}
         fill="var(--cream)"
       >
-        Dataplattform
+        Data platform
       </text>
       <rect x={cx - 18} y={258} width={36} height={3} rx={1.5} fill="var(--mint)" />
       <text
@@ -340,7 +340,7 @@ function PlattformEnkel({ x, w }: { x: number; w: number }) {
         fontSize={14.5}
         fill={KREM_DUS}
       >
-        Lagring, prosessering og styring –
+        Storage, processing and governance –
       </text>
       <text
         x={cx}
@@ -350,7 +350,7 @@ function PlattformEnkel({ x, w }: { x: number; w: number }) {
         fontSize={14.5}
         fill={KREM_DUS}
       >
-        ett felles sannhetslag for hele virksomheten.
+        one shared source of truth for the whole business.
       </text>
       {tags.map((t, i) => {
         const wi = tagW[i];
@@ -407,7 +407,7 @@ function PlattformDetaljert({ x, w }: { x: number; w: number }) {
         fontSize={28}
         fill="var(--cream)"
       >
-        Dataplattform
+        Data platform
       </text>
       <rect x={cx - 18} y={140} width={36} height={3} rx={1.5} fill="var(--mint)" />
       <text
@@ -418,7 +418,7 @@ function PlattformDetaljert({ x, w }: { x: number; w: number }) {
         fontSize={13}
         fill={KREM_DUS}
       >
-        rådata inn – kvalitetssikrede og delbare data ut
+        raw data in – trusted, shareable data out
       </text>
 
       {LAG.map((lag, i) => {
@@ -528,10 +528,10 @@ export function DataplattformFlyt({ detaljert = false }: { detaljert?: boolean }
       viewBox={`0 0 ${W} ${H}`}
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="Dataplattform: dataflyt fra kilder, gjennom plattformen, ut til konsumenter"
+      aria-label="Data platform: data flows from sources, through the platform, out to consumers"
     >
-      <Kolonnetittel cx={LEFT_X + CARD_W / 2} text="KILDER & INNHENTING" w={200} />
-      <Kolonnetittel cx={RIGHT_X + CARD_W / 2} text="VERDI & BRUK" w={140} />
+      <Kolonnetittel cx={LEFT_X + CARD_W / 2} text="SOURCES & INGEST" w={200} />
+      <Kolonnetittel cx={RIGHT_X + CARD_W / 2} text="VALUE & USE" w={140} />
 
       {/* Flytlinjer med baller: kilder -> plattform */}
       {CARD_YS.map((y, i) => (

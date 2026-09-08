@@ -70,12 +70,12 @@ function kurve(x1: number, y1: number, x2: number, y2: number) {
 /* ================= Tidslinjen ================= */
 
 const EPOKER = [
-  { aar: "1970", navn: "Databasen", sub: "én delt sannhet for driften" },
-  { aar: "1988", navn: "Datavarehuset", sub: "innsikt på tvers – finans først" },
-  { aar: "2006", navn: "Big data", sub: "distribuer alt – Hadoop" },
-  { aar: "2010", navn: "Datasjøen", sub: "lagre alt, rått" },
-  { aar: "2012", navn: "Skyen", sub: "elastisk – betal for bruk" },
-  { aar: "2020", navn: "Lakehouse", sub: "én plattform for BI og KI" },
+  { aar: "1970", navn: "The database", sub: "one shared truth for operations" },
+  { aar: "1988", navn: "The data warehouse", sub: "insight across systems – finance first" },
+  { aar: "2006", navn: "Big data", sub: "distribute everything – Hadoop" },
+  { aar: "2010", navn: "The data lake", sub: "store everything, raw" },
+  { aar: "2012", navn: "The cloud", sub: "elastic – pay for use" },
+  { aar: "2020", navn: "Lakehouse", sub: "one platform for BI and AI" },
 ];
 
 /** Antall klikk-steg i tidslinjen: én per epoke + «i dag» */
@@ -90,7 +90,7 @@ export function TidslinjeFigur() {
   const dx = (x1 - x0) / (EPOKER.length - 1);
 
   return (
-    <Svg label="Tidslinje fra databasen i 1970 til dagens dataplattform">
+    <Svg label="Timeline from the database in 1970 to today's data platform">
       <line x1={x0 - 40} y1={y} x2={1170} y2={y} stroke={LINJE_FARGE} strokeWidth={2} />
       {/* pil mot fremtiden */}
       <path
@@ -172,7 +172,7 @@ export function TidslinjeFigur() {
           fontSize={14}
           fill="var(--red)"
         >
-          i dag
+          today
         </text>
         <text
           y={20}
@@ -181,7 +181,7 @@ export function TidslinjeFigur() {
           fontSize={12.5}
           fill={SUB_FARGE}
         >
-          + KI
+          + AI
         </text>
       </g>
     </Svg>
@@ -209,10 +209,10 @@ export function MoensterFigur() {
   );
 
   return (
-    <Svg label="Mønsteret: hvert problem får en løsning som skaper et nytt problem">
-      {boks(100, 300, "Et problem", "var(--red)", "var(--cream)")}
-      {boks(470, 300, "En løsning", "var(--teal)", "var(--cream)")}
-      {boks(840, 300, "Et nytt problem", "var(--burgundy)", "var(--cream)")}
+    <Svg label="The pattern: every problem gets a solution that creates a new problem">
+      {boks(100, 300, "A problem", "var(--red)", "var(--cream)")}
+      {boks(470, 300, "A solution", "var(--teal)", "var(--cream)")}
+      {boks(840, 300, "A new problem", "var(--burgundy)", "var(--cream)")}
 
       <Flyt d={kurve(400, y + 45, 470, y + 45)} />
       <Flyt d={kurve(770, y + 45, 840, y + 45)} />
@@ -230,7 +230,7 @@ export function MoensterFigur() {
         fontSize={16}
         fill="var(--teal)"
       >
-        … blir neste tiårs utgangspunkt
+        … becomes the next decade's starting point
       </text>
     </Svg>
   );
@@ -240,15 +240,15 @@ export function MoensterFigur() {
 
 const SILOER = [
   {
-    navn: "Økonomi",
-    fil: "KUNDE 4711;BULL,P;OSLO",
+    navn: "Accounting",
+    fil: "CUST 4711;BULL,P;OSLO",
   },
   {
-    navn: "Ordre",
+    navn: "Orders",
     fil: "P.BULL | OSLO | A-4711",
   },
   {
-    navn: "Lager",
+    navn: "Inventory",
     fil: "BULL PETER, 4711X",
   },
 ];
@@ -259,7 +259,7 @@ export function SiloFigur() {
   const x0 = (W - (3 * kolW + 2 * gap)) / 2;
 
   return (
-    <Svg label="Før databasen: hvert program eide sine egne filer, samme kunde tre sannheter">
+    <Svg label="Before the database: every program owned its own files, the same customer three truths">
       {SILOER.map((s, i) => {
         const x = x0 + i * (kolW + gap);
         return (
@@ -285,7 +285,7 @@ export function SiloFigur() {
               fontSize={12.5}
               fill={KREM_DUS}
             >
-              eget program · eget filformat
+              own program · own file format
             </text>
             <line
               x1={x + kolW / 2}
@@ -359,7 +359,7 @@ export function SiloFigur() {
         fontSize={30}
         fill="var(--burgundy)"
       >
-        Samme kunde – tre sannheter
+        The same customer – three truths
       </text>
       <text
         x={W / 2}
@@ -369,7 +369,7 @@ export function SiloFigur() {
         fontSize={17}
         fill={SUB_FARGE}
       >
-        Et nytt spørsmål betydde et nytt program
+        A new question meant a new program
       </text>
     </Svg>
   );
@@ -445,12 +445,12 @@ function MiniTabell({
 
 export function RelasjonsFigur() {
   return (
-    <Svg label="Relasjonsmodellen: tabeller kobles med SQL, spør om innholdet ikke plasseringen">
+    <Svg label="The relational model: tables joined with SQL, ask about the content not the location">
       <MiniTabell
         x={90}
         y={120}
-        tittel="KUNDE"
-        kolonner={["id", "navn"]}
+        tittel="CUSTOMER"
+        kolonner={["id", "name"]}
         rader={[
           ["4711", "Bull, P"],
           ["4712", "Nansen, F"],
@@ -459,10 +459,10 @@ export function RelasjonsFigur() {
       <MiniTabell
         x={90}
         y={330}
-        tittel="ORDRE"
-        kolonner={["kunde", "beløp"]}
+        tittel="ORDERS"
+        kolonner={["customer", "amount"]}
         rader={[
-          ["4711", "1 200"],
+          ["4711", "1,200"],
           ["4711", "800"],
           ["4712", "300"],
         ]}
@@ -480,7 +480,7 @@ export function RelasjonsFigur() {
         fontSize={13}
         fill="var(--red)"
       >
-        id = kunde
+        id = customer
       </text>
 
       {/* SQL-kortet */}
@@ -490,10 +490,10 @@ export function RelasjonsFigur() {
         <circle cx={568} cy={180} r={5} fill="rgba(251,240,229,0.5)" />
         <circle cx={586} cy={180} r={5} fill="rgba(251,240,229,0.3)" />
         {[
-          "SELECT navn, SUM(beløp)",
-          "FROM kunde JOIN ordre",
-          "  ON id = kunde",
-          "GROUP BY navn;",
+          "SELECT name, SUM(amount)",
+          "FROM customer JOIN orders",
+          "  ON id = customer",
+          "GROUP BY name;",
         ].map((l, i) => (
           <text
             key={l}
@@ -515,10 +515,10 @@ export function RelasjonsFigur() {
       <MiniTabell
         x={1050}
         y={190}
-        tittel="SVAR"
-        kolonner={["navn", "sum"]}
+        tittel="ANSWER"
+        kolonner={["name", "sum"]}
         rader={[
-          ["Bull", "2 000"],
+          ["Bull", "2,000"],
           ["Nansen", "300"],
         ]}
         w={160}
@@ -532,7 +532,7 @@ export function RelasjonsFigur() {
         fontSize={30}
         fill="var(--burgundy)"
       >
-        Si hva du vil ha – ikke hvor det ligger
+        Say what you want – not where it lives
       </text>
       <text
         x={W / 2}
@@ -542,7 +542,7 @@ export function RelasjonsFigur() {
         fontSize={17}
         fill={SUB_FARGE}
       >
-        Codd 1970 · System R og SQL · Oracle 1979 · DB2 1983
+        Codd 1970 · System R and SQL · Oracle 1979 · DB2 1983
       </text>
     </Svg>
   );
@@ -550,8 +550,8 @@ export function RelasjonsFigur() {
 
 /* ================= 1988: datavarehuset ================= */
 
-const VAREHUS_KILDER = ["Konto", "Lån", "Kort", "Kunde"];
-const VAREHUS_UT = ["Rapporter", "Risiko", "Lønnsomhet"];
+const VAREHUS_KILDER = ["Accounts", "Loans", "Cards", "Customers"];
+const VAREHUS_UT = ["Reports", "Risk", "Profitability"];
 
 export function VarehusFigur() {
   const kildeYs = [90, 210, 330, 450];
@@ -560,7 +560,7 @@ export function VarehusFigur() {
   const vw = 320;
 
   return (
-    <Svg label="Datavarehuset: driftssystemer kopieres inn i ett integrert varehus som gir rapporter og innsikt">
+    <Svg label="The data warehouse: operational systems are copied into one integrated warehouse that delivers reports and insight">
       {/* kilder */}
       {VAREHUS_KILDER.map((k, i) => (
         <g key={k}>
@@ -584,7 +584,7 @@ export function VarehusFigur() {
             fontSize={12.5}
             fill={SUB_FARGE}
           >
-            driftssystem
+            operational system
           </text>
           <Flyt d={kurve(290, kildeYs[i] + 40, vx, 180 + i * 60)} />
         </g>
@@ -600,7 +600,7 @@ export function VarehusFigur() {
         letterSpacing={1.5}
         fill="var(--red)"
       >
-        ETL · NATTJOBB
+        ETL · NIGHTLY JOB
       </text>
 
       {/* varehuset */}
@@ -613,10 +613,10 @@ export function VarehusFigur() {
         fontSize={30}
         fill="var(--cream)"
       >
-        Datavarehuset
+        The data warehouse
       </text>
       <rect x={vx + vw / 2 - 18} y={208} width={36} height={3} rx={1.5} fill="var(--mint)" />
-      {["emneorientert", "integrert", "historikk", "ikke-flyktig"].map((t, i) => (
+      {["subject-oriented", "integrated", "history", "non-volatile"].map((t, i) => (
         <g key={t}>
           <rect
             x={vx + 60}
@@ -673,7 +673,7 @@ export function VarehusFigur() {
             fontSize={12.5}
             fill={SUB_FARGE}
           >
-            beslutninger
+            decisions
           </text>
           <Flyt d={kurve(vx + vw, 220 + i * 80, 950, utYs[i] + 40)} />
         </g>
@@ -687,7 +687,7 @@ export function VarehusFigur() {
         fontSize={16}
         fill={SUB_FARGE}
       >
-        Én integrert sannhet – adskilt fra driften, med historikk
+        One integrated truth – separate from operations, with history
       </text>
     </Svg>
   );
@@ -704,7 +704,7 @@ export function RegnestykkeFigur() {
   const gy = 170;
 
   return (
-    <Svg label="Googles regnestykke: én maskin bruker fire måneder, tusen maskiner under tre timer">
+    <Svg label="Google's math: one machine takes four months, a thousand machines under three hours">
       <text
         x={W / 2}
         y={80}
@@ -713,7 +713,7 @@ export function RegnestykkeFigur() {
         fontSize={34}
         fill="var(--burgundy)"
       >
-        Hele nettet i 2006: 400 TB
+        The entire web in 2006: 400 TB
       </text>
 
       {/* én maskin */}
@@ -734,7 +734,7 @@ export function RegnestykkeFigur() {
           fontSize={18}
           fill="var(--burgundy)"
         >
-          1 maskin
+          1 machine
         </text>
         <text
           x={250}
@@ -744,7 +744,7 @@ export function RegnestykkeFigur() {
           fontSize={14}
           fill={SUB_FARGE}
         >
-          leser 30–35 MB/s
+          reads 30–35 MB/s
         </text>
         <text
           x={250}
@@ -754,7 +754,7 @@ export function RegnestykkeFigur() {
           fontSize={40}
           fill="var(--red)"
         >
-          4 måneder
+          4 months
         </text>
       </g>
 
@@ -766,7 +766,7 @@ export function RegnestykkeFigur() {
         fontSize={34}
         fill={SUB_FARGE}
       >
-        mot
+        vs
       </text>
 
       {/* tusen maskiner */}
@@ -802,7 +802,7 @@ export function RegnestykkeFigur() {
           fontSize={18}
           fill="var(--burgundy)"
         >
-          1 000 billige maskiner
+          1,000 cheap machines
         </text>
         <text
           x={gx + (cols * cell) / 2}
@@ -812,7 +812,7 @@ export function RegnestykkeFigur() {
           fontSize={14}
           fill={SUB_FARGE}
         >
-          feil er normalen – toleransen ligger i programvaren
+          failure is the norm – the tolerance lives in the software
         </text>
         <text
           x={gx + (cols * cell) / 2}
@@ -822,7 +822,7 @@ export function RegnestykkeFigur() {
           fontSize={40}
           fill="var(--red)"
         >
-          &lt; 3 timer
+          &lt; 3 hours
         </text>
       </g>
 
@@ -834,7 +834,7 @@ export function RegnestykkeFigur() {
         fontSize={15}
         fill={SUB_FARGE}
       >
-        GFS 2003 · MapReduce 2004 · Hadoop 2006 (åpen kildekode – big data for alle)
+        GFS 2003 · MapReduce 2004 · Hadoop 2006 (open source – big data for everyone)
       </text>
     </Svg>
   );
@@ -844,7 +844,7 @@ export function RegnestykkeFigur() {
 
 export function SjoFigur() {
   return (
-    <Svg label="Dixons analogi: datamartet er flaskevann, datasjøen er vann i naturlig tilstand">
+    <Svg label="Dixon's analogy: the data mart is bottled water, the data lake is water in its natural state">
       {/* flasken */}
       <g transform="translate(190 90)">
         <rect x={62} y={0} width={56} height={34} rx={8} fill="var(--teal)" />
@@ -874,13 +874,13 @@ export function SjoFigur() {
           fontSize={25}
           fill="var(--burgundy)"
         >
-          Datamartet
+          The data mart
         </text>
         <text x={90} y={430} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={14} fill={SUB_FARGE}>
-          flaskevann: renset, pakket
+          bottled water: cleaned, packaged
         </text>
         <text x={90} y={452} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={14} fill={SUB_FARGE}>
-          – svar på kjente spørsmål
+          – answers to known questions
         </text>
       </g>
 
@@ -935,13 +935,13 @@ export function SjoFigur() {
           fontSize={25}
           fill="var(--burgundy)"
         >
-          Datasjøen
+          The data lake
         </text>
         <text x={310} y={410} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={14} fill={SUB_FARGE}>
-          vann i naturlig tilstand: alt, rått, billig
+          water in its natural state: everything, raw, cheap
         </text>
         <text x={310} y={432} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={14} fill={SUB_FARGE}>
-          – for morgendagens spørsmål
+          – for tomorrow's questions
         </text>
       </g>
 
@@ -953,7 +953,7 @@ export function SjoFigur() {
         fontSize={16}
         fill="var(--red)"
       >
-        «Du lagrer rådata fordi du ikke kjenner morgendagens spørsmål» – James Dixon, 2010
+        “You store raw data because you don't know tomorrow's questions” – James Dixon, 2010
       </text>
     </Svg>
   );
@@ -963,13 +963,13 @@ export function SjoFigur() {
 
 export function SkyFigur() {
   const teams = [
-    { navn: "BI og rapporter", x: 150 },
+    { navn: "BI and reports", x: 150 },
     { navn: "Data science", x: 510 },
-    { navn: "Nattjobber", x: 870 },
+    { navn: "Nightly jobs", x: 870 },
   ];
 
   return (
-    <Svg label="Skyen: lagring og regnekraft er adskilt, hvert team skalerer uavhengig og betaler for bruk">
+    <Svg label="The cloud: storage and compute are separate, every team scales independently and pays for use">
       {teams.map((t, i) => (
         <g key={t.navn}>
           <rect x={t.x} y={110} width={220} height={110} rx={16} fill="var(--teal)" />
@@ -992,7 +992,7 @@ export function SkyFigur() {
             fontSize={12.5}
             fill={KREM_DUS}
           >
-            egen regnekraft · av/på
+            own compute · on/off
           </text>
           {/* skalerings-antydning */}
           <rect
@@ -1025,7 +1025,7 @@ export function SkyFigur() {
         fontSize={26}
         fill="var(--cream)"
       >
-        Objektlagring – alle dataene, én kopi
+        Object storage – all the data, one copy
       </text>
       <text
         x={W / 2}
@@ -1035,7 +1035,7 @@ export function SkyFigur() {
         fontSize={14}
         fill={KREM_DUS}
       >
-        billig · elastisk · vokser uavhengig av regnekraften
+        cheap · elastic · grows independently of compute
       </text>
 
       <text
@@ -1046,7 +1046,7 @@ export function SkyFigur() {
         fontSize={16}
         fill={SUB_FARGE}
       >
-        Redshift 2012 · Snowflake 2015 · BigQuery – leie i stedet for å kjøpe, skalere i stedet for å planlegge
+        Redshift 2012 · Snowflake 2015 · BigQuery – rent instead of buy, scale instead of plan
       </text>
     </Svg>
   );
@@ -1088,12 +1088,12 @@ export function KonvergensFigur() {
   );
 
   return (
-    <Svg label="To spor – varehuset og sjøen – møtes i lakehouse og blir dagens dataplattform">
+    <Svg label="Two tracks – the warehouse and the lake – meet in the lakehouse and become today's data platform">
       <text x={90} y={100} fontFamily="var(--font-serif)" fontSize={21} fill="var(--burgundy)">
-        Varehus-sporet: orden og styring
+        The warehouse track: order and governance
       </text>
       <text x={90} y={480} fontFamily="var(--font-serif)" fontSize={21} fill="var(--burgundy)">
-        Sjø-sporet: skala og rådata
+        The lake track: scale and raw data
       </text>
 
       <Flyt
@@ -1105,10 +1105,10 @@ export function KonvergensFigur() {
 
       {stopp(160, yTopp, "1983", "Teradata", true)}
       {stopp(340, yTopp, "1992", "Inmon", true)}
-      {stopp(520, yTopp, "2012", "sky-varehus", true)}
+      {stopp(520, yTopp, "2012", "cloud warehouse", true)}
 
       {stopp(160, yBunn, "2006", "Hadoop", false)}
-      {stopp(340, yBunn, "2010", "datasjøen", false)}
+      {stopp(340, yBunn, "2010", "the data lake", false)}
       {stopp(520, yBunn, "2013", "Spark", false)}
 
       {/* mesh-lappen */}
@@ -1122,7 +1122,7 @@ export function KonvergensFigur() {
           fontSize={13.5}
           fill="var(--teal)"
         >
-          2019 · data mesh: eierskap ut i domenene
+          2019 · data mesh: ownership out in the domains
         </text>
       </g>
 
@@ -1151,7 +1151,7 @@ export function KonvergensFigur() {
           fontSize={13.5}
           fill={SUB_FARGE}
         >
-          varehusets orden på sjøens økonomi
+          the warehouse's order on the lake's economics
         </text>
       </g>
 
@@ -1167,14 +1167,14 @@ export function KonvergensFigur() {
         fontSize={24}
         fill="var(--cream)"
       >
-        Dataplattform
+        Data platform
       </text>
       <rect x={1047} y={yMid - 6} width={36} height={3} rx={1.5} fill="var(--mint)" />
       <text x={1065} y={yMid + 24} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={KREM_DUS}>
-        BI · KI · sanntid
+        BI · AI · real time
       </text>
       <text x={1065} y={yMid + 46} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={KREM_DUS}>
-        governance i bunn
+        governance at the base
       </text>
     </Svg>
   );
@@ -1183,12 +1183,12 @@ export function KonvergensFigur() {
 /* ================= Arven: dagens plattform lag for lag ================= */
 
 const ARV = [
-  { aar: "2020", navn: "Lakehouse", arv: "ett governed lag for BI og KI", fill: "var(--teal)" },
-  { aar: "2019", navn: "Data mesh", arv: "eierskap og dataprodukter", fill: "#0e5158" },
-  { aar: "2012", navn: "Skyen", arv: "elastisitet – betal for bruk", fill: "#256169" },
-  { aar: "2010", navn: "Datasjøen", arv: "billig rålagring, alle formater", fill: "#3d707a" },
-  { aar: "1988", navn: "Datavarehuset", arv: "integrert historikk, modellering", fill: "#5c3a4b" },
-  { aar: "1970", navn: "Relasjonsmodellen", arv: "én delt sannhet – SQL", fill: "var(--burgundy)" },
+  { aar: "2020", navn: "Lakehouse", arv: "one governed layer for BI and AI", fill: "var(--teal)" },
+  { aar: "2019", navn: "Data mesh", arv: "ownership and data products", fill: "#0e5158" },
+  { aar: "2012", navn: "The cloud", arv: "elasticity – pay for use", fill: "#256169" },
+  { aar: "2010", navn: "The data lake", arv: "cheap raw storage, all formats", fill: "#3d707a" },
+  { aar: "1988", navn: "The data warehouse", arv: "integrated history, modeling", fill: "#5c3a4b" },
+  { aar: "1970", navn: "The relational model", arv: "one shared truth – SQL", fill: "var(--burgundy)" },
 ];
 
 export function ArvFigur() {
@@ -1198,7 +1198,7 @@ export function ArvFigur() {
   const y0 = 120;
 
   return (
-    <Svg label="Dagens dataplattform lag for lag: hvert lag er arven fra en epoke">
+    <Svg label="Today's data platform layer by layer: each layer is the legacy of an era">
       <text
         x={W / 2}
         y={70}
@@ -1207,7 +1207,7 @@ export function ArvFigur() {
         fontSize={30}
         fill="var(--burgundy)"
       >
-        Dataplattformen = summen av 50 års lærdom
+        The data platform = the sum of 50 years of lessons
       </text>
 
       {ARV.map((l, i) => {

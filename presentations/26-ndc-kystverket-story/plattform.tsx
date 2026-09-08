@@ -8,13 +8,14 @@ import {
   DatakontraktApi,
   DatakontraktBrudd,
 } from "@/components/figures/Datakontrakt";
+import { RolleFigur, type RolleHvem } from "@/components/figures/strek";
 
 /* Kapittel: Hvorfor bygger alle dataplattform? */
 export function SlideHvaEr() {
   return (
     <ChapterSlide
-      title="Hvorfor bygger alle dataplattform?"
-      subtitle="Grunnmuren under alt som skal bruke data"
+      title="Why is everyone building data platforms?"
+      subtitle="The foundation under everything that uses data"
       titleSize={54}
       showLogo={false}
     />
@@ -34,8 +35,9 @@ export function SlideUber() {
       <Box box={[90, y, 1100, 90]} style={{ display: "flex", gap: 40 }}>
         <div
           style={{
-            width: 150,
+            width: 280,
             flexShrink: 0,
+            whiteSpace: "nowrap",
             fontFamily: "var(--font-serif)",
             fontSize: pt(30),
             color: farge,
@@ -72,22 +74,22 @@ export function SlideUber() {
       {akt(
         1,
         180,
-        "Starten",
-        "Noen terabyte fordelt på MySQL og Postgres. Ingeniørene skrev skript som limte kildene sammen. Det funket helt fint.",
+        "The start",
+        "A few terabytes spread across MySQL and Postgres. Engineers wrote scripts that glued the sources together. It worked just fine.",
         "var(--teal)",
       )}
       {akt(
         2,
         300,
-        "Veksten",
-        "Så eksploderte selskapet. Hvert team hadde sin database, sitt skript, sin sannhet. Ingen kunne svare på enkle spørsmål om hele selskapet.",
+        "The growth",
+        "Then the company exploded. Every team had its own database, its own scripts, its own truth. Nobody could answer simple questions about the company as a whole.",
         "var(--burgundy)",
       )}
       {akt(
         3,
         420,
-        "Vendepunktet",
-        "Siloene sto i veien for alt de ville gjøre med dataene. Svaret ble én felles plattform. Av nødvendighet, ikke av prinsipp.",
+        "The turning point",
+        "The silos got in the way of everything they wanted to do with the data. The answer was one shared platform. Out of necessity, not principle.",
         "var(--red)",
       )}
       <Reveal at={4}>
@@ -99,8 +101,8 @@ export function SlideUber() {
               color: "var(--red)",
             }}
           >
-            Du trenger ikke dataplattform fra dag én. Men fra en viss mengde
-            finnes det ikke noe alternativ.
+            You don't need a data platform from day one. But past a certain
+            scale, there's no alternative.
           </div>
         </Box>
       </Reveal>
@@ -111,10 +113,10 @@ export function SlideUber() {
 /* Dataplattformer i hverdagen: du brukte fire av dem i dag */
 export function SlideHvorfor() {
   const eksempler = [
-    "Nettbutikken som foreslår varer",
-    "Strømmetjenesten som treffer",
-    "Taxien med fastpris på forhånd",
-    "Flyprisen som settes på et sekund",
+    "The online store that suggests products",
+    "The streaming service that gets it right",
+    "The taxi with a fixed price up front",
+    "The airfare that's set in a second",
   ];
   return (
     <>
@@ -127,7 +129,7 @@ export function SlideHvorfor() {
             color: "var(--burgundy-2)",
           }}
         >
-          Du brukte fire dataplattformer før du kom hit
+          You used four data platforms before you got here
         </div>
       </Box>
       <Reveal at={eksempler.length + 1}>
@@ -140,8 +142,8 @@ export function SlideHvorfor() {
               color: "var(--red)",
             }}
           >
-            Bak alle sammen: en plattform som henter inn, lagrer, prosesserer og
-            leverer data
+            Behind every one of them: a platform that ingests, stores,
+            processes, and delivers data
           </div>
         </Box>
       </Reveal>
@@ -209,10 +211,10 @@ export function SlideSamleData() {
           }}
         >
           <div style={{ color: "var(--burgundy)" }}>
-            Samle data fra kildesystemer
+            Collect data from source systems
           </div>
           <div style={{ color: "var(--red)", ...linje2 }}>
-            Analyser den, og dele videre
+            Analyze it, and share it
           </div>
         </div>
       </Box>
@@ -232,7 +234,7 @@ export function SlideSamleData() {
               color: "var(--red)",
             }}
           >
-            hente inn → lagre → transformere → dele → styre
+            ingest → store → transform → share → govern
           </div>
         </Box>
       </Reveal>
@@ -255,10 +257,10 @@ export function SlideMerEnnVarehus() {
           }}
         >
           <div style={{ color: "var(--burgundy)" }}>
-            Et datavarehus leverer rapporter
+            A data warehouse delivers reports
           </div>
           <div style={{ color: "var(--red)", ...linje2 }}>
-            En dataplattform skaper verdi
+            A data platform creates value
           </div>
         </div>
       </Box>
@@ -278,7 +280,7 @@ export function SlideMerEnnVarehus() {
               color: "var(--red)",
             }}
           >
-            kontinuerlig, ikke bare til månedsrapporten
+            continuously, not just for the monthly report
           </div>
         </Box>
       </Reveal>
@@ -290,8 +292,8 @@ export function SlideMerEnnVarehus() {
 export function SlideDataprodukt() {
   return (
     <ChapterSlide
-      title="Dataprodukt"
-      subtitle="Kvalitetssikret, forvaltet, dokumentert. Og med en eier som svarer."
+      title="Data product"
+      subtitle="Quality-assured, managed, documented. And with an owner who answers."
       showLogo={false}
     />
   );
@@ -343,17 +345,15 @@ export function SlideGovernance() {
             width: "100%",
           }}
         >
-          Datakontrakter, Dataeierskap, Datakatalog
+          Data contracts, Data ownership, Data catalog
           <br />
           <span
             style={{
               display: "inline-block",
-              fontFamily: "var(--font-sans)",
-              fontWeight: 500,
               ...linje2,
             }}
           >
-            Sentralisere logging, audits, rapportering
+            Centralize logging, audits, reporting
           </span>
         </div>
       </Box>
@@ -396,10 +396,10 @@ export function SlideFeilerOrganisatorisk() {
           }}
         >
           <div style={{ color: "var(--burgundy)" }}>
-            Dataplattformer feiler sjelden på teknologi
+            Data platforms rarely fail on technology
           </div>
           <div style={{ color: "var(--red)", ...linje2 }}>
-            De feiler på mennesker
+            They fail on people
           </div>
         </div>
       </Box>
@@ -407,61 +407,134 @@ export function SlideFeilerOrganisatorisk() {
   );
 }
 
-/* Slide 18 – Roller rundt plattformen (ellipsen) */
-export function SlideRoller() {
-  const label = (at: number, center: [number, number], text: string) => (
-    <Reveal at={at}>
-      <div
-        style={{
-          position: "absolute",
-          left: center[0],
-          top: center[1],
-          transform: "translate(-50%, -50%)",
-          fontFamily: "var(--font-sans)",
-          fontSize: pt(16),
-          color: "var(--burgundy)",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {text}
-      </div>
-    </Reveal>
-  );
+/* Slide 18 – Roller rundt plattformen */
+const ROLLER: {
+  at: number;
+  hvem: RolleHvem;
+  tittel: string;
+  sub: string;
+}[] = [
+  { at: 1, hvem: "plattform", tittel: "Platform", sub: "owns the foundation" },
+  {
+    at: 2,
+    hvem: "byggere",
+    tittel: "Engineers and\nanalysts",
+    sub: "build on it",
+  },
+  { at: 3, hvem: "governance", tittel: "Governance", sub: "sets the guardrails" },
+  {
+    at: 4,
+    hvem: "konsumenter",
+    tittel: "BI and\nconsumers",
+    sub: "use what comes out",
+  },
+];
 
+export function SlideRoller() {
   return (
     <>
-      <Box
-        box={[49.5, 352.7, 788.8, 311.2]}
-        style={{
-          background: "var(--cream-dark)",
-          borderRadius: "50%",
-          transform: "rotate(-5.4deg)",
-        }}
-      />
-      <Box
-        box={[81.5, 120, 1117.1, 180]}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <Box box={[66, 44, 1148, 70]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(65),
+            fontSize: pt(36),
             color: "var(--burgundy)",
-            textAlign: "center",
-            width: "100%",
           }}
         >
-          Tydelige roller
+          Clear roles
         </div>
       </Box>
-      {label(1, [248.5, 433.6], "Plattform")}
-      {label(2, [640, 491.6], "Engineers/analytikere")}
-      {label(3, [302.2, 609.5], "Governance")}
-      {label(4, [977.8, 596.9], "BI- og konsumbrukere")}
+      <Box box={[66, 100, 1148, 28]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(13),
+            letterSpacing: 2.2,
+            color: "#9a5068",
+          }}
+        >
+          ROLES BEFORE TECHNOLOGY
+        </div>
+      </Box>
+
+      <Box
+        box={[70, 358, 1140, 82]}
+        style={{
+          background: "var(--cream-dark)",
+          borderRadius: "50%",
+        }}
+      />
+      <Box
+        box={[140, 384, 1000, 7]}
+        style={{
+          background: "var(--teal)",
+          borderRadius: 8,
+        }}
+      />
+
+      {ROLLER.map((r, i) => (
+        <Reveal key={r.hvem} at={r.at}>
+          <Box box={[40 + i * 310, 118, 300, 300]}>
+            <RolleFigur hvem={r.hvem} />
+          </Box>
+          <Box
+            box={[40 + i * 310, 458, 300, 120]}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              textAlign: "center",
+              gap: 8,
+            }}
+          >
+            <div
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: pt(20),
+                lineHeight: 1.15,
+                color: "var(--burgundy)",
+                whiteSpace: "pre-line",
+                minHeight: 62,
+              }}
+            >
+              {r.tittel}
+            </div>
+            <div
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: pt(15),
+                lineHeight: 1.3,
+                color: "var(--red)",
+              }}
+            >
+              {r.sub}
+            </div>
+          </Box>
+        </Reveal>
+      ))}
+
+      <Reveal at={4}>
+        <Box
+          box={[80, 598, 1120, 48]}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(16),
+              color: "var(--red)",
+              textAlign: "center",
+            }}
+          >
+            From data being something IT handles, to being part of each
+            domain's own responsibility
+          </div>
+        </Box>
+      </Reveal>
     </>
   );
 }

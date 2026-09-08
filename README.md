@@ -21,12 +21,22 @@ npm run dev
 | Forrige slide | `←`, `PgUp` | «Forrige» |
 | Første/siste slide | `Home` / `End` | – |
 | Skjul/vis gjeldende slide | `H` | «Skjul slide» |
+| Skjul/vis hele kapittelet | `Shift+H` | «Skjul kapittel» |
+| Forrige/neste kapittel | `[` / `]` | – |
 | Slideoversikt (med skjul-brytere) | `G` | «Oversikt» |
+| Eksporter PDF (kun i oversikten) | – | «Eksporter PDF» |
 | Fullskjerm | `F` | `⛶` |
 | Tilbake til alle presentasjoner | – | «⌂ Presentasjoner» |
 
 Skjulte slides hoppes over i visningen og huskes i `localStorage` per
 presentasjon.
+
+### Eksporter PDF
+
+Fra slideoversikten (`G`) kan du laste ned presentasjonen som PDF. Knappen
+vises bare der – ikke i visnings- eller presentatørmodus. Du kan ta med
+alle slides eller et utvalg. Hver slide blir én side, alltid på **siste
+klikk-steg** (mellomsteg tas ikke med).
 
 ## Presentere med to skjermer (HDMI/prosjektor)
 
@@ -62,7 +72,8 @@ components/
   Deck.tsx                  Selve presentasjonsvisningen (navigasjon, oversikt …)
 presentations/
   index.ts                  Registeret over alle presentasjoner
-  types.ts                  SlideDef / PresentationDef
+  types.ts                  SlideDef / ChapterDef / PresentationDef
+  chapters.ts               definePresentation, embedAsChapter
   parts.tsx                 Felles byggeklosser (Box, Img, ChapterSlide …)
   notes.ts                  Parser for speaker notes (notes.md → slides)
   stoe-dataplattform/       Slides for én presentasjon
@@ -79,20 +90,28 @@ public/media/
 
    ```tsx
    import type { PresentationDef, SlideDef } from "../types";
+   import { definePresentation } from "../chapters";
 
-   const SLIDES: SlideDef[] = [
+   const INTRO: SlideDef[] = [
      { id: "forside", name: "Forside", component: MinForside },
-     // …
    ];
 
-   export const minPresentasjon: PresentationDef = {
+   export const minPresentasjon = definePresentation({
      id: "min-presentasjon", // brukes i URL-en
      title: "Tittel på presentasjonen",
      description: "Kort beskrivelse som vises på forsiden.",
      date: "September 2026",
-     slides: SLIDES,
-   };
+     chapters: [
+       { id: "intro", title: "Intro", slides: INTRO },
+     ],
+   });
    ```
+
+   Kapitler er intern oppdeling: synlige i oversikt og presentatørvisning,
+   aldri i publikumsvisningen. En annen presentasjon kan legges inn som ett
+   kapittel med `embedAsChapter(annenPresentasjon, { id: "historie" })`.
+
+   Presentasjoner uten kapitler kan fortsatt bruke en flat `slides`-liste.
 
 2. Registrer den i `presentations/index.ts`:
 

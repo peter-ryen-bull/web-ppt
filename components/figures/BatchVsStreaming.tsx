@@ -178,7 +178,7 @@ function BatchBane() {
         strokeDasharray="4 6"
         opacity={0.55}
       />
-      <BaneIkonTekst icon={<IkonKlokke />} text="fast intervall – f.eks. hver time eller hver natt" />
+      <BaneIkonTekst icon={<IkonKlokke />} text="fixed interval – e.g. every hour or every night" />
 
       <g>
         <animateTransform
@@ -205,8 +205,8 @@ function BatchBane() {
         })}
       </g>
 
-      <Node cx={SRC_X} label="Kilde" icon={<IkonSystem />} />
-      <Node cx={DST_X} label="Plattform" icon={<IkonDatabase />} />
+      <Node cx={SRC_X} label="Source" icon={<IkonSystem />} />
+      <Node cx={DST_X} label="Platform" icon={<IkonDatabase />} />
     </g>
   );
 }
@@ -219,7 +219,7 @@ function StromBane() {
   return (
     <g>
       <StipletLinje x1={SRC_X + NODE_R + 8} x2={DST_X - NODE_R - 8} />
-      <BaneIkonTekst icon={<IkonPuls />} text="kontinuerlig – forsinkelse på sekunder" />
+      <BaneIkonTekst icon={<IkonPuls />} text="continuous – seconds of delay" />
 
       {[0, -1.2, -2.4, -3.6, -4.8].map((b) => (
         <circle key={b} r={6} fill="var(--red)" opacity={0}>
@@ -235,8 +235,8 @@ function StromBane() {
         </circle>
       ))}
 
-      <Node cx={SRC_X} label="Kilde" icon={<IkonSystem />} />
-      <Node cx={DST_X} label="Plattform" icon={<IkonDatabase />} />
+      <Node cx={SRC_X} label="Source" icon={<IkonSystem />} />
+      <Node cx={DST_X} label="Platform" icon={<IkonDatabase />} />
     </g>
   );
 }
@@ -244,7 +244,7 @@ function StromBane() {
 /* ---------- Eksporterte figurer ---------- */
 
 export function BatchFlytFigur({
-  undertekst = "data samles opp og flyttes i bolker",
+  undertekst = "data is collected and moved in batches",
 }: {
   undertekst?: string;
 }) {
@@ -253,7 +253,7 @@ export function BatchFlytFigur({
       viewBox="0 0 1240 300"
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="Batch: data samles opp og flyttes i bolker med faste intervaller"
+      aria-label="Batch: data is collected and moved in batches at fixed intervals"
     >
       <g transform="translate(20 16)">
         <TittelRad tittel="BATCH" undertekst={undertekst} w={110} />
@@ -266,7 +266,7 @@ export function BatchFlytFigur({
 }
 
 export function StromFlytFigur({
-  undertekst = "hver hendelse flyter videre med en gang den skjer",
+  undertekst = "each event flows on as soon as it happens",
 }: {
   undertekst?: string;
 }) {
@@ -275,7 +275,7 @@ export function StromFlytFigur({
       viewBox="0 0 1240 300"
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="Streaming: hver hendelse flyter videre med en gang den skjer"
+      aria-label="Streaming: each event flows on as soon as it happens"
     >
       <g transform="translate(20 16)">
         <TittelRad tittel="STREAMING" undertekst={undertekst} w={150} />
@@ -293,10 +293,10 @@ export function BatchVsStreamingFigur() {
       viewBox="0 0 1240 640"
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="Batch og streaming sammenlignet: bolker med faste intervaller mot kontinuerlig strøm av hendelser"
+      aria-label="Batch and streaming compared: batches at fixed intervals versus a continuous stream of events"
     >
       <g transform="translate(20 28)">
-        <TittelRad tittel="BATCH" undertekst="data samles opp og flyttes i bolker" w={110} />
+        <TittelRad tittel="BATCH" undertekst="data is collected and moved in batches" w={110} />
         <g transform="translate(0 14)">
           <BatchBane />
         </g>
@@ -314,7 +314,7 @@ export function BatchVsStreamingFigur() {
       <g transform="translate(20 350)">
         <TittelRad
           tittel="STREAMING"
-          undertekst="hver hendelse flyter videre med en gang den skjer"
+          undertekst="each event flows on as soon as it happens"
           w={150}
         />
         <g transform="translate(0 14)">

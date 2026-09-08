@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Box, ChapterSlide, MilesLogo, pt } from "../parts";
+import { Box, ChapterSlide, MilesLogo, pt } from "../../parts";
 import {
   TidslinjeFigur,
   MoensterFigur,
@@ -147,11 +147,11 @@ function SpeilSlide({
             color: "var(--burgundy)",
           }}
         >
-          Hva den løste – og det nye problemet
+          What it solved – and the new problem
         </div>
       </Box>
-      {kolonne(60, "var(--teal)", "Dette løste den", loest, "✓")}
-      {kolonne(660, "var(--red)", "Det nye problemet", nytt, "→")}
+      {kolonne(60, "var(--teal)", "What it solved", loest, "✓")}
+      {kolonne(660, "var(--red)", "The new problem", nytt, "→")}
       {bunn && (
         <Box
           box={[60, 616, 1160, 60]}
@@ -179,8 +179,8 @@ function SpeilSlide({
 export function SlideForside() {
   return (
     <ChapterSlide
-      title="Historien om dataplattformen"
-      subtitle="Seks tiår med samme problem: å gjøre data om til beslutninger"
+      title="The story of the data platform"
+      subtitle="Six decades of the same problem: turning data into decisions"
       titleSize={60}
     />
   );
@@ -189,7 +189,7 @@ export function SlideForside() {
 /* 2 – Tidslinjen */
 export function SlideTidslinje() {
   return (
-    <FigurSlide tittel="Fem faser – ett problem">
+    <FigurSlide tittel="Five phases – one problem">
       <TidslinjeFigur />
     </FigurSlide>
   );
@@ -198,7 +198,7 @@ export function SlideTidslinje() {
 /* 3 – Mønsteret */
 export function SlideMoensteret() {
   return (
-    <FigurSlide tittel="Mønsteret som driver historien">
+    <FigurSlide tittel="The pattern that drives the story">
       <MoensterFigur />
     </FigurSlide>
   );
@@ -210,8 +210,8 @@ export function SlideMoensteret() {
 export function SlideKapDatabasen() {
   return (
     <ChapterSlide
-      title="1970 · Databasen"
-      subtitle="Problemet: data var fanget i applikasjonene sine"
+      title="1970 · The database"
+      subtitle="The problem: data was trapped inside its applications"
     />
   );
 }
@@ -219,7 +219,7 @@ export function SlideKapDatabasen() {
 /* 5 – Siloene før databasen */
 export function SlideSiloer() {
   return (
-    <FigurSlide kicker="1960-tallet" tittel="Hvert program eide sine egne filer">
+    <FigurSlide kicker="The 1960s" tittel="Every program owned its own files">
       <SiloFigur />
     </FigurSlide>
   );
@@ -228,7 +228,7 @@ export function SlideSiloer() {
 /* 6 – Relasjonsmodellen */
 export function SlideRelasjonsmodellen() {
   return (
-    <FigurSlide kicker="Løsningen · 1970" tittel="Codd: skill spørsmålet fra lagringen">
+    <FigurSlide kicker="The solution · 1970" tittel="Codd: separate the question from the storage">
       <RelasjonsFigur />
     </FigurSlide>
   );
@@ -238,18 +238,18 @@ export function SlideRelasjonsmodellen() {
 export function SlideDatabasenSpeil() {
   return (
     <SpeilSlide
-      kicker="1970 · Databasen"
+      kicker="1970 · The database"
       loest={[
-        "Én delt, konsistent hukommelse for virksomheten",
-        "Transaksjoner med garantier – driften kunne stole på dataene",
-        "Spørsmål uten å programmere navigasjon: SQL",
+        "One shared, consistent memory for the business",
+        "Transactions with guarantees – operations could trust the data",
+        "Questions without programming navigation: SQL",
       ]}
       nytt={[
-        "Bygget for drift, ikke analyse – tunge spørringer satte kassa på kne",
-        "Ett system per funksjon: sannheten spredte seg igjen utover mange databaser",
-        "Ledelsen fikk fortsatt ikke svar på tvers",
+        "Built for operations, not analysis – heavy queries brought the checkout to its knees",
+        "One system per function: the truth spread out across many databases again",
+        "Management still couldn't get answers across systems",
       ]}
-      bunn="Hukommelse er ikke det samme som innsikt."
+      bunn="Memory isn't the same as insight."
     />
   );
 }
@@ -260,8 +260,8 @@ export function SlideDatabasenSpeil() {
 export function SlideKapVarehuset() {
   return (
     <ChapterSlide
-      title="1988 · Datavarehuset"
-      subtitle="Problemet: svar på tvers – uten å true driften"
+      title="1988 · The data warehouse"
+      subtitle="The problem: answers across systems – without threatening operations"
     />
   );
 }
@@ -269,7 +269,7 @@ export function SlideKapVarehuset() {
 /* 9 – Varehuset */
 export function SlideVarehuset() {
   return (
-    <FigurSlide kicker="Løsningen · 1983–1996" tittel="Ett integrert varehus – adskilt fra driften">
+    <FigurSlide kicker="The solution · 1983–1996" tittel="One integrated warehouse – separate from operations">
       <VarehusFigur />
     </FigurSlide>
   );
@@ -317,14 +317,14 @@ export function SlideFinans() {
             color: "var(--burgundy)",
           }}
         >
-          Bankene var først –<br />
-          <span style={{ color: "var(--red)" }}>fordi penger er data</span>
+          The banks were first –<br />
+          <span style={{ color: "var(--red)" }}>because money is data</span>
         </div>
       </Box>
-      {punkt(280, "Risikostyring", "samlet eksponering krever konto, lån og kort sett under ett")}
-      {punkt(370, "Svindel og lønnsomhet", "mønstre på tvers av systemene – hvem taper vi penger på?")}
-      {punkt(460, "Regulering", "rapporteringskrav tvang frem historikk og sporbarhet")}
-      {punkt(550, "…og de hadde råd", "Teradata-prislappen var «eye-watering» – men fortrinnet målbart")}
+      {punkt(280, "Risk management", "total exposure needs accounts, loans, and cards seen as one")}
+      {punkt(370, "Fraud and profitability", "patterns across the systems – who are we losing money on?")}
+      {punkt(460, "Regulation", "reporting requirements forced history and traceability")}
+      {punkt(550, "…and they could afford it", "the Teradata price tag was “eye-watering” – but the edge was measurable")}
 
       <Box
         box={[700, 280, 500, 330]}
@@ -345,13 +345,13 @@ export function SlideFinans() {
             marginBottom: 18,
           }}
         >
-          MILEPÆLER
+          MILESTONES
         </div>
         {[
-          ["1983", "Teradata DBC/1012 – parallell «database computer» for beslutningsstøtte"],
-          ["1988", "Devlin & Murphy beskriver datavarehus-arkitekturen (IBM)"],
-          ["1991", "First Interstate Bancorp bygger varehus – før begrepet var kjent"],
-          ["1992/96", "Inmon og Kimball skriver lærebøkene"],
+          ["1983", "Teradata DBC/1012 – a parallel “database computer” for decision support"],
+          ["1988", "Devlin & Murphy describe the data warehouse architecture (IBM)"],
+          ["1991", "First Interstate Bancorp builds a warehouse – before the term was known"],
+          ["1992/96", "Inmon and Kimball write the textbooks"],
         ].map(([aar, tekst]) => (
           <div
             key={aar}
@@ -380,18 +380,18 @@ export function SlideFinans() {
 export function SlideVarehusetSpeil() {
   return (
     <SpeilSlide
-      kicker="1988 · Datavarehuset"
+      kicker="1988 · The data warehouse"
       loest={[
-        "Én integrert sannhet på tvers av systemene",
-        "Historikk: utvikling over tid, ikke bare nå-bildet",
-        "Analyse uten å true driften – beslutninger på fakta",
+        "One integrated truth across the systems",
+        "History: development over time, not just the current snapshot",
+        "Analysis without threatening operations – decisions based on facts",
       ]}
       nytt={[
-        "Dyrt: spesialisert maskinvare og lange prosjekter",
-        "Tregt å endre: skjema først, ny kilde tok måneder – IT ble flaskehals",
-        "Bare strukturerte data: rader og kolonner, ikke logger, tekst og bilder",
+        "Expensive: specialized hardware and long projects",
+        "Slow to change: schema first, a new source took months – IT became the bottleneck",
+        "Only structured data: rows and columns, not logs, text, and images",
       ]}
-      bunn="Og så kom internett – og gjorde alle tre problemene akutte."
+      bunn="And then came the internet – and made all three problems acute."
     />
   );
 }
@@ -403,7 +403,7 @@ export function SlideKapBigdata() {
   return (
     <ChapterSlide
       title="2006 · Big data"
-      subtitle="Problemet: internett endret premisset – volum, variasjon, maskinfeil"
+      subtitle="The problem: the internet changed the premise – volume, variety, machine failures"
     />
   );
 }
@@ -411,7 +411,7 @@ export function SlideKapBigdata() {
 /* 13 – Regnestykket */
 export function SlideRegnestykket() {
   return (
-    <FigurSlide kicker="Løsningen · 2003–2006" tittel="Googles svar: distribuer alt">
+    <FigurSlide kicker="The solution · 2003–2006" tittel="Google's answer: distribute everything">
       <RegnestykkeFigur />
     </FigurSlide>
   );
@@ -420,7 +420,7 @@ export function SlideRegnestykket() {
 /* 14 – Datasjøen */
 export function SlideDatasjoen() {
   return (
-    <FigurSlide kicker="2010" tittel="Datasjøen: lagre alt – rått">
+    <FigurSlide kicker="2010" tittel="The data lake: store everything – raw">
       <SjoFigur />
     </FigurSlide>
   );
@@ -430,18 +430,18 @@ export function SlideDatasjoen() {
 export function SlideSjoenSpeil() {
   return (
     <SpeilSlide
-      kicker="2006–2010 · Big data og datasjøen"
+      kicker="2006–2010 · Big data and the data lake"
       loest={[
-        "Skalaen: lagre og prosessere alt, billig, på vanlig maskinvare",
-        "Alle formater – logger, tekst, bilder, klikkstrømmer",
-        "Maskinlæring fikk rådataene den trengte",
+        "The scale: store and process everything, cheaply, on ordinary hardware",
+        "All formats – logs, text, images, clickstreams",
+        "Machine learning got the raw data it needed",
       ]}
       nytt={[
-        "Datasumpa: uten katalog, eierskap og metadata ble sjøen en fylling",
-        "Kompleksitet: Hadoop krevde spesialister – SQL-folket sto utenfor",
-        "To parallelle verdener: varehus for BI, sjø for ML – doble kopier, dobbel regning",
+        "The data swamp: without a catalog, ownership, and metadata, the lake became a landfill",
+        "Complexity: Hadoop needed specialists – the SQL people were left outside",
+        "Two parallel worlds: warehouse for BI, lake for ML – duplicate copies, double the bill",
       ]}
-      bunn="En sjø blir en sump når gjenfinnbarheten svikter – ikke når datakvaliteten gjør det."
+      bunn="A lake becomes a swamp when findability fails – not when data quality does."
     />
   );
 }
@@ -452,8 +452,8 @@ export function SlideSjoenSpeil() {
 export function SlideKapSkyen() {
   return (
     <ChapterSlide
-      title="2012 · Skyen"
-      subtitle="Problemet: kjøpe og drifte jernet selv, dimensjonert for toppene"
+      title="2012 · The cloud"
+      subtitle="The problem: buying and running your own hardware, sized for the peaks"
     />
   );
 }
@@ -461,7 +461,7 @@ export function SlideKapSkyen() {
 /* 17 – Skyen */
 export function SlideSkyen() {
   return (
-    <FigurSlide kicker="Løsningen · 2012–2016" tittel="Separer lagring og regnekraft">
+    <FigurSlide kicker="The solution · 2012–2016" tittel="Separate storage and compute">
       <SkyFigur />
     </FigurSlide>
   );
@@ -470,7 +470,7 @@ export function SlideSkyen() {
 /* 18 – Konvergensen */
 export function SlideLakehouse() {
   return (
-    <FigurSlide kicker="2019–2020" tittel="To spor møtes – og blir dataplattformen">
+    <FigurSlide kicker="2019–2020" tittel="Two tracks meet – and become the data platform">
       <KonvergensFigur />
     </FigurSlide>
   );
@@ -504,9 +504,9 @@ export function SlideAvslutning() {
             textAlign: "center",
           }}
         >
-          <div style={{ color: "var(--burgundy)" }}>Teknologien skifter.</div>
+          <div style={{ color: "var(--burgundy)" }}>The technology changes.</div>
           <div style={{ color: "var(--red)" }}>
-            Problemet består: å gjøre data om til beslutninger.
+            The problem remains: turning data into decisions.
           </div>
         </div>
       </Box>
@@ -523,9 +523,9 @@ export function SlideAvslutning() {
             lineHeight: 1.5,
           }}
         >
-          KI er neste kapittel – og hever innsatsen:
+          AI is the next chapter – and it raises the stakes:
           <br />
-          modellene blir aldri bedre enn dataene plattformen serverer dem.
+          the models will never be better than the data the platform serves them.
         </div>
       </Box>
     </>

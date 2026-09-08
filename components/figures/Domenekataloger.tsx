@@ -142,16 +142,16 @@ function IkonView() {
  * ===================================================================== */
 
 const LAG: { navn: string; farge: string; sub: string; tabeller: string[] }[] = [
-  { navn: "bronze", farge: BRONSE, sub: "rå AIS-meldinger – som de kom inn", tabeller: ["ais_raw"] },
-  { navn: "silver", farge: SOLV, sub: "vasket, deduplisert og beriket", tabeller: ["ais_clean", "skip"] },
-  { navn: "gold", farge: GULL, sub: "tracks, seilaser og utslipp – klare til bruk", tabeller: ["ais_tracks", "seilaser", "utslipp"] },
+  { navn: "bronze", farge: BRONSE, sub: "raw AIS messages – as they arrived", tabeller: ["ais_raw"] },
+  { navn: "silver", farge: SOLV, sub: "cleaned, deduplicated and enriched", tabeller: ["ais_clean", "ships"] },
+  { navn: "gold", farge: GULL, sub: "tracks, voyages and emissions – ready to use", tabeller: ["ais_tracks", "voyages", "emissions"] },
 ];
 
 const PRODUKTER_IDAG: { navn: string; sub: string }[] = [
-  { navn: "AIS-tracks", sub: "posisjoner og spor" },
-  { navn: "MarTraf", sub: "seilaser havn til havn" },
-  { navn: "MarU", sub: "utslipp per AIS-punkt" },
-  { navn: "HAIS", sub: "historiske uttrekk" },
+  { navn: "AIS tracks", sub: "positions and tracks" },
+  { navn: "MarTraf", sub: "voyages port to port" },
+  { navn: "MarU", sub: "emissions per AIS point" },
+  { navn: "HAIS", sub: "historical extracts" },
 ];
 
 function TabellChips({ tekster, hoyre, y }: { tekster: string[]; hoyre: number; y: number }) {
@@ -181,10 +181,10 @@ export function HvorViEr() {
       viewBox={`0 0 ${W} ${H}`}
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="I dag: AIS-data gjennom bronze, silver og gold, med dataprodukter ut av gold"
+      aria-label="Today: AIS data through bronze, silver and gold, with data products out of gold"
     >
       <PilDefs id="pil-idag" />
-      <Pill cx={620} text="I DAG – ÉN KILDE, ÉN KATALOGSTRUKTUR" w={400} />
+      <Pill cx={620} text="TODAY – ONE SOURCE, ONE CATALOG STRUCTURE" w={400} />
 
       {/* Kilden */}
       <g transform="translate(30 280)">
@@ -203,10 +203,10 @@ export function HvorViEr() {
           AIS
         </text>
         <text x={62} y={68} fontFamily="var(--font-sans)" fontSize={12.5} fill={SUB_FARGE}>
-          100 mill. rader/dag
+          100 million rows/day
         </text>
         <text x={62} y={86} fontFamily="var(--font-sans)" fontSize={12.5} fill={SUB_FARGE}>
-          ett domene, én kilde
+          one domain, one source
         </text>
       </g>
       <Pil d="M 268 335 H 315" marker="pil-idag" />
@@ -218,7 +218,7 @@ export function HvorViEr() {
       </text>
       <rect x={587} y={142} width={36} height={3} rx={1.5} fill="var(--mint)" />
       <text x={605} y={166} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={KREM_DUS}>
-        tre kataloger – ett domene
+        three catalogs – one domain
       </text>
 
       {LAG.map((lag, i) => {
@@ -252,7 +252,7 @@ export function HvorViEr() {
           letterSpacing={1.5}
           fill={SUB_FARGE}
         >
-          DATAPRODUKTER
+          DATA PRODUCTS
         </text>
         {PRODUKTER_IDAG.map((p, i) => {
           const y = 360 + i * 56;
@@ -272,7 +272,7 @@ export function HvorViEr() {
 
       <Steg at={2}>
         <text x={620} y={612} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={15.5} fill="var(--red)">
-          Fungerer fint for ett domene. Neste år kommer toll, HR og økonomi – og fyrtårnene.
+          Works fine for one domain. Next year come customs, HR and finance – and the lighthouses.
         </text>
       </Steg>
     </svg>
@@ -283,7 +283,7 @@ export function HvorViEr() {
  * HVOR VI SKAL – domenekataloger, datakontrakt, sentral dataprodukt-katalog
  * ===================================================================== */
 
-const DOMENER: string[] = ["toll", "ais", "hr_og_okonomi", "prediktivt_vedlikehold_fyrtaarn"];
+const DOMENER: string[] = ["customs", "ais", "hr_and_finance", "predictive_maintenance_lighthouses"];
 
 const KONTRAKT_LINJER: [string, string][] = [
   ["apiVersion:", " v3.0.2"],
@@ -294,66 +294,80 @@ const KONTRAKT_LINJER: [string, string][] = [
   ["status:", " active"],
   ["schema:", ""],
   ["  - name:", " mmsi"],
-  ["  - name:", " fart_knop"],
+  ["  - name:", " speed_knots"],
 ];
 
 const VIEWS: { navn: string; kilde: string }[] = [
   { navn: "ais.tracks", kilde: "view → ais.gold.tracks" },
-  { navn: "ais.utslipp", kilde: "view → ais.gold.utslipp" },
-  { navn: "toll.deklarasjoner", kilde: "view → toll.gold.deklarasjoner" },
-  { navn: "hr_og_okonomi.kostnader", kilde: "view → hr_og_okonomi.gold.kostnader" },
-  { navn: "fyrtaarn.tilstand", kilde: "view → …vedlikehold_fyrtaarn.gold.tilstand" },
+  { navn: "ais.emissions", kilde: "view → ais.gold.emissions" },
+  { navn: "customs.declarations", kilde: "view → customs.gold.declarations" },
+  { navn: "hr_and_finance.costs", kilde: "view → hr_and_finance.gold.costs" },
+  { navn: "lighthouses.condition", kilde: "view → …maintenance_lighthouses.gold.condition" },
 ];
 
 const DOMENE_X = 40;
 const DOMENE_W = 380;
 const DOMENE_H = 110;
 const DOMENE_GAP = 14;
+const DOMENE_RY = 20;
 const domeneY = (i: number) => 70 + i * (DOMENE_H + DOMENE_GAP);
 
 function DomeneKort({ navn, y, uthevet }: { navn: string; y: number; uthevet: boolean }) {
-  const medaljong = [
-    { navn: "bronze", farge: BRONSE },
-    { navn: "silver", farge: SOLV },
-    { navn: "gold", farge: GULL },
-  ];
+  const x = DOMENE_X;
+  const w = DOMENE_W;
+  const rx = w / 2;
+  const ry = DOMENE_RY;
+  const cx = x + rx;
+  const top = y + ry;
+  const bot = y + DOMENE_H - ry;
+  const omriss = `M ${x} ${top} A ${rx} ${ry} 0 0 0 ${x + w} ${top} L ${x + w} ${bot} A ${rx} ${ry} 0 0 1 ${x} ${bot} Z`;
   return (
     <g>
-      <rect
-        x={DOMENE_X}
-        y={y}
-        width={DOMENE_W}
-        height={DOMENE_H}
-        rx={14}
+      <path
+        d={omriss}
         fill="var(--teal)"
         stroke={uthevet ? "var(--mint)" : "none"}
         strokeWidth={uthevet ? 2 : 0}
         style={{ transition: "stroke 300ms ease" }}
       />
-      <text x={DOMENE_X + 20} y={y + 32} fontFamily={MONO} fontSize={16} fill="var(--cream)">
+      <ellipse cx={cx} cy={top} rx={rx} ry={ry} fill="color-mix(in srgb, var(--teal) 72%, var(--mint))" />
+      <path
+        d={`M ${x} ${top} A ${rx} ${ry} 0 0 1 ${x + w} ${top}`}
+        fill="none"
+        stroke="rgba(251, 240, 229, 0.28)"
+        strokeWidth={1.3}
+      />
+      {uthevet && (
+        <ellipse
+          cx={cx}
+          cy={top}
+          rx={rx}
+          ry={ry}
+          fill="none"
+          stroke="var(--mint)"
+          strokeWidth={2}
+          style={{ transition: "stroke 300ms ease" }}
+        />
+      )}
+      <text
+        x={cx}
+        y={top + 34}
+        textAnchor="middle"
+        fontFamily={MONO}
+        fontSize={15}
+        fill="var(--cream)"
+      >
         {navn}
       </text>
-      {medaljong.map((m, j) => {
-        const mx = DOMENE_X + 20 + j * 110;
-        return (
-          <g key={m.navn}>
-            <rect x={mx} y={y + 48} width={104} height={18} rx={4} fill={m.farge} opacity={0.9} />
-            <text
-              x={mx + 52}
-              y={y + 61}
-              textAnchor="middle"
-              fontFamily={MONO}
-              fontSize={10.5}
-              fontWeight={600}
-              fill="#2a0813"
-            >
-              {m.navn}
-            </text>
-          </g>
-        );
-      })}
-      <text x={DOMENE_X + 20} y={y + 92} fontFamily="var(--font-sans)" fontSize={11.5} fill={KREM_DUS}>
-        eget team · eget kostnadssenter · eget forvaltningsansvar
+      <text
+        x={cx}
+        y={top + 56}
+        textAnchor="middle"
+        fontFamily="var(--font-sans)"
+        fontSize={11.5}
+        fill={KREM_DUS}
+      >
+        own team · own cost center · own stewardship
       </text>
     </g>
   );
@@ -403,12 +417,12 @@ export function HvorViSkal() {
       viewBox={`0 0 ${W} ${H}`}
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="Dit vi skal: domenekataloger til venstre, datakontrakt som pushes til et sentralt repo og automatisk blir et view i dataprodukter-katalogen"
+      aria-label="Where we're going: domain catalogs on the left, a data contract pushed to a central repo that automatically becomes a view in the data products catalog"
     >
       <PilDefs id="pil-skal" />
-      <Pill cx={230} text="DOMENEKATALOGER" w={200} />
-      <Pill cx={635} text="DATAKONTRAKT" w={170} />
-      <Pill cx={1030} text="SENTRAL KATALOG" w={200} />
+      <Pill cx={230} text="DOMAIN CATALOGS" w={200} />
+      <Pill cx={635} text="DATA CONTRACT" w={170} />
+      <Pill cx={1030} text="CENTRAL CATALOG" w={200} />
 
       {/* Domenene – én katalog hver */}
       {DOMENER.map((d, i) => (
@@ -472,10 +486,10 @@ export function HvorViSkal() {
             <IkonGit />
           </g>
           <text x={54} y={34} fontFamily={MONO} fontSize={14} fill="var(--cream)">
-            kystverket/datakontrakter
+            kystverket/data-contracts
           </text>
           <text x={54} y={55} fontFamily="var(--font-sans)" fontSize={11.5} fill={KREM_DUS}>
-            sentralt repo · PR og CI-sjekk
+            central repo · PR and CI checks
           </text>
         </g>
       </Steg>
@@ -492,16 +506,16 @@ export function HvorViSkal() {
           fill="var(--red)"
           transform="rotate(-90 806 330)"
         >
-          automatisk – CI oppretter view
+          automatic – CI creates the view
         </text>
 
         <rect x={860} y={70} width={340} height={482} rx={20} fill="var(--teal)" />
         <text x={1030} y={118} textAnchor="middle" fontFamily="var(--font-serif)" fontSize={28} fill="var(--cream)">
-          dataprodukter
+          data products
         </text>
         <rect x={1012} y={131} width={36} height={3} rx={1.5} fill="var(--mint)" />
         <text x={1030} y={158} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={KREM_DUS}>
-          én katalog · alle produkter · som views
+          one catalog · all products · as views
         </text>
         <ViewRad {...VIEWS[0]} y={185} ny />
       </Steg>
@@ -530,7 +544,7 @@ export function HvorViSkal() {
 
       <Steg at={5}>
         <text x={620} y={612} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={15.5} fill="var(--red)">
-          Data delt på domener – tydelig eierskap, tydelig kostnadssenter, tydelig forvaltningsansvar
+          Data split by domain – clear ownership, clear cost center, clear stewardship
         </text>
       </Steg>
     </svg>

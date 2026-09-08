@@ -118,7 +118,7 @@ Doble kopier, doble pipelines, dobbel regning.
 Både varehus og Hadoop delte én forutsetning: du eide jernet.
 Kapasitet planlagt år i forveien, dimensjonert for toppene.
 
-## skyen – Skill lagring fra regnekraft
+## skyen – Separer lagring og regnekraft
 Redshift (2012): første petabyte-varehus som ren skytjeneste –
 ti ganger mer etterspørsel enn AWS hadde planlagt.
 Snowflakes grep: lagring og regnekraft er to uavhengige tjenester.

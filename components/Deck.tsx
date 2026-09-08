@@ -8,12 +8,18 @@ import {
   useState,
 } from "react";
 import Link from "next/link";
-import { getPresentation } from "@/presentations";
+import { getPresentation, type SlideDef } from "@/presentations";
+import {
+  chapterOf,
+  isChapterFullyHidden,
+  toggleChapterHidden,
+} from "@/presentations/chapters";
 import {
   SLIDE_W,
   SlideCanvas,
   useContainerScale,
 } from "./SlideCanvas";
+import { usePdfExport } from "./PdfExport";
 import styles from "./Deck.module.css";
 
 export default function Deck({ presentationId }: { presentationId: string }) {
@@ -28,6 +34,10 @@ export default function Deck({ presentationId }: { presentationId: string }) {
   const [step, setStep] = useState(0);
   const [hidden, setHidden] = useState<Set<string>>(new Set());
   const [overview, setOverview] = useState(false);
+  const [exportMode, setExportMode] = useState(false);
+  const [selected, setSelected] = useState<Set<string>>(() => new Set());
+  const [exportError, setExportError] = useState<string | null>(null);
+  const { exportSlides, captureNode, progress, exporting } = usePdfExport();
   const stageRef = useRef<HTMLDivElement>(null);
   const scale = useContainerScale(stageRef);
 
@@ -126,18 +136,66 @@ export default function Deck({ presentationId }: { presentationId: string }) {
     [hidden, persistHidden]
   );
 
+  const toggleChapter = useCallback(
+    (chapterId: string) => {
+      const chapter = chapterOf(presentation, chapterId);
+      if (!chapter) return;
+      persistHidden(toggleChapterHidden(chapter, hidden));
+    },
+    [presentation, hidden, persistHidden]
+  );
+
+  const goChapter = useCallback(
+    (dir: 1 | -1) => {
+      const chapters = presentation.chapters;
+      if (!chapters?.length) return;
+      const currentId = slides[current]?.chapterId;
+      const idx = chapters.findIndex((c) => c.id === currentId);
+      if (idx < 0) return;
+      const next = chapters[idx + dir];
+      if (!next) return;
+      const first = slides.findIndex((s) => s.chapterId === next.id);
+      if (first >= 0) {
+        setCurrent(first);
+        setStep(0);
+      }
+    },
+    [presentation.chapters, slides, current]
+  );
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+        if (overview || exporting) return;
         e.preventDefault();
         go(1);
       } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+        if (overview || exporting) return;
         e.preventDefault();
         go(-1);
-      } else if (e.key === "g" || e.key === "G" || e.key === "Escape") {
-        setOverview((o) => (e.key === "Escape" ? false : !o));
+      } else if (e.key === "Escape") {
+        if (exporting) {
+          e.preventDefault();
+          return;
+        }
+        if (exportMode) {
+          setExportMode(false);
+          return;
+        }
+        setOverview(false);
+      } else if (e.key === "g" || e.key === "G") {
+        if (exporting) return;
+        setOverview((o) => !o);
+        setExportMode(false);
+      } else if ((e.key === "h" || e.key === "H") && e.shiftKey) {
+        const id = slides[current]?.chapterId;
+        if (id) toggleChapter(id);
       } else if (e.key === "h" || e.key === "H") {
         toggleHidden(slides[current].id);
+      } else if (e.key === "[") {
+        goChapter(-1);
+      } else if (e.key === "]") {
+        goChapter(1);
       } else if (e.key === "f" || e.key === "F") {
         if (document.fullscreenElement) document.exitFullscreen();
         else document.documentElement.requestFullscreen();
@@ -155,9 +213,75 @@ export default function Deck({ presentationId }: { presentationId: string }) {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go, toggleHidden, current, visibleIndexes, slides]);
+  }, [
+    go,
+    toggleHidden,
+    toggleChapter,
+    goChapter,
+    current,
+    visibleIndexes,
+    slides,
+    exportMode,
+    exporting,
+    overview,
+  ]);
 
   const isCurrentHidden = hidden.has(slides[current]?.id);
+  const currentChapter = chapterOf(presentation, slides[current]?.chapterId);
+  const chapters = presentation.chapters;
+
+  const startExportMode = useCallback(() => {
+    setSelected(new Set(slides.map((s) => s.id)));
+    setExportError(null);
+    setExportMode(true);
+  }, [slides]);
+
+  const toggleSelected = useCallback((id: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+
+  const toggleChapterSelected = useCallback(
+    (chapterId: string) => {
+      const chapter = chapterOf(presentation, chapterId);
+      if (!chapter) return;
+      const ids = chapter.slides.map((s) => s.id);
+      setSelected((prev) => {
+        const allOn = ids.every((id) => prev.has(id));
+        const next = new Set(prev);
+        if (allOn) ids.forEach((id) => next.delete(id));
+        else ids.forEach((id) => next.add(id));
+        return next;
+      });
+    },
+    [presentation]
+  );
+
+  const runExport = useCallback(async () => {
+    const chosen = slides.filter((s) => selected.has(s.id));
+    if (!chosen.length) return;
+    setExportError(null);
+    try {
+      await exportSlides(chosen, {
+        title: presentation.title,
+        filename: `${presentation.id}.pdf`,
+      });
+    } catch (err) {
+      setExportError(
+        err instanceof Error ? err.message : "Kunne ikke lage PDF."
+      );
+    }
+  }, [slides, selected, exportSlides, presentation.title, presentation.id]);
+
+  const closeOverview = useCallback(() => {
+    if (exporting) return;
+    setExportMode(false);
+    setOverview(false);
+  }, [exporting]);
 
   return (
     <div className={styles.root}>
@@ -203,6 +327,7 @@ export default function Deck({ presentationId }: { presentationId: string }) {
             : `${currentVisiblePos + 1} / ${visibleIndexes.length}`}
           <span className={styles.counterDetail}>
             (slide {current + 1} av {slides.length}
+            {currentChapter && ` · ${currentChapter.title}`}
             {(slides[current].steps ?? 0) > 0 &&
               ` · steg ${step}/${slides[current].steps}`}
             )
@@ -224,6 +349,17 @@ export default function Deck({ presentationId }: { presentationId: string }) {
           >
             {isCurrentHidden ? "Vis slide" : "Skjul slide"}
           </button>
+          {currentChapter && (
+            <button
+              className={styles.btn}
+              onClick={() => toggleChapter(currentChapter.id)}
+              title="Skjul/vis hele kapittelet (Shift+H)"
+            >
+              {isChapterFullyHidden(currentChapter, hidden)
+                ? "Vis kapittel"
+                : "Skjul kapittel"}
+            </button>
+          )}
           <button
             className={styles.btn}
             onClick={() => setOverview((o) => !o)}
@@ -244,62 +380,255 @@ export default function Deck({ presentationId }: { presentationId: string }) {
         </div>
       </div>
 
+      {captureNode}
+
       {overview && (
         <div className={styles.overview}>
           <div className={styles.overviewHeader}>
             <h2>{presentation.title}</h2>
             <p>
-              Klikk for å gå til en slide. Bruk øye-knappen for å skjule eller
-              vise den i presentasjonen.
+              {exportMode
+                ? "Huk av slidene som skal med i PDF-en. Hver slide tas med én gang, på siste steg."
+                : "Klikk for å gå til en slide. Bruk øye-knappen for å skjule eller vise den. Kapitler er bare synlige her – ikke for publikum."}
             </p>
-            <button
-              className={styles.btn}
-              onClick={() => setOverview(false)}
-            >
-              Lukk (Esc)
-            </button>
-          </div>
-          <div className={styles.grid}>
-            {slides.map((s, i) => {
-              const isHidden = hidden.has(s.id);
-              return (
-                <div
-                  key={s.id}
-                  className={`${styles.thumb} ${
-                    i === current ? styles.thumbActive : ""
-                  } ${isHidden ? styles.thumbHidden : ""}`}
+            <div className={styles.overviewActions}>
+              {!exportMode && (
+                <button
+                  className={styles.btn}
+                  onClick={startExportMode}
+                  title="Last ned slides som PDF"
                 >
-                  <button
-                    className={styles.thumbCanvasWrap}
-                    onClick={() => {
-                      setCurrent(i);
-                      setStep(0);
-                      setOverview(false);
-                    }}
-                    title={s.name}
-                  >
-                    <div className={styles.thumbCanvas}>
-                      <SlideCanvas slide={s} scale={200 / SLIDE_W} />
-                    </div>
-                  </button>
-                  <div className={styles.thumbFooter}>
-                    <span className={styles.thumbLabel}>
-                      {i + 1}. {s.name}
-                    </span>
-                    <button
-                      className={styles.eyeBtn}
-                      onClick={() => toggleHidden(s.id)}
-                      title={isHidden ? "Vis slide" : "Skjul slide"}
-                    >
-                      {isHidden ? "🚫" : "👁"}
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+                  Eksporter PDF
+                </button>
+              )}
+              <button
+                className={styles.btn}
+                onClick={closeOverview}
+                disabled={exporting}
+              >
+                Lukk (Esc)
+              </button>
+            </div>
           </div>
+
+          {exportMode && (
+            <div className={styles.exportBar}>
+              {exporting && progress ? (
+                <p>
+                  Lager PDF… slide {progress.current} av {progress.total}
+                </p>
+              ) : (
+                <>
+                  <button
+                    className={styles.btn}
+                    onClick={() =>
+                      setSelected(new Set(slides.map((s) => s.id)))
+                    }
+                  >
+                    Alle
+                  </button>
+                  <button
+                    className={styles.btn}
+                    onClick={() => setSelected(new Set())}
+                  >
+                    Ingen
+                  </button>
+                  <button
+                    className={`${styles.btn} ${styles.btnPrimary}`}
+                    disabled={selected.size === 0}
+                    onClick={runExport}
+                  >
+                    Last ned PDF ({selected.size})
+                  </button>
+                  <button
+                    className={styles.btn}
+                    onClick={() => setExportMode(false)}
+                  >
+                    Avbryt
+                  </button>
+                </>
+              )}
+              {exportError && (
+                <p className={styles.exportError}>{exportError}</p>
+              )}
+            </div>
+          )}
+
+          {chapters?.length ? (
+            chapters.map((ch) => {
+              const chapterHidden = isChapterFullyHidden(ch, hidden);
+              const chapterIds = ch.slides.map((s) => s.id);
+              const chapterSelected =
+                chapterIds.length > 0 &&
+                chapterIds.every((id) => selected.has(id));
+              return (
+                <section key={ch.id} className={styles.chapter}>
+                  <div className={styles.chapterHeader}>
+                    <div>
+                      <h3 className={styles.chapterTitle}>{ch.title}</h3>
+                      <span className={styles.chapterMeta}>
+                        {ch.slides.length} slides
+                        {chapterHidden && " · skjult"}
+                      </span>
+                    </div>
+                    <div className={styles.chapterActions}>
+                      {exportMode && (
+                        <button
+                          className={styles.btn}
+                          onClick={() => toggleChapterSelected(ch.id)}
+                          disabled={exporting}
+                        >
+                          {chapterSelected ? "Fjern kapittel" : "Velg kapittel"}
+                        </button>
+                      )}
+                      {!exportMode && (
+                        <button
+                          className={styles.btn}
+                          onClick={() => toggleChapter(ch.id)}
+                          title={
+                            chapterHidden
+                              ? "Vis kapittel"
+                              : "Skjul hele kapittelet"
+                          }
+                        >
+                          {chapterHidden ? "Vis kapittel" : "Skjul kapittel"}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                  <div className={styles.grid}>
+                    {ch.slides.map((s) => {
+                      const i = slides.findIndex((x) => x.id === s.id);
+                      if (i < 0) return null;
+                      return (
+                        <OverviewThumb
+                          key={s.id}
+                          slide={slides[i]}
+                          index={i}
+                          isCurrent={i === current}
+                          isHidden={hidden.has(s.id)}
+                          exportMode={exportMode}
+                          selected={selected.has(s.id)}
+                          exporting={exporting}
+                          onGo={() => {
+                            setCurrent(i);
+                            setStep(0);
+                            setExportMode(false);
+                            setOverview(false);
+                          }}
+                          onToggleHidden={() => toggleHidden(s.id)}
+                          onToggleSelected={() => toggleSelected(s.id)}
+                        />
+                      );
+                    })}
+                  </div>
+                </section>
+              );
+            })
+          ) : (
+            <div className={styles.grid}>
+              {slides.map((s, i) => (
+                <OverviewThumb
+                  key={s.id}
+                  slide={s}
+                  index={i}
+                  isCurrent={i === current}
+                  isHidden={hidden.has(s.id)}
+                  exportMode={exportMode}
+                  selected={selected.has(s.id)}
+                  exporting={exporting}
+                  onGo={() => {
+                    setCurrent(i);
+                    setStep(0);
+                    setExportMode(false);
+                    setOverview(false);
+                  }}
+                  onToggleHidden={() => toggleHidden(s.id)}
+                  onToggleSelected={() => toggleSelected(s.id)}
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
+    </div>
+  );
+}
+
+function OverviewThumb({
+  slide,
+  index,
+  isCurrent,
+  isHidden,
+  exportMode,
+  selected,
+  exporting,
+  onGo,
+  onToggleHidden,
+  onToggleSelected,
+}: {
+  slide: SlideDef;
+  index: number;
+  isCurrent: boolean;
+  isHidden: boolean;
+  exportMode: boolean;
+  selected: boolean;
+  exporting: boolean;
+  onGo: () => void;
+  onToggleHidden: () => void;
+  onToggleSelected: () => void;
+}) {
+  return (
+    <div
+      className={`${styles.thumb} ${
+        isCurrent && !exportMode ? styles.thumbActive : ""
+      } ${isHidden ? styles.thumbHidden : ""} ${
+        exportMode && selected ? styles.thumbSelected : ""
+      }`}
+    >
+      <button
+        className={styles.thumbCanvasWrap}
+        onClick={() => {
+          if (exportMode) onToggleSelected();
+          else onGo();
+        }}
+        disabled={exporting}
+        title={
+          exportMode
+            ? selected
+              ? "Fjern fra PDF"
+              : "Velg til PDF"
+            : slide.name
+        }
+      >
+        <div className={styles.thumbCanvas}>
+          <SlideCanvas slide={slide} scale={200 / SLIDE_W} />
+        </div>
+      </button>
+      <div className={styles.thumbFooter}>
+        {exportMode && (
+          <input
+            type="checkbox"
+            className={styles.thumbCheckbox}
+            checked={selected}
+            onChange={onToggleSelected}
+            disabled={exporting}
+            aria-label={`Velg ${slide.name}`}
+          />
+        )}
+        <span className={styles.thumbLabel}>
+          {index + 1}. {slide.name}
+        </span>
+        {!exportMode && (
+          <button
+            className={styles.eyeBtn}
+            onClick={onToggleHidden}
+            title={isHidden ? "Vis slide" : "Skjul slide"}
+          >
+            {isHidden ? "🚫" : "👁"}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

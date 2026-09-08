@@ -4,8 +4,8 @@ import { Box, ChapterSlide, Reveal, pt } from "../parts";
 export function SlideEffekter() {
   return (
     <ChapterSlide
-      title="Hva får du igjen?"
-      subtitle="Fire effekter, med eksempler fra sjøveien"
+      title="What do you get out of it?"
+      subtitle="Four effects, with examples from the sea route"
     />
   );
 }
@@ -88,9 +88,9 @@ export function SlideEffektKvalitet() {
   return (
     <Effekt
       nummer="1"
-      etikett="Kvalitet"
-      paastand="Data du tør å ta beslutninger på"
-      eksempel="Utslippstallene våre starter i 2016. Ikke fordi vi mangler data før det, men fordi vi vet nøyaktig hva som endret seg i innsamlingen i 2015. Den kunnskapen ligger i plattformen, ikke i hodet på én person."
+      etikett="Quality"
+      paastand="Data you dare to make decisions on"
+      eksempel="Our emission numbers start in 2016. Not because we're missing data before that, but because we know exactly what changed in the collection in 2015. That knowledge lives in the platform, not in one person's head."
     />
   );
 }
@@ -99,9 +99,9 @@ export function SlideEffektEtterlevelse() {
   return (
     <Effekt
       nummer="2"
-      etikett="Etterlevelse"
-      paastand="Reglene bygges inn én gang, ett sted"
-      eksempel="Fiskefartøy under 15 meter og fritidsbåter under 45 meter skal ikke ut i de åpne dataene. Det filteret ligger i plattformen. Hver konsument slipper å huske det selv."
+      etikett="Compliance"
+      paastand="The rules are built in once, in one place"
+      eksempel="Fishing vessels under 15 meters and leisure boats under 45 meters must not go into the open data. That filter lives in the platform. No consumer has to remember it on their own."
     />
   );
 }
@@ -110,9 +110,9 @@ export function SlideEffektEffektivitet() {
   return (
     <Effekt
       nummer="3"
-      etikett="Effektivitet"
-      paastand="Selvbetjening i stedet for bestilling"
-      eksempel="Før: en e-post til en analytiker, og så vente. Nå: hvem som helst bestiller inntil ett år med historikk på hais.kystverket.no, og får en Parquet-fil i innboksen."
+      etikett="Efficiency"
+      paastand="Self-service instead of requests"
+      eksempel="Before: an email to an analyst, then waiting. Now: anyone can order up to a year of history at hais.kystverket.no, and get a Parquet file in their inbox."
     />
   );
 }
@@ -121,9 +121,9 @@ export function SlideEffektFremtid() {
   return (
     <Effekt
       nummer="4"
-      etikett="Fremtidsrettet"
-      paastand="KI der dataene allerede bor"
-      eksempel="Utslippsmodellen bruker nevrale nett til å fylle hull i skipsregisteret. Modellen kjører på samme plattform som dataene, med samme tilgangsstyring. Ingen kopiering ut til et sideprosjekt."
+      etikett="Future-ready"
+      paastand="AI where the data already lives"
+      eksempel="The emission model uses neural networks to fill gaps in the ship registry. The model runs on the same platform as the data, with the same access control. No copying out to a side project."
     />
   );
 }

@@ -1,6 +1,6 @@
-import type { PresentationDef, SlideDef } from "../types";
-import { withNotes } from "../notes";
+import type { SlideDef } from "../types";
 import notesRaw from "./notes.md";
+import { definePresentation } from "../chapters";
 import {
   Slide01Forside,
   Slide02Hvorfor,
@@ -38,7 +38,7 @@ import {
   Slide33Avslutning,
 } from "./hvordan";
 
-const SLIDES: SlideDef[] = [
+const INTRO: SlideDef[] = [
   { id: "forside", name: "Forside", component: Slide01Forside },
   { id: "hvorfor", name: "Hvorfor bygger 'alle' dataplattform?", component: Slide02Hvorfor },
   { id: "om-peter", name: "Peter Bull", component: Slide03OmPeter },
@@ -48,17 +48,26 @@ const SLIDES: SlideDef[] = [
   { id: "stoe-data", name: "Stø har et enormt datagrunnlag", component: Slide07Stoe },
   { id: "hva-er", name: "Hva er en dataplattform", component: Slide08HvaEr },
   { id: "logoer", name: "Databricks / Snowflake / Fabric", component: Slide09Logoer },
+];
+
+const ARKITEKTUR: SlideDef[] = [
   { id: "diagram-1", name: "Arkitektur: kilder", component: Slide10Diagram },
   { id: "diagram-2", name: "Arkitektur: + lagring", component: Slide11Diagram },
   { id: "diagram-3", name: "Arkitektur: + transformering", component: Slide12Diagram },
   { id: "diagram-4", name: "Arkitektur: + eksponering", component: Slide13Diagram },
   { id: "diagram-5", name: "Arkitektur: + konsumenter", component: Slide14Diagram },
   { id: "diagram-6", name: "Arkitektur: komplett", component: Slide15Diagram },
+];
+
+const PRODUKT: SlideDef[] = [
   { id: "samle-data", name: "Samle data fra kildesystemer", component: Slide16Samle },
   { id: "data-som-produkt", name: "Data som produkt", component: Slide17DataSomProdukt },
   { id: "dataprodukt", name: "Dataprodukt", component: Slide18Dataprodukt },
   { id: "datakontrakt", name: "Datakontrakt", component: Slide19Datakontrakt },
   { id: "yaml", name: "Datakontrakt som YAML", component: Slide20Yaml },
+];
+
+const HVORDAN: SlideDef[] = [
   { id: "hvordan", name: "Hvordan begynner man?", component: Slide26Hvordan },
   { id: "roller", name: "1. Definere roller", component: Slide27Roller },
   { id: "dataprodukter-forst", name: "2. Bygge dataprodukter først", component: Slide28Dataprodukter },
@@ -69,11 +78,17 @@ const SLIDES: SlideDef[] = [
   { id: "avslutning", name: "Vi elsker å løse utfordringer!", component: Slide33Avslutning },
 ];
 
-export const stoeDataplattform: PresentationDef = {
+export const stoeDataplattform = definePresentation({
   id: "stoe-dataplattform",
   title: "Mer innsikt med en moderne dataplattform",
   description:
     "Hvorfor og hvordan bygge en moderne dataplattform – presentert for Stø.",
   date: "August 2026",
-  slides: withNotes(SLIDES, notesRaw),
-};
+  notes: notesRaw,
+  chapters: [
+    { id: "intro", title: "Hvorfor dataplattform", slides: INTRO },
+    { id: "arkitektur", title: "Arkitektur", slides: ARKITEKTUR },
+    { id: "produkt", title: "Data som produkt", slides: PRODUKT },
+    { id: "hvordan", title: "Hvordan begynner man", slides: HVORDAN },
+  ],
+});

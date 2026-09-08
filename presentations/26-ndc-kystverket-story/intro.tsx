@@ -26,7 +26,7 @@ export function SlideScene() {
             color: "var(--burgundy)",
           }}
         >
-          Klokka er 03:14.
+          It&apos;s 03:14.
         </div>
         <div
           style={{
@@ -37,7 +37,7 @@ export function SlideScene() {
             ...linje2,
           }}
         >
-          Stadhavet. Februar. Nordvest kuling.
+          The sea off Stad. February. A gale from the northwest.
         </div>
         <div
           style={{
@@ -48,7 +48,7 @@ export function SlideScene() {
             ...linje3,
           }}
         >
-          Et lasteskip går nordover i ni knop.
+          A cargo ship heading north at nine knots.
         </div>
       </Box>
       <Reveal at={3}>
@@ -105,7 +105,7 @@ export function SlideSignal() {
             color: "var(--burgundy)",
           }}
         >
-          Hvert tiende sekund sier skipet:
+          Every ten seconds, the ship says:
         </div>
       </Box>
       <Reveal at={1}>
@@ -118,10 +118,10 @@ export function SlideSignal() {
             padding: "22px 30px",
           }}
         >
-          {rad("HVEM", "MMSI 257 123 000")}
-          {rad("HVOR", "62,19° N  5,08° Ø")}
-          {rad("HVOR FORT", "9,2 knop")}
-          {rad("HVOR HEN", "kurs 021°")}
+          {rad("WHO", "MMSI 257 123 000")}
+          {rad("WHERE", "62.19° N  5.08° E")}
+          {rad("HOW FAST", "9.2 knots")}
+          {rad("WHERE TO", "course 021°")}
           {rad("STATUS", "under way using engine")}
         </Box>
       </Reveal>
@@ -138,9 +138,9 @@ export function SlideSignal() {
               color: "var(--red)",
             }}
           >
-            Ingen om bord tenker på det. Meldingen bare går.
+            Nobody on board thinks about it. The message just goes.
             <br />
-            Ut i mørket, over VHF.
+            Out into the dark, over VHF.
           </div>
         </Box>
       </Reveal>
@@ -155,7 +155,7 @@ export function SlideNais() {
       <Img
         box={[168, 40, 944, 590]}
         src={`${MEDIA}/nais.png`}
-        alt="NAIS – sanntidskart over skipstrafikken langs norskekysten"
+        alt="NAIS – real-time map of ship traffic along the Norwegian coast"
       />
       <Reveal at={1}>
         <Box
@@ -173,7 +173,7 @@ export function SlideNais() {
               color: "var(--red)",
             }}
           >
-            nais.kystverket.no. Norskekysten akkurat nå. Åpent for alle.
+            nais.kystverket.no. The Norwegian coast right now. Open to everyone.
           </div>
         </Box>
       </Reveal>
@@ -201,7 +201,7 @@ export function SlideHundreMillioner() {
             whiteSpace: "nowrap",
           }}
         >
-          100 000 000
+          100,000,000
         </div>
       </Box>
       <Reveal at={1}>
@@ -221,7 +221,7 @@ export function SlideHundreMillioner() {
               textAlign: "center",
             }}
           >
-            slike meldinger. Hver eneste dag.
+            messages like that. Every single day.
           </div>
         </Box>
       </Reveal>
@@ -243,8 +243,8 @@ export function SlideHundreMillioner() {
               textAlign: "center",
             }}
           >
-            Leste du én melding i sekundet, uten pause, ville du brukt over tre år
-            på én dags data. Og i morgen kommer det en ny dag.
+            If you read one message per second, without a break, you&apos;d spend
+            over three years on one day&apos;s data. And tomorrow there&apos;s a new day.
           </div>
         </Box>
       </Reveal>
@@ -278,10 +278,10 @@ export function SlideForside() {
             color: "var(--burgundy)",
           }}
         >
-          100 millioner rader om dagen
+          100 million rows a day
           <br />
           <span style={{ color: "var(--red)" }}>
-            Historien om dataplattformen bak sjøveien
+            The story of the data platform behind the sea route
           </span>
         </div>
       </Box>
@@ -342,14 +342,14 @@ export function SlideOmPeter() {
           Peter Bull
         </div>
       </Box>
-      {item(1, [86.6, 268.4, 500, 52.9], 40, "Dataplattformutvikler i Miles")}
+      {item(1, [86.6, 268.4, 500, 52.9], 40, "Data platform developer at Miles")}
       {item(
         2,
         [86.6, 351.1, 575.5, 88.5],
         76.5,
-        "Bygger dataplattformen til Kystverket. Har bygget for både offentlig og privat sektor"
+        "Building the data platform for the Norwegian Coastal Administration. Has built for both the public and private sector"
       )}
-      {item(3, [86.6, 470.5, 425.6, 62.9], 40, "Azure og Databricks, hver dag")}
+      {item(3, [86.6, 470.5, 425.6, 62.9], 40, "Azure and Databricks, every day")}
     </>
   );
 }
