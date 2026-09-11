@@ -1,5 +1,15 @@
+import type { ReactNode } from "react";
 import { Box, ChapterSlide, Img, Reveal, pt, useRevealStyle } from "../parts";
 import { BaatSignal } from "@/components/figures/BaatSignal";
+import {
+  AisKjede,
+  Bolgestripe,
+  Fyr,
+  Lyttepost,
+  Oljevern,
+  Skipsradar,
+  type LyttepostType,
+} from "@/components/figures/strek";
 
 const MEDIA = "/media/26-ndc-kystverket";
 
@@ -29,7 +39,10 @@ export function SlideVisjon() {
   const linje2 = useRevealStyle(1);
   return (
     <>
-      <Box box={[48.4, 230, 1183.1, 260]}>
+      <Box box={[430, 30, 420, 200]}>
+        <Fyr />
+      </Box>
+      <Box box={[48.4, 250, 1183.1, 260]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
@@ -67,14 +80,16 @@ export function SlideOppdrag() {
     tittel: string,
     punkter: string[],
     farge: string,
+    figur: ReactNode,
   ) => (
     <Reveal at={at}>
-      <Box box={[x, 170, 540, 400]}>
+      <Box box={[x + 140, 462, 260, 124]}>{figur}</Box>
+      <Box box={[x, 150, 540, 300]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(34),
-            lineHeight: 1.15,
+            fontSize: pt(28),
+            lineHeight: 1.2,
             color: farge,
           }}
         >
@@ -82,9 +97,9 @@ export function SlideOppdrag() {
         </div>
         <div
           style={{
-            marginTop: 28,
+            marginTop: 22,
             display: "grid",
-            gap: 16,
+            gap: 14,
           }}
         >
           {punkter.map((p) => (
@@ -125,26 +140,28 @@ export function SlideOppdrag() {
         66,
         "Safe and efficient passage",
         [
-          "Lighthouses, lights and sea marks along the whole coast",
-          "The pilot service: someone who knows the waters, on board the big ships",
-          "Vessel traffic centers watching the traffic around the clock",
+          "Lighthouses, lights and sea marks",
+          "The pilot service",
+          "Vessel traffic centers, around the clock",
         ],
         "var(--teal)",
+        <Fyr />,
       )}
       {halvdel(
         2,
         670,
         "Emergency response to acute pollution",
         [
-          "Depots with booms and equipment along the coast",
-          "Emergency harbors assessed in advance",
-          "Incident command when things do go wrong",
+          "Depots with booms and equipment",
+          "Emergency harbors, assessed in advance",
+          "Incident command when it goes wrong",
         ],
         "var(--red)",
+        <Oljevern />,
       )}
       <Reveal at={3}>
         <Box
-          box={[66, 600, 1150, 60]}
+          box={[66, 610, 1150, 60]}
           style={{ display: "flex", alignItems: "center" }}
         >
           <div
@@ -170,10 +187,14 @@ export function SlideLyttepostene() {
     verdi: string,
     label: string,
     farge: string,
+    figur: LyttepostType,
   ) => (
     <Reveal at={at}>
+      <Box box={[x + 100, 158, 160, 100]}>
+        <Lyttepost type={figur} />
+      </Box>
       <Box
-        box={[x, 190, 360, 200]}
+        box={[x, 258, 360, 170]}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -219,12 +240,12 @@ export function SlideLyttepostene() {
           The listening posts
         </div>
       </Box>
-      {tall(1, 80, "~90", "base stations on the mainland and Svalbard", "var(--teal)")}
-      {tall(2, 460, "4", "satellites of its own over the ocean areas", "var(--teal)")}
-      {tall(3, 840, "8.9 bn", "AIS messages in 2021. In 2006 it was 2 billion", "var(--red)")}
+      {tall(1, 80, "~90", "base stations", "var(--teal)", "base")}
+      {tall(2, 460, "4", "satellites", "var(--teal)", "satellitt")}
+      {tall(3, 840, "8.9 bn", "messages in 2021", "var(--red)", "meldinger")}
       <Reveal at={4}>
         <Box
-          box={[120, 440, 1040, 130]}
+          box={[120, 500, 1040, 80]}
           style={{
             display: "flex",
             alignItems: "center",
@@ -235,13 +256,11 @@ export function SlideLyttepostene() {
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: pt(20),
-              lineHeight: 1.5,
-              color: "var(--burgundy-2)",
+              color: "var(--red)",
               textAlign: "center",
             }}
           >
-            It&apos;s all stored. Back to 2006. Twenty years of every single ship
-            saying where it is.
+            Stored back to 2006
           </div>
         </Box>
       </Reveal>
@@ -279,35 +298,28 @@ export function SlideAis() {
 
   return (
     <>
-      <Box box={[66.7, 130, 900, 73.8]}>
+      <Box box={[66.7, 70, 720, 80]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(48),
+            fontSize: pt(40),
             color: "var(--burgundy-2)",
           }}
         >
           AIS: built to avoid collisions
         </div>
       </Box>
-      {item(
-        1,
-        [86.6, 265, 1050, 52.9],
-        40,
-        "Ships broadcast identity, position, speed and course over VHF. Everyone nearby hears it."
-      )}
-      {item(
-        2,
-        [86.6, 360, 1050, 88.5],
-        76.5,
-        "From a couple of seconds to a few minutes between messages, depending on speed and status"
-      )}
-      {item(
-        3,
-        [86.6, 490, 1050, 88.5],
-        76.5,
-        "Nobody planned it, but today AIS is the backbone of traffic monitoring, emergency response and statistics"
-      )}
+      <Box box={[800, 200, 420, 150]}>
+        <AisKjede />
+      </Box>
+      <Reveal at={3}>
+        <Box box={[800, 380, 420, 170]}>
+          <Skipsradar />
+        </Box>
+      </Reveal>
+      {item(1, [86.6, 220, 680, 70], 54, "Identity, position, speed, course")}
+      {item(2, [86.6, 330, 680, 70], 54, "Every few seconds, or a few minutes")}
+      {item(3, [86.6, 440, 680, 70], 54, "Built for collisions. Became the backbone.")}
     </>
   );
 }
@@ -333,6 +345,9 @@ export function SlideSporsmalet() {
             What do you do with them?
           </div>
         </div>
+      </Box>
+      <Box box={[0, 600, 1280, 100]}>
+        <Bolgestripe />
       </Box>
     </>
   );

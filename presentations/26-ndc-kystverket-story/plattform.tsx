@@ -8,7 +8,19 @@ import {
   DatakontraktApi,
   DatakontraktBrudd,
 } from "@/components/figures/Datakontrakt";
-import { RolleFigur, type RolleHvem } from "@/components/figures/strek";
+import {
+  ArkivOgGit,
+  GovernanceTrio,
+  Pakke,
+  RolleFigur,
+  SiloTilPlattform,
+  StrekIkon,
+  TeknikkVsOrganisasjon,
+  VarehusVsPlattform,
+  Verbrekke,
+  type IkonNavn,
+  type RolleHvem,
+} from "@/components/figures/strek";
 
 /* Kapittel: Hvorfor bygger alle dataplattform? */
 export function SlideHvaEr() {
@@ -22,38 +34,78 @@ export function SlideHvaEr() {
   );
 }
 
-/* Uber-historien: det funket fint, helt til det ikke gjorde det */
-export function SlideUber() {
-  const akt = (
+/* Bro etter historien: rådata i arkiv, transformasjoner i git */
+export function SlideArkivGit() {
+  const linje = (
     at: number,
     y: number,
-    aar: string,
-    tekst: string,
+    stor: string,
+    liten: string,
     farge: string,
   ) => (
     <Reveal at={at}>
-      <Box box={[90, y, 1100, 90]} style={{ display: "flex", gap: 40 }}>
+      <Box box={[90, y, 640, 110]}>
         <div
           style={{
-            width: 280,
-            flexShrink: 0,
-            whiteSpace: "nowrap",
             fontFamily: "var(--font-serif)",
-            fontSize: pt(30),
+            fontSize: pt(36),
+            lineHeight: 1.1,
             color: farge,
           }}
         >
-          {aar}
+          {stor}
         </div>
         <div
           style={{
+            marginTop: 8,
             fontFamily: "var(--font-sans)",
-            fontSize: pt(21),
-            lineHeight: 1.4,
+            fontSize: pt(20),
             color: "var(--burgundy-2)",
           }}
         >
-          {tekst}
+          {liten}
+        </div>
+      </Box>
+    </Reveal>
+  );
+  return (
+    <>
+      <Box box={[66, 70, 1100, 70]}>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(36),
+            color: "var(--burgundy)",
+          }}
+        >
+          Raw is archived. Transforms are in git.
+        </div>
+      </Box>
+      <Box box={[780, 150, 440, 380]}>
+        <ArkivOgGit />
+      </Box>
+      {linje(1, 200, "RAW", "Never deleted", "var(--teal)")}
+      {linje(2, 330, "Transforms", "In source control", "var(--burgundy)")}
+      {linje(3, 460, "Version history", "Of every transform", "var(--red)")}
+    </>
+  );
+}
+
+/* Uber-historien: det funket fint, helt til det ikke gjorde det */
+export function SlideUber() {
+  const akt = (at: number, y: number, aar: string, farge: string) => (
+    <Reveal at={at}>
+      <Box box={[90, y, 780, 70]}>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(36),
+            lineHeight: 1.1,
+            color: farge,
+            whiteSpace: "nowrap",
+          }}
+        >
+          {aar}
         </div>
       </Box>
     </Reveal>
@@ -71,29 +123,14 @@ export function SlideUber() {
           Uber, 2014
         </div>
       </Box>
-      {akt(
-        1,
-        180,
-        "The start",
-        "A few terabytes spread across MySQL and Postgres. Engineers wrote scripts that glued the sources together. It worked just fine.",
-        "var(--teal)",
-      )}
-      {akt(
-        2,
-        300,
-        "The growth",
-        "Then the company exploded. Every team had its own database, its own scripts, its own truth. Nobody could answer simple questions about the company as a whole.",
-        "var(--burgundy)",
-      )}
-      {akt(
-        3,
-        420,
-        "The turning point",
-        "The silos got in the way of everything they wanted to do with the data. The answer was one shared platform. Out of necessity, not principle.",
-        "var(--red)",
-      )}
+      <Box box={[900, 160, 320, 352]}>
+        <SiloTilPlattform />
+      </Box>
+      {akt(1, 200, "The start", "var(--teal)")}
+      {akt(2, 320, "The growth", "var(--burgundy)")}
+      {akt(3, 440, "The turning point", "var(--red)")}
       <Reveal at={4}>
-        <Box box={[90, 570, 1100, 60]}>
+        <Box box={[90, 575, 780, 50]}>
           <div
             style={{
               fontFamily: "var(--font-sans)",
@@ -101,8 +138,7 @@ export function SlideUber() {
               color: "var(--red)",
             }}
           >
-            You don't need a data platform from day one. But past a certain
-            scale, there's no alternative.
+            Past a certain scale, there&apos;s no alternative.
           </div>
         </Box>
       </Reveal>
@@ -112,20 +148,20 @@ export function SlideUber() {
 
 /* Dataplattformer i hverdagen: du brukte fire av dem i dag */
 export function SlideHvorfor() {
-  const eksempler = [
-    "The online store that suggests products",
-    "The streaming service that gets it right",
-    "The taxi with a fixed price up front",
-    "The airfare that's set in a second",
+  const eksempler: [string, IkonNavn][] = [
+    ["The online store that suggests products", "handlekurv"],
+    ["The streaming service that gets it right", "spill"],
+    ["The taxi with a fixed price up front", "taxi"],
+    ["The airfare that's set in a second", "fly"],
   ];
   return (
     <>
-      <Box box={[53.7, 240, 560, 162.4]}>
+      <Box box={[53.7, 210, 540, 200]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(44),
-            lineHeight: 1.15,
+            fontSize: pt(38),
+            lineHeight: 1.2,
             color: "var(--burgundy-2)",
           }}
         >
@@ -133,7 +169,7 @@ export function SlideHvorfor() {
         </div>
       </Box>
       <Reveal at={eksempler.length + 1}>
-        <Box box={[53.9, 460, 540, 120]}>
+        <Box box={[53.9, 440, 540, 140]}>
           <div
             style={{
               fontFamily: "var(--font-sans)",
@@ -147,17 +183,22 @@ export function SlideHvorfor() {
           </div>
         </Box>
       </Reveal>
-      {eksempler.map((f, i) => (
+      {eksempler.map(([f, ikon], i) => (
         <Reveal key={f} at={i + 1}>
           <Box box={[628.2, 240.7 + i * 77.5, 582, 66.4]}>
             <div
               style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 16,
+                whiteSpace: "nowrap",
                 fontFamily: "var(--font-serif)",
-                fontSize: pt(28),
+                fontSize: pt(22),
                 color: "var(--burgundy-2)",
               }}
             >
-              {f}
+              <StrekIkon navn={ikon} size={34} color="var(--teal)" strokeWidth={1.6} />
+              <span>{f}</span>
             </div>
             {i < eksempler.length - 1 && (
               <div
@@ -219,23 +260,8 @@ export function SlideSamleData() {
         </div>
       </Box>
       <Reveal at={2}>
-        <Box
-          box={[140, 490, 1000, 40]}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(16),
-              color: "var(--red)",
-            }}
-          >
-            ingest → store → transform → share → govern
-          </div>
+        <Box box={[140, 480, 1000, 100]}>
+          <Verbrekke />
         </Box>
       </Reveal>
     </>
@@ -247,6 +273,9 @@ export function SlideMerEnnVarehus() {
   const linje2 = useRevealStyle(1);
   return (
     <>
+      <Box box={[330, 48, 620, 200]}>
+        <VarehusVsPlattform />
+      </Box>
       <Box box={[48.4, 267.9, 1183.1, 184.2]}>
         <div
           style={{
@@ -291,11 +320,16 @@ export function SlideMerEnnVarehus() {
 /* Slide 15 – Dataprodukt */
 export function SlideDataprodukt() {
   return (
-    <ChapterSlide
-      title="Data product"
-      subtitle="Quality-assured, managed, documented. And with an owner who answers."
-      showLogo={false}
-    />
+    <>
+      <Box box={[430, 60, 420, 150]}>
+        <Pakke />
+      </Box>
+      <ChapterSlide
+        title="Data product"
+        subtitle="Quality-assured, managed, documented. And with an owner who answers."
+        showLogo={false}
+      />
+    </>
   );
 }
 
@@ -331,6 +365,9 @@ export function SlideGovernance() {
   const linje2 = useRevealStyle(1);
   return (
     <>
+      <Box box={[390, 70, 500, 130]}>
+        <GovernanceTrio />
+      </Box>
       <Box
         box={[81.5, 226, 1117.1, 268]}
         style={{ display: "flex", alignItems: "center" }}
@@ -403,6 +440,11 @@ export function SlideFeilerOrganisatorisk() {
           </div>
         </div>
       </Box>
+      <Reveal at={1}>
+        <Box box={[240, 500, 800, 190]}>
+          <TeknikkVsOrganisasjon />
+        </Box>
+      </Reveal>
     </>
   );
 }

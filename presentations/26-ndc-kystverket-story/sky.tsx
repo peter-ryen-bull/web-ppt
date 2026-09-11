@@ -1,4 +1,16 @@
+import type { ReactNode } from "react";
 import { Box, ChapterSlide, Img, Reveal, pt, useRevealStyle } from "../parts";
+import {
+  Bolgestripe,
+  DagEn,
+  FireSpor,
+  Grunnmur,
+  Innlesing,
+  Kapasitetsmaaler,
+  Pakke,
+  SkyFundament,
+  SkyMedKlosser,
+} from "@/components/figures/strek";
 
 const MEDIA = "/media/26-ndc-kystverket";
 
@@ -51,9 +63,9 @@ export function SlideProsjekt() {
 /* Dag én: hva vi hadde å starte med */
 export function SlideDagEn() {
   const linjer = [
-    ["One source.", "AIS. Nothing else."],
-    ["One small team.", "Who also needed to sleep at night."],
-    ["One stream.", "It never stops. Not at Christmas, not in a gale, not when we deploy."],
+    ["One source.", "AIS"],
+    ["One small team.", "Who also needed to sleep"],
+    ["One stream.", "It never stops"],
   ];
   return (
     <>
@@ -68,9 +80,12 @@ export function SlideDagEn() {
           Day one
         </div>
       </Box>
+      <Box box={[800, 170, 400, 400]}>
+        <DagEn />
+      </Box>
       {linjer.map(([stor, liten], i) => (
         <Reveal key={stor} at={i + 1}>
-          <Box box={[90, 180 + i * 140, 1100, 110]}>
+          <Box box={[90, 180 + i * 140, 680, 110]}>
             <div
               style={{
                 fontFamily: "var(--font-serif)",
@@ -101,11 +116,16 @@ export function SlideDagEn() {
 /* Kapittel: Azure + Databricks */
 export function SlideAzureDatabricks() {
   return (
-    <ChapterSlide
-      title="Azure + Databricks"
-      subtitle="The toolbox we picked"
-      showLogo={false}
-    />
+    <>
+      <Box box={[430, 60, 420, 150]}>
+        <SkyMedKlosser />
+      </Box>
+      <ChapterSlide
+        title="Azure + Databricks"
+        subtitle="The toolbox we picked"
+        showLogo={false}
+      />
+    </>
   );
 }
 
@@ -124,29 +144,32 @@ export function SlideAzure() {
           Azure: the foundation
         </div>
       </Box>
+      <Box box={[800, 250, 420, 160]}>
+        <SkyFundament />
+      </Box>
       <BarItem
         at={1}
-        box={[86.6, 250, 1050, 52.9]}
-        lineH={40}
-        text="Storage, networking, and identity as ready-made building blocks"
+        box={[86.6, 250, 680, 88.5]}
+        lineH={76.5}
+        text="Storage, networking, identity"
       />
       <BarItem
         at={2}
-        box={[86.6, 340, 1050, 52.9]}
+        box={[86.6, 350, 680, 52.9]}
         lineH={40}
-        text="Security, access control, and cost control from day one"
+        text="Security and cost from day one"
       />
       <BarItem
         at={3}
-        box={[86.6, 430, 1050, 52.9]}
+        box={[86.6, 430, 680, 52.9]}
         lineH={40}
-        text="Everything as infrastructure as code. The platform can be rebuilt from the repo."
+        text="Rebuild from the repo"
       />
       <BarItem
         at={4}
-        box={[86.6, 520, 1050, 52.9]}
+        box={[86.6, 510, 680, 52.9]}
         lineH={40}
-        text="Boring on purpose. Foundations should be boring."
+        text="Boring on purpose"
       />
     </>
   );
@@ -176,19 +199,19 @@ export function SlideDatabricks() {
         at={1}
         box={[86.6, 265, 740, 52.9]}
         lineH={40}
-        text="Lakehouse: data lake and data warehouse in one"
+        text="Lakehouse: lake and warehouse in one"
       />
       <BarItem
         at={2}
         box={[86.6, 360, 740, 52.9]}
         lineH={40}
-        text="One engine (Spark) for both batch and streaming. Same code, same tables."
+        text="One engine for batch and streaming"
       />
       <BarItem
         at={3}
         box={[86.6, 455, 740, 52.9]}
         lineH={40}
-        text="Unity Catalog: access, lineage, and catalog. The governance layer in practice."
+        text="Unity Catalog: access, lineage, catalog"
       />
     </>
   );
@@ -328,19 +351,10 @@ export function SlideTerraform() {
       </Box>
       <FlytBoks at={1} x={80} y={230} w={300} title="Pull request" sub="the change lives in git" />
       <FlytPil at={1} x={390} y={270} />
-      <FlytBoks at={2} x={440} y={230} w={300} title="terraform plan" sub="the pipeline shows what's going to happen" />
+      <FlytBoks at={2} x={440} y={230} w={300} title="terraform plan" sub="what will happen" />
       <FlytPil at={2} x={750} y={270} />
       <FlytBoks at={3} x={800} y={230} w={300} title="apply" sub="merge, and it becomes real" />
-      <Punchline
-        at={4}
-        y={430}
-        text="Terraform describes Azure and Databricks. Down to catalogs and storage containers."
-      />
-      <Punchline
-        at={4}
-        y={500}
-        text="The whole platform can be rebuilt from the repo. Even if someone deletes it."
-      />
+      <Punchline at={4} y={460} text="The whole platform can be rebuilt from the repo." />
     </>
   );
 }
@@ -348,10 +362,10 @@ export function SlideTerraform() {
 /* Fire Terraform-states */
 export function SlideFireStates() {
   const states: [string, string][] = [
-    ["workspace", "The Databricks workspace. The one the team logs into."],
-    ["storage accounts", "Storage and containers. Including raw."],
-    ["unity catalog", "The catalogs. Access control. Governance as code."],
-    ["databricks_account", "Account level. Identity, groups, above the workspace."],
+    ["workspace", "the team logs in here"],
+    ["storage accounts", "including raw"],
+    ["unity catalog", "access as code"],
+    ["databricks_account", "identity, above the workspace"],
   ];
   return (
     <>
@@ -366,9 +380,12 @@ export function SlideFireStates() {
           Four states. Four pipelines.
         </div>
       </Box>
+      <Box box={[820, 130, 400, 420]}>
+        <FireSpor />
+      </Box>
       {states.map(([navn, tekst], i) => (
         <Reveal key={navn} at={i + 1}>
-          <Box box={[90, 140 + i * 110, 1100, 95]}>
+          <Box box={[90, 140 + i * 110, 700, 95]}>
             <div
               style={{
                 fontFamily: "var(--font-serif)",
@@ -395,7 +412,7 @@ export function SlideFireStates() {
       <Punchline
         at={5}
         y={580}
-        text="A change to storage doesn't tear down the catalog. That's the whole point of splitting."
+        text="A change to storage doesn't tear down the catalog."
       />
     </>
   );
@@ -409,9 +426,11 @@ export function SlideTerraformDabs() {
     etikett: string,
     under: string,
     punkter: string[],
+    figur: ReactNode,
   ) => (
     <Reveal at={at}>
-      <Box box={[x, 160, 520, 380]}>
+      <Box box={[x + 120, 420, 280, 120]}>{figur}</Box>
+      <Box box={[x, 160, 520, 260]}>
         <div
           style={{
             fontFamily: "var(--font-sans)",
@@ -468,16 +487,22 @@ export function SlideTerraformDabs() {
           Infrastructure and logic. Two tools.
         </div>
       </Box>
-      {kolonne(1, 80, "TERRAFORM", "infrastructure", [
-        "workspaces, storage, containers",
-        "Unity Catalog, down to the catalog",
-        "when the platform changes",
-      ])}
-      {kolonne(2, 680, "DABS", "logic", [
-        "schemas, tables, jobs",
-        "Databricks Asset Bundles",
-        "when the code changes",
-      ])}
+      {kolonne(
+        1,
+        80,
+        "TERRAFORM",
+        "infrastructure",
+        ["workspaces, storage, containers", "Unity Catalog", "when the platform changes"],
+        <Grunnmur />,
+      )}
+      {kolonne(
+        2,
+        680,
+        "DABS",
+        "logic",
+        ["schemas, tables, jobs", "Databricks Asset Bundles", "when the code changes"],
+        <Pakke />,
+      )}
       <Punchline
         at={3}
         y={580}
@@ -490,9 +515,9 @@ export function SlideTerraformDabs() {
 /* Innlesing utenfor Databricks */
 export function SlideIngest() {
   const linjer = [
-    ["Prefect.", "A Python library for orchestrating jobs. Not Databricks jobs."],
-    ["Dumps into raw.", "The jobs fetch data and drop it in storage. Done."],
-    ["Databricks reads from there.", "The platform starts when the file lands. Not when the ship transmits."],
+    ["Prefect.", "Python jobs, outside Databricks"],
+    ["Dumps into raw.", "Then it's done"],
+    ["Databricks reads from there.", "The platform starts when the file lands"],
   ];
   return (
     <>
@@ -507,14 +532,17 @@ export function SlideIngest() {
           Ingest happens outside Databricks.
         </div>
       </Box>
+      <Box box={[820, 150, 400, 400]}>
+        <Innlesing />
+      </Box>
       {linjer.map(([stor, liten], i) => (
         <Reveal key={stor} at={i + 1}>
-          <Box box={[90, 170 + i * 140, 1100, 120]}>
+          <Box box={[90, 170 + i * 140, 700, 120]}>
             <div
               style={{
                 fontFamily: "var(--font-serif)",
-                fontSize: pt(36),
-                lineHeight: 1.1,
+                fontSize: pt(30),
+                lineHeight: 1.15,
                 color: i === 2 ? "var(--red)" : "var(--burgundy)",
               }}
             >
@@ -562,7 +590,7 @@ export function SlideIngestFlyt() {
       <Punchline
         at={5}
         y={520}
-        text="Two responsibilities. Prefect gets the data in. Databricks turns it into something people can use."
+        text="Prefect gets it in. Databricks makes it usable."
       />
     </>
   );
@@ -593,6 +621,9 @@ export function SlideStrommen() {
           <div style={{ color: "var(--burgundy)" }}>100 million rows.</div>
           <div style={{ color: "var(--red)", ...linje2 }}>Every day.</div>
         </div>
+      </Box>
+      <Box box={[0, 600, 1280, 100]}>
+        <Bolgestripe />
       </Box>
     </>
   );
@@ -658,8 +689,7 @@ export function SlideRegnestykke() {
               textAlign: "center",
             }}
           >
-            Every row is one ship saying: here I am, this is how fast I&apos;m
-            going, this is where I&apos;m headed. And in that row, there are people.
+            Every row is a ship. And in that row, there are people.
           </div>
         </Box>
       </Reveal>
@@ -692,7 +722,7 @@ export function SlidePipeline() {
       <Punchline
         at={5}
         y={520}
-        text="100 million rows a day, without us running a single cluster"
+        text="100 million rows a day. No clusters to run."
       />
     </>
   );
@@ -702,11 +732,14 @@ export function SlidePipeline() {
 export function SlideServerless() {
   const lines = [
     "No clusters to start, patch, or scale",
-    "Capacity follows the stream: traffic peaks during the day, quiet nights",
-    "We pay for what we use, not for what we're afraid we might need",
+    "Capacity follows the stream",
+    "Pay for what we use",
   ];
   return (
     <>
+      <Box box={[520, 30, 240, 130]}>
+        <Kapasitetsmaaler />
+      </Box>
       <Box
         box={[81.5, 160, 1117.1, 140]}
         style={{

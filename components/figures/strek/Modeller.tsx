@@ -1,11 +1,15 @@
 import {
+  Bolger,
   DUS,
+  Duv,
   Figur,
   KREM,
+  MINT,
   Puls,
   ROD,
   Roter,
   sekskant,
+  Skute,
   STREK,
   Sving,
   TEAL,
@@ -240,6 +244,184 @@ export function TreKataloger() {
           </g>
         );
       })}
+    </Figur>
+  );
+}
+
+/**
+ * Skipsregisteret er fullt av hull. Cellene som mangler er stiplet røde, og
+ * fylles én og én av modellen – median først, nevrale nett for de vanskelige.
+ */
+export function Registerhull() {
+  const W = 340;
+  const H = 300;
+  const kol = ["type", "length", "speed", "rpm", "fuel"];
+  const x0 = 40;
+  const y0 = 64;
+  const cw = 52;
+  const ch = 30;
+  const rader = 5;
+  /** [rad, kolonne] for cellene som mangler, i fyll-rekkefølge */
+  const hull: [number, number][] = [
+    [0, 2],
+    [1, 4],
+    [2, 3],
+    [3, 4],
+    [4, 2],
+    [2, 1],
+    [4, 4],
+  ];
+  const dur = 9;
+  const erHull = (r: number, c: number) => hull.some(([hr, hc]) => hr === r && hc === c);
+
+  return (
+    <Figur w={W} h={H} label="A ship registry with holes that the model fills in, one cell at a time">
+      {/* Kolonneoverskrifter */}
+      {kol.map((k, c) => (
+        <Tekst key={k} x={x0 + c * cw + cw / 2} y={y0 - 10} size={11} weight={600}>
+          {k}
+        </Tekst>
+      ))}
+
+      {/* Rutenettet */}
+      {Array.from({ length: rader }, (_, r) =>
+        kol.map((_, c) => {
+          const x = x0 + c * cw;
+          const y = y0 + r * ch;
+          if (erHull(r, c)) {
+            return (
+              <rect
+                key={`${r}-${c}`}
+                x={x}
+                y={y}
+                width={cw}
+                height={ch}
+                fill={KREM}
+                stroke={ROD}
+                strokeWidth={1.6}
+                strokeDasharray="3 4"
+              />
+            );
+          }
+          return (
+            <g key={`${r}-${c}`}>
+              <rect x={x} y={y} width={cw} height={ch} fill={KREM} strokeWidth={1.4} />
+              <path
+                d={`M ${x + 12} ${y + ch / 2} h ${cw - 24 - ((r * 3 + c * 5) % 12)}`}
+                strokeWidth={2}
+                opacity={0.5}
+              />
+            </g>
+          );
+        }),
+      )}
+
+      {/* Hullene fylles etter tur */}
+      {hull.map(([r, c], i) => {
+        const x = x0 + c * cw;
+        const y = y0 + r * ch;
+        const start = 0.08 + i * 0.11;
+        return (
+          <g key={`fyll-${r}-${c}`} opacity={0}>
+            <animate
+              attributeName="opacity"
+              values="0; 0; 1; 1; 0"
+              keyTimes={`0; ${start.toFixed(2)}; ${(start + 0.01).toFixed(2)}; 0.95; 1`}
+              calcMode="discrete"
+              dur={`${dur}s`}
+              repeatCount="indefinite"
+            />
+            <rect x={x} y={y} width={cw} height={ch} fill={MINT} stroke={TEAL} strokeWidth={1.6} />
+            <path d={`M ${x + 12} ${y + ch / 2} h ${cw - 30}`} stroke={TEAL} strokeWidth={2} />
+          </g>
+        );
+      })}
+
+      {/* Modellen som fyller: et lite nett som lyser */}
+      <g transform="translate(150 236)">
+        <circle cx={0} cy={0} r={26} fill={KREM} stroke={TEAL} strokeWidth={2} />
+        <IkonI navn="nettverk" x={-15} y={-15} size={30} color={TEAL} strokeWidth={2} />
+        <circle cx={0} cy={0} r={31} stroke={TEAL} strokeWidth={1.4} opacity={0}>
+          <Puls fra={0} til={0.7} dur={3} />
+        </circle>
+      </g>
+      <Tekst x={150} y={290} size={12}>
+        medians and neural nets fill the holes
+      </Tekst>
+    </Figur>
+  );
+}
+
+/** En liten drivstoffpumpe med origo nederst midt på */
+function Pumpe({ x, y }: { x: number; y: number }) {
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      <rect x={-11} y={-40} width={22} height={40} rx={3} fill={KREM} strokeWidth={2} />
+      <rect x={-6} y={-34} width={12} height={10} rx={1} fill={KREM} strokeWidth={1.6} />
+      <path d="M 11 -30 h 8 v 22" strokeWidth={2} />
+      <circle cx={0} cy={-14} r={2} fill={ROD} stroke="none" />
+    </g>
+  );
+}
+
+/**
+ * Bunkring: skip fyller drivstoff i utlandet og seiler til Norge, eller fyller
+ * i Norge og seiler ut. Salgstallene treffer ikke norske farvann.
+ */
+export function Bunkring() {
+  const W = 360;
+  const H = 260;
+  const vann = 190;
+  const grense = 180;
+  const pil = (fra: number, til: number, y: number) => {
+    const retning = til > fra ? 1 : -1;
+    return (
+      <g stroke={ROD} strokeWidth={2.2}>
+        <path d={`M ${fra} ${y} H ${til}`} strokeDasharray="6 5" />
+        <path d={`M ${til - 8 * retning} ${y - 6} L ${til} ${y} L ${til - 8 * retning} ${y + 6}`} />
+      </g>
+    );
+  };
+
+  return (
+    <Figur w={W} h={H} label="Ships bunkering on one side of the border and sailing to the other">
+      {/* Grensa mellom norske farvann og utlandet */}
+      <path d={`M ${grense} 24 V ${vann + 40}`} strokeDasharray="3 8" strokeWidth={2} opacity={0.6} />
+      <Tekst x={grense - 12} y={22} size={12} anchor="end" weight={600}>
+        Norwegian waters
+      </Tekst>
+      <Tekst x={grense + 12} y={22} size={12} anchor="start" weight={600}>
+        abroad
+      </Tekst>
+
+      {/* Kaia og pumpa på hver side */}
+      <path d={`M -4 ${vann + 14} H 60 V ${vann - 4} H -4 Z`} fill={KREM} />
+      <Pumpe x={30} y={vann - 4} />
+      <path d={`M 300 ${vann - 4} H 364 V ${vann + 14} H 300 Z`} fill={KREM} />
+      <Pumpe x={330} y={vann - 4} />
+
+      {/* Skipene: det til venstre har fylt her og seiler ut (baugen mot høyre),
+          det til høyre har fylt i utlandet og seiler hit */}
+      <Duv dy={3} dur={3.8}>
+        <g transform={`translate(126 ${vann}) scale(-1 1)`}>
+          <Skute x={0} y={0} s={0.5} signal={false} />
+        </g>
+      </Duv>
+      <Duv dy={3} dur={4.3}>
+        <Skute x={236} y={vann} s={0.5} signal={false} />
+      </Duv>
+
+      <Bolger y={vann} w={W} h={H} amp={7} dur={9} />
+
+      {pil(52, 250, 68)}
+      <Tekst x={150} y={56} size={11}>
+        bunkers here, sails out
+      </Tekst>
+
+      {pil(308, 110, 116)}
+      <Tekst x={210} y={138} size={11}>
+        bunkers abroad, sails here
+      </Tekst>
     </Figur>
   );
 }

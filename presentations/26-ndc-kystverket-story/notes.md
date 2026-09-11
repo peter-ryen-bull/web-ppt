@@ -110,6 +110,18 @@ That's the stream this talk is about. And the question is actually pretty
 simple: how do you turn one hundred million little messages into something
 someone can use?
 
+## hundre-millioner-fyll – The messages fill the screen
+
+Don't talk over this one. Let it fill.
+
+Each ball is one hundred messages. They start appearing the moment the
+slide lands, and they keep coming until the screen is full. That's the
+day. That's what we take in before anyone has had breakfast.
+
+Then, when it's full: now imagine doing that every day. And storing it.
+And running it through a model. That's why this is a platform problem,
+not a script problem.
+
 ## forside – Title slide
 
 Now you can breathe out and zoom out. Welcome. This is the story of the data
@@ -253,7 +265,32 @@ It's not. It's the latest answer so far to a problem we've been trying to
 solve for over fifty years. So before we go to Kystverket: why today's
 platforms look the way they do.
 
+## arkiv-git – Raw is archived. Transforms are in git.
+
+The slide is three labels and a figure. The talk lives here.
+
+The history just landed on this: we store raw, and we stop throwing it away.
+That's the move the lake taught us. And Kystverket did it for real.
+
+Click. The raw archive is kept. AIS messages back to 2006. We don't delete
+them. We don't overwrite them. If a transform was wrong in 2019, the raw is
+still there.
+
+Click. The transforms live in git. Not in a notebook on someone's laptop.
+Not in a stored procedure nobody dares to open. In source control. Every
+change is a commit.
+
+Click. Put those two together and you get something the warehouse never
+really had. Version history of every transformation, over time. You can
+replay 2018 with the 2018 code, or rerun it with today's. The archive stays.
+The code remembers.
+
+That's the bridge from fifty years of history to why a platform looks the
+way it does now.
+
 ## uber – Uber, 2014
+
+The slide is just three labels and a figure. The paragraphs live here.
 
 And that pattern isn't theory. Uber, 2014.
 

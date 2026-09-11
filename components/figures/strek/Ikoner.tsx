@@ -33,7 +33,13 @@ export type IkonNavn =
   | "hengelas"
   | "gnist"
   | "verktoy"
-  | "mynt";
+  | "mynt"
+  | "handlekurv"
+  | "spill"
+  | "taxi"
+  | "fly"
+  | "varsel"
+  | "kart";
 
 const IKONER: Record<IkonNavn, ReactNode> = {
   antenne: (
@@ -212,6 +218,46 @@ const IKONER: Record<IkonNavn, ReactNode> = {
       <path d="M9 8.5v7" />
       <path d="M9 12.2c2 0 3.5-1.2 3.5-3.7" />
       <path d="M9 12c1.5 0 2.8 1.2 3.8 3.5" />
+    </>
+  ),
+  handlekurv: (
+    <>
+      <path d="M2.5 4.5h2.5l2.5 11h11l2-8H6.5" />
+      <circle cx={9.5} cy={19.5} r={1.4} />
+      <circle cx={17} cy={19.5} r={1.4} />
+    </>
+  ),
+  spill: (
+    <>
+      <rect x={3} y={5} width={18} height={14} rx={2.5} />
+      <path d="M10 9v6l5-3z" />
+    </>
+  ),
+  taxi: (
+    <>
+      <path d="M3.5 16.5v-4l2-5h13l2 5v4z" />
+      <path d="M3.5 16.5v2.5h3v-2.5M17.5 16.5v2.5h3v-2.5" />
+      <path d="M9.5 7.5V5h5v2.5" />
+      <path d="M7 13.5h.01M17 13.5h.01" strokeWidth={2.6} />
+    </>
+  ),
+  fly: (
+    <>
+      <path d="M2.5 15.5 21.5 7l-6 13.5-3.5-6.5z" />
+      <path d="M12 14l9.5-7" />
+    </>
+  ),
+  varsel: (
+    <>
+      <path d="M12 3.5 21 19.5H3z" />
+      <path d="M12 9.5v4.5" />
+      <path d="M12 16.8h.01" strokeWidth={2.6} />
+    </>
+  ),
+  kart: (
+    <>
+      <path d="M3.5 6.5 9 4l6 2.5 5.5-2.5v13.5L15 20l-6-2.5-5.5 2.5z" />
+      <path d="M9 4v13.5M15 6.5V20" />
     </>
   ),
 };

@@ -1,29 +1,45 @@
+import type { ReactNode } from "react";
 import { Box, ChapterSlide, Reveal, pt } from "../parts";
+import {
+  Automatikk,
+  BrikkeMedGnist,
+  EffektRad,
+  Hengelas,
+  SkjoldHake,
+} from "@/components/figures/strek";
 
 /* Kapittel: Hva får du igjen? */
 export function SlideEffekter() {
   return (
-    <ChapterSlide
-      title="What do you get out of it?"
-      subtitle="Four effects, with examples from the sea route"
-    />
+    <>
+      <ChapterSlide
+        title="What do you get out of it?"
+        subtitle="Four effects, with examples from the sea route"
+      />
+      <Box box={[140, 60, 1000, 150]}>
+        <EffektRad />
+      </Box>
+    </>
   );
 }
 
-/* Én effekt per slide: nummer, påstand og ett konkret eksempel fra Kystverket */
+/* Én effekt per slide: nummer, påstand, en liten figur og ett konkret eksempel fra Kystverket */
 function Effekt({
   nummer,
   etikett,
   paastand,
   eksempel,
+  figur,
 }: {
   nummer: string;
   etikett: string;
   paastand: string;
   eksempel: string;
+  figur: ReactNode;
 }) {
   return (
     <>
+      <Box box={[760, 110, 420, 150]}>{figur}</Box>
       <Box box={[80, 120, 300, 200]}>
         <div
           style={{
@@ -71,8 +87,8 @@ function Effekt({
           <div
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: pt(20),
-              lineHeight: 1.45,
+              fontSize: pt(22),
+              lineHeight: 1.35,
               color: "var(--burgundy-2)",
             }}
           >
@@ -90,7 +106,8 @@ export function SlideEffektKvalitet() {
       nummer="1"
       etikett="Quality"
       paastand="Data you dare to make decisions on"
-      eksempel="Our emission numbers start in 2016. Not because we're missing data before that, but because we know exactly what changed in the collection in 2015. That knowledge lives in the platform, not in one person's head."
+      eksempel="The time series starts in 2016. On purpose."
+      figur={<SkjoldHake />}
     />
   );
 }
@@ -101,7 +118,8 @@ export function SlideEffektEtterlevelse() {
       nummer="2"
       etikett="Compliance"
       paastand="The rules are built in once, in one place"
-      eksempel="Fishing vessels under 15 meters and leisure boats under 45 meters must not go into the open data. That filter lives in the platform. No consumer has to remember it on their own."
+      eksempel="The privacy filter lives in one place."
+      figur={<Hengelas />}
     />
   );
 }
@@ -112,7 +130,8 @@ export function SlideEffektEffektivitet() {
       nummer="3"
       etikett="Efficiency"
       paastand="Self-service instead of requests"
-      eksempel="Before: an email to an analyst, then waiting. Now: anyone can order up to a year of history at hais.kystverket.no, and get a Parquet file in their inbox."
+      eksempel="hais.kystverket.no. Order history yourself."
+      figur={<Automatikk />}
     />
   );
 }
@@ -123,7 +142,8 @@ export function SlideEffektFremtid() {
       nummer="4"
       etikett="Future-ready"
       paastand="AI where the data already lives"
-      eksempel="The emission model uses neural networks to fill gaps in the ship registry. The model runs on the same platform as the data, with the same access control. No copying out to a side project."
+      eksempel="The model runs where the data already lives."
+      figur={<BrikkeMedGnist />}
     />
   );
 }

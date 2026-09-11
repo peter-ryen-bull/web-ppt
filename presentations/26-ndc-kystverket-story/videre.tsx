@@ -1,6 +1,12 @@
 import { Box, ChapterSlide, Img, Reveal, pt, useRevealStyle } from "../parts";
 import { HvorViEr, HvorViSkal } from "@/components/figures/Domenekataloger";
 import { BaatSignal } from "@/components/figures/BaatSignal";
+import {
+  Kompass,
+  StrekIkon,
+  TreKataloger,
+  type IkonNavn,
+} from "@/components/figures/strek";
 
 const MEDIA = "/media/26-ndc-kystverket";
 
@@ -161,11 +167,16 @@ export function SlideTakk() {
 /* Slide 26 – Kapittel: Veien videre */
 export function SlideVeienVidere() {
   return (
-    <ChapterSlide
-      title="The road ahead for the data platform"
-      titleSize={54}
-      showLogo={false}
-    />
+    <>
+      <Box box={[430, 60, 420, 150]}>
+        <Kompass />
+      </Box>
+      <ChapterSlide
+        title="The road ahead for the data platform"
+        titleSize={54}
+        showLogo={false}
+      />
+    </>
   );
 }
 
@@ -197,12 +208,12 @@ export function SlideDomeneEffekt() {
   const linje2 = useRevealStyle(punkter.length + 1);
   return (
     <>
-      <Box box={[53.7, 240, 540, 200]}>
+      <Box box={[53.7, 180, 540, 160]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(44),
-            lineHeight: 1.15,
+            fontSize: pt(38),
+            lineHeight: 1.2,
             color: "var(--burgundy-2)",
           }}
         >
@@ -221,6 +232,11 @@ export function SlideDomeneEffekt() {
             and you still find the data products in one place
         </div>
       </Box>
+      <Reveal at={1}>
+        <Box box={[40, 480, 540, 180]}>
+          <TreKataloger />
+        </Box>
+      </Reveal>
       {punkter.map(([tittel, sub], i) => (
         <Reveal key={tittel} at={i + 1}>
           <Box box={[628.2, 220 + i * 100, 582, 90]}>
@@ -264,38 +280,43 @@ export function SlideDomeneEffekt() {
 
 /* Slide 27 – Dette vil vi få til */
 export function SlideVidereListe() {
-  const facts = [
-    "SafeSeaNet, pilotage and geodata in",
-    "Data products with contracts",
-    "Real-time alerts for emergency response",
-    "ML: ETA prediction and anomalies",
-    "Even more open data. For you.",
+  const facts: [string, IkonNavn][] = [
+    ["SafeSeaNet, pilotage and geodata in", "kart"],
+    ["Data products with contracts", "kontrakt"],
+    ["Real-time alerts for emergency response", "varsel"],
+    ["ML: ETA prediction and anomalies", "gnist"],
+    ["Even more open data. For you.", "deling"],
   ];
   return (
     <>
-      <Box box={[53.7, 278.8, 560, 162.4]}>
+      <Box box={[53.7, 240, 540, 180]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(44),
-            lineHeight: 1.15,
+            fontSize: pt(38),
+            lineHeight: 1.2,
             color: "var(--burgundy-2)",
           }}
         >
           What we want to achieve
         </div>
       </Box>
-      {facts.map((f, i) => (
+      {facts.map(([f, ikon], i) => (
         <Reveal key={f} at={i + 1}>
           <Box box={[628.2, 201.9 + i * 77.5, 582, 66.4]}>
             <div
               style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 16,
+                whiteSpace: "nowrap",
                 fontFamily: "var(--font-serif)",
-                fontSize: pt(28),
+                fontSize: pt(22),
                 color: "var(--burgundy-2)",
               }}
             >
-              {f}
+              <StrekIkon navn={ikon} size={34} color="var(--teal)" strokeWidth={1.6} />
+              <span>{f}</span>
             </div>
             {i < facts.length - 1 && (
               <div

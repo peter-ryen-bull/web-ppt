@@ -4,9 +4,21 @@
  * sakte animasjoner. Ingen elementer som flyter langs baner.
  */
 export { StrekIkon, IkonI, type IkonNavn } from "./Ikoner";
-export { Fyr, AisKjede, Skipsradar, Bolgestripe, SporTilUtslipp } from "./Kyst";
+export {
+  Fyr,
+  AisKjede,
+  Skipsradar,
+  Bolgestripe,
+  SporTilUtslipp,
+  Meldingsstrom,
+  Meldingsfyll,
+  Lyttepost,
+  Oljevern,
+  type LyttepostType,
+} from "./Kyst";
 export {
   Grunnmur,
+  SiloTilPlattform,
   Verbrekke,
   BolkOgStrom,
   VarehusVsPlattform,
@@ -14,6 +26,7 @@ export {
   GovernanceTrio,
   TeknikkVsOrganisasjon,
   RolleFigur,
+  ArkivOgGit,
   type RolleHvem,
 } from "./Plattform";
 export { SkjoldHake, Hengelas, Automatikk, BrikkeMedGnist, EffektRad } from "./Effekter";
@@ -25,4 +38,14 @@ export {
   KlyngeFast,
   KlyngeAuto,
 } from "./Sky";
-export { Seilas, HexRing, Propell, Soyler, Kompass, TreKataloger } from "./Modeller";
+export { DagEn, FireSpor, Innlesing } from "./Prosjekt";
+export {
+  Seilas,
+  HexRing,
+  Propell,
+  Soyler,
+  Kompass,
+  TreKataloger,
+  Registerhull,
+  Bunkring,
+} from "./Modeller";

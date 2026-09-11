@@ -6,6 +6,7 @@ import {
   SlideSignal,
   SlideNais,
   SlideHundreMillioner,
+  SlideHundreMillionerFyll,
   SlideForside,
   SlideOmPeter,
 } from "./intro";
@@ -20,6 +21,7 @@ import {
 import { historyOfTheDataPlatform } from "./historie";
 import {
   SlideHvaEr,
+  SlideArkivGit,
   SlideUber,
   SlideHvorfor,
   SlideDataflyt,
@@ -107,6 +109,7 @@ const APNING: SlideDef[] = [
   { id: "signal", name: "Every ten seconds, the ship says", component: SlideSignal, steps: 2 },
   { id: "nais", name: "Someone's listening: NAIS", component: SlideNais, steps: 1 },
   { id: "hundre-millioner", name: "100,000,000 every day", component: SlideHundreMillioner, steps: 2 },
+  { id: "hundre-millioner-fyll", name: "The messages fill the screen", component: SlideHundreMillionerFyll },
   { id: "forside", name: "Title slide", component: SlideForside },
   { id: "om-peter", name: "Peter Bull", component: SlideOmPeter, steps: 3 },
 ];
@@ -124,6 +127,15 @@ const HISTORIE = embedAsChapter(historyOfTheDataPlatform, {
   id: "historie",
   title: "The story of the data platform",
 });
+
+const ARKIV_GIT: SlideDef[] = [
+  {
+    id: "arkiv-git",
+    name: "Raw is archived. Transforms are in git.",
+    component: SlideArkivGit,
+    steps: 3,
+  },
+];
 
 const PLATTFORM: SlideDef[] = [
   { id: "uber", name: "Uber, 2014", component: SlideUber, steps: 4 },
@@ -215,6 +227,7 @@ export const ndcKystverketStory = definePresentation({
         ...HISTORIE.slides,
       ],
     },
+    { id: "arkiv-git-kapittel", title: "Archive and git", slides: ARKIV_GIT },
     { id: "plattform", title: "Why a platform", slides: PLATTFORM },
     { id: "hvordan", title: "How it works", slides: HVORDAN },
     { id: "effekter", title: "What you get out of it", slides: EFFEKTER },

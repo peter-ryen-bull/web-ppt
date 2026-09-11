@@ -247,3 +247,204 @@ export function SporTilUtslipp() {
     </Figur>
   );
 }
+
+/**
+ * Hundre millioner meldinger om dagen, som kuler som flyr forbi. Ti i
+ * sekundet, og hver kule er 100 meldinger – så det du ser er omtrent
+ * strømmen i sanntid.
+ */
+export function Meldingsstrom() {
+  const W = 1000;
+  const H = 130;
+  const n = 21;
+  const dur = 1.5;
+  const y = 48;
+  return (
+    <Figur w={W} h={H} label="Fourteen balls a second flying past. Each ball is 100 messages.">
+      <path d={`M 16 ${y} H ${W - 16}`} stroke={TEAL} strokeWidth={1.4} opacity={0.28} />
+      {Array.from({ length: n }, (_, i) => (
+        <circle
+          key={i}
+          r={6.5}
+          cy={y}
+          fill={KREM}
+          stroke={STREK}
+          strokeWidth={2.2}
+        >
+          <animate
+            attributeName="cx"
+            from="-14"
+            to={W + 14}
+            dur={`${dur}s`}
+            begin={`${((i * dur) / n).toFixed(2)}s`}
+            repeatCount="indefinite"
+          />
+        </circle>
+      ))}
+      <Tekst x={W / 2} y={104} size={13.5} color={DUS}>
+        each of these is 100 messages
+      </Tekst>
+    </Figur>
+  );
+}
+
+/**
+ * Kulene lander én og én og fyller lerretet. Animasjonen starter på
+ * første render og fryser når flaten er full. Hver kule er 100 meldinger.
+ */
+export function Meldingsfyll() {
+  const W = 1280;
+  const H = 720;
+  const r = 9;
+  const gap = 30;
+  const top = 22;
+  const bottom = 62;
+  const side = 22;
+  const cols = Math.floor((W - side * 2) / gap);
+  const rows = Math.floor((H - top - bottom) / gap);
+  const n = cols * rows;
+  const fillDur = 5.4;
+  const x0 = (W - (cols - 1) * gap) / 2;
+  const y0 = top + 8;
+
+  const order = Array.from({ length: n }, (_, i) => i);
+  let seed = 16807;
+  for (let i = n - 1; i > 0; i--) {
+    seed = (seed * 48271) % 2147483647;
+    const j = seed % (i + 1);
+    const tmp = order[i];
+    order[i] = order[j];
+    order[j] = tmp;
+  }
+  const beginAt = new Array<number>(n);
+  order.forEach((idx, k) => {
+    beginAt[idx] = (k / n) * fillDur;
+  });
+
+  return (
+    <Figur w={W} h={H} strokeWidth={2} label="Messages appearing until they fill the screen. Each ball is 100 messages.">
+      {Array.from({ length: n }, (_, i) => {
+        const c = i % cols;
+        const row = Math.floor(i / cols);
+        return (
+          <circle
+            key={i}
+            cx={x0 + c * gap}
+            cy={y0 + row * gap}
+            r={r}
+            fill={KREM}
+            stroke={STREK}
+            strokeWidth={2}
+            opacity={0}
+          >
+            <animate
+              attributeName="opacity"
+              from="0"
+              to="1"
+              dur="0.22s"
+              begin={`${beginAt[i].toFixed(3)}s`}
+              fill="freeze"
+            />
+          </circle>
+        );
+      })}
+      <rect x={W / 2 - 210} y={H - 48} width={420} height={32} rx={16} fill={KREM} stroke="none" />
+      <Tekst x={W / 2} y={H - 26} size={15} color={DUS}>
+        each of these is 100 messages
+      </Tekst>
+    </Figur>
+  );
+}
+
+export type LyttepostType = "base" | "satellitt" | "meldinger";
+
+/** Én lyttepost – basestasjon på land, satellitt over havet, eller bunken med meldinger */
+export function Lyttepost({ type }: { type: LyttepostType }) {
+  const W = 160;
+  const H = 100;
+  return (
+    <Figur w={W} h={H} label={LYTTEPOST_LABEL[type]}>
+      {type === "base" && (
+        <>
+          <path d="M 10 100 Q 60 70 110 78 Q 140 82 160 96 V 102 H 10 Z" fill={KREM} />
+          <path d="M 72 80 L 80 18 L 88 80" strokeWidth={2} />
+          <path d="M 75 62 h 10 M 73 72 h 14 M 77 50 h 6" strokeWidth={2} />
+          <circle cx={80} cy={15} r={3.5} fill={ROD} stroke="none">
+            <Puls fra={0.3} til={1} dur={3} />
+          </circle>
+          <Signal x={80} y={16} rot={-70} radier={[12, 20, 28]} dur={3} />
+          <Signal x={80} y={16} rot={70} radier={[12, 20, 28]} dur={3} />
+        </>
+      )}
+      {type === "satellitt" && (
+        <>
+          <Bolger y={86} w={W} h={H} amp={5} dur={9} />
+          <Duv dy={3} dur={5}>
+            <g transform="translate(80 34)">
+              <rect x={-11} y={-10} width={22} height={20} rx={2} fill={KREM} />
+              <path d="M -11 0 h -9 M 11 0 h 9" strokeWidth={2} />
+              <rect x={-40} y={-6} width={20} height={12} rx={1.5} fill={KREM} strokeWidth={2} />
+              <rect x={20} y={-6} width={20} height={12} rx={1.5} fill={KREM} strokeWidth={2} />
+              <circle cx={0} cy={0} r={3} fill={ROD} stroke="none">
+                <Puls fra={0.3} til={1} dur={3} begin={0.8} />
+              </circle>
+            </g>
+          </Duv>
+          <Signal x={80} y={54} rot={180} radier={[10, 17, 24]} dur={3} />
+        </>
+      )}
+      {type === "meldinger" && (
+        <>
+          {[0, 1, 2, 3].map((i) => (
+            <g key={i} transform={`translate(${52 + i * 6} ${64 - i * 12})`}>
+              <rect x={0} y={0} width={56} height={34} rx={4} fill={KREM} strokeWidth={2} />
+              <path d="M 2 4 L 28 20 L 54 4" strokeWidth={2} />
+            </g>
+          ))}
+          <circle cx={122} cy={24} r={5} fill={ROD} stroke="none">
+            <Puls fra={0.3} til={1} dur={2.4} />
+          </circle>
+        </>
+      )}
+    </Figur>
+  );
+}
+
+const LYTTEPOST_LABEL: Record<LyttepostType, string> = {
+  base: "Base station on land receiving AIS",
+  satellitt: "Satellite listening over the ocean",
+  meldinger: "A growing pile of AIS messages",
+};
+
+/** Oljevern: en liten skute legger lense rundt et oljeflak */
+export function Oljevern() {
+  const W = 420;
+  const H = 200;
+  return (
+    <Figur w={W} h={H} label="A boat laying an oil boom around a slick">
+      <Duv dy={3} dur={3.6}>
+        <Skute x={320} y={160} s={0.55} signal={false} />
+      </Duv>
+
+      <Bolger y={160} w={W} h={H} amp={8} dur={9} />
+
+      {/* Oljeflaket ligger oppå vannet */}
+      <path
+        d="M 120 150 C 130 128 190 122 226 134 C 262 146 252 170 216 172 C 176 176 112 172 120 150 Z"
+        fill={DUS}
+        stroke="none"
+        opacity={0.35}
+      >
+        <Puls fra={0.25} til={0.4} dur={5} />
+      </path>
+
+      {/* Lensa – en flytende kjede fra skuta rundt flaket */}
+      <path
+        d="M 306 152 C 290 106 200 100 140 118 C 92 132 88 176 132 184 C 176 192 230 188 262 176"
+        strokeWidth={3.2}
+        stroke={ROD}
+        strokeDasharray="10 5"
+      />
+    </Figur>
+  );
+}

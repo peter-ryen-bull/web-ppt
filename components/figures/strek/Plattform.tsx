@@ -50,6 +50,66 @@ export function Grunnmur() {
   );
 }
 
+/** En liten database-sylinder med origo øverst til venstre */
+function Sylinder({ x, y, w = 44, h = 50 }: { x: number; y: number; w?: number; h?: number }) {
+  const ry = w * 0.16;
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      <path d={`M 0 ${ry} V ${h - ry} A ${w / 2} ${ry} 0 0 0 ${w} ${h - ry} V ${ry}`} fill={KREM} />
+      <ellipse cx={w / 2} cy={ry} rx={w / 2} ry={ry} fill={KREM} />
+      <path d={`M 0 ${h / 2} A ${w / 2} ${ry} 0 0 0 ${w} ${h / 2}`} strokeWidth={1.6} opacity={0.6} />
+    </g>
+  );
+}
+
+/**
+ * Uber-historien i én figur: tre databaser med skript i kryss og tvers oppå,
+ * og én felles plattform under. Skriptene glimter urolig; plattformen ligger rolig.
+ */
+export function SiloTilPlattform() {
+  const W = 300;
+  const H = 330;
+  const skript = [
+    "M 62 78 C 110 40 180 120 232 66",
+    "M 82 92 C 120 150 200 30 246 90",
+    "M 58 60 C 140 130 160 20 240 100",
+    "M 150 96 C 100 40 220 40 150 30",
+  ];
+  return (
+    <Figur w={W} h={H} label="Three separate databases tangled together, becoming one shared platform">
+      {/* Siloene */}
+      <Sylinder x={40} y={40} />
+      <Sylinder x={128} y={40} />
+      <Sylinder x={216} y={40} />
+
+      {/* Skriptene som limer dem sammen */}
+      {skript.map((d, i) => (
+        <path key={d} d={d} stroke={ROD} strokeWidth={1.6} strokeDasharray="3 5" opacity={0.5}>
+          <Puls fra={0.25} til={0.8} dur={3 + i * 0.7} begin={i * 0.4} />
+        </path>
+      ))}
+      <Tekst x={150} y={128} size={12}>
+        every team its own truth
+      </Tekst>
+
+      {/* Pilen ned */}
+      <path d="M 150 148 V 186" stroke={ROD} strokeWidth={2.4} />
+      <path d="M 141 178 L 150 188 L 159 178" stroke={ROD} strokeWidth={2.4} />
+
+      {/* Plattformen */}
+      <rect x={30} y={206} width={240} height={94} rx={12} fill={KREM} />
+      <Sylinder x={64} y={224} w={36} h={44} />
+      <Sylinder x={132} y={224} w={36} h={44} />
+      <Sylinder x={200} y={224} w={36} h={44} />
+      <path d="M 100 246 H 132 M 168 246 H 200" stroke={TEAL} strokeWidth={2} />
+      <rect x={30} y={290} width={240} height={10} rx={3} fill={TEAL} stroke="none" />
+      <Tekst x={150} y={322} size={12}>
+        one shared platform
+      </Tekst>
+    </Figur>
+  );
+}
+
 /** Verbrekka alle definisjonene lander på: hente inn → lagre → transformere → dele → styre */
 export function Verbrekke() {
   const steg: { navn: IkonNavn; tekst: string }[] = [
@@ -437,6 +497,71 @@ export function RolleFigur({ hvem }: { hvem: RolleHvem }) {
           </>
         )}
       </g>
+    </Figur>
+  );
+}
+
+/** Råarkivet som aldri slettes, og transformasjonene som commits i git */
+export function ArkivOgGit() {
+  const commits = [
+    { y: 268, r: 7 },
+    { y: 208, r: 7 },
+    { y: 148, r: 8 },
+    { y: 88, r: 7 },
+  ];
+  return (
+    <Figur
+      w={420}
+      h={360}
+      label="A vault of raw data that is never deleted, and a git commit spine for the transforms"
+    >
+      {/* Hvelvet */}
+      <rect x={28} y={58} width={168} height={214} rx={18} fill={KREM} />
+      <circle cx={112} cy={148} r={52} fill={KREM} />
+      <circle cx={112} cy={148} r={34} fill={KREM} strokeWidth={2} />
+      <circle cx={112} cy={148} r={8} fill={ROD} stroke="none">
+        <Puls fra={0.45} til={1} dur={3.2} />
+      </circle>
+      <path d="M 112 156 V 168" stroke={KREM} strokeWidth={2} />
+      <path d="M 104 176 H 120" stroke={KREM} strokeWidth={2} />
+      <Sylinder x={52} y={232} w={32} h={28} />
+      <Sylinder x={96} y={228} w={32} h={32} />
+      <Sylinder x={140} y={232} w={32} h={28} />
+      <Tekst x={112} y={304} size={13} weight={600}>
+        RAW
+      </Tekst>
+      <Tekst x={112} y={322} size={11}>
+        never deleted
+      </Tekst>
+
+      {/* Git-ryggraden */}
+      <path d="M 318 300 V 62" stroke={TEAL} strokeWidth={2.4} />
+      <path d="M 318 148 C 318 128, 356 128, 356 108" stroke={TEAL} strokeWidth={2} />
+      <circle cx={356} cy={100} r={6} fill={KREM} stroke={TEAL} />
+      {commits.map((c, i) => (
+        <g key={c.y}>
+          <circle cx={318} cy={c.y} r={c.r} fill={KREM} stroke={i === 2 ? ROD : TEAL} />
+          <path
+            d={`M ${318 + c.r + 8} ${c.y} h 22`}
+            stroke={STREK}
+            strokeWidth={1.6}
+            opacity={0.45}
+          />
+        </g>
+      ))}
+      <Tekst x={318} y={334} size={13} weight={600}>
+        git
+      </Tekst>
+
+      {/* Leser fra arkivet, skriver aldri tilbake */}
+      <path
+        d="M 196 148 H 268"
+        stroke={ROD}
+        strokeWidth={2}
+        strokeDasharray="4 6"
+        opacity={0.7}
+      />
+      <path d="M 258 140 L 270 148 L 258 156" stroke={ROD} strokeWidth={2} />
     </Figur>
   );
 }

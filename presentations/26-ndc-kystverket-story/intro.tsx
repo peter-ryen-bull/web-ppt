@@ -1,5 +1,6 @@
 import { Box, Img, Reveal, pt, useRevealStyle } from "../parts";
 import { BaatSignal } from "@/components/figures/BaatSignal";
+import { Meldingsfyll } from "@/components/figures/strek";
 
 const MEDIA = "/media/26-ndc-kystverket";
 
@@ -243,8 +244,7 @@ export function SlideHundreMillioner() {
               textAlign: "center",
             }}
           >
-            If you read one message per second, without a break, you&apos;d spend
-            over three years on one day&apos;s data. And tomorrow there&apos;s a new day.
+            One message a second. Over three years. For one day.
           </div>
         </Box>
       </Reveal>
@@ -252,22 +252,24 @@ export function SlideHundreMillioner() {
   );
 }
 
+/* Etter tallet: meldingene fyller lerretet */
+export function SlideHundreMillionerFyll() {
+  return (
+    <Box box={[0, 0, 1280, 720]}>
+      <Meldingsfyll />
+    </Box>
+  );
+}
+
 /* Slide 5 – Forside (layout "Forside Lys") */
 export function SlideForside() {
   return (
     <>
-      <Box box={[816.2, 47.9, 424.8, 157.8]}>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(25),
-            color: "var(--red)",
-            textAlign: "left",
-          }}
-        >
-          NDC 2026 · Oslo
-        </div>
-      </Box>
+      <Img
+        box={[940, 44, 280, 72]}
+        src={`${MEDIA}/kystverket-logo.svg`}
+        alt="Kystverket"
+      />
       <Box box={[39, 49.1, 668.2, 240]}>
         <div
           style={{
@@ -286,11 +288,6 @@ export function SlideForside() {
         </div>
       </Box>
       <Img box={[39, 423.2, 822.5, 254.7]} src={`${MEDIA}/forside.svg`} alt="Miles" />
-      <Img
-        box={[901.6, 512, 300, 77]}
-        src={`${MEDIA}/kystverket-logo.svg`}
-        alt="Kystverket"
-      />
     </>
   );
 }

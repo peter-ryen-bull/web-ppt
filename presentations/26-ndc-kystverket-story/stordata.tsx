@@ -1,4 +1,6 @@
+import type { ReactNode } from "react";
 import { Box, MilesLogo, Reveal, pt, useRevealStyle } from "../parts";
+import { Isfjell, KlyngeAuto, KlyngeFast } from "@/components/figures/strek";
 
 /**
  * TODO (Peter): fyll inn de faktiske volumtallene før presentasjonen.
@@ -37,7 +39,7 @@ export function SlideStordataVolum() {
   ) => (
     <Reveal at={at}>
       <Box
-        box={[x, 210, 360, 190]}
+        box={[x, 210, 300, 190]}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -73,15 +75,20 @@ export function SlideStordataVolum() {
     <>
       <MilesLogo />
       <SlideTittel>The stream is small. The history is big.</SlideTittel>
-      {tall(1, 80, VOLUM.perDogn, "of raw data per day", "var(--burgundy)")}
-      {tall(2, 460, VOLUM.perAar, "per year", "var(--burgundy)")}
+      {tall(1, 40, VOLUM.perDogn, "of raw data per day", "var(--burgundy)")}
+      {tall(2, 340, VOLUM.perAar, "per year", "var(--burgundy)")}
       {tall(
         3,
-        840,
+        640,
         VOLUM.historikk,
         "of AIS history back to 2006",
         "var(--red)",
       )}
+      <Reveal at={3}>
+        <Box box={[940, 250, 320, 112]}>
+          <Isfjell />
+        </Box>
+      </Reveal>
       <Reveal at={4}>
         <Box
           box={[120, 450, 1040, 120]}
@@ -100,9 +107,7 @@ export function SlideStordataVolum() {
               textAlign: "center",
             }}
           >
-            Taking in 1,200 rows per second isn&apos;t the hard part. The hard
-            part is running through everything we&apos;ve collected – again –
-            every time a model changes.
+            Ingest is easy. Replaying twenty years is the hard part.
           </div>
         </Box>
       </Reveal>
@@ -145,12 +150,14 @@ function Kort({
   tittel,
   punkter,
   fraSteg,
+  figur,
 }: {
   x: number;
   tittel: string;
   punkter: string[];
   /** Klikk-steget der første punkt dukker opp */
   fraSteg: number;
+  figur: ReactNode;
 }) {
   return (
     <Box
@@ -162,6 +169,9 @@ function Kort({
         padding: "30px 34px",
       }}
     >
+      <div style={{ position: "absolute", right: 30, top: 18, width: 200, height: 60 }}>
+        {figur}
+      </div>
       <span
         style={{
           background: "var(--teal)",
@@ -195,6 +205,7 @@ export function SlideStordataCompute() {
         x={80}
         tittel="FIXED CLUSTER"
         fraSteg={1}
+        figur={<KlyngeFast />}
         punkter={[
           "the size is decided before the job starts",
           "a full reprocessing can take several days",
@@ -205,6 +216,7 @@ export function SlideStordataCompute() {
         x={668}
         tittel="AUTOSCALING"
         fraSteg={4}
+        figur={<KlyngeAuto />}
         punkter={[
           "capacity follows the amount of data in the job",
           "days become hours when we can go wide",
@@ -229,8 +241,7 @@ export function SlideStordataCompute() {
               textAlign: "center",
             }}
           >
-            The bill ends up about the same. You pay for the work, not for how
-            long it takes. But you get the answer today instead of on Friday.
+            Same bill. The answer today, not on Friday.
           </div>
         </Box>
       </Reveal>
@@ -334,9 +345,7 @@ export function SlideHais() {
               textAlign: "center",
             }}
           >
-            We don&apos;t know if the next request is one vessel for one week or
-            every ship for a whole year. That&apos;s exactly why serverless fits:
-            the job decides the size, not us.
+            The job decides the size. Not us.
           </div>
         </Box>
       </Reveal>

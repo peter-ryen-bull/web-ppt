@@ -1,5 +1,14 @@
 import type { ReactNode } from "react";
 import { Box, ChapterSlide, Reveal, pt, useRevealStyle } from "../parts";
+import {
+  Bunkring,
+  HexRing,
+  Propell,
+  Registerhull,
+  Seilas,
+  Soyler,
+  SporTilUtslipp,
+} from "@/components/figures/strek";
 
 function BarItem({
   box,
@@ -37,9 +46,9 @@ function BarItem({
   );
 }
 
-function SlideTitle({ children }: { children: ReactNode }) {
+function SlideTitle({ children, width = 780 }: { children: ReactNode; width?: number }) {
   return (
-    <Box box={[66.7, 120, 900, 73.8]}>
+    <Box box={[66.7, 70, width, 90]}>
       <div
         style={{
           fontFamily: "var(--font-serif)",
@@ -75,12 +84,17 @@ function SourceLink({ href, top = 662 }: { href: string; top?: number }) {
 /* Kapittel: Modellene oppå strømmen */
 export function SlideModeller() {
   return (
-    <ChapterSlide
-      title="From positions to emissions"
-      subtitle="MarTraf and MarU: the models that turn AIS points into knowledge"
-      titleSize={54}
-      showLogo={false}
-    />
+    <>
+      <Box box={[430, 50, 420, 170]}>
+        <SporTilUtslipp />
+      </Box>
+      <ChapterSlide
+        title="From positions to emissions"
+        subtitle="MarTraf and MarU: the models that turn AIS points into knowledge"
+        titleSize={54}
+        showLogo={false}
+      />
+    </>
   );
 }
 
@@ -176,9 +190,7 @@ export function SlideModellFlyt() {
               textAlign: "center",
             }}
           >
-            Its predecessor, Havbase, did everything in one model. Now the ship
-            registry, geography, traffic and emissions each have their own
-            responsibility, and their own output others can build on.
+            Four modules. Each with its own output others can build on.
           </div>
         </Box>
       </Reveal>
@@ -198,7 +210,10 @@ export function SlideFolgEttSkip() {
   const linje = useRevealStyle(1);
   return (
     <>
-      <SlideTitle>Follow one ship</SlideTitle>
+      <SlideTitle width={760}>Follow one ship</SlideTitle>
+      <Box box={[880, 36, 340, 120]}>
+        <Seilas />
+      </Box>
       <Box box={[72.4, 196, 1080, 40]}>
         <div
           style={{
@@ -268,9 +283,7 @@ export function SlideFolgEttSkip() {
               textAlign: "center",
             }}
           >
-            Without the phases, everything is just “a ship”. With them, we know
-            what the ship was doing at every single point. And that's the
-            difference between noise and knowledge.
+            The phases turn noise into knowledge.
           </div>
         </Box>
       </Reveal>
@@ -282,7 +295,10 @@ export function SlideFolgEttSkip() {
 export function SlidePropellloven() {
   return (
     <>
-      <SlideTitle>The propeller law</SlideTitle>
+      <SlideTitle width={760}>The propeller law</SlideTitle>
+      <Box box={[960, 36, 260, 130]}>
+        <Propell />
+      </Box>
       <Box
         box={[90, 220, 1100, 110]}
         style={{
@@ -371,11 +387,11 @@ export function SlidePropellloven() {
 /* Maritim trafikkmodell – MarTraf */
 export function SlideMarTraf() {
   const steps = [
-    "Geographic enrichment: ports, coastline, anchoring areas, oil installations",
-    "Operational phase: eleven phases, like cruising, maneuvering, at berth, anchoring, fishing, dynamic positioning",
-    "Voyage segments: continuous sequences, never shorter than five minutes",
-    "Complete voyages: port to port, handling gaps in the signal",
-    "Traffic type: domestic, to and from abroad, transit",
+    "Geographic enrichment",
+    "Eleven operational phases",
+    "Voyage segments, five minutes minimum",
+    "Complete voyages, port to port",
+    "Domestic, international, transit",
   ];
   return (
     <>
@@ -409,20 +425,25 @@ export function SlideMarTraf() {
 /* MarTraf – de tekniske valgene */
 export function SlideMarTrafValg() {
   const items = [
-    "Full resolution, no downsampling. Downsample first, and you risk keeping the noise and throwing away valid data",
-    "H3 indexing on Databricks makes spatial joins fast. At resolution 8, “one cell away” is about 1,100 meters",
-    "The loss of precision is a deliberate choice: the model only needs to know inside or outside, not the exact distance",
+    "Full resolution. No downsampling.",
+    "H3 at resolution 8. One cell ≈ 1,100 m",
+    "Inside or outside. Not the exact distance.",
   ];
   return (
     <>
       <SlideTitle>The choices that make it possible</SlideTitle>
+      <Reveal at={2}>
+        <Box box={[900, 280, 300, 140]}>
+          <HexRing />
+        </Box>
+      </Reveal>
       {items.map((text, i) => (
         <BarItem
           key={text}
           at={i + 1}
-          box={[86.6, 260 + i * 120, 1080, 100]}
-          lineH={88}
-          size={20}
+          box={[86.6, 200 + i * 140, 780, 120]}
+          lineH={108}
+          size={19}
           text={text}
         />
       ))}
@@ -433,10 +454,10 @@ export function SlideMarTrafValg() {
 /* Maritim utslippsmodell – MarU */
 export function SlideMarU() {
   const items = [
-    "Bottom-up, following IMO's fourth greenhouse gas study and ICCT methodology. Python and PySpark, open source.",
-    "Main engine from the propeller law. Auxiliary engines and boilers per operational phase — that's why we needed the phases.",
-    "Around 330 input variables: emission factors, low-load adjustments, sulfur limits per zone, GWP factors",
-    "A ship registry merged from four sources, with versioning of everything that changes",
+    "Bottom-up. IMO and ICCT. Open source.",
+    "Main engine from the propeller law",
+    "Around 330 input variables",
+    "One ship registry, four sources, versioned",
   ];
   return (
     <>
@@ -470,21 +491,24 @@ export function SlideMarU() {
 /* MarU – ML for å fylle hull i registerdata */
 export function SlideMarUHull() {
   const items = [
-    "The ship registries are full of holes, especially for the small vessels",
-    "Median values per ship type and length interval cover the easy cases",
-    "Neural nets estimate service speed, engine RPM and stroke type",
-    "Around 70 percent were missing fuel type in 2022 and 2023. We fill it using IMO's method",
+    "The registries are full of holes",
+    "Medians cover the easy cases",
+    "Neural nets for speed, RPM, stroke",
+    "70% missing fuel type. We fill it.",
   ];
   return (
     <>
       <SlideTitle>ML as a data quality tool</SlideTitle>
+      <Box box={[900, 200, 320, 282]}>
+        <Registerhull />
+      </Box>
       {items.map((text, i) => (
         <BarItem
           key={text}
           at={i + 1}
-          box={[86.6, 250 + i * 95, 1080, 82]}
-          lineH={70}
-          size={20}
+          box={[86.6, 200 + i * 100, 780, 88]}
+          lineH={76}
+          size={19}
           text={text}
         />
       ))}
@@ -497,7 +521,7 @@ export function SlideMarUHull() {
               color: "var(--red)",
             }}
           >
-            The model is open — you can read the whole calculation on GitHub
+            The model is open. github.com/Kystverket/maru
           </div>
         </Box>
       </Reveal>
@@ -536,10 +560,14 @@ export function SlideMarUUt() {
             color: "var(--red)",
           }}
         >
-          The Norwegian Environment Agency plans to use the MarU numbers in the
-          municipalities' climate accounts
+          Into the municipalities&apos; climate accounts
         </div>
       </Box>
+      <Reveal at={1}>
+        <Box box={[40, 480, 560, 180]}>
+          <Soyler />
+        </Box>
+      </Reveal>
       {facts.map((f, i) => (
         <Reveal key={f} at={i + 1}>
           <Box box={[628.2, 201.9 + i * 77.5, 582, 66.4]}>
@@ -576,26 +604,31 @@ export function SlideMarUHvorfor() {
   return (
     <>
       <SlideTitle>Why not just use sales numbers?</SlideTitle>
+      <Reveal at={2}>
+        <Box box={[880, 210, 360, 260]}>
+          <Bunkring />
+        </Box>
+      </Reveal>
       <BarItem
         at={1}
-        box={[86.6, 250, 1080, 100]}
+        box={[86.6, 200, 760, 100]}
         lineH={88}
-        size={20}
-        text="Emissions from shipping are traditionally calculated from how much fuel is sold in Norway"
+        size={19}
+        text="Traditionally: how much fuel was sold in Norway"
       />
       <BarItem
         at={2}
-        box={[86.6, 370, 1080, 100]}
+        box={[86.6, 330, 760, 100]}
         lineH={88}
-        size={20}
-        text="But ships bunker abroad and sail here. And bunker here and sail out. The numbers don't match Norwegian waters"
+        size={19}
+        text="Ships bunker abroad and sail here. The numbers don't match."
       />
       <BarItem
         at={3}
-        box={[86.6, 490, 1080, 100]}
+        box={[86.6, 460, 760, 100]}
         lineH={88}
-        size={20}
-        text="MarU calculates from observed activity instead, and separates domestic traffic from transit"
+        size={19}
+        text="MarU uses observed activity. Domestic vs transit."
       />
       <Reveal at={4}>
         <Box box={[86.6, 620, 1080, 60]}>
@@ -607,8 +640,7 @@ export function SlideMarUHvorfor() {
               color: "var(--red)",
             }}
           >
-            The time series starts in 2016. We built a lot of new base stations
-            in 2015, and better coverage would have looked like rising emissions
+            The time series starts in 2016. Better coverage is not more emissions.
           </div>
         </Box>
       </Reveal>
