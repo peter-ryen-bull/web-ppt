@@ -339,16 +339,17 @@ function MiniBaat({
   y,
   flip,
   kind,
+  s = 1,
 }: {
   x: number;
   y: number;
   flip: boolean;
   kind: 0 | 1 | 2;
+  s?: number;
 }) {
-  const facing = flip ? " scale(-1 1)" : "";
   return (
     <g
-      transform={`translate(${x} ${y})${facing}`}
+      transform={`translate(${x} ${y}) scale(${flip ? -s : s} ${s})`}
       strokeWidth={1.2}
       strokeLinecap="butt"
       strokeLinejoin="miter"
@@ -390,8 +391,8 @@ function MiniBaat({
 export function Meldingsfyll() {
   const W = 1280;
   const H = 720;
-  const gapX = 34;
-  const gapY = 26;
+  const gapX = 48;
+  const gapY = 37;
   const top = 22;
   const bottom = 62;
   const side = 22;
@@ -442,6 +443,7 @@ export function Meldingsfyll() {
               y={y0 + row * gapY}
               flip={flip}
               kind={kind}
+              s={1.45}
             />
           </g>
         );

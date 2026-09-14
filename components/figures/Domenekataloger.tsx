@@ -184,7 +184,7 @@ export function HvorViEr() {
       aria-label="Today: AIS data through bronze, silver and gold, with data products out of gold"
     >
       <PilDefs id="pil-idag" />
-      <Pill cx={620} text="TODAY – ONE SOURCE, ONE CATALOG STRUCTURE" w={400} />
+      <Pill cx={620} text="TODAY – ONE SOURCE, ONE CATALOG STRUCTURE" w={520} />
 
       {/* Kilden */}
       <g transform="translate(30 280)">
@@ -302,7 +302,7 @@ const VIEWS: { navn: string; kilde: string }[] = [
   { navn: "ais.emissions", kilde: "view → ais.gold.emissions" },
   { navn: "customs.declarations", kilde: "view → customs.gold.declarations" },
   { navn: "hr_and_finance.costs", kilde: "view → hr_and_finance.gold.costs" },
-  { navn: "lighthouses.condition", kilde: "view → …maintenance_lighthouses.gold.condition" },
+  { navn: "lighthouses.condition", kilde: "view → lighthouses.gold.condition" },
 ];
 
 const DOMENE_X = 40;

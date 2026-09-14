@@ -530,7 +530,7 @@ export function DataplattformFlyt({ detaljert = false }: { detaljert?: boolean }
       role="img"
       aria-label="Data platform: data flows from sources, through the platform, out to consumers"
     >
-      <Kolonnetittel cx={LEFT_X + CARD_W / 2} text="SOURCES & INGEST" w={200} />
+      <Kolonnetittel cx={LEFT_X + CARD_W / 2} text="SOURCES & INGEST" w={220} />
       <Kolonnetittel cx={RIGHT_X + CARD_W / 2} text="VALUE & USE" w={140} />
 
       {/* Flytlinjer med baller: kilder -> plattform */}

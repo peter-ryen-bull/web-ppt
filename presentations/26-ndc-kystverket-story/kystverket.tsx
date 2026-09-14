@@ -1,13 +1,13 @@
-import type { CSSProperties } from "react";
-import { Box, ChapterSlide, Img, Reveal, pt, useRevealStyle } from "../parts";
+import { Box, BulletList, ChapterSlide, Img, Reveal, pt, useRevealStyle } from "../parts";
 import { BaatSignal } from "@/components/figures/BaatSignal";
 import {
   AisKjede,
   Bolgestripe,
   Fyr,
   Lyttepost,
-  Oljevern,
   Skipsradar,
+  StrekIkon,
+  type IkonNavn,
   type LyttepostType,
 } from "@/components/figures/strek";
 
@@ -22,11 +22,7 @@ export function SlideKystverket() {
         src={`${MEDIA}/kystverket-logo.svg`}
         alt="Kystverket"
       />
-      <ChapterSlide
-        title="Who's listening?"
-        subtitle="Kystverket takes responsibility for the sea route"
-        showLogo={false}
-      />
+      <ChapterSlide title="Who's listening?" showLogo={false} />
       <Box box={[430, 550, 420, 170]}>
         <BaatSignal />
       </Box>
@@ -72,46 +68,45 @@ export function SlideVisjon() {
   );
 }
 
-/* Samfunnsoppdraget: to halvdeler */
+/* Om NCA: fire virksomhetsområder */
+const NCA_OMRADER: {
+  ikon: IkonNavn;
+  tittel: string;
+  tekst: string;
+}[] = [
+  {
+    ikon: "person",
+    tittel: "Pilotage",
+    tekst: "A local expert boards the ship and brings it in.",
+  },
+  {
+    ikon: "varsel",
+    tittel: "Environment",
+    tekst: "National response when oil starts leaking.",
+  },
+  {
+    ikon: "antenne",
+    tittel: "Navigation technology",
+    tekst: "Lights, vessel traffic centers, and AIS.",
+  },
+  {
+    ikon: "kart",
+    tittel: "Transport, ports and fairways",
+    tekst: "The physical sea route. Harbors and channels.",
+  },
+];
+
 export function SlideOppdrag() {
-  const venstre = useRevealStyle(1);
-  const hoyre = useRevealStyle(2);
-
-  const tittel = (tekst: string, farge: string, reveal: CSSProperties) => (
-    <div
-      style={{
-        fontFamily: "var(--font-serif)",
-        fontSize: pt(28),
-        lineHeight: 1.2,
-        color: farge,
-        paddingBottom: 8,
-        ...reveal,
-      }}
-    >
-      {tekst}
-    </div>
-  );
-
-  const punkt = (tekst: string, farge: string, reveal: CSSProperties) => (
-    <div
-      key={tekst}
-      style={{
-        fontFamily: "var(--font-sans)",
-        fontSize: pt(19),
-        lineHeight: 1.35,
-        color: "var(--burgundy-2)",
-        paddingLeft: 18,
-        borderLeft: `3px solid ${farge}`,
-        ...reveal,
-      }}
-    >
-      {tekst}
-    </div>
-  );
+  const omradene = useRevealStyle(1);
 
   return (
     <>
-      <Box box={[66, 70, 1100, 70]}>
+      <Img
+        box={[940, 48, 260, 67]}
+        src={`${MEDIA}/kystverket-logo.svg`}
+        alt="Norwegian Coastal Administration"
+      />
+      <Box box={[66, 48, 820, 120]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
@@ -119,39 +114,69 @@ export function SlideOppdrag() {
             color: "var(--burgundy)",
           }}
         >
-          One mission, two halves
+          About us
+        </div>
+        <div
+          style={{
+            marginTop: 8,
+            fontFamily: "var(--font-sans)",
+            fontWeight: 500,
+            fontSize: pt(20),
+            color: "var(--red)",
+          }}
+        >
+          The Norwegian Coastal Administration
         </div>
       </Box>
       <Box
-        box={[66, 150, 1148, 300]}
+        box={[66, 200, 1148, 360]}
         style={{
           display: "grid",
-          gridTemplateColumns: "540px 540px",
-          columnGap: 68,
-          rowGap: 14,
-          alignItems: "start",
+          gridTemplateColumns: "1fr 1fr",
+          columnGap: 72,
+          rowGap: 48,
+          ...omradene,
         }}
       >
-        {tittel("Safe and efficient passage", "var(--teal)", venstre)}
-        {tittel("Emergency response to acute pollution", "var(--red)", hoyre)}
-        {punkt("Lighthouses, lights and sea marks", "var(--teal)", venstre)}
-        {punkt("Depots with booms and equipment", "var(--red)", hoyre)}
-        {punkt("The pilot service", "var(--teal)", venstre)}
-        {punkt("Emergency harbors, assessed in advance", "var(--red)", hoyre)}
-        {punkt("Vessel traffic centers, around the clock", "var(--teal)", venstre)}
-        {punkt("Incident command when it goes wrong", "var(--red)", hoyre)}
+        {NCA_OMRADER.map((o) => (
+          <div
+            key={o.tittel}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 10,
+            }}
+          >
+            <StrekIkon
+              navn={o.ikon}
+              size={34}
+              color="var(--teal)"
+              strokeWidth={1.6}
+            />
+            <div
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: pt(24),
+                lineHeight: 1.2,
+                color: "var(--burgundy)",
+              }}
+            >
+              {o.tittel}
+            </div>
+            <div
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: pt(17),
+                lineHeight: 1.35,
+                color: "var(--burgundy-2)",
+              }}
+            >
+              {o.tekst}
+            </div>
+          </div>
+        ))}
       </Box>
-      <Reveal at={1}>
-        <Box box={[206, 462, 260, 124]}>
-          <Fyr />
-        </Box>
-      </Reveal>
       <Reveal at={2}>
-        <Box box={[810, 462, 260, 124]}>
-          <Oljevern />
-        </Box>
-      </Reveal>
-      <Reveal at={3}>
         <Box
           box={[66, 610, 1150, 60]}
           style={{ display: "flex", alignItems: "center" }}
@@ -163,7 +188,8 @@ export function SlideOppdrag() {
               color: "var(--red)",
             }}
           >
-            Both halves start with the same question: where are the ships right now?
+            All four start with the same question: where are the ships right
+            now?
           </div>
         </Box>
       </Reveal>
@@ -252,7 +278,7 @@ export function SlideLyttepostene() {
               textAlign: "center",
             }}
           >
-            Stored back to 2006
+            Data stored back to 2005
           </div>
         </Box>
       </Reveal>
@@ -262,32 +288,6 @@ export function SlideLyttepostene() {
 
 /* Hva er AIS, egentlig? */
 export function SlideAis() {
-  const item = (
-    at: number,
-    box: [number, number, number, number],
-    lineH: number,
-    text: string
-  ) => (
-    <Reveal at={at}>
-      <Box
-        box={[72.4, box[1] - 1.7, 3, lineH]}
-        style={{ background: "var(--red)" }}
-      />
-      <Box box={box}>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(22),
-            lineHeight: 1.3,
-            color: "var(--burgundy-2)",
-          }}
-        >
-          {text}
-        </div>
-      </Box>
-    </Reveal>
-  );
-
   return (
     <>
       <Box box={[66.7, 70, 720, 80]}>
@@ -304,14 +304,19 @@ export function SlideAis() {
       <Box box={[800, 200, 420, 150]}>
         <AisKjede />
       </Box>
-      <Reveal at={3}>
-        <Box box={[800, 380, 420, 170]}>
-          <Skipsradar />
-        </Box>
-      </Reveal>
-      {item(1, [86.6, 220, 680, 70], 54, "Identity, position, speed, course")}
-      {item(2, [86.6, 330, 680, 70], 54, "Every few seconds, or a few minutes")}
-      {item(3, [86.6, 440, 680, 70], 54, "Built for collisions. Became the backbone.")}
+      <Box box={[800, 380, 420, 170]}>
+        <Skipsradar />
+      </Box>
+      <BulletList
+        box={[72.4, 220, 700, 360]}
+        fromStep={1}
+        gap={36}
+        items={[
+          "Identity, position, speed, course",
+          "Every few seconds, or a few minutes",
+          "Built for collisions. Became the backbone.",
+        ]}
+      />
     </>
   );
 }

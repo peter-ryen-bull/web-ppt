@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Box, MilesLogo, Reveal, pt, useRevealStyle } from "../parts";
+import { Box, BulletItem, MilesLogo, Reveal, pt } from "../parts";
 import { Isfjell, KlyngeAuto, KlyngeFast } from "@/components/figures/strek";
 
 const VOLUM = {
@@ -77,7 +77,7 @@ export function SlideStordataVolum() {
         3,
         640,
         VOLUM.historikk,
-        "of AIS history back to 2006",
+        "of AIS history back to 2005",
         "var(--red)",
       )}
       <Reveal at={3}>
@@ -103,41 +103,11 @@ export function SlideStordataVolum() {
               textAlign: "center",
             }}
           >
-            Daily processing is easy. Replaying twenty years is the hard part.
+            Daily processing is easy. Replaying twenty-one years is the hard part.
           </div>
         </Box>
       </Reveal>
     </>
-  );
-}
-
-function Punkt({ at, text }: { at: number; text: string }) {
-  const reveal = useRevealStyle(at);
-  return (
-    <div
-      style={{ display: "flex", alignItems: "baseline", gap: 14, ...reveal }}
-    >
-      <span
-        style={{
-          width: 9,
-          height: 9,
-          borderRadius: "50%",
-          background: "var(--red)",
-          flexShrink: 0,
-          transform: "translateY(-1px)",
-        }}
-      />
-      <span
-        style={{
-          fontFamily: "var(--font-sans)",
-          fontSize: pt(15),
-          lineHeight: 1.45,
-          color: "var(--burgundy)",
-        }}
-      >
-        {text}
-      </span>
-    </div>
   );
 }
 
@@ -184,7 +154,9 @@ function Kort({
       </span>
       <div style={{ marginTop: 30, display: "grid", gap: 22 }}>
         {punkter.map((p, i) => (
-          <Punkt key={p} at={fraSteg + i} text={p} />
+          <BulletItem key={p} at={fraSteg + i} size={15} color="var(--burgundy)">
+            {p}
+          </BulletItem>
         ))}
       </div>
     </Box>
@@ -323,28 +295,6 @@ export function SlideHais() {
       {steg(2, 480, "Extract job", "reads through the history and filters")}
       {pil(3, 795)}
       {steg(3, 850, "Delivery", "GeoParquet or CSV by email")}
-      <Reveal at={4}>
-        <Box
-          box={[100, 460, 1080, 140]}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(19),
-              lineHeight: 1.5,
-              color: "var(--burgundy-2)",
-              textAlign: "center",
-            }}
-          >
-            The job decides the size. Not us.
-          </div>
-        </Box>
-      </Reveal>
     </>
   );
 }

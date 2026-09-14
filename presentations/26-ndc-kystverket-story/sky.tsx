@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
-import { Box, ChapterSlide, Img, Reveal, pt, useRevealStyle } from "../parts";
+import { Box, BulletItem, BulletList, ChapterSlide, Img, Reveal, pt } from "../parts";
 import {
-  Bolgestripe,
   DagEn,
   FireSpor,
   Grunnmur,
@@ -14,49 +13,22 @@ import {
 
 const MEDIA = "/media/26-ndc-kystverket";
 
-function BarItem({
-  box,
-  lineH,
-  text,
-  at,
-}: {
-  box: [number, number, number, number];
-  lineH: number;
-  text: string;
-  /** Klikk-steget der punktet dukker opp */
-  at: number;
-}) {
-  return (
-    <Reveal at={at}>
-      <Box
-        box={[72.4, box[1] - 1.7, 3, lineH]}
-        style={{ background: "var(--red)" }}
-      />
-      <Box box={box}>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(22),
-            lineHeight: 1.3,
-            color: "var(--burgundy-2)",
-          }}
-        >
-          {text}
-        </div>
-      </Box>
-    </Reveal>
-  );
-}
-
 /* Kapittel: Historien om prosjektet */
 export function SlideProsjekt() {
   return (
-    <ChapterSlide
-      title="The story of the project"
-      subtitle="From one source to a platform"
-      titleSize={60}
-      showLogo={false}
-    />
+    <>
+      <Img
+        box={[490, 112, 300, 77]}
+        src={`${MEDIA}/kystverket-logo.svg`}
+        alt="Kystverket"
+      />
+      <ChapterSlide
+        title="The story of the project"
+        subtitle="From one source to a platform"
+        titleSize={60}
+        showLogo={false}
+      />
+    </>
   );
 }
 
@@ -64,7 +36,7 @@ export function SlideProsjekt() {
 export function SlideDagEn() {
   const linjer = [
     ["One source.", "AIS"],
-    ["One small team.", "Who also needed to sleep"],
+    ["One small team."],
     ["One stream.", "It never stops"],
   ];
   return (
@@ -147,29 +119,16 @@ export function SlideAzure() {
       <Box box={[800, 250, 420, 160]}>
         <SkyFundament />
       </Box>
-      <BarItem
-        at={1}
-        box={[86.6, 250, 680, 88.5]}
-        lineH={76.5}
-        text="Storage, networking, identity"
-      />
-      <BarItem
-        at={2}
-        box={[86.6, 350, 680, 52.9]}
-        lineH={40}
-        text="Security and cost from day one"
-      />
-      <BarItem
-        at={3}
-        box={[86.6, 430, 680, 52.9]}
-        lineH={40}
-        text="Rebuild from the repo"
-      />
-      <BarItem
-        at={4}
-        box={[86.6, 510, 680, 52.9]}
-        lineH={40}
-        text="Boring on purpose"
+      <BulletList
+        box={[72.4, 250, 700, 380]}
+        fromStep={1}
+        gap={32}
+        items={[
+          "Storage, networking, identity",
+          "Security and cost from day one",
+          "Rebuild from the repo",
+          "Boring on purpose",
+        ]}
       />
     </>
   );
@@ -195,23 +154,15 @@ export function SlideDatabricks() {
         src={`${MEDIA}/databricks.png`}
         alt="Databricks"
       />
-      <BarItem
-        at={1}
-        box={[86.6, 265, 740, 52.9]}
-        lineH={40}
-        text="Lakehouse: lake and warehouse in one"
-      />
-      <BarItem
-        at={2}
-        box={[86.6, 360, 740, 52.9]}
-        lineH={40}
-        text="One engine for batch and streaming"
-      />
-      <BarItem
-        at={3}
-        box={[86.6, 455, 740, 52.9]}
-        lineH={40}
-        text="Unity Catalog: access, lineage, catalog"
+      <BulletList
+        box={[72.4, 260, 760, 320]}
+        fromStep={1}
+        gap={36}
+        items={[
+          "Lakehouse: lake and warehouse in one",
+          "One engine for batch and streaming",
+          "Unity Catalog: access, lineage, catalog",
+        ]}
       />
     </>
   );
@@ -461,19 +412,11 @@ export function SlideTerraformDabs() {
         >
           {under}
         </div>
-        <div style={{ marginTop: 28, display: "grid", gap: 22 }}>
+        <div style={{ marginTop: 28, display: "grid", gap: 18 }}>
           {punkter.map((p) => (
-            <div
-              key={p}
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: pt(24),
-                lineHeight: 1.25,
-                color: "var(--burgundy)",
-              }}
-            >
+            <BulletItem key={p} size={20} color="var(--burgundy)">
               {p}
-            </div>
+            </BulletItem>
           ))}
         </div>
       </Box>
@@ -565,11 +508,11 @@ export function SlideIngest() {
   );
 }
 
-/* Flyt: kilder → Prefect → raw → Databricks */
+/* Flyt: kilder → Prefect → raw → lakehouse → innsikt */
 export function SlideIngestFlyt() {
   return (
     <>
-      <Box box={[48, 120, 900, 60]}>
+      <Box box={[48, 80, 1100, 60]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
@@ -580,142 +523,47 @@ export function SlideIngestFlyt() {
           Fetch. Dump. Then lakehouse.
         </div>
       </Box>
-      <FlytBoks at={1} x={40} title="Sources" sub="AIS and the other things we fetch" />
-      <FlytPil at={2} x={300} />
-      <FlytBoks at={2} x={340} title="Prefect" sub="Python jobs, outside Databricks" />
-      <FlytPil at={3} x={600} />
-      <FlytBoks at={3} x={640} title="Storage, raw" sub="containers Terraform created" />
-      <FlytPil at={4} x={900} />
-      <FlytBoks at={4} x={940} title="Databricks" sub="reads raw, writes bronze" />
-    </>
-  );
-}
-
-/* Kapittel: 100 millioner rader. Hver dag. */
-export function SlideStrommen() {
-  const linje2 = useRevealStyle(1);
-  return (
-    <>
-      <Box
-        box={[81.5, 226, 1117.1, 268]}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(72),
-            lineHeight: 1.15,
-            textAlign: "center",
-            width: "100%",
-          }}
-        >
-          <div style={{ color: "var(--burgundy)" }}>100 million rows.</div>
-          <div style={{ color: "var(--red)", ...linje2 }}>Every day.</div>
-        </div>
-      </Box>
-      <Box box={[0, 600, 1280, 100]}>
-        <Bolgestripe />
-      </Box>
-    </>
-  );
-}
-
-/* Regnestykket */
-export function SlideRegnestykke() {
-  return (
-    <>
-      <Box
-        box={[90, 210, 1100, 90]}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(44),
-            color: "var(--burgundy)",
-          }}
-        >
-          ≈ 1,200 rows per second. Around the clock.
-        </div>
-      </Box>
-      <Reveal at={1}>
-        <Box
-          box={[90, 320, 1100, 90]}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: pt(44),
-              color: "var(--red)",
-            }}
-          >
-            36.5 billion rows per year
-          </div>
-        </Box>
-      </Reveal>
-      <Reveal at={2}>
-        <Box
-          box={[140, 460, 1000, 90]}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(19),
-              lineHeight: 1.45,
-              color: "var(--burgundy-2)",
-              textAlign: "center",
-            }}
-          >
-            Every row is a ship. And in that row, there are people.
-          </div>
-        </Box>
-      </Reveal>
-    </>
-  );
-}
-
-/* Fra antenne til innsikt (pipeline) */
-export function SlidePipeline() {
-  return (
-    <>
-      <Box box={[48, 120, 800, 60]}>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(36),
-            color: "var(--burgundy)",
-          }}
-        >
-          From antenna to insight
-        </div>
-      </Box>
-      <FlytBoks at={1} x={40} title="The AIS network" sub="~90 base stations and 4 satellites" />
-      <FlytPil at={2} x={300} />
-      <FlytBoks at={2} x={340} title="Prefect" sub="jobs outside Databricks, dumping to raw" />
-      <FlytPil at={3} x={600} />
-      <FlytBoks at={3} x={640} title="Lakehouse" sub="bronze → silver → gold in Delta tables" />
-      <FlytPil at={4} x={900} />
-      <FlytBoks at={4} x={940} title="Sharing and insight" sub="APIs, dashboards, and analytics" />
-      <Punchline
+      <FlytBoks
+        at={1}
+        x={28}
+        w={216}
+        title="Sources"
+        sub="AIS, and the other things we fetch"
+      />
+      <FlytPil at={2} x={244} />
+      <FlytBoks
+        at={2}
+        x={280}
+        w={216}
+        title="Prefect"
+        sub="Python jobs, outside Databricks"
+      />
+      <FlytPil at={3} x={496} />
+      <FlytBoks
+        at={3}
+        x={532}
+        w={216}
+        title="Storage, raw"
+        sub="containers Terraform created"
+      />
+      <FlytPil at={4} x={748} />
+      <FlytBoks
+        at={4}
+        x={784}
+        w={216}
+        title="Lakehouse"
+        sub="bronze → silver → gold in Delta tables"
+      />
+      <FlytPil at={5} x={1000} />
+      <FlytBoks
         at={5}
+        x={1036}
+        w={216}
+        title="Sharing"
+        sub="APIs, dashboards, and analytics"
+      />
+      <Punchline
+        at={6}
         y={520}
         text="100 million rows a day. No clusters to run."
       />

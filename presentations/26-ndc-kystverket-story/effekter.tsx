@@ -64,22 +64,25 @@ function Effekt({
           {etikett.toUpperCase()}
         </div>
       </Box>
-      <Box box={[80, 335, 1120, 120]}>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(46),
-            lineHeight: 1.15,
-            color: "var(--burgundy)",
-          }}
-        >
-          {paastand}
-        </div>
-      </Box>
+      {paastand ? (
+        <Box box={[80, 335, 1120, 120]}>
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: pt(46),
+              lineHeight: 1.15,
+              color: "var(--burgundy)",
+            }}
+          >
+            {paastand}
+          </div>
+        </Box>
+      ) : null}
       <Reveal at={1}>
         <Box
           box={[80, 480, 1100, 130]}
           style={{
+            height: "auto",
             borderLeft: "3px solid var(--red)",
             paddingLeft: 24,
           }}
@@ -89,7 +92,7 @@ function Effekt({
               fontFamily: "var(--font-sans)",
               fontSize: pt(22),
               lineHeight: 1.35,
-              color: "var(--burgundy-2)",
+              color: "var(--red)",
             }}
           >
             {eksempel}
@@ -104,9 +107,9 @@ export function SlideEffektKvalitet() {
   return (
     <Effekt
       nummer="1"
-      etikett="Quality"
-      paastand="Data you dare to make decisions on"
-      eksempel="The time series starts in 2016. On purpose."
+      etikett="Data quality"
+      paastand="Data you can trust"
+      eksempel="Data that is tested, quality assured and updated."
       figur={<SkjoldHake />}
     />
   );
@@ -117,8 +120,8 @@ export function SlideEffektEtterlevelse() {
     <Effekt
       nummer="2"
       etikett="Compliance"
-      paastand="The rules are built in once, in one place"
-      eksempel="The privacy filter lives in one place."
+      paastand="Built-in compliance"
+      eksempel="Audit logs. PII masking."
       figur={<Hengelas />}
     />
   );
@@ -128,9 +131,9 @@ export function SlideEffektEffektivitet() {
   return (
     <Effekt
       nummer="3"
-      etikett="Efficiency"
-      paastand="Self-service instead of requests"
-      eksempel="hais.kystverket.no. Order history yourself."
+      etikett="Self-service"
+      paastand="Self-service data"
+      eksempel="Chat with your data. Order it yourself."
       figur={<Automatikk />}
     />
   );
@@ -142,7 +145,7 @@ export function SlideEffektFremtid() {
       nummer="4"
       etikett="Future-ready"
       paastand="AI where the data already lives"
-      eksempel="The model runs where the data already lives."
+      eksempel="The model runs where the data already lives. Integrated in your pipelines."
       figur={<BrikkeMedGnist />}
     />
   );

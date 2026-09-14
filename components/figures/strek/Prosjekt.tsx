@@ -144,92 +144,70 @@ export function FireSpor() {
   );
 }
 
+/** Et rør med albue: tykk kappe, hul kjerne, og en stille strøm inni */
+function Ror({ d }: { d: string }) {
+  return (
+    <g>
+      <path d={d} stroke={TEAL} strokeWidth={8} />
+      <path d={d} stroke={KREM} strokeWidth={3.6} />
+      <path d={d} stroke={TEAL} strokeWidth={1.6} strokeDasharray="5 7">
+        <animate attributeName="stroke-dashoffset" from="24" to="0" dur="2.2s" repeatCount="indefinite" />
+      </path>
+    </g>
+  );
+}
+
 /**
- * Innlesingen: en trakt (Prefect) tømmer filer i en åpen container (raw),
- * og lakehuset til høyre leser derfra. Filene faller som korte streker, ikke kuler.
+ * Innlesingen som rørledning: Prefect henter, dumper i raw, lakehuset leser.
+ * Tre stasjoner på ett rør, avslørt i takt med sliden.
  */
 export function Innlesing() {
   const W = 400;
   const H = 400;
-  const vann = 326;
-  const dur = 4.5;
   return (
-    <Figur w={W} h={H} label="Prefect drops files into raw storage; the lakehouse reads from there">
-      {/* Lakehuset står på pæler i vannet */}
-      <Steg at={3}>
-        <g>
-          <path d={`M 262 ${vann + 10} V 226 M 300 ${vann + 10} V 226 M 338 ${vann + 10} V 226`} strokeWidth={2} />
-          <rect x={246} y={172} width={108} height={56} fill={KREM} />
-          <path d="M 236 174 L 300 126 L 364 174" fill={KREM} />
-          <rect x={288} y={196} width={24} height={32} rx={2} fill={KREM} />
-          <rect x={256} y={186} width={20} height={18} rx={2} fill={KREM} strokeWidth={2} />
-          <rect x={324} y={186} width={20} height={18} rx={2} fill={KREM} strokeWidth={2} />
-          <rect x={258} y={188} width={16} height={14} fill={ROD} stroke="none" opacity={0.6}>
-            <Puls fra={0.15} til={0.7} dur={3.4} />
-          </rect>
-        </g>
-        <Bolger y={vann} w={W} h={H} amp={8} dur={9} />
-        <Tekst x={300} y={vann + 46} size={12}>
-          lakehouse
-        </Tekst>
-      </Steg>
-
-      {/* Landet til venstre */}
-      <path d={`M -4 ${vann + 12} Q 90 ${vann - 24} 180 ${vann - 6} Q 210 ${vann} 222 ${vann + 20} V ${H + 4} H -4 Z`} fill={KREM} />
-
-      {/* Trakta: Prefect henter */}
+    <Figur w={W} h={H} label="Prefect dumps files into raw storage; the lakehouse reads from there">
+      {/* Prefect: jobben utenfor Databricks */}
       <Steg at={1}>
-        <path d="M 40 44 H 180 L 122 118 V 156 L 98 168 V 118 Z" fill={KREM} />
-        <path d="M 60 66 H 160" stroke={TEAL} strokeWidth={2} />
-        <path d="M 74 84 H 146" stroke={TEAL} strokeWidth={2} opacity={0.6} />
-        <Tekst x={110} y={30} size={12}>
+        <Ror d="M 16 92 H 36" />
+        <rect x={36} y={52} width={120} height={80} rx={10} fill={KREM} />
+        <path d="M 62 78 L 80 92 L 62 106 Z" fill={ROD} stroke="none">
+          <Puls fra={0.35} til={1} dur={2.6} />
+        </path>
+        <path d="M 96 76 h 40 M 96 88 h 28 M 96 100 h 36" stroke={TEAL} strokeWidth={1.8} />
+        <Tekst x={96} y={40} size={12}>
           Prefect fetches
         </Tekst>
       </Steg>
 
-      {/* Filene som faller, og containeren de lander i */}
+      {/* Røret ned i raw, og containeren filene lander i */}
       <Steg at={2}>
-        {[0, 1, 2].map((i) => (
-          <path
-            key={i}
-            d={`M ${104 + i * 6} 176 v 12`}
-            stroke={ROD}
-            strokeWidth={2.4}
-            opacity={0}
-          >
-            <animate
-              attributeName="opacity"
-              values="0; 0; 1; 1; 0; 0"
-              keyTimes={`0; ${(0.1 + i * 0.22).toFixed(2)}; ${(0.11 + i * 0.22).toFixed(2)}; ${(0.28 + i * 0.22).toFixed(2)}; ${(0.29 + i * 0.22).toFixed(2)}; 1`}
-              calcMode="discrete"
-              dur={`${dur}s`}
-              repeatCount="indefinite"
-            />
-            <animateTransform
-              attributeName="transform"
-              type="translate"
-              values={`0 0; 0 0; 0 0; 0 26; 0 26; 0 26`}
-              keyTimes={`0; ${(0.1 + i * 0.22).toFixed(2)}; ${(0.11 + i * 0.22).toFixed(2)}; ${(0.28 + i * 0.22).toFixed(2)}; ${(0.29 + i * 0.22).toFixed(2)}; 1`}
-              dur={`${dur}s`}
-              repeatCount="indefinite"
-            />
-          </path>
-        ))}
-        <path d={`M 56 214 V ${vann - 14} H 166 V 214`} fill={KREM} />
-        <path d={`M 56 ${vann - 46} H 166`} strokeWidth={1.6} opacity={0.5} />
-        <rect x={68} y={262} width={86} height={5} rx={1} fill={KREM} strokeWidth={1.4} />
-        <rect x={70} y={272} width={82} height={5} rx={1} fill={KREM} strokeWidth={1.4} />
-        <rect x={66} y={282} width={90} height={5} rx={1} fill={KREM} strokeWidth={1.4} />
-        <Tekst x={111} y={vann + 8} size={11.5} color={TEAL} weight={600}>
+        <Ror d="M 156 92 H 200 V 176" />
+        <circle cx={200} cy={92} r={5} fill={KREM} stroke={TEAL} strokeWidth={2} />
+        <path d="M 148 176 V 248 H 252 V 176" fill={KREM} />
+        <path d="M 148 200 H 252" strokeWidth={1.6} opacity={0.45} />
+        <rect x={164} y={210} width={72} height={6} rx={1} fill={KREM} strokeWidth={1.4} />
+        <rect x={168} y={222} width={64} height={6} rx={1} fill={KREM} strokeWidth={1.4} />
+        <rect x={160} y={234} width={80} height={6} rx={1} fill={KREM} strokeWidth={1.4} />
+        <Tekst x={200} y={270} size={11.5} color={TEAL} weight={600}>
           raw
         </Tekst>
       </Steg>
 
-      {/* Røret fra raw til lakehuset */}
+      {/* Røret videre inn i taket på lakehuset */}
       <Steg at={3}>
-        <path d={`M 168 292 H 300 V 230`} stroke={TEAL} strokeWidth={2.4} strokeDasharray="6 6">
-          <animate attributeName="stroke-dashoffset" from="24" to="0" dur="2.4s" repeatCount="indefinite" />
-        </path>
+        <Ror d="M 252 212 H 308 V 258" />
+        <circle cx={308} cy={212} r={5} fill={KREM} stroke={TEAL} strokeWidth={2} />
+        <rect x={250} y={300} width={116} height={58} fill={KREM} />
+        <path d="M 240 302 L 308 258 L 376 302" fill={KREM} />
+        <rect x={296} y={324} width={24} height={34} rx={2} fill={KREM} />
+        <rect x={262} y={314} width={22} height={18} rx={2} fill={KREM} strokeWidth={2} />
+        <rect x={332} y={314} width={22} height={18} rx={2} fill={KREM} strokeWidth={2} />
+        <rect x={264} y={316} width={18} height={14} fill={ROD} stroke="none" opacity={0.6}>
+          <Puls fra={0.15} til={0.7} dur={3.4} />
+        </rect>
+        <Tekst x={308} y={382} size={12}>
+          lakehouse
+        </Tekst>
       </Steg>
     </Figur>
   );

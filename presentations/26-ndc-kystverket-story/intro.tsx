@@ -1,5 +1,4 @@
-import type { CSSProperties } from "react";
-import { Box, Img, Reveal, pt, useRevealStyle } from "../parts";
+import { Box, BulletItem, Img, Reveal, pt, useRevealStyle } from "../parts";
 import { BaatSignal } from "@/components/figures/BaatSignal";
 import { Meldingsfyll } from "@/components/figures/strek";
 
@@ -98,7 +97,7 @@ export function SlideSignal() {
 
   return (
     <>
-      <Box box={[66, 90, 620, 120]}>
+      <Box box={[66, 80, 640, 150]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
@@ -123,7 +122,7 @@ export function SlideSignal() {
           {rad("WHO", "MMSI 257 123 000")}
           {rad("WHERE", "62.19° N  5.08° E")}
           {rad("HOW FAST", "9.2 knots")}
-          {rad("WHERE TO", "course 021°")}
+          {rad("HEADING", "021°")}
           {rad("STATUS", "under way using engine")}
         </Box>
       </Reveal>
@@ -159,7 +158,7 @@ export function SlideNais() {
               color: "var(--red)",
             }}
           >
-            nais.kystverket.no. The Norwegian coast right now. Open to everyone.
+            nais.kystverket.no. Open to everyone.
           </div>
         </Box>
       </Reveal>
@@ -211,28 +210,6 @@ export function SlideHundreMillioner() {
           </div>
         </Box>
       </Reveal>
-      <Reveal at={2}>
-        <Box
-          box={[140, 490, 1000, 90]}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(19),
-              lineHeight: 1.45,
-              color: "var(--burgundy-2)",
-              textAlign: "center",
-            }}
-          >
-            One message a second. Over three years. For one day.
-          </div>
-        </Box>
-      </Reveal>
     </>
   );
 }
@@ -272,47 +249,17 @@ export function SlideForside() {
           </span>
         </div>
       </Box>
-      <Img box={[39, 423.2, 822.5, 254.7]} src={`${MEDIA}/forside.svg`} alt="Miles" />
+      <Img
+        box={[39, 423.2, 822.5, 254.7]}
+        src={`${MEDIA}/forside.svg`}
+        alt="Miles"
+      />
     </>
   );
 }
 
 /* Slide 6 – Om Peter (layout "Side med tekst og bilde") */
 export function SlideOmPeter() {
-  const r1 = useRevealStyle(1);
-  const r2 = useRevealStyle(2);
-  const r3 = useRevealStyle(3);
-
-  const item = (reveal: CSSProperties, text: string) => (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "stretch",
-        gap: 14,
-        ...reveal,
-      }}
-    >
-      <div
-        style={{
-          width: 3,
-          flexShrink: 0,
-          background: "var(--red)",
-          minHeight: 36,
-        }}
-      />
-      <div
-        style={{
-          fontFamily: "var(--font-sans)",
-          fontSize: pt(22),
-          lineHeight: 1.35,
-          color: "var(--burgundy-2)",
-        }}
-      >
-        {text}
-      </div>
-    </div>
-  );
-
   return (
     <>
       <Img
@@ -333,19 +280,25 @@ export function SlideOmPeter() {
         </div>
       </Box>
       <Box
-        box={[72.4, 250, 580, 400]}
+        box={[72.4, 232, 580, 420]}
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: 32,
+          gap: 22,
         }}
       >
-        {item(r1, "Data platform developer at Miles")}
-        {item(
-          r2,
-          "Building the data platform for the Norwegian Coastal Administration. Has built for both the public and private sector"
-        )}
-        {item(r3, "Azure and Databricks, every day")}
+        <BulletItem at={1}>Data platform developer at Miles</BulletItem>
+        <BulletItem at={2}>
+          Designs data architecture for large organizations
+        </BulletItem>
+        <BulletItem at={3}>
+          Building the data platform for the Norwegian Coastal Administration.
+          Has built for both the public and private sector
+        </BulletItem>
+        <BulletItem at={4}>
+          Previously tech lead for the data platform for the Norwegian Police
+        </BulletItem>
+        <BulletItem at={5}>Azure, Databricks, Terraform</BulletItem>
       </Box>
     </>
   );

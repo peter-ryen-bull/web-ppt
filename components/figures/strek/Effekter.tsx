@@ -13,8 +13,8 @@ import {
 import { IkonI } from "./Ikoner";
 
 /*
- * Strek-figurer til effekt-kapittelet: skjold med hake (kvalitet), hengelås
- * (etterlevelse), tannhjul med sjekkliste (effektivitet), brikke med gnist
+ * Strek-figurer til effekt-kapittelet: skjold (datakvalitet), hengelås
+ * (etterlevelse), tannhjul med sjekkliste (self-service), brikke med gnist
  * (fremtidsrettet) – og alle fire på rad til kapittelsliden.
  */
 
@@ -167,9 +167,9 @@ export function BrikkeMedGnist() {
 
 /** De fire effektene på rad */
 export function EffektRad() {
-  const deler = ["Quality", "Compliance", "Efficiency", "Future-ready"];
+  const deler = ["Data quality", "Compliance", "Self-service", "Future-ready"];
   return (
-    <Figur w={1000} h={150} label="Quality, compliance, efficiency and future-ready">
+    <Figur w={1000} h={150} label="Data quality, compliance, self-service and future-ready">
       {deler.map((tekst, i) => {
         const cx = 125 + i * 250;
         return (

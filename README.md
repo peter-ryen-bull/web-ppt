@@ -131,8 +131,9 @@ public/media/
 Speaker notes for en presentasjon skrives i **én markdown-fil**:
 `presentations/<id>/notes.md`. Filen er laget for å redigeres av menneske og
 KI sammen, og innholdet injiseres automatisk i slidene og vises i
-presentatørvisningen (`/<id>/presenter`). Endringer plukkes opp av hot reload
-i dev-modus.
+presentatørvisningen (`/<id>/presenter`). I dev-modus kan du redigere
+notatene direkte i presentatørvisningen – de lagres tilbake i `notes.md`.
+Endringer plukkes også opp av hot reload hvis du redigerer filen i editoren.
 
 Format:
 

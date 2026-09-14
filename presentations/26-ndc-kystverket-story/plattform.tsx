@@ -17,7 +17,6 @@ import {
   RolleFigur,
   SiloTilPlattform,
   StrekIkon,
-  TeknikkVsOrganisasjon,
   VarehusVsPlattform,
   Verbrekke,
   type IkonNavn,
@@ -187,15 +186,15 @@ export function SlideHvorfor() {
       </Reveal>
       {eksempler.map(([f, ikon], i) => (
         <Reveal key={f} at={i + 1}>
-          <Box box={[628.2, 240.7 + i * 77.5, 582, 66.4]}>
+          <Box box={[600, 228 + i * 88, 620, 78]}>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 gap: 16,
-                whiteSpace: "nowrap",
                 fontFamily: "var(--font-serif)",
-                fontSize: pt(22),
+                fontSize: pt(20),
+                lineHeight: 1.25,
                 color: "var(--burgundy-2)",
               }}
             >
@@ -207,8 +206,8 @@ export function SlideHvorfor() {
                 style={{
                   position: "absolute",
                   left: 2,
-                  top: 61,
-                  width: 582,
+                  top: 72,
+                  width: 620,
                   height: 1.5,
                   background: "var(--divider)",
                 }}
@@ -489,37 +488,6 @@ export function SlideGovernance() {
           >
             Unity Catalog!
           </div>
-        </Box>
-      </Reveal>
-    </>
-  );
-}
-
-/* Slide 17 – Plattformer feiler organisatorisk, ikke teknisk */
-export function SlideFeilerOrganisatorisk() {
-  const linje2 = useRevealStyle(1);
-  return (
-    <>
-      <Box box={[48.4, 267.9, 1183.1, 184.2]}>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(48),
-            lineHeight: 1.2,
-            textAlign: "center",
-          }}
-        >
-          <div style={{ color: "var(--burgundy)" }}>
-            Data platforms rarely fail on technology
-          </div>
-          <div style={{ color: "var(--red)", ...linje2 }}>
-            They fail on people
-          </div>
-        </div>
-      </Box>
-      <Reveal at={1}>
-        <Box box={[240, 500, 800, 190]}>
-          <TeknikkVsOrganisasjon />
         </Box>
       </Reveal>
     </>

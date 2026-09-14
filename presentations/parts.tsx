@@ -63,6 +63,96 @@ export function Reveal({
   );
 }
 
+/**
+ * Miles-punkt: 3 px rød strek som strekker seg med teksten. Brukes overalt
+ * der sliden har en punktliste, så høyde, avstand og farge er like.
+ */
+export function BulletItem({
+  children,
+  at,
+  size = 22,
+  color = "var(--burgundy-2)",
+  bar = "var(--red)",
+}: {
+  children?: ReactNode;
+  /** Klikk-steget som avslører punktet. Utelatt = alltid synlig. */
+  at?: number;
+  size?: number;
+  color?: string;
+  bar?: string;
+}) {
+  const reveal = useRevealStyle(at ?? 0);
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "stretch",
+        gap: 14,
+        ...(at != null ? reveal : null),
+      }}
+    >
+      <div
+        style={{
+          width: 3,
+          flexShrink: 0,
+          background: bar,
+          borderRadius: 1,
+        }}
+      />
+      <div
+        style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: pt(size),
+          lineHeight: 1.3,
+          color,
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/** Punktliste i en Box. `fromStep` gjør at punktene dukker opp ett og ett. */
+export function BulletList({
+  box,
+  items,
+  fromStep,
+  size = 22,
+  gap = 28,
+  color,
+}: {
+  box: [number, number, number, number];
+  items: ReactNode[];
+  fromStep?: number;
+  size?: number;
+  gap?: number;
+  color?: string;
+}) {
+  return (
+    <Box
+      box={box}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        gap,
+      }}
+    >
+      {items.map((item, i) => (
+        <BulletItem
+          key={typeof item === "string" ? item : i}
+          at={fromStep == null ? undefined : fromStep + i}
+          size={size}
+          color={color}
+        >
+          {item}
+        </BulletItem>
+      ))}
+    </Box>
+  );
+}
+
 export function Box({
   box,
   style,
@@ -144,10 +234,10 @@ export function ChapterSlide({
       </Box>
       {subtitle && (
         <Box
-          box={[314.9, 518.7, 650.3, 50.4]}
+          box={[160, 508, 960, 80]}
           style={{
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-start",
             justifyContent: "center",
           }}
         >
@@ -155,6 +245,7 @@ export function ChapterSlide({
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: pt(16),
+              lineHeight: 1.35,
               color: "var(--red)",
               textAlign: "center",
             }}

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Box, ChapterSlide, Reveal, Video, pt, useRevealStyle } from "../parts";
+import { Box, BulletList, ChapterSlide, Reveal, Video, pt, useRevealStyle } from "../parts";
 
 const MEDIA = "/media/26-ndc-kystverket";
 import {
@@ -12,49 +12,14 @@ import {
   SporTilUtslipp,
 } from "@/components/figures/strek";
 
-function BarItem({
-  box,
-  lineH,
-  text,
-  at,
-  size = 22,
-}: {
-  box: [number, number, number, number];
-  lineH: number;
-  text: string;
-  /** Klikk-steget der punktet dukker opp */
-  at: number;
-  size?: number;
-}) {
+function SlideTitle({ children, width = 1140 }: { children: ReactNode; width?: number }) {
   return (
-    <Reveal at={at}>
-      <Box
-        box={[72.4, box[1] - 1.7, 3, lineH]}
-        style={{ background: "var(--red)" }}
-      />
-      <Box box={box}>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(size),
-            lineHeight: 1.3,
-            color: "var(--burgundy-2)",
-          }}
-        >
-          {text}
-        </div>
-      </Box>
-    </Reveal>
-  );
-}
-
-function SlideTitle({ children, width = 780 }: { children: ReactNode; width?: number }) {
-  return (
-    <Box box={[66.7, 70, width, 90]}>
+    <Box box={[66.7, 70, width, 70]}>
       <div
         style={{
           fontFamily: "var(--font-serif)",
-          fontSize: pt(44),
+          fontSize: pt(34),
+          lineHeight: 1.15,
           color: "var(--burgundy-2)",
         }}
       >
@@ -100,7 +65,7 @@ export function SlideModeller() {
   );
 }
 
-/* Modulflyt: AIS → MarTraf → MarU / KystRisk / EnviRisk */
+/* Modulflyt: AIS → MarTraf → MarU / KystRisk */
 export function SlideModellFlyt() {
   const box = (
     at: number,
@@ -178,31 +143,22 @@ export function SlideModellFlyt() {
       <Reveal at={3}>
         <Box box={[580, 220, 180, 316]}>
           <svg width="180" height="316" viewBox="0 0 180 316" fill="none" aria-hidden>
-            <path d="M 0 154 H 90 V 22 H 168" stroke="var(--red)" strokeWidth={2.5} />
-            {arrowHead(168, 22)}
+            <path d="M 0 154 H 90 V 78 H 168" stroke="var(--red)" strokeWidth={2.5} />
+            {arrowHead(168, 78)}
           </svg>
         </Box>
       </Reveal>
       <Reveal at={4}>
         <Box box={[580, 220, 180, 316]}>
           <svg width="180" height="316" viewBox="0 0 180 316" fill="none" aria-hidden>
-            <path d="M 90 22 V 158 H 168" stroke="var(--red)" strokeWidth={2.5} />
-            {arrowHead(168, 158)}
+            <path d="M 90 78 V 230 H 168" stroke="var(--red)" strokeWidth={2.5} />
+            {arrowHead(168, 230)}
           </svg>
         </Box>
       </Reveal>
+      {box(3, [760, 242, 460, 112], "MarU", "emissions – energy and climate accounts")}
+      {box(4, [760, 394, 460, 112], "KystRisk", "accident risk – collisions and groundings")}
       <Reveal at={5}>
-        <Box box={[580, 220, 180, 316]}>
-          <svg width="180" height="316" viewBox="0 0 180 316" fill="none" aria-hidden>
-            <path d="M 90 158 V 294 H 168" stroke="var(--red)" strokeWidth={2.5} />
-            {arrowHead(168, 294)}
-          </svg>
-        </Box>
-      </Reveal>
-      {box(3, [760, 186, 460, 112], "MarU", "emissions – energy and climate accounts")}
-      {box(4, [760, 322, 460, 112], "KystRisk", "accident risk – collisions and groundings")}
-      {box(5, [760, 458, 460, 112], "EnviRisk", "environmental risk – oil spill consequences")}
-      <Reveal at={6}>
         <Box
           box={[52, 600, 1176, 50]}
           style={{
@@ -256,11 +212,11 @@ export function SlideFolgEttSkip() {
         </div>
       </Box>
       <Box
-        box={[110, 372, 1060, 3]}
+        box={[140, 372, 1000, 3]}
         style={{ background: "var(--cream-dark)", ...linje }}
       />
       {faser.map(([fase, sted, fart], i) => {
-        const x = 110 + i * 265;
+        const x = 140 + i * 250;
         const aktiv = i === 2;
         return (
           <Reveal key={sted} at={i + 1}>
@@ -272,7 +228,7 @@ export function SlideFolgEttSkip() {
                 border: "4px solid var(--cream)",
               }}
             />
-            <Box box={[x - 100, 270, 230, 70]}>
+            <Box box={[x - 100, 270, 200, 70]}>
               <div
                 style={{
                   fontFamily: "var(--font-serif)",
@@ -284,7 +240,7 @@ export function SlideFolgEttSkip() {
                 {fase}
               </div>
             </Box>
-            <Box box={[x - 100, 410, 230, 80]}>
+            <Box box={[x - 100, 410, 200, 80]}>
               <div
                 style={{
                   fontFamily: "var(--font-sans)",
@@ -331,6 +287,60 @@ export function SlideAsukaHais() {
         src={`${MEDIA}/asuka-hais.mp4`}
         fit="contain"
       />
+    </>
+  );
+}
+
+/* Punchline: skipet heter Asuka. Wikipedia-artikkelen også. */
+export function SlideAsukaHvem() {
+  return (
+    <>
+      <Box box={[66.7, 36, 1146, 70]}>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(40),
+            color: "var(--burgundy-2)",
+          }}
+        >
+          Who is Asuka?
+        </div>
+      </Box>
+      <Box
+        box={[48, 124, 740, 556]}
+        style={{
+          background: "#fff",
+          border: "1.5px solid var(--cream-dark)",
+          borderRadius: 8,
+          overflow: "hidden",
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`${MEDIA}/asuka-wikipedia.png`}
+          alt="Wikipedia article: Asuka (wrestler)"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "top left",
+          }}
+        />
+      </Box>
+      <Box
+        box={[808, 124, 424, 556]}
+        style={{
+          borderRadius: 8,
+          overflow: "hidden",
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`${MEDIA}/asuka.jpg`}
+          alt="Asuka"
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      </Box>
     </>
   );
 }
@@ -451,16 +461,13 @@ export function SlideMarTraf() {
           From raw positions to voyages you can analyze
         </div>
       </Box>
-      {steps.map((text, i) => (
-        <BarItem
-          key={text}
-          at={i + 1}
-          box={[86.6, 268 + i * 78, 1080, 66]}
-          lineH={54}
-          size={20}
-          text={text}
-        />
-      ))}
+      <BulletList
+        box={[72.4, 250, 1100, 400]}
+        fromStep={1}
+        size={20}
+        gap={22}
+        items={steps}
+      />
       <SourceLink href="https://github.com/Kystverket/maru" />
     </>
   );
@@ -469,28 +476,24 @@ export function SlideMarTraf() {
 /* MarTraf – de tekniske valgene */
 export function SlideMarTrafValg() {
   const items = [
-    "Full resolution. No downsampling.",
     "H3 at resolution 8. One cell ≈ 1,100 m",
     "Inside or outside. Not the exact distance.",
   ];
   return (
     <>
       <SlideTitle>The choices that make it possible</SlideTitle>
-      <Reveal at={2}>
-        <Box box={[900, 280, 300, 140]}>
+      <Reveal at={1}>
+        <Box box={[900, 160, 300, 140]}>
           <HexRing />
         </Box>
       </Reveal>
-      {items.map((text, i) => (
-        <BarItem
-          key={text}
-          at={i + 1}
-          box={[86.6, 200 + i * 140, 780, 120]}
-          lineH={108}
-          size={19}
-          text={text}
-        />
-      ))}
+      <BulletList
+        box={[72.4, 200, 780, 280]}
+        fromStep={1}
+        size={20}
+        gap={36}
+        items={items}
+      />
     </>
   );
 }
@@ -517,16 +520,13 @@ export function SlideMarU() {
           This is where the volume meets the method
         </div>
       </Box>
-      {items.map((text, i) => (
-        <BarItem
-          key={text}
-          at={i + 1}
-          box={[86.6, 268 + i * 90, 1080, 78]}
-          lineH={66}
-          size={20}
-          text={text}
-        />
-      ))}
+      <BulletList
+        box={[72.4, 250, 1100, 380]}
+        fromStep={1}
+        size={20}
+        gap={26}
+        items={items}
+      />
       <SourceLink href="https://www.kystverket.no/klima-og-barekraft/maru/" />
     </>
   );
@@ -546,16 +546,13 @@ export function SlideMarUHull() {
       <Box box={[900, 200, 320, 282]}>
         <Registerhull />
       </Box>
-      {items.map((text, i) => (
-        <BarItem
-          key={text}
-          at={i + 1}
-          box={[86.6, 200 + i * 100, 780, 88]}
-          lineH={76}
-          size={19}
-          text={text}
-        />
-      ))}
+      <BulletList
+        box={[72.4, 200, 780, 400]}
+        fromStep={1}
+        size={20}
+        gap={28}
+        items={items}
+      />
       <Reveal at={5}>
         <Box box={[86.6, 630, 1080, 50]}>
           <div
@@ -573,14 +570,70 @@ export function SlideMarUHull() {
   );
 }
 
+function FactRow({
+  at,
+  box,
+  last,
+  children,
+}: {
+  at: number;
+  box: [number, number, number, number];
+  last?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <Reveal at={at}>
+      <Box
+        box={box}
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(26),
+            lineHeight: 1.25,
+            color: "var(--burgundy-2)",
+          }}
+        >
+          {children}
+        </div>
+        {!last && (
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              bottom: 0,
+              width: "100%",
+              height: 1.5,
+              background: "var(--divider)",
+            }}
+          />
+        )}
+      </Box>
+    </Reveal>
+  );
+}
+
 /* Hva kommer ut av MarU */
 export function SlideMarUUt() {
-  const facts = [
-    "CO₂, methane, NOx, SOx, particulate matter",
-    "14 ship types, 9 sizes",
-    "Municipality, county, sea area",
-    "Energy demand and shore power",
-    "Domestic, international, transit",
+  const facts: { text: ReactNode; box: [number, number, number, number] }[] = [
+    {
+      text: (
+        <>
+          CO₂, methane, NOx, SOx,
+          <br />
+          particulate matter
+        </>
+      ),
+      box: [628, 176, 590, 112],
+    },
+    { text: "14 ship types, 9 sizes", box: [628, 288, 590, 78] },
+    { text: "Municipality, county, sea area", box: [628, 366, 590, 78] },
+    { text: "Energy demand and shore power", box: [628, 444, 590, 78] },
+    { text: "Domestic, international, transit", box: [628, 522, 590, 78] },
   ];
   return (
     <>
@@ -612,32 +665,15 @@ export function SlideMarUUt() {
           <Soyler />
         </Box>
       </Reveal>
-      {facts.map((f, i) => (
-        <Reveal key={f} at={i + 1}>
-          <Box box={[628.2, 201.9 + i * 77.5, 582, 66.4]}>
-            <div
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: pt(28),
-                color: "var(--burgundy-2)",
-              }}
-            >
-              {f}
-            </div>
-            {i < facts.length - 1 && (
-              <div
-                style={{
-                  position: "absolute",
-                  left: 2,
-                  top: 61,
-                  width: 582,
-                  height: 1.5,
-                  background: "var(--divider)",
-                }}
-              />
-            )}
-          </Box>
-        </Reveal>
+      {facts.map(({ text, box }, i) => (
+        <FactRow
+          key={i}
+          at={i + 1}
+          box={box}
+          last={i === facts.length - 1}
+        >
+          {text}
+        </FactRow>
       ))}
     </>
   );
@@ -653,26 +689,16 @@ export function SlideMarUHvorfor() {
           <Bunkring />
         </Box>
       </Reveal>
-      <BarItem
-        at={1}
-        box={[86.6, 200, 760, 100]}
-        lineH={88}
-        size={19}
-        text="Traditionally: how much fuel was sold in Norway"
-      />
-      <BarItem
-        at={2}
-        box={[86.6, 330, 760, 100]}
-        lineH={88}
-        size={19}
-        text="Ships bunker abroad and sail here. The numbers don't match."
-      />
-      <BarItem
-        at={3}
-        box={[86.6, 460, 760, 100]}
-        lineH={88}
-        size={19}
-        text="MarU uses observed activity. Domestic vs transit."
+      <BulletList
+        box={[72.4, 200, 760, 380]}
+        fromStep={1}
+        size={20}
+        gap={32}
+        items={[
+          "Traditionally: how much fuel was sold in Norway",
+          "Ships bunker abroad and sail here. The numbers don't match.",
+          "MarU uses observed activity. Domestic vs transit.",
+        ]}
       />
       <Reveal at={4}>
         <Box box={[86.6, 620, 1080, 60]}>

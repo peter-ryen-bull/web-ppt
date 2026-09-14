@@ -13,7 +13,6 @@ const MEDIA = "/media/26-ndc-kystverket";
 /* Avslutning: tilbake til skipet utenfor Stad */
 export function SlideTilbakeTilStad() {
   const linje2 = useRevealStyle(1);
-  const linje3 = useRevealStyle(2);
   return (
     <>
       <Box
@@ -40,25 +39,14 @@ export function SlideTilbakeTilStad() {
             fontFamily: "var(--font-serif)",
             fontSize: pt(40),
             lineHeight: 1.2,
-            color: "var(--burgundy-2)",
-            ...linje2,
-          }}
-        >
-          Ten seconds later, the message is in the platform.
-        </div>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(40),
-            lineHeight: 1.2,
             color: "var(--red)",
-            ...linje3,
+            ...linje2,
           }}
         >
           A year from now, it's in a municipality's climate accounts.
         </div>
       </Box>
-      <Reveal at={3}>
+      <Reveal at={2}>
         <Box box={[430, 520, 420, 170]}>
           <BaatSignal />
         </Box>
@@ -281,11 +269,10 @@ export function SlideDomeneEffekt() {
 /* Slide 27 – Dette vil vi få til */
 export function SlideVidereListe() {
   const facts: [string, IkonNavn][] = [
-    ["SafeSeaNet, pilotage and geodata in", "kart"],
-    ["Data products with contracts", "kontrakt"],
-    ["Real-time alerts for emergency response", "varsel"],
-    ["ML: ETA prediction and anomalies", "gnist"],
-    ["Even more open data. For you.", "deling"],
+    ["More of Kystverket's own data in", "kart"],
+    ["Customs analysis", "soyler"],
+    ["Predictive maintenance on lighthouses", "verktoy"],
+    ["Faster and better organization", "person"],
   ];
   return (
     <>
@@ -303,15 +290,15 @@ export function SlideVidereListe() {
       </Box>
       {facts.map(([f, ikon], i) => (
         <Reveal key={f} at={i + 1}>
-          <Box box={[628.2, 201.9 + i * 77.5, 582, 66.4]}>
+          <Box box={[600, 210 + i * 96, 620, 86]}>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 gap: 16,
-                whiteSpace: "nowrap",
                 fontFamily: "var(--font-serif)",
-                fontSize: pt(22),
+                fontSize: pt(20),
+                lineHeight: 1.25,
                 color: "var(--burgundy-2)",
               }}
             >
@@ -323,8 +310,8 @@ export function SlideVidereListe() {
                 style={{
                   position: "absolute",
                   left: 2,
-                  top: 61,
-                  width: 582,
+                  top: 80,
+                  width: 620,
                   height: 1.5,
                   background: "var(--divider)",
                 }}

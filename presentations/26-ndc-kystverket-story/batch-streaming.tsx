@@ -1,4 +1,4 @@
-import { Box, ChapterSlide, MilesLogo, Reveal, pt, useRevealStyle } from "../parts";
+import { Box, BulletItem, ChapterSlide, MilesLogo, Reveal, pt } from "../parts";
 import { BatchVsStreamingFigur } from "@/components/figures/BatchVsStreaming";
 
 /* Kapittel: Hvordan dataplattform */
@@ -43,42 +43,6 @@ export function SlideBatchVsStreaming() {
         <BatchVsStreamingFigur />
       </Box>
     </>
-  );
-}
-
-/* Ett punkt i et valgkort – fades inn på sitt eget klikk-steg */
-function ValgPunkt({ at, text }: { at: number; text: string }) {
-  const reveal = useRevealStyle(at);
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "baseline",
-        gap: 14,
-        ...reveal,
-      }}
-    >
-      <span
-        style={{
-          width: 9,
-          height: 9,
-          borderRadius: "50%",
-          background: "var(--red)",
-          flexShrink: 0,
-          transform: "translateY(-1px)",
-        }}
-      />
-      <span
-        style={{
-          fontFamily: "var(--font-sans)",
-          fontSize: pt(15),
-          lineHeight: 1.45,
-          color: "var(--burgundy)",
-        }}
-      >
-        {text}
-      </span>
-    </div>
   );
 }
 
@@ -132,7 +96,9 @@ function ValgKort({
       </div>
       <div style={{ marginTop: 30, display: "grid", gap: 22 }}>
         {punkter.map((p, i) => (
-          <ValgPunkt key={p} at={fraSteg + i} text={p} />
+          <BulletItem key={p} at={fraSteg + i} size={15} color="var(--burgundy)">
+            {p}
+          </BulletItem>
         ))}
       </div>
     </Box>

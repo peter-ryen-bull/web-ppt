@@ -64,8 +64,135 @@ export default function PresenterView({
     );
   }, [presentationId]);
 
+  const currentSlide = slides[current];
+  const canEditNotes = process.env.NODE_ENV === "development";
+  const [notesDraft, setNotesDraft] = useState(currentSlide.notes ?? "");
+  const [notesStatus, setNotesStatus] = useState<
+    "idle" | "saving" | "saved" | "error"
+  >("idle");
+  const notesDraftRef = useRef(notesDraft);
+  const notesSlideIdRef = useRef(currentSlide.id);
+  const notesMetaRef = useRef({
+    name: currentSlide.name,
+    chapterId: currentChapter?.id,
+  });
+  const notesTimerRef = useRef<number | null>(null);
+  const notesSavedBySlideRef = useRef<Record<string, string>>({
+    [currentSlide.id]: currentSlide.notes ?? "",
+  });
+  const notesStatusTimerRef = useRef<number | null>(null);
+
+  notesDraftRef.current = notesDraft;
+
+  const persistNotes = useCallback(
+    async (
+      slideId: string,
+      notes: string,
+      slideName?: string,
+      chapterId?: string
+    ) => {
+      if (!canEditNotes) return;
+      if (notesSavedBySlideRef.current[slideId] === notes) return;
+      setNotesStatus("saving");
+      try {
+        const res = await fetch("/api/notes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            presentationId,
+            slideId,
+            chapterId,
+            slideName,
+            notes,
+          }),
+        });
+        if (!res.ok) {
+          throw new Error(await res.text());
+        }
+        notesSavedBySlideRef.current[slideId] = notes;
+        setNotesStatus("saved");
+        if (notesStatusTimerRef.current) {
+          window.clearTimeout(notesStatusTimerRef.current);
+        }
+        notesStatusTimerRef.current = window.setTimeout(() => {
+          setNotesStatus((s) => (s === "saved" ? "idle" : s));
+        }, 1800);
+      } catch {
+        setNotesStatus("error");
+      }
+    },
+    [canEditNotes, presentationId]
+  );
+
+  const flushNotes = useCallback(
+    (slideId: string, notes: string, slideName?: string, chapterId?: string) => {
+      if (notesTimerRef.current) {
+        window.clearTimeout(notesTimerRef.current);
+        notesTimerRef.current = null;
+      }
+      void persistNotes(slideId, notes, slideName, chapterId);
+    },
+    [persistNotes]
+  );
+
+  const scheduleNotesSave = useCallback(
+    (notes: string, slideId: string, slideName?: string, chapterId?: string) => {
+      if (notesTimerRef.current) {
+        window.clearTimeout(notesTimerRef.current);
+      }
+      notesTimerRef.current = window.setTimeout(() => {
+        notesTimerRef.current = null;
+        void persistNotes(slideId, notes, slideName, chapterId);
+      }, 700);
+    },
+    [persistNotes]
+  );
+
+  useEffect(() => {
+    const prevId = notesSlideIdRef.current;
+    const prevDraft = notesDraftRef.current;
+    const prevMeta = notesMetaRef.current;
+    if (prevId && prevId !== currentSlide.id) {
+      flushNotes(prevId, prevDraft, prevMeta.name, prevMeta.chapterId);
+    }
+    notesSlideIdRef.current = currentSlide.id;
+    notesMetaRef.current = {
+      name: currentSlide.name,
+      chapterId: currentChapter?.id,
+    };
+    const incoming = currentSlide.notes ?? "";
+    const cached = notesSavedBySlideRef.current[currentSlide.id];
+    if (cached === undefined) {
+      notesSavedBySlideRef.current[currentSlide.id] = incoming;
+      setNotesDraft(incoming);
+    } else {
+      setNotesDraft(cached);
+    }
+    setNotesStatus("idle");
+    // Only reset the editor when the slide changes – not when HMR refreshes notes.md.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSlide.id]);
+
+  useEffect(() => {
+    return () => {
+      if (notesTimerRef.current) window.clearTimeout(notesTimerRef.current);
+      if (notesStatusTimerRef.current) {
+        window.clearTimeout(notesStatusTimerRef.current);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === "TEXTAREA" ||
+          target.tagName === "INPUT" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
       if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
         e.preventDefault();
         go(1);
@@ -94,7 +221,6 @@ export default function PresenterView({
         ? visibleIndexes[currentVisiblePos + 1]
         : null;
 
-  const currentSlide = slides[current];
   const isCurrentHidden = hidden.has(currentSlide.id);
   const maxStep = currentSlide.steps ?? 0;
   // Flere klikk-steg igjen på denne sliden? Da viser «Neste» neste steg.
@@ -181,16 +307,74 @@ export default function PresenterView({
             )}
           </div>
 
-          <div className={styles.paneLabel}>Notater</div>
-          <div className={styles.notes}>
-            {currentSlide.notes ? (
-              currentSlide.notes
-            ) : (
-              <span className={styles.noNotes}>
-                Ingen notater for denne sliden.
+          <div className={styles.paneLabel}>
+            Notater
+            {canEditNotes && notesStatus !== "idle" && (
+              <span
+                className={
+                  notesStatus === "error"
+                    ? `${styles.notesStatus} ${styles.notesStatusError}`
+                    : styles.notesStatus
+                }
+              >
+                {notesStatus === "saving"
+                  ? "Lagrer…"
+                  : notesStatus === "saved"
+                    ? "Lagret i notes.md"
+                    : "Kunne ikke lagre"}
               </span>
             )}
           </div>
+          {canEditNotes ? (
+            <textarea
+              className={styles.notesEditor}
+              value={notesDraft}
+              placeholder="Ingen notater for denne sliden. Skriv her – det lagres i notes.md."
+              spellCheck
+              onChange={(e) => {
+                const value = e.target.value;
+                setNotesDraft(value);
+                scheduleNotesSave(
+                  value,
+                  currentSlide.id,
+                  currentSlide.name,
+                  currentChapter?.id
+                );
+              }}
+              onBlur={() =>
+                flushNotes(
+                  currentSlide.id,
+                  notesDraft,
+                  currentSlide.name,
+                  currentChapter?.id
+                )
+              }
+              onKeyDown={(e) => {
+                if ((e.metaKey || e.ctrlKey) && e.key === "s") {
+                  e.preventDefault();
+                  flushNotes(
+                    currentSlide.id,
+                    notesDraft,
+                    currentSlide.name,
+                    currentChapter?.id
+                  );
+                }
+                if (e.key === "Escape") {
+                  e.currentTarget.blur();
+                }
+              }}
+            />
+          ) : (
+            <div className={styles.notes}>
+              {currentSlide.notes ? (
+                currentSlide.notes
+              ) : (
+                <span className={styles.noNotes}>
+                  Ingen notater for denne sliden.
+                </span>
+              )}
+            </div>
+          )}
         </aside>
       </main>
 

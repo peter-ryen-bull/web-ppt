@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Box, ChapterSlide, MilesLogo, pt } from "../../parts";
+import { Box, BulletItem, ChapterSlide, MilesLogo, pt } from "../../parts";
 import {
   TidslinjeFigur,
   MoensterFigur,
@@ -79,7 +79,6 @@ function SpeilSlide({
     farge: string,
     tittel: string,
     punkter: string[],
-    prefiks: string
   ) => (
     <Box
       box={[x, 190, 560, 400]}
@@ -102,21 +101,10 @@ function SpeilSlide({
         {tittel}
       </div>
       {punkter.map((p) => (
-        <div
-          key={p}
-          style={{
-            display: "flex",
-            gap: 14,
-            alignItems: "baseline",
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(15),
-            lineHeight: 1.4,
-            color: "var(--burgundy)",
-            marginBottom: 18,
-          }}
-        >
-          <span style={{ color: farge, fontWeight: 700, flexShrink: 0 }}>{prefiks}</span>
-          <span>{p}</span>
+        <div key={p} style={{ marginBottom: 18 }}>
+          <BulletItem size={15} color="var(--burgundy)" bar={farge}>
+            {p}
+          </BulletItem>
         </div>
       ))}
     </Box>
@@ -150,8 +138,8 @@ function SpeilSlide({
           What it solved – and the new problem
         </div>
       </Box>
-      {kolonne(60, "var(--teal)", "What it solved", loest, "✓")}
-      {kolonne(660, "var(--red)", "The new problem", nytt, "→")}
+      {kolonne(60, "var(--teal)", "What it solved", loest)}
+      {kolonne(660, "var(--red)", "The new problem", nytt)}
       {bunn && (
         <Box
           box={[60, 616, 1160, 60]}
@@ -277,32 +265,21 @@ export function SlideVarehuset() {
 
 /* 10 – Finans var først */
 export function SlideFinans() {
-  const punkt = (y: number, tittel: string, tekst: string) => (
-    <>
-      <Box box={[72.4, y, 3, 62]} style={{ background: "var(--red)" }} />
-      <Box box={[92, y - 4, 520, 80]}>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontWeight: 600,
-            fontSize: pt(17),
-            color: "var(--burgundy)",
-          }}
-        >
-          {tittel}
-        </div>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(13.5),
-            color: "#9a5068",
-            marginTop: 4,
-          }}
-        >
-          {tekst}
-        </div>
-      </Box>
-    </>
+  const punkt = (tittel: string, tekst: string) => (
+    <BulletItem size={17} color="var(--burgundy)">
+      <div style={{ fontWeight: 600 }}>{tittel}</div>
+      <div
+        style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: pt(13.5),
+          color: "#9a5068",
+          marginTop: 4,
+          fontWeight: 400,
+        }}
+      >
+        {tekst}
+      </div>
+    </BulletItem>
   );
 
   return (
@@ -321,10 +298,15 @@ export function SlideFinans() {
           <span style={{ color: "var(--red)" }}>because money is data</span>
         </div>
       </Box>
-      {punkt(280, "Risk management", "total exposure needs accounts, loans, and cards seen as one")}
-      {punkt(370, "Fraud and profitability", "patterns across the systems – who are we losing money on?")}
-      {punkt(460, "Regulation", "reporting requirements forced history and traceability")}
-      {punkt(550, "…and they could afford it", "the Teradata price tag was “eye-watering” – but the edge was measurable")}
+      <Box
+        box={[72.4, 270, 600, 380]}
+        style={{ display: "flex", flexDirection: "column", gap: 22 }}
+      >
+        {punkt("Risk management", "total exposure needs accounts, loans, and cards seen as one")}
+        {punkt("Fraud and profitability", "patterns across the systems – who are we losing money on?")}
+        {punkt("Regulation", "reporting requirements forced history and traceability")}
+        {punkt("…and they could afford it", "the Teradata price tag was “eye-watering” – but the edge was measurable")}
+      </Box>
 
       <Box
         box={[700, 280, 500, 330]}
