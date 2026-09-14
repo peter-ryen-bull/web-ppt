@@ -37,7 +37,6 @@ export default function PresenterView({
     go,
     goChapter,
     toggleHidden,
-    toggleChapter,
     currentChapter,
     isCurrentChapterHidden,
   } = useSyncedDeck(presentation);
@@ -73,9 +72,6 @@ export default function PresenterView({
       } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
         e.preventDefault();
         go(-1);
-      } else if ((e.key === "h" || e.key === "H") && e.shiftKey) {
-        const id = slides[current]?.chapterId;
-        if (id) toggleChapter(id);
       } else if (e.key === "h" || e.key === "H") {
         toggleHidden(slides[current].id);
       } else if (e.key === "[") {
@@ -88,7 +84,7 @@ export default function PresenterView({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go, goChapter, toggleHidden, toggleChapter, current, slides, openAudience]);
+  }, [go, goChapter, toggleHidden, current, slides, openAudience]);
 
   // Neste synlige slide (den publikum ser etter neste tastetrykk)
   const nextIndex =

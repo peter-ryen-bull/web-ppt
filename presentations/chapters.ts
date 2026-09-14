@@ -57,16 +57,3 @@ export function isChapterFullyHidden(
     chapter.slides.length > 0 && chapter.slides.every((s) => hidden.has(s.id))
   );
 }
-
-export function toggleChapterHidden(
-  chapter: ChapterDef,
-  hidden: Set<string>
-): Set<string> {
-  const next = new Set(hidden);
-  if (isChapterFullyHidden(chapter, hidden)) {
-    for (const s of chapter.slides) next.delete(s.id);
-  } else {
-    for (const s of chapter.slides) next.add(s.id);
-  }
-  return next;
-}

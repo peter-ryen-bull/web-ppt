@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties } from "react";
 import { Box, ChapterSlide, Img, Reveal, pt, useRevealStyle } from "../parts";
 import { BaatSignal } from "@/components/figures/BaatSignal";
 import {
@@ -74,52 +74,39 @@ export function SlideVisjon() {
 
 /* Samfunnsoppdraget: to halvdeler */
 export function SlideOppdrag() {
-  const halvdel = (
-    at: number,
-    x: number,
-    tittel: string,
-    punkter: string[],
-    farge: string,
-    figur: ReactNode,
-  ) => (
-    <Reveal at={at}>
-      <Box box={[x + 140, 462, 260, 124]}>{figur}</Box>
-      <Box box={[x, 150, 540, 300]}>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(28),
-            lineHeight: 1.2,
-            color: farge,
-          }}
-        >
-          {tittel}
-        </div>
-        <div
-          style={{
-            marginTop: 22,
-            display: "grid",
-            gap: 14,
-          }}
-        >
-          {punkter.map((p) => (
-            <div
-              key={p}
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: pt(19),
-                lineHeight: 1.35,
-                color: "var(--burgundy-2)",
-                paddingLeft: 18,
-                borderLeft: `3px solid ${farge}`,
-              }}
-            >
-              {p}
-            </div>
-          ))}
-        </div>
-      </Box>
-    </Reveal>
+  const venstre = useRevealStyle(1);
+  const hoyre = useRevealStyle(2);
+
+  const tittel = (tekst: string, farge: string, reveal: CSSProperties) => (
+    <div
+      style={{
+        fontFamily: "var(--font-serif)",
+        fontSize: pt(28),
+        lineHeight: 1.2,
+        color: farge,
+        paddingBottom: 8,
+        ...reveal,
+      }}
+    >
+      {tekst}
+    </div>
+  );
+
+  const punkt = (tekst: string, farge: string, reveal: CSSProperties) => (
+    <div
+      key={tekst}
+      style={{
+        fontFamily: "var(--font-sans)",
+        fontSize: pt(19),
+        lineHeight: 1.35,
+        color: "var(--burgundy-2)",
+        paddingLeft: 18,
+        borderLeft: `3px solid ${farge}`,
+        ...reveal,
+      }}
+    >
+      {tekst}
+    </div>
   );
 
   return (
@@ -135,30 +122,35 @@ export function SlideOppdrag() {
           One mission, two halves
         </div>
       </Box>
-      {halvdel(
-        1,
-        66,
-        "Safe and efficient passage",
-        [
-          "Lighthouses, lights and sea marks",
-          "The pilot service",
-          "Vessel traffic centers, around the clock",
-        ],
-        "var(--teal)",
-        <Fyr />,
-      )}
-      {halvdel(
-        2,
-        670,
-        "Emergency response to acute pollution",
-        [
-          "Depots with booms and equipment",
-          "Emergency harbors, assessed in advance",
-          "Incident command when it goes wrong",
-        ],
-        "var(--red)",
-        <Oljevern />,
-      )}
+      <Box
+        box={[66, 150, 1148, 300]}
+        style={{
+          display: "grid",
+          gridTemplateColumns: "540px 540px",
+          columnGap: 68,
+          rowGap: 14,
+          alignItems: "start",
+        }}
+      >
+        {tittel("Safe and efficient passage", "var(--teal)", venstre)}
+        {tittel("Emergency response to acute pollution", "var(--red)", hoyre)}
+        {punkt("Lighthouses, lights and sea marks", "var(--teal)", venstre)}
+        {punkt("Depots with booms and equipment", "var(--red)", hoyre)}
+        {punkt("The pilot service", "var(--teal)", venstre)}
+        {punkt("Emergency harbors, assessed in advance", "var(--red)", hoyre)}
+        {punkt("Vessel traffic centers, around the clock", "var(--teal)", venstre)}
+        {punkt("Incident command when it goes wrong", "var(--red)", hoyre)}
+      </Box>
+      <Reveal at={1}>
+        <Box box={[206, 462, 260, 124]}>
+          <Fyr />
+        </Box>
+      </Reveal>
+      <Reveal at={2}>
+        <Box box={[810, 462, 260, 124]}>
+          <Oljevern />
+        </Box>
+      </Reveal>
       <Reveal at={3}>
         <Box
           box={[66, 610, 1150, 60]}
@@ -342,7 +334,7 @@ export function SlideSporsmalet() {
             So you&apos;ve got 8.9 billion messages a year.
           </div>
           <div style={{ color: "var(--red)", marginTop: 20, ...linje2 }}>
-            What do you do with them?
+            How do you process them all?
           </div>
         </div>
       </Box>

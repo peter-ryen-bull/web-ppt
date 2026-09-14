@@ -10,7 +10,9 @@ import {
 } from "@/components/figures/Datakontrakt";
 import {
   ArkivOgGit,
+  Automatikk,
   GovernanceTrio,
+  Grunnmur,
   Pakke,
   RolleFigur,
   SiloTilPlattform,
@@ -242,39 +244,37 @@ export function SlideSamleData() {
   const linje2 = useRevealStyle(1);
   return (
     <>
-      <Box box={[48.4, 267.9, 1183.1, 184.2]}>
+      <Box box={[140, 70, 1000, 170]}>
+        <Verbrekke />
+      </Box>
+      <Box box={[48.4, 300, 1183.1, 184.2]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(54),
+            fontSize: pt(50),
             lineHeight: 1.2,
             textAlign: "center",
           }}
         >
           <div style={{ color: "var(--burgundy)" }}>
-            Collect data from source systems
+            Store, transform, deliver
           </div>
           <div style={{ color: "var(--red)", ...linje2 }}>
-            Analyze it, and share it
+            Govern the whole pipe
           </div>
         </div>
       </Box>
-      <Reveal at={2}>
-        <Box box={[140, 480, 1000, 100]}>
-          <Verbrekke />
-        </Box>
-      </Reveal>
     </>
   );
 }
 
-/* Slide 14 – Mer enn et datavarehus */
-export function SlideMerEnnVarehus() {
+/* Lakehouse: datasjø og varehus i ett */
+export function SlideLakehouseHva() {
   const linje2 = useRevealStyle(1);
   return (
     <>
-      <Box box={[330, 48, 620, 200]}>
-        <VarehusVsPlattform />
+      <Box box={[430, 48, 420, 170]}>
+        <Grunnmur />
       </Box>
       <Box box={[48.4, 267.9, 1183.1, 184.2]}>
         <div
@@ -285,11 +285,9 @@ export function SlideMerEnnVarehus() {
             textAlign: "center",
           }}
         >
-          <div style={{ color: "var(--burgundy)" }}>
-            A data warehouse delivers reports
-          </div>
+          <div style={{ color: "var(--burgundy)" }}>Lakehouse</div>
           <div style={{ color: "var(--red)", ...linje2 }}>
-            A data platform creates value
+            Data lake + data warehouse
           </div>
         </div>
       </Box>
@@ -309,10 +307,89 @@ export function SlideMerEnnVarehus() {
               color: "var(--red)",
             }}
           >
-            continuously, not just for the monthly report
+            store and serve, in one place
           </div>
         </Box>
       </Reveal>
+    </>
+  );
+}
+
+/* Pipelines som kjører uten et menneske i loopen */
+export function SlideAutomatisertePipelines() {
+  const linje2 = useRevealStyle(1);
+  return (
+    <>
+      <Box box={[430, 48, 420, 150]}>
+        <Automatikk />
+      </Box>
+      <Box box={[48.4, 267.9, 1183.1, 184.2]}>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(50),
+            lineHeight: 1.2,
+            textAlign: "center",
+          }}
+        >
+          <div style={{ color: "var(--burgundy)" }}>Automated pipelines</div>
+          <div style={{ color: "var(--red)", ...linje2 }}>
+            Jobs that run without a person in the loop
+          </div>
+        </div>
+      </Box>
+    </>
+  );
+}
+
+/* Slide 14 – Mer enn et datavarehus */
+export function SlideMerEnnVarehus() {
+  const punkter = [
+    "Structured and unstructured",
+    "Rollbacks",
+    "Rapid iterations",
+  ];
+  return (
+    <>
+      <Box box={[330, 48, 620, 180]}>
+        <VarehusVsPlattform />
+      </Box>
+      <Box box={[48.4, 250, 1183.1, 80]}>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(50),
+            lineHeight: 1.2,
+            textAlign: "center",
+            color: "var(--burgundy)",
+          }}
+        >
+          Is it just a database?
+        </div>
+      </Box>
+      {punkter.map((tekst, i) => (
+        <Reveal key={tekst} at={i + 1}>
+          <Box
+            box={[340, 360 + i * 70, 600, 56]}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: pt(28),
+                color: "var(--red)",
+                textAlign: "center",
+              }}
+            >
+              {tekst}
+            </div>
+          </Box>
+        </Reveal>
+      ))}
     </>
   );
 }

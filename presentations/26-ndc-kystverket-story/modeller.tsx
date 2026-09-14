@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
-import { Box, ChapterSlide, Reveal, pt, useRevealStyle } from "../parts";
+import { Box, ChapterSlide, Reveal, Video, pt, useRevealStyle } from "../parts";
+
+const MEDIA = "/media/26-ndc-kystverket";
 import {
   Bunkring,
   HexRing,
@@ -98,12 +100,17 @@ export function SlideModeller() {
   );
 }
 
-/* Modulflyt: AIS → MarTraf → MarU → statistikk */
+/* Modulflyt: AIS → MarTraf → MarU / KystRisk / EnviRisk */
 export function SlideModellFlyt() {
-  const step = (at: number, x: number, title: string, sub: string) => (
+  const box = (
+    at: number,
+    frame: [number, number, number, number],
+    title: string,
+    sub: string,
+  ) => (
     <Reveal at={at}>
       <Box
-        box={[x, 300, 260, 150]}
+        box={frame}
         style={{
           background: "var(--teal)",
           borderRadius: 16,
@@ -111,7 +118,7 @@ export function SlideModellFlyt() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: 10,
+          gap: 8,
           padding: 16,
           textAlign: "center",
         }}
@@ -139,42 +146,65 @@ export function SlideModellFlyt() {
     </Reveal>
   );
 
-  const arrow = (at: number, x: number) => (
-    <Reveal at={at}>
-      <Box
-        box={[x, 345, 40, 60]}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(30),
-            color: "var(--red)",
-          }}
-        >
-          →
-        </div>
-      </Box>
-    </Reveal>
+  const arrowHead = (x: number, y: number) => (
+    <path d={`M ${x - 10} ${y - 6} L ${x} ${y} L ${x - 10} ${y + 6}`} stroke="var(--red)" strokeWidth={2.5} fill="none" />
   );
 
   return (
     <>
-      <SlideTitle>Four modules, not one model</SlideTitle>
-      {step(1, 40, "Raw AIS data", "static and dynamic messages")}
-      {arrow(2, 300)}
-      {step(2, 340, "MarTraf", "the traffic model – cleans and enriches")}
-      {arrow(3, 600)}
-      {step(3, 640, "MarU", "the emissions model – energy and emissions")}
-      {arrow(4, 900)}
-      {step(4, 940, "Statistics and climate accounts", "municipality, county, sea area")}
-      <Reveal at={5}>
+      <SlideTitle width={900}>One source, many models</SlideTitle>
+      {box(1, [52, 306, 232, 136], "Raw AIS data", "static and dynamic messages")}
+      <Reveal at={2}>
         <Box
-          box={[100, 520, 1080, 80]}
+          box={[284, 344, 64, 60]}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: pt(30),
+              color: "var(--red)",
+            }}
+          >
+            →
+          </div>
+        </Box>
+      </Reveal>
+      {box(2, [348, 306, 232, 136], "MarTraf", "the traffic model – cleans and enriches")}
+      <Reveal at={3}>
+        <Box box={[580, 220, 180, 316]}>
+          <svg width="180" height="316" viewBox="0 0 180 316" fill="none" aria-hidden>
+            <path d="M 0 154 H 90 V 22 H 168" stroke="var(--red)" strokeWidth={2.5} />
+            {arrowHead(168, 22)}
+          </svg>
+        </Box>
+      </Reveal>
+      <Reveal at={4}>
+        <Box box={[580, 220, 180, 316]}>
+          <svg width="180" height="316" viewBox="0 0 180 316" fill="none" aria-hidden>
+            <path d="M 90 22 V 158 H 168" stroke="var(--red)" strokeWidth={2.5} />
+            {arrowHead(168, 158)}
+          </svg>
+        </Box>
+      </Reveal>
+      <Reveal at={5}>
+        <Box box={[580, 220, 180, 316]}>
+          <svg width="180" height="316" viewBox="0 0 180 316" fill="none" aria-hidden>
+            <path d="M 90 158 V 294 H 168" stroke="var(--red)" strokeWidth={2.5} />
+            {arrowHead(168, 294)}
+          </svg>
+        </Box>
+      </Reveal>
+      {box(3, [760, 186, 460, 112], "MarU", "emissions – energy and climate accounts")}
+      {box(4, [760, 322, 460, 112], "KystRisk", "accident risk – collisions and groundings")}
+      {box(5, [760, 458, 460, 112], "EnviRisk", "environmental risk – oil spill consequences")}
+      <Reveal at={6}>
+        <Box
+          box={[52, 600, 1176, 50]}
           style={{
             display: "flex",
             alignItems: "center",
@@ -190,7 +220,7 @@ export function SlideModellFlyt() {
               textAlign: "center",
             }}
           >
-            Four modules. Each with its own output others can build on.
+            One source. Many models. Each with its own output others can build on.
           </div>
         </Box>
       </Reveal>
@@ -287,6 +317,20 @@ export function SlideFolgEttSkip() {
           </div>
         </Box>
       </Reveal>
+    </>
+  );
+}
+
+/* Ett skip fra HAIS: Asuka, hele lerretet */
+export function SlideAsukaHais() {
+  return (
+    <>
+      <Box box={[0, 0, 1280, 720]} style={{ background: "#111318" }} />
+      <Video
+        box={[0, 0, 1280, 720]}
+        src={`${MEDIA}/asuka-hais.mp4`}
+        fit="contain"
+      />
     </>
   );
 }

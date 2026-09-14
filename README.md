@@ -20,8 +20,7 @@ npm run dev
 | Neste slide | `→`, mellomrom, `PgDn` | «Neste» |
 | Forrige slide | `←`, `PgUp` | «Forrige» |
 | Første/siste slide | `Home` / `End` | – |
-| Skjul/vis gjeldende slide | `H` | «Skjul slide» |
-| Skjul/vis hele kapittelet | `Shift+H` | «Skjul kapittel» |
+| Skjul/vis en slide | – | Øye-knapp i «Oversikt» |
 | Forrige/neste kapittel | `[` / `]` | – |
 | Slideoversikt (med skjul-brytere) | `G` | «Oversikt» |
 | Eksporter PDF (kun i oversikten) | – | «Eksporter PDF» |

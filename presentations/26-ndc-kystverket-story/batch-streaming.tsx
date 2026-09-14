@@ -1,20 +1,13 @@
 import { Box, ChapterSlide, MilesLogo, Reveal, pt, useRevealStyle } from "../parts";
 import { BatchVsStreamingFigur } from "@/components/figures/BatchVsStreaming";
-import { BolkOgStrom } from "@/components/figures/strek";
 
 /* Kapittel: Hvordan dataplattform */
 export function SlideBatchStreamingKapittel() {
   return (
-    <>
-      <ChapterSlide
-        title="How a data platform works"
-        subtitle="Batch or streaming?"
-        titleSize={54}
-      />
-      <Box box={[430, 60, 420, 150]}>
-        <BolkOgStrom />
-      </Box>
-    </>
+    <ChapterSlide
+      title="How a data platform works"
+      titleSize={54}
+    />
   );
 }
 
@@ -23,7 +16,19 @@ export function SlideBatchVsStreaming() {
   return (
     <>
       <MilesLogo />
-      <Box box={[48, 42, 700, 60]}>
+      <Box box={[48, 36, 700, 22]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(13),
+            letterSpacing: 2.2,
+            color: "#9a5068",
+          }}
+        >
+          A SIDENOTE
+        </div>
+      </Box>
+      <Box box={[48, 58, 700, 44]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",

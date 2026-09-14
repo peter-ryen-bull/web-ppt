@@ -20,36 +20,62 @@ import {
  * AIS-spor som ender i utslipp.
  */
 
-/** Fyr på en holme, med lyskjegler som veksler side, og en liten skute i sjøen */
+/** Fyr på en holme, med lyskjegler som sveiper rundt den loddrette aksen, og en liten skute i sjøen */
 export function Fyr() {
   const W = 420;
   const H = 200;
+  const lx = 210;
+  const ly = 58;
   /** Halvbredden på tårnet ved høyde y (topp 72, fot 150) */
   const hw = (y: number) => 11 + (11 * (y - 72)) / 78;
   const band = (y1: number, y2: number) =>
     `M ${210 - hw(y1)} ${y1} H ${210 + hw(y1)} L ${210 + hw(y2)} ${y2} H ${210 - hw(y2)} Z`;
+  const kjegle = (lengde: number, halv: number, opacity: number) => (
+    <path
+      d={`M 0 0 L ${lengde} ${-halv} V ${halv} Z`}
+      fill={ROD}
+      stroke="none"
+      opacity={opacity}
+    />
+  );
+  const DUR = "8s";
+  const BLENDE_TIDER = "0; 0.18; 0.25; 0.32; 1";
+  const blende = (values: string) => (
+    <animate
+      attributeName="opacity"
+      values={values}
+      keyTimes={BLENDE_TIDER}
+      dur={DUR}
+      repeatCount="indefinite"
+    />
+  );
 
   return (
-    <Figur w={W} h={H} label="Lighthouse on an islet with light beams, and a small boat at sea">
-      {/* Lyskjegler – veksler mellom venstre og høyre som en roterende linse */}
-      <path d="M 199 58 L 24 38 V 78 Z" fill={ROD} stroke="none" opacity={0}>
-        <animate
-          attributeName="opacity"
-          values="0; 0.2; 0; 0"
-          keyTimes="0; 0.25; 0.5; 1"
-          dur="5s"
-          repeatCount="indefinite"
-        />
-      </path>
-      <path d="M 221 58 L 396 38 V 78 Z" fill={ROD} stroke="none" opacity={0}>
-        <animate
-          attributeName="opacity"
-          values="0; 0; 0.2; 0"
-          keyTimes="0; 0.5; 0.75; 1"
-          dur="5s"
-          repeatCount="indefinite"
-        />
-      </path>
+    <Figur
+      w={W}
+      h={H}
+      label="Lighthouse on an islet with light beams, and a small boat at sea"
+      style={{ overflow: "visible" }}
+    >
+      <circle cx={lx} cy={ly} r={36} fill={ROD} stroke="none" opacity={0.22} />
+      <circle cx={lx} cy={ly} r={18} fill={ROD} stroke="none" opacity={0.45} />
+
+      {/* Én kjegle som yaw-er venstre–høyre. Mot oss (scaleX ≈ 0) tar blendet over. */}
+      <g transform={`translate(${lx} ${ly})`}>
+        <g>
+          <animateTransform
+            attributeName="transform"
+            type="scale"
+            values="1 1; 0 1; -1 1; 0 1; 1 1"
+            keyTimes="0; 0.25; 0.5; 0.75; 1"
+            dur={DUR}
+            repeatCount="indefinite"
+          />
+          {kjegle(186, 32, 0.32)}
+          {kjegle(186, 22, 0.62)}
+          {kjegle(186, 8, 0.95)}
+        </g>
+      </g>
 
       <Duv dy={3} dur={3.6}>
         <Skute x={72} y={172} s={0.5} signal={false} />
@@ -67,9 +93,28 @@ export function Fyr() {
       <rect x={193} y={67} width={34} height={6} rx={2} fill={KREM} />
       <rect x={199} y={48} width={22} height={19} rx={2} fill={KREM} />
       <path d="M 195 48 L 210 34 L 225 48 Z" fill={KREM} />
-      <circle cx={210} cy={58} r={4} fill={ROD} stroke="none">
-        <Puls fra={0.4} til={1} dur={2.5} />
+      <circle cx={lx} cy={ly} r={5} fill={ROD} stroke="none">
+        <Puls fra={0.65} til={1} dur={2.2} />
       </circle>
+
+      {/* Blend: når kjeglen peker rett mot oss, flasher lyset over linsa */}
+      <g stroke="none">
+        <circle cx={lx} cy={ly} r={70} fill={ROD} opacity={0}>
+          {blende("0; 0; 0.35; 0; 0")}
+        </circle>
+        <circle cx={lx} cy={ly} r={38} fill={KREM} opacity={0}>
+          {blende("0; 0; 0.85; 0; 0")}
+        </circle>
+        <circle cx={lx} cy={ly} r={10} fill={KREM} opacity={0}>
+          {blende("0; 0; 1; 0; 0")}
+        </circle>
+        <rect x={lx - 96} y={ly - 2.5} width={192} height={5} rx={2.5} fill={KREM} opacity={0}>
+          {blende("0; 0; 0.7; 0; 0")}
+        </rect>
+        <rect x={lx - 2} y={ly - 28} width={4} height={56} rx={2} fill={KREM} opacity={0}>
+          {blende("0; 0; 0.45; 0; 0")}
+        </rect>
+      </g>
     </Figur>
   );
 }
@@ -288,24 +333,77 @@ export function Meldingsstrom() {
   );
 }
 
+/** Side-view boat small enough to tile the fill slide. Origo is mid-hull. */
+function MiniBaat({
+  x,
+  y,
+  flip,
+  kind,
+}: {
+  x: number;
+  y: number;
+  flip: boolean;
+  kind: 0 | 1 | 2;
+}) {
+  const facing = flip ? " scale(-1 1)" : "";
+  return (
+    <g
+      transform={`translate(${x} ${y})${facing}`}
+      strokeWidth={1.2}
+      strokeLinecap="butt"
+      strokeLinejoin="miter"
+    >
+      {kind === 0 && (
+        <>
+          <path d="M 0 -5 V -9.2" strokeLinecap="round" />
+          <circle cx={0} cy={-9.2} r={1.15} fill={ROD} stroke="none" />
+          <rect x={-3.2} y={-5.2} width={7.2} height={5.4} rx={0.8} fill={KREM} />
+          <path d="M -11.2 0.4 L -8.2 5.4 H 8.4 L 11.6 0.4 Z" fill={KREM} />
+        </>
+      )}
+      {kind === 1 && (
+        <>
+          <path d="M 3.4 -4.6 V -8.6" strokeLinecap="round" />
+          <circle cx={3.4} cy={-8.6} r={1.15} fill={ROD} stroke="none" />
+          <rect x={0.3} y={-4.8} width={6.2} height={5} rx={0.8} fill={KREM} />
+          <path d="M -10.4 0.4 L -7.5 5 H 8 L 11 0.4 Z" fill={KREM} />
+        </>
+      )}
+      {kind === 2 && (
+        <>
+          <path d="M -1.4 -5.4 V -9.2" strokeLinecap="round" />
+          <circle cx={-1.4} cy={-9.2} r={1.15} fill={ROD} stroke="none" />
+          <rect x={-6} y={-5.6} width={12} height={5.2} rx={0.8} fill={KREM} />
+          <path d="M -11.6 0.2 L -8.6 5.2 H 8.6 L 11.6 0.2 Z" fill={KREM} />
+        </>
+      )}
+    </g>
+  );
+}
+
 /**
- * Kulene lander én og én og fyller lerretet. Animasjonen starter på
- * første render og fryser når flaten er full. Hver kule er 100 meldinger.
+ * Båtene lander én og én og fyller lerretet. Animasjonen starter på
+ * første render og fryser når flaten er full. Hver båt er 100 meldinger,
+ * og de kommer i samme tempo som 1 400 meldinger / s
+ * (14 båter / s når hver båt er 100 meldinger).
  */
 export function Meldingsfyll() {
   const W = 1280;
   const H = 720;
-  const r = 9;
-  const gap = 30;
+  const gapX = 34;
+  const gapY = 26;
   const top = 22;
   const bottom = 62;
   const side = 22;
-  const cols = Math.floor((W - side * 2) / gap);
-  const rows = Math.floor((H - top - bottom) / gap);
+  const cols = Math.floor((W - side * 2) / gapX);
+  const rows = Math.floor((H - top - bottom) / gapY);
   const n = cols * rows;
-  const fillDur = 5.4;
-  const x0 = (W - (cols - 1) * gap) / 2;
-  const y0 = top + 8;
+  const messagesPerSecond = 1400;
+  const messagesPerBoat = 100;
+  const boatsPerSecond = messagesPerSecond / messagesPerBoat;
+  const fillDur = n / boatsPerSecond;
+  const x0 = (W - (cols - 1) * gapX) / 2;
+  const y0 = top + 12;
 
   const order = Array.from({ length: n }, (_, i) => i);
   let seed = 16807;
@@ -322,21 +420,15 @@ export function Meldingsfyll() {
   });
 
   return (
-    <Figur w={W} h={H} strokeWidth={2} label="Messages appearing until they fill the screen. Each ball is 100 messages.">
+    <Figur w={W} h={H} strokeWidth={2} label="Messages appearing until they fill the screen. Each boat is 100 messages.">
       {Array.from({ length: n }, (_, i) => {
         const c = i % cols;
         const row = Math.floor(i / cols);
+        seed = (seed * 48271) % 2147483647;
+        const flip = seed % 2 === 0;
+        const kind = (seed % 3) as 0 | 1 | 2;
         return (
-          <circle
-            key={i}
-            cx={x0 + c * gap}
-            cy={y0 + row * gap}
-            r={r}
-            fill={KREM}
-            stroke={STREK}
-            strokeWidth={2}
-            opacity={0}
-          >
+          <g key={i} opacity={0}>
             <animate
               attributeName="opacity"
               from="0"
@@ -345,7 +437,13 @@ export function Meldingsfyll() {
               begin={`${beginAt[i].toFixed(3)}s`}
               fill="freeze"
             />
-          </circle>
+            <MiniBaat
+              x={x0 + c * gapX}
+              y={y0 + row * gapY}
+              flip={flip}
+              kind={kind}
+            />
+          </g>
         );
       })}
       <rect x={W / 2 - 210} y={H - 48} width={420} height={32} rx={16} fill={KREM} stroke="none" />

@@ -2,11 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { PresentationDef } from "@/presentations";
-import {
-  chapterOf,
-  isChapterFullyHidden,
-  toggleChapterHidden,
-} from "@/presentations/chapters";
+import { chapterOf, isChapterFullyHidden } from "@/presentations/chapters";
 
 /*
  * Synkronisert deck-tilstand på tvers av vinduer (samme nettleser) via
@@ -175,15 +171,6 @@ export function useSyncedDeck(presentation: PresentationDef) {
     [hidden, update]
   );
 
-  const toggleChapter = useCallback(
-    (chapterId: string) => {
-      const chapter = chapterOf(presentation, chapterId);
-      if (!chapter) return;
-      update({ hidden: toggleChapterHidden(chapter, hidden) });
-    },
-    [presentation, hidden, update]
-  );
-
   const goChapter = useCallback(
     (dir: 1 | -1) => {
       const chapters = presentation.chapters;
@@ -211,7 +198,6 @@ export function useSyncedDeck(presentation: PresentationDef) {
     go,
     goTo,
     toggleHidden,
-    toggleChapter,
     goChapter,
     currentChapter,
     isCurrentChapterHidden: currentChapter

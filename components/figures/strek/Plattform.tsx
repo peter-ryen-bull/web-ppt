@@ -110,19 +110,27 @@ export function SiloTilPlattform() {
   );
 }
 
-/** Verbrekka alle definisjonene lander på: hente inn → lagre → transformere → dele → styre */
+/** Verbrekka: hente inn → lagre → transformere → dele, med styring som lag under hele røret */
 export function Verbrekke() {
   const steg: { navn: IkonNavn; tekst: string }[] = [
     { navn: "innboks", tekst: "ingest" },
     { navn: "database", tekst: "store" },
     { navn: "rotasjon", tekst: "transform" },
     { navn: "deling", tekst: "share" },
-    { navn: "skjold", tekst: "govern" },
   ];
+  const first = 125;
+  const gap = 250;
+  const barX = first - 45;
+  const barW = (steg.length - 1) * gap + 90;
   return (
-    <Figur w={1000} h={100} label="Ingest, store, transform, share and govern">
+    <Figur
+      w={1000}
+      h={168}
+      label="Ingest, store, transform and share, with govern as a layer under the whole pipeline"
+    >
       {steg.map((s, i) => {
-        const cx = 100 + i * 200;
+        const cx = first + i * gap;
+        const next = first + (i + 1) * gap;
         return (
           <g key={s.navn}>
             <IkonI navn={s.navn} x={cx - 22} y={6} size={44} color={TEAL} strokeWidth={1.8} />
@@ -131,7 +139,7 @@ export function Verbrekke() {
             </Tekst>
             {i < steg.length - 1 && (
               <path
-                d={`M ${cx + 72} 28 H ${cx + 128} M ${cx + 121} 21 L ${cx + 128} 28 L ${cx + 121} 35`}
+                d={`M ${cx + 72} 28 H ${next - 72} M ${next - 79} 21 L ${next - 72} 28 L ${next - 79} 35`}
                 stroke={ROD}
                 strokeWidth={2}
               />
@@ -139,6 +147,11 @@ export function Verbrekke() {
           </g>
         );
       })}
+      <rect x={barX} y={108} width={barW} height={10} rx={3} fill={TEAL} stroke="none" />
+      <IkonI navn="skjold" x={430} y={124} size={26} color={TEAL} strokeWidth={1.8} />
+      <Tekst x={500} y={144} size={16} color={STREK}>
+        govern
+      </Tekst>
     </Figur>
   );
 }
@@ -215,12 +228,12 @@ export function BolkOgStrom() {
   );
 }
 
-/** Et datavarehus leverer rapporter – en plattform bærer mange ting samtidig */
+/** En database er et skjema du migrerer – en plattform er noe du kan iterere på */
 export function VarehusVsPlattform() {
   const T = 8;
   const ting: IkonNavn[] = ["soyler", "kode", "gnist"];
   return (
-    <Figur w={620} h={200} label="Data warehouse delivering one report, versus a platform carrying dashboards, API and ML">
+    <Figur w={620} h={200} label="A database locked to one schema, versus a platform you can iterate, version and roll back">
       <path d="M 16 160 H 604" strokeWidth={2} opacity={0.5} />
 
       {/* Varehuset */}
@@ -251,7 +264,7 @@ export function VarehusVsPlattform() {
         <path d="M 221 124 h 18 M 221 132 h 18 M 221 140 h 12" strokeWidth={1.6} opacity={0.6} />
       </g>
       <Tekst x={110} y={184} size={12.5}>
-        report
+        schema · migrate
       </Tekst>
 
       <path d="M 310 30 V 170" stroke="var(--cream-dark)" strokeWidth={1.5} strokeDasharray="2 7" />
@@ -271,7 +284,7 @@ export function VarehusVsPlattform() {
         );
       })}
       <Tekst x={470} y={184} size={12.5}>
-        dashboards · API · ML – continuous
+        iterate · version · rollback
       </Tekst>
     </Figur>
   );

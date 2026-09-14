@@ -327,7 +327,7 @@ function Punchline({ at, y, text }: { at: number; y: number; text: string }) {
 export function SlideTerraform() {
   return (
     <>
-      <Box box={[66, 70, 1100, 90]}>
+      <Box box={[66, 70, 1040, 90]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
@@ -335,9 +335,14 @@ export function SlideTerraform() {
             color: "var(--burgundy)",
           }}
         >
-          We don&apos;t click. We commit.
+          Building the infrastructure
         </div>
       </Box>
+      <Img
+        box={[1160, 52, 72, 82]}
+        src={`${MEDIA}/terraform.svg`}
+        alt="Terraform"
+      />
       <Box box={[66, 160, 1100, 40]}>
         <div
           style={{
@@ -503,11 +508,6 @@ export function SlideTerraformDabs() {
         ["schemas, tables, jobs", "Databricks Asset Bundles", "when the code changes"],
         <Pakke />,
       )}
-      <Punchline
-        at={3}
-        y={580}
-        text="The infrastructure should be boring. The logic should be easy to change often."
-      />
     </>
   );
 }
@@ -587,11 +587,6 @@ export function SlideIngestFlyt() {
       <FlytBoks at={3} x={640} title="Storage, raw" sub="containers Terraform created" />
       <FlytPil at={4} x={900} />
       <FlytBoks at={4} x={940} title="Databricks" sub="reads raw, writes bronze" />
-      <Punchline
-        at={5}
-        y={520}
-        text="Prefect gets it in. Databricks makes it usable."
-      />
     </>
   );
 }
@@ -728,12 +723,27 @@ export function SlidePipeline() {
   );
 }
 
+/* Databricks-jobben bak flyten: AIS-orkestrering, hele lerretet */
+export function SlideAisPipeline() {
+  return (
+    <>
+      <Box box={[0, 0, 1280, 720]} style={{ background: "#1b1d21" }} />
+      <Img
+        box={[0, 0, 1280, 720]}
+        src={`${MEDIA}/ais-pipeline.png`}
+        alt="AIS orchestration job in Databricks: from import to gold"
+        fit="contain"
+      />
+    </>
+  );
+}
+
 /* Databricks serverless */
 export function SlideServerless() {
   const lines = [
-    "No clusters to start, patch, or scale",
-    "Capacity follows the stream",
-    "Pay for what we use",
+    "Autoscaling was cheaper than manual scaling",
+    "Saved tuning time",
+    "Saved startup time",
   ];
   return (
     <>

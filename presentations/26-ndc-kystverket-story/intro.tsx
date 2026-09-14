@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { Box, Img, Reveal, pt, useRevealStyle } from "../parts";
 import { BaatSignal } from "@/components/figures/BaatSignal";
 import { Meldingsfyll } from "@/components/figures/strek";
@@ -129,22 +130,6 @@ export function SlideSignal() {
       <Box box={[720, 250, 500, 200]}>
         <BaatSignal />
       </Box>
-      <Reveal at={2}>
-        <Box box={[720, 480, 500, 120]}>
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(20),
-              lineHeight: 1.4,
-              color: "var(--red)",
-            }}
-          >
-            Nobody on board thinks about it. The message just goes.
-            <br />
-            Out into the dark, over VHF.
-          </div>
-        </Box>
-      </Reveal>
     </>
   );
 }
@@ -294,30 +279,38 @@ export function SlideForside() {
 
 /* Slide 6 – Om Peter (layout "Side med tekst og bilde") */
 export function SlideOmPeter() {
-  const item = (
-    at: number,
-    box: [number, number, number, number],
-    lineH: number,
-    text: string
-  ) => (
-    <Reveal at={at}>
-      <Box
-        box={[72.4, box[1] - 1.7, 3, lineH]}
-        style={{ background: "var(--red)" }}
+  const r1 = useRevealStyle(1);
+  const r2 = useRevealStyle(2);
+  const r3 = useRevealStyle(3);
+
+  const item = (reveal: CSSProperties, text: string) => (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "stretch",
+        gap: 14,
+        ...reveal,
+      }}
+    >
+      <div
+        style={{
+          width: 3,
+          flexShrink: 0,
+          background: "var(--red)",
+          minHeight: 36,
+        }}
       />
-      <Box box={box}>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(22),
-            lineHeight: 1.3,
-            color: "var(--burgundy-2)",
-          }}
-        >
-          {text}
-        </div>
-      </Box>
-    </Reveal>
+      <div
+        style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: pt(22),
+          lineHeight: 1.35,
+          color: "var(--burgundy-2)",
+        }}
+      >
+        {text}
+      </div>
+    </div>
   );
 
   return (
@@ -328,7 +321,7 @@ export function SlideOmPeter() {
         alt="Peter Bull"
         fit="cover"
       />
-      <Box box={[66.7, 150.3, 436.5, 73.8]}>
+      <Box box={[66.7, 140, 580, 80]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
@@ -339,14 +332,21 @@ export function SlideOmPeter() {
           Peter Bull
         </div>
       </Box>
-      {item(1, [86.6, 268.4, 500, 52.9], 40, "Data platform developer at Miles")}
-      {item(
-        2,
-        [86.6, 351.1, 575.5, 88.5],
-        76.5,
-        "Building the data platform for the Norwegian Coastal Administration. Has built for both the public and private sector"
-      )}
-      {item(3, [86.6, 470.5, 425.6, 62.9], 40, "Azure and Databricks, every day")}
+      <Box
+        box={[72.4, 250, 580, 400]}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 32,
+        }}
+      >
+        {item(r1, "Data platform developer at Miles")}
+        {item(
+          r2,
+          "Building the data platform for the Norwegian Coastal Administration. Has built for both the public and private sector"
+        )}
+        {item(r3, "Azure and Databricks, every day")}
+      </Box>
     </>
   );
 }

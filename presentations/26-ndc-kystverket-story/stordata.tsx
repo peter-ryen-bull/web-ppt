@@ -2,14 +2,10 @@ import type { ReactNode } from "react";
 import { Box, MilesLogo, Reveal, pt, useRevealStyle } from "../parts";
 import { Isfjell, KlyngeAuto, KlyngeFast } from "@/components/figures/strek";
 
-/**
- * TODO (Peter): fyll inn de faktiske volumtallene før presentasjonen.
- * Tallene brukes på volum-sliden og i notes.md.
- */
 const VOLUM = {
-  perDogn: "?? GB",
-  perAar: "?? TB",
-  historikk: "?? TB",
+  perDogn: "~5 GB",
+  perAar: "~1.8 TB",
+  historikk: "~40 TB",
 };
 
 function SlideTittel({ children }: { children: string }) {
@@ -107,7 +103,7 @@ export function SlideStordataVolum() {
               textAlign: "center",
             }}
           >
-            Ingest is easy. Replaying twenty years is the hard part.
+            Daily processing is easy. Replaying twenty years is the hard part.
           </div>
         </Box>
       </Reveal>

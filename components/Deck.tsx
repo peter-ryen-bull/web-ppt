@@ -9,11 +9,7 @@ import {
 } from "react";
 import Link from "next/link";
 import { getPresentation, type SlideDef } from "@/presentations";
-import {
-  chapterOf,
-  isChapterFullyHidden,
-  toggleChapterHidden,
-} from "@/presentations/chapters";
+import { chapterOf, isChapterFullyHidden } from "@/presentations/chapters";
 import {
   SLIDE_W,
   SlideCanvas,
@@ -136,15 +132,6 @@ export default function Deck({ presentationId }: { presentationId: string }) {
     [hidden, persistHidden]
   );
 
-  const toggleChapter = useCallback(
-    (chapterId: string) => {
-      const chapter = chapterOf(presentation, chapterId);
-      if (!chapter) return;
-      persistHidden(toggleChapterHidden(chapter, hidden));
-    },
-    [presentation, hidden, persistHidden]
-  );
-
   const goChapter = useCallback(
     (dir: 1 | -1) => {
       const chapters = presentation.chapters;
@@ -187,11 +174,6 @@ export default function Deck({ presentationId }: { presentationId: string }) {
         if (exporting) return;
         setOverview((o) => !o);
         setExportMode(false);
-      } else if ((e.key === "h" || e.key === "H") && e.shiftKey) {
-        const id = slides[current]?.chapterId;
-        if (id) toggleChapter(id);
-      } else if (e.key === "h" || e.key === "H") {
-        toggleHidden(slides[current].id);
       } else if (e.key === "[") {
         goChapter(-1);
       } else if (e.key === "]") {
@@ -215,8 +197,6 @@ export default function Deck({ presentationId }: { presentationId: string }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [
     go,
-    toggleHidden,
-    toggleChapter,
     goChapter,
     current,
     visibleIndexes,
@@ -344,24 +324,6 @@ export default function Deck({ presentationId }: { presentationId: string }) {
           </Link>
           <button
             className={styles.btn}
-            onClick={() => toggleHidden(slides[current].id)}
-            title="Skjul/vis denne sliden (H)"
-          >
-            {isCurrentHidden ? "Vis slide" : "Skjul slide"}
-          </button>
-          {currentChapter && (
-            <button
-              className={styles.btn}
-              onClick={() => toggleChapter(currentChapter.id)}
-              title="Skjul/vis hele kapittelet (Shift+H)"
-            >
-              {isChapterFullyHidden(currentChapter, hidden)
-                ? "Vis kapittel"
-                : "Skjul kapittel"}
-            </button>
-          )}
-          <button
-            className={styles.btn}
             onClick={() => setOverview((o) => !o)}
             title="Oversikt (G)"
           >
@@ -471,8 +433,8 @@ export default function Deck({ presentationId }: { presentationId: string }) {
                         {chapterHidden && " · skjult"}
                       </span>
                     </div>
-                    <div className={styles.chapterActions}>
-                      {exportMode && (
+                    {exportMode && (
+                      <div className={styles.chapterActions}>
                         <button
                           className={styles.btn}
                           onClick={() => toggleChapterSelected(ch.id)}
@@ -480,21 +442,8 @@ export default function Deck({ presentationId }: { presentationId: string }) {
                         >
                           {chapterSelected ? "Fjern kapittel" : "Velg kapittel"}
                         </button>
-                      )}
-                      {!exportMode && (
-                        <button
-                          className={styles.btn}
-                          onClick={() => toggleChapter(ch.id)}
-                          title={
-                            chapterHidden
-                              ? "Vis kapittel"
-                              : "Skjul hele kapittelet"
-                          }
-                        >
-                          {chapterHidden ? "Vis kapittel" : "Skjul kapittel"}
-                        </button>
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                   <div className={styles.grid}>
                     {ch.slides.map((s) => {

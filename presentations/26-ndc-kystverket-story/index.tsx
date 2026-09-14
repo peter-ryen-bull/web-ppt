@@ -27,6 +27,8 @@ import {
   SlideDataflyt,
   SlideArkitektur,
   SlideSamleData,
+  SlideLakehouseHva,
+  SlideAutomatisertePipelines,
   SlideMerEnnVarehus,
   SlideDataprodukt,
   SlideDataproduktAnatomi,
@@ -62,6 +64,7 @@ import {
   SlideStrommen,
   SlideRegnestykke,
   SlidePipeline,
+  SlideAisPipeline,
   SlideServerless,
 } from "./sky";
 import {
@@ -73,6 +76,7 @@ import {
   SlideModeller,
   SlideModellFlyt,
   SlideFolgEttSkip,
+  SlideAsukaHais,
   SlideMarTraf,
   SlideMarTrafValg,
   SlidePropellloven,
@@ -98,7 +102,7 @@ import {
  *  Akt 2  Hvem lytter        05:00  Kystverket og det store hvorfor-et
  *  Akt 3  Historien          12:00  femti år med samme problem
  *  Akt 4  Hvorfor plattform         Uber, hverdagen, byggeklossene
- *  Akt 4b Hvordan dataplattform     batch/streaming, produkter, kontrakter, folk
+ *  Akt 4b Hvordan dataplattform     lakehouse, rør, pipelines, produkter
  *  Akt 5  Hva får du igjen   27:00  fire effekter med eksempler fra sjøveien
  *  Akt 6  Prosjektet         32:00  dag én, verktøykassa, terraform, ingest, strømmen, historikken
  *  Akt 7  Modellene          43:00  følg ett skip, propellloven, klimaregnskapet
@@ -128,28 +132,25 @@ const HISTORIE = embedAsChapter(historyOfTheDataPlatform, {
   title: "The story of the data platform",
 });
 
-const ARKIV_GIT: SlideDef[] = [
+const PLATTFORM: SlideDef[] = [
+  { id: "uber", name: "Uber, 2014", component: SlideUber, steps: 4 },
+  { id: "hvorfor", name: "You used four data platforms today", component: SlideHvorfor, steps: 5 },
+  { id: "dataflyt", name: "Data flow: sources to consumers", component: SlideDataflyt },
+  { id: "arkitektur", name: "Architecture: source to consumer", component: SlideArkitektur },
+];
+
+const HVORDAN: SlideDef[] = [
+  { id: "batch-streaming", name: "How it works", component: SlideBatchStreamingKapittel },
+  { id: "hvordan-lakehouse", name: "Lakehouse: store and serve", component: SlideLakehouseHva, steps: 2 },
+  { id: "samle-data", name: "Store, transform, deliver", component: SlideSamleData, steps: 1 },
   {
     id: "arkiv-git",
     name: "Raw is archived. Transforms are in git.",
     component: SlideArkivGit,
     steps: 3,
   },
-];
-
-const PLATTFORM: SlideDef[] = [
-  { id: "uber", name: "Uber, 2014", component: SlideUber, steps: 4 },
-  { id: "hvorfor", name: "You used four data platforms today", component: SlideHvorfor, steps: 5 },
-  { id: "dataflyt", name: "Data flow: sources to consumers", component: SlideDataflyt },
-  { id: "arkitektur", name: "Architecture: source to consumer", component: SlideArkitektur },
-  { id: "samle-data", name: "Collect, analyze, share", component: SlideSamleData, steps: 2 },
-];
-
-const HVORDAN: SlideDef[] = [
-  { id: "batch-streaming", name: "How it works", component: SlideBatchStreamingKapittel },
-  { id: "batch-vs-streaming", name: "Batch vs. streaming: the flow", component: SlideBatchVsStreaming },
-  { id: "batch-streaming-valg", name: "When do you choose what?", component: SlideBatchStreamingValg, steps: 7 },
-  { id: "mer-enn-varehus", name: "More than a data warehouse", component: SlideMerEnnVarehus, steps: 2 },
+  { id: "automatiserte-pipelines", name: "Automated pipelines", component: SlideAutomatisertePipelines, steps: 1 },
+  { id: "mer-enn-varehus", name: "Is it just a database?", component: SlideMerEnnVarehus, steps: 3 },
   { id: "dataprodukt", name: "Data product", component: SlideDataprodukt },
   { id: "dataprodukt-anatomi", name: "More than a table", component: SlideDataproduktAnatomi },
   { id: "datakontrakt", name: "Data contract: an API for data", component: SlideDatakontrakt },
@@ -173,24 +174,28 @@ const PROSJEKTET: SlideDef[] = [
   { id: "azure-databricks", name: "Azure + Databricks", component: SlideAzureDatabricks },
   { id: "azure", name: "Azure: the foundation", component: SlideAzure, steps: 4 },
   { id: "databricks", name: "Databricks: the engine", component: SlideDatabricks, steps: 3 },
-  { id: "terraform", name: "We don't click. We commit.", component: SlideTerraform, steps: 4 },
+  { id: "terraform", name: "Building the infrastructure", component: SlideTerraform, steps: 4 },
   { id: "fire-states", name: "Four states. Four pipelines.", component: SlideFireStates, steps: 5 },
-  { id: "terraform-dabs", name: "Infrastructure and logic. Two tools.", component: SlideTerraformDabs, steps: 3 },
+  { id: "terraform-dabs", name: "Infrastructure and logic. Two tools.", component: SlideTerraformDabs, steps: 2 },
   { id: "ingest", name: "Ingest happens outside Databricks.", component: SlideIngest, steps: 3 },
-  { id: "ingest-flyt", name: "Fetch. Dump. Then lakehouse.", component: SlideIngestFlyt, steps: 5 },
+  { id: "ingest-flyt", name: "Fetch. Dump. Then lakehouse.", component: SlideIngestFlyt, steps: 4 },
   { id: "strommen", name: "100 million rows. Every day.", component: SlideStrommen, steps: 1 },
   { id: "regnestykke", name: "The math", component: SlideRegnestykke, steps: 2 },
   { id: "pipeline", name: "From antenna to insight", component: SlidePipeline, steps: 5 },
+  { id: "ais-pipeline", name: "The job that runs every day", component: SlideAisPipeline },
   { id: "serverless", name: "No clusters to wake up at night", component: SlideServerless, steps: 3 },
   { id: "stordata-volum", name: "The stream is small, the history is big", component: SlideStordataVolum, steps: 4 },
   { id: "stordata-compute", name: "Days of compute, or hours?", component: SlideStordataCompute, steps: 7 },
+  { id: "batch-vs-streaming", name: "Sidenote: batch vs. streaming", component: SlideBatchVsStreaming },
+  { id: "batch-streaming-valg", name: "When do you choose what?", component: SlideBatchStreamingValg, steps: 7 },
   { id: "hais", name: "HAIS: historical extracts on demand", component: SlideHais, steps: 4 },
 ];
 
 const MODELLENE: SlideDef[] = [
   { id: "modeller", name: "From positions to emissions", component: SlideModeller },
-  { id: "modell-flyt", name: "Four modules, not one model", component: SlideModellFlyt, steps: 5 },
+  { id: "modell-flyt", name: "One source, many models", component: SlideModellFlyt, steps: 6 },
   { id: "folg-ett-skip", name: "Follow one ship", component: SlideFolgEttSkip, steps: 6 },
+  { id: "asuka-hais", name: "Asuka, from HAIS", component: SlideAsukaHais },
   { id: "martraf", name: "The maritime traffic model: MarTraf", component: SlideMarTraf, steps: 5 },
   { id: "martraf-valg", name: "The choices that make it possible", component: SlideMarTrafValg, steps: 3 },
   { id: "propellloven", name: "The propeller law", component: SlidePropellloven, steps: 3 },
@@ -227,7 +232,6 @@ export const ndcKystverketStory = definePresentation({
         ...HISTORIE.slides,
       ],
     },
-    { id: "arkiv-git-kapittel", title: "Archive and git", slides: ARKIV_GIT },
     { id: "plattform", title: "Why a platform", slides: PLATTFORM },
     { id: "hvordan", title: "How it works", slides: HVORDAN },
     { id: "effekter", title: "What you get out of it", slides: EFFEKTER },

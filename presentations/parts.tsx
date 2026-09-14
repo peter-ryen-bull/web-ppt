@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties, ReactNode } from "react";
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { useStep } from "@/components/steps";
 
 /*
@@ -202,6 +202,44 @@ export function Img({
         src={src}
         alt={alt}
         style={{ width: "100%", height: "100%", objectFit: fit }}
+      />
+    </Box>
+  );
+}
+
+/** Video som spiller på live-sliden, ikke i miniatyrer. */
+export function Video({
+  box,
+  src,
+  fit = "contain",
+}: {
+  box: [number, number, number, number];
+  src: string;
+  fit?: CSSProperties["objectFit"];
+}) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (el.getBoundingClientRect().width >= 400) {
+      void el.play();
+    }
+  }, []);
+  return (
+    <Box box={box}>
+      <video
+        ref={ref}
+        src={src}
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: fit,
+          pointerEvents: "none",
+        }}
       />
     </Box>
   );
