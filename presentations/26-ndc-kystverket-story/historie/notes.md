@@ -117,10 +117,14 @@ of an era: SQL (1970), integrated history (1988), cheap raw storage
 Data mesh (2019) is the organizational counterpart: ownership out
 in the domains. Platforms fail organizationally, not technically.
 
-## avslutning – The problem remains
+## avslutning – Data lasts longer than the systems
 
-The bottleneck has been moving for 60 years.
-The constant: more people want to ask more questions of more data, faster.
+Tim Berners-Lee said it: data is a precious thing, and it will last
+longer than the systems themselves.
 
-AI raises the stakes: the models will never be better than the data
-the platform serves them. That's why we build data platforms.
+That's the whole history in one sentence. The database, the warehouse,
+the lake, the cloud, the lakehouse. We keep replacing the systems.
+The data is still here. AIS messages from 2005 are still here.
+
+[[CLICK]] So we don't model the data to fit today's system.
+We model the systems to fit the data. That's why we build a platform.

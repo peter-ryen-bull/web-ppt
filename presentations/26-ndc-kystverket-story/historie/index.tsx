@@ -29,7 +29,7 @@ const SLIDES: SlideDef[] = [
   { id: "sjoen-speil", name: "The lake: solved, and a new problem", component: SlideSjoenSpeil },
   { id: "skyen", name: "2012 · The cloud", component: SlideSkyen },
   { id: "lakehouse", name: "2020 · The lakehouse", component: SlideLakehouse },
-  { id: "avslutning", name: "The problem remains", component: SlideAvslutning },
+  { id: "avslutning", name: "Data lasts longer than the systems", component: SlideAvslutning, steps: 1 },
 ];
 
 export const historyOfTheDataPlatform: PresentationDef = definePresentation({

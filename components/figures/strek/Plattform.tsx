@@ -228,64 +228,94 @@ export function BolkOgStrom() {
   );
 }
 
-/** En database er et skjema du migrerer – en plattform er noe du kan iterere på */
+/** En database er et skjema du migrerer – en plattform er hele arbeidsbenken */
 export function VarehusVsPlattform() {
-  const T = 8;
-  const ting: IkonNavn[] = ["soyler", "kode", "gnist"];
+  const ting: IkonNavn[] = ["skjold", "bok", "server", "kode", "gnist"];
   return (
-    <Figur w={620} h={200} label="A database locked to one schema, versus a platform you can iterate, version and roll back">
-      <path d="M 16 160 H 604" strokeWidth={2} opacity={0.5} />
-
-      {/* Varehuset */}
-      <rect x={30} y={70} width={160} height={90} fill={KREM} />
-      <path d="M 30 70 L 70 44 V 70 L 110 44 V 70 L 150 44 V 70 L 190 44 V 70" fill={KREM} />
-      <rect x={95} y={120} width={30} height={40} rx={2} fill={KREM} />
-      <path d="M 46 90 h 30 M 46 100 h 30 M 144 90 h 30 M 144 100 h 30" strokeWidth={1.6} opacity={0.6} />
-
-      {/* Rapporten som kommer ut – én om gangen */}
-      <g opacity={0}>
-        <animate
-          attributeName="opacity"
-          values="0; 1; 1; 0"
-          keyTimes="0; 0.12; 0.8; 1"
-          dur={`${T}s`}
-          repeatCount="indefinite"
-        />
-        <animateTransform
-          attributeName="transform"
-          type="translate"
-          values="-22 0; 0 0; 0 0"
-          keyTimes="0; 0.14; 1"
-          dur={`${T}s`}
-          repeatCount="indefinite"
-        />
-        <path d="M 214 102 h 22 l 10 10 v 34 h -32 z" fill={KREM} strokeWidth={2} />
-        <path d="M 236 102 v 10 h 10" strokeWidth={2} />
-        <path d="M 221 124 h 18 M 221 132 h 18 M 221 140 h 12" strokeWidth={1.6} opacity={0.6} />
-      </g>
-      <Tekst x={110} y={184} size={12.5}>
+    <Figur w={420} h={400} label="A database locked to one schema, versus a platform you govern, compute and build on">
+      {/* Databasen */}
+      <Sylinder x={146} y={18} w={128} h={140} />
+      <ellipse cx={210} cy={38.5} rx={64} ry={20.5} fill="none" stroke={TEAL} strokeWidth={2} opacity={0}>
+        <Puls fra={0.15} til={0.85} dur={3.2} />
+      </ellipse>
+      <Tekst x={210} y={184} size={13}>
         schema · migrate
       </Tekst>
 
-      <path d="M 310 30 V 170" stroke="var(--cream-dark)" strokeWidth={1.5} strokeDasharray="2 7" />
+      <path d="M 48 208 H 372" stroke="var(--cream-dark)" strokeWidth={1.5} strokeDasharray="2 7" />
 
       {/* Plattformen */}
-      <rect x={350} y={108} width={240} height={10} rx={2} fill={TEAL} />
-      <path d="M 372 118 V 160 M 412 118 V 160 M 528 118 V 160 M 568 118 V 160" strokeWidth={2.2} />
+      <rect x={36} y={292} width={348} height={10} rx={2} fill={TEAL} />
+      <path d="M 62 302 V 346 M 118 302 V 346 M 302 302 V 346 M 358 302 V 346" strokeWidth={2.2} />
       {ting.map((navn, i) => {
-        const x = 395 + i * 75;
+        const x = 70 + i * 70;
         return (
           <g key={navn}>
-            <IkonI navn={navn} x={x - 17} y={64} size={34} color={TEAL} strokeWidth={1.8} />
-            <circle cx={x} cy={52} r={3} fill={ROD} stroke="none">
-              <Puls fra={0.2} til={1} dur={2.4} begin={i * 0.8} />
+            <IkonI navn={navn} x={x - 18} y={228} size={36} color={TEAL} strokeWidth={1.8} />
+            <circle cx={x} cy={214} r={3.5} fill={ROD} stroke="none">
+              <Puls fra={0.2} til={1} dur={2.4} begin={i * 0.55} />
             </circle>
           </g>
         );
       })}
-      <Tekst x={470} y={184} size={12.5}>
-        iterate · version · rollback
+      <Tekst x={210} y={380} size={13}>
+        govern · compute · execute
       </Tekst>
+    </Figur>
+  );
+}
+
+/** En liten merket pakke, brukt som output fra plattformen */
+function MiniPakke({ x, y }: { x: number; y: number }) {
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      <path d="M 0 18 L 18 2 H 78 L 60 18 Z" fill={KREM} />
+      <path d="M 60 18 L 78 2 V 52 L 60 68 Z" fill={KREM} />
+      <rect x={0} y={18} width={60} height={50} fill={KREM} />
+      <path d="M 30 18 V 68 M 30 18 L 48 2" strokeWidth={1.8} opacity={0.55} />
+      <circle cx={44} cy={54} r={9} fill={KREM} stroke={ROD} strokeWidth={1.8} />
+      <path d="M 40 54 l 3 3 6.5 -7" stroke={ROD} strokeWidth={1.8} />
+    </g>
+  );
+}
+
+/** Plattformen som en boks: det som kommer ut er dataprodukter */
+export function PlattformProdukter() {
+  const produkter = ["AIS tracks", "vessels", "emissions"];
+  return (
+    <Figur
+      w={460}
+      h={340}
+      label="A data platform with data products coming out the other side"
+    >
+      <rect x={16} y={70} width={176} height={200} rx={18} fill={TEAL} />
+      <Tekst x={104} y={158} size={14} color={MINT} weight={600}>
+        DATA
+      </Tekst>
+      <Tekst x={104} y={180} size={14} color={MINT} weight={600}>
+        PLATFORM
+      </Tekst>
+
+      <path
+        d="M 204 170 H 248"
+        stroke={ROD}
+        strokeWidth={1.8}
+        strokeDasharray="2 6"
+        opacity={0.7}
+      />
+      <path d="M 240 163 L 252 170 L 240 177" stroke={ROD} strokeWidth={2} />
+
+      {produkter.map((navn, i) => {
+        const y = 36 + i * 98;
+        return (
+          <Duv key={navn} dy={3} dur={3.4 + i * 0.5}>
+            <MiniPakke x={268} y={y} />
+            <Tekst x={360} y={y + 48} size={13} anchor="start">
+              {navn}
+            </Tekst>
+          </Duv>
+        );
+      })}
     </Figur>
   );
 }
@@ -313,17 +343,40 @@ export function Pakke() {
   );
 }
 
-/** Kontrakt, eier og katalog – de tre bæresøylene i governance */
+/** Datakontrakten som et merket dokument */
+export function KontraktArk() {
+  return (
+    <Figur w={420} h={150} label="A signed document with a quality stamp">
+      <rect x={150} y={18} width={120} height={118} rx={8} fill={KREM} />
+      <path d="M 168 48 H 252 M 168 68 H 252 M 168 88 H 228" strokeWidth={2} opacity={0.55} />
+      <circle cx={246} cy={112} r={14} fill={KREM} stroke={ROD} strokeWidth={2} />
+      <path d="M 239.5 112 l 4.5 4.5 L 253 107.5" stroke={ROD} strokeWidth={2.4} />
+    </Figur>
+  );
+}
+
+/** Katalogen som kartet organisasjonen mangler */
+export function KatalogKart() {
+  return (
+    <Figur w={420} h={150} label="A folded map with a pin in the middle">
+      <path d="M 130 38 L 186 50 L 242 36 L 298 50 V 128 L 242 114 L 186 128 L 130 114 Z" fill={KREM} />
+      <path d="M 186 50 V 128 M 242 36 V 114" strokeWidth={1.8} opacity={0.45} />
+      <path d="M 214 58 C 214 48 226 48 226 58 C 226 70 220 78 220 78 S 214 70 214 58" fill={KREM} stroke={ROD} strokeWidth={2} />
+      <circle cx={220} cy={58} r={3.2} fill={ROD} stroke="none" />
+    </Figur>
+  );
+}
+
+/** Kontrakt og katalog – governance etter at eierskap er dekket i dataprodukt */
 export function GovernanceTrio() {
   const deler: { navn: IkonNavn; tekst: string }[] = [
     { navn: "kontrakt", tekst: "contract" },
-    { navn: "person", tekst: "ownership" },
     { navn: "bok", tekst: "catalog" },
   ];
   return (
-    <Figur w={500} h={130} label="Data contract, data ownership and data catalog">
+    <Figur w={500} h={130} label="Data contract and data catalog">
       {deler.map((d, i) => {
-        const cx = 90 + i * 160;
+        const cx = 160 + i * 180;
         return (
           <g key={d.navn}>
             <circle cx={cx} cy={56} r={40} fill="#fff" stroke="var(--cream-dark)" strokeWidth={1.5} />

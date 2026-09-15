@@ -1,7 +1,13 @@
 import { Box, ChapterSlide, Img, Reveal, pt, useRevealStyle } from "../parts";
 import { HvorViEr, HvorViSkal } from "@/components/figures/Domenekataloger";
+import {
+  DomenerKilder,
+  ProduktForbruk,
+  HelePlattformen,
+} from "@/components/figures/DomenerOgProdukter";
 import { BaatSignal } from "@/components/figures/BaatSignal";
 import {
+  Fyr,
   Kompass,
   StrekIkon,
   TreKataloger,
@@ -148,6 +154,10 @@ export function SlideTakk() {
         alt="Kystverket"
       />
       <Img box={[860, 340, 95.4, 29.5]} src="/media/miles-logo.svg" alt="Miles" />
+      {/* Fyret fra åpningen, nederst til venstre under lenkene */}
+      <Box box={[60, 530, 380, 181]}>
+        <Fyr />
+      </Box>
     </>
   );
 }
@@ -177,11 +187,42 @@ export function SlideHvorViEr() {
   );
 }
 
-/* Slide 26c – Hvor vi skal: domenekataloger + sentral dataprodukt-katalog */
+/*
+ * Slide 26c – Hvor vi skal, i fire bilder:
+ *   1. hvert domene henter inn sine egne kilder
+ *   2. kontrakt → repo → view i dataprodukt-katalogen
+ *   3. katalogen er organisasjonens data: domenene leser tilbake,
+ *      konsumenter utenfor leser fra samme sted, utforskeren finner fram
+ *   4. alt sammen, zoomet ut
+ */
+export function SlideHvorViSkalKilder() {
+  return (
+    <Box box={[20, 42, 1240, 636]}>
+      <DomenerKilder />
+    </Box>
+  );
+}
+
 export function SlideHvorViSkal() {
   return (
     <Box box={[20, 42, 1240, 636]}>
       <HvorViSkal />
+    </Box>
+  );
+}
+
+export function SlideHvorViSkalForbruk() {
+  return (
+    <Box box={[20, 42, 1240, 636]}>
+      <ProduktForbruk />
+    </Box>
+  );
+}
+
+export function SlideHvorViSkalHelhet() {
+  return (
+    <Box box={[20, 42, 1240, 636]}>
+      <HelePlattformen />
     </Box>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import AudienceView from "@/components/AudienceView";
 import { PRESENTATIONS, getPresentation } from "@/presentations";
+import "./page.css";
 
 interface Props {
   params: Promise<{ presentation: string }>;

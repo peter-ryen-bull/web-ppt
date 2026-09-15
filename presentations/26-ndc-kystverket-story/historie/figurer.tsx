@@ -840,102 +840,165 @@ export function RegnestykkeFigur() {
   );
 }
 
-/* ================= 2010: flaskevann mot sjøen ================= */
+/* ================= 2010: datasjøen som en bolle av rådata ================= */
 
-const SJO_BLOB =
-  "M -340 20 C -352 -80, -224 -158, -44 -150 C 136 -142, 328 -112, 344 6 C 358 108, 222 168, 22 174 C -168 180, -328 122, -340 20 Z";
+const SJO_BOLGE =
+  "M -200 0 C -150 -30, -100 -30, -50 0 C 0 30, 50 30, 100 0 C 150 -30, 180 -14, 200 0";
+
+const SJO_BOLLE = `${SJO_BOLGE} A 200 200 0 0 1 -200 0 Z`;
+
+const SJO_NETT =
+  "M -248 86 C -208 16, -176 -10, -158 -28 C -114 -78, -74 -138, -32 -154 C 22 -178, 64 -176, 108 -158 C 164 -136, 200 -62, 216 -10 C 234 30, 248 78, 258 104";
+
+const SJO_BITS_OVER = [
+  { t: "0", x: -26, y: -168 },
+  { t: "1", x: 52, y: -168 },
+  { t: "0", x: -78, y: -132 },
+  { t: "1", x: 104, y: -132 },
+  { t: "1", x: -130, y: -96 },
+  { t: "0", x: -78, y: -96 },
+  { t: "1", x: -26, y: -96 },
+  { t: "0", x: 26, y: -96 },
+  { t: "1", x: 78, y: -96 },
+  { t: "0", x: 130, y: -96 },
+  { t: "0", x: -156, y: -60 },
+  { t: "1", x: -104, y: -60 },
+  { t: "0", x: -52, y: -60 },
+  { t: "1", x: 0, y: -60 },
+  { t: "0", x: 52, y: -60 },
+  { t: "1", x: 104, y: -60 },
+  { t: "0", x: 156, y: -60 },
+  { t: "1", x: -130, y: -24 },
+  { t: "0", x: -78, y: -24 },
+  { t: "1", x: -26, y: -24 },
+  { t: "0", x: 26, y: -24 },
+  { t: "1", x: 78, y: -24 },
+  { t: "0", x: 130, y: -24 },
+];
+
+const SJO_BITS_I = [
+  { t: "1", x: -52, y: 28 },
+  { t: "0", x: 10, y: 28 },
+  { t: "0", x: 88, y: 28 },
+  { t: "0", x: -88, y: 64 },
+  { t: "1", x: 16, y: 64 },
+  { t: "1", x: -120, y: 100 },
+  { t: "0", x: -52, y: 100 },
+  { t: "0", x: 26, y: 100 },
+  { t: "1", x: 88, y: 100 },
+  { t: "0", x: 146, y: 100 },
+  { t: "0", x: -36, y: 136 },
+  { t: "1", x: 42, y: 136 },
+];
+
+const SJO_NODER = [
+  { x: -248, y: 86 },
+  { x: -158, y: -28 },
+  { x: -32, y: -154 },
+  { x: 108, y: -158 },
+  { x: 216, y: -10 },
+  { x: 258, y: 104 },
+];
 
 export function SjoFigur() {
   return (
     <Svg label="The data lake: everything raw, stored for tomorrow's questions">
       <defs>
-        <radialGradient id="sjo-vann" cx="40%" cy="32%" r="85%">
-          <stop offset="0%" stopColor="#1a6a70" />
-          <stop offset="45%" stopColor="#0a4f56" />
+        <radialGradient id="sjo-vann" cx="42%" cy="28%" r="80%">
+          <stop offset="0%" stopColor="#2a7d84" />
+          <stop offset="42%" stopColor="#0c555c" />
           <stop offset="100%" stopColor="#00343b" />
         </radialGradient>
+        <clipPath id="sjo-bolle-klipp">
+          <path d={SJO_BOLLE} />
+        </clipPath>
       </defs>
 
-      {/* sjøen – sentrert, abstrakt */}
-      <g transform={`translate(${W / 2} 268)`}>
-        {/* konturringer rundt vannet */}
-        <g transform="scale(1.2)">
-          <path d={SJO_BLOB} fill="rgba(0, 64, 71, 0.045)" />
-        </g>
-        <g transform="scale(1.1)">
-          <path d={SJO_BLOB} fill="rgba(0, 64, 71, 0.09)" />
-        </g>
+      <g transform={`translate(${W / 2} 262) scale(0.86)`}>
+        <ellipse cx={0} cy={206} rx={78} ry={14} fill="#00343b" opacity={0.2} />
 
-        {/* vannet */}
-        <path d={SJO_BLOB} fill="url(#sjo-vann)" />
+        <path d={SJO_BOLLE} fill="url(#sjo-vann)" />
 
-        {/* lysglimt på overflaten */}
-        <ellipse
-          cx={-110}
-          cy={-75}
-          rx={170}
-          ry={42}
-          fill="rgba(251, 240, 229, 0.07)"
-          transform="rotate(-6 -110 -75)"
+        <path
+          d={SJO_BOLGE}
+          fill="none"
+          stroke="var(--mint)"
+          strokeWidth={3}
+          strokeLinecap="round"
+          opacity={0.85}
         />
 
-        {/* bølgelinjer */}
-        <path
-          d="M -220 0 C -180 -20, -120 -20, -80 0 C -40 20, 20 20, 60 0"
-          fill="none"
-          stroke="var(--mint)"
-          strokeWidth={2}
-          strokeLinecap="round"
-          opacity={0.6}
-        >
-          <animate attributeName="d"
-            values="M -220 0 C -180 -20, -120 -20, -80 0 C -40 20, 20 20, 60 0;M -220 5 C -180 25, -120 25, -80 5 C -40 -15, 20 -15, 60 5;M -220 0 C -180 -20, -120 -20, -80 0 C -40 20, 20 20, 60 0"
-            dur="6s"
-            repeatCount="indefinite"
+        <g clipPath="url(#sjo-bolle-klipp)">
+          <ellipse
+            cx={-40}
+            cy={8}
+            rx={150}
+            ry={28}
+            fill="rgba(251, 240, 229, 0.1)"
+            transform="rotate(-6 -40 8)"
           />
-        </path>
-        <path
-          d="M -100 60 C -60 40, 0 40, 40 60 C 80 80, 140 80, 180 60"
-          fill="none"
-          stroke="var(--mint)"
-          strokeWidth={2}
-          strokeLinecap="round"
-          opacity={0.35}
-        >
-          <animate attributeName="d"
-            values="M -100 60 C -60 40, 0 40, 40 60 C 80 80, 140 80, 180 60;M -100 65 C -60 85, 0 85, 40 65 C 80 45, 140 45, 180 65;M -100 60 C -60 40, 0 40, 40 60 C 80 80, 140 80, 180 60"
-            dur="7s"
-            repeatCount="indefinite"
-          />
-        </path>
-        <path
-          d="M -200 110 C -170 95, -125 95, -95 110 C -65 125, -20 125, 10 110"
-          fill="none"
-          stroke="var(--mint)"
-          strokeWidth={1.6}
-          strokeLinecap="round"
-          opacity={0.18}
-        >
-          <animate attributeName="d"
-            values="M -200 110 C -170 95, -125 95, -95 110 C -65 125, -20 125, 10 110;M -200 114 C -170 129, -125 129, -95 114 C -65 99, -20 99, 10 114;M -200 110 C -170 95, -125 95, -95 110 C -65 125, -20 125, 10 110"
-            dur="8s"
-            repeatCount="indefinite"
-          />
-        </path>
+          <path
+            d="M -120 56 C -80 36, -30 36, 10 56 C 50 76, 100 76, 140 56"
+            fill="none"
+            stroke="var(--mint)"
+            strokeWidth={2}
+            strokeLinecap="round"
+            opacity={0.28}
+          >
+            <animate
+              attributeName="d"
+              values="M -120 56 C -80 36, -30 36, 10 56 C 50 76, 100 76, 140 56;M -120 62 C -80 82, -30 82, 10 62 C 50 42, 100 42, 140 62;M -120 56 C -80 36, -30 36, 10 56 C 50 76, 100 76, 140 56"
+              dur="7s"
+              repeatCount="indefinite"
+            />
+          </path>
+          {SJO_BITS_I.map((b, i) => (
+            <text
+              key={`i-${i}`}
+              x={b.x}
+              y={b.y}
+              textAnchor="middle"
+              fontFamily="var(--font-sans)"
+              fontWeight={500}
+              fontSize={26}
+              fill="var(--mint)"
+              opacity={0.7}
+            >
+              {b.t}
+            </text>
+          ))}
+        </g>
 
-        {/* rå dataformer som duver */}
-        <circle cx={-190} cy={-70} r={12} fill="none" stroke="var(--mint)" strokeWidth={2} opacity={0.8}>
-          <animateTransform attributeName="transform" type="translate" values="0 0;0 -6;0 0" dur="4s" repeatCount="indefinite" />
-        </circle>
-        <rect x={-40} y={-100} width={22} height={22} rx={5} fill="none" stroke="var(--mint)" strokeWidth={2} opacity={0.8}>
-          <animateTransform attributeName="transform" type="translate" values="0 0;0 -7;0 0" dur="5s" begin="0.8s" repeatCount="indefinite" />
-        </rect>
-        <path d="M 130 -95 l 13 24 h -26 z" fill="none" stroke="var(--mint)" strokeWidth={2} opacity={0.8}>
-          <animateTransform attributeName="transform" type="translate" values="0 0;0 -6;0 0" dur="4.6s" begin="1.6s" repeatCount="indefinite" />
-        </path>
-        <path d="M 230 -30 q 9 -13 18 0 q 9 13 18 0" fill="none" stroke="var(--mint)" strokeWidth={2} opacity={0.8}>
-          <animateTransform attributeName="transform" type="translate" values="0 0;0 -7;0 0" dur="5.4s" begin="2.4s" repeatCount="indefinite" />
-        </path>
+        {SJO_BITS_OVER.map((b, i) => (
+          <text
+            key={`o-${i}`}
+            x={b.x}
+            y={b.y}
+            textAnchor="middle"
+            fontFamily="var(--font-sans)"
+            fontWeight={500}
+            fontSize={26}
+            fill="var(--teal)"
+            opacity={0.6}
+          >
+            {b.t}
+          </text>
+        ))}
+
+        <path
+          d={SJO_NETT}
+          fill="none"
+          stroke="var(--mint)"
+          strokeWidth={2.2}
+          strokeLinecap="round"
+          opacity={0.9}
+        />
+        {SJO_NODER.map((n, i) => (
+          <g key={`n-${i}`}>
+            <circle cx={n.x} cy={n.y} r={9} fill="var(--cream)" stroke="var(--mint)" strokeWidth={2.4} />
+            <circle cx={n.x} cy={n.y} r={3.2} fill="var(--mint)" />
+          </g>
+        ))}
       </g>
 
       <text

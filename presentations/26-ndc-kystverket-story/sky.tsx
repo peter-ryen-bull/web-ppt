@@ -85,7 +85,7 @@ export function SlideDagEn() {
   );
 }
 
-/* Kapittel: Azure + Databricks */
+/* Kapittel: Azure + Databricks + Terraform */
 export function SlideAzureDatabricks() {
   return (
     <>
@@ -93,8 +93,9 @@ export function SlideAzureDatabricks() {
         <SkyMedKlosser />
       </Box>
       <ChapterSlide
-        title="Azure + Databricks"
+        title="Azure + Databricks + Terraform"
         subtitle="The toolbox we picked"
+        titleSize={52}
         showLogo={false}
       />
     </>
@@ -286,7 +287,7 @@ export function SlideTerraform() {
             color: "var(--burgundy)",
           }}
         >
-          Building the infrastructure
+          Terraform: the infrastructure
         </div>
       </Box>
       <Img
@@ -315,6 +316,17 @@ export function SlideTerraform() {
   );
 }
 
+/* Kapittel: Technical implementation details */
+export function SlideTekniskImplementasjon() {
+  return (
+    <ChapterSlide
+      title="Technical implementation details"
+      subtitle="Ingest, the stream, the history"
+      titleSize={54}
+    />
+  );
+}
+
 /* Fire Terraform-states */
 export function SlideFireStates() {
   const states: [string, string][] = [
@@ -325,7 +337,7 @@ export function SlideFireStates() {
   ];
   return (
     <>
-      <Box box={[66, 50, 1100, 70]}>
+      <Box box={[66, 50, 1040, 70]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
@@ -333,9 +345,14 @@ export function SlideFireStates() {
             color: "var(--burgundy)",
           }}
         >
-          Four states. Four pipelines.
+          Terraform: four states. Four pipelines.
         </div>
       </Box>
+      <Img
+        box={[1160, 36, 72, 82]}
+        src={`${MEDIA}/terraform.svg`}
+        alt="Terraform"
+      />
       <Box box={[820, 130, 400, 420]}>
         <FireSpor />
       </Box>

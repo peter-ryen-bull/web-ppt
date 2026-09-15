@@ -13,25 +13,29 @@ import { IkonI, type IkonNavn } from "@/components/figures/strek";
  *             Contract som pushes til et sentralt repo, og CI som automatisk
  *             oppretter et view i den sentrale «dataprodukter»-katalogen.
  *
+ * De øvrige «hvor vi skal»-figurene (kildene inn i domenene, forbruket ut av
+ * katalogen og helhetsbildet) ligger i DomenerOgProdukter.tsx og gjenbruker
+ * byggeklossene som eksporteres herfra.
+ *
  * Ren SVG (viewBox 1240x640) i Miles-paletten. Delene avsløres med
  * klikk-steg (useStep), og flyten kontrakt → repo → view har en løpende
  * SMIL-animert prikk.
  */
 
-const W = 1240;
-const H = 640;
+export const W = 1240;
+export const H = 640;
 
-const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
-const SUB_FARGE = "#9a5068";
-const LINJE_FARGE = "rgba(69, 13, 32, 0.25)";
-const KREM_DUS = "rgba(251, 240, 229, 0.72)";
+export const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
+export const SUB_FARGE = "#9a5068";
+export const LINJE_FARGE = "rgba(69, 13, 32, 0.25)";
+export const KREM_DUS = "rgba(251, 240, 229, 0.72)";
 
-const BRONSE = "#b5773f";
-const SOLV = "#9ea7ae";
-const GULL = "#d3a53a";
+export const BRONSE = "#b5773f";
+export const SOLV = "#9ea7ae";
+export const GULL = "#d3a53a";
 
 /** Viser innholdet først når klikk-steget `at` er nådd */
-function Steg({ at, children }: { at: number; children: ReactNode }) {
+export function Steg({ at, children }: { at: number; children: ReactNode }) {
   const step = useStep();
   const shown = step >= at;
   return (
@@ -41,7 +45,7 @@ function Steg({ at, children }: { at: number; children: ReactNode }) {
   );
 }
 
-function Pill({ cx, text, w }: { cx: number; text: string; w: number }) {
+export function Pill({ cx, text, w }: { cx: number; text: string; w: number }) {
   return (
     <g>
       <rect x={cx - w / 2} y={8} width={w} height={30} rx={15} fill="var(--teal)" />
@@ -61,7 +65,8 @@ function Pill({ cx, text, w }: { cx: number; text: string; w: number }) {
   );
 }
 
-function PilDefs({ id }: { id: string }) {
+/** Pilspiss-definisjon. `farge` styrer fyllet (standard rød). */
+export function PilDefs({ id, farge = "var(--red)" }: { id: string; farge?: string }) {
   return (
     <defs>
       <marker
@@ -73,20 +78,33 @@ function PilDefs({ id }: { id: string }) {
         markerHeight={8}
         orient="auto-start-reverse"
       >
-        <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--red)" />
+        <path d="M 0 0 L 10 5 L 0 10 z" fill={farge} />
       </marker>
     </defs>
   );
 }
 
-function Pil({ d, marker }: { d: string; marker: string }) {
+export function Pil({
+  d,
+  marker,
+  farge = "var(--red)",
+  strokeWidth = 1.8,
+  dash,
+}: {
+  d: string;
+  marker: string;
+  farge?: string;
+  strokeWidth?: number;
+  dash?: string;
+}) {
   return (
     <path
       d={d}
       fill="none"
-      stroke="var(--red)"
-      strokeWidth={1.8}
+      stroke={farge}
+      strokeWidth={strokeWidth}
       strokeLinecap="round"
+      strokeDasharray={dash}
       markerEnd={`url(#${marker})`}
     />
   );
@@ -94,7 +112,7 @@ function Pil({ d, marker }: { d: string; marker: string }) {
 
 /* ---------- Ikoner (24x24, strek-stil) ---------- */
 
-function IkonAntenne() {
+export function IkonAntenne() {
   return (
     <>
       <path d="M12 21V11" />
@@ -108,7 +126,7 @@ function IkonAntenne() {
   );
 }
 
-function IkonFil() {
+export function IkonFil() {
   return (
     <>
       <path d="M6.5 3h7l4.5 4.5V21h-11.5z" />
@@ -117,7 +135,7 @@ function IkonFil() {
   );
 }
 
-function IkonGit() {
+export function IkonGit() {
   return (
     <>
       <circle cx={6} cy={5} r={2.5} />
@@ -129,7 +147,7 @@ function IkonGit() {
   );
 }
 
-function IkonView() {
+export function IkonView() {
   return (
     <>
       <path d="M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12z" />
@@ -284,11 +302,11 @@ export function HvorViEr() {
  * HVOR VI SKAL – domenekataloger, datakontrakt, sentral dataprodukt-katalog
  * ===================================================================== */
 
-const DOMENER: { navn: string; ikon: IkonNavn }[] = [
+export const DOMENER: { navn: string; ikon: IkonNavn }[] = [
   { navn: "customs", ikon: "skjema" },
   { navn: "ais", ikon: "antenne" },
   { navn: "hr_and_finance", ikon: "mynt" },
-  { navn: "predictive_maintenance_lighthouses", ikon: "verktoy" },
+  { navn: "lighthouses", ikon: "verktoy" },
 ];
 
 const KONTRAKT_LINJER: [string, string][] = [
@@ -303,7 +321,7 @@ const KONTRAKT_LINJER: [string, string][] = [
   ["  - name:", " speed_knots"],
 ];
 
-const VIEWS: { navn: string; kilde: string }[] = [
+export const VIEWS: { navn: string; kilde: string }[] = [
   { navn: "ais.tracks", kilde: "view → ais.gold.tracks" },
   { navn: "ais.emissions", kilde: "view → ais.gold.emissions" },
   { navn: "customs.declarations", kilde: "view → customs.gold.declarations" },
@@ -576,7 +594,7 @@ export function HvorViSkal() {
 
       <Steg at={5}>
         <text x={620} y={612} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={15.5} fill="var(--red)">
-          Data split by domain – clear ownership, clear cost center, clear stewardship
+          One contract, one pull request, one view – the domain shares without copying data
         </text>
       </Steg>
     </svg>

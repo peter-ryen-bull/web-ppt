@@ -31,10 +31,21 @@ import {
   SlideLakehouseHva,
   SlideAutomatisertePipelines,
   SlideMerEnnVarehus,
+  SlideMerEnnVarehusKatalog,
+  SlideMerEnnVarehusAi,
+  SlideMerEnnVarehusSvar,
   SlideDataprodukt,
+  SlideDataproduktKjerne,
+  SlideDataproduktKjennetegn,
   SlideDataproduktAnatomi,
+  SlideDatakontraktKapittel,
+  SlideDatakontraktHva,
+  SlideDatakontraktInnhold,
   SlideDatakontrakt,
   SlideDatakontraktBrudd,
+  SlideDatakatalog,
+  SlideDatakatalogHva,
+  SlideDatakatalogDatahub,
   SlideGovernance,
   SlideRoller,
 } from "./plattform";
@@ -57,6 +68,7 @@ import {
   SlideAzure,
   SlideDatabricks,
   SlideTerraform,
+  SlideTekniskImplementasjon,
   SlideFireStates,
   SlideTerraformDabs,
   SlideIngest,
@@ -79,6 +91,7 @@ import {
   SlideMarTraf,
   SlideHexHvorfor,
   SlideHexJoin,
+  SlideH3Ship,
   SlideMarTrafVideo,
   SlidePropellloven,
   SlideMarU,
@@ -89,7 +102,10 @@ import {
 import {
   SlideVeienVidere,
   SlideHvorViEr,
+  SlideHvorViSkalKilder,
   SlideHvorViSkal,
+  SlideHvorViSkalForbruk,
+  SlideHvorViSkalHelhet,
   SlideDomeneEffekt,
   SlideVidereListe,
   SlideTilbakeTilStad,
@@ -101,12 +117,13 @@ import {
  *
  *  Akt 1  Åpningen           00:00  én scene, ett signal, ett tall
  *  Akt 2  Hvem lytter        05:00  Kystverket og det store hvorfor-et
- *  Akt 3  Historien          12:00  femti år med samme problem
- *  Akt 4  Hvorfor plattform         Uber, hverdagen
+ *  Akt 3  Hvorfor dataplattform     12:00  hvorfor alle bygger, Hoffman, Uber, hverdagen
+ *  Akt 4  Historien                 femti år med samme problem
  *  Akt 4b Hvordan dataplattform     arkitektur, lakehouse, rør, pipelines, produkter
  *  Akt 5  Hva får du igjen   27:00  tre effekter med eksempler fra sjøveien
- *  Akt 6  Prosjektet         32:00  dag én, verktøykassa, terraform, ingest, historikken
- *  Akt 7  Modellene          43:00  følg ett skip, propellloven, klimaregnskapet
+ *  Akt 6  Prosjektet         32:00  dag én, verktøykassa, terraform
+ *  Akt 7  Modellene                 følg ett skip, propellloven, klimaregnskapet
+ *  Akt 7b Teknisk                   ingest, historikken, batch vs streaming
  *  Akt 8  Veien videre       53:00  domener, kontrakter, og tilbake til Stad
  */
 const APNING: SlideDef[] = [
@@ -182,6 +199,18 @@ const HISTORIE = embedAsChapter(historyOfTheDataPlatform, {
 });
 
 const PLATTFORM: SlideDef[] = [
+  {
+    id: "hva-er",
+    name: "Why is everyone building data platforms?",
+    component: SlideHvaEr,
+    steps: 1,
+  },
+  {
+    id: "reid-hoffman",
+    name: "Everything is measurable",
+    component: SlideReidHoffman,
+    steps: 1,
+  },
   { id: "uber", name: "Uber, 2014", component: SlideUber, steps: 4 },
   {
     id: "hvorfor",
@@ -211,7 +240,25 @@ const HVORDAN: SlideDef[] = [
     id: "mer-enn-varehus",
     name: "Is it just a database?",
     component: SlideMerEnnVarehus,
-    steps: 3,
+    steps: 5,
+  },
+  {
+    id: "mer-enn-varehus-katalog",
+    name: "Catalog. Compute. Jobs. Discover.",
+    component: SlideMerEnnVarehusKatalog,
+    steps: 1,
+  },
+  {
+    id: "mer-enn-varehus-ai",
+    name: "And then you ask.",
+    component: SlideMerEnnVarehusAi,
+    steps: 1,
+  },
+  {
+    id: "mer-enn-varehus-svar",
+    name: "And it answers.",
+    component: SlideMerEnnVarehusSvar,
+    steps: 1,
   },
   {
     id: "hvordan-lakehouse",
@@ -239,9 +286,38 @@ const HVORDAN: SlideDef[] = [
   },
   { id: "dataprodukt", name: "Data product", component: SlideDataprodukt },
   {
+    id: "dataprodukt-kjerne",
+    name: "The core output",
+    component: SlideDataproduktKjerne,
+    steps: 1,
+  },
+  {
+    id: "dataprodukt-kjennetegn",
+    name: "What makes it a product",
+    component: SlideDataproduktKjennetegn,
+    steps: 2,
+  },
+  {
     id: "dataprodukt-anatomi",
     name: "More than a table",
     component: SlideDataproduktAnatomi,
+  },
+  {
+    id: "datakontrakt-kapittel",
+    name: "Data contract",
+    component: SlideDatakontraktKapittel,
+  },
+  {
+    id: "datakontrakt-hva",
+    name: "Think API, but for data",
+    component: SlideDatakontraktHva,
+    steps: 1,
+  },
+  {
+    id: "datakontrakt-innhold",
+    name: "What's in a contract",
+    component: SlideDatakontraktInnhold,
+    steps: 2,
   },
   {
     id: "datakontrakt",
@@ -254,8 +330,25 @@ const HVORDAN: SlideDef[] = [
     component: SlideDatakontraktBrudd,
   },
   {
+    id: "datakatalog",
+    name: "Data catalog",
+    component: SlideDatakatalog,
+  },
+  {
+    id: "datakatalog-hva",
+    name: "What a catalog is",
+    component: SlideDatakatalogHva,
+    steps: 2,
+  },
+  {
+    id: "datakatalog-datahub",
+    name: "DataHub",
+    component: SlideDatakatalogDatahub,
+    steps: 1,
+  },
+  {
     id: "governance",
-    name: "Governance: contracts, ownership, catalog",
+    name: "Governance: contracts and catalog",
     component: SlideGovernance,
     steps: 2,
   },
@@ -303,7 +396,7 @@ const PROSJEKTET: SlideDef[] = [
   { id: "dag-en", name: "Day one", component: SlideDagEn, steps: 3 },
   {
     id: "azure-databricks",
-    name: "Azure + Databricks",
+    name: "Azure + Databricks + Terraform",
     component: SlideAzureDatabricks,
   },
   {
@@ -320,13 +413,21 @@ const PROSJEKTET: SlideDef[] = [
   },
   {
     id: "terraform",
-    name: "Building the infrastructure",
+    name: "Terraform: the infrastructure",
     component: SlideTerraform,
     steps: 4,
   },
+];
+
+const TEKNISK: SlideDef[] = [
+  {
+    id: "teknisk-implementasjon",
+    name: "Technical implementation details",
+    component: SlideTekniskImplementasjon,
+  },
   {
     id: "fire-states",
-    name: "Four states. Four pipelines.",
+    name: "Terraform: four states. Four pipelines.",
     component: SlideFireStates,
     steps: 5,
   },
@@ -433,6 +534,7 @@ const MODELLENE: SlideDef[] = [
     component: SlideHexJoin,
     steps: 2,
   },
+  { id: "h3-ship", name: "One ship on the hex grid", component: SlideH3Ship },
   {
     id: "martraf-video",
     name: "MarTraf on the map",
@@ -474,10 +576,28 @@ const VEIEN_VIDERE: SlideDef[] = [
     steps: 2,
   },
   {
+    id: "hvor-vi-skal-kilder",
+    name: "Where we're going: every domain ingests its own sources",
+    component: SlideHvorViSkalKilder,
+    steps: 3,
+  },
+  {
     id: "hvor-vi-skal",
-    name: "Where we're going: domain catalogs and data products",
+    name: "Where we're going: the contract becomes a view",
     component: SlideHvorViSkal,
     steps: 5,
+  },
+  {
+    id: "hvor-vi-skal-forbruk",
+    name: "Where we're going: find it, read it",
+    component: SlideHvorViSkalForbruk,
+    steps: 4,
+  },
+  {
+    id: "hvor-vi-skal-helhet",
+    name: "Where we're going: the whole picture",
+    component: SlideHvorViSkalHelhet,
+    steps: 4,
   },
   {
     id: "domene-effekt",
@@ -511,29 +631,17 @@ export const ndcKystverketStory = definePresentation({
   chapters: [
     { id: "apning", title: "The opening", slides: APNING },
     { id: "hvem-lytter", title: "Who's listening", slides: HVEM_LYTTER },
-    {
-      ...HISTORIE,
-      slides: [
-        {
-          id: "hva-er",
-          name: "Why is everyone building data platforms?",
-          component: SlideHvaEr,
-          steps: 1,
-        },
-        {
-          id: "reid-hoffman",
-          name: "Everything is measurable",
-          component: SlideReidHoffman,
-          steps: 1,
-        },
-        ...HISTORIE.slides,
-      ],
-    },
-    { id: "plattform", title: "Why a platform", slides: PLATTFORM },
+    { id: "plattform", title: "Why data platform", slides: PLATTFORM },
+    HISTORIE,
     { id: "hvordan", title: "How it works", slides: HVORDAN },
     { id: "effekter", title: "What you get out of it", slides: EFFEKTER },
     { id: "prosjektet", title: "The story of the project", slides: PROSJEKTET },
     { id: "modellene", title: "The models", slides: MODELLENE },
+    {
+      id: "teknisk",
+      title: "Technical implementation details",
+      slides: TEKNISK,
+    },
     { id: "veien-videre", title: "The road ahead", slides: VEIEN_VIDERE },
   ],
 });

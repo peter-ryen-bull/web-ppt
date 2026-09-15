@@ -1,4 +1,4 @@
-import { Box, ChapterSlide, Reveal, pt, useRevealStyle } from "../parts";
+import { Box, ChapterSlide, Img, Reveal, pt, useRevealStyle } from "../parts";
 
 const MEDIA = "/media/26-ndc-kystverket";
 import {
@@ -16,6 +16,9 @@ import {
   GovernanceTrio,
   Grunnmur,
   Pakke,
+  PlattformProdukter,
+  KontraktArk,
+  KatalogKart,
   RolleFigur,
   SiloTilPlattform,
   StrekIkon,
@@ -469,53 +472,205 @@ export function SlideAutomatisertePipelines() {
 
 /* Slide 14 – Mer enn et datavarehus */
 export function SlideMerEnnVarehus() {
-  const punkter = [
+  const lakehouse = [
     "Structured and unstructured",
     "Rollbacks",
     "Rapid iterations",
   ];
+  const platform = [
+    ["Governance", "Audit logging"],
+    ["Data discoverability", "Pipelines"],
+    ["Developer UIs", "Code execution"],
+    ["Compute", "AI"],
+    ["AI models"],
+  ];
+  const p1 = useRevealStyle(1);
+  const p2 = useRevealStyle(2);
+  const p3 = useRevealStyle(3);
+  const vis = [p1, p2, p3];
   return (
     <>
-      <Box box={[330, 48, 620, 180]}>
-        <VarehusVsPlattform />
-      </Box>
-      <Box box={[48.4, 250, 1183.1, 80]}>
+      <Box
+        box={[66, 70, 680, 360]}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          gap: 28,
+        }}
+      >
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(50),
-            lineHeight: 1.2,
-            textAlign: "center",
+            fontSize: pt(40),
+            lineHeight: 1.15,
             color: "var(--burgundy)",
           }}
         >
           Is it just a database?
         </div>
-      </Box>
-      {punkter.map((tekst, i) => (
-        <Reveal key={tekst} at={i + 1}>
-          <Box
-            box={[340, 360 + i * 70, 600, 56]}
+        {lakehouse.map((tekst, i) => (
+          <div
+            key={tekst}
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              fontFamily: "var(--font-serif)",
+              fontSize: pt(28),
+              lineHeight: 1.15,
+              color: "var(--red)",
+              ...vis[i],
             }}
           >
-            <div
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: pt(28),
-                color: "var(--red)",
-                textAlign: "center",
-              }}
-            >
-              {tekst}
-            </div>
-          </Box>
-        </Reveal>
-      ))}
+            {tekst}
+          </div>
+        ))}
+      </Box>
+      <Reveal at={4}>
+        <Box
+          box={[66, 428, 540, 168]}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "270px 220px",
+            columnGap: 32,
+            rowGap: 8,
+            alignContent: "start",
+          }}
+        >
+          {platform.flatMap((rad) =>
+            rad.map((tekst) => (
+              <div
+                key={tekst}
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: pt(20),
+                  lineHeight: 1.2,
+                  color: "var(--red)",
+                }}
+              >
+                {tekst}
+              </div>
+            ))
+          )}
+        </Box>
+      </Reveal>
+      <Reveal at={5}>
+        <Box
+          box={[66, 640, 540, 48]}
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: pt(28),
+              lineHeight: 1.2,
+              color: "var(--burgundy)",
+            }}
+          >
+            It&apos;s a platform.
+          </div>
+        </Box>
+      </Reveal>
+      <Box box={[790, 120, 440, 420]}>
+        <VarehusVsPlattform />
+      </Box>
     </>
+  );
+}
+
+function PlattformSkjerm({
+  src,
+  alt,
+  caption,
+  position = "left top",
+  fit = "cover",
+}: {
+  src: string;
+  alt: string;
+  caption: string;
+  position?: string;
+  fit?: "cover" | "contain";
+}) {
+  const linje = useRevealStyle(1);
+  return (
+    <>
+      <Box
+        box={[20, 16, 1240, 628]}
+        style={{
+          overflow: "hidden",
+          borderRadius: 10,
+          background: "#1b1b1b",
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt={alt}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: fit,
+            objectPosition: position,
+          }}
+        />
+      </Box>
+      <Box
+        box={[66, 654, 1148, 48]}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(16),
+            lineHeight: 1.35,
+            color: "var(--red)",
+            textAlign: "center",
+            ...linje,
+          }}
+        >
+          {caption}
+        </div>
+      </Box>
+    </>
+  );
+}
+
+/* Katalogen i Databricks – beviset på at det er en plattform */
+export function SlideMerEnnVarehusKatalog() {
+  return (
+    <PlattformSkjerm
+      src={`${MEDIA}/databricks-catalog.png`}
+      alt="Databricks catalog: catalogs, compute, jobs and discover in one workspace"
+      caption="Catalog. Compute. Jobs. Discover."
+      position="left top"
+    />
+  );
+}
+
+/* AI-chatten i Databricks – du spør plattformen */
+export function SlideMerEnnVarehusAi() {
+  return (
+    <PlattformSkjerm
+      src={`${MEDIA}/databricks-ai-chat.png`}
+      alt="Databricks assistant: ask the platform about the data"
+      caption="And then you ask."
+      position="center top"
+    />
+  );
+}
+
+/* Svaret: Trollfjord på kartet */
+export function SlideMerEnnVarehusSvar() {
+  return (
+    <PlattformSkjerm
+      src={`${MEDIA}/databricks-trollfjord.png`}
+      alt="Trollfjord positions on a map and in a table, generated from a question"
+      caption="And it answers."
+      position="center top"
+      fit="contain"
+    />
   );
 }
 
@@ -535,7 +690,139 @@ export function SlideDataprodukt() {
   );
 }
 
-/* Slide 15b – Dataprodukt: mer enn en tabell */
+/* Slide 15b – Dataproduktet er det plattformen leverer */
+export function SlideDataproduktKjerne() {
+  const linje = useRevealStyle(1);
+  return (
+    <>
+      <Box
+        box={[66, 130, 640, 460]}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          gap: 26,
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(42),
+            lineHeight: 1.15,
+            color: "var(--burgundy)",
+          }}
+        >
+          The core output
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(28),
+            lineHeight: 1.25,
+            color: "var(--red)",
+          }}
+        >
+          A data platform exists
+          <br />
+          to serve data products.
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(20),
+            lineHeight: 1.4,
+            color: "var(--burgundy-2)",
+            ...linje,
+          }}
+        >
+          A product has users. Users have expectations.
+        </div>
+      </Box>
+      <Box box={[720, 170, 500, 380]}>
+        <PlattformProdukter />
+      </Box>
+    </>
+  );
+}
+
+/* Slide 15c – Hva som gjør et datasett til et produkt */
+const KJENNETEGN: { tittel: string; sub: string; ikon: IkonNavn }[] = [
+  { tittel: "A named owner", sub: "who answers, and can improve it", ikon: "person" },
+  { tittel: "Documentation", sub: "meaning, origin, and use", ikon: "bok" },
+  { tittel: "Quality guarantees", sub: "freshness, tests, a contract", ikon: "skjold" },
+  { tittel: "Known consumers", sub: "so a change can be announced", ikon: "deling" },
+];
+
+export function SlideDataproduktKjennetegn() {
+  return (
+    <>
+      <Box box={[66, 48, 1148, 64]}>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(36),
+            color: "var(--burgundy)",
+          }}
+        >
+          What makes it a product
+        </div>
+      </Box>
+      {KJENNETEGN.map((k, i) => {
+        const col = i % 2;
+        const row = Math.floor(i / 2);
+        const cell = (
+          <Box key={k.tittel} box={[66 + col * 590, 150 + row * 200, 540, 170]}>
+            <StrekIkon navn={k.ikon} size={36} color="var(--teal)" strokeWidth={1.6} />
+            <div
+              style={{
+                marginTop: 18,
+                fontFamily: "var(--font-serif)",
+                fontSize: pt(26),
+                lineHeight: 1.15,
+                color: "var(--burgundy-2)",
+              }}
+            >
+              {k.tittel}
+            </div>
+            <div
+              style={{
+                marginTop: 10,
+                fontFamily: "var(--font-sans)",
+                fontSize: pt(17),
+                lineHeight: 1.35,
+                color: "var(--red)",
+              }}
+            >
+              {k.sub}
+            </div>
+          </Box>
+        );
+        return row === 0 ? (
+          cell
+        ) : (
+          <Reveal key={k.tittel} at={1}>
+            {cell}
+          </Reveal>
+        );
+      })}
+      <Reveal at={2}>
+        <Box box={[66, 560, 1148, 80]}>
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(20),
+              color: "var(--red)",
+            }}
+          >
+            Not every dataset. The ones people lean on.
+          </div>
+        </Box>
+      </Reveal>
+    </>
+  );
+}
+
+/* Slide 15d – Dataprodukt: mer enn en tabell */
 export function SlideDataproduktAnatomi() {
   return (
     <Box box={[20, 42, 1240, 636]}>
@@ -544,7 +831,153 @@ export function SlideDataproduktAnatomi() {
   );
 }
 
-/* Slide 15c – Datakontrakt: et API for data */
+/* Kapittel: Datakontrakt */
+export function SlideDatakontraktKapittel() {
+  return (
+    <>
+      <Box box={[430, 60, 420, 150]}>
+        <KontraktArk />
+      </Box>
+      <ChapterSlide
+        title="Data contract"
+        subtitle="An agreement between those who change a dataset and those who consume it."
+        showLogo={false}
+      />
+    </>
+  );
+}
+
+/* Hva en datakontrakt er */
+export function SlideDatakontraktHva() {
+  const linje = useRevealStyle(1);
+  return (
+    <>
+      <Box
+        box={[66, 140, 1148, 460]}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          gap: 28,
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(42),
+            lineHeight: 1.15,
+            color: "var(--burgundy)",
+          }}
+        >
+          Think API, but for data
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(26),
+            lineHeight: 1.3,
+            color: "var(--red)",
+          }}
+        >
+          A human and machine readable document
+          <br />
+          that clears expectations both ways.
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(20),
+            lineHeight: 1.4,
+            color: "var(--burgundy-2)",
+            ...linje,
+          }}
+        >
+          The schema says speed is a number. The contract says zero to sixty
+          knots, fresher than five minutes, and who you wake up when it breaks.
+        </div>
+      </Box>
+    </>
+  );
+}
+
+/* Hva kontrakten inneholder */
+const KONTRAKT_FELT: { tittel: string; sub: string; ikon: IkonNavn }[] = [
+  { tittel: "Schema", sub: "fields, types, what's required", ikon: "skjema" },
+  { tittel: "Meaning", sub: "what the fields mean, where they come from", ikon: "bok" },
+  { tittel: "Validation rules", sub: "min, max, relationships, tests", ikon: "skjold" },
+  { tittel: "SLAs and governance", sub: "freshness, sensitivity, who owns it", ikon: "kontrakt" },
+];
+
+export function SlideDatakontraktInnhold() {
+  return (
+    <>
+      <Box box={[66, 48, 1148, 64]}>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(36),
+            color: "var(--burgundy)",
+          }}
+        >
+          What&apos;s in a contract
+        </div>
+      </Box>
+      {KONTRAKT_FELT.map((k, i) => {
+        const col = i % 2;
+        const row = Math.floor(i / 2);
+        const cell = (
+          <Box key={k.tittel} box={[66 + col * 590, 150 + row * 200, 540, 170]}>
+            <StrekIkon navn={k.ikon} size={36} color="var(--teal)" strokeWidth={1.6} />
+            <div
+              style={{
+                marginTop: 18,
+                fontFamily: "var(--font-serif)",
+                fontSize: pt(26),
+                lineHeight: 1.15,
+                color: "var(--burgundy-2)",
+              }}
+            >
+              {k.tittel}
+            </div>
+            <div
+              style={{
+                marginTop: 10,
+                fontFamily: "var(--font-sans)",
+                fontSize: pt(17),
+                lineHeight: 1.35,
+                color: "var(--red)",
+              }}
+            >
+              {k.sub}
+            </div>
+          </Box>
+        );
+        return row === 0 ? (
+          cell
+        ) : (
+          <Reveal key={k.tittel} at={1}>
+            {cell}
+          </Reveal>
+        );
+      })}
+      <Reveal at={2}>
+        <Box box={[66, 560, 1148, 80]}>
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(20),
+              color: "var(--red)",
+            }}
+          >
+            Unlike a wiki page, this one is tested.
+          </div>
+        </Box>
+      </Reveal>
+    </>
+  );
+}
+
+/* Datakontrakt: et API for data */
 export function SlideDatakontrakt() {
   return (
     <Box box={[20, 42, 1240, 636]}>
@@ -562,7 +995,126 @@ export function SlideDatakontraktBrudd() {
   );
 }
 
-/* Slide 16 – Governance: datakontrakter, eierskap, katalog */
+/* Kapittel: Datakatalog */
+export function SlideDatakatalog() {
+  return (
+    <>
+      <Box box={[430, 60, 420, 150]}>
+        <KatalogKart />
+      </Box>
+      <ChapterSlide
+        title="Data catalog"
+        subtitle="The map your organization is missing."
+        showLogo={false}
+      />
+    </>
+  );
+}
+
+/* Hva en datakatalog er */
+export function SlideDatakatalogHva() {
+  const linje1 = useRevealStyle(1);
+  const linje2 = useRevealStyle(2);
+  return (
+    <>
+      <Box
+        box={[66, 130, 1148, 500]}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          gap: 26,
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(42),
+            lineHeight: 1.15,
+            color: "var(--burgundy)",
+          }}
+        >
+          What a catalog is
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(26),
+            lineHeight: 1.3,
+            color: "var(--red)",
+          }}
+        >
+          An overview of the datasets in an organization.
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(20),
+            lineHeight: 1.4,
+            color: "var(--burgundy-2)",
+            ...linje1,
+          }}
+        >
+          Search, understand, and assess a dataset without asking around,
+          or digging through databases on your own.
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(20),
+            lineHeight: 1.4,
+            color: "var(--burgundy-2)",
+            ...linje2,
+          }}
+        >
+          The data stays in the source systems. The catalog describes it
+          and points to where it lives.
+        </div>
+      </Box>
+    </>
+  );
+}
+
+/* DataHub-skjermbilde */
+export function SlideDatakatalogDatahub() {
+  const caption = useRevealStyle(1);
+  return (
+    <>
+      <Box
+        box={[120, 28, 1040, 580]}
+        style={{
+          overflow: "hidden",
+          borderRadius: 12,
+          border: "1.5px solid var(--cream-dark)",
+          background: "#fff",
+        }}
+      >
+        <Img
+          box={[0, 0, 1040, 580]}
+          src={`${MEDIA}/datahub.png`}
+          alt="DataHub search: 141 datasets across Looker, dbt, Snowflake, Airflow and S3"
+          fit="contain"
+        />
+      </Box>
+      <Box box={[66, 624, 1148, 52]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(16),
+            lineHeight: 1.35,
+            color: "var(--red)",
+            textAlign: "center",
+            ...caption,
+          }}
+        >
+          DataHub. Open source. Search across many systems, not just one cloud.
+        </div>
+      </Box>
+    </>
+  );
+}
+
+/* Slide 16 – Governance: datakontrakter og katalog */
 export function SlideGovernance() {
   const linje2 = useRevealStyle(1);
   return (
@@ -584,7 +1136,7 @@ export function SlideGovernance() {
             width: "100%",
           }}
         >
-          Data contracts, Data ownership, Data catalog
+          Data contracts, Data catalog
           <br />
           <span
             style={{

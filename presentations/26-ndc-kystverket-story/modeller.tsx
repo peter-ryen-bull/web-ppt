@@ -494,7 +494,7 @@ export function SlideHexHvorfor() {
               textAlign: "center",
             }}
           >
-            H3 tiles the planet. Sixteen resolutions. One integer per cell.
+            Every AIS point gets a hex ID. Then we count cells.
           </div>
         </Box>
       </Reveal>
@@ -540,6 +540,7 @@ export function SlideHexJoin() {
             marginTop: 22,
             fontFamily: "var(--font-serif)",
             fontSize: pt(26),
+            lineHeight: 1.2,
             color: "var(--burgundy-2)",
           }}
         >
@@ -563,13 +564,34 @@ export function SlideHexJoin() {
         "Math on every row",
         "Fine for a thousand points",
       ])}
-      {kort(1, 680, "H3", "A BIGINT equality", [
-        "A hash join. Geometry never touched",
+      {kort(1, 680, "H3", "A BIGINT already on the table", [
+        "A hash join. Then you can prune",
         "Fine for a hundred million",
       ])}
+      <Reveal at={1}>
+        <Box
+          box={[72.4, 490, 1136, 40]}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(17),
+              color: "var(--burgundy)",
+              textAlign: "center",
+            }}
+          >
+            MarTraf, MarU, KystRisk. Not HAIS yet.
+          </div>
+        </Box>
+      </Reveal>
       <Reveal at={2}>
         <Box
-          box={[72.4, 520, 1136, 80]}
+          box={[72.4, 540, 1136, 80]}
           style={{
             display: "flex",
             alignItems: "center",
@@ -589,6 +611,20 @@ export function SlideHexJoin() {
           </div>
         </Box>
       </Reveal>
+    </>
+  );
+}
+
+/* Ett skip på H3-rutenettet, hele lerretet */
+export function SlideH3Ship() {
+  return (
+    <>
+      <Box box={[0, 0, 1280, 720]} style={{ background: "#111318" }} />
+      <Video
+        box={[0, 0, 1280, 720]}
+        src={`${MEDIA}/h3-ship.mp4`}
+        fit="contain"
+      />
     </>
   );
 }

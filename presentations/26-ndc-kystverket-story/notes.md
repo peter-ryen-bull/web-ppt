@@ -16,19 +16,22 @@ can say "our ship," say it. The audience should recognize it.
 
 ### Dramaturgy and schedule
 
-| Act                          | Start | Content                                                                              |
-| ---------------------------- | ----- | ------------------------------------------------------------------------------------ |
-| 1 The opening                | 00:00 | scene, signal, NAIS, 100 million, title slide, Peter                                 |
-| 2 Who's listening            | 05:00 | Kystverket, the vision, the mission, the listening posts, AIS                        |
-| 3 Why a platform             | 12:00 | Uber, everyday life                                                                  |
-| 3b How a data platform works |       | architecture, lakehouse, the pipe, pipelines, products                               |
-| 4 What you get out of it     | 27:00 | four effects with examples from the coastline                                        |
-| 5 The project                | 32:00 | day one, the toolbox, terraform, ingest, the stream, the history, batch vs streaming |
-| 6 The models                 | 43:00 | follow one ship, MarTraf, hexes, MarU, how it was done earlier, the propeller law    |
-| 7 The road ahead             | 53:00 | domains, contracts, back to Stad, thanks                                             |
+| Act                                 | Start | Content                                                                           |
+| ----------------------------------- | ----- | --------------------------------------------------------------------------------- |
+| 1 The opening                       | 00:00 | scene, signal, NAIS, 100 million, title slide, Peter                              |
+| 2 Who's listening                   | 05:00 | Kystverket, the vision, the mission, the listening posts, AIS                     |
+| 3 Why data platform                 | 12:00 | why everyone builds them, Hoffman, Uber, everyday life                            |
+| 3b The story of the platform        |       | fifty years, same problem                                                         |
+| 3c How a data platform works        |       | architecture, lakehouse, the pipe, pipelines, products                            |
+| 4 What you get out of it            | 27:00 | four effects with examples from the coastline                                     |
+| 5 The project                       | 32:00 | day one, the toolbox, terraform                                                   |
+| 6 The models                        |       | follow one ship, MarTraf, hexes, MarU, how it was done earlier, the propeller law |
+| 6b Technical implementation details |       | ingest, the stream, the history, batch vs streaming                               |
+| 7 The road ahead                    | 53:00 | domains, contracts, back to Stad, thanks                                          |
 
-If you're behind at 43:00, cut the batch/streaming sidenote (two slides,
-about three minutes), or hex-hvorfor, hex-join and maru-hull.
+If you're behind after the models, cut the batch/streaming sidenote (two
+slides, about three minutes). If you're behind during the models, cut
+hex-hvorfor, hex-join and maru-hull.
 
 ### Rules for the language in these notes
 
@@ -426,6 +429,49 @@ to touch.
 [[CLICK]] Rapid iterations. You don't wait for the perfect table. You land
 it, try a transform, keep the raw.
 
+That's the data layer. A lakehouse already beats a database there.
+
+[[CLICK]] And then look at the rest of the building. Governance. Audit
+logging. You can find the data. Pipelines that run. Compute when you
+need it. Developer UIs. A place to execute code. AI. Models.
+
+A database stores rows. It does not give you a catalog, a notebook, a
+job, compute, or a model registry.
+
+[[CLICK]] It's a platform.
+
+## mer-enn-varehus-katalog – Catalog. Compute. Jobs. Discover.
+
+That's the sentence. Here's what it looks like when you open it.
+
+Don't walk the screenshot. Point at the left. Catalog. Jobs. Compute.
+Discover. SQL. Dashboards. That's not a database console.
+
+The list we just went through? It's in the menu.
+
+[[CLICK]] Catalog. Compute. Jobs. Discover.
+
+## mer-enn-varehus-ai – And then you ask.
+
+And then this. Same platform. Now you ask it.
+
+Analyze my data. Create a skill. The catalog we just saw is what this
+talks to.
+
+A database does not have a box that says how can I help you.
+
+[[CLICK]] And then you ask.
+
+## mer-enn-varehus-svar – And it answers.
+
+And it answers. Trollfjord. Positions on the eleventh of August.
+Fortøyd. Underveis. A map. A table.
+
+You asked. The platform used the catalog, the compute, the data.
+That's the whole argument on one screen.
+
+[[CLICK]] And it answers.
+
 ## hvordan-lakehouse – Lakehouse: store and serve
 
 You already saw the two tracks meet, in the history.
@@ -496,6 +542,49 @@ call.
 
 Not a table someone dumped somewhere and forgot.
 
+## dataprodukt-kjerne – The core output
+
+This is the sentence I want you to take from this whole section.
+
+A data platform is not the product. The data products are. Lakehouse,
+pipelines, storage: all of that is there so you can serve data people
+can actually use.
+
+Think about a system your company ships to customers. It has an owner,
+documentation, support when it breaks, and someone watching whether
+users are happy. Now think about a typical dataset in the same company.
+No owner. No docs. Use it at your own risk.
+
+That's odd, isn't it? Million-kroner decisions rest on datasets we treat
+as byproducts.
+
+The slide says it: a data platform exists to serve data products.
+Lakehouse, pipelines, storage. All of that is how you get there.
+
+[[CLICK]] A product has users. And users have expectations. So treat the
+datasets people depend on with the same seriousness as the products you
+sell.
+
+## dataprodukt-kjennetegn – What makes it a product
+
+So what turns a dataset into a product? Four things.
+
+A named owner. Someone who answers for the content, and has the
+mandate to improve it. And documentation: what the fields mean, where
+the data comes from, what you can use it for.
+
+[[CLICK]] Quality guarantees. How fresh it is, which tests it has passed,
+what consumers can expect. That's the contract. We'll get to that. And
+known consumers: you know who actually uses the dataset, so you can
+warn them before a change breaks something downstream.
+
+Ownership says who. The contract says what. Product thinking says why.
+
+[[CLICK]] And one more thing, before I show you the picture. Not every
+dataset. Product treatment costs time. Most datasets are working files
+that never get external consumers. Leave them alone. Start with the
+handful people lean on.
+
 ## dataprodukt-anatomi – More than a table
 
 Let me show you what I mean.
@@ -518,21 +607,60 @@ product, nothing is a product. The filter I use: is it shared outside the
 team? And is an error expensive enough that it's worth maintaining over
 time? If yes to both, it's a product.
 
-## datakontrakt – Data contract: an API for data
+## datakontrakt-kapittel – Data contract
 
 And how do you describe a data product? With a data contract.
 
-You're developers. You know what an API is. Think API, but for data. The
-contract is a document both humans and machines can read. Schema, valid
-values, freshness, ownership, terms.
+A contract is an agreement between those who change a dataset and those
+who consume it. Shared expectations. That's the whole point.
 
-And it's more than a schema. The schema says speed is a number. The contract
-says: zero to sixty knots, fresher than five minutes, and here's who you
-wake up when it breaks.
+When data is scattered, poorly documented, and nobody owns it, we spend
+our time searching, inspecting, and validating data other people produced.
+
+## datakontrakt-hva – Think API, but for data
+
+You're developers. You know what an API is. Think API, but for data.
+
+The contract is a document both humans and machines can read. It clears
+expectations both ways. The producer commits to something. The consumers
+know what they can rely on.
+
+[[CLICK]] And it's more than a schema. The schema says speed is a number.
+The contract says: zero to sixty knots, fresher than five minutes, and
+here's who you wake up when it breaks.
+
+That's the difference between "I think that column is in knots" and "I
+know it is."
+
+## datakontrakt-innhold – What's in a contract
+
+So what do you actually write down?
+
+Schema. Which fields exist, which types, what's required.
+
+Meaning. What the fields mean, and where they come from.
+
+[[CLICK]] Validation rules. Min, max, relationships, tests the data has
+to pass.
+
+SLAs and governance. How fresh it should be, how sensitive it is, who
+owns it.
+
+[[CLICK]] And unlike a wiki page, this one is tested. Machines can check
+it. That's why it stays true.
+
+## datakontrakt – Data contract: an API for data
+
+Let me show you what that looks like.
+
+Point to the middle. This is the contract. YAML. Humans can read it.
+Machines can read it. Schema, valid values, freshness, ownership, terms.
+
+The producer is on the left. The consumers are on the right. The contract
+sits between them. Data only gets through if it matches.
 
 The contract goes both ways. The producer commits to something. The
-consumers know what they can rely on. That's the whole difference between
-"I think that column is in knots" and "I know it is."
+consumers know what they can rely on.
 
 ## datakontrakt-brudd – The contract stops the error early
 
@@ -556,7 +684,44 @@ The sentence I want you to take away: a silent break downstream becomes a
 loud, early failure. And loud, early failures are the cheapest failures
 there are.
 
-## governance – Governance: contracts, ownership, catalog
+## datakatalog – Data catalog
+
+Next: how do you find the products?
+
+In a large organization, data lives in tens of systems, owned by different
+teams. Without a shared overview, people spend their time looking. And
+decisions get made on different versions of the same ground truth.
+
+The catalog is the map your organization is missing.
+
+## datakatalog-hva – What a catalog is
+
+A data catalog is an overview of the datasets in an organization.
+
+It lets you search, understand, and assess a dataset without asking around
+the building, or digging through databases on your own.
+
+[[CLICK]] Search, understand, assess. Without the scavenger hunt.
+
+[[CLICK]] And one important thing. The data still lives in the source
+systems. The catalog describes it, and points to where it actually lives.
+
+Most organizations only put finished, published data products in the
+catalog. That keeps it tidy. Working files stay out.
+
+## datakatalog-datahub – DataHub
+
+This is what it looks like. DataHub. Open source.
+
+You search. You see domains, platforms, published datasets. You can open
+one and see who owns it, what the fields mean, how fresh it is.
+
+[[CLICK]] We picked an open source catalog because it integrates across
+many systems, not just one cloud. If you're deep in Microsoft, Purview
+does the same job. The gain is the same: a shared overview people
+actually use.
+
+## governance – Governance: contracts and catalog
 
 And then there's the word everyone hates. Governance.
 
@@ -564,8 +729,9 @@ I know. It sounds like bureaucracy. But hear me out: governance is what
 makes us dare to share data. It's not the brake. It's the brakes that make
 you dare to drive fast.
 
-Three things: data contracts, data ownership, data catalog. [[CLICK]] And then
-centralized logging, audit, and reporting. One place, not in every system.
+Ownership we already covered. It lives in the data product. What's left
+here is the contract and the catalog. [[CLICK]] And then centralized
+logging, audit, and reporting. One place, not in every system.
 
 The questions governance has to answer are actually simple. Who has access?
 Who had access, and when? Where does the data live? When is it deleted?
@@ -692,9 +858,9 @@ the map.
 
 So the first choice was: what do we build on?
 
-## azure-databricks – Azure + Databricks
+## azure-databricks – Azure + Databricks + Terraform
 
-The toolbox we chose. Azure and Databricks.
+The toolbox we chose. Azure, Databricks, and Terraform.
 
 Two things, very briefly, because this is not a sales pitch. But you should
 understand why it fit.
@@ -733,7 +899,7 @@ governance lives here.
 So. How do we deploy it? Because it's one thing to choose Azure and
 Databricks. It's another thing to dare to change it.
 
-## terraform – Building the infrastructure
+## terraform – Terraform: the infrastructure
 
 We don't click around in the portal. We commit.
 
@@ -753,7 +919,16 @@ And the point, like we said before: the entire platform can be recreated
 from the repo. Even if someone deletes it. That's an insurance policy. Not a
 slogan.
 
-## fire-states – Four states. Four pipelines.
+And before we go deeper into ingest and the pipelines: what do we actually
+build on top of this?
+
+## teknisk-implementasjon – Technical implementation details
+
+Chapter change. Back to how it was actually built. Four Terraform states.
+Ingest. The stream and the history. And when you choose batch versus
+streaming.
+
+## fire-states – Terraform: four states. Four pipelines.
 
 We don't have one Terraform state. We have four deployments. And each one
 is duplicated across dev, test, and prod. Four times three. That's twelve.
@@ -949,8 +1124,7 @@ top runs in batch. Both, in the same platform.
 
 ## modeller-outputs – The models and outputs
 
-Chapter change. We have the stream. We have the history. Now: what do we
-use it for? The models on top, and the things that come out.
+One more output, and a good reason serverless fits. HAIS.
 
 ## hais – HAIS: historical extracts on demand
 
@@ -968,8 +1142,8 @@ decides the size. Not us. We don't have to guess.
 
 ## modeller – From positions to emissions
 
-[43:00] Chapter change. Now we have the stream. We have the history. What do
-we use it for?
+Chapter change. We have the toolbox. Azure, Databricks, Terraform. Before we
+go into ingest and the pipelines, here's what we actually use the data for.
 
 MarTraf sits on top of the stream. Then it splits. MarU, KystRisk.
 Tonight we follow our ship through MarTraf and MarU.
@@ -1087,9 +1261,17 @@ That's why Uber built H3. The planet, tiled in hexes, sixteen resolution
 levels. Every AIS point gets a hex ID. The coastline becomes a grid we
 can actually count on.
 
+And that's the neighbour part. We don't calculate geodesic distance.
+We count cells. One cell away. Two cells away. Same distance every
+direction.
+
 ## hex-join – A join on a number
 
 And here's why it scales.
+
+Same question, a hundred million times a day. Is this point inside
+this area? Near a port. Near a fish farm. Near an oil installation.
+Inside the economic zone.
 
 The usual way is geometry. ST_Within. Math on every row. A bounding
 box test, then point-in-polygon against every edge. Fine for a thousand
@@ -1098,14 +1280,48 @@ points. Not for a hundred million.
 [[CLICK]] H3 is a BIGINT. An integer. It joins and groups like any other
 column. A hash join. Geometry never gets touched.
 
-The pattern, if you still need the exact answer: prune with the hex join.
-Settle the leftovers with geometry afterwards.
+One catch. The hex ID has to already sit on the table you join against.
+If you calculate it from lon-lat while the query runs, there is nothing
+to prune. The engine has to look at every row anyway. We generate it
+once, when the data lands. Then the join is just a number.
 
-[[CLICK]] We use resolution 8. One cell is around eleven hundred metres.
-In practice six to sixteen hundred, depending on where in the hex you sit.
+We do that on MarTraf, MarU, and KystRisk. Not on HAIS yet. HAIS still
+filters the area at query time. Same idea would help there.
+
+The pattern, if you still need the exact answer: prune with the hex join.
+Settle the leftovers with geometry afterwards. MarTraf mostly stops at
+the hex.
+
+[[CLICK]] We use it at several resolutions. One of them is 8. One cell
+is around eleven hundred metres. In practice six to sixteen hundred,
+depending on where in the hex you sit.
+
+That is not a fine grid. Resolution 8 sits in the middle of those sixteen
+levels. A ship is already tens to hundreds of metres long. "Near a port"
+is a kilometre-scale question.
 
 And we accept that. The model only needs inside or outside a threshold.
 Not which quay is closest.
+
+One example. Is this ship close to shore? We don't calculate the exact
+distance to the land contour. We ask: is it inside a k-ring or two of a
+land hex? If yes, is_close_to_shore equals true.
+
+That test, times two billion rows, is much simpler than geodesic distance
+on every row.
+
+The phases use the same ruler. A wellboat at a fish farm is one hexagon
+and under one knot. Distance is just how many cells away.
+
+## h3-ship – One ship on the hex grid
+
+This is what that looks like for one ship.
+
+Let it run. The track is just points. Each point lands in a hex.
+Distance becomes "how many cells away". That's the join we just talked about.
+
+If our ship is in the same hex as a port, it's at the port.
+If it's one cell out, it's nearby. That's the whole test.
 
 ## martraf-video – MarTraf on the map
 
@@ -1256,13 +1472,32 @@ owns what? Who pays? Who answers when something breaks? That requires
 stricter structure. And a fair bit of rewriting. That's okay to say out
 loud.
 
-## hvor-vi-skal – Where we're going: domain catalogs and data products
+## hvor-vi-skal-kilder – Where we're going: every domain ingests its own sources
 
-Here's what it's going to look like.
+Here's what it's going to look like. Four pictures. We start where the data
+comes in.
 
-Point to the left side. One catalog per domain. Customs, AIS, HR and
-finance, predictive maintenance. Each domain has its own bronze, silver,
-gold inside. Its own team. Its own cost center. Its own stewardship.
+One catalog per domain. Customs, AIS, HR and finance, the lighthouses. Each
+with its own team, its own cost center, its own stewardship.
+
+[[CLICK]] And each domain has its own sources. Customs has the declarations
+and the cargo manifests. AIS has the stream and the ship register. HR and
+finance has payroll and the ledger. The lighthouses have sensors and the
+maintenance log. The domain ingests them. Not the platform team. The
+platform team gives them the pipes and the pattern, and gets out of the way.
+
+[[CLICK]] Inside each catalog, the same bronze, silver, gold we've had for
+AIS. Raw as it arrived. Cleaned and enriched. Ready to use. The pattern
+doesn't change. It's repeated once per domain.
+
+[[CLICK]] So nobody touches another domain's raw data. Customs never reads
+from ais.bronze. That's the whole point of the split.
+
+## hvor-vi-skal – Where we're going: the contract becomes a view
+
+Second picture. How does a domain share something?
+
+The domain catalogs on the left, same as before. AIS is the one we follow.
 
 [[CLICK]] When a domain wants to share something, it writes a data contract.
 Open Data Contract Standard, a YAML file with id, owner, schema, and quality
@@ -1279,9 +1514,62 @@ data. The view points straight at the domain's gold table.
 [[CLICK]] The same pattern for every domain. Consumers only need to know one
 catalog, no matter how many domains sit behind it.
 
-[[CLICK]] Data split by domain. Clear ownership, clear cost center, clear
-stewardship. This is the data contract and governance chapter from earlier,
-put into a system.
+[[CLICK]] One contract, one pull request, one view. The domain shares
+without copying data. That's the data contract chapter from earlier, put
+into a system.
+
+## hvor-vi-skal-forbruk – Where we're going: find it, read it
+
+Third picture. Who reads from that catalog? Everyone. This is the important
+one, so slow down here.
+
+The catalog in the middle is the organization's data. Not the platform
+team's. Not AIS's. Everyone's.
+
+[[CLICK]] The domains themselves, first. Customs wants AIS tracks next to
+the declarations. AIS wants the customs declarations to know what a ship
+actually carried. The lighthouses want the cost data. They don't go to each
+other's gold tables. They read from the data products catalog, like
+everyone else. Same contract, same view, same rules. That's what makes it
+the organization's data and not four silos with a shared bill.
+
+[[CLICK]] And then everyone outside the domains. The Environment Agency and
+the municipalities with the climate accounts. Developers through
+BarentsWatch. Analysts with dashboards. Researchers with notebooks and HAIS
+extracts. Other agencies. One catalog. Inside or outside, you read from the
+same place.
+
+[[CLICK]] One more thing, because "one catalog" is only useful if you can
+find things in it. We're building a small web app on top of the contracts
+repo. It reads the contracts straight from git. So it knows every product,
+who owns it, the schema, the quality checks, the version. Search "ais" and
+you get the products, with an owner and a description. Not a table name
+someone has to explain to you over coffee.
+
+[[CLICK]] Find it in the explorer. Read it from the catalog. That's the whole
+consumer experience. Nobody has to know which domain, which gold table, or
+who to ask.
+
+## hvor-vi-skal-helhet – Where we're going: the whole picture
+
+Zoom out. This is the whole thing on one slide. Don't read it, just point.
+
+Sources on the far left. Each domain ingests its own, into its own catalog,
+with its own bronze, silver, gold.
+
+[[CLICK]] A domain writes a contract, pushes it to the shared repo, and CI
+turns it into a view in the data products catalog.
+
+[[CLICK]] Everyone reads from that catalog. Consumers outside on the right.
+And the domains themselves, reading each other's products back through the
+same catalog.
+
+[[CLICK]] And the explorer, built from the same contracts in the same repo,
+is how you find what's there.
+
+[[CLICK]] Data split by domain. Contracts in git. One place to find and read
+everything, inside and outside the organization. This is the data contract
+and governance chapter from earlier, put into a system.
 
 ## domene-effekt – Clear ownership, cost, and stewardship
 

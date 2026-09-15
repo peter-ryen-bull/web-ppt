@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Box, BulletItem, ChapterSlide, MilesLogo, pt } from "../../parts";
+import { Box, BulletItem, ChapterSlide, MilesLogo, pt, useRevealStyle } from "../../parts";
 import {
   TidslinjeFigur,
   RelasjonsFigur,
@@ -299,44 +299,85 @@ export function SlideLakehouse() {
 
 /* ================= Hvorfor vi er der vi er ================= */
 
+const MEDIA = "/media/26-ndc-kystverket";
+
+/* Portrait: Tim Berners-Lee 2023, Dr. Frank Gaeth, CC BY 4.0, Wikimedia Commons */
 export function SlideAvslutning() {
+  const punch = useRevealStyle(1);
   return (
     <>
-      <MilesLogo />
       <Box
-        box={[80, 230, 1120, 200]}
-        style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+        box={[688.8, 63, 528.8, 560]}
+        style={{ overflow: "hidden", borderRadius: 8 }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`${MEDIA}/tim-berners-lee.jpg`}
+          alt="Tim Berners-Lee"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "50% 12%",
+          }}
+        />
+      </Box>
+      <Box box={[688.8, 636, 528.8, 40]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(15),
+            lineHeight: 1.3,
+            color: "var(--burgundy-2)",
+          }}
+        >
+          Tim Berners-Lee. Inventor of the World Wide Web.
+        </div>
+      </Box>
+      <Box
+        box={[66, 140, 580, 300]}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          gap: 22,
+        }}
       >
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(44),
+            fontSize: pt(32),
             lineHeight: 1.25,
-            textAlign: "center",
+            color: "var(--burgundy)",
           }}
         >
-          <div style={{ color: "var(--burgundy)" }}>The technology changes.</div>
-          <div style={{ color: "var(--red)" }}>
-            The problem remains: turning data into decisions.
-          </div>
+          &ldquo;Data is a precious thing and will last longer than the systems
+          themselves.&rdquo;
         </div>
-      </Box>
-      <Box
-        box={[240, 480, 800, 80]}
-        style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-      >
         <div
           style={{
             fontFamily: "var(--font-sans)",
-            fontSize: pt(17),
-            color: "var(--burgundy)",
-            textAlign: "center",
-            lineHeight: 1.5,
+            fontSize: pt(16),
+            color: "var(--burgundy-2)",
           }}
         >
-          AI is the next chapter – and it raises the stakes:
+          — Tim Berners-Lee
+        </div>
+      </Box>
+      <Box box={[66, 470, 580, 160]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontWeight: 500,
+            fontSize: pt(20),
+            lineHeight: 1.4,
+            color: "var(--red)",
+            ...punch,
+          }}
+        >
+          The systems come and go. The data stays.
           <br />
-          the models will never be better than the data the platform serves them.
+          So we must model the systems to fit the data.
         </div>
       </Box>
     </>

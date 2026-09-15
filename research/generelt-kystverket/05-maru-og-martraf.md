@@ -67,6 +67,14 @@ varierer det fra ca. 600 til 1 600 m avhengig av hvor i hexagonet punktet ligger
 er akseptert bevisst: modellen trenger bare å vite om et punkt er innenfor eller utenfor en terskel,
 ikke hvilket objekt som er nærmest.
 
+H3 brukes på MarTraf, MarU og KystRisk. Ikke på HAIS ennå, men områdefilteret der
+ville hatt samme gevinst.
+
+**Forutsetningen for prune:** H3-indeksen må være ferdiggenerert som kolonne i tabellen
+man joiner på. Castes hvert lon-lat-par under spørringen (`h3_longlatash3` e.l.), er det
+ingenting å filtrere på. Motoren må se hver rad uansett. Indeksen skrives én gang når
+dataen lander, så er joinen et tall.
+
 ## MarU – maritim utslippsmodell
 
 Bottom-up-modell basert på metodikk fra IMOs **fjerde GHG-studie (2020)** og **ICCT**. Skrevet i
