@@ -115,6 +115,120 @@ export function HexRing() {
   );
 }
 
+/** Kvadrat mot heksagon: hvorfor «én celle unna» bare gir mening på hex */
+export function HexVsRute() {
+  const kvadrat = () => {
+    const s = 56;
+    const cx = 280;
+    const cy = 150;
+    const celler: { dx: number; dy: number }[] = [];
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) celler.push({ dx, dy });
+    }
+    return (
+      <g>
+        {celler.map(({ dx, dy }) => {
+          const x = cx + dx * s - s / 2;
+          const y = cy + dy * s - s / 2;
+          const senter = dx === 0 && dy === 0;
+          const hjorne = dx !== 0 && dy !== 0;
+          return (
+            <rect
+              key={`${dx},${dy}`}
+              x={x}
+              y={y}
+              width={s}
+              height={s}
+              fill={
+                senter
+                  ? "rgba(255, 48, 59, 0.22)"
+                  : hjorne
+                    ? "rgba(0, 64, 71, 0.05)"
+                    : "rgba(0, 64, 71, 0.12)"
+              }
+              stroke={senter ? ROD : TEAL}
+              strokeWidth={senter ? 2.2 : 1.8}
+              opacity={hjorne ? 0.55 : 1}
+            />
+          );
+        })}
+        <path d={`M ${cx} ${cy} H ${cx + s}`} stroke={ROD} strokeWidth={1.8} />
+        <path
+          d={`M ${cx} ${cy} L ${cx + s} ${cy - s}`}
+          stroke={ROD}
+          strokeWidth={1.5}
+          strokeDasharray="4 4"
+          opacity={0.7}
+        />
+        <Tekst x={cx + s + 22} y={cy + 5} size={16} color={ROD}>
+          d
+        </Tekst>
+        <Tekst x={cx + s + 10} y={cy - s + 4} size={16} color={DUS}>
+          1.4·d
+        </Tekst>
+        <Tekst x={280} y={292} size={16} weight={600}>
+          8 neighbours, 2 distances
+        </Tekst>
+      </g>
+    );
+  };
+
+  const hex = () => {
+    const cx = 840;
+    const cy = 150;
+    const R = 38;
+    const pos = (q: number, r: number): [number, number] => [
+      cx + R * Math.sqrt(3) * (q + r / 2),
+      cy + R * 1.5 * r,
+    ];
+    const ring: [number, number][] = [
+      [1, 0],
+      [0, 1],
+      [-1, 1],
+      [-1, 0],
+      [0, -1],
+      [1, -1],
+    ];
+    const [nx] = pos(1, 0);
+    return (
+      <g>
+        {ring.map(([q, r]) => {
+          const [x, y] = pos(q, r);
+          return (
+            <path
+              key={`${q},${r}`}
+              d={sekskant(x, y, R - 1)}
+              fill="rgba(0, 64, 71, 0.12)"
+              stroke={TEAL}
+              strokeWidth={1.8}
+            />
+          );
+        })}
+        <path
+          d={sekskant(cx, cy, R - 1)}
+          fill="rgba(255, 48, 59, 0.22)"
+          stroke={ROD}
+          strokeWidth={2.2}
+        />
+        <path d={`M ${cx} ${cy} H ${nx}`} stroke={ROD} strokeWidth={1.8} />
+        <Tekst x={(cx + nx) / 2} y={cy - 12} size={16} color={ROD}>
+          d
+        </Tekst>
+        <Tekst x={840} y={292} size={16} weight={600}>
+          6 neighbours, 1 distance
+        </Tekst>
+      </g>
+    );
+  };
+
+  return (
+    <Figur w={1120} h={320} label="A square grid has two neighbour distances. A hex grid has one.">
+      {kvadrat()}
+      {hex()}
+    </Figur>
+  );
+}
+
 /** Liten båt med propell som seiler fram og tilbake i vannet – propellloven */
 export function Propell() {
   const W = 360;

@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
-import { Box, BulletList, ChapterSlide, Reveal, Video, pt, useRevealStyle } from "../parts";
+import { Box, BulletItem, BulletList, ChapterSlide, Reveal, Video, pt, useRevealStyle } from "../parts";
 
 const MEDIA = "/media/26-ndc-kystverket";
 import {
   Bunkring,
-  HexRing,
+  HexVsRute,
   Propell,
   Registerhull,
   Seilas,
@@ -380,19 +380,90 @@ export function SlidePropellloven() {
   );
 }
 
-/* Maritim trafikkmodell – MarTraf */
+/* Maritim trafikkmodell – historien: punkter uten struktur */
 export function SlideMarTraf() {
-  const steps = [
-    "Geographic enrichment",
-    "Eleven operational phases",
-    "Voyage segments, five minutes minimum",
-    "Complete voyages, port to port",
-    "Domestic, international, transit",
-  ];
+  const linje2 = useRevealStyle(1);
+  const linje3 = useRevealStyle(2);
+  const linje4 = useRevealStyle(3);
   return (
     <>
-      <SlideTitle>The maritime traffic model – MarTraf</SlideTitle>
-      <Box box={[72.4, 196, 1080, 40]}>
+      <Box box={[66.7, 48, 900, 28]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontWeight: 600,
+            fontSize: pt(12),
+            letterSpacing: 2,
+            color: "var(--red)",
+            textTransform: "uppercase",
+          }}
+        >
+          MarTraf
+        </div>
+      </Box>
+      <Box
+        box={[66.7, 160, 1146, 420]}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          gap: 26,
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(44),
+            lineHeight: 1.15,
+            color: "var(--burgundy)",
+          }}
+        >
+          A hundred million points.
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(44),
+            lineHeight: 1.15,
+            color: "var(--burgundy-2)",
+            ...linje2,
+          }}
+        >
+          Almost no structure.
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(44),
+            lineHeight: 1.15,
+            color: "var(--burgundy-2)",
+            ...linje3,
+          }}
+        >
+          The natural chunks were voyages.
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(44),
+            lineHeight: 1.15,
+            color: "var(--red)",
+            ...linje4,
+          }}
+        >
+          Then the job wouldn&apos;t scale.
+        </div>
+      </Box>
+    </>
+  );
+}
+
+/* Hvorfor hex: kvadrat lyver om avstand */
+export function SlideHexHvorfor() {
+  return (
+    <>
+      <SlideTitle>How do you group a coastline?</SlideTitle>
+      <Box box={[72.4, 150, 1100, 40]}>
         <div
           style={{
             fontFamily: "var(--font-sans)",
@@ -400,42 +471,124 @@ export function SlideMarTraf() {
             color: "var(--red)",
           }}
         >
-          From raw positions to voyages you can analyze
+          A square lies about distance. A hex doesn&apos;t.
         </div>
       </Box>
-      <BulletList
-        box={[72.4, 250, 1100, 400]}
-        fromStep={1}
-        size={20}
-        gap={22}
-        items={steps}
-      />
-      <SourceLink href="https://github.com/Kystverket/maru" />
+      <Box box={[80, 210, 1120, 320]}>
+        <HexVsRute />
+      </Box>
+      <Reveal at={1}>
+        <Box
+          box={[72.4, 610, 1136, 50]}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(18),
+              color: "var(--red)",
+              textAlign: "center",
+            }}
+          >
+            H3 tiles the planet. Sixteen resolutions. One integer per cell.
+          </div>
+        </Box>
+      </Reveal>
     </>
   );
 }
 
-/* MarTraf – de tekniske valgene */
-export function SlideMarTrafValg() {
-  const items = [
-    "H3 at resolution 8. One cell ≈ 1,100 m",
-    "Inside or outside. Not the exact distance.",
-  ];
+/* Hvorfor hex skalerer: join på et tall, ikke et polygon */
+export function SlideHexJoin() {
+  const kort = (
+    at: number,
+    x: number,
+    kicker: string,
+    tittel: string,
+    punkter: string[],
+  ) => (
+    <Reveal at={at}>
+      <Box
+        box={[x, 168, 520, 300]}
+        style={{
+          background: "#fff",
+          border: "1.5px solid var(--cream-dark)",
+          borderRadius: 14,
+          padding: "30px 34px",
+        }}
+      >
+        <span
+          style={{
+            background: "var(--teal)",
+            color: "var(--cream)",
+            borderRadius: 999,
+            padding: "7px 18px",
+            fontFamily: "var(--font-sans)",
+            fontWeight: 600,
+            fontSize: pt(11),
+            letterSpacing: 1.5,
+          }}
+        >
+          {kicker}
+        </span>
+        <div
+          style={{
+            marginTop: 22,
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(26),
+            color: "var(--burgundy-2)",
+          }}
+        >
+          {tittel}
+        </div>
+        <div style={{ marginTop: 22, display: "grid", gap: 18 }}>
+          {punkter.map((p) => (
+            <BulletItem key={p} size={16} color="var(--burgundy)">
+              {p}
+            </BulletItem>
+          ))}
+        </div>
+      </Box>
+    </Reveal>
+  );
+
   return (
     <>
-      <SlideTitle>The choices that make it possible</SlideTitle>
-      <Reveal at={1}>
-        <Box box={[900, 160, 300, 140]}>
-          <HexRing />
+      <SlideTitle>A join on a number</SlideTitle>
+      {kort(0, 80, "GEOMETRY", "Point in polygon", [
+        "Math on every row",
+        "Fine for a thousand points",
+      ])}
+      {kort(1, 680, "H3", "A BIGINT equality", [
+        "A hash join. Geometry never touched",
+        "Fine for a hundred million",
+      ])}
+      <Reveal at={2}>
+        <Box
+          box={[72.4, 520, 1136, 80]}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(18),
+              lineHeight: 1.45,
+              color: "var(--red)",
+              textAlign: "center",
+            }}
+          >
+            Resolution 8. One cell ≈ 1,100 m. Inside or outside. That&apos;s enough.
+          </div>
         </Box>
       </Reveal>
-      <BulletList
-        box={[72.4, 200, 780, 280]}
-        fromStep={1}
-        size={20}
-        gap={36}
-        items={items}
-      />
     </>
   );
 }

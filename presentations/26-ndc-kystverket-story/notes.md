@@ -24,11 +24,11 @@ can say "our ship," say it. The audience should recognize it.
 | 3b How a data platform works |       | architecture, lakehouse, the pipe, pipelines, products                               |
 | 4 What you get out of it     | 27:00 | four effects with examples from the coastline                                        |
 | 5 The project                | 32:00 | day one, the toolbox, terraform, ingest, the stream, the history, batch vs streaming |
-| 6 The models                 | 43:00 | follow one ship, MarTraf, MarU, how it was done earlier, the propeller law           |
+| 6 The models                 | 43:00 | follow one ship, MarTraf, hexes, MarU, how it was done earlier, the propeller law    |
 | 7 The road ahead             | 53:00 | domains, contracts, back to Stad, thanks                                             |
 
 If you're behind at 43:00, cut the batch/streaming sidenote (two slides,
-about three minutes), or martraf-valg and maru-hull.
+about three minutes), or hex-hvorfor, hex-join and maru-hull.
 
 ### Rules for the language in these notes
 
@@ -1050,43 +1050,62 @@ HAIS because the name made me laugh, and then I ended up on Wikipedia.
 
 That's the whole joke. Back to the model.
 
-## martraf – The maritime traffic model: MarTraf
+## martraf – A pile of points
 
-MarTraf is what does this job. Databricks, PySpark. Five steps.
+You just saw one ship become one voyage. Now zoom out.
 
-[[CLICK]] Geographic enrichment. Every point learns where it is relative to
-ports, the coastline, anchoring areas, and oil installations.
+A hundred million points a day. And twenty-one years of them.
+That's a lot of AIS. But as it is, it's almost unusable.
+Each point says who, where, how fast. That's it. No voyage. No "this ship
+went from Bergen to Ålesund." No structure.
 
-[[CLICK]] Operational phase. Eleven phases, set with rules on distance and
-speed. What you saw on the previous slide.
+[[CLICK]] To do anything with it, we had to group it. Into chunks.
+You can't compute on a hundred million lonely dots. You need a unit of work.
 
-[[CLICK]] Voyage segments. Continuous sequences where the ship is either
-underway or not. And an important rule: never shorter than five minutes.
-Why? Because the speed flickers around the threshold, and without that rule
-you get hundreds of meaningless little segments.
+[[CLICK]] The natural chunks were voyages. Port to port.
+That's what a ship actually does. That's what MarTraf builds.
+Phases, segments, traffic type. All of that sits on the voyage.
 
-[[CLICK]] Complete voyages, port to port. With handling of gaps in the signal,
-because if we lose the ship for ten minutes, it shouldn't become two
-voyages.
+[[CLICK]] And then we hit the scaling problem.
+Asking "is this point near a port" a hundred million times, with real
+geometry, doesn't finish. So we simplified the map.
 
-[[CLICK]] And traffic type. Domestic, to or from abroad, or transit. That
-becomes important for the climate accounts.
+If you want the five steps later: geographic enrichment, eleven phases,
+voyage segments of at least five minutes, complete voyages port to port,
+and traffic type. The next two slides are why that job can run at all.
 
-## martraf-valg – The choices that make it possible
+## hex-hvorfor – How do you group a coastline?
 
-Two technical choices I want to dwell on, because you're developers.
+How do you group positions by cell?
 
-[[CLICK]] H3 indexing. That's the built-in geospatial functions in Databricks.
-The world is divided into hexagons, and spatial joins get fast. But you
-don't get exact distance. Two points are either in the same hexagon or N
-cells apart. At resolution eight, "one cell away" is around eleven hundred
-meters. In practice between six hundred and sixteen hundred, depending on
-where in the hexagon you are.
+A square grid looks obvious. But look. A square has eight neighbours, and
+they are not the same distance. The corners are farther than the sides.
+So "one cell away" means two different things.
 
-[[CLICK]] And that loss of precision is accepted with open eyes. The model only
-needs to know inside or outside a threshold. Not which object is closest.
-It's a good example of performance being a valid architecture criterion, as
-long as you know what you're giving up.
+[[CLICK]] A hex has six neighbours. All the same distance.
+That's why Uber built H3. The planet, tiled in hexes, sixteen resolution
+levels. Every AIS point gets a hex ID. The coastline becomes a grid we
+can actually count on.
+
+## hex-join – A join on a number
+
+And here's why it scales.
+
+The usual way is geometry. ST_Within. Math on every row. A bounding
+box test, then point-in-polygon against every edge. Fine for a thousand
+points. Not for a hundred million.
+
+[[CLICK]] H3 is a BIGINT. An integer. It joins and groups like any other
+column. A hash join. Geometry never gets touched.
+
+The pattern, if you still need the exact answer: prune with the hex join.
+Settle the leftovers with geometry afterwards.
+
+[[CLICK]] We use resolution 8. One cell is around eleven hundred metres.
+In practice six to sixteen hundred, depending on where in the hex you sit.
+
+And we accept that. The model only needs inside or outside a threshold.
+Not which quay is closest.
 
 ## martraf-video – MarTraf on the map
 
