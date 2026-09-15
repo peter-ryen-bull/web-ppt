@@ -78,6 +78,7 @@ import {
   SlideAsukaHvem,
   SlideMarTraf,
   SlideMarTrafValg,
+  SlideMarTrafVideo,
   SlidePropellloven,
   SlideMarU,
   SlideMarUHull,
@@ -424,6 +425,11 @@ const MODELLENE: SlideDef[] = [
     name: "The choices that make it possible",
     component: SlideMarTrafValg,
     steps: 2,
+  },
+  {
+    id: "martraf-video",
+    name: "MarTraf on the map",
+    component: SlideMarTrafVideo,
   },
   {
     id: "maru",

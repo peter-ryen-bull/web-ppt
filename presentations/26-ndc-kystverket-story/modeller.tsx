@@ -440,6 +440,20 @@ export function SlideMarTrafValg() {
   );
 }
 
+/* MarTraf på kartet: heksagonene, hele lerretet */
+export function SlideMarTrafVideo() {
+  return (
+    <>
+      <Box box={[0, 0, 1280, 720]} style={{ background: "#111318" }} />
+      <Video
+        box={[0, 0, 1280, 720]}
+        src={`${MEDIA}/martraf-video.mov`}
+        fit="contain"
+      />
+    </>
+  );
+}
+
 /* Maritim utslippsmodell – MarU */
 export function SlideMarU() {
   const items = [

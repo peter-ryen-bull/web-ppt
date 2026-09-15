@@ -1088,6 +1088,15 @@ needs to know inside or outside a threshold. Not which object is closest.
 It's a good example of performance being a valid architecture criterion, as
 long as you know what you're giving up.
 
+## martraf-video – MarTraf on the map
+
+This is what those hexes look like when you put them on the coast.
+
+Don't narrate every cell. Let it run. Then: a hundred million points
+became a grid you can actually compute on. That's how MarTraf scales.
+
+And now we can ask the next question. What does the ship burn?
+
 ## maru – The maritime emissions model: MarU
 
 So, MarU.

@@ -2,15 +2,12 @@ import type { ReactNode } from "react";
 import { Box, BulletItem, ChapterSlide, MilesLogo, pt } from "../../parts";
 import {
   TidslinjeFigur,
-  MoensterFigur,
-  SiloFigur,
   RelasjonsFigur,
   VarehusFigur,
   RegnestykkeFigur,
   SjoFigur,
   SkyFigur,
   KonvergensFigur,
-  ArvFigur,
 } from "./figurer";
 
 /* ---------- Felles byggeklosser for denne presentasjonen ---------- */
@@ -183,40 +180,11 @@ export function SlideTidslinje() {
   );
 }
 
-/* 3 – Mønsteret */
-export function SlideMoensteret() {
-  return (
-    <FigurSlide tittel="The pattern that drives the story">
-      <MoensterFigur />
-    </FigurSlide>
-  );
-}
-
 /* ================= 1970 · Databasen ================= */
 
-/* 4 – Kapittel */
-export function SlideKapDatabasen() {
-  return (
-    <ChapterSlide
-      title="1970 · The database"
-      subtitle="The problem: data was trapped inside its applications"
-    />
-  );
-}
-
-/* 5 – Siloene før databasen */
-export function SlideSiloer() {
-  return (
-    <FigurSlide kicker="The 1960s" tittel="Every program owned its own files">
-      <SiloFigur />
-    </FigurSlide>
-  );
-}
-
-/* 6 – Relasjonsmodellen */
 export function SlideRelasjonsmodellen() {
   return (
-    <FigurSlide kicker="The solution · 1970" tittel="Codd: separate the question from the storage">
+    <FigurSlide kicker="1970 · The database" tittel="Codd: separate the question from the storage">
       <RelasjonsFigur />
     </FigurSlide>
   );
@@ -244,121 +212,14 @@ export function SlideDatabasenSpeil() {
 
 /* ================= 1988 · Datavarehuset ================= */
 
-/* 8 – Kapittel */
-export function SlideKapVarehuset() {
-  return (
-    <ChapterSlide
-      title="1988 · The data warehouse"
-      subtitle="The problem: answers across systems – without threatening operations"
-    />
-  );
-}
-
-/* 9 – Varehuset */
 export function SlideVarehuset() {
   return (
-    <FigurSlide kicker="The solution · 1983–1996" tittel="One integrated warehouse – separate from operations">
+    <FigurSlide kicker="1988 · The data warehouse" tittel="One integrated warehouse – separate from operations">
       <VarehusFigur />
     </FigurSlide>
   );
 }
 
-/* 10 – Finans var først */
-export function SlideFinans() {
-  const punkt = (tittel: string, tekst: string) => (
-    <BulletItem size={17} color="var(--burgundy)">
-      <div style={{ fontWeight: 600 }}>{tittel}</div>
-      <div
-        style={{
-          fontFamily: "var(--font-sans)",
-          fontSize: pt(13.5),
-          color: "#9a5068",
-          marginTop: 4,
-          fontWeight: 400,
-        }}
-      >
-        {tekst}
-      </div>
-    </BulletItem>
-  );
-
-  return (
-    <>
-      <MilesLogo />
-      <Box box={[66, 90, 700, 160]}>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(40),
-            lineHeight: 1.15,
-            color: "var(--burgundy)",
-          }}
-        >
-          The banks were first –<br />
-          <span style={{ color: "var(--red)" }}>because money is data</span>
-        </div>
-      </Box>
-      <Box
-        box={[72.4, 270, 600, 380]}
-        style={{ display: "flex", flexDirection: "column", gap: 22 }}
-      >
-        {punkt("Risk management", "total exposure needs accounts, loans, and cards seen as one")}
-        {punkt("Fraud and profitability", "patterns across the systems – who are we losing money on?")}
-        {punkt("Regulation", "reporting requirements forced history and traceability")}
-        {punkt("…and they could afford it", "the Teradata price tag was “eye-watering” – but the edge was measurable")}
-      </Box>
-
-      <Box
-        box={[700, 280, 500, 330]}
-        style={{
-          background: "var(--teal)",
-          borderRadius: 20,
-          padding: "38px 42px",
-          boxSizing: "border-box",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontWeight: 600,
-            fontSize: pt(12),
-            letterSpacing: 2,
-            color: "var(--mint)",
-            marginBottom: 18,
-          }}
-        >
-          MILESTONES
-        </div>
-        {[
-          ["1983", "Teradata DBC/1012 – a parallel “database computer” for decision support"],
-          ["1988", "Devlin & Murphy describe the data warehouse architecture (IBM)"],
-          ["1991", "First Interstate Bancorp builds a warehouse – before the term was known"],
-          ["1992/96", "Inmon and Kimball write the textbooks"],
-        ].map(([aar, tekst]) => (
-          <div
-            key={aar}
-            style={{
-              display: "flex",
-              gap: 16,
-              marginBottom: 16,
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(13),
-              lineHeight: 1.35,
-              color: "rgba(251, 240, 229, 0.85)",
-            }}
-          >
-            <span style={{ color: "var(--mint)", fontWeight: 700, flexShrink: 0, width: 62 }}>
-              {aar}
-            </span>
-            <span>{tekst}</span>
-          </div>
-        ))}
-      </Box>
-    </>
-  );
-}
-
-/* 11 – Speil: varehuset */
 export function SlideVarehusetSpeil() {
   return (
     <SpeilSlide
@@ -380,20 +241,9 @@ export function SlideVarehusetSpeil() {
 
 /* ================= 2006 · Big data ================= */
 
-/* 12 – Kapittel */
-export function SlideKapBigdata() {
-  return (
-    <ChapterSlide
-      title="2006 · Big data"
-      subtitle="The problem: the internet changed the premise – volume, variety, machine failures"
-    />
-  );
-}
-
-/* 13 – Regnestykket */
 export function SlideRegnestykket() {
   return (
-    <FigurSlide kicker="The solution · 2003–2006" tittel="Google's answer: distribute everything">
+    <FigurSlide kicker="2006 · Big data" tittel="Google's answer: distribute everything">
       <RegnestykkeFigur />
     </FigurSlide>
   );
@@ -402,7 +252,7 @@ export function SlideRegnestykket() {
 /* 14 – Datasjøen */
 export function SlideDatasjoen() {
   return (
-    <FigurSlide kicker="2010" tittel="The data lake: store everything – raw">
+    <FigurSlide kicker="2010 · The data lake" tittel="Store everything – raw">
       <SjoFigur />
     </FigurSlide>
   );
@@ -430,20 +280,9 @@ export function SlideSjoenSpeil() {
 
 /* ================= 2012 · Skyen ================= */
 
-/* 16 – Kapittel */
-export function SlideKapSkyen() {
-  return (
-    <ChapterSlide
-      title="2012 · The cloud"
-      subtitle="The problem: buying and running your own hardware, sized for the peaks"
-    />
-  );
-}
-
-/* 17 – Skyen */
 export function SlideSkyen() {
   return (
-    <FigurSlide kicker="The solution · 2012–2016" tittel="Separate storage and compute">
+    <FigurSlide kicker="2012 · The cloud" tittel="Separate storage and compute">
       <SkyFigur />
     </FigurSlide>
   );
@@ -452,7 +291,7 @@ export function SlideSkyen() {
 /* 18 – Konvergensen */
 export function SlideLakehouse() {
   return (
-    <FigurSlide kicker="2019–2020" tittel="Two tracks meet – and become the data platform">
+    <FigurSlide kicker="2020 · The lakehouse" tittel="Two tracks meet – and become the data platform">
       <KonvergensFigur />
     </FigurSlide>
   );
@@ -460,16 +299,6 @@ export function SlideLakehouse() {
 
 /* ================= Hvorfor vi er der vi er ================= */
 
-/* 19 – Arven */
-export function SlideArven() {
-  return (
-    <Box box={[20, 40, 1240, 640]}>
-      <ArvFigur />
-    </Box>
-  );
-}
-
-/* 20 – Avslutning */
 export function SlideAvslutning() {
   return (
     <>

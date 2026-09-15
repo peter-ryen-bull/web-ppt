@@ -11,6 +11,7 @@ import {
   Roter,
   sekskant,
   Skute,
+  SPLINES,
   STREK,
   Sving,
   TEAL,
@@ -114,28 +115,86 @@ export function HexRing() {
   );
 }
 
-/** Propell som går rundt – propellloven */
+/** Liten båt med propell som seiler fram og tilbake i vannet – propellloven */
 export function Propell() {
-  const cx = 180;
-  const cy = 168;
+  const W = 360;
+  const H = 360;
+  const vann = 198;
+  const dur = 14;
   const blad =
-    "M 0 -18 C 26 -32 42 -78 18 -128 C 8 -138 -8 -138 -18 -128 C -42 -78 -26 -32 0 -18 Z";
+    "M 0 -7 C 10 -13 16 -28 7 -46 C 3 -50 -3 -50 -7 -46 C -16 -28 -10 -13 0 -7 Z";
   return (
-    <Figur w={360} h={360} label="Propeller spinning">
-      <circle cx={cx} cy={cy} r={138} strokeWidth={1.6} opacity={0.22} />
-      <Roter cx={cx} cy={cy} dur={6}>
-        {[0, 120, 240].map((g) => (
-          <path
-            key={g}
-            d={blad}
-            transform={`translate(${cx} ${cy}) rotate(${g})`}
-            fill="rgba(0, 64, 71, 0.14)"
-            strokeWidth={2.6}
+    <Figur
+      w={W}
+      h={H}
+      label="Small boat with a spinning propeller sailing through water"
+      style={{ overflow: "hidden" }}
+    >
+      <g>
+        <animateTransform
+          attributeName="transform"
+          type="translate"
+          values={`268 ${vann}; 92 ${vann}; 268 ${vann}`}
+          keyTimes="0; 0.5; 1"
+          calcMode="spline"
+          keySplines={SPLINES}
+          dur={`${dur}s`}
+          repeatCount="indefinite"
+        />
+        <g>
+          <animateTransform
+            attributeName="transform"
+            type="scale"
+            values="1 1; 1 1; -1 1; -1 1; 1 1"
+            keyTimes="0; 0.48; 0.5; 0.98; 1"
+            calcMode="discrete"
+            dur={`${dur}s`}
+            repeatCount="indefinite"
           />
-        ))}
-      </Roter>
-      <circle cx={cx} cy={cy} r={26} fill={KREM} strokeWidth={2.6} />
-      <circle cx={cx} cy={cy} r={8} fill={KREM} strokeWidth={2} />
+          <Duv dy={5} dur={3.2}>
+            <Sving grader={2.6} cx={0} cy={0} dur={4.6}>
+              <Skute x={0} y={0} s={0.78} signal={false} />
+              <path d="M 42 3 L 50 8" strokeWidth={2.2} />
+              <g transform="translate(52 9)">
+                <Roter cx={0} cy={0} dur={1.4}>
+                  {[0, 120, 240].map((g) => (
+                    <path
+                      key={g}
+                      d={blad}
+                      transform={`rotate(${g})`}
+                      fill="rgba(0, 64, 71, 0.16)"
+                      strokeWidth={2.2}
+                    />
+                  ))}
+                </Roter>
+                <circle r={6.5} fill={KREM} strokeWidth={2.2} />
+                <circle r={2.2} fill={KREM} strokeWidth={1.6} />
+              </g>
+              {[0, 1, 2].map((i) => (
+                <circle
+                  key={i}
+                  cx={62 + i * 10}
+                  cy={12 + (i % 2) * 4}
+                  r={2.4 - i * 0.35}
+                  stroke={TEAL}
+                  strokeWidth={1.5}
+                  opacity={0}
+                >
+                  <animate
+                    attributeName="opacity"
+                    values="0; 0.5; 0"
+                    keyTimes="0; 0.35; 1"
+                    dur="1.5s"
+                    begin={`${i * 0.32}s`}
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              ))}
+            </Sving>
+          </Duv>
+        </g>
+      </g>
+      <Bolger y={vann} w={W} h={H} amp={11} dur={9} />
     </Figur>
   );
 }
