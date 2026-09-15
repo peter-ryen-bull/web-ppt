@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Box, BulletItem, MilesLogo, Reveal, pt } from "../parts";
+import { Box, BulletItem, ChapterSlide, MilesLogo, Reveal, pt } from "../parts";
 import { Isfjell, KlyngeAuto, KlyngeFast } from "@/components/figures/strek";
 
 const VOLUM = {
@@ -215,6 +215,11 @@ export function SlideStordataCompute() {
       </Reveal>
     </>
   );
+}
+
+/* Kapittel: Modellene og det som kommer ut */
+export function SlideModellerOgOutputs() {
+  return <ChapterSlide title="The models and outputs" titleSize={54} />;
 }
 
 /* HAIS – historisk uttrekk på bestilling */

@@ -20,7 +20,13 @@ import {
  * AIS-spor som ender i utslipp.
  */
 
-/** Fyr på en holme, med lyskjegler som sveiper rundt den loddrette aksen, og en liten skute i sjøen */
+/**
+ * Fyr på en holme, med én lyskjegle som sveiper rundt den loddrette aksen,
+ * og en liten skute i sjøen. Første halvdel av omdreiningen kommer kjeglen
+ * mot oss: den går foran tårnet, lysner, vider seg ut og dupper ned før
+ * blendingen tar over. Andre halvdel peker den fra oss: bak tårnet,
+ * dusere, smalere og litt hevet.
+ */
 export function Fyr() {
   const W = 420;
   const H = 200;
@@ -30,15 +36,58 @@ export function Fyr() {
   const hw = (y: number) => 11 + (11 * (y - 72)) / 78;
   const band = (y1: number, y2: number) =>
     `M ${210 - hw(y1)} ${y1} H ${210 + hw(y1)} L ${210 + hw(y2)} ${y2} H ${210 - hw(y2)} Z`;
+
+  const DUR = "8s";
+  /** Kvartene i omdreiningen: høyre → mot oss → venstre → fra oss → høyre */
+  const KVART = "0; 0.25; 0.5; 0.75; 1";
+  /** Sinus-kvarter som easing, så sveipet leser som jevn rotasjon */
+  const SIN_INN = "0.12 0 0.39 0";
+  const SIN_UT = "0.61 1 0.88 1";
+  const LIN = "0 0 1 1";
+
   const kjegle = (lengde: number, halv: number, opacity: number) => (
     <path
       d={`M 0 0 L ${lengde} ${-halv} V ${halv} Z`}
-      fill={ROD}
+      fill="url(#fyrlys)"
       stroke="none"
       opacity={opacity}
     />
   );
-  const DUR = "8s";
+  const kjegler = (
+    <>
+      {kjegle(186, 32, 0.32)}
+      {kjegle(186, 22, 0.62)}
+      {kjegle(186, 8, 0.95)}
+    </>
+  );
+
+  /** Yaw: kjeglelengden følger cos av rotasjonen rundt den loddrette aksen */
+  const yaw = () => (
+    <animateTransform
+      attributeName="transform"
+      type="scale"
+      values="1 1; 0 1; -1 1; 0 1; 1 1"
+      keyTimes={KVART}
+      calcMode="spline"
+      keySplines={`${SIN_INN}; ${SIN_UT}; ${SIN_INN}; ${SIN_UT}`}
+      dur={DUR}
+      repeatCount="indefinite"
+    />
+  );
+
+  /** Glød i takt med sveipet: sterkest mot oss (0.25), svakest fra oss (0.75) */
+  const glod = (fra: number, mot: number, vekk: number) => (
+    <animate
+      attributeName="opacity"
+      values={`${fra}; ${mot}; ${fra}; ${vekk}; ${fra}`}
+      keyTimes={KVART}
+      calcMode="spline"
+      keySplines={`${SIN_UT}; ${SIN_INN}; ${SIN_UT}; ${SIN_INN}`}
+      dur={DUR}
+      repeatCount="indefinite"
+    />
+  );
+
   const BLENDE_TIDER = "0; 0.18; 0.25; 0.32; 1";
   const blende = (values: string) => (
     <animate
@@ -54,26 +103,61 @@ export function Fyr() {
     <Figur
       w={W}
       h={H}
-      label="Lighthouse on an islet with light beams, and a small boat at sea"
+      label="Lighthouse on an islet with a rotating light beam, and a small boat at sea"
       style={{ overflow: "visible" }}
     >
-      <circle cx={lx} cy={ly} r={36} fill={ROD} stroke="none" opacity={0.22} />
-      <circle cx={lx} cy={ly} r={18} fill={ROD} stroke="none" opacity={0.45} />
+      <defs>
+        {/* Kjeglen tynnes ut mot spissen, som lys som spres */}
+        <linearGradient id="fyrlys" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor={ROD} stopOpacity={1} />
+          <stop offset="0.65" stopColor={ROD} stopOpacity={0.6} />
+          <stop offset="1" stopColor={ROD} stopOpacity={0} />
+        </linearGradient>
+      </defs>
 
-      {/* Én kjegle som yaw-er venstre–høyre. Mot oss (scaleX ≈ 0) tar blendet over. */}
-      <g transform={`translate(${lx} ${ly})`}>
+      <circle cx={lx} cy={ly} r={36} fill={ROD} stroke="none" opacity={0.22}>
+        {glod(0.22, 0.4, 0.08)}
+      </circle>
+      <circle cx={lx} cy={ly} r={18} fill={ROD} stroke="none" opacity={0.45}>
+        {glod(0.45, 0.7, 0.16)}
+      </circle>
+
+      {/* Fra oss (andre halvdel): bak tårnet, duset, smalere og litt hevet */}
+      <g transform={`translate(${lx} ${ly})`} opacity={0}>
+        <animate
+          attributeName="opacity"
+          values="0; 0; 0.85; 0.3; 0.85"
+          keyTimes="0; 0.4995; 0.5; 0.75; 1"
+          dur={DUR}
+          repeatCount="indefinite"
+        />
         <g>
-          <animateTransform
-            attributeName="transform"
-            type="scale"
-            values="1 1; 0 1; -1 1; 0 1; 1 1"
-            keyTimes="0; 0.25; 0.5; 0.75; 1"
-            dur={DUR}
-            repeatCount="indefinite"
-          />
-          {kjegle(186, 32, 0.32)}
-          {kjegle(186, 22, 0.62)}
-          {kjegle(186, 8, 0.95)}
+          {yaw()}
+          <g>
+            <animateTransform
+              attributeName="transform"
+              type="scale"
+              values="1 1; 1 1; 0.9 0.65; 1 1"
+              keyTimes="0; 0.5; 0.75; 1"
+              calcMode="spline"
+              keySplines={`${LIN}; ${SIN_UT}; ${SIN_INN}`}
+              dur={DUR}
+              repeatCount="indefinite"
+            />
+            <g>
+              <animateTransform
+                attributeName="transform"
+                type="rotate"
+                values="0; 0; -9; 0"
+                keyTimes="0; 0.5; 0.75; 1"
+                calcMode="spline"
+                keySplines={`${LIN}; ${SIN_UT}; ${SIN_INN}`}
+                dur={DUR}
+                repeatCount="indefinite"
+              />
+              {kjegler}
+            </g>
+          </g>
         </g>
       </g>
 
@@ -94,8 +178,47 @@ export function Fyr() {
       <rect x={199} y={48} width={22} height={19} rx={2} fill={KREM} />
       <path d="M 195 48 L 210 34 L 225 48 Z" fill={KREM} />
       <circle cx={lx} cy={ly} r={5} fill={ROD} stroke="none">
-        <Puls fra={0.65} til={1} dur={2.2} />
+        {glod(0.75, 1, 0.35)}
       </circle>
+
+      {/* Mot oss (første halvdel): foran tårnet – lysner, videre og dupper ned */}
+      <g transform={`translate(${lx} ${ly})`} opacity={0.85}>
+        <animate
+          attributeName="opacity"
+          values="0.85; 1; 0.85; 0; 0"
+          keyTimes="0; 0.25; 0.4995; 0.5; 1"
+          dur={DUR}
+          repeatCount="indefinite"
+        />
+        <g>
+          {yaw()}
+          <g>
+            <animateTransform
+              attributeName="transform"
+              type="scale"
+              values="1 1; 1 1.7; 1 1; 1 1"
+              keyTimes="0; 0.25; 0.5; 1"
+              calcMode="spline"
+              keySplines={`${SIN_UT}; ${SIN_INN}; ${LIN}`}
+              dur={DUR}
+              repeatCount="indefinite"
+            />
+            <g>
+              <animateTransform
+                attributeName="transform"
+                type="rotate"
+                values="0; 13; 0; 0"
+                keyTimes="0; 0.25; 0.5; 1"
+                calcMode="spline"
+                keySplines={`${SIN_UT}; ${SIN_INN}; ${LIN}`}
+                dur={DUR}
+                repeatCount="indefinite"
+              />
+              {kjegler}
+            </g>
+          </g>
+        </g>
+      </g>
 
       {/* Blend: når kjeglen peker rett mot oss, flasher lyset over linsa */}
       <g stroke="none">
@@ -114,63 +237,155 @@ export function Fyr() {
         <rect x={lx - 2} y={ly - 28} width={4} height={56} rx={2} fill={KREM} opacity={0}>
           {blende("0; 0; 0.45; 0; 0")}
         </rect>
+        {/* Utvidende ring idet lyset «treffer» oss */}
+        <circle cx={lx} cy={ly} r={14} fill="none" stroke={ROD} strokeWidth={2.4} opacity={0}>
+          <animate
+            attributeName="r"
+            values="14; 14; 96; 96"
+            keyTimes="0; 0.2; 0.33; 1"
+            dur={DUR}
+            repeatCount="indefinite"
+          />
+          <animate
+            attributeName="opacity"
+            values="0; 0; 0.55; 0; 0"
+            keyTimes="0; 0.2; 0.25; 0.33; 1"
+            dur={DUR}
+            repeatCount="indefinite"
+          />
+        </circle>
       </g>
     </Figur>
   );
 }
 
-/** Skip som kringkaster AIS – fanget opp av basestasjon på land og satellitt */
-export function AisKjede() {
-  const W = 420;
-  const H = 150;
+/**
+ * Lasteskip med baug mot høyre. Origo er midt på vannlinjen.
+ * Superstruktur og antenne sitter akter, så retningen leses tydelig.
+ */
+function Lasteskip({ x, y, s, flip }: { x: number; y: number; s: number; flip: boolean }) {
   return (
-    <Figur w={W} h={H} label="Ship sending AIS signals to a base station on land and a satellite">
+    <g transform={`translate(${x} ${y}) scale(${flip ? -s : s} ${s})`}>
+      <path d="M -42 -46 V -90" />
+      <path d="M -48 -78 h 12" strokeWidth={2} />
+      <circle cx={-42} cy={-92} r={3.2} fill={ROD} stroke="none" />
+      <rect x={-62} y={-48} width={42} height={28} rx={4} fill={KREM} />
+      <circle cx={-42} cy={-34} r={3.6} strokeWidth={2} />
+      <path
+        d="M -86 -12 L -78 10 H 46 L 98 -24 Q 74 -12 50 -12 Z"
+        fill={KREM}
+        strokeWidth={3}
+      />
+    </g>
+  );
+}
+
+/** Smal signalbue som peker i `rot` grader (0 = opp), holdt over vannlinjen */
+function SignalMot({
+  x,
+  y,
+  rot,
+  radier,
+  dur,
+  begin = 0,
+  hvil = 40,
+}: {
+  x: number;
+  y: number;
+  rot: number;
+  radier: number[];
+  dur: number;
+  begin?: number;
+  hvil?: number;
+}) {
+  const sveip = 56;
+  const pt = (r: number, deg: number) => {
+    const a = ((deg - 90) * Math.PI) / 180;
+    return [x + r * Math.cos(a), y + r * Math.sin(a)] as const;
+  };
+  const bue = (r: number) => {
+    const [x1, y1] = pt(r, rot - sveip / 2);
+    const [x2, y2] = pt(r, rot + sveip / 2);
+    return `M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}`;
+  };
+
+  return (
+    <g>
+      <path d={bue(hvil)} stroke={ROD} strokeWidth={2.4} opacity={0.34} />
+      {radier.map((r, i) => (
+        <path key={r} d={bue(r)} stroke={ROD} strokeWidth={2.4} opacity={0}>
+          <animate
+            attributeName="opacity"
+            values="0; 1; 1; 0; 0"
+            keyTimes="0; 0.15; 0.45; 0.7; 1"
+            dur={`${dur}s`}
+            begin={`${begin + i * 0.35}s`}
+            repeatCount="indefinite"
+          />
+        </path>
+      ))}
+    </g>
+  );
+}
+
+/** To skip som sender AIS til hverandre – slik systemet ble bygd for */
+export function AisKjede() {
+  const W = 1280;
+  const H = 240;
+  const vann = 178;
+  const s = 1.08;
+  const antX = 42 * s;
+  const antY = vann - 92 * s;
+  const venstre = 300;
+  const hoyre = 980;
+  const buer = [30, 52, 78];
+
+  return (
+    <Figur w={W} h={H} label="Two ships sending AIS signals to each other">
       <Duv dy={3} dur={3.4}>
-        <Skute x={92} y={118} s={0.55} signal={false} />
-        <Signal x={91} y={68} rot={70} radier={[14, 24, 34]} dur={3} />
+        <Lasteskip x={venstre} y={vann} s={s} flip={false} />
+        <SignalMot
+          x={venstre - antX}
+          y={antY}
+          rot={62}
+          radier={buer}
+          dur={3}
+          begin={-0.8}
+        />
       </Duv>
 
-      <Bolger y={118} w={W} h={H} amp={8} dur={9} />
-
-      {/* Land med basestasjon */}
-      <path d="M 236 126 Q 290 98 350 102 Q 398 104 420 122 V 152 H 236 Z" fill={KREM} />
-      <path d="M 322 104 L 330 30 L 338 104" strokeWidth={2} />
-      <path d="M 325 78 h 10 M 323 92 h 14 M 327 62 h 6" strokeWidth={2} />
-      <circle cx={330} cy={27} r={3.5} fill={ROD} stroke="none">
-        <Puls fra={0.3} til={1} dur={3} begin={1.1} />
-      </circle>
-
-      {/* Satellitt */}
-      <Duv dy={3} dur={5}>
-        <g transform="translate(372 30)">
-          <rect x={-9} y={-8} width={18} height={16} rx={2} fill={KREM} />
-          <path d="M -9 0 h -8 M 9 0 h 8" strokeWidth={2} />
-          <rect x={-33} y={-5} width={16} height={10} rx={1.5} fill={KREM} strokeWidth={2} />
-          <rect x={17} y={-5} width={16} height={10} rx={1.5} fill={KREM} strokeWidth={2} />
-          <circle cx={0} cy={0} r={2.5} fill={ROD} stroke="none">
-            <Puls fra={0.3} til={1} dur={3} begin={1.6} />
-          </circle>
-        </g>
+      <Duv dy={3} dur={4.1}>
+        <Lasteskip x={hoyre} y={vann} s={s} flip />
+        <SignalMot
+          x={hoyre + antX}
+          y={antY}
+          rot={-62}
+          radier={buer}
+          dur={3}
+          begin={0.6}
+        />
       </Duv>
+
+      <Bolger y={vann} w={W} h={H} amp={11} dur={9} />
     </Figur>
   );
 }
 
 /** Radarbilde: en sakte sveip lyser opp små skipsmarkører etter hvert som den passerer */
 export function Skipsradar() {
-  const W = 420;
-  const H = 170;
-  const cx = 210;
-  const cy = 86;
-  const r = 74;
+  const W = 320;
+  const H = 320;
+  const cx = 160;
+  const cy = 160;
+  const r = 148;
   const dur = 12;
   const rad = (g: number) => (g * Math.PI) / 180;
   const skip: [number, number, number][] = [
-    [22, 52, 200],
-    [96, 30, 120],
-    [158, 64, 40],
-    [232, 46, 300],
-    [318, 62, 250],
+    [22, 104, 200],
+    [96, 60, 120],
+    [158, 128, 40],
+    [232, 92, 300],
+    [318, 124, 250],
   ];
   const sveipStart = -42;
   const sx = cx + r * Math.cos(rad(sveipStart));
@@ -206,7 +421,7 @@ export function Skipsradar() {
         return (
           <path
             key={vinkel}
-            d="M 0 -6.5 L 4.5 5.5 L 0 3 L -4.5 5.5 Z"
+            d="M 0 -10 L 7 8.5 L 0 4.6 L -7 8.5 Z"
             transform={`translate(${px} ${py}) rotate(${kurs})`}
             fill={STREK}
             stroke="none"
@@ -223,7 +438,7 @@ export function Skipsradar() {
           </path>
         );
       })}
-      <circle cx={cx} cy={cy} r={3} fill={ROD} stroke="none" />
+      <circle cx={cx} cy={cy} r={4.5} fill={ROD} stroke="none" />
     </Figur>
   );
 }

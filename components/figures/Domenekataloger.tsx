@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useStep } from "@/components/steps";
+import { IkonI, type IkonNavn } from "@/components/figures/strek";
 
 /*
  * Figurer for «hvor vi er – og hvor vi skal» med katalogstrukturen:
@@ -283,7 +284,12 @@ export function HvorViEr() {
  * HVOR VI SKAL – domenekataloger, datakontrakt, sentral dataprodukt-katalog
  * ===================================================================== */
 
-const DOMENER: string[] = ["customs", "ais", "hr_and_finance", "predictive_maintenance_lighthouses"];
+const DOMENER: { navn: string; ikon: IkonNavn }[] = [
+  { navn: "customs", ikon: "skjema" },
+  { navn: "ais", ikon: "antenne" },
+  { navn: "hr_and_finance", ikon: "mynt" },
+  { navn: "predictive_maintenance_lighthouses", ikon: "verktoy" },
+];
 
 const KONTRAKT_LINJER: [string, string][] = [
   ["apiVersion:", " v3.0.2"],
@@ -305,14 +311,24 @@ const VIEWS: { navn: string; kilde: string }[] = [
   { navn: "lighthouses.condition", kilde: "view → lighthouses.gold.condition" },
 ];
 
-const DOMENE_X = 40;
-const DOMENE_W = 380;
-const DOMENE_H = 110;
-const DOMENE_GAP = 14;
-const DOMENE_RY = 20;
-const domeneY = (i: number) => 70 + i * (DOMENE_H + DOMENE_GAP);
+const DOMENE_X = 90;
+const DOMENE_W = 280;
+const DOMENE_H = 116;
+const DOMENE_GAP = 12;
+const DOMENE_RY = 13;
+const domeneY = (i: number) => 68 + i * (DOMENE_H + DOMENE_GAP);
 
-function DomeneKort({ navn, y, uthevet }: { navn: string; y: number; uthevet: boolean }) {
+function DomeneKort({
+  navn,
+  ikon,
+  y,
+  uthevet,
+}: {
+  navn: string;
+  ikon: IkonNavn;
+  y: number;
+  uthevet: boolean;
+}) {
   const x = DOMENE_X;
   const w = DOMENE_W;
   const rx = w / 2;
@@ -321,6 +337,8 @@ function DomeneKort({ navn, y, uthevet }: { navn: string; y: number; uthevet: bo
   const top = y + ry;
   const bot = y + DOMENE_H - ry;
   const omriss = `M ${x} ${top} A ${rx} ${ry} 0 0 0 ${x + w} ${top} L ${x + w} ${bot} A ${rx} ${ry} 0 0 1 ${x} ${bot} Z`;
+  // Skaler navnet ned hvis det er for langt for sylinderen
+  const navnStorrelse = Math.min(15, (w - 28) / (navn.length * 0.62));
   return (
     <g>
       <path
@@ -349,22 +367,30 @@ function DomeneKort({ navn, y, uthevet }: { navn: string; y: number; uthevet: bo
           style={{ transition: "stroke 300ms ease" }}
         />
       )}
+      <g
+        fill="none"
+        stroke="var(--mint)"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <IkonI navn={ikon} x={cx - 11} y={top + 12} size={22} strokeWidth={1.7} />
+      </g>
       <text
         x={cx}
-        y={top + 34}
+        y={top + 58}
         textAnchor="middle"
         fontFamily={MONO}
-        fontSize={15}
+        fontSize={navnStorrelse}
         fill="var(--cream)"
       >
         {navn}
       </text>
       <text
         x={cx}
-        y={top + 56}
+        y={top + 78}
         textAnchor="middle"
         fontFamily="var(--font-sans)"
-        fontSize={11.5}
+        fontSize={11}
         fill={KREM_DUS}
       >
         own team · own cost center · own stewardship
@@ -426,7 +452,13 @@ export function HvorViSkal() {
 
       {/* Domenene – én katalog hver */}
       {DOMENER.map((d, i) => (
-        <DomeneKort key={d} navn={d} y={domeneY(i)} uthevet={d === "ais" && step >= 1} />
+        <DomeneKort
+          key={d.navn}
+          navn={d.navn}
+          ikon={d.ikon}
+          y={domeneY(i)}
+          uthevet={d.navn === "ais" && step >= 1}
+        />
       ))}
 
       {/* Kontrakten – skrevet av domenet */}

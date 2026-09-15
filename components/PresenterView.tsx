@@ -66,6 +66,23 @@ export default function PresenterView({
 
   const currentSlide = slides[current];
   const canEditNotes = process.env.NODE_ENV === "development";
+
+  // Fontstørrelse på notater – justerbar med +/- og lagret i localStorage
+  const [notesFontSize, setNotesFontSize] = useState(20);
+  useEffect(() => {
+    const saved = window.localStorage.getItem("presenter-notes-font-size");
+    if (saved) {
+      const n = Number(saved);
+      if (Number.isFinite(n) && n >= 12 && n <= 40) setNotesFontSize(n);
+    }
+  }, []);
+  const adjustNotesFontSize = useCallback((delta: number) => {
+    setNotesFontSize((size) => {
+      const next = Math.min(40, Math.max(12, size + delta));
+      window.localStorage.setItem("presenter-notes-font-size", String(next));
+      return next;
+    });
+  }, []);
   const [notesDraft, setNotesDraft] = useState(currentSlide.notes ?? "");
   const [notesStatus, setNotesStatus] = useState<
     "idle" | "saving" | "saved" | "error"
@@ -89,10 +106,11 @@ export default function PresenterView({
       slideId: string,
       notes: string,
       slideName?: string,
-      chapterId?: string
+      chapterId?: string,
+      force = false
     ) => {
       if (!canEditNotes) return;
-      if (notesSavedBySlideRef.current[slideId] === notes) return;
+      if (!force && notesSavedBySlideRef.current[slideId] === notes) return;
       setNotesStatus("saving");
       try {
         const res = await fetch("/api/notes", {
@@ -117,7 +135,13 @@ export default function PresenterView({
         notesStatusTimerRef.current = window.setTimeout(() => {
           setNotesStatus((s) => (s === "saved" ? "idle" : s));
         }, 1800);
-      } catch {
+      } catch (err) {
+        // Hot reload after writing notes.md aborts in-flight fetches.
+        if (err instanceof DOMException && err.name === "AbortError") {
+          notesSavedBySlideRef.current[slideId] = notes;
+          setNotesStatus("saved");
+          return;
+        }
         setNotesStatus("error");
       }
     },
@@ -125,12 +149,18 @@ export default function PresenterView({
   );
 
   const flushNotes = useCallback(
-    (slideId: string, notes: string, slideName?: string, chapterId?: string) => {
+    (
+      slideId: string,
+      notes: string,
+      slideName?: string,
+      chapterId?: string,
+      force = false
+    ) => {
       if (notesTimerRef.current) {
         window.clearTimeout(notesTimerRef.current);
         notesTimerRef.current = null;
       }
-      void persistNotes(slideId, notes, slideName, chapterId);
+      void persistNotes(slideId, notes, slideName, chapterId, force);
     },
     [persistNotes]
   );
@@ -309,18 +339,37 @@ export default function PresenterView({
 
           <div className={styles.paneLabel}>
             Notater
+            <span className={styles.fontSizeControls}>
+              <button
+                className={styles.fontSizeBtn}
+                onClick={() => adjustNotesFontSize(-1)}
+                title="Mindre skrift på notater"
+              >
+                −
+              </button>
+              <span className={styles.fontSizeValue}>{notesFontSize}</span>
+              <button
+                className={styles.fontSizeBtn}
+                onClick={() => adjustNotesFontSize(1)}
+                title="Større skrift på notater"
+              >
+                +
+              </button>
+            </span>
             {canEditNotes && notesStatus !== "idle" && (
               <span
                 className={
                   notesStatus === "error"
                     ? `${styles.notesStatus} ${styles.notesStatusError}`
-                    : styles.notesStatus
+                    : notesStatus === "saved"
+                      ? `${styles.notesStatus} ${styles.notesStatusSaved}`
+                      : styles.notesStatus
                 }
               >
                 {notesStatus === "saving"
                   ? "Lagrer…"
                   : notesStatus === "saved"
-                    ? "Lagret i notes.md"
+                    ? "✓ Lagret i notes.md"
                     : "Kunne ikke lagre"}
               </span>
             )}
@@ -328,6 +377,7 @@ export default function PresenterView({
           {canEditNotes ? (
             <textarea
               className={styles.notesEditor}
+              style={{ fontSize: notesFontSize }}
               value={notesDraft}
               placeholder="Ingen notater for denne sliden. Skriv her – det lagres i notes.md."
               spellCheck
@@ -356,7 +406,8 @@ export default function PresenterView({
                     currentSlide.id,
                     notesDraft,
                     currentSlide.name,
-                    currentChapter?.id
+                    currentChapter?.id,
+                    true
                   );
                 }
                 if (e.key === "Escape") {
@@ -365,7 +416,7 @@ export default function PresenterView({
               }}
             />
           ) : (
-            <div className={styles.notes}>
+            <div className={styles.notes} style={{ fontSize: notesFontSize }}>
               {currentSlide.notes ? (
                 currentSlide.notes
               ) : (

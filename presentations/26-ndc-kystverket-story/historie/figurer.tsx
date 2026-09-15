@@ -842,112 +842,126 @@ export function RegnestykkeFigur() {
 
 /* ================= 2010: flaskevann mot sjøen ================= */
 
+const SJO_BLOB =
+  "M -340 20 C -352 -80, -224 -158, -44 -150 C 136 -142, 328 -112, 344 6 C 358 108, 222 168, 22 174 C -168 180, -328 122, -340 20 Z";
+
 export function SjoFigur() {
   return (
-    <Svg label="Dixon's analogy: the data mart is bottled water, the data lake is water in its natural state">
-      {/* flasken */}
-      <g transform="translate(190 90)">
-        <rect x={62} y={0} width={56} height={34} rx={8} fill="var(--teal)" />
-        <path
-          d="M 50 34 L 130 34 L 156 96 L 156 330 Q 156 350 136 350 L 44 350 Q 24 350 24 330 L 24 96 Z"
-          fill="#fff"
-          stroke="var(--cream-dark)"
-          strokeWidth={2}
-        />
-        {[0, 1, 2, 3, 4].map((i) => (
-          <rect
-            key={i}
-            x={44}
-            y={130 + i * 40}
-            width={92}
-            height={26}
-            rx={5}
-            fill="rgba(0, 64, 71, 0.12)"
-            stroke="rgba(0, 64, 71, 0.25)"
-          />
-        ))}
-        <text
-          x={90}
-          y={402}
-          textAnchor="middle"
-          fontFamily="var(--font-serif)"
-          fontSize={25}
-          fill="var(--burgundy)"
-        >
-          The data mart
-        </text>
-        <text x={90} y={430} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={14} fill={SUB_FARGE}>
-          bottled water: cleaned, packaged
-        </text>
-        <text x={90} y={452} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={14} fill={SUB_FARGE}>
-          – answers to known questions
-        </text>
-      </g>
+    <Svg label="The data lake: everything raw, stored for tomorrow's questions">
+      <defs>
+        <radialGradient id="sjo-vann" cx="40%" cy="32%" r="85%">
+          <stop offset="0%" stopColor="#1a6a70" />
+          <stop offset="45%" stopColor="#0a4f56" />
+          <stop offset="100%" stopColor="#00343b" />
+        </radialGradient>
+      </defs>
 
-      {/* sjøen */}
-      <g transform="translate(560 110)">
-        <path
-          d="M 40 190 C 20 120, 120 40, 280 60 C 450 82, 560 60, 580 150 C 600 240, 500 310, 330 315 C 160 320, 60 260, 40 190 Z"
-          fill="rgba(0, 64, 71, 0.9)"
+      {/* sjøen – sentrert, abstrakt */}
+      <g transform={`translate(${W / 2} 268)`}>
+        {/* konturringer rundt vannet */}
+        <g transform="scale(1.2)">
+          <path d={SJO_BLOB} fill="rgba(0, 64, 71, 0.045)" />
+        </g>
+        <g transform="scale(1.1)">
+          <path d={SJO_BLOB} fill="rgba(0, 64, 71, 0.09)" />
+        </g>
+
+        {/* vannet */}
+        <path d={SJO_BLOB} fill="url(#sjo-vann)" />
+
+        {/* lysglimt på overflaten */}
+        <ellipse
+          cx={-110}
+          cy={-75}
+          rx={170}
+          ry={42}
+          fill="rgba(251, 240, 229, 0.07)"
+          transform="rotate(-6 -110 -75)"
         />
+
+        {/* bølgelinjer */}
         <path
-          d="M 90 180 C 130 160, 190 160, 230 180 C 270 200, 330 200, 370 180"
+          d="M -220 0 C -180 -20, -120 -20, -80 0 C -40 20, 20 20, 60 0"
           fill="none"
           stroke="var(--mint)"
           strokeWidth={2}
           strokeLinecap="round"
-          opacity={0.7}
+          opacity={0.6}
         >
           <animate attributeName="d"
-            values="M 90 180 C 130 160, 190 160, 230 180 C 270 200, 330 200, 370 180;M 90 185 C 130 205, 190 205, 230 185 C 270 165, 330 165, 370 185;M 90 180 C 130 160, 190 160, 230 180 C 270 200, 330 200, 370 180"
+            values="M -220 0 C -180 -20, -120 -20, -80 0 C -40 20, 20 20, 60 0;M -220 5 C -180 25, -120 25, -80 5 C -40 -15, 20 -15, 60 5;M -220 0 C -180 -20, -120 -20, -80 0 C -40 20, 20 20, 60 0"
             dur="6s"
             repeatCount="indefinite"
           />
         </path>
         <path
-          d="M 190 235 C 230 215, 290 215, 330 235 C 370 255, 430 255, 470 235"
+          d="M -100 60 C -60 40, 0 40, 40 60 C 80 80, 140 80, 180 60"
           fill="none"
           stroke="var(--mint)"
           strokeWidth={2}
           strokeLinecap="round"
-          opacity={0.4}
+          opacity={0.35}
         >
           <animate attributeName="d"
-            values="M 190 235 C 230 215, 290 215, 330 235 C 370 255, 430 255, 470 235;M 190 240 C 230 260, 290 260, 330 240 C 370 220, 430 220, 470 240;M 190 235 C 230 215, 290 215, 330 235 C 370 255, 430 255, 470 235"
+            values="M -100 60 C -60 40, 0 40, 40 60 C 80 80, 140 80, 180 60;M -100 65 C -60 85, 0 85, 40 65 C 80 45, 140 45, 180 65;M -100 60 C -60 40, 0 40, 40 60 C 80 80, 140 80, 180 60"
             dur="7s"
             repeatCount="indefinite"
           />
         </path>
-        {/* rå dataformer som flyter i sjøen */}
-        <circle cx={150} cy={120} r={11} fill="none" stroke="var(--mint)" strokeWidth={2} opacity={0.8} />
-        <rect x={260} y={100} width={20} height={20} rx={4} fill="none" stroke="var(--mint)" strokeWidth={2} opacity={0.8} />
-        <path d="M 390 105 l 12 22 h -24 z" fill="none" stroke="var(--mint)" strokeWidth={2} opacity={0.8} />
-        <path d="M 480 130 q 8 -12 16 0 q 8 12 16 0" fill="none" stroke="var(--mint)" strokeWidth={2} opacity={0.8} />
-
-        {/* innløp */}
-        <Flyt d="M -60 40 C 0 60, 20 90, 60 120" stroke="rgba(69, 13, 32, 0.3)" />
-
-        <text
-          x={310}
-          y={382}
-          textAnchor="middle"
-          fontFamily="var(--font-serif)"
-          fontSize={25}
-          fill="var(--burgundy)"
+        <path
+          d="M -200 110 C -170 95, -125 95, -95 110 C -65 125, -20 125, 10 110"
+          fill="none"
+          stroke="var(--mint)"
+          strokeWidth={1.6}
+          strokeLinecap="round"
+          opacity={0.18}
         >
-          The data lake
-        </text>
-        <text x={310} y={410} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={14} fill={SUB_FARGE}>
-          water in its natural state: everything, raw, cheap
-        </text>
-        <text x={310} y={432} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={14} fill={SUB_FARGE}>
-          – for tomorrow's questions
-        </text>
+          <animate attributeName="d"
+            values="M -200 110 C -170 95, -125 95, -95 110 C -65 125, -20 125, 10 110;M -200 114 C -170 129, -125 129, -95 114 C -65 99, -20 99, 10 114;M -200 110 C -170 95, -125 95, -95 110 C -65 125, -20 125, 10 110"
+            dur="8s"
+            repeatCount="indefinite"
+          />
+        </path>
+
+        {/* rå dataformer som duver */}
+        <circle cx={-190} cy={-70} r={12} fill="none" stroke="var(--mint)" strokeWidth={2} opacity={0.8}>
+          <animateTransform attributeName="transform" type="translate" values="0 0;0 -6;0 0" dur="4s" repeatCount="indefinite" />
+        </circle>
+        <rect x={-40} y={-100} width={22} height={22} rx={5} fill="none" stroke="var(--mint)" strokeWidth={2} opacity={0.8}>
+          <animateTransform attributeName="transform" type="translate" values="0 0;0 -7;0 0" dur="5s" begin="0.8s" repeatCount="indefinite" />
+        </rect>
+        <path d="M 130 -95 l 13 24 h -26 z" fill="none" stroke="var(--mint)" strokeWidth={2} opacity={0.8}>
+          <animateTransform attributeName="transform" type="translate" values="0 0;0 -6;0 0" dur="4.6s" begin="1.6s" repeatCount="indefinite" />
+        </path>
+        <path d="M 230 -30 q 9 -13 18 0 q 9 13 18 0" fill="none" stroke="var(--mint)" strokeWidth={2} opacity={0.8}>
+          <animateTransform attributeName="transform" type="translate" values="0 0;0 -7;0 0" dur="5.4s" begin="2.4s" repeatCount="indefinite" />
+        </path>
       </g>
 
       <text
         x={W / 2}
-        y={600}
+        y={512}
+        textAnchor="middle"
+        fontFamily="var(--font-serif)"
+        fontSize={30}
+        fill="var(--burgundy)"
+      >
+        The data lake
+      </text>
+      <text
+        x={W / 2}
+        y={548}
+        textAnchor="middle"
+        fontFamily="var(--font-sans)"
+        fontSize={16}
+        fill={SUB_FARGE}
+      >
+        water in its natural state: everything, raw, cheap – for tomorrow's questions
+      </text>
+
+      <text
+        x={W / 2}
+        y={608}
         textAnchor="middle"
         fontFamily="var(--font-sans)"
         fontSize={16}

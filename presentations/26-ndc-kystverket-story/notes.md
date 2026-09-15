@@ -22,9 +22,9 @@ can say "our ship," say it. The audience should recognize it.
 | 2 Who's listening            | 05:00 | Kystverket, the vision, the mission, the listening posts, AIS                        |
 | 3 Why a platform             | 12:00 | Uber, everyday life                                                                  |
 | 3b How a data platform works |       | architecture, lakehouse, the pipe, pipelines, products                               |
-| 4 What you get out of it     | 27:00 | four effects with examples from the sea route                                        |
+| 4 What you get out of it     | 27:00 | four effects with examples from the coastline                                        |
 | 5 The project                | 32:00 | day one, the toolbox, terraform, ingest, the stream, the history, batch vs streaming |
-| 6 The models                 | 43:00 | follow one ship, MarTraf, the propeller law, MarU                                    |
+| 6 The models                 | 43:00 | follow one ship, MarTraf, MarU, how it was done earlier, the propeller law           |
 | 7 The road ahead             | 53:00 | domains, contracts, back to Stad, thanks                                             |
 
 If you're behind at 43:00, cut the batch/streaming sidenote (two slides,
@@ -38,7 +38,7 @@ dashes. Say it the way you'd say it to a colleague over a coffee.
 ### Numbers from research
 
 - ~90 base stations, 4 operational AIS satellites (AISSat-4 launched March 2026, about NOK 15 million)
-- 2 billion AIS messages in 2006, 8.9 billion in 2021, data stored back to 2005
+- 100 million messages a day, data stored back to 2005
 - Open data under NLOD, real time via the BarentsWatch API and a raw TCP stream
 - AIS interval: ships moving at 0 to 14 knots transmit every 10 seconds
 - 100 million rows/day ≈ 1,157 per second. Read one per second, and one day's data takes 3.2 years.
@@ -50,188 +50,203 @@ dashes. Say it the way you'd say it to a colleague over a coffee.
 
 It's 03:14.
 
-Click. We're on the sea off Stad. It's February. There's a gale from the
+[[CLICK]] We're on the sea off Stad. It's February. There's a gale from the
 northwest, and it's completely dark.
 
-Click. Out there, a lage cargo ship is heading north. Nine knots. Twenty people on
-board, most of them asleep. One is standing on the bridge with a cup of
+[[CLICK]] Out there, a lage cargo ship is heading north. Nine knots. Twenty people on board, most of them asleep. One is standing on the bridge with a cup of
 coffee, watching the radar.
 
-Click. And while he stands there, something happens that he doesn't think
+[[CLICK]] And while he stands there, something happens that he doesn't think
 about. Something the ship does entirely on its own.
 
 ## signal – Every ten seconds, the ship says
 
 Every ten seconds, the ship sends a little message out into the dark.
 
-Click. And the message is actually pretty simple. It says: who I am. Where I
+[[CLICK]] And the message is actually pretty simple. It says: who I am. Where I
 am. How fast I'm going. Where I'm headed. And what I'm doing right now.
 Five things. That's all.
 
-Click. Nobody on board thinks about it. Nobody presses a button. The message
+Nobody on board thinks about it. Nobody presses a button. The message
 just goes. Over VHF, out into the gale, in every direction.
 
 And so the question is: who is listening?
 
 ## nais – Someone's listening: NAIS
 
-This is the Norwegian coast. very single dot on this map is a
-ship sending exactly the message I just showed you. Every dot is a crew.
+This is the Norwegian coast.
+Every single dot on this map is a ship sending a message I just showed you.
+
+Every dot is a crew.
 Some of them are ferries with people on their way to work. Some are fishing
-boats. Some are cruise ships with three thousand passengers.
+boats. Some are cruise ships with over three thousand passengers.
 
-Click. And this map is open. nais.kystverket.no. You can open it on your
-phone right now and watch your ship go by. Give it a try in the break.
+[[[[CLICK]]]]
+And this map is open. nais.kystverket.no. You can open it on your
+phone right now and watch ship go by.
 
-But here comes what I really want to talk about. Look at the number behind
+There are quite a lot of ships. And they are sending quite a lot of messsages.
+And this is what i really want to talk about. Look at the number behind
 this map.
 
 ## hundre-millioner – 100,000,000 every day
 
 One hundred million.
 
-Click. That's how many of these messages go through our system. Every single
+[[CLICK]] That's how many of these messages go through our system. Every single
 day.
 
 Let that sink in for a moment. One hundred million is a number we say
 quickly, but it's hard to feel.
 
+## hundre-millioner-fyll – The messages fill the screen
+
+Each boat is one hundred messages. Every second of every day 1100 messages appear.
+
 That's the stream this talk is about. And the question is actually pretty
 simple: how do you turn one hundred million little messages into something
 someone can use?
 
-## hundre-millioner-fyll – The messages fill the screen
+And what can we this data for?
 
-Each boat is one hundred messages. Every second of every day 1100 messages appear. 
+This is every second of every day and it just keeps comign.
+And over the years, this becomes quite a large amount of data.
 
-And storing it.
-And running it through a model. That's why this is a becoming a scaling problem as well as a logic problem. 
+And this becomes not only a logic problem, but a scaling problem as well
 
 ## forside – Title slide
 
-This is the story of the data platform behind the sea route.
+This is the story of the data platform behind the coastline
 
 It's a story about why an agency that runs lighthouses and beacons and pilot
 services suddenly found itself with one of the biggest data streams in the
 Norwegian public sector, and what we did with it.
 
-
 ## om-peter – Peter Bull
 
-My name is Peter. Click. I'm a data platform developer at Miles.
+My name is Peter. 
 
-Click. I design data architecture for large organizations.
+[[Click]]. I'm a data platform developer at Miles.
 
-Click. I build the data platform for Kystverket, the Norwegian Coastal
+[[Click]]. I design data architecture for large organizations.
+
+[[Click]]. I build the data platform for Kystverket, the Norwegian Coastal
 Administration. Before that I've built platforms for both private companies
 and public agencies, and what I've learned is that the problems are
 surprisingly similar. It's only the data that changes names.
 
-Click. Previously I was tech lead for the data platform for the Norwegian
+[[Click]]. Previously I was tech lead for the data platform for the Norwegian
 Police.
 
-Click. And I work in Azure, Databricks and Terraform. 
+Click. And I work in Azure, Databricks and Terraform.
+
+And I ski. A lot.
+
+[[Click]] This is a normal Saturday. Looking down a steep line, with the coast
+underneath.
+
+[[Click]] This is Hanna. She puts up with all of this.
 
 ## kystverket – Who's listening? Kystverket
 
 [05:00] So. Who's listening to our ship?
 
-Kystverket. The transport agency for the sea route. Most people know them
-for the lighthouses. But the lighthouses are just the visible part.
+We are the Norwegian Coastal Administration. Kystverket. 
+The transport agency for the coastline. We make sure the coast, the ships and everything nautical is running smoothly. 
 
-And before we get into the technology, we need to understand why they do
-what they do. Because it's the why that explains all the choices afterwards.
+And before we get into the technology, we need to understand why we do
+what we do.
 
 ## visjon – The world's safest and cleanest coast
 
-This is Kystverket's vision. The world's safest and cleanest coast.
+This is the Coastal Administration's vision. 
+The world's safest and cleanest coast.
 
-Not "good maritime safety." Not "efficient administration." The world's
-safest and cleanest coast.
+[[CLICK]] 
+We want a coast without pollution, we want a coast where no people drown. 
 
-Click. And I want you to hold on to that sentence through this whole talk.
-Because when we're talking about Delta tables and serverless and data
-contracts half an hour from now, it's still this sentence we're working for.
+Because when we're talking about processing speed, data platforms and data contracts -> this is the why. 
+
+
 Everything else is the how.
 
 ## oppdrag – About us
 
-This is the Norwegian Coastal Administration. Kystverket. The transport
-agency for the sea route. About a thousand people, from Arendal in the
-south to Honningsvåg in the north. Head office in Ålesund.
+The coastal administration is split into four areas. 
 
-They have four main areas.
+[[CLICK]] Pilotage. A local expert who boards the big ships and helps them in.
+In Norwegian it's called a "Los". The piloage service, they wake up in the middle of the night, travel out to ships, come with local knowledge of the sea maps, and guide boats in.
 
-Click. Pilotage. A local expert who boards the big ships and helps them in.
-In Norwegian it's called a "Los".
-
-Environment. When a ship runs aground and oil starts leaking, it's the NCA
+[[CLICK]] Environment. When a ship runs aground and oil starts leaking, it's the NCA
 that leads the operation. Depots with oil booms along the whole coast.
 
-Navigation technology. That's the lighthouses and beacons and sea marks.
+[[CLICK]] Navigation technology. That's the lighthouses and beacons and sea marks.
 And the vessel traffic centers, watching the traffic around the clock,
-just like air traffic controllers, only for ships. And AIS.
+just like air traffic controllers, only for ships. And AIS-messages.
 
-Transport, ports and fairways. The physical sea route. The channels, the
+[[CLICK]] Transport, ports and fairways. The physical coastline. The channels, the
 harbors, the National Transport Plan for the sea.
 
-Click. And here's what I want you to see: all four start with exactly the
-same question. Where are the ships right now? If you want to prevent a
-collision, you need to know where the ships are. If you're leading an oil
-spill response, you need to know which ships are nearby and can help.
-Everything starts with the position.
+[[CLICK]] And here's what I want you to see: all four start with exactly the
+same question.
+
+[[CLICK]] Where are the ships right now? If you want to prevent a
+collision, you need to know where the ships are.
+If you're leading an oil spill response, you need to know which ships are nearby and can help.
+Navigation and transport is all about the ships. 
+
+So how do we listen and receive these ship locations? 
+So how do you hear a ship talking over VHF out on the sea off Stad at three
+in the morning?
 
 ## lyttepostene – The listening posts
 
 So how do you hear a ship talking over VHF out on the sea off Stad at three
 in the morning?
 
-Click. You build listening posts. We have around ninety base stations, along the
+
+[[CLICK]] You build listening posts. We have around ninety base stations, along the
 entire coast and on Svalbard. They hear everything from land and forty to
 sixty nautical miles out.
 
-Click. But the ocean is bigger than that. So in 2010, Kystverket did
-something a little unusual for a transport agency. They launched a satellite.
-AISSat-1. Today, Norway has four of them listening to ships from space. The
-latest went up in March this year, and it was built for around NOK 15
-million, which is quite cheap, less than the price of a seaside apartment here in Oslo.
-k
-Click. And the result is this curve. In 2006, they heard two billion
-messages in a year. In 2021, it was 8.9 billion. Better listening posts,
-more ships, and more ships with AIS.
+[[CLICK]] But the ocean is bigger than that. So in 2010, Kystverket did
+something a little unusual for a transport agency. 
+They launched a satellite. AISSat-1. Today, Norway has four of them listening to ships from space. 
+The latest went up in March this year, and it was built for around NOK 15
+million, which when you think about it, it's quite cheap, less than the price of a small seaside apartment here in Oslo.
 
-Click. And everything is stored. All the way back to 2005.
+[[CLICK]] And the result is this. A hundred million messages a day.
+Better listening posts, more ships, and more ships with AIS.
+
+[[CLICK]] And everything is stored. All the way back to 2005.
 Twenty-one years of every single ship saying where it is, every ten seconds.
-It's an archive of the entire Norwegian sea route.
+It's an archive of the entire Norwegian coastline.
 
 ## ais – AIS: built to avoid collisions
 
-A bit about what AIS actually is, because it explains something important
-later.
+The point of these messages was never for anyone on land to listen.
 
-Click. AIS stands for Automatic Identification System. Ships broadcast
-identity, position, speed, and course over VHF. And the point was never for
-anyone on land to listen. The point was for the ships around you to hear it.
-So two ships in fog know about each other before they see each other.
+[[CLICK]] AIS stands for Automatic Identification System. Ships broadcast
+identity, position, speed, and course over VHF.  The point was for the ships around you to hear it.
+So two ships in fog know about each other before they see each 
 
-Click. How often they transmit depends on what they're doing. A ship
+[[CLICK]] How often they transmit depends on what they're doing. A ship
 underway transmits every couple of seconds to every ten seconds. A ship at
-berth transmits every three minutes. It sounds like a detail. It's not. It's
-the reason our data is uneven, and we'll come back to that.
+berth transmits every three minutes. 
 
-Click. And then there's the interesting part. Nobody planned for AIS to
+[[CLICK]] And then there's the interesting part. Nobody planned for AIS to
 become a data source. It was an anti-collision system. But because every
 ship transmits, and because someone started listening and storing, it became
 the backbone of traffic monitoring, emergency response, and statistics.
-Historical data has become valuable beacuse of insights and analysis.
 
-## sporsmalet – What do you do with 8.9 billion messages?
+Historical data has become valuable beacuse of insights and analysis, and now our data platform and the technology that makes it possible to process these huge amounts of data into valuable insight.
+
+## sporsmalet – What do you do with 100 million messages a day?
 
 We've built listening posts along the entire coast and
-launched satellites. You have 8.9 billion messages a year, and twenty-one years
-of history.
+launched satellites
 
-Click. What do you do with them? And how do we process them all?
+[[CLICK]] What do you do with them? And how do we process them all?
 
 Because this is where it gets hard. Collecting data is the easy part.
 Turning it into something someone can use is the hard part. And it's not
@@ -243,16 +258,31 @@ What tech can we use for
 
 [12:00]
 
-Looking around in the IT-industry, in the last couple of years, a new word has started appearing on job listings. Data platforms.
+Looking around in the IT industry, in the last couple of years, a new
+word has started appearing on job listings. Data platforms.
 
-Municipalities, banks, retail chains, oil companies, and especially the government institutions.
-They are all building data platforms.
+Municipalities, banks, retail chains, oil companies, and especially the
+government institutions. They are all building data platforms.
 
 Why is that?
 
-A data platform is the latest answer to a problem we've been trying to
-solve for over fifty years.
-What problem is this, and why is data platforms the current answer?
+[[CLICK]] Because data is becoming more and more valuable. Not just for
+us, with twenty-one years of every ship on the coast. For everyone.
+
+## reid-hoffman – Everything is measurable
+
+Reid Hoffman. He co-founded LinkedIn.
+
+He put it like this: in the world of data, everything is measurable, and
+everything is knowable.
+
+[[CLICK]] And that's the double edge. If everything is measurable, the
+data becomes extraordinarily valuable. But it also becomes a mess if you
+don't handle it properly.
+
+A data platform is the latest answer to that problem. We've been trying
+to solve it for over fifty years. What problem is this, and why is the
+data platform the current answer?
 
 ## uber – Uber, 2014
 
@@ -262,20 +292,20 @@ actually did, because it's the same story we keep seeing.
 
 And that pattern isn't theory. Uber, 2014.
 
-Click. The start. A few terabytes. Spread across some MySQL and Postgres
+[[CLICK]] The start. A few terabytes. Spread across some MySQL and Postgres
 databases. When someone needed to combine data from two places, an
 engineer wrote a script. It worked. Just fine, actually. Nobody sat
 around thinking "we need a platform." There was no global view. You
 queried the database you knew.
 
-Click. Then the company exploded. New cities every week. Tens of
+[[CLICK]] Then the company exploded. New cities every week. Tens of
 terabytes. Hundreds of people asking for the same numbers. City
 operators on the ground. Analysts. Engineers building products. And
 suddenly every team had its own database, its own script, its own
 version of the truth. Ask "how many trips did we do yesterday," and
 you'd get four different answers. Sound familiar?
 
-Click. The turning point. Yes, they actually built a data platform. Not
+[[CLICK]] The turning point. Yes, they actually built a data platform. Not
 a slide. A real one. And they built it themselves.
 
 First they dumped everything into one warehouse. Vertica. Ad hoc ETL
@@ -302,7 +332,7 @@ let them update a table instead of rebuilding it. Latency went from a
 day to half an hour. A few years later they were sitting on more than
 a hundred petabytes.
 
-Click. That's the point. You don't need a data platform from day one.
+[[CLICK]] That's the point. You don't need a data platform from day one.
 Uber managed fine without one. Then they built one, and then they
 rebuilt it, twice, because the first version wasn't enough. Not because
 someone read an article. Out of pure necessity. Past a certain amount
@@ -314,22 +344,22 @@ day, Kystverket passed that threshold a long time ago.
 And the fact is,
 most services you have been using this week are backed by data platforms .
 
-Click. The online store that suggests products that actually fit.
-Click. The streaming service that recommendation shows for you in the evening.
+[[CLICK]] The online store that suggests products that actually fit.
+[[CLICK]] The streaming service that recommendation shows for you in the evening.
 
-Click. The taxi that gives you a fixed price before you get in, and picks the
+[[CLICK]] The taxi that gives you a fixed price before you get in, and picks the
 fastest route through rush hour.
 
-Click. The flight price set in under a
+[[CLICK]] The flight price set in under a
 second, based on capacity, profitability, and how likely it is that you,
 specifically, will buy.
 
-Click. Behind every single one of these is a platform that ingests, stores,
+[[CLICK]] Behind every single one of these is a platform that ingests, stores,
 processes, and delivers data.
 And most of these recommendations are based on patters built on terrabytes with user data.
 
 And the NAIS map from the opening? It's exactly the same story. Just for the
-sea route.
+coastline.
 
 ## batch-streaming – How it works
 
@@ -386,39 +416,41 @@ And that's also the problem. Want a new column? That's a migration. Want
 a new shape? That's a meeting, a ticket, and a weekend you're not sure
 you want. Changes are slow because the schema is the product.
 
-Click. Structured and unstructured. You take the AIS message as it is.
+[[CLICK]] Structured and unstructured. You take the AIS message as it is.
 JSON, files, a photo from a camera on the quay.
 
-Click. Rollbacks. If Tuesday's version was wrong, you go back to
+[[CLICK]] Rollbacks. If Tuesday's version was wrong, you go back to
 Monday's. Multiple versions of the data. Not one schema you're afraid
 to touch.
 
-Click. Rapid iterations. You don't wait for the perfect table. You land
+[[CLICK]] Rapid iterations. You don't wait for the perfect table. You land
 it, try a transform, keep the raw.
 
 ## hvordan-lakehouse – Lakehouse: store and serve
 
 You already saw the two tracks meet, in the history.
 
-This is the short version. A lakehouse is a data lake and a data warehouse
-in one.
+A lakehouse is a data lake - for storing large amount of raw, unstructured and structured data
+ and a data warehouse, where data is packaged and served
 
-Click. Cheap storage for everything. And the structure and speed of a
+These are now combined. 
+The data lakehouse. Mostly what we call a data platform today. 
+
+[[CLICK]] Cheap storage for everything. And the structure and speed of a
 warehouse when you need to serve it.
 
-Click. You store once. You serve many ways. Reports, APIs, models. Same
+[[CLICK]] You store once. You serve many ways. Reports, APIs, models. Same
 tables.
 
 That's the store. Next: what happens to the data.
 
 ## samle-data – Store, transform, deliver
 
-If you remember one sentence about what a data platform does, it's this one.
 
 Point to the figure. Ingest. Store. Transform. Share. The same series
 every definition in the industry lands on.
 
-Click. And govern the whole pipe. That's the verb most people slip up on.
+[[CLICK]] And govern the whole pipe. That's the verb most people slip up on.
 It's the bar under everything, not a step at the end.
 
 For Kystverket, this means: AIS in, insight and open data out. It's that
@@ -430,15 +462,15 @@ And here's what makes that pipe work. We store raw, and we stop throwing
 it away. That's the move the lake taught us. And Kystverket did it for
 real.
 
-Click. The raw archive is kept. AIS messages back to 2005. We don't delete
+[[CLICK]] The raw archive is kept. AIS messages back to 2005. We don't delete
 them. We don't overwrite them. If a transform was wrong in 2019, the raw is
 still there.
 
-Click. The transforms live in git. Not in a notebook on someone's laptop.
+[[CLICK]] The transforms live in git. Not in a notebook on someone's laptop.
 Not in a stored procedure nobody dares to open. In source control. Every
 change is a commit.
 
-Click. Put those two together and you get something the warehouse never
+[[CLICK]] Put those two together and you get something the warehouse never
 really had. Version history of every transformation, over time. You can
 replay 2018 with the 2018 code, or rerun it with today's. The archive stays.
 The code remembers.
@@ -449,7 +481,7 @@ And none of this should need a person in the loop.
 
 The jobs run on a schedule, or when new data lands.
 
-Click. They fail loudly. Someone gets a ping. Nobody sits and presses go
+[[CLICK]] They fail loudly. Someone gets a ping. Nobody sits and presses go
 every morning.
 
 That's the whole point of a platform. The pipe runs without you.
@@ -532,7 +564,7 @@ I know. It sounds like bureaucracy. But hear me out: governance is what
 makes us dare to share data. It's not the brake. It's the brakes that make
 you dare to drive fast.
 
-Three things: data contracts, data ownership, data catalog. Click. And then
+Three things: data contracts, data ownership, data catalog. [[CLICK]] And then
 centralized logging, audit, and reporting. One place, not in every system.
 
 The questions governance has to answer are actually simple. Who has access?
@@ -543,15 +575,15 @@ boats under forty-five meters must not go out in the open data. That's
 privacy. And that filter lives in one place in the platform, not in every
 single system that uses the data. That's governance in practice.
 
-Click. And our tool for this is called Unity Catalog. More on that later.
+[[CLICK]] And our tool for this is called Unity Catalog. More on that later.
 
 ## roller – Clear roles
 
 Roles before technology.
 
-Click. Someone has to own the platform. Click. Someone has to build on it,
-engineers and analysts. Click. Someone has to be responsible for governance.
-Click. And then there are the people who'll actually use what comes out, BI
+[[CLICK]] Someone has to own the platform. [[CLICK]] Someone has to build on it,
+engineers and analysts. [[CLICK]] Someone has to be responsible for governance.
+[[CLICK]] And then there are the people who'll actually use what comes out, BI
 people and consumers.
 
 The crucial shift is this: from data being something IT handles, to data
@@ -576,7 +608,7 @@ route for each.
 
 One. Data quality. Data you can trust.
 
-Click. Data that is tested, quality assured, and updated.
+[[CLICK]] Data that is tested, quality assured, and updated.
 
 Without a platform, quality is someone's inbox. A test somebody remembers to
 run. A spreadsheet that was right last Tuesday.
@@ -589,7 +621,7 @@ looking at.
 
 Two. Built-in compliance.
 
-Click. Audit logs. PII masking.
+[[CLICK]] Audit logs. PII masking.
 
 The privacy filter I mentioned. Fishing vessels under fifteen meters,
 recreational boats under forty-five meters. That's people's workplace and
@@ -605,7 +637,7 @@ them on afterwards. They're already there.
 
 Three. Self-service data.
 
-Click. Chat with your data. Order it yourself.
+[[CLICK]] Chat with your data. Order it yourself.
 
 Here's how it used to be: you sent an email to an analyst. "Can I get AIS
 data for the Oslofjord in March?" And then you waited. The analyst had
@@ -621,7 +653,7 @@ extracts.
 
 Four. Future-ready. AI where the data already lives.
 
-Click. The model runs where the data already lives. Integrated in your
+[[CLICK]] The model runs where the data already lives. Integrated in your
 pipelines.
 
 Everyone's talking about AI. But AI needs data, and the data has to live
@@ -647,13 +679,13 @@ This is the story of the project. From one source to a platform.
 
 Day one. What did we have?
 
-Click. One source. AIS. Nothing else. No HR data, no finance, no pilotage
+[[CLICK]] One source. AIS. Nothing else. No HR data, no finance, no pilotage
 data. Just positions.
 
-Click. One small team. That's important, and you'll see why in a couple of
+[[CLICK]] One small team. That's important, and you'll see why in a couple of
 slides.
 
-Click. And one stream. That never stops. Not at Christmas. Not in a gale.
+[[CLICK]] And one stream. That never stops. Not at Christmas. Not in a gale.
 And not when we deploy. The ships don't care about our release plan. The
 messages keep coming regardless, every ten seconds, from every single dot on
 the map.
@@ -671,30 +703,30 @@ understand why it fit.
 
 Azure is the foundation.
 
-Click. Storage, networking, and identity as ready-made building blocks.
-Click. Security, access control, and cost control from day one, not
+[[CLICK]] Storage, networking, and identity as ready-made building blocks.
+[[CLICK]] Security, access control, and cost control from day one, not
 something we bolt on afterwards.
 
-Click. And everything is infrastructure as code. The entire platform can be
+[[CLICK]] And everything is infrastructure as code. The entire platform can be
 recreated from the repo. That sounds obvious to you, but in the public
 sector it still isn't.
 
-Click. And the most important thing: Azure is boring on purpose. Foundations
+[[CLICK]] And the most important thing: Azure is boring on purpose. Foundations
 should be boring. You don't want an exciting foundation.
 
 ## databricks – Databricks: the engine
 
 Databricks is the engine on top.
 
-Click. What they call a lakehouse. Data lake and data warehouse in one.
+[[CLICK]] What they call a lakehouse. Data lake and data warehouse in one.
 Cheap storage of raw data, and at the same time tables you can run SQL
 against.
 
-Click. One engine, Spark, for both batch and streaming. Same code, same
+[[CLICK]] One engine, Spark, for both batch and streaming. Same code, same
 tables. We use both, in the same tool. We'll come back to when you choose
 which.
 
-Click. And Unity Catalog. That's the governance layer from earlier, in
+[[CLICK]] And Unity Catalog. That's the governance layer from earlier, in
 practice. Access control, lineage, catalog. Everything we talked about under
 governance lives here.
 
@@ -709,11 +741,11 @@ Remember the sentence on the Azure slide? Everything is infrastructure as
 code. The entire platform can be recreated from the repo. Now I'll show you
 how.
 
-Click. A change starts as a pull request. It lives in git. Click. The
+[[CLICK]] A change starts as a pull request. It lives in git. [[CLICK]] The
 pipeline runs terraform plan. Everyone can see what will actually happen
-before it happens. Click. Merge, then apply. Then it becomes reality.
+before it happens. [[CLICK]] Merge, then apply. Then it becomes reality.
 
-Click. Terraform describes Azure and Databricks. Down to catalogs and
+[[CLICK]] Terraform describes Azure and Databricks. Down to catalogs and
 storage containers. Not just the big stuff. Also the buckets the data lands
 in.
 
@@ -730,19 +762,19 @@ Why split them? Because one big state is one big blast radius. A mistake
 in storage shouldn't tear down the catalog. A change in the workspace
 shouldn't touch the account level.
 
-Click. Workspace. The Databricks workspace. The one the team logs into.
+[[CLICK]] Workspace. The Databricks workspace. The one the team logs into.
 
-Click. Storage accounts. Storage and containers. Including raw. Where the
+[[CLICK]] Storage accounts. Storage and containers. Including raw. Where the
 data lands before Databricks sees it. Remember that word. Raw. We'll come
 back to it in two slides.
 
-Click. Unity Catalog. The catalogs and the access control. Governance as
+[[CLICK]] Unity Catalog. The catalogs and the access control. Governance as
 code.
 
-Click. The Databricks account. Account level. Identity, groups, everything
+[[CLICK]] The Databricks account. Account level. Identity, groups, everything
 that sits above the workspace.
 
-Click. Four deployments. Each one in dev, test, and prod. A change in
+[[CLICK]] Four deployments. Each one in dev, test, and prod. A change in
 storage doesn't tear down the catalog. And a change in dev doesn't touch
 prod. That's the whole point of splitting.
 
@@ -753,11 +785,11 @@ And there's one more split. Just as important.
 Terraform owns the infrastructure. Databricks Asset Bundles, DABs, own the
 logic.
 
-Click. Terraform: workspaces, storage, containers. Unity Catalog, down to
+[[CLICK]] Terraform: workspaces, storage, containers. Unity Catalog, down to
 the catalog level. We deploy that when the platform changes. Rarely. On
 purpose.
 
-Click. DABs: schemas, tables, jobs. We deploy that when the code changes.
+[[CLICK]] DABs: schemas, tables, jobs. We deploy that when the code changes.
 Often. As it should be.
 
 The split is deliberate. The infrastructure should be boring. The logic
@@ -771,13 +803,13 @@ So. The data. Where does it come in?
 Ingest happens outside Databricks. Databricks doesn't own the antenna. It
 owns what comes after raw.
 
-Click. We use Prefect. A Python library for orchestrating jobs. Not
+[[CLICK]] We use Prefect. A Python library for orchestrating jobs. Not
 Databricks jobs. Plain Python jobs.
 
-Click. The jobs fetch data and dump it in storage. In raw. Done. In the
+[[CLICK]] The jobs fetch data and dump it in storage. In raw. Done. In the
 containers Terraform just created.
 
-Click. Databricks reads from there. The platform begins when the file is
+[[CLICK]] Databricks reads from there. The platform begins when the file is
 there. Not when the ship transmits. That's a deliberate cut. Ingest is one
 responsibility. The lakehouse is another.
 
@@ -785,20 +817,20 @@ responsibility. The lakehouse is another.
 
 Here's what it looks like. From the antenna to something someone can use.
 
-Click. The sources. AIS, and the other things we fetch. Click. Prefect.
-Python jobs, outside Databricks. Click. Into storage, into raw. Containers
+[[CLICK]] The sources. AIS, and the other things we fetch. [[CLICK]] Prefect.
+Python jobs, outside Databricks. [[CLICK]] Into storage, into raw. Containers
 Terraform has created.
 
 Two responsibilities. Prefect gets the data in. Databricks turns it
 into something someone can use. If you mix the two, suddenly the lakehouse
 owns the antenna. You don't want that.
 
-Click. Into the lakehouse. The classic pattern: bronze, silver, gold. Bronze
+[[CLICK]] Into the lakehouse. The classic pattern: bronze, silver, gold. Bronze
 is raw messages, exactly as they arrived. Silver is cleaned and
-deduplicated. Gold is tracks and aggregates, ready to use. Click. And out
+deduplicated. Gold is tracks and aggregates, ready to use. [[CLICK]] And out
 again to APIs, dashboards, and analysis.
 
-Click. And here's the sentence that's the whole point of this chapter: one
+[[CLICK]] And here's the sentence that's the whole point of this chapter: one
 hundred million rows a day, without us operating a single cluster.
 
 How? First, look at what that job actually looks like.
@@ -819,32 +851,6 @@ One job. Every day. A hundred million rows.
 
 And still: no clusters we have to run.
 
-## serverless – No clusters to wake up at night
-
-Serverless.
-
-Remember the small team that needed to sleep at night? This is where that
-comes in. No clusters to start, patch, or scale. Nobody getting an alert at
-four in the morning because a node died.
-
-Click. Autoscaling was cheaper than manual scaling. For us. We didn't have
-to guess the size of a cluster and then sit on unused capacity, or run too
-small and watch the queue grow. Capacity follows the stream. More traffic
-in the daytime than at night, more in summer than in winter, and the
-platform scales up and down by itself. And we pay for what we use. Not for
-what we fear we might need.
-
-Click. It saved tuning time. Nobody on the team spending evenings on
-cluster config. Spark settings. Spot vs. on-demand. When to scale this job
-and when to leave that one alone.
-
-Click. And it saved startup time. No waiting for a cluster to wake up
-before the job can start. The stream doesn't wait. The history jobs
-don't wait. We don't wait.
-
-For a small team, this is the difference between building a product and
-operating infrastructure. We chose product.
-
 ## stordata-volum – The stream is small, the history is big
 
 And now I'm going to say something that might surprise you.
@@ -858,10 +864,36 @@ A laptop can handle that.
 The heavy part is the history. Twenty-one years. Around 40 TB of positions. A
 full historical job is the hard part, because of those 40 TB.
 
-Click. And we have to run through that history again. Not once. Every time
+[[CLICK]] And we have to run through that history again. Not once. Every time
 something changes. A new version of the emissions model. A new emission
 factor. A bug we found in the cleaning. Then all twenty years have to be
 recalculated.
+
+## serverless – No clusters to wake up at night
+
+Serverless.
+
+Remember the small team that needed to sleep at night? This is where that
+comes in. No clusters to start, patch, or scale. Nobody getting an alert at
+four in the morning because a node died.
+
+[[CLICK]] Autoscaling was cheaper than manual scaling. For us. We didn't have
+to guess the size of a cluster and then sit on unused capacity, or run too
+small and watch the queue grow. Capacity follows the stream. More traffic
+in the daytime than at night, more in summer than in winter, and the
+platform scales up and down by itself. And we pay for what we use. Not for
+what we fear we might need.
+
+[[CLICK]] It saved tuning time. Nobody on the team spending evenings on
+cluster config. Spark settings. Spot vs. on-demand. When to scale this job
+and when to leave that one alone.
+
+[[CLICK]] And it saved startup time. No waiting for a cluster to wake up
+before the job can start. The stream doesn't wait. The history jobs
+don't wait. We don't wait.
+
+For a small team, this is the difference between building a product and
+operating infrastructure. We chose product.
 
 ## stordata-compute – Days of compute, or hours?
 
@@ -876,7 +908,7 @@ Click through the autoscaling points. With autoscaling, capacity follows the
 amount of data in the job. It scales up where there's a lot to do, and back
 down afterwards. Days become hours, because we can go wide.
 
-Click. And here's the nuance I want you to take away: the bill ends up about
+[[CLICK]] And here's the nuance I want you to take away: the bill ends up about
 the same. You pay for the work, not for the time it takes. The difference is
 that you get the answer today instead of on Friday. And for the person
 waiting for the number, that's the whole difference.
@@ -908,21 +940,26 @@ Click through the streaming points. Streaming fits when you actually have to
 react now. Monitoring and alerting. Event-driven automation. And when
 freshness matters more than cost.
 
-Click. And in practice, you usually need both. My advice: start with batch.
+[[CLICK]] And in practice, you usually need both. My advice: start with batch.
 It's simpler and cheaper. Add streaming where fresh data actually changes a
 decision. Not because it's cool.
 
 For us, the AIS stream comes in continuously. But much of what we build on
 top runs in batch. Both, in the same platform.
 
+## modeller-outputs – The models and outputs
+
+Chapter change. We have the stream. We have the history. Now: what do we
+use it for? The models on top, and the things that come out.
+
 ## hais – HAIS: historical extracts on demand
 
 Back to why serverless fits so well. A concrete example. HAIS.
 
-Click. Anyone can go to hais.kystverket.no and order up to one year of
+[[CLICK]] Anyone can go to hais.kystverket.no and order up to one year of
 historical AIS data. Time range, area as a polygon, ship type, or a single
-vessel. Click. That starts a job that reads through the history and filters.
-Click. And the result arrives as GeoParquet or CSV by email.
+vessel. [[CLICK]] That starts a job that reads through the history and filters.
+[[CLICK]] And the result arrives as GeoParquet or CSV by email.
 
 And here's the point: we don't know in advance what the next order will be.
 Is it one vessel for one week? Or every ship for a whole year? The first
@@ -944,16 +981,16 @@ can ask different questions of the same voyages.
 
 First the architecture, briefly.
 
-Click. Raw AIS data in. Click. MarTraf cleans and enriches. That's the shared
+[[CLICK]] Raw AIS data in. [[CLICK]] MarTraf cleans and enriches. That's the shared
 layer. Voyages, phases, traffic type.
 
-Click. Then it splits. MarU calculates energy and emissions. Climate accounts
+[[CLICK]] Then it splits. MarU calculates energy and emissions. Climate accounts
 for the municipalities.
 
-Click. KystRisk. Accident risk. Collisions and groundings. The same voyages,
+[[CLICK]] KystRisk. Accident risk. Collisions and groundings. The same voyages,
 a different question.
 
-Click. And here's the point for those of you who build systems. The
+[[CLICK]] And here's the point for those of you who build systems. The
 predecessor, Havbase, did everything in one model. One big black box. Now
 we have one source, and many models on top. MarTraf's output is a product
 others can build on.
@@ -967,22 +1004,22 @@ is Kystverket's move to own the assumptions and the calculations themselves.
 
 Now we follow our ship.
 
-Click. It's at berth in Bergen. It's 22:40. Zero knots. The AIS transmits
+[[CLICK]] It's at berth in Bergen. It's 22:40. Zero knots. The AIS transmits
 every three minutes, because the ship is standing still.
 
-Click. Then it casts off and maneuvers out the Byfjorden. Under three knots.
+[[CLICK]] Then it casts off and maneuvers out the Byfjorden. Under three knots.
 Now it transmits more often.
 
-Click. And then it sets course north. Cruising. Nine knots. And at 03:14 it
+[[CLICK]] And then it sets course north. Cruising. Nine knots. And at 03:14 it
 passes Stad, in a gale, and sends the message we started with. One point out
 of thousands.
 
-Click. Off Ålesund, there's no berth available yet. So it anchors. 0.2
+[[CLICK]] Off Ålesund, there's no berth available yet. So it anchors. 0.2
 knots, drifting a little around the anchor.
 
-Click. And at 09:15 it's at berth in Ålesund.
+[[CLICK]] And at 09:15 it's at berth in Ålesund.
 
-Click. Around 3,800 AIS points have become one voyage. Port to port. And
+[[CLICK]] Around 3,800 AIS points have become one voyage. Port to port. And
 every point has been given a phase. Without the phases, everything is just
 "a ship." With them, we know what the ship was doing at every single point.
 And that's the difference between noise and knowledge.
@@ -1017,99 +1054,121 @@ That's the whole joke. Back to the model.
 
 MarTraf is what does this job. Databricks, PySpark. Five steps.
 
-Click. Geographic enrichment. Every point learns where it is relative to
+[[CLICK]] Geographic enrichment. Every point learns where it is relative to
 ports, the coastline, anchoring areas, and oil installations.
 
-Click. Operational phase. Eleven phases, set with rules on distance and
+[[CLICK]] Operational phase. Eleven phases, set with rules on distance and
 speed. What you saw on the previous slide.
 
-Click. Voyage segments. Continuous sequences where the ship is either
+[[CLICK]] Voyage segments. Continuous sequences where the ship is either
 underway or not. And an important rule: never shorter than five minutes.
 Why? Because the speed flickers around the threshold, and without that rule
 you get hundreds of meaningless little segments.
 
-Click. Complete voyages, port to port. With handling of gaps in the signal,
+[[CLICK]] Complete voyages, port to port. With handling of gaps in the signal,
 because if we lose the ship for ten minutes, it shouldn't become two
 voyages.
 
-Click. And traffic type. Domestic, to or from abroad, or transit. That
+[[CLICK]] And traffic type. Domestic, to or from abroad, or transit. That
 becomes important for the climate accounts.
 
 ## martraf-valg – The choices that make it possible
 
 Two technical choices I want to dwell on, because you're developers.
 
-Click. H3 indexing. That's the built-in geospatial functions in Databricks.
+[[CLICK]] H3 indexing. That's the built-in geospatial functions in Databricks.
 The world is divided into hexagons, and spatial joins get fast. But you
 don't get exact distance. Two points are either in the same hexagon or N
 cells apart. At resolution eight, "one cell away" is around eleven hundred
 meters. In practice between six hundred and sixteen hundred, depending on
 where in the hexagon you are.
 
-Click. And that loss of precision is accepted with open eyes. The model only
+[[CLICK]] And that loss of precision is accepted with open eyes. The model only
 needs to know inside or outside a threshold. Not which object is closest.
 It's a good example of performance being a valid architecture criterion, as
 long as you know what you're giving up.
 
+## maru – The maritime emissions model: MarU
+
+So, MarU.
+
+[[CLICK]] A bottom-up model, following the methodology from the IMO's fourth
+greenhouse gas study and ICCT. Python and PySpark. And open source, the
+entire calculation is on GitHub.
+
+[[CLICK]] The main engine is calculated from the propeller law. Auxiliary
+engines and boilers are calculated per operational phase. And now you see
+why we needed the phases from MarTraf. A ship at berth uses its auxiliary
+engine for power and heat, not the main engine. Without the phase, we
+would've calculated wrong.
+
+[[CLICK]] Around 330 input variables. Emission factors, low-load adjustments,
+sulfur limits per emission control area, GWP factors. That's a lot of knobs.
+
+[[CLICK]] And the ship registry. Five sources merged, with versioning of
+everything that changes. S&P, ShipInfo, SafeSeaNet, NOR and NIS, and the
+fishing vessel register. Because a ship changes name, owner, and engine over
+its lifetime.
+
+## maru-hvorfor – How was it done earlier?
+
+So how was it done earlier?
+
+[[CLICK]] Sales figures. Statistics Norway calculates emissions from domestic
+shipping based on how much fuel was sold.
+
+[[CLICK]] But vessels bunker abroad and sail here. And they bunker here and
+sail out. Sales figures describe where the fuel was bought. Not where it was
+burned.
+
+[[CLICK]] MarU flips it. Calculate from observed activity instead. And separate
+domestic from to-and-from-abroad and transit. Then you know what actually
+happened in Norwegian waters.
+
+[[CLICK]] And then the 2016 story, one more time, because now it carries more
+weight. The time series starts in 2016. We built out many new base stations
+in 2015, and better coverage would've looked like growth in emissions. A
+change in the collection propagates all the way out into the statistics.
+That's why you need metadata and data contracts. Not just numbers.
+
 ## propellloven – The propeller law
 
-Now we get to emissions. And the core of the entire emissions model is an
-equation simple enough to say out loud.
+And the core of the entire emissions model is an equation simple enough to
+say out loud.
 
 Load equals speed divided by service speed, cubed. The propeller law.
 
-Click. And think about what cubed means. Double the speed, and you need
+[[CLICK]] And think about what cubed means. Double the speed, and you need
 eight times the power. Eight times. That's why shipping companies slow down
 when fuel gets expensive. That's why a ship doing nine knots instead of
 twelve saves enormously.
 
-Click. Then we multiply by installed power, a factor of 0.85, and the time
+[[CLICK]] Then we multiply by installed power, a factor of 0.85, and the time
 since the previous AIS message.
 
-Click. And here's the sentence I want you to remember from this entire talk:
+[[CLICK]] And here's the sentence I want you to remember from this entire talk:
 every AIS point becomes an emissions calculation.
 
 That's why one hundred million rows a day isn't bragging. It's a consequence
 of the method. If you want to calculate emissions per point, you need every
 point.
 
-## maru – The maritime emissions model: MarU
-
-So, MarU.
-
-Click. A bottom-up model, following the methodology from the IMO's fourth
-greenhouse gas study and ICCT. Python and PySpark. And open source, the
-entire calculation is on GitHub.
-
-Click. The main engine is calculated from the propeller law. Auxiliary
-engines and boilers are calculated per operational phase. And now you see
-why we needed the phases from MarTraf. A ship at berth uses its auxiliary
-engine for power and heat, not the main engine. Without the phase, we
-would've calculated wrong.
-
-Click. Around 330 input variables. Emission factors, low-load adjustments,
-sulfur limits per emission control area, GWP factors. That's a lot of knobs.
-
-Click. And the ship registry. Four sources merged, with versioning of
-everything that changes. Because a ship changes name, owner, and engine over
-its lifetime.
-
 ## maru-hull – ML as a data quality tool
 
 And now the honest part.
 
-Click. The ship registries are full of holes. Especially for the small
+[[CLICK]] The ship registries are full of holes. Especially for the small
 vessels. We know the ship exists, but not which engine it has, or how fast
 it's actually designed to go.
 
-Click. The easiest gaps we fill with median values per ship type and length
+[[CLICK]] The easiest gaps we fill with median values per ship type and length
 interval, with at least six observations per group.
 
-Click. The harder ones we fill with neural networks. Service speed, RPM, and
+[[CLICK]] The harder ones we fill with neural networks. Service speed, RPM, and
 stroke type. The RPM even has its own loss function on relative error, to
 avoid overfitting on high-RPM engines.
 
-Click. And the number that surprised me: around seventy percent of the
+[[CLICK]] And the number that surprised me: around seventy percent of the
 vessels in Norwegian waters in 2022 and 2023 were missing fuel type in the
 registries. Seventy percent. It's filled in following the IMO's method.
 
@@ -1117,22 +1176,22 @@ The point: machine learning is used here as a data quality tool. Not as an
 AI feature to show off on the front page. As a tool to fill gaps. And it
 might be the most useful use of ML I've seen.
 
-Click. And it's all open. github.com/Kystverket/maru. You can read the
+[[CLICK]] And it's all open. github.com/Kystverket/maru. You can read the
 entire calculation in the break.
 
 ## maru-ut – What comes out?
 
 So what comes out the other end?
 
-Click. Emissions. CO2 and CO2 equivalents, methane, NOx, SOx, particulate
+[[CLICK]] Emissions. CO2 and CO2 equivalents, methane, NOx, SOx, particulate
 matter. Plus energy demand, fuel consumption, distance, and operating hours.
 
-Click. Broken down by fourteen ship types and nine sizes. Those under 5,000
+[[CLICK]] Broken down by fourteen ship types and nine sizes. Those under 5,000
 gross tons are split more finely than before, because Norwegian waters have
 a lot of small vessels.
 
-Click. Geographically: municipality, county, sea area. Click. Energy demand
-and shore power, which the predecessor didn't include at all. Click. And
+[[CLICK]] Geographically: municipality, county, sea area. [[CLICK]] Energy demand
+and shore power, which the predecessor didn't include at all. [[CLICK]] And
 domestic, international, transit.
 
 And that means you can ask questions like this: how much CO2 do the biggest
@@ -1143,28 +1202,6 @@ And then the big one: the Norwegian Environment Agency is planning to use
 the MarU figures in the climate accounts for the municipalities. The
 platform ends up in official statistics. The message from our ship off Stad
 ends up in the climate accounts of Stad municipality.
-
-## maru-hvorfor – Why not just use sales numbers?
-
-Now someone might ask: why make this so complicated? We know how much fuel
-is sold.
-
-Click. Yes. And that's how it's been done. Statistics Norway calculates
-emissions from domestic shipping based on sales figures from fuel sellers.
-
-Click. But vessels bunker abroad and sail here. And they bunker here and
-sail out. Sales figures describe where the fuel was bought. Not where it was
-burned.
-
-Click. MarU flips it. Calculate from observed activity instead. And separate
-domestic from to-and-from-abroad and transit. Then you know what actually
-happened in Norwegian waters.
-
-Click. And then the 2016 story, one more time, because now it carries more
-weight. The time series starts in 2016. We built out many new base stations
-in 2015, and better coverage would've looked like growth in emissions. A
-change in the collection propagates all the way out into the statistics.
-That's why you need metadata and data contracts. Not just numbers.
 
 ## veien-videre – The road ahead
 
@@ -1181,10 +1218,10 @@ The catalog structure is classic medallion. Three catalogs in Unity Catalog.
 Bronze with raw messages. Silver with cleaned and enriched data. Gold with
 tracks, voyages, and emissions, ready to use.
 
-Click. And the data products we deliver today all come out of gold. AIS
+[[CLICK]] And the data products we deliver today all come out of gold. AIS
 tracks, MarTraf, MarU, HAIS.
 
-Click. This works fine as long as everything is AIS. But over the next year,
+[[CLICK]] This works fine as long as everything is AIS. But over the next year,
 more domains are coming in. Customs. HR and finance. Predictive maintenance
 of lighthouses. And then one shared bronze, silver, gold won't hold. Who
 owns what? Who pays? Who answers when something breaks? That requires
@@ -1199,22 +1236,22 @@ Point to the left side. One catalog per domain. Customs, AIS, HR and
 finance, predictive maintenance. Each domain has its own bronze, silver,
 gold inside. Its own team. Its own cost center. Its own stewardship.
 
-Click. When a domain wants to share something, it writes a data contract.
+[[CLICK]] When a domain wants to share something, it writes a data contract.
 Open Data Contract Standard, a YAML file with id, owner, schema, and quality
 requirements. And the contract is owned by the domain. Not by the platform
 team.
 
-Click. The contract is pushed to one central repo. Pull request. CI
+[[CLICK]] The contract is pushed to one central repo. Pull request. CI
 validates the contract against the gold table it points to.
 
-Click. And then the part that makes this scale: CI automatically creates a
+[[CLICK]] And then the part that makes this scale: CI automatically creates a
 view in the central data product catalog. No manual ordering. No copying of
 data. The view points straight at the domain's gold table.
 
-Click. The same pattern for every domain. Consumers only need to know one
+[[CLICK]] The same pattern for every domain. Consumers only need to know one
 catalog, no matter how many domains sit behind it.
 
-Click. Data split by domain. Clear ownership, clear cost center, clear
+[[CLICK]] Data split by domain. Clear ownership, clear cost center, clear
 stewardship. This is the data contract and governance chapter from earlier,
 put into a system.
 
@@ -1222,17 +1259,17 @@ put into a system.
 
 Three things we get with domain catalogs.
 
-Click. Ownership. The domain owns its data and the contract that describes
+[[CLICK]] Ownership. The domain owns its data and the contract that describes
 it. Not "IT."
 
-Click. Cost center. Each catalog has its own storage and its own bill. We
+[[CLICK]] Cost center. Each catalog has its own storage and its own bill. We
 can actually answer what the customs data costs. That's rarer than you
 think.
 
-Click. Stewardship. It's clear who answers when something breaks, and who
+[[CLICK]] Stewardship. It's clear who answers when something breaks, and who
 has to give notice when the contract changes.
 
-Click. And for consumers, nothing changes. You still find the data products
+[[CLICK]] And for consumers, nothing changes. You still find the data products
 in one place.
 
 ## videre-liste – What we want to achieve
@@ -1241,18 +1278,18 @@ And then what we want to achieve. We work in batch. Not real time. So this
 is not about emergency alerts. It's about getting more of what we already
 have onto the platform, and using it.
 
-Click. More of Kystverkets own data in. Kystdatahuset has around 130
+[[CLICK]] More of Kystverkets own data in. Kystdatahuset has around 130
 datasets. Voyages. Things we already collect, that aren't on the platform
 yet. The next job is to bring them in.
 
-Click. Customs analysis. Another domain coming in. Declarations next to
+[[CLICK]] Customs analysis. Another domain coming in. Declarations next to
 AIS and voyages. What actually moved, not just where the ship was.
 
-Click. Predictive maintenance on the lighthouses. The ones that keep the
+[[CLICK]] Predictive maintenance on the lighthouses. The ones that keep the
 coast lit. Sensors, history, when to send a boat out. Not when a light has
 already gone dark.
 
-Click. And faster, better organization. Clearer ownership. Less waiting.
+[[CLICK]] And faster, better organization. Clearer ownership. Less waiting.
 The platform as a way of working, not just a place to put tables.
 
 But before we wrap up, we're going back to our ship.
@@ -1266,11 +1303,11 @@ It's 03:14.
 Our ship is passing Stad. A gale, darkness, one man on the bridge with a cup
 of coffee. And every ten seconds, a little message goes out into the dark.
 
-Click. In a year, it's in the climate accounts of a municipality. Together
+[[CLICK]] In a year, it's in the climate accounts of a municipality. Together
 with a hundred million other messages. Which together tell how Norway
-actually uses the sea route.
+actually uses the coastline.
 
-Click. And nobody on board knows. They just sail.
+[[CLICK]] And nobody on board knows. They just sail.
 
 That's what a data platform is. Not Databricks, not Azure, not Delta tables.
 It's the path from one little signal in the dark to something a human can

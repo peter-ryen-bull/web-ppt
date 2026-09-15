@@ -1,3 +1,4 @@
+import { useStep } from "@/components/steps";
 import {
   Bolger,
   DUS,
@@ -115,27 +116,38 @@ export function HexRing() {
 
 /** Propell som går rundt – propellloven */
 export function Propell() {
-  const cx = 130;
-  const cy = 60;
+  const cx = 180;
+  const cy = 168;
   const blad =
-    "M 0 -10 C 14 -26 22 -42 10 -54 C -2 -58 -11 -42 -7 -28 C -5 -20 -3 -14 0 -10 Z";
+    "M 0 -18 C 26 -32 42 -78 18 -128 C 8 -138 -8 -138 -18 -128 C -42 -78 -26 -32 0 -18 Z";
   return (
-    <Figur w={260} h={130} label="Propeller spinning">
+    <Figur w={360} h={360} label="Propeller spinning">
+      <circle cx={cx} cy={cy} r={138} strokeWidth={1.6} opacity={0.22} />
       <Roter cx={cx} cy={cy} dur={6}>
         {[0, 120, 240].map((g) => (
-          <path key={g} d={blad} transform={`translate(${cx} ${cy}) rotate(${g})`} fill={KREM} strokeWidth={2.4} />
+          <path
+            key={g}
+            d={blad}
+            transform={`translate(${cx} ${cy}) rotate(${g})`}
+            fill="rgba(0, 64, 71, 0.14)"
+            strokeWidth={2.6}
+          />
         ))}
       </Roter>
-      <circle cx={cx} cy={cy} r={10} fill={KREM} strokeWidth={2.4} />
-      <Tekst x={cx} y={124} size={12.5}>
-        load factor ∝ (speed / service speed)³
-      </Tekst>
+      <circle cx={cx} cy={cy} r={26} fill={KREM} strokeWidth={2.6} />
+      <circle cx={cx} cy={cy} r={8} fill={KREM} strokeWidth={2} />
     </Figur>
   );
 }
 
-/** Utslippssøyler som vokser opp når sliden vises */
-export function Soyler() {
+/**
+ * Utslippssøyler som vokser opp fra null når klikk-steget `at` er nådd.
+ * CSS-transform (scaleY) i stedet for SMIL, så animasjonen starter idet
+ * søylene faktisk vises – ikke idet sliden monteres.
+ */
+export function Soyler({ at = 0 }: { at?: number }) {
+  const steg = useStep();
+  const vist = steg >= at;
   const data: { navn: string; h: number }[] = [
     { navn: "CO₂", h: 116 },
     { navn: "CH₄", h: 38 },
@@ -151,30 +163,21 @@ export function Soyler() {
         const cx = 70 + i * 110;
         return (
           <g key={d.navn}>
-            <rect x={cx - 22} y={base - d.h} width={44} height={d.h} rx={3} fill={i === 0 ? ROD : TEAL} stroke="none">
-              <animate
-                attributeName="height"
-                from="0"
-                to={d.h}
-                dur="1.4s"
-                begin={`${i * 0.15}s`}
-                fill="freeze"
-                calcMode="spline"
-                keySplines="0.2 0 0.2 1"
-                keyTimes="0; 1"
-              />
-              <animate
-                attributeName="y"
-                from={base}
-                to={base - d.h}
-                dur="1.4s"
-                begin={`${i * 0.15}s`}
-                fill="freeze"
-                calcMode="spline"
-                keySplines="0.2 0 0.2 1"
-                keyTimes="0; 1"
-              />
-            </rect>
+            <rect
+              x={cx - 22}
+              y={base - d.h}
+              width={44}
+              height={d.h}
+              rx={3}
+              fill={i === 0 ? ROD : TEAL}
+              stroke="none"
+              style={{
+                transform: vist ? "scaleY(1)" : "scaleY(0)",
+                transformBox: "fill-box",
+                transformOrigin: "center bottom",
+                transition: `transform 1.1s cubic-bezier(0.2, 0, 0.2, 1) ${(i * 0.15).toFixed(2)}s`,
+              }}
+            />
             <Tekst x={cx} y={base + 24} size={13.5} color={STREK}>
               {d.navn}
             </Tekst>

@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import path from "path";
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import { replaceNoteSection, upsertNoteSection } from "@/presentations/notes";
 
 const SAFE_ID = /^[a-zA-Z0-9][a-zA-Z0-9_-]*$/;
@@ -55,7 +55,11 @@ function headingIds(
 
 function writeNotes(file: string, contents: string): string {
   mkdirSync(path.dirname(file), { recursive: true });
-  writeFileSync(file, contents, "utf8");
+  // Write after the HTTP response so webpack's reload of notes.md
+  // cannot abort the request the presenter is still waiting on.
+  after(() => {
+    writeFileSync(file, contents, "utf8");
+  });
   return path.relative(process.cwd(), file);
 }
 

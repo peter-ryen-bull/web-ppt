@@ -1,4 +1,6 @@
 import { Box, ChapterSlide, Reveal, pt, useRevealStyle } from "../parts";
+
+const MEDIA = "/media/26-ndc-kystverket";
 import {
   DataplattformFlyt,
   DataplattformFlytDetaljert,
@@ -25,13 +27,137 @@ import {
 
 /* Kapittel: Hvorfor bygger alle dataplattform? */
 export function SlideHvaEr() {
+  const sitat = useRevealStyle(1);
   return (
-    <ChapterSlide
-      title="Why is everyone building data platforms?"
-      subtitle="The foundation under everything that uses data"
-      titleSize={54}
-      showLogo={false}
-    />
+    <>
+      <Box
+        box={[81.5, 226, 1117.1, 268]}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(54),
+            lineHeight: 1.1,
+            color: "var(--burgundy)",
+            textAlign: "center",
+            width: "100%",
+          }}
+        >
+          Why is everyone building data platforms?
+        </div>
+      </Box>
+      <Box
+        box={[120, 500, 1040, 90]}
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontWeight: 500,
+            fontSize: pt(22),
+            lineHeight: 1.35,
+            color: "var(--red)",
+            textAlign: "center",
+            ...sitat,
+          }}
+        >
+          Data is becoming more and more valuable.
+        </div>
+      </Box>
+    </>
+  );
+}
+
+/* Reid Hoffman: alt er målbart – og det blir rot uten styring */
+export function SlideReidHoffman() {
+  const pitch = useRevealStyle(1);
+  return (
+    <>
+      <Box
+        box={[688.8, 63, 528.8, 560]}
+        style={{ overflow: "hidden", borderRadius: 8 }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`${MEDIA}/reid-hoffman.jpg`}
+          alt="Reid Hoffman"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "50% 12%",
+          }}
+        />
+      </Box>
+      <Box box={[688.8, 636, 528.8, 40]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(15),
+            lineHeight: 1.3,
+            color: "var(--burgundy-2)",
+          }}
+        >
+          Reid Hoffman. Co-founder of LinkedIn.
+        </div>
+      </Box>
+      <Box
+        box={[66, 140, 580, 300]}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          gap: 22,
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(32),
+            lineHeight: 1.25,
+            color: "var(--burgundy)",
+          }}
+        >
+          &ldquo;In the world of data, everything is measurable, and everything is
+          knowable.&rdquo;
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(16),
+            color: "var(--burgundy-2)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          — Reid Hoffman
+        </div>
+      </Box>
+      <Box box={[66, 470, 580, 140]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontWeight: 500,
+            fontSize: pt(20),
+            lineHeight: 1.4,
+            color: "var(--red)",
+            ...pitch,
+          }}
+        >
+          That becomes very valuable.
+          <br />
+          And messy if you don&apos;t handle it properly.
+        </div>
+      </Box>
+    </>
   );
 }
 

@@ -73,7 +73,7 @@ Bottom-up-modell basert på metodikk fra IMOs **fjerde GHG-studie (2020)** og **
 Python/PySpark, kildekoden er åpen på GitHub (`Kystverket/maru`).
 
 Inputmoduler: AIS-data fra MarTraf, skipsregister (S&P Global / IHS Markit, ShipInfo, SafeSeaNet,
-NOR- og NIS-registrene), geografi, og ca. **330 utslippsspesifikke inputvariabler** (utslippsfaktorer,
+NOR- og NIS-registrene, Fiskeridirektoratets fartøysregister), geografi, og ca. **330 utslippsspesifikke inputvariabler** (utslippsfaktorer,
 lavlast-justeringer, svovelgrenser per ECA, GWP-faktorer).
 
 ### Kjerneregnestykket

@@ -14,7 +14,7 @@ export function SlideEffekter() {
     <>
       <ChapterSlide
         title="What do you get out of it?"
-        subtitle="Four effects, with examples from the sea route"
+        subtitle="Four effects, with examples from the coastline"
       />
       <Box box={[140, 60, 1000, 150]}>
         <EffektRad />

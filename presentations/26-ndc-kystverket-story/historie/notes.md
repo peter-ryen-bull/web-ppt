@@ -8,16 +8,25 @@ The constant that repeats through the whole presentation:
 “More people want to ask more questions of more data – faster.”
 
 ## forside – The story of the data platform
-Opening: “Data platform sounds like a fad. It isn't.
-It's just the latest answer to a 60-year-old problem.”
 
-Promise the audience one thing: after this half hour you'll understand WHY
-today's platforms look the way they do – not just how.
+
+
+Data platform sounds like a fad. It isn't.
+It's just the latest answer to a 60-year-old problem.
+That we have been trying to solve in different ways for a very long time
 
 ## tidslinje – Five phases, one problem
-Quick flyover: 1970 the database, 1988 the data warehouse, 2006 big data,
+
+
+1970 the database, 
+
+1988 the data warehouse, 
+
+2006 big data,
 2010 the data lake, 2012 the cloud, 2020 the lakehouse. Don't dwell – we'll
-go through each of them. Point out that the gaps between the jumps are
+go through each of them. 
+
+Point out that the gaps between the jumps are
 shrinking: the technology shifts come closer and closer together.
 
 ## moensteret – The pattern that drives the story

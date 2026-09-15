@@ -1,4 +1,5 @@
 import { Box, BulletItem, Img, Reveal, pt, useRevealStyle } from "../parts";
+import { useStep } from "@/components/steps";
 import { BaatSignal } from "@/components/figures/BaatSignal";
 import { Meldingsfyll } from "@/components/figures/strek";
 
@@ -245,7 +246,7 @@ export function SlideForside() {
           100 million rows a day
           <br />
           <span style={{ color: "var(--red)" }}>
-            The story of the data platform behind the sea route
+            The story of the data platform behind the coastline
           </span>
         </div>
       </Box>
@@ -258,15 +259,67 @@ export function SlideForside() {
   );
 }
 
+const PETER_FOTO: [number, number, number, number] = [688.8, 63, 528.8, 594];
+
+function FotoOverlay({
+  at,
+  src,
+  alt,
+  position = "center",
+}: {
+  at: number;
+  src: string;
+  alt: string;
+  position?: string;
+}) {
+  const step = useStep();
+  const shown = step >= at;
+  return (
+    <Box
+      box={PETER_FOTO}
+      style={{
+        overflow: "hidden",
+        opacity: shown ? 1 : 0,
+        transition: "opacity 260ms ease",
+        pointerEvents: shown ? undefined : "none",
+      }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt={alt}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: position,
+        }}
+      />
+    </Box>
+  );
+}
+
 /* Slide 6 – Om Peter (layout "Side med tekst og bilde") */
 export function SlideOmPeter() {
   return (
     <>
       <Img
-        box={[688.8, 63, 528.8, 594]}
+        box={PETER_FOTO}
         src={`${MEDIA}/peter.jpeg`}
         alt="Peter Bull"
         fit="cover"
+      />
+      <FotoOverlay
+        at={5}
+        src={`${MEDIA}/peter-bratt.jpg`}
+        alt="Ski touring down a steep line above the coast"
+        position="center 70%"
+      />
+      <FotoOverlay
+        at={6}
+        src={`${MEDIA}/hanna-peter.jpg`}
+        alt="Peter carrying Hanna on his shoulder in the mountains"
+        position="center 45%"
       />
       <Box box={[66.7, 140, 580, 80]}>
         <div
@@ -287,18 +340,14 @@ export function SlideOmPeter() {
           gap: 22,
         }}
       >
-        <BulletItem at={1}>Data platform developer at Miles</BulletItem>
+        <BulletItem at={1}>
+          Designs data platforms for large organizations
+        </BulletItem>
         <BulletItem at={2}>
-          Designs data architecture for large organizations
-        </BulletItem>
-        <BulletItem at={3}>
-          Building the data platform for the Norwegian Coastal Administration.
-          Has built for both the public and private sector
-        </BulletItem>
-        <BulletItem at={4}>
           Previously tech lead for the data platform for the Norwegian Police
         </BulletItem>
-        <BulletItem at={5}>Azure, Databricks, Terraform</BulletItem>
+        <BulletItem at={3}>Azure, Databricks, Terraform</BulletItem>
+        <BulletItem at={4}>Rock climber and backcountry skiier</BulletItem>
       </Box>
     </>
   );

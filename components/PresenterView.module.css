@@ -91,7 +91,7 @@
 .main {
   flex: 1;
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  grid-template-columns: minmax(0, 2fr) minmax(336px, 1.2fr);
   gap: 14px;
   padding: 14px 18px;
   min-height: 0;
@@ -141,7 +141,7 @@
 .nextStage {
   position: relative;
   aspect-ratio: 16 / 9;
-  width: 100%;
+  width: 67%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -169,7 +169,7 @@
   border: 1px solid rgba(251, 240, 229, 0.15);
   border-radius: 10px;
   padding: 14px 16px;
-  font-size: 16.5px;
+  font-size: 20px;
   line-height: 1.55;
   white-space: pre-wrap;
   min-height: 80px;
@@ -186,7 +186,7 @@
   padding: 14px 16px;
   color: inherit;
   font: inherit;
-  font-size: 16.5px;
+  font-size: 20px;
   line-height: 1.55;
   white-space: pre-wrap;
 }
@@ -203,6 +203,44 @@
   font-style: italic;
 }
 
+.fontSizeControls {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fontSizeBtn {
+  background: transparent;
+  border: 1px solid rgba(251, 240, 229, 0.35);
+  color: var(--cream);
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1;
+  font-family: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.fontSizeBtn:hover {
+  background: rgba(251, 240, 229, 0.12);
+}
+
+.fontSizeValue {
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.7;
+  min-width: 18px;
+  text-align: center;
+  text-transform: none;
+  letter-spacing: normal;
+  font-variant-numeric: tabular-nums;
+}
+
 .notesStatus {
   font-size: 11px;
   font-weight: 500;
@@ -214,6 +252,11 @@
 
 .notesStatusError {
   color: var(--red);
+  opacity: 1;
+}
+
+.notesStatusSaved {
+  color: var(--green, #3fb96f);
   opacity: 1;
 }
 

@@ -1,4 +1,12 @@
-import { Box, BulletList, ChapterSlide, Img, Reveal, pt, useRevealStyle } from "../parts";
+import {
+  Box,
+  BulletList,
+  ChapterSlide,
+  Img,
+  Reveal,
+  pt,
+  useRevealStyle,
+} from "../parts";
 import { BaatSignal } from "@/components/figures/BaatSignal";
 import {
   AisKjede,
@@ -92,12 +100,65 @@ const NCA_OMRADER: {
   {
     ikon: "kart",
     tittel: "Transport, ports and fairways",
-    tekst: "The physical sea route. Harbors and channels.",
+    tekst: "The physical coastline. Harbors and channels.",
   },
 ];
 
+function OmradeKort({
+  at,
+  ikon,
+  tittel,
+  tekst,
+}: {
+  at: number;
+  ikon: IkonNavn;
+  tittel: string;
+  tekst: string;
+}) {
+  const reveal = useRevealStyle(at);
+  return (
+    <div
+      style={{
+        background: "#fff",
+        border: "1.5px solid var(--cream-dark)",
+        borderRadius: 14,
+        padding: "26px 28px",
+        display: "flex",
+        flexDirection: "column",
+        gap: 10,
+        boxSizing: "border-box",
+        height: "100%",
+        ...reveal,
+      }}
+    >
+      <StrekIkon navn={ikon} size={34} color="var(--teal)" strokeWidth={1.6} />
+      <div
+        style={{
+          fontFamily: "var(--font-serif)",
+          fontSize: pt(22),
+          lineHeight: 1.2,
+          color: "var(--burgundy)",
+        }}
+      >
+        {tittel}
+      </div>
+      <div
+        style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: pt(16),
+          lineHeight: 1.35,
+          color: "var(--burgundy-2)",
+        }}
+      >
+        {tekst}
+      </div>
+    </div>
+  );
+}
+
 export function SlideOppdrag() {
-  const omradene = useRevealStyle(1);
+  const spoersmaalIntro = useRevealStyle(5);
+  const spoersmaal = useRevealStyle(6);
 
   return (
     <>
@@ -129,70 +190,35 @@ export function SlideOppdrag() {
         </div>
       </Box>
       <Box
-        box={[66, 200, 1148, 360]}
+        box={[66, 188, 1148, 400]}
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
-          columnGap: 72,
-          rowGap: 48,
-          ...omradene,
+          columnGap: 20,
+          rowGap: 20,
         }}
       >
-        {NCA_OMRADER.map((o) => (
-          <div
-            key={o.tittel}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 10,
-            }}
-          >
-            <StrekIkon
-              navn={o.ikon}
-              size={34}
-              color="var(--teal)"
-              strokeWidth={1.6}
-            />
-            <div
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: pt(24),
-                lineHeight: 1.2,
-                color: "var(--burgundy)",
-              }}
-            >
-              {o.tittel}
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: pt(17),
-                lineHeight: 1.35,
-                color: "var(--burgundy-2)",
-              }}
-            >
-              {o.tekst}
-            </div>
-          </div>
+        {NCA_OMRADER.map((o, i) => (
+          <OmradeKort key={o.tittel} at={i + 1} {...o} />
         ))}
       </Box>
-      <Reveal at={2}>
-        <Box
-          box={[66, 610, 1150, 60]}
-          style={{ display: "flex", alignItems: "center" }}
+      <Box
+        box={[66, 610, 1150, 60]}
+        style={{ display: "flex", alignItems: "center" }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(18),
+            color: "var(--red)",
+          }}
         >
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(18),
-              color: "var(--red)",
-            }}
-          >
-            All four start with the same question: where are the ships right
-            now?
-          </div>
-        </Box>
-      </Reveal>
+          <span style={spoersmaalIntro}>
+            All four start with the same question:
+          </span>
+          <span style={spoersmaal}> where are the ships right now?</span>
+        </div>
+      </Box>
     </>
   );
 }
@@ -260,7 +286,7 @@ export function SlideLyttepostene() {
       </Box>
       {tall(1, 80, "~90", "base stations", "var(--teal)", "base")}
       {tall(2, 460, "4", "satellites", "var(--teal)", "satellitt")}
-      {tall(3, 840, "8.9 bn", "messages in 2021", "var(--red)", "meldinger")}
+      {tall(3, 840, "100M", "messages a day", "var(--red)", "meldinger")}
       <Reveal at={4}>
         <Box
           box={[120, 500, 1040, 80]}
@@ -290,7 +316,7 @@ export function SlideLyttepostene() {
 export function SlideAis() {
   return (
     <>
-      <Box box={[66.7, 70, 720, 80]}>
+      <Box box={[66.7, 48, 720, 80]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
@@ -301,14 +327,11 @@ export function SlideAis() {
           AIS: built to avoid collisions
         </div>
       </Box>
-      <Box box={[800, 200, 420, 150]}>
-        <AisKjede />
-      </Box>
-      <Box box={[800, 380, 420, 170]}>
+      <Box box={[850, 28, 390, 390]}>
         <Skipsradar />
       </Box>
       <BulletList
-        box={[72.4, 220, 700, 360]}
+        box={[72.4, 160, 700, 280]}
         fromStep={1}
         gap={36}
         items={[
@@ -317,6 +340,9 @@ export function SlideAis() {
           "Built for collisions. Became the backbone.",
         ]}
       />
+      <Box box={[0, 470, 1280, 250]}>
+        <AisKjede />
+      </Box>
     </>
   );
 }
@@ -336,7 +362,7 @@ export function SlideSporsmalet() {
           }}
         >
           <div style={{ color: "var(--burgundy)" }}>
-            So you&apos;ve got 8.9 billion messages a year.
+            So you&apos;ve got 100 million messages a day.
           </div>
           <div style={{ color: "var(--red)", marginTop: 20, ...linje2 }}>
             How do you process them all?

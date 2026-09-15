@@ -349,91 +349,33 @@ export function SlideAsukaHvem() {
 export function SlidePropellloven() {
   return (
     <>
-      <SlideTitle width={760}>The propeller law</SlideTitle>
-      <Box box={[960, 36, 260, 130]}>
-        <Propell />
-      </Box>
-      <Box
-        box={[90, 220, 1100, 110]}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <SlideTitle>The propeller law</SlideTitle>
+      <Box box={[72.4, 196, 760, 40]}>
         <div
           style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(46),
-            color: "var(--burgundy)",
-            whiteSpace: "nowrap",
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(17),
+            color: "var(--red)",
           }}
         >
           load = (speed / service speed)
-          <sup style={{ fontSize: pt(28), color: "var(--red)" }}>3</sup>
+          <sup style={{ fontSize: "0.8em" }}>3</sup>
         </div>
       </Box>
-      <Reveal at={1}>
-        <Box
-          box={[90, 345, 1100, 60]}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(22),
-              color: "var(--red)",
-            }}
-          >
-            Double the speed, and you need eight times the power.
-          </div>
-        </Box>
-      </Reveal>
-      <Reveal at={2}>
-        <Box
-          box={[90, 430, 1100, 60]}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(19),
-              color: "var(--burgundy-2)",
-            }}
-          >
-            × installed power × 0.85 × the time since the last AIS message
-          </div>
-        </Box>
-      </Reveal>
-      <Reveal at={3}>
-        <Box
-          box={[90, 530, 1100, 80]}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: pt(30),
-              color: "var(--burgundy)",
-              textAlign: "center",
-            }}
-          >
-            Every AIS point becomes an emissions calculation.
-          </div>
-        </Box>
-      </Reveal>
+      <Box box={[880, 200, 360, 360]}>
+        <Propell />
+      </Box>
+      <BulletList
+        box={[72.4, 260, 760, 380]}
+        fromStep={1}
+        size={20}
+        gap={32}
+        items={[
+          "Double the speed, and you need eight times the power.",
+          "Multiply by installed power, 0.85, and elapsed time.",
+          "Every AIS point becomes an emissions calculation.",
+        ]}
+      />
     </>
   );
 }
@@ -504,7 +446,7 @@ export function SlideMarU() {
     "Bottom-up. IMO and ICCT. Open source.",
     "Main engine from the propeller law",
     "Around 330 input variables",
-    "One ship registry, four sources, versioned",
+    "One ship registry, five sources, versioned",
   ];
   return (
     <>
@@ -662,7 +604,7 @@ export function SlideMarUUt() {
       </Box>
       <Reveal at={1}>
         <Box box={[40, 480, 560, 180]}>
-          <Soyler />
+          <Soyler at={1} />
         </Box>
       </Reveal>
       {facts.map(({ text, box }, i) => (
@@ -683,7 +625,7 @@ export function SlideMarUUt() {
 export function SlideMarUHvorfor() {
   return (
     <>
-      <SlideTitle>Why not just use sales numbers?</SlideTitle>
+      <SlideTitle>How was it done earlier?</SlideTitle>
       <Reveal at={2}>
         <Box box={[880, 210, 360, 260]}>
           <Bunkring />
