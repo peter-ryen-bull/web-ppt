@@ -24,19 +24,12 @@ import {
 } from "./Domenekataloger";
 
 /*
- * «Hvor vi skal» i fire bilder. Det midterste (kontrakt → repo → view) er
- * HvorViSkal i Domenekataloger.tsx. Her ligger de tre andre:
- *
- * DomenerKilder:   hvert domene henter inn sine egne kilder, og har sin egen
- *                  bronze/silver/gold inne i sin egen katalog.
- * ProduktForbruk:  dataprodukt-katalogen er organisasjonens data. Domenene
- *                  leser hverandres produkter tilbake, konsumenter utenfor
- *                  leser fra samme katalog, og en utforsker-webapp bygget
- *                  på kontraktene i git er måten man finner fram.
- * HelePlattformen: alt sammen, zoomet ut.
+ * «Hvor vi skal» som ett zoomet-ut bilde (HelePlattformen), pluss de tre
+ * delbildene som bygde det opp (DomenerKilder, ProduktForbruk, og
+ * HvorViSkal i Domenekataloger.tsx).
  *
  * Ren SVG (viewBox 1240x640), samme palett og byggeklosser som de andre
- * katalogfigurene.
+ * katalogfigurene. HelePlattformen avslører én del per klikk.
  */
 
 const MINT_DUS = "rgba(120, 232, 219, 0.35)";
@@ -575,7 +568,7 @@ export function ProduktForbruk() {
         y={F_KAT.y}
         w={F_KAT.w}
         h={F_KAT.h}
-        sub="one catalog · every product · as views"
+        sub="consumable quality data"
         rader={VIEWS}
         radH={radH}
         radGap={radGap}
@@ -707,42 +700,74 @@ export function HelePlattformen() {
     >
       <PilDefs id="pil-hel" />
       <PilDefs id="pil-hel-teal" farge={TEAL_LINJE} />
-      <Pill cx={80} text="SOURCES" w={100} />
-      <Pill cx={domMidtX} text="DOMAIN CATALOGS" w={170} />
-      <Pill cx={505} text="CONTRACTS" w={120} />
-      <Pill cx={katMidtX} text="DATA PRODUCTS" w={160} />
-      <Pill cx={H_KONS_X + H_KONS_W / 2} text="CONSUMERS" w={130} />
 
-      {/* Kilder og domener */}
-      {DOMENER_MED_KILDER.map((d, i) => {
-        const y = H_DOM_Y(i);
-        const top = y + 11;
-        const midt = y + H_DOM_H / 2;
-        return (
-          <g key={d.navn}>
-            {d.kilder.map((k, j) => {
-              const ky = y + 8 + j * 38;
-              return (
-                <g key={k.navn}>
-                  <rect x={H_KILDE.x} y={ky} width={H_KILDE.w} height={H_KILDE.h} rx={10} fill="#fff" stroke="var(--cream-dark)" strokeWidth={1.3} />
-                  <g fill="none" stroke="var(--red)" strokeLinecap="round" strokeLinejoin="round">
-                    <IkonI navn={k.ikon} x={H_KILDE.x + 8} y={ky + 7} size={16} strokeWidth={1.7} />
-                  </g>
-                  <text x={H_KILDE.x + 29} y={ky + 18.5} fontFamily="var(--font-sans)" fontSize={8.5} fill="var(--burgundy)">
-                    {k.kort}
-                  </text>
-                </g>
-              );
-            })}
-            <Pil d={`M ${H_KILDE.x + H_KILDE.w + 2} ${midt} H ${H_DOM_X - 4}`} marker="pil-hel" strokeWidth={1.5} />
+      <Steg at={1}>
+        <Pill cx={domMidtX} text="DOMAIN CATALOGS" w={170} />
+      </Steg>
+      <Steg at={2}>
+        <Pill cx={80} text="SOURCES" w={100} />
+      </Steg>
+      <Steg at={4}>
+        <Pill cx={505} text="CONTRACTS" w={120} />
+      </Steg>
+      <Steg at={6}>
+        <Pill cx={katMidtX} text="DATA PRODUCTS" w={160} />
+      </Steg>
+      <Steg at={7}>
+        <Pill cx={H_KONS_X + H_KONS_W / 2} text="CONSUMERS" w={130} />
+      </Steg>
 
-            <Sylinder x={H_DOM_X} y={y} w={H_DOM_W} h={H_DOM_H} ry={11} uthevet={i === 1 && step >= 1}>
+      {/* 1. Domenene */}
+      <Steg at={1}>
+        {DOMENER_MED_KILDER.map((d, i) => {
+          const y = H_DOM_Y(i);
+          const top = y + 11;
+          return (
+            <Sylinder key={d.navn} x={H_DOM_X} y={y} w={H_DOM_W} h={H_DOM_H} ry={11} uthevet={i === 1 && step >= 4}>
               <g fill="none" stroke="var(--mint)" strokeLinecap="round" strokeLinejoin="round">
                 <IkonI navn={d.ikon} x={H_DOM_X + 18} y={top + 18} size={20} strokeWidth={1.7} />
               </g>
               <text x={H_DOM_X + 48} y={top + 33} fontFamily={MONO} fontSize={13.5} fill="var(--cream)">
                 {d.navn}
               </text>
+            </Sylinder>
+          );
+        })}
+      </Steg>
+
+      {/* 2. Kildene inn i domenene */}
+      <Steg at={2}>
+        {DOMENER_MED_KILDER.map((d, i) => {
+          const y = H_DOM_Y(i);
+          const midt = y + H_DOM_H / 2;
+          return (
+            <g key={d.navn}>
+              {d.kilder.map((k, j) => {
+                const ky = y + 8 + j * 38;
+                return (
+                  <g key={k.navn}>
+                    <rect x={H_KILDE.x} y={ky} width={H_KILDE.w} height={H_KILDE.h} rx={10} fill="#fff" stroke="var(--cream-dark)" strokeWidth={1.3} />
+                    <g fill="none" stroke="var(--red)" strokeLinecap="round" strokeLinejoin="round">
+                      <IkonI navn={k.ikon} x={H_KILDE.x + 8} y={ky + 7} size={16} strokeWidth={1.7} />
+                    </g>
+                    <text x={H_KILDE.x + 29} y={ky + 18.5} fontFamily="var(--font-sans)" fontSize={8.5} fill="var(--burgundy)">
+                      {k.kort}
+                    </text>
+                  </g>
+                );
+              })}
+              <Pil d={`M ${H_KILDE.x + H_KILDE.w + 2} ${midt} H ${H_DOM_X - 4}`} marker="pil-hel" strokeWidth={1.5} />
+            </g>
+          );
+        })}
+      </Steg>
+
+      {/* 3. Bronze / silver / gold inne i domenene */}
+      <Steg at={3}>
+        {DOMENER_MED_KILDER.map((d, i) => {
+          const top = H_DOM_Y(i) + 11;
+          return (
+            <g key={d.navn}>
               {LAG.map((lag, j) => (
                 <g key={lag.navn}>
                   <rect x={H_DOM_X + 48 + j * 54} y={top + 46} width={46} height={14} rx={7} fill="rgba(251, 240, 229, 0.08)" stroke={MINT_DUS} strokeWidth={0.8} />
@@ -752,13 +777,13 @@ export function HelePlattformen() {
                   </text>
                 </g>
               ))}
-            </Sylinder>
-          </g>
-        );
-      })}
+            </g>
+          );
+        })}
+      </Steg>
 
-      {/* Kontrakt → repo → CI → katalog */}
-      <Steg at={1}>
+      {/* 4. Kontrakten */}
+      <Steg at={4}>
         <path
           d={`M ${H_DOM_X + H_DOM_W} ${aisY} C 395 ${aisY}, 395 ${H_KTR.y + H_KTR.h / 2}, ${H_KTR.x} ${H_KTR.y + H_KTR.h / 2}`}
           fill="none"
@@ -783,25 +808,30 @@ export function HelePlattformen() {
             </text>
           ))}
         </g>
+      </Steg>
 
+      {/* 5. Git */}
+      <Steg at={5}>
         <Pil d={`M 505 ${H_KTR.y + H_KTR.h + 2} V ${H_REPO.y - 4}`} marker="pil-hel" strokeWidth={1.6} />
         <text x={514} y={H_KTR.y + H_KTR.h + 26} fontFamily={MONO} fontSize={10} fill="var(--red)">
           git push
         </text>
         <RepoBrikke x={H_REPO.x} y={H_REPO.y} w={H_REPO.w} h={H_REPO.h} fontSize={10} ikonSize={18} sub="PR · CI checks" />
+      </Steg>
 
+      {/* 6. Dataprodukter */}
+      <Steg at={6}>
         <Pil d={`M ${H_REPO.x + H_REPO.w + 2} ${H_REPO.y + H_REPO.h / 2} H ${H_KAT.x - 4}`} marker="pil-hel" strokeWidth={1.6} />
         <text x={(H_REPO.x + H_REPO.w + H_KAT.x) / 2} y={H_REPO.y + H_REPO.h / 2 - 8} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={9.5} fill="var(--red)">
           CI → view
         </text>
-
         <ProduktKatalog
           x={H_KAT.x}
           y={H_KAT.y}
           w={H_KAT.w}
           h={H_KAT.h}
           tittelSize={24}
-          sub="one catalog · all products · as views"
+          sub="consumable quality data"
           rader={VIEWS}
           radH={46}
           radGap={10}
@@ -811,8 +841,8 @@ export function HelePlattformen() {
         />
       </Steg>
 
-      {/* Konsumentene, og domenene som leser tilbake */}
-      <Steg at={2}>
+      {/* 7. Konsumentene */}
+      <Steg at={7}>
         {KONSUMENTER.map((k, i) => {
           const y = H_KONS_Y(i);
           const midt = y + H_KONS_H / 2;
@@ -832,7 +862,10 @@ export function HelePlattformen() {
             </g>
           );
         })}
+      </Steg>
 
+      {/* 8. Domenene leser tilbake */}
+      <Steg at={8}>
         <Pil
           d={`M ${katMidtX} ${H_KAT.y + H_KAT.h + 2} V 522 H ${domMidtX} V ${domBunn + 5}`}
           marker="pil-hel-teal"
@@ -845,8 +878,8 @@ export function HelePlattformen() {
         </text>
       </Steg>
 
-      {/* Utforskeren */}
-      <Steg at={3}>
+      {/* 9. Utforskeren */}
+      <Steg at={9}>
         <Pil d={`M 505 ${H_REPO.y + H_REPO.h + 2} V ${H_UTF.y - 4}`} marker="pil-hel" strokeWidth={1.6} />
         <text x={514} y={H_REPO.y + H_REPO.h + 28} fontFamily={MONO} fontSize={10} fill="var(--red)">
           reads
@@ -855,12 +888,6 @@ export function HelePlattformen() {
         <Pil d={`M ${H_UTF.x + H_UTF.w + 2} ${H_UTF.y + H_UTF.h / 2} H ${H_KAT.x - 4}`} marker="pil-hel" strokeWidth={1.6} />
         <text x={(H_UTF.x + H_UTF.w + H_KAT.x) / 2} y={H_UTF.y + H_UTF.h / 2 - 8} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={9.5} fill="var(--red)">
           find → query
-        </text>
-      </Steg>
-
-      <Steg at={4}>
-        <text x={620} y={608} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={15.5} fill="var(--red)">
-          Data split by domain. Contracts in git. One place to find and read everything – inside and outside.
         </text>
       </Steg>
     </svg>

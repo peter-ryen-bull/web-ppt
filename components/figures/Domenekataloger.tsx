@@ -233,11 +233,11 @@ export function HvorViEr() {
       {/* Metastore med tre kataloger */}
       <rect x={325} y={90} width={560} height={470} rx={20} fill="var(--teal)" />
       <text x={605} y={130} textAnchor="middle" fontFamily="var(--font-serif)" fontSize={26} fill="var(--cream)">
-        Unity Catalog
+        Databricks
       </text>
       <rect x={587} y={142} width={36} height={3} rx={1.5} fill="var(--mint)" />
       <text x={605} y={166} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={KREM_DUS}>
-        three catalogs – one domain
+        three databases – one domain
       </text>
 
       {LAG.map((lag, i) => {
@@ -291,7 +291,7 @@ export function HvorViEr() {
 
       <Steg at={2}>
         <text x={620} y={612} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={15.5} fill="var(--red)">
-          Works fine for one domain. Next year come customs, HR and finance – and the lighthouses.
+          Works fine for one domain. AIS is only the first.
         </text>
       </Steg>
     </svg>
@@ -565,7 +565,7 @@ export function HvorViSkal() {
         </text>
         <rect x={1012} y={131} width={36} height={3} rx={1.5} fill="var(--mint)" />
         <text x={1030} y={158} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={KREM_DUS}>
-          one catalog · all products · as views
+          consumable quality data
         </text>
         <ViewRad {...VIEWS[0]} y={185} ny />
       </Steg>

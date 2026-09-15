@@ -48,7 +48,7 @@ function SourceLink({ href, top = 662 }: { href: string; top?: number }) {
   );
 }
 
-/* Kapittel: Modellene oppå strømmen */
+/* Kapittel: Produktene oppå strømmen */
 export function SlideModeller() {
   return (
     <>
@@ -57,7 +57,7 @@ export function SlideModeller() {
       </Box>
       <ChapterSlide
         title="From positions to emissions"
-        subtitle="MarTraf and MarU: the models that turn AIS points into knowledge"
+        subtitle="MarTraf and MarU: the products that turn AIS points into knowledge"
         titleSize={54}
         showLogo={false}
       />
@@ -117,7 +117,7 @@ export function SlideModellFlyt() {
 
   return (
     <>
-      <SlideTitle width={900}>One source, many models</SlideTitle>
+      <SlideTitle width={900}>One source, many products</SlideTitle>
       {box(1, [52, 306, 232, 136], "Raw AIS data", "static and dynamic messages")}
       <Reveal at={2}>
         <Box
@@ -139,7 +139,7 @@ export function SlideModellFlyt() {
           </div>
         </Box>
       </Reveal>
-      {box(2, [348, 306, 232, 136], "MarTraf", "the traffic model – cleans and enriches")}
+      {box(2, [348, 306, 232, 136], "MarTraf", "the traffic product – cleans and enriches")}
       <Reveal at={3}>
         <Box box={[580, 220, 180, 316]}>
           <svg width="180" height="316" viewBox="0 0 180 316" fill="none" aria-hidden>
@@ -176,10 +176,91 @@ export function SlideModellFlyt() {
               textAlign: "center",
             }}
           >
-            One source. Many models. Each with its own output others can build on.
+            One source. Many products. Each with its own output others can build on.
           </div>
         </Box>
       </Reveal>
+    </>
+  );
+}
+
+/* HAIS – historisk uttrekk på bestilling */
+export function SlideHais() {
+  const steg = (at: number, x: number, tittel: string, sub: string) => (
+    <Reveal at={at}>
+      <Box
+        box={[x, 250, 300, 160]}
+        style={{
+          background: "var(--teal)",
+          borderRadius: 16,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 10,
+          padding: 18,
+          textAlign: "center",
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(20),
+            color: "var(--cream)",
+          }}
+        >
+          {tittel}
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(13),
+            lineHeight: 1.35,
+            color: "var(--mint)",
+          }}
+        >
+          {sub}
+        </div>
+      </Box>
+    </Reveal>
+  );
+
+  const pil = (at: number, x: number) => (
+    <Reveal at={at}>
+      <Box
+        box={[x, 295, 40, 60]}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(30),
+            color: "var(--red)",
+          }}
+        >
+          →
+        </div>
+      </Box>
+    </Reveal>
+  );
+
+  return (
+    <>
+      <SlideTitle>HAIS: historical extracts on demand</SlideTitle>
+      {steg(
+        1,
+        110,
+        "Request",
+        "time range, area (WKT), ship type, or MMSI",
+      )}
+      {pil(2, 425)}
+      {steg(2, 480, "Extract job", "reads through the history and filters")}
+      {pil(3, 795)}
+      {steg(3, 850, "Delivery", "GeoParquet or CSV by email")}
     </>
   );
 }

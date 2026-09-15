@@ -25,13 +25,14 @@ can say "our ship," say it. The audience should recognize it.
 | 3c How a data platform works        |       | architecture, lakehouse, the pipe, pipelines, products                            |
 | 4 What you get out of it            | 27:00 | four effects with examples from the coastline                                     |
 | 5 The project                       | 32:00 | day one, the toolbox, terraform                                                   |
-| 6 The models                        |       | follow one ship, MarTraf, hexes, MarU, how it was done earlier, the propeller law |
-| 6b Technical implementation details |       | ingest, the stream, the history, batch vs streaming                               |
-| 7 The road ahead                    | 53:00 | domains, contracts, back to Stad, thanks                                          |
+| 6 The products                      |       | HAIS, follow one ship, MarTraf, MarU, how it was done earlier, the propeller law |
+| 6b Technical implementation details |       | ingest, the stream, the history, H3, batch vs streaming                         |
+| 7 The road ahead                    | 53:00 | domains, contracts, back to Stad, thanks                                        |
 
-If you're behind after the models, cut the batch/streaming sidenote (two
-slides, about three minutes). If you're behind during the models, cut
-hex-hvorfor, hex-join and maru-hull.
+If you're behind after the products, cut the batch/streaming sidenote (two
+slides, about three minutes). If you're behind during technical, cut
+hex-hvorfor, hex-join and h3-ship. If you're behind during the products, cut
+maru-hull.
 
 ### Rules for the language in these notes
 
@@ -925,8 +926,8 @@ build on top of this?
 ## teknisk-implementasjon – Technical implementation details
 
 Chapter change. Back to how it was actually built. Four Terraform states.
-Ingest. The stream and the history. And when you choose batch versus
-streaming.
+Ingest. The stream and the history. How we make the spatial joins scale.
+And when you choose batch versus streaming.
 
 ## fire-states – Terraform: four states. Four pipelines.
 
@@ -1048,6 +1049,9 @@ recalculated.
 
 Serverless.
 
+Remember HAIS? One week for one vessel, or every ship for a year. That's
+why serverless fits. The job decides the size. Not us.
+
 Remember the small team that needed to sleep at night? This is where that
 comes in. No clusters to start, patch, or scale. Nobody getting an alert at
 four in the morning because a node died.
@@ -1088,167 +1092,13 @@ the same. You pay for the work, not for the time it takes. The difference is
 that you get the answer today instead of on Friday. And for the person
 waiting for the number, that's the whole difference.
 
-## batch-vs-streaming – Batch vs. streaming: the flow
-
-That history job is batch. The daily stream is streaming. A sidenote,
-because it's a choice you're going to have to make.
-
-Look at the animation. At the top, batch collects data and moves it at fixed
-intervals. Once an hour, once a night. At the bottom, streaming forwards
-every event the moment it happens.
-
-And here's the point many people miss: the difference is not about
-technology. It's about how fresh the data needs to be. Does the vessel
-traffic center need to know where the ship is now? Yes, that's streaming.
-Do the climate accounts need to know where the ship was last year? That can
-happily run overnight.
-
-## batch-streaming-valg – When do you choose what?
-
-So when do you choose what?
-
-Click through the batch points. Batch fits reports and historical analysis.
-Large volumes, because it's cheap. And sources that arrive in chunks anyway,
-like a nightly export from an old system.
-
-Click through the streaming points. Streaming fits when you actually have to
-react now. Monitoring and alerting. Event-driven automation. And when
-freshness matters more than cost.
-
-[[CLICK]] And in practice, you usually need both. My advice: start with batch.
-It's simpler and cheaper. Add streaming where fresh data actually changes a
-decision. Not because it's cool.
-
-For us, the AIS stream comes in continuously. But much of what we build on
-top runs in batch. Both, in the same platform.
-
-## modeller-outputs – The models and outputs
-
-One more output, and a good reason serverless fits. HAIS.
-
-## hais – HAIS: historical extracts on demand
-
-Back to why serverless fits so well. A concrete example. HAIS.
-
-[[CLICK]] Anyone can go to hais.kystverket.no and order up to one year of
-historical AIS data. Time range, area as a polygon, ship type, or a single
-vessel. [[CLICK]] That starts a job that reads through the history and filters.
-[[CLICK]] And the result arrives as GeoParquet or CSV by email.
-
-And here's the point: we don't know in advance what the next order will be.
-Is it one vessel for one week? Or every ship for a whole year? The first
-takes seconds. The second is a serious job. With serverless, the job
-decides the size. Not us. We don't have to guess.
-
-## modeller – From positions to emissions
-
-Chapter change. We have the toolbox. Azure, Databricks, Terraform. Before we
-go into ingest and the pipelines, here's what we actually use the data for.
-
-MarTraf sits on top of the stream. Then it splits. MarU, KystRisk.
-Tonight we follow our ship through MarTraf and MarU.
-
-The short version: MarTraf turns positions into voyages. Then several models
-can ask different questions of the same voyages.
-
-## modell-flyt – One source, many models
-
-First the architecture, briefly.
-
-[[CLICK]] Raw AIS data in. [[CLICK]] MarTraf cleans and enriches. That's the shared
-layer. Voyages, phases, traffic type.
-
-[[CLICK]] Then it splits. MarU calculates energy and emissions. Climate accounts
-for the municipalities.
-
-[[CLICK]] KystRisk. Accident risk. Collisions and groundings. The same voyages,
-a different question.
-
-[[CLICK]] And here's the point for those of you who build systems. The
-predecessor, Havbase, did everything in one model. One big black box. Now
-we have one source, and many models on top. MarTraf's output is a product
-others can build on.
-
-Recognize that? It's the data product thinking from earlier. In practice.
-
-And a bonus: Havbase was developed and operated by an external partner. MarU
-is Kystverket's move to own the assumptions and the calculations themselves.
-
-## folg-ett-skip – Follow one ship
-
-Now we follow our ship.
-
-[[CLICK]] It's at berth in Bergen. It's 22:40. Zero knots. The AIS transmits
-every three minutes, because the ship is standing still.
-
-[[CLICK]] Then it casts off and maneuvers out the Byfjorden. Under three knots.
-Now it transmits more often.
-
-[[CLICK]] And then it sets course north. Cruising. Nine knots. And at 03:14 it
-passes Stad, in a gale, and sends the message we started with. One point out
-of thousands.
-
-[[CLICK]] Off Ålesund, there's no berth available yet. So it anchors. 0.2
-knots, drifting a little around the anchor.
-
-[[CLICK]] And at 09:15 it's at berth in Ålesund.
-
-[[CLICK]] Around 3,800 AIS points have become one voyage. Port to port. And
-every point has been given a phase. Without the phases, everything is just
-"a ship." With them, we know what the ship was doing at every single point.
-And that's the difference between noise and knowledge.
-
-Why is the phase so important? An offshore vessel holding position at a
-platform uses an enormous amount of energy. The same vessel in dry dock with
-its AIS on uses almost nothing. Both are standing still. Without a phase,
-they look the same.
-
-## asuka-hais – Asuka, from HAIS
-
-This is Asuka. A real ship. Pulled out of HAIS.
-
-The last slide was the idea. Phases. Port to port. This is what it looks
-like when you take one vessel out of the history and watch it move.
-
-Don't narrate every turn. Let it run. Then: that's one ship. We do this
-for the whole coast.
-
-And then the obvious question.
-
-## asuka-hvem – Who is Asuka?
-
-Who is Asuka?
-
-Not the ship. The wrestler. Kanako Urai. WWE. I pulled this vessel out of
-HAIS because the name made me laugh, and then I ended up on Wikipedia.
-
-That's the whole joke. Back to the model.
-
-## martraf – A pile of points
-
-You just saw one ship become one voyage. Now zoom out.
-
-A hundred million points a day. And twenty-one years of them.
-That's a lot of AIS. But as it is, it's almost unusable.
-Each point says who, where, how fast. That's it. No voyage. No "this ship
-went from Bergen to Ålesund." No structure.
-
-[[CLICK]] To do anything with it, we had to group it. Into chunks.
-You can't compute on a hundred million lonely dots. You need a unit of work.
-
-[[CLICK]] The natural chunks were voyages. Port to port.
-That's what a ship actually does. That's what MarTraf builds.
-Phases, segments, traffic type. All of that sits on the voyage.
-
-[[CLICK]] And then we hit the scaling problem.
-Asking "is this point near a port" a hundred million times, with real
-geometry, doesn't finish. So we simplified the map.
-
-If you want the five steps later: geographic enrichment, eleven phases,
-voyage segments of at least five minutes, complete voyages port to port,
-and traffic type. The next two slides are why that job can run at all.
+Compute is only half of it. The other half is the question we ask a
+hundred million times a day.
 
 ## hex-hvorfor – How do you group a coastline?
+
+Remember the pile of points? The job wouldn't scale. Here's why, and
+what we did.
 
 How do you group positions by cell?
 
@@ -1329,6 +1179,168 @@ This is what those hexes look like when you put them on the coast.
 
 Don't narrate every cell. Let it run. Then: a hundred million points
 became a grid you can actually compute on. That's how MarTraf scales.
+
+## batch-vs-streaming – Batch vs. streaming: the flow
+
+That history job is batch. The daily stream is streaming. A sidenote,
+because it's a choice you're going to have to make.
+
+Look at the animation. At the top, batch collects data and moves it at fixed
+intervals. Once an hour, once a night. At the bottom, streaming forwards
+every event the moment it happens.
+
+And here's the point many people miss: the difference is not about
+technology. It's about how fresh the data needs to be. Does the vessel
+traffic center need to know where the ship is now? Yes, that's streaming.
+Do the climate accounts need to know where the ship was last year? That can
+happily run overnight.
+
+## batch-streaming-valg – When do you choose what?
+
+So when do you choose what?
+
+Click through the batch points. Batch fits reports and historical analysis.
+Large volumes, because it's cheap. And sources that arrive in chunks anyway,
+like a nightly export from an old system.
+
+Click through the streaming points. Streaming fits when you actually have to
+react now. Monitoring and alerting. Event-driven automation. And when
+freshness matters more than cost.
+
+[[CLICK]] And in practice, you usually need both. My advice: start with batch.
+It's simpler and cheaper. Add streaming where fresh data actually changes a
+decision. Not because it's cool.
+
+For us, the AIS stream comes in continuously. But much of what we build on
+top runs in batch. Both, in the same platform.
+
+## modeller – From positions to emissions
+
+Chapter change. We have the toolbox. Azure, Databricks, Terraform. Before we
+go into ingest and the pipelines, here's what we actually use the data for.
+
+MarTraf sits on top of the stream. Then it splits. MarU, KystRisk.
+And HAIS, if you just want the history. Tonight we follow our ship
+through MarTraf and MarU.
+
+The short version: MarTraf turns positions into voyages. Then several products
+can ask different questions of the same voyages.
+
+## modell-flyt – One source, many products
+
+First the architecture, briefly.
+
+[[CLICK]] Raw AIS data in. [[CLICK]] MarTraf cleans and enriches. That's the shared
+layer. Voyages, phases, traffic type.
+
+[[CLICK]] Then it splits. MarU calculates energy and emissions. Climate accounts
+for the municipalities.
+
+[[CLICK]] KystRisk. Accident risk. Collisions and groundings. The same voyages,
+a different question.
+
+[[CLICK]] And here's the point for those of you who build systems. The
+predecessor, Havbase, did everything in one model. One big black box. Now
+we have one source, and many products on top. MarTraf's output is a product
+others can build on.
+
+Recognize that? It's the data product thinking from earlier. In practice.
+
+And a bonus: Havbase was developed and operated by an external partner. MarU
+is Kystverket's move to own the assumptions and the calculations themselves.
+
+## hais – HAIS: historical extracts on demand
+
+One more output. Another product. A service on the history. HAIS.
+
+[[CLICK]] Anyone can go to hais.kystverket.no and order up to one year of
+historical AIS data. Time range, area as a polygon, ship type, or a single
+vessel. [[CLICK]] That starts a job that reads through the history and filters.
+[[CLICK]] And the result arrives as GeoParquet or CSV by email.
+
+And here's the point: we don't know in advance what the next order will be.
+Is it one vessel for one week? Or every ship for a whole year? The first
+takes seconds. The second is a serious job. The job decides the size.
+Not us. We don't have to guess.
+
+That's also why we can pull one real ship out of twenty-one years
+and watch it move.
+
+## folg-ett-skip – Follow one ship
+
+Now we follow our ship.
+
+[[CLICK]] It's at berth in Bergen. It's 22:40. Zero knots. The AIS transmits
+every three minutes, because the ship is standing still.
+
+[[CLICK]] Then it casts off and maneuvers out the Byfjorden. Under three knots.
+Now it transmits more often.
+
+[[CLICK]] And then it sets course north. Cruising. Nine knots. And at 03:14 it
+passes Stad, in a gale, and sends the message we started with. One point out
+of thousands.
+
+[[CLICK]] Off Ålesund, there's no berth available yet. So it anchors. 0.2
+knots, drifting a little around the anchor.
+
+[[CLICK]] And at 09:15 it's at berth in Ålesund.
+
+[[CLICK]] Around 3,800 AIS points have become one voyage. Port to port. And
+every point has been given a phase. Without the phases, everything is just
+"a ship." With them, we know what the ship was doing at every single point.
+And that's the difference between noise and knowledge.
+
+Why is the phase so important? An offshore vessel holding position at a
+platform uses an enormous amount of energy. The same vessel in dry dock with
+its AIS on uses almost nothing. Both are standing still. Without a phase,
+they look the same.
+
+## asuka-hais – Asuka, from HAIS
+
+This is Asuka. A real ship. Pulled out of HAIS.
+
+The last slide was the idea. Phases. Port to port. This is what it looks
+like when you take one vessel out of the history and watch it move.
+
+Don't narrate every turn. Let it run. Then: that's one ship. We do this
+for the whole coast.
+
+And then the obvious question.
+
+## asuka-hvem – Who is Asuka?
+
+Who is Asuka?
+
+Not the ship. The wrestler. Kanako Urai. WWE. I pulled this vessel out of
+HAIS because the name made me laugh, and then I ended up on Wikipedia.
+
+That's the whole joke. Back to the model.
+
+## martraf – A pile of points
+
+You just saw one ship become one voyage. Now zoom out.
+
+A hundred million points a day. And twenty-one years of them.
+That's a lot of AIS. But as it is, it's almost unusable.
+Each point says who, where, how fast. That's it. No voyage. No "this ship
+went from Bergen to Ålesund." No structure.
+
+[[CLICK]] To do anything with it, we had to group it. Into chunks.
+You can't compute on a hundred million lonely dots. You need a unit of work.
+
+[[CLICK]] The natural chunks were voyages. Port to port.
+That's what a ship actually does. That's what MarTraf builds.
+Phases, segments, traffic type. All of that sits on the voyage.
+
+[[CLICK]] And then we hit the scaling problem.
+Asking "is this point near a port" a hundred million times, with real
+geometry, doesn't finish. So we simplified the map.
+
+I'll come back to how. First: what do we do with the voyages?
+
+If you want the five steps later: geographic enrichment, eleven phases,
+voyage segments of at least five minutes, complete voyages port to port,
+and traffic type.
 
 And now we can ask the next question. What does the ship burn?
 
@@ -1458,118 +1470,83 @@ credible.
 
 Honest status. Today we have "only" AIS. One source, one domain.
 
-The catalog structure is classic medallion. Three catalogs in Unity Catalog.
+The catalog structure is classic medallion. Three databases in Databricks.
 Bronze with raw messages. Silver with cleaned and enriched data. Gold with
 tracks, voyages, and emissions, ready to use.
 
 [[CLICK]] And the data products we deliver today all come out of gold. AIS
 tracks, MarTraf, MarU, HAIS.
 
-[[CLICK]] This works fine as long as everything is AIS. But over the next year,
-more domains are coming in. Customs. HR and finance. Predictive maintenance
-of lighthouses. And then one shared bronze, silver, gold won't hold. Who
-owns what? Who pays? Who answers when something breaks? That requires
-stricter structure. And a fair bit of rewriting. That's okay to say out
-loud.
+[[CLICK]] This works fine as long as everything is AIS. One source. One
+domain. One catalog. That's the honest status. The next slide is why it
+can't stay that way.
 
-## hvor-vi-skal-kilder – Where we're going: every domain ingests its own sources
+## flere-domener – Not just AIS
 
-Here's what it's going to look like. Four pictures. We start where the data
-comes in.
+AIS got us here. But Kystverket is bigger than ship positions. We want to
+expand. Several domains. Not just AIS.
 
-One catalog per domain. Customs, AIS, HR and finance, the lighthouses. Each
-with its own team, its own cost center, its own stewardship.
+[[CLICK]] Customs. Declarations and cargo. What the ship actually carried,
+not just where it was.
 
-[[CLICK]] And each domain has its own sources. Customs has the declarations
+[[CLICK]] Internal HR and finance. Payroll. The ledger. What things cost.
+
+[[CLICK]] Predictive maintenance on the lighthouses. Sensors on the lights
+that keep the coast lit. Send a boat out before a light goes dark.
+
+[[CLICK]] And many more. Things we already collect. Other agencies. Whatever
+comes next.
+
+[[CLICK]] So one shared bronze, silver, gold won't hold. Who owns what? Who
+pays? Who answers when something breaks? We need an architecture that
+scales. Shared data has to stay high quality. And people have to find it.
+That's the next picture. We'll build it one piece at a time.
+
+## hvor-vi-skal-helhet – Where we're going: the whole picture
+
+Here's the whole thing. One slide. Don't read it, just point.
+
+[[CLICK]] Domains first. Customs, AIS, HR and finance, the lighthouses. Each
+with its own catalog, its own team, its own cost center, its own
+stewardship.
+
+[[CLICK]] Sources. Each domain ingests its own. Customs has the declarations
 and the cargo manifests. AIS has the stream and the ship register. HR and
 finance has payroll and the ledger. The lighthouses have sensors and the
-maintenance log. The domain ingests them. Not the platform team. The
-platform team gives them the pipes and the pattern, and gets out of the way.
+maintenance log. The domain ingests them. Not the platform team.
 
 [[CLICK]] Inside each catalog, the same bronze, silver, gold we've had for
 AIS. Raw as it arrived. Cleaned and enriched. Ready to use. The pattern
-doesn't change. It's repeated once per domain.
-
-[[CLICK]] So nobody touches another domain's raw data. Customs never reads
-from ais.bronze. That's the whole point of the split.
-
-## hvor-vi-skal – Where we're going: the contract becomes a view
-
-Second picture. How does a domain share something?
-
-The domain catalogs on the left, same as before. AIS is the one we follow.
+doesn't change. It's repeated once per domain. Nobody touches another
+domain's raw data.
 
 [[CLICK]] When a domain wants to share something, it writes a data contract.
-Open Data Contract Standard, a YAML file with id, owner, schema, and quality
-requirements. And the contract is owned by the domain. Not by the platform
-team.
+Open Data Contract Standard. Id, owner, schema, quality requirements. Owned
+by the domain. Not by the platform team.
 
 [[CLICK]] The contract is pushed to one central repo. Pull request. CI
 validates the contract against the gold table it points to.
 
 [[CLICK]] And then the part that makes this scale: CI automatically creates a
-view in the central data product catalog. No manual ordering. No copying of
-data. The view points straight at the domain's gold table.
-
-[[CLICK]] The same pattern for every domain. Consumers only need to know one
+view in the data products catalog. No copying of data. The view points
+straight at the domain's gold table. Consumers only need to know one
 catalog, no matter how many domains sit behind it.
 
-[[CLICK]] One contract, one pull request, one view. The domain shares
-without copying data. That's the data contract chapter from earlier, put
-into a system.
+[[CLICK]] Who reads from that catalog? Everyone outside the domains. The
+Environment Agency and the municipalities with the climate accounts.
+Developers through BarentsWatch. Analysts with dashboards. Researchers.
+Other agencies. One catalog. Inside or outside, you read from the same
+place.
 
-## hvor-vi-skal-forbruk – Where we're going: find it, read it
+[[CLICK]] And the domains themselves. Customs wants AIS tracks next to the
+declarations. They don't go to each other's gold tables. They read from the
+data products catalog, like everyone else. Same contract, same view, same
+rules.
 
-Third picture. Who reads from that catalog? Everyone. This is the important
-one, so slow down here.
-
-The catalog in the middle is the organization's data. Not the platform
-team's. Not AIS's. Everyone's.
-
-[[CLICK]] The domains themselves, first. Customs wants AIS tracks next to
-the declarations. AIS wants the customs declarations to know what a ship
-actually carried. The lighthouses want the cost data. They don't go to each
-other's gold tables. They read from the data products catalog, like
-everyone else. Same contract, same view, same rules. That's what makes it
-the organization's data and not four silos with a shared bill.
-
-[[CLICK]] And then everyone outside the domains. The Environment Agency and
-the municipalities with the climate accounts. Developers through
-BarentsWatch. Analysts with dashboards. Researchers with notebooks and HAIS
-extracts. Other agencies. One catalog. Inside or outside, you read from the
-same place.
-
-[[CLICK]] One more thing, because "one catalog" is only useful if you can
-find things in it. We're building a small web app on top of the contracts
-repo. It reads the contracts straight from git. So it knows every product,
-who owns it, the schema, the quality checks, the version. Search "ais" and
-you get the products, with an owner and a description. Not a table name
-someone has to explain to you over coffee.
-
-[[CLICK]] Find it in the explorer. Read it from the catalog. That's the whole
-consumer experience. Nobody has to know which domain, which gold table, or
-who to ask.
-
-## hvor-vi-skal-helhet – Where we're going: the whole picture
-
-Zoom out. This is the whole thing on one slide. Don't read it, just point.
-
-Sources on the far left. Each domain ingests its own, into its own catalog,
-with its own bronze, silver, gold.
-
-[[CLICK]] A domain writes a contract, pushes it to the shared repo, and CI
-turns it into a view in the data products catalog.
-
-[[CLICK]] Everyone reads from that catalog. Consumers outside on the right.
-And the domains themselves, reading each other's products back through the
-same catalog.
-
-[[CLICK]] And the explorer, built from the same contracts in the same repo,
-is how you find what's there.
-
-[[CLICK]] Data split by domain. Contracts in git. One place to find and read
-everything, inside and outside the organization. This is the data contract
-and governance chapter from earlier, put into a system.
+[[CLICK]] And explorer.kystverket.no, built from the contracts in the same
+repo. It knows every product, who owns it, the schema, the quality checks,
+the version. Search "ais" and you get the products. Find it in the explorer.
+Read it from the catalog.
 
 ## domene-effekt – Clear ownership, cost, and stewardship
 
@@ -1594,7 +1571,7 @@ And then what we want to achieve. We work in batch. Not real time. So this
 is not about emergency alerts. It's about getting more of what we already
 have onto the platform, and using it.
 
-[[CLICK]] More of Kystverkets own data in. Kystdatahuset has around 130
+[[CLICK]] More of Kystverkets own data in the data platform. Kystdatahuset has around 130
 datasets. Voyages. Things we already collect, that aren't on the platform
 yet. The next job is to bring them in.
 

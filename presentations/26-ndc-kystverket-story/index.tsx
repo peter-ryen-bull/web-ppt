@@ -79,12 +79,11 @@ import {
 import {
   SlideStordataVolum,
   SlideStordataCompute,
-  SlideModellerOgOutputs,
-  SlideHais,
 } from "./stordata";
 import {
   SlideModeller,
   SlideModellFlyt,
+  SlideHais,
   SlideFolgEttSkip,
   SlideAsukaHais,
   SlideAsukaHvem,
@@ -102,9 +101,7 @@ import {
 import {
   SlideVeienVidere,
   SlideHvorViEr,
-  SlideHvorViSkalKilder,
-  SlideHvorViSkal,
-  SlideHvorViSkalForbruk,
+  SlideFlereDomener,
   SlideHvorViSkalHelhet,
   SlideDomeneEffekt,
   SlideVidereListe,
@@ -122,8 +119,8 @@ import {
  *  Akt 4b Hvordan dataplattform     arkitektur, lakehouse, rør, pipelines, produkter
  *  Akt 5  Hva får du igjen   27:00  tre effekter med eksempler fra sjøveien
  *  Akt 6  Prosjektet         32:00  dag én, verktøykassa, terraform
- *  Akt 7  Modellene                 følg ett skip, propellloven, klimaregnskapet
- *  Akt 7b Teknisk                   ingest, historikken, batch vs streaming
+ *  Akt 7  Produktene                HAIS, følg ett skip, MarTraf, MarU, propellloven
+ *  Akt 7b Teknisk                   ingest, historikken, H3, batch vs streaming
  *  Akt 8  Veien videre       53:00  domener, kontrakter, og tilbake til Stad
  */
 const APNING: SlideDef[] = [
@@ -473,56 +470,6 @@ const TEKNISK: SlideDef[] = [
     steps: 7,
   },
   {
-    id: "batch-vs-streaming",
-    name: "Sidenote: batch vs. streaming",
-    component: SlideBatchVsStreaming,
-  },
-  {
-    id: "batch-streaming-valg",
-    name: "When do you choose what?",
-    component: SlideBatchStreamingValg,
-    steps: 7,
-  },
-  {
-    id: "modeller-outputs",
-    name: "The models and outputs",
-    component: SlideModellerOgOutputs,
-  },
-  {
-    id: "hais",
-    name: "HAIS: historical extracts on demand",
-    component: SlideHais,
-    steps: 3,
-  },
-];
-
-const MODELLENE: SlideDef[] = [
-  {
-    id: "modeller",
-    name: "From positions to emissions",
-    component: SlideModeller,
-  },
-  {
-    id: "modell-flyt",
-    name: "One source, many models",
-    component: SlideModellFlyt,
-    steps: 5,
-  },
-  {
-    id: "folg-ett-skip",
-    name: "Follow one ship",
-    component: SlideFolgEttSkip,
-    steps: 6,
-  },
-  { id: "asuka-hais", name: "Asuka, from HAIS", component: SlideAsukaHais },
-  { id: "asuka-hvem", name: "Who is Asuka?", component: SlideAsukaHvem },
-  {
-    id: "martraf",
-    name: "A pile of points",
-    component: SlideMarTraf,
-    steps: 3,
-  },
-  {
     id: "hex-hvorfor",
     name: "How do you group a coastline?",
     component: SlideHexHvorfor,
@@ -539,6 +486,51 @@ const MODELLENE: SlideDef[] = [
     id: "martraf-video",
     name: "MarTraf on the map",
     component: SlideMarTrafVideo,
+  },
+  {
+    id: "batch-vs-streaming",
+    name: "Sidenote: batch vs. streaming",
+    component: SlideBatchVsStreaming,
+  },
+  {
+    id: "batch-streaming-valg",
+    name: "When do you choose what?",
+    component: SlideBatchStreamingValg,
+    steps: 7,
+  },
+];
+
+const MODELLENE: SlideDef[] = [
+  {
+    id: "modeller",
+    name: "From positions to emissions",
+    component: SlideModeller,
+  },
+  {
+    id: "modell-flyt",
+    name: "One source, many products",
+    component: SlideModellFlyt,
+    steps: 5,
+  },
+  {
+    id: "hais",
+    name: "HAIS: historical extracts on demand",
+    component: SlideHais,
+    steps: 3,
+  },
+  {
+    id: "folg-ett-skip",
+    name: "Follow one ship",
+    component: SlideFolgEttSkip,
+    steps: 6,
+  },
+  { id: "asuka-hais", name: "Asuka, from HAIS", component: SlideAsukaHais },
+  { id: "asuka-hvem", name: "Who is Asuka?", component: SlideAsukaHvem },
+  {
+    id: "martraf",
+    name: "A pile of points",
+    component: SlideMarTraf,
+    steps: 3,
   },
   {
     id: "maru",
@@ -576,28 +568,16 @@ const VEIEN_VIDERE: SlideDef[] = [
     steps: 2,
   },
   {
-    id: "hvor-vi-skal-kilder",
-    name: "Where we're going: every domain ingests its own sources",
-    component: SlideHvorViSkalKilder,
-    steps: 3,
-  },
-  {
-    id: "hvor-vi-skal",
-    name: "Where we're going: the contract becomes a view",
-    component: SlideHvorViSkal,
+    id: "flere-domener",
+    name: "Not just AIS: more domains are coming",
+    component: SlideFlereDomener,
     steps: 5,
-  },
-  {
-    id: "hvor-vi-skal-forbruk",
-    name: "Where we're going: find it, read it",
-    component: SlideHvorViSkalForbruk,
-    steps: 4,
   },
   {
     id: "hvor-vi-skal-helhet",
     name: "Where we're going: the whole picture",
     component: SlideHvorViSkalHelhet,
-    steps: 4,
+    steps: 9,
   },
   {
     id: "domene-effekt",
@@ -636,7 +616,7 @@ export const ndcKystverketStory = definePresentation({
     { id: "hvordan", title: "How it works", slides: HVORDAN },
     { id: "effekter", title: "What you get out of it", slides: EFFEKTER },
     { id: "prosjektet", title: "The story of the project", slides: PROSJEKTET },
-    { id: "modellene", title: "The models", slides: MODELLENE },
+    { id: "modellene", title: "The products", slides: MODELLENE },
     {
       id: "teknisk",
       title: "Technical implementation details",

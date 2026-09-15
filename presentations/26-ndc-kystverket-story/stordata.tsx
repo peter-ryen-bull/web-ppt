@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Box, BulletItem, ChapterSlide, MilesLogo, Reveal, pt } from "../parts";
+import { Box, BulletItem, MilesLogo, Reveal, pt } from "../parts";
 import { Isfjell, KlyngeAuto, KlyngeFast } from "@/components/figures/strek";
 
 const VOLUM = {
@@ -213,93 +213,6 @@ export function SlideStordataCompute() {
           </div>
         </Box>
       </Reveal>
-    </>
-  );
-}
-
-/* Kapittel: Modellene og det som kommer ut */
-export function SlideModellerOgOutputs() {
-  return <ChapterSlide title="The models and outputs" titleSize={54} />;
-}
-
-/* HAIS – historisk uttrekk på bestilling */
-export function SlideHais() {
-  const steg = (at: number, x: number, tittel: string, sub: string) => (
-    <Reveal at={at}>
-      <Box
-        box={[x, 250, 300, 160]}
-        style={{
-          background: "var(--teal)",
-          borderRadius: 16,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 10,
-          padding: 18,
-          textAlign: "center",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(20),
-            color: "var(--cream)",
-          }}
-        >
-          {tittel}
-        </div>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(13),
-            lineHeight: 1.35,
-            color: "var(--mint)",
-          }}
-        >
-          {sub}
-        </div>
-      </Box>
-    </Reveal>
-  );
-
-  const pil = (at: number, x: number) => (
-    <Reveal at={at}>
-      <Box
-        box={[x, 295, 40, 60]}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(30),
-            color: "var(--red)",
-          }}
-        >
-          →
-        </div>
-      </Box>
-    </Reveal>
-  );
-
-  return (
-    <>
-      <MilesLogo />
-      <SlideTittel>HAIS: historical extracts on demand</SlideTittel>
-      {steg(
-        1,
-        110,
-        "Request",
-        "time range, area (WKT), ship type, or MMSI",
-      )}
-      {pil(2, 425)}
-      {steg(2, 480, "Extract job", "reads through the history and filters")}
-      {pil(3, 795)}
-      {steg(3, 850, "Delivery", "GeoParquet or CSV by email")}
     </>
   );
 }

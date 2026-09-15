@@ -1,10 +1,6 @@
 import { Box, ChapterSlide, Img, Reveal, pt, useRevealStyle } from "../parts";
-import { HvorViEr, HvorViSkal } from "@/components/figures/Domenekataloger";
-import {
-  DomenerKilder,
-  ProduktForbruk,
-  HelePlattformen,
-} from "@/components/figures/DomenerOgProdukter";
+import { HvorViEr } from "@/components/figures/Domenekataloger";
+import { HelePlattformen } from "@/components/figures/DomenerOgProdukter";
 import { BaatSignal } from "@/components/figures/BaatSignal";
 import {
   Fyr,
@@ -187,38 +183,101 @@ export function SlideHvorViEr() {
   );
 }
 
-/*
- * Slide 26c – Hvor vi skal, i fire bilder:
- *   1. hvert domene henter inn sine egne kilder
- *   2. kontrakt → repo → view i dataprodukt-katalogen
- *   3. katalogen er organisasjonens data: domenene leser tilbake,
- *      konsumenter utenfor leser fra samme sted, utforskeren finner fram
- *   4. alt sammen, zoomet ut
- */
-export function SlideHvorViSkalKilder() {
+/* Slide 26c – Hvorfor arkitekturen må skalere: flere domener enn AIS */
+export function SlideFlereDomener() {
+  const domener: [string, string, IkonNavn][] = [
+    ["customs", "declarations and cargo", "skjema"],
+    ["internal_hr_finance", "payroll and the ledger", "mynt"],
+    ["lighthouse_predictive_maintenance", "sensors on the lights", "verktoy"],
+    ["and many more", "whatever Kystverket already collects", "deling"],
+  ];
+  const punchline = useRevealStyle(domener.length + 1);
   return (
-    <Box box={[20, 42, 1240, 636]}>
-      <DomenerKilder />
-    </Box>
+    <>
+      <Box box={[53.7, 160, 540, 280]}>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(38),
+            lineHeight: 1.2,
+            color: "var(--burgundy-2)",
+          }}
+        >
+          Not just AIS
+        </div>
+        <div
+          style={{
+            marginTop: 22,
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(18),
+            lineHeight: 1.4,
+            color: "var(--red)",
+            ...punchline,
+          }}
+        >
+          So we need an architecture that scales. Shared data stays high
+          quality. And findable.
+        </div>
+      </Box>
+      {domener.map(([navn, sub, ikon], i) => (
+        <Reveal key={navn} at={i + 1}>
+          <Box box={[600, 168 + i * 112, 620, 100]}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: 16,
+              }}
+            >
+              <div style={{ marginTop: 4 }}>
+                <StrekIkon navn={ikon} size={34} color="var(--teal)" strokeWidth={1.6} />
+              </div>
+              <div>
+                <div
+                  style={{
+                    fontFamily:
+                      i === domener.length - 1
+                        ? "var(--font-serif)"
+                        : "ui-monospace, SFMono-Regular, Menlo, monospace",
+                    fontSize: pt(18),
+                    lineHeight: 1.25,
+                    color: "var(--burgundy-2)",
+                  }}
+                >
+                  {navn}
+                </div>
+                <div
+                  style={{
+                    marginTop: 6,
+                    fontFamily: "var(--font-sans)",
+                    fontSize: pt(15),
+                    color: "var(--red)",
+                  }}
+                >
+                  {sub}
+                </div>
+              </div>
+            </div>
+            {i < domener.length - 1 && (
+              <div
+                style={{
+                  position: "absolute",
+                  left: 2,
+                  top: 94,
+                  width: 620,
+                  height: 1.5,
+                  background: "var(--divider)",
+                }}
+              />
+            )}
+          </Box>
+        </Reveal>
+      ))}
+    </>
   );
 }
 
-export function SlideHvorViSkal() {
-  return (
-    <Box box={[20, 42, 1240, 636]}>
-      <HvorViSkal />
-    </Box>
-  );
-}
-
-export function SlideHvorViSkalForbruk() {
-  return (
-    <Box box={[20, 42, 1240, 636]}>
-      <ProduktForbruk />
-    </Box>
-  );
-}
-
+/* Hvor vi skal, zoomet ut – ett bilde, ett klikk per del */
 export function SlideHvorViSkalHelhet() {
   return (
     <Box box={[20, 42, 1240, 636]}>
@@ -310,7 +369,7 @@ export function SlideDomeneEffekt() {
 /* Slide 27 – Dette vil vi få til */
 export function SlideVidereListe() {
   const facts: [string, IkonNavn][] = [
-    ["More of Kystverket's own data in", "kart"],
+    ["More of Kystverket's own data in the data platform", "kart"],
     ["Customs analysis", "soyler"],
     ["Predictive maintenance on lighthouses", "verktoy"],
     ["Faster and better organization", "person"],

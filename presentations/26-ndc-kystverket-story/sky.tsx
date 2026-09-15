@@ -321,7 +321,7 @@ export function SlideTekniskImplementasjon() {
   return (
     <ChapterSlide
       title="Technical implementation details"
-      subtitle="Ingest, the stream, the history"
+      subtitle="Ingest, the stream, the history, H3"
       titleSize={54}
     />
   );
