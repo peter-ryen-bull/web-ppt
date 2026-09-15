@@ -1011,16 +1011,6 @@ export function SjoFigur() {
       >
         The data lake
       </text>
-      <text
-        x={W / 2}
-        y={548}
-        textAnchor="middle"
-        fontFamily="var(--font-sans)"
-        fontSize={16}
-        fill={SUB_FARGE}
-      >
-        water in its natural state: everything, raw, cheap – for tomorrow's questions
-      </text>
 
       <text
         x={W / 2}

@@ -595,7 +595,7 @@ const VEIEN_VIDERE: SlideDef[] = [
     id: "tilbake-til-stad",
     name: "Back to Stad",
     component: SlideTilbakeTilStad,
-    steps: 2,
+    steps: 3,
   },
   { id: "takk", name: "Thanks. Try it yourself.", component: SlideTakk },
 ];

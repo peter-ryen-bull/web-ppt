@@ -1550,12 +1550,12 @@ Read it from the catalog.
 
 ## domene-effekt – Clear ownership, cost, and stewardship
 
-Three things we get with domain catalogs.
+Three things we get with one domain, one database.
 
 [[CLICK]] Ownership. The domain owns its data and the contract that describes
 it. Not "IT."
 
-[[CLICK]] Cost center. Each catalog has its own storage and its own bill. We
+[[CLICK]] Cost center. Each database has its own storage and its own bill. We
 can actually answer what the customs data costs. That's rarer than you
 think.
 
@@ -1593,19 +1593,19 @@ Slow pace. This is the ending. Let it land.
 
 It's 03:14.
 
-Our ship is passing Stad. A gale, darkness, one man on the bridge with a cup
-of coffee. And every ten seconds, a little message goes out into the dark.
+A ship is in the sea.
 
-[[CLICK]] In a year, it's in the climate accounts of a municipality. Together
-with a hundred million other messages. Which together tell how Norway
-actually uses the coastline.
+[[CLICK]] The sea off Stad. February. A gale from the northwest.
 
-[[CLICK]] And nobody on board knows. They just sail.
+[[CLICK]] A cargo ship heading north at nine knots.
 
-That's what a data platform is. Not Databricks, not Azure, not Delta tables.
-It's the path from one little signal in the dark to something a human can
-make a decision on. The world's safest and cleanest coast. One message at a
-time.
+[[CLICK]] We are listening.
+
+And perhaps that is comforting for the ship's crew, sleeping in their beds.
+That somewhere out there, in a data platform, we are listening.
+
+And in a month's time, the data will be in a climate accounting software
+in the municipality as well.
 
 ## takk – Thanks. Try it yourself.
 

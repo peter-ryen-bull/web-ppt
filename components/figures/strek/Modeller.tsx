@@ -394,7 +394,7 @@ export function Kompass() {
   );
 }
 
-/** Tre domenekataloger – hver med sin eier, sin regning og sitt forvaltningsansvar */
+/** Tre domenedatabaser – hver med sin eier, sin regning og sitt forvaltningsansvar */
 export function TreKataloger() {
   const kataloger: { navn: string; ikon: IkonNavn; tekst: string }[] = [
     { navn: "customs", ikon: "person", tekst: "its own owner" },
@@ -402,7 +402,7 @@ export function TreKataloger() {
     { navn: "hr", ikon: "verktoy", tekst: "its own stewardship" },
   ];
   return (
-    <Figur w={540} h={180} label="Three catalogs, each with its own owner, its own bill and its own stewardship">
+    <Figur w={540} h={180} label="Three databases, each with its own owner, its own bill and its own stewardship">
       {kataloger.map((k, i) => {
         const x = 30 + i * 170;
         return (

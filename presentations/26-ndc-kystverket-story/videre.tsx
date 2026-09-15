@@ -15,10 +15,12 @@ const MEDIA = "/media/26-ndc-kystverket";
 /* Avslutning: tilbake til skipet utenfor Stad */
 export function SlideTilbakeTilStad() {
   const linje2 = useRevealStyle(1);
+  const linje3 = useRevealStyle(2);
+  const linje4 = useRevealStyle(3);
   return (
     <>
       <Box
-        box={[80, 130, 1120, 380]}
+        box={[80, 110, 1120, 400]}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -34,22 +36,44 @@ export function SlideTilbakeTilStad() {
             color: "var(--burgundy)",
           }}
         >
-          It's 03:14.
+          It&apos;s 03:14.
         </div>
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(40),
-            lineHeight: 1.2,
-            color: "var(--red)",
+            fontSize: pt(44),
+            lineHeight: 1.15,
+            color: "var(--burgundy-2)",
             ...linje2,
           }}
         >
-          A year from now, it's in a municipality's climate accounts.
+          The sea off Stad. February. A gale from the northwest.
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(44),
+            lineHeight: 1.15,
+            color: "var(--burgundy-2)",
+            ...linje3,
+          }}
+        >
+          A cargo ship heading north at nine knots.
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(44),
+            lineHeight: 1.15,
+            color: "var(--red)",
+            ...linje4,
+          }}
+        >
+          We are listening.
         </div>
       </Box>
-      <Reveal at={2}>
-        <Box box={[430, 520, 420, 170]}>
+      <Reveal at={3}>
+        <Box box={[430, 530, 420, 170]}>
           <BaatSignal />
         </Box>
       </Reveal>
@@ -290,7 +314,7 @@ export function SlideHvorViSkalHelhet() {
 export function SlideDomeneEffekt() {
   const punkter = [
     ["Clear ownership", "the domain owns its data — and the contract"],
-    ["Clear cost center", "each catalog has its own bill"],
+    ["Clear cost center", "each database has its own bill"],
     ["Clear stewardship", "who answers when something breaks"],
   ];
   const linje2 = useRevealStyle(punkter.length + 1);
@@ -305,7 +329,7 @@ export function SlideDomeneEffekt() {
             color: "var(--burgundy-2)",
           }}
         >
-          One domain, one catalog
+          One domain, one database
         </div>
         <div
           style={{
