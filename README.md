@@ -22,7 +22,7 @@ npm run dev
 | Første/siste slide | `Home` / `End` | – |
 | Skjul/vis en slide | – | Øye-knapp i «Oversikt» |
 | Forrige/neste kapittel | `[` / `]` | – |
-| Slideoversikt (med skjul-brytere) | `G` | «Oversikt» |
+| Slideoversikt (med skjul-brytere) | `G` | «Oversikt» (øving og presentatør) |
 | Eksporter PDF (kun i oversikten) | – | «Eksporter PDF» |
 | Fullskjerm | `F` | `⛶` |
 | Tilbake til alle presentasjoner | – | «⌂ Presentasjoner» |
@@ -32,8 +32,9 @@ presentasjon.
 
 ### Eksporter PDF
 
-Fra slideoversikten (`G`) kan du laste ned presentasjonen som PDF. Knappen
-vises bare der – ikke i visnings- eller presentatørmodus. Du kan ta med
+Fra slideoversikten i øvingsvisningen (`G`) kan du laste ned presentasjonen
+som PDF. Knappen vises bare der – ikke i visnings- eller presentatørmodus.
+Du kan ta med
 alle slides eller et utvalg. Hver slide blir én side, alltid på **siste
 klikk-steg** (mellomsteg tas ikke med).
 
@@ -52,9 +53,11 @@ Slik gjør du det:
 1. Koble til HDMI og sett skjermen til **utvidet** (ikke duplisert).
 2. Åpne `/<id>/presenter` på din skjerm (eller trykk «🎤 Presentér» i
    verktøylinjen).
-3. Trykk **«Åpne publikumsvisning»** (eller `V`) – publikumsvisningen åpnes i
+3. Trykk **«Oversikt»** (eller `G`) for å hoppe til en slide uten å forlate
+   presentatørvisningen. Publikumsvisningen følger med.
+4. Trykk **«Åpne publikumsvisning»** (eller `V`) – publikumsvisningen åpnes i
    et eget vindu.
-4. Dra vinduet til den delte skjermen og trykk `F` (eller dobbeltklikk) for
+5. Dra vinduet til den delte skjermen og trykk `F` (eller dobbeltklikk) for
    fullskjerm.
 
 Vinduene synkroniseres automatisk (via `BroadcastChannel`), så piltaster i

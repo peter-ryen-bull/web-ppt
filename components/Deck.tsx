@@ -8,14 +8,11 @@ import {
   useState,
 } from "react";
 import Link from "next/link";
-import { getPresentation, type SlideDef } from "@/presentations";
-import { chapterOf, isChapterFullyHidden } from "@/presentations/chapters";
-import {
-  SLIDE_W,
-  SlideCanvas,
-  useContainerScale,
-} from "./SlideCanvas";
+import { getPresentation } from "@/presentations";
+import { chapterOf } from "@/presentations/chapters";
+import { SlideCanvas, useContainerScale } from "./SlideCanvas";
 import { usePdfExport } from "./PdfExport";
+import SlideOverview from "./SlideOverview";
 import styles from "./Deck.module.css";
 
 export default function Deck({ presentationId }: { presentationId: string }) {
@@ -208,7 +205,6 @@ export default function Deck({ presentationId }: { presentationId: string }) {
 
   const isCurrentHidden = hidden.has(slides[current]?.id);
   const currentChapter = chapterOf(presentation, slides[current]?.chapterId);
-  const chapters = presentation.chapters;
 
   const startExportMode = useCallback(() => {
     setSelected(new Set(slides.map((s) => s.id)));
@@ -345,239 +341,34 @@ export default function Deck({ presentationId }: { presentationId: string }) {
       {captureNode}
 
       {overview && (
-        <div className={styles.overview}>
-          <div className={styles.overviewHeader}>
-            <h2>{presentation.title}</h2>
-            <p>
-              {exportMode
-                ? "Huk av slidene som skal med i PDF-en. Hver slide tas med én gang, på siste steg."
-                : "Klikk for å gå til en slide. Bruk øye-knappen for å skjule eller vise den. Kapitler er bare synlige her – ikke for publikum."}
-            </p>
-            <div className={styles.overviewActions}>
-              {!exportMode && (
-                <button
-                  className={styles.btn}
-                  onClick={startExportMode}
-                  title="Last ned slides som PDF"
-                >
-                  Eksporter PDF
-                </button>
-              )}
-              <button
-                className={styles.btn}
-                onClick={closeOverview}
-                disabled={exporting}
-              >
-                Lukk (Esc)
-              </button>
-            </div>
-          </div>
-
-          {exportMode && (
-            <div className={styles.exportBar}>
-              {exporting && progress ? (
-                <p>
-                  Lager PDF… slide {progress.current} av {progress.total}
-                </p>
-              ) : (
-                <>
-                  <button
-                    className={styles.btn}
-                    onClick={() =>
-                      setSelected(new Set(slides.map((s) => s.id)))
-                    }
-                  >
-                    Alle
-                  </button>
-                  <button
-                    className={styles.btn}
-                    onClick={() => setSelected(new Set())}
-                  >
-                    Ingen
-                  </button>
-                  <button
-                    className={`${styles.btn} ${styles.btnPrimary}`}
-                    disabled={selected.size === 0}
-                    onClick={runExport}
-                  >
-                    Last ned PDF ({selected.size})
-                  </button>
-                  <button
-                    className={styles.btn}
-                    onClick={() => setExportMode(false)}
-                  >
-                    Avbryt
-                  </button>
-                </>
-              )}
-              {exportError && (
-                <p className={styles.exportError}>{exportError}</p>
-              )}
-            </div>
-          )}
-
-          {chapters?.length ? (
-            chapters.map((ch) => {
-              const chapterHidden = isChapterFullyHidden(ch, hidden);
-              const chapterIds = ch.slides.map((s) => s.id);
-              const chapterSelected =
-                chapterIds.length > 0 &&
-                chapterIds.every((id) => selected.has(id));
-              return (
-                <section key={ch.id} className={styles.chapter}>
-                  <div className={styles.chapterHeader}>
-                    <div>
-                      <h3 className={styles.chapterTitle}>{ch.title}</h3>
-                      <span className={styles.chapterMeta}>
-                        {ch.slides.length} slides
-                        {chapterHidden && " · skjult"}
-                      </span>
-                    </div>
-                    {exportMode && (
-                      <div className={styles.chapterActions}>
-                        <button
-                          className={styles.btn}
-                          onClick={() => toggleChapterSelected(ch.id)}
-                          disabled={exporting}
-                        >
-                          {chapterSelected ? "Fjern kapittel" : "Velg kapittel"}
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                  <div className={styles.grid}>
-                    {ch.slides.map((s) => {
-                      const i = slides.findIndex((x) => x.id === s.id);
-                      if (i < 0) return null;
-                      return (
-                        <OverviewThumb
-                          key={s.id}
-                          slide={slides[i]}
-                          index={i}
-                          isCurrent={i === current}
-                          isHidden={hidden.has(s.id)}
-                          exportMode={exportMode}
-                          selected={selected.has(s.id)}
-                          exporting={exporting}
-                          onGo={() => {
-                            setCurrent(i);
-                            setStep(0);
-                            setExportMode(false);
-                            setOverview(false);
-                          }}
-                          onToggleHidden={() => toggleHidden(s.id)}
-                          onToggleSelected={() => toggleSelected(s.id)}
-                        />
-                      );
-                    })}
-                  </div>
-                </section>
-              );
-            })
-          ) : (
-            <div className={styles.grid}>
-              {slides.map((s, i) => (
-                <OverviewThumb
-                  key={s.id}
-                  slide={s}
-                  index={i}
-                  isCurrent={i === current}
-                  isHidden={hidden.has(s.id)}
-                  exportMode={exportMode}
-                  selected={selected.has(s.id)}
-                  exporting={exporting}
-                  onGo={() => {
-                    setCurrent(i);
-                    setStep(0);
-                    setExportMode(false);
-                    setOverview(false);
-                  }}
-                  onToggleHidden={() => toggleHidden(s.id)}
-                  onToggleSelected={() => toggleSelected(s.id)}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+        <SlideOverview
+          presentation={presentation}
+          current={current}
+          hidden={hidden}
+          onGo={(i) => {
+            setCurrent(i);
+            setStep(0);
+            setExportMode(false);
+            setOverview(false);
+          }}
+          onToggleHidden={toggleHidden}
+          onClose={closeOverview}
+          export={{
+            mode: exportMode,
+            selected,
+            exporting,
+            progress,
+            error: exportError,
+            onStart: startExportMode,
+            onToggleSelected: toggleSelected,
+            onToggleChapter: toggleChapterSelected,
+            onSelectAll: () => setSelected(new Set(slides.map((s) => s.id))),
+            onSelectNone: () => setSelected(new Set()),
+            onRun: runExport,
+            onCancel: () => setExportMode(false),
+          }}
+        />
       )}
-    </div>
-  );
-}
-
-function OverviewThumb({
-  slide,
-  index,
-  isCurrent,
-  isHidden,
-  exportMode,
-  selected,
-  exporting,
-  onGo,
-  onToggleHidden,
-  onToggleSelected,
-}: {
-  slide: SlideDef;
-  index: number;
-  isCurrent: boolean;
-  isHidden: boolean;
-  exportMode: boolean;
-  selected: boolean;
-  exporting: boolean;
-  onGo: () => void;
-  onToggleHidden: () => void;
-  onToggleSelected: () => void;
-}) {
-  return (
-    <div
-      className={`${styles.thumb} ${
-        isCurrent && !exportMode ? styles.thumbActive : ""
-      } ${isHidden ? styles.thumbHidden : ""} ${
-        exportMode && selected ? styles.thumbSelected : ""
-      }`}
-    >
-      <button
-        className={styles.thumbCanvasWrap}
-        onClick={() => {
-          if (exportMode) onToggleSelected();
-          else onGo();
-        }}
-        disabled={exporting}
-        title={
-          exportMode
-            ? selected
-              ? "Fjern fra PDF"
-              : "Velg til PDF"
-            : slide.name
-        }
-      >
-        <div className={styles.thumbCanvas}>
-          <SlideCanvas slide={slide} scale={200 / SLIDE_W} />
-        </div>
-      </button>
-      <div className={styles.thumbFooter}>
-        {exportMode && (
-          <input
-            type="checkbox"
-            className={styles.thumbCheckbox}
-            checked={selected}
-            onChange={onToggleSelected}
-            disabled={exporting}
-            aria-label={`Velg ${slide.name}`}
-          />
-        )}
-        <span className={styles.thumbLabel}>
-          {index + 1}. {slide.name}
-        </span>
-        {!exportMode && (
-          <button
-            className={styles.eyeBtn}
-            onClick={onToggleHidden}
-            title={isHidden ? "Vis slide" : "Skjul slide"}
-          >
-            {isHidden ? "🚫" : "👁"}
-          </button>
-        )}
-      </div>
     </div>
   );
 }

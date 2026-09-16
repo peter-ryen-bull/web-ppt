@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { getPresentation } from "@/presentations";
 import { SlideCanvas, useContainerScale } from "./SlideCanvas";
+import SlideOverview from "./SlideOverview";
 import { useSyncedDeck } from "./useSyncedDeck";
 import styles from "./PresenterView.module.css";
 
@@ -35,11 +36,13 @@ export default function PresenterView({
     visibleIndexes,
     currentVisiblePos,
     go,
+    goTo,
     goChapter,
     toggleHidden,
     currentChapter,
     isCurrentChapterHidden,
   } = useSyncedDeck(presentation);
+  const [overview, setOverview] = useState(false);
 
   const currentStageRef = useRef<HTMLDivElement>(null);
   const nextStageRef = useRef<HTMLDivElement>(null);
@@ -224,11 +227,17 @@ export default function PresenterView({
         return;
       }
       if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+        if (overview) return;
         e.preventDefault();
         go(1);
       } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+        if (overview) return;
         e.preventDefault();
         go(-1);
+      } else if (e.key === "Escape") {
+        setOverview(false);
+      } else if (e.key === "g" || e.key === "G") {
+        setOverview((o) => !o);
       } else if (e.key === "h" || e.key === "H") {
         toggleHidden(slides[current].id);
       } else if (e.key === "[") {
@@ -241,7 +250,7 @@ export default function PresenterView({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go, goChapter, toggleHidden, current, slides, openAudience]);
+  }, [go, goChapter, toggleHidden, current, slides, openAudience, overview]);
 
   // Neste synlige slide (den publikum ser etter neste tastetrykk)
   const nextIndex =
@@ -288,6 +297,13 @@ export default function PresenterView({
             title="Nullstill tidtaker"
           >
             ↺
+          </button>
+          <button
+            className={styles.btn}
+            onClick={() => setOverview((o) => !o)}
+            title="Oversikt (G)"
+          >
+            Oversikt
           </button>
           <button
             className={`${styles.btn} ${styles.btnPrimary}`}
@@ -466,6 +482,20 @@ export default function PresenterView({
           Publikum ser kun sliden – kapitler, notater og teller vises bare her.
         </div>
       </footer>
+
+      {overview && (
+        <SlideOverview
+          presentation={presentation}
+          current={current}
+          hidden={hidden}
+          onGo={(i) => {
+            goTo(i);
+            setOverview(false);
+          }}
+          onToggleHidden={toggleHidden}
+          onClose={() => setOverview(false)}
+        />
+      )}
     </div>
   );
 }
