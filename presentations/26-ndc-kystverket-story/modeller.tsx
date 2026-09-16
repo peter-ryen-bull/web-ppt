@@ -80,7 +80,7 @@ export function SlideModeller() {
   );
 }
 
-/* Modulflyt: AIS → HAIS → MarTraf → MarU / KystRisk */
+/* Modulflyt: AIS → HAIS | MarTraf → MarU / KystRisk */
 export function SlideModellFlyt() {
   const box = (
     at: number,
@@ -126,29 +126,6 @@ export function SlideModellFlyt() {
     </Reveal>
   );
 
-  const arrow = (at: number, x: number) => (
-    <Reveal at={at}>
-      <Box
-        box={[x, 344, 46, 60]}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(30),
-            color: "var(--red)",
-          }}
-        >
-          →
-        </div>
-      </Box>
-    </Reveal>
-  );
-
   const arrowHead = (x: number, y: number) => (
     <path d={`M ${x - 10} ${y - 6} L ${x} ${y} L ${x - 10} ${y + 6}`} stroke="var(--red)" strokeWidth={2.5} fill="none" />
   );
@@ -156,29 +133,43 @@ export function SlideModellFlyt() {
   return (
     <>
       <SlideTitle width={900}>One source, many products</SlideTitle>
-      {box(1, [36, 306, 200, 136], "Raw AIS data", "static and dynamic messages")}
-      {arrow(2, 236)}
-      {box(2, [282, 306, 200, 136], "HAIS", "historical extracts on demand")}
-      {arrow(3, 482)}
-      {box(3, [528, 306, 200, 136], "MarTraf", "the traffic product – cleans and enriches")}
+      {box(1, [36, 292, 210, 136], "Raw AIS data", "static and dynamic messages")}
+      <Reveal at={2}>
+        <Box box={[246, 188, 104, 332]}>
+          <svg width="104" height="332" viewBox="0 0 104 332" fill="none" aria-hidden>
+            <path d="M 0 172 H 40 V 64 H 92" stroke="var(--red)" strokeWidth={2.5} />
+            {arrowHead(92, 64)}
+          </svg>
+        </Box>
+      </Reveal>
+      {box(2, [350, 188, 250, 128], "HAIS", "historical extracts on demand")}
+      <Reveal at={3}>
+        <Box box={[246, 188, 104, 332]}>
+          <svg width="104" height="332" viewBox="0 0 104 332" fill="none" aria-hidden>
+            <path d="M 40 172 V 268 H 92" stroke="var(--red)" strokeWidth={2.5} />
+            {arrowHead(92, 268)}
+          </svg>
+        </Box>
+      </Reveal>
+      {box(3, [350, 392, 250, 128], "MarTraf", "the traffic product – cleans and enriches")}
       <Reveal at={4}>
-        <Box box={[728, 220, 148, 316]}>
-          <svg width="148" height="316" viewBox="0 0 148 316" fill="none" aria-hidden>
-            <path d="M 0 154 H 70 V 78 H 136" stroke="var(--red)" strokeWidth={2.5} />
-            {arrowHead(136, 78)}
+        <Box box={[600, 328, 160, 256]}>
+          <svg width="160" height="256" viewBox="0 0 160 256" fill="none" aria-hidden>
+            <path d="M 0 128 H 70 V 58 H 148" stroke="var(--red)" strokeWidth={2.5} />
+            {arrowHead(148, 58)}
           </svg>
         </Box>
       </Reveal>
       <Reveal at={5}>
-        <Box box={[728, 220, 148, 316]}>
-          <svg width="148" height="316" viewBox="0 0 148 316" fill="none" aria-hidden>
-            <path d="M 70 78 V 230 H 136" stroke="var(--red)" strokeWidth={2.5} />
-            {arrowHead(136, 230)}
+        <Box box={[600, 328, 160, 256]}>
+          <svg width="160" height="256" viewBox="0 0 160 256" fill="none" aria-hidden>
+            <path d="M 70 58 V 202 H 148" stroke="var(--red)" strokeWidth={2.5} />
+            {arrowHead(148, 202)}
           </svg>
         </Box>
       </Reveal>
-      {box(4, [876, 242, 368, 112], "MarU", "emissions – energy and climate accounts")}
-      {box(5, [876, 394, 368, 112], "KystRisk", "accident risk – collisions and groundings")}
+      {box(4, [760, 330, 480, 112], "MarU", "emissions – energy and climate accounts")}
+      {box(5, [760, 474, 480, 112], "KystRisk", "accident risk – collisions and groundings")}
       <Reveal at={6}>
         <Box
           box={[36, 600, 1208, 50]}
