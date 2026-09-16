@@ -170,28 +170,6 @@ export function SlideModellFlyt() {
       </Reveal>
       {box(4, [760, 330, 480, 112], "MarU", "emissions – energy and climate accounts")}
       {box(5, [760, 474, 480, 112], "KystRisk", "accident risk – collisions and groundings")}
-      <Reveal at={6}>
-        <Box
-          box={[36, 600, 1208, 50]}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(18),
-              lineHeight: 1.4,
-              color: "var(--red)",
-              textAlign: "center",
-            }}
-          >
-            One source. Many data products. Each with its own output others can build on.
-          </div>
-        </Box>
-      </Reveal>
     </>
   );
 }

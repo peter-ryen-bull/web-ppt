@@ -1195,10 +1195,10 @@ for the municipalities.
 [[CLICK]] KystRisk. Accident risk. Collisions and groundings. The same voyages,
 a different question.
 
-[[CLICK]] And here's the point for those of you who build systems. The
-predecessor, Havbase, did everything in one model. One big black box. Now
-we have one source, and many data products on top. MarTraf's output is a product
-others can build on.
+And here's the point for those of you who build systems. The predecessor,
+Havbase, did everything in one model. One big black box. Now we have one
+source, and many data products on top. MarTraf's output is a product others
+can build on.
 
 Recognize that? It's the data product thinking from earlier. In practice.
 
