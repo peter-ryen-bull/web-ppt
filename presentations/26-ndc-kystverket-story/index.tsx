@@ -278,7 +278,7 @@ const HVORDAN: SlideDef[] = [
     id: "datakontrakt-innhold",
     name: "What's in a contract",
     component: SlideDatakontraktInnhold,
-    steps: 2,
+    steps: 4,
   },
   {
     id: "datakontrakt",

@@ -528,13 +528,13 @@ So what do you actually write down?
 
 Schema. Which fields exist, which types, what's required.
 
-Meaning. What the fields mean, and where they come from.
+[[CLICK]] Meaning. What the fields mean, and where they come from.
 
 [[CLICK]] Validation rules. Min, max, relationships, tests the data has
 to pass.
 
-SLAs and governance. How fresh it should be, how sensitive it is, who
-owns it.
+[[CLICK]] SLAs and governance. How fresh it should be, how sensitive it
+is, who owns it.
 
 [[CLICK]] And unlike a wiki page, this one is tested. Machines can check
 it. That's why it stays true.

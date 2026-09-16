@@ -756,15 +756,15 @@ export function SlideDatakontraktInnhold() {
             </div>
           </Box>
         );
-        return row === 0 ? (
+        return i === 0 ? (
           cell
         ) : (
-          <Reveal key={k.tittel} at={1}>
+          <Reveal key={k.tittel} at={i}>
             {cell}
           </Reveal>
         );
       })}
-      <Reveal at={2}>
+      <Reveal at={4}>
         <Box box={[66, 560, 1148, 80]}>
           <div
             style={{
