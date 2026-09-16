@@ -127,7 +127,7 @@ export function SlideAzure() {
         items={[
           "Storage, networking, identity",
           "Security and cost from day one",
-          "Rebuild from the repo",
+          "Integrated well with the rest of the organization",
         ]}
       />
     </>
