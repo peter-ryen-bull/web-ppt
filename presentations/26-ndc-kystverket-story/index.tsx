@@ -372,16 +372,16 @@ const PROSJEKTET: SlideDef[] = [
     steps: 3,
   },
   {
-    id: "terraform",
-    name: "Terraform: the infrastructure",
-    component: SlideTerraform,
-    steps: 4,
-  },
-  {
     id: "terraform-kode",
     name: "One resource. Three environments.",
     component: SlideTerraformKode,
     steps: 1,
+  },
+  {
+    id: "terraform",
+    name: "Deploy and version control your infrastructure",
+    component: SlideTerraform,
+    steps: 4,
   },
   {
     id: "fire-states",

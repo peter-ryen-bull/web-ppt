@@ -278,15 +278,18 @@ function Punchline({ at, y, text }: { at: number; y: number; text: string }) {
 export function SlideTerraform() {
   return (
     <>
-      <Box box={[66, 70, 1040, 90]}>
+      <Box box={[66, 48, 1060, 100]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(36),
+            lineHeight: 1.15,
             color: "var(--burgundy)",
           }}
         >
-          Deploy and version control your infrastructure
+          Deploy and version control
+          <br />
+          your infrastructure
         </div>
       </Box>
       <Img
@@ -294,7 +297,7 @@ export function SlideTerraform() {
         src={`${MEDIA}/terraform.svg`}
         alt="Terraform"
       />
-      <Box box={[66, 160, 1100, 40]}>
+      <Box box={[66, 168, 1100, 40]}>
         <div
           style={{
             fontFamily: "var(--font-sans)",
