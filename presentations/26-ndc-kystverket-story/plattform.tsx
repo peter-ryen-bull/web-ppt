@@ -77,7 +77,8 @@ export function SlideHvaEr() {
 
 /* Reid Hoffman: alt er målbart – og det blir rot uten styring */
 export function SlideReidHoffman() {
-  const pitch = useRevealStyle(1);
+  const quote = useRevealStyle(1);
+  const pitch = useRevealStyle(2);
   return (
     <>
       <Box
@@ -115,6 +116,7 @@ export function SlideReidHoffman() {
           flexDirection: "column",
           justifyContent: "center",
           gap: 22,
+          ...quote,
         }}
       >
         <div

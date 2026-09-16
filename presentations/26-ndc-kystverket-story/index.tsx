@@ -200,7 +200,7 @@ const PLATTFORM: SlideDef[] = [
     id: "reid-hoffman",
     name: "Everything is measurable",
     component: SlideReidHoffman,
-    steps: 1,
+    steps: 2,
   },
   {
     id: "hvorfor",
