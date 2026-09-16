@@ -428,6 +428,17 @@ const TEKNISK: SlideDef[] = [
     steps: 3,
   },
   {
+    id: "batch-vs-streaming",
+    name: "Sidenote: batch vs. streaming",
+    component: SlideBatchVsStreaming,
+  },
+  {
+    id: "batch-streaming-valg",
+    name: "When do you choose what?",
+    component: SlideBatchStreamingValg,
+    steps: 7,
+  },
+  {
     id: "stordata-compute",
     name: "Days of compute, or hours?",
     component: SlideStordataCompute,
@@ -446,17 +457,6 @@ const TEKNISK: SlideDef[] = [
     steps: 2,
   },
   { id: "h3-ship", name: "One ship on the hex grid", component: SlideH3Ship },
-  {
-    id: "batch-vs-streaming",
-    name: "Sidenote: batch vs. streaming",
-    component: SlideBatchVsStreaming,
-  },
-  {
-    id: "batch-streaming-valg",
-    name: "When do you choose what?",
-    component: SlideBatchStreamingValg,
-    steps: 7,
-  },
 ];
 
 const MODELLENE: SlideDef[] = [

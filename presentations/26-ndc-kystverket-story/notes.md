@@ -960,6 +960,40 @@ don't wait. We don't wait.
 For a small team, this is the difference between building a product and
 operating infrastructure. We chose product.
 
+## batch-vs-streaming – Batch vs. streaming: the flow
+
+That history job is batch. The daily stream is streaming. A sidenote,
+because it's a choice you're going to have to make.
+
+Look at the animation. At the top, batch collects data and moves it at fixed
+intervals. Once an hour, once a night. At the bottom, streaming forwards
+every event the moment it happens.
+
+And here's the point many people miss: the difference is not about
+technology. It's about how fresh the data needs to be. Does the vessel
+traffic center need to know where the ship is now? Yes, that's streaming.
+Do the climate accounts need to know where the ship was last year? That can
+happily run overnight.
+
+## batch-streaming-valg – When do you choose what?
+
+So when do you choose what?
+
+Click through the batch points. Batch fits reports and historical analysis.
+Large volumes, because it's cheap. And sources that arrive in chunks anyway,
+like a nightly export from an old system.
+
+Click through the streaming points. Streaming fits when you actually have to
+react now. Monitoring and alerting. Event-driven automation. And when
+freshness matters more than cost.
+
+[[CLICK]] And in practice, you usually need both. My advice: start with batch.
+It's simpler and cheaper. Add streaming where fresh data actually changes a
+decision. Not because it's cool.
+
+For us, the AIS stream comes in continuously. But much of what we build on
+top runs in batch. Both, in the same platform.
+
 ## stordata-compute – Days of compute, or hours?
 
 And then the question becomes: how long does that take?
@@ -1058,40 +1092,6 @@ Distance becomes "how many cells away". That's the join we just talked about.
 
 If our ship is in the same hex as a port, it's at the port.
 If it's one cell out, it's nearby. That's the whole test.
-
-## batch-vs-streaming – Batch vs. streaming: the flow
-
-That history job is batch. The daily stream is streaming. A sidenote,
-because it's a choice you're going to have to make.
-
-Look at the animation. At the top, batch collects data and moves it at fixed
-intervals. Once an hour, once a night. At the bottom, streaming forwards
-every event the moment it happens.
-
-And here's the point many people miss: the difference is not about
-technology. It's about how fresh the data needs to be. Does the vessel
-traffic center need to know where the ship is now? Yes, that's streaming.
-Do the climate accounts need to know where the ship was last year? That can
-happily run overnight.
-
-## batch-streaming-valg – When do you choose what?
-
-So when do you choose what?
-
-Click through the batch points. Batch fits reports and historical analysis.
-Large volumes, because it's cheap. And sources that arrive in chunks anyway,
-like a nightly export from an old system.
-
-Click through the streaming points. Streaming fits when you actually have to
-react now. Monitoring and alerting. Event-driven automation. And when
-freshness matters more than cost.
-
-[[CLICK]] And in practice, you usually need both. My advice: start with batch.
-It's simpler and cheaper. Add streaming where fresh data actually changes a
-decision. Not because it's cool.
-
-For us, the AIS stream comes in continuously. But much of what we build on
-top runs in batch. Both, in the same platform.
 
 ## modeller – From positions to emissions
 
