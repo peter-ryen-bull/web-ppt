@@ -256,7 +256,7 @@ const HVORDAN: SlideDef[] = [
     id: "dataprodukt-kjennetegn",
     name: "What makes it a product",
     component: SlideDataproduktKjennetegn,
-    steps: 2,
+    steps: 4,
   },
   {
     id: "dataprodukt-anatomi",

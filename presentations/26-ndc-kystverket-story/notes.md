@@ -457,13 +457,16 @@ sell.
 So what turns a dataset into a product? Four things.
 
 A named owner. Someone who answers for the content, and has the
-mandate to improve it. And documentation: what the fields mean, where
-the data comes from, what you can use it for.
+mandate to improve it.
+
+[[CLICK]] Documentation: what the fields mean, where the data comes
+from, what you can use it for.
 
 [[CLICK]] Quality guarantees. How fresh it is, which tests it has passed,
-what consumers can expect. That's the contract. We'll get to that. And
-known consumers: you know who actually uses the dataset, so you can
-warn them before a change breaks something downstream.
+what consumers can expect. That's the contract. We'll get to that.
+
+[[CLICK]] And known consumers: you know who actually uses the dataset,
+so you can warn them before a change breaks something downstream.
 
 Ownership says who. The contract says what. Product thinking says why.
 
