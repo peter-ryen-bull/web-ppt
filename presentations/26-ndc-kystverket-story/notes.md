@@ -281,12 +281,13 @@ He put it like this: in the world of data, everything is measurable, and
 everything is knowable.
 
 [[CLICK]] And that's the double edge. If everything is measurable, the
-data becomes extraordinarily valuable. But it also becomes a mess if you
-don't handle it properly.
+data becomes extraordinarily valuable. 
 
-A data platform is the latest answer to that problem. We've been trying
-to solve it for over fifty years. What problem is this, and why is the
-data platform the current answer?
+But then you get a really large amount of data. And it becomes a real mess if don't handle it properly.
+
+We've been trying to solve that problem of keeping track of our data for over fifty years. And while we have been solving that problem, the scale of data has been exponentially increasing. 
+
+And right now - a data platform is the latest answer to that problem.
 
 ## hvorfor – Data platforms are everywhere
 
@@ -296,39 +297,38 @@ most services you have been using this week are backed by data platforms .
 [[CLICK]] The online store that suggests products that actually fit.
 [[CLICK]] The streaming service that recommendation shows for you in the evening.
 
-[[CLICK]] The taxi that gives you a fixed price before you get in, and picks the
-fastest route through rush hour.
+[[CLICK]] In your bank, fraud detection and anti-money laundering run on
+every transaction before it clears.
 
-[[CLICK]] The flight price set in under a
-second, based on capacity, profitability, and how likely it is that you,
-specifically, will buy.
+[[CLICK]] New road projects are planned from years of traffic data, statistical
+forecasts of future traffic, and calculations of noise and other measures.
+Hundreds of terabytes of data — used to make the best decisions from the
+most data.
 
-[[CLICK]] Behind every single one of these is a platform that ingests, stores,
-processes, and delivers data.
-And most of these recommendations are based on patters built on terrabytes with user data.
-
-And the NAIS map from the opening? It's exactly the same story. Just for the
-coastline.
+[[CLICK]] It's happening everywhere. Behind every single one of these is a
+platform that ingests, stores, processes, and delivers data.
 
 ## batch-streaming – How it works
 
 So how does a data platform actually work?
 
-The big picture first. Then why it's more than a warehouse.
-
-Then we get to products.
+Then why it's different than a database, warehouse.
 
 ## dataflyt – Data flow: sources to consumers
 
 So what is a data platform, really? Let's take the big picture first.
 
-Point to the left side. Here are the sources. Operational systems, APIs,
-files, sensors. For us: the AIS antennas. Point to the right side. Here are
-the people who'll use the data. Apps, dashboards, machine learning models,
-analysts.
+[[CLICK]] Point to the left side. Here are the sources. Operational systems, APIs,
+files, sensors. For us: the AIS antennas.
 
-And in the middle sits the platform. One shared layer where everything comes
+[[CLICK]] And in the middle sits the platform. One shared layer where everything comes
 together and becomes one truth.
+
+[[CLICK]] Point to the right side. Here are the people who'll use the data. Apps,
+dashboards, machine learning models, analysts.
+
+[[CLICK]] And underneath: monitoring, infrastructure, and how people work together.
+That's what keeps the platform running.
 
 I like to think of it as a jigsaw puzzle. Each piece is a little bit of
 information about the business. Sales figures, sensor data, positions. On
@@ -389,37 +389,31 @@ job, compute, or a model registry.
 
 [[CLICK]] It's a platform.
 
-## mer-enn-varehus-katalog – Catalog. Compute. Jobs. Discover.
+## mer-enn-varehus-katalog – Catalog. Jobs. Ask. Answer.
 
-That's the sentence. Here's what it looks like when you open it.
 
-Don't walk the screenshot. Point at the left. Catalog. Jobs. Compute.
+
+
+ Point at the left. Catalog. Jobs. Compute.
 Discover. SQL. Dashboards. That's not a database console.
 
 The list we just went through? It's in the menu.
 
-[[CLICK]] Catalog. Compute. Jobs. Discover.
+[[CLICK]] Jobs that run. Not a query window. Pipelines.
 
-## mer-enn-varehus-ai – And then you ask.
+[[CLICK]] A catalog you can open. The data has a place, a name, and a
+schema you can find without asking around.
 
-And then this. Same platform. Now you ask it.
-
-Analyze my data. Create a skill. The catalog we just saw is what this
-talks to.
+[[CLICK]] And then you ask. Same platform. Analyze my data. Create a
+skill. The catalog we just saw is what this talks to.
 
 A database does not have a box that says how can I help you.
 
-[[CLICK]] And then you ask.
-
-## mer-enn-varehus-svar – And it answers.
-
-And it answers. Trollfjord. Positions on the eleventh of August.
-Fortøyd. Underveis. A map. A table.
+[[CLICK]] And it answers. Trollfjord. Positions on the eleventh of
+August. Fortøyd. Underveis. A map. A table.
 
 You asked. The platform used the catalog, the compute, the data.
 That's the whole argument on one screen.
-
-[[CLICK]] And it answers.
 
 ## dataprodukt – Data product
 
@@ -480,14 +474,30 @@ handful people lean on.
 Let me show you what I mean.
 
 Point to the left side. Here's a file someone put in a bucket. The data in
-it might be completely correct. But nobody dares use it. What do the fields
-mean? How fresh is it? Who do I ask when something looks weird? Have you
-been there? I've been there many times. A file in a bucket is not a product.
-It's an object.
+it might be completely correct. But nobody dares use it.
 
-Point to the right side. Exactly the same data. But packaged with
-documentation, a clear owner, quality tests, an agreement on how fresh it
-should be, and access via API, SQL, or BI. Now people dare to use it.
+[[CLICK]] What do the fields mean?
+
+[[CLICK]] How fresh is it?
+
+[[CLICK]] Who do I ask when something looks weird? Have you been there?
+I've been there many times. A file in a bucket is not a product. It's an
+object.
+
+Point to the right side. Exactly the same data. But packaged.
+
+[[CLICK]] Documentation: what the fields mean.
+
+[[CLICK]] A clear owner. Someone who answers.
+
+[[CLICK]] A data contract. A machine-readable agreement.
+
+[[CLICK]] And access. API, SQL, or BI.
+
+[[CLICK]] Quality tests that run on every row.
+
+[[CLICK]] And freshness. An SLA: fresher than five minutes. Now people
+dare to use it.
 
 Think of the difference between loose ingredients and a meal kit. The table
 is the ingredient. The data product is the dish, recipe and all.
@@ -635,12 +645,21 @@ single system that uses the data. That's governance in practice.
 
 ## roller – Clear roles
 
-Roles before technology.
+As a data platform scales, 
+Enforcement of such rules also need clear roles. 
 
-[[CLICK]] Someone has to own the platform. [[CLICK]] Someone has to build on it,
-engineers and analysts. [[CLICK]] Someone has to be responsible for governance.
-[[CLICK]] And then there are the people who'll actually use what comes out, BI
-people and consumers.
+
+[[CLICK]] Someone has to own and build the platform.
+
+[[CLICK]] Someone has to build the data pipelines and data products —
+engineers and analysts.
+
+[[CLICK]] Someone has to be responsible for governance.
+
+[[CLICK]] And then there are the people who'll actually use what comes out —
+BI people and consumers.
+
+[[CLICK]] In practice the first three sit together as one data platform team.
 
 The crucial shift is this: from data being something IT handles, to data
 being a natural part of the domain responsibility. When the pilots own the
@@ -809,14 +828,8 @@ And the point, like we said before: the entire platform can be recreated
 from the repo. Even if someone deletes it. That's an insurance policy. Not a
 slogan.
 
-And before we go deeper into ingest and the pipelines: what do we actually
-build on top of this?
-
-## teknisk-implementasjon – Technical implementation details
-
-Chapter change. Back to how it was actually built. Four Terraform states.
-Ingest. The stream and the history. How we make the spatial joins scale.
-And when you choose batch versus streaming.
+Let me show you what that looks like in the repo. One resource. Three
+environments.
 
 ## fire-states – Terraform: four states. Four pipelines.
 
@@ -831,7 +844,7 @@ shouldn't touch the account level.
 
 [[CLICK]] Storage accounts. Storage and containers. Including raw. Where the
 data lands before Databricks sees it. Remember that word. Raw. We'll come
-back to it in two slides.
+back to it when we talk about ingest.
 
 [[CLICK]] Unity Catalog. The catalogs and the access control. Governance as
 code.
@@ -842,6 +855,14 @@ that sits above the workspace.
 [[CLICK]] Four deployments. Each one in dev, test, and prod. A change in
 storage doesn't tear down the catalog. And a change in dev doesn't touch
 prod. That's the whole point of splitting.
+
+And before we go deeper into ingest and the pipelines: what do we actually
+build on top of this?
+
+## teknisk-implementasjon – Technical implementation details
+
+Chapter change. Back to how it was actually built. Ingest. The daily job.
+How the pipeline is wired.
 
 ## terraform-dabs – Infrastructure and logic. Two tools.
 
@@ -858,15 +879,37 @@ purpose.
 Often. As it should be.
 
 The split is deliberate. The infrastructure should be boring. The logic
-should be easy to change often. If you take one sentence from the last
-three slides, take that one.
+should be easy to change often. If you take one sentence from the Terraform
+slides, take that one.
+
+## pyspark-dabs – From PySpark to a pipeline
+
+The models you just saw. MarTraf. MarU. They're not a special system.
+They're code.
+
+[[CLICK]] We write them in PySpark. Same Spark you'd write in a notebook.
+Python. DataFrames. The H3 joins, the propeller law, the phases. That's the
+model.
+
+[[CLICK]] Then we deploy that code to Databricks compute. The data is
+already there. Nobody copies a hundred million rows out to a laptop. The
+model runs where the lakehouse is.
+
+[[CLICK]] And Databricks Asset Bundles, the DABs from the last slide, wrap
+that into a job. A YAML file in git. Schedule. Dev, test, prod. Same idea
+as Terraform, but for the logic.
+
+[[CLICK]] So they run as automated pipelines. Every night. A hundred million
+rows. Without anyone pressing a button.
 
 ## ingest – Ingest happens outside Databricks.
 
 So. The data. Where does it come in?
 
 Ingest happens outside Databricks. Databricks doesn't own the antenna. It
-owns what comes after raw.
+owns what comes after raw
+This is because we want to decouple the raw jobs from the processing solution databricks. Meaning databricks can and will probably we replaced at one time in the future. So it's cheaper and more resilient to base the raw ingest pipelines on open source 
+
 
 [[CLICK]] We use Prefect. A Python library for orchestrating jobs. Not
 Databricks jobs. Plain Python jobs.
@@ -918,7 +961,8 @@ And still: no clusters we have to run.
 
 ## stordata-volum – The stream is small, the history is big
 
-And now I'm going to say something that might surprise you.
+Chapter change. Scaling. The stream and the history. How we make the
+spatial joins scale. And when you choose batch versus streaming.
 
 Click, click, click through the numbers. Around 5 GB of raw data per day.
 Around 1.8 TB per year. Around 40 TB of AIS history, back to 2005.
@@ -934,31 +978,58 @@ something changes. A new version of the emissions model. A new emission
 factor. A bug we found in the cleaning. Then all twenty years have to be
 recalculated.
 
+## databricks-compute – Clusters are managed VMs in Azure
+
+So how do you actually run those jobs?
+
+Databricks compute. You spin up a cluster. And a cluster is just managed
+VMs in Azure. That's the whole trick. Databricks starts them, Databricks
+stops them. They live in our subscription.
+
+[[CLICK]] You scale the cluster to the volume. More data, bigger machines.
+Or more of them.
+
+[[CLICK]] A terabyte through the job? You need a fairly big VM. Remember the
+history? Around 40 TB. That is not a laptop job.
+
+[[CLICK]] And here's the part people get wrong. Not everything has to fit in
+memory at the same time. Spark chunks the data. It reads a piece, works on
+it, writes it out, takes the next piece.
+
+[[CLICK]] So the VM size is not "does it fit." The VM size is "how long does
+it take." Same job. Small cluster, you wait. Big cluster, you get the
+answer today.
+
+We spent quite a lot of time getting that scaling just right.
+
 ## serverless – No clusters to wake up at night
 
-Serverless.
+And then we noticed the problem.
 
-Remember HAIS? One week for one vessel, or every ship for a year. That's
-why serverless fits. The job decides the size. Not us.
+Remember HAIS? One week for one vessel, or every ship for a year. The
+scaling needs were not the same job to job.
+
+[[CLICK]] A huge historical load. The last seven days. One ship. Three
+different sizes. Tune the cluster for the history job, and the one-ship job
+is sitting on a warehouse. Tune it for one ship, and the history job runs
+until Friday.
+
+We did quite a lot of that tuning. Spot versus on-demand. Spark settings.
+When to scale this job and when to leave that one alone.
+
+[[CLICK]] Then we stopped guessing. Databricks has an autoscaling feature.
+They call it serverless. The job decides the size. Not us.
 
 Remember the small team that needed to sleep at night? This is where that
 comes in. No clusters to start, patch, or scale. Nobody getting an alert at
 four in the morning because a node died.
 
-[[CLICK]] Autoscaling was cheaper than manual scaling. For us. We didn't have
-to guess the size of a cluster and then sit on unused capacity, or run too
-small and watch the queue grow. Capacity follows the stream. More traffic
-in the daytime than at night, more in summer than in winter, and the
-platform scales up and down by itself. And we pay for what we use. Not for
-what we fear we might need.
+[[CLICK]] Some jobs went from 36 hours to 4 hours. Same work. Wider when it
+needed to be wide.
 
-[[CLICK]] It saved tuning time. Nobody on the team spending evenings on
-cluster config. Spark settings. Spot vs. on-demand. When to scale this job
-and when to leave that one alone.
-
-[[CLICK]] And it saved startup time. No waiting for a cluster to wake up
-before the job can start. The stream doesn't wait. The history jobs
-don't wait. We don't wait.
+Serverless is more expensive. It's a managed scaling service, and you pay
+for that. We still chose it. We saved so much time that it was definitely
+worth it.
 
 For a small team, this is the difference between building a product and
 operating infrastructure. We chose product.
@@ -1090,11 +1161,13 @@ and under one knot. Distance is just how many cells away.
 
 This is what that looks like for one ship.
 
-Let it run. The track is just points. Each point lands in a hex.
+The track is just points. Each point lands in a hex.
 Distance becomes "how many cells away". That's the join we just talked about.
 
 If our ship is in the same hex as a port, it's at the port.
 If it's one cell out, it's nearby. That's the whole test.
+
+Now these cells are very big, but t
 
 ## modeller – From positions to emissions
 
@@ -1278,18 +1351,18 @@ That's why you need metadata and data contracts. Not just numbers.
 
 ## propellloven – The propeller law
 
-And the core of the entire emissions model is an equation simple enough to
-say out loud.
+And the core of the entire emissions model is three things we already have.
 
-Load equals speed divided by service speed, cubed. The propeller law.
+[[CLICK]] Two AIS points. Distance over time. That's the speed of the ship.
+Our ship off Stad. Nine knots.
 
-[[CLICK]] And think about what cubed means. Double the speed, and you need
-eight times the power. Eight times. That's why shipping companies slow down
-when fuel gets expensive. That's why a ship doing nine knots instead of
-twelve saves enormously.
+[[CLICK]] And we know the ship. The registry tells us what type it is. How
+big. How it was built to sail. A cargo ship is not a fishing boat.
 
-[[CLICK]] Then we multiply by installed power, a factor of 0.85, and the time
-since the previous AIS message.
+[[CLICK]] Then we estimate what it burned at that speed. Power follows the
+cube of speed. Double the speed, and you need eight times the power. Eight
+times. That's why shipping companies slow down when fuel gets expensive.
+That's why a ship doing nine knots instead of twelve saves enormously.
 
 [[CLICK]] And here's the sentence I want you to remember from this entire talk:
 every AIS point becomes an emissions calculation.
@@ -1331,22 +1404,22 @@ So what comes out the other end?
 [[CLICK]] Emissions. CO2 and CO2 equivalents, methane, NOx, SOx, particulate
 matter. Plus energy demand, fuel consumption, distance, and operating hours.
 
-[[CLICK]] Broken down by fourteen ship types and nine sizes. Those under 5,000
+[[CLICK]] Broken down by fourteen ship types and nine sizes. 
 gross tons are split more finely than before, because Norwegian waters have
 a lot of small vessels.
 
-[[CLICK]] Geographically: municipality, county, sea area. [[CLICK]] Energy demand
-and shore power, which the predecessor didn't include at all. [[CLICK]] And
+[[CLICK]] Geographically: municipality, county, sea area. 
+
+[[CLICK]] Energy demand
+and shore power, which the predecessor didn't include at all. 
+
+[[CLICK]] And
 domestic, international, transit.
 
-And that means you can ask questions like this: how much CO2 do the biggest
-cruise ships emit in Geiranger in July, while they're lying still? We can
-answer that. Per ship, per month.
+And that means you can ask questions like this: how much CO2 do the biggest cruise ships emit in Geiranger in July, while they're lying still? We can answer that. Per ship, per month.
 
-And then the big one: the Norwegian Environment Agency is planning to use
-the MarU figures in the climate accounts for the municipalities. The
-platform ends up in official statistics. The message from our ship off Stad
-ends up in the climate accounts of Stad municipality.
+And then the big one: the Norwegian Environment Agency - Miljødirektoratet -  is planning to use the MarU figures in the climate accounts for the municipalities. The
+platform ends up in official statistics.
 
 ## veien-videre – The road ahead
 

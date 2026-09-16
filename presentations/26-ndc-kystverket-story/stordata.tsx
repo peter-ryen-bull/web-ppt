@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Box, BulletItem, MilesLogo, Reveal, pt } from "../parts";
+import { Box, BulletItem, BulletList, MilesLogo, Reveal, pt } from "../parts";
 import { Isfjell, KlyngeAuto, KlyngeFast } from "@/components/figures/strek";
 
 const VOLUM = {
@@ -107,6 +107,39 @@ export function SlideStordataVolum() {
           </div>
         </Box>
       </Reveal>
+    </>
+  );
+}
+
+/* Databricks-compute: klynger er administrerte VM-er i Azure */
+export function SlideDatabricksCompute() {
+  return (
+    <>
+      <MilesLogo />
+      <SlideTittel>Databricks compute</SlideTittel>
+      <Box box={[48, 108, 900, 40]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(17),
+            color: "var(--red)",
+          }}
+        >
+          Clusters are managed VMs in Azure
+        </div>
+      </Box>
+      <BulletList
+        box={[48, 200, 1180, 380]}
+        fromStep={1}
+        gap={36}
+        size={22}
+        items={[
+          "You scale the cluster to the volume",
+          "1 TB processed? You need a fairly big VM",
+          "Data is chunked. It doesn't all have to fit in memory.",
+          "The VM size decides how long the job takes",
+        ]}
+      />
     </>
   );
 }

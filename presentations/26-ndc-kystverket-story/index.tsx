@@ -27,8 +27,7 @@ import {
   SlideArkitektur,
   SlideMerEnnVarehus,
   SlideMerEnnVarehusKatalog,
-  SlideMerEnnVarehusAi,
-  SlideMerEnnVarehusSvar,
+  SlideStrukturereData,
   SlideDataprodukt,
   SlideDataproduktKjennetegn,
   SlideDataproduktAnatomi,
@@ -62,9 +61,11 @@ import {
   SlideAzure,
   SlideDatabricks,
   SlideTerraform,
+  SlideTerraformKode,
   SlideTekniskImplementasjon,
   SlideFireStates,
   SlideTerraformDabs,
+  SlidePysparkDabs,
   SlideIngest,
   SlideIngestFlyt,
   SlideAisPipeline,
@@ -72,6 +73,7 @@ import {
 } from "./sky";
 import {
   SlideStordataVolum,
+  SlideDatabricksCompute,
   SlideStordataCompute,
 } from "./stordata";
 import {
@@ -91,6 +93,8 @@ import {
   SlideMarUHull,
   SlideMarUUt,
   SlideMarUHvorfor,
+  SlideKystRisk,
+  SlideKystRiskTti,
 } from "./modeller";
 import {
   SlideVeienVidere,
@@ -114,7 +118,8 @@ import {
  *  Akt 5  Hva får du igjen   27:00  tre effekter med eksempler fra sjøveien
  *  Akt 6  Prosjektet         32:00  dag én, verktøykassa, terraform
  *  Akt 7  Produktene                HAIS, følg ett skip, MarTraf, MarU, propellloven
- *  Akt 7b Teknisk                   ingest, historikken, H3, batch vs streaming
+ *  Akt 7b Teknisk                   ingest, DABs, pipelinen
+ *  Akt 7c Scaling                   historikken, H3, batch vs streaming
  *  Akt 8  Veien videre       53:00  domener, kontrakter, og tilbake til Stad
  */
 const APNING: SlideDef[] = [
@@ -220,12 +225,12 @@ const HVORDAN: SlideDef[] = [
     id: "dataflyt",
     name: "Data flow: sources to consumers",
     component: SlideDataflyt,
+    steps: 4,
   },
   {
     id: "arkitektur",
     name: "Architecture: source to consumer",
     component: SlideArkitektur,
-    steps: 1,
   },
   {
     id: "mer-enn-varehus",
@@ -235,21 +240,15 @@ const HVORDAN: SlideDef[] = [
   },
   {
     id: "mer-enn-varehus-katalog",
-    name: "Catalog. Compute. Jobs. Discover.",
+    name: "Catalog. Jobs. Ask. Answer.",
     component: SlideMerEnnVarehusKatalog,
-    steps: 1,
+    steps: 4,
   },
   {
-    id: "mer-enn-varehus-ai",
-    name: "And then you ask.",
-    component: SlideMerEnnVarehusAi,
-    steps: 1,
-  },
-  {
-    id: "mer-enn-varehus-svar",
-    name: "And it answers.",
-    component: SlideMerEnnVarehusSvar,
-    steps: 1,
+    id: "strukturere-data",
+    name: "How do we architect the data to keep structure?",
+    component: SlideStrukturereData,
+    steps: 4,
   },
   { id: "dataprodukt", name: "Data product", component: SlideDataprodukt, steps: 1 },
   {
@@ -262,6 +261,7 @@ const HVORDAN: SlideDef[] = [
     id: "dataprodukt-anatomi",
     name: "More than a table",
     component: SlideDataproduktAnatomi,
+    steps: 9,
   },
   {
     id: "datakontrakt-kapittel",
@@ -309,11 +309,11 @@ const HVORDAN: SlideDef[] = [
   },
   {
     id: "governance",
-    name: "Governance: contracts and catalog",
+    name: "Governance",
     component: SlideGovernance,
-    steps: 2,
+    steps: 4,
   },
-  { id: "roller", name: "Clear roles", component: SlideRoller, steps: 4 },
+  { id: "roller", name: "Clear roles", component: SlideRoller, steps: 5 },
 ];
 
 const EFFEKTER: SlideDef[] = [
@@ -378,13 +378,11 @@ const PROSJEKTET: SlideDef[] = [
     component: SlideTerraform,
     steps: 4,
   },
-];
-
-const TEKNISK: SlideDef[] = [
   {
-    id: "teknisk-implementasjon",
-    name: "Technical implementation details",
-    component: SlideTekniskImplementasjon,
+    id: "terraform-kode",
+    name: "One resource. Three environments.",
+    component: SlideTerraformKode,
+    steps: 1,
   },
   {
     id: "fire-states",
@@ -392,11 +390,25 @@ const TEKNISK: SlideDef[] = [
     component: SlideFireStates,
     steps: 5,
   },
+];
+
+const TEKNISK: SlideDef[] = [
+  {
+    id: "teknisk-implementasjon",
+    name: "How it's done",
+    component: SlideTekniskImplementasjon,
+  },
   {
     id: "terraform-dabs",
     name: "Infrastructure and logic. Two tools.",
     component: SlideTerraformDabs,
     steps: 2,
+  },
+  {
+    id: "pyspark-dabs",
+    name: "From PySpark to a pipeline",
+    component: SlidePysparkDabs,
+    steps: 4,
   },
   {
     id: "ingest",
@@ -415,17 +427,14 @@ const TEKNISK: SlideDef[] = [
     name: "The job that runs every day",
     component: SlideAisPipeline,
   },
+];
+
+const SCALING: SlideDef[] = [
   {
     id: "stordata-volum",
     name: "The stream is small, the history is big",
     component: SlideStordataVolum,
     steps: 4,
-  },
-  {
-    id: "serverless",
-    name: "No clusters to wake up at night",
-    component: SlideServerless,
-    steps: 3,
   },
   {
     id: "batch-vs-streaming",
@@ -437,6 +446,18 @@ const TEKNISK: SlideDef[] = [
     name: "When do you choose what?",
     component: SlideBatchStreamingValg,
     steps: 7,
+  },
+  {
+    id: "databricks-compute",
+    name: "Clusters are managed VMs in Azure",
+    component: SlideDatabricksCompute,
+    steps: 4,
+  },
+  {
+    id: "serverless",
+    name: "No clusters to wake up at night",
+    component: SlideServerless,
+    steps: 3,
   },
   {
     id: "stordata-compute",
@@ -462,7 +483,7 @@ const TEKNISK: SlideDef[] = [
 const MODELLENE: SlideDef[] = [
   {
     id: "modeller",
-    name: "From positions to emissions",
+    name: "What products have we built on top of this?",
     component: SlideModeller,
   },
   {
@@ -479,23 +500,23 @@ const MODELLENE: SlideDef[] = [
   },
   {
     id: "folg-ett-skip",
-    name: "Follow one ship",
+    name: "MarTraf – Maritime traffic model",
     component: SlideFolgEttSkip,
     steps: 6,
   },
-  { id: "asuka-hais", name: "Asuka, from HAIS", component: SlideAsukaHais },
-  { id: "asuka-hvem", name: "Who is Asuka?", component: SlideAsukaHvem },
   {
     id: "martraf",
     name: "A pile of points",
     component: SlideMarTraf,
-    steps: 3,
+    steps: 2,
   },
   {
     id: "martraf-video",
     name: "MarTraf on the map",
     component: SlideMarTrafVideo,
   },
+  { id: "asuka-hais", name: "Asuka, from HAIS", component: SlideAsukaHais },
+  { id: "asuka-hvem", name: "Who is Asuka?", component: SlideAsukaHvem },
   {
     id: "maru",
     name: "The maritime emissions model: MarU",
@@ -512,7 +533,7 @@ const MODELLENE: SlideDef[] = [
     id: "propellloven",
     name: "The propeller law",
     component: SlidePropellloven,
-    steps: 3,
+    steps: 4,
   },
   {
     id: "maru-hull",
@@ -521,6 +542,18 @@ const MODELLENE: SlideDef[] = [
     steps: 5,
   },
   { id: "maru-ut", name: "What comes out?", component: SlideMarUUt, steps: 5 },
+  {
+    id: "kystrisk-tti",
+    name: "Kystrisk: What's the probability of impact?",
+    component: SlideKystRiskTti,
+    steps: 1,
+  },
+  {
+    id: "kystrisk",
+    name: "The maritime risk model: KystRisk",
+    component: SlideKystRisk,
+    steps: 4,
+  },
 ];
 
 const VEIEN_VIDERE: SlideDef[] = [
@@ -583,9 +616,10 @@ export const ndcKystverketStory = definePresentation({
     { id: "modellene", title: "The products", slides: MODELLENE },
     {
       id: "teknisk",
-      title: "Technical implementation details",
+      title: "How it's done",
       slides: TEKNISK,
     },
+    { id: "scaling", title: "Scaling", slides: SCALING },
     { id: "veien-videre", title: "The road ahead", slides: VEIEN_VIDERE },
   ],
 });

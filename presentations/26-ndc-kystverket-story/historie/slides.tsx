@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Box, BulletItem, ChapterSlide, MilesLogo, QuotePage, pt } from "../../parts";
+import { Box, BulletItem, ChapterSlide, QuotePage, pt } from "../../parts";
 import {
   TidslinjeFigur,
   RelasjonsFigur,
@@ -24,7 +24,6 @@ function FigurSlide({
 }) {
   return (
     <>
-      <MilesLogo />
       {kicker && (
         <Box box={[48, 34, 800, 30]}>
           <div
@@ -109,7 +108,6 @@ function SpeilSlide({
 
   return (
     <>
-      <MilesLogo />
       <Box box={[48, 44, 900, 34]}>
         <div
           style={{
@@ -206,7 +204,6 @@ export function SlideDatabasenSpeil() {
         "One system per function: the truth spread out across many databases again",
         "Management still couldn't get answers across systems",
       ]}
-      bunn="Memory isn't the same as insight."
     />
   );
 }

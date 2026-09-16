@@ -14,33 +14,35 @@ It's just the latest answer to a 50-year-old problem.
 
 ## tidslinje – Five phases, one problem
 
-1970 the database, 1988 the data warehouse, 2006 big data,
-2010 the data lake, 2012 the cloud, 2020 the lakehouse.
+1970 the releational database, 
+1988 the data warehouse, 
+2006 big data,
+2010 the data lake, 
+2012 the cloud, 
+2020 the lakehouse.
 
-Don't dwell – two slides per era, then we move on.
-The gaps between the jumps are shrinking.
-
-The pattern to look for: a problem gets a solution, the solution
-creates a new problem – which becomes the next decade's starting point.
-The bottleneck keeps moving: from the program, to operations, to the
-schema, to the hardware, to the organization.
+The technology has been evolving, and constantly shifting
 
 ## relasjonsmodellen – 1970 · The database
 
-Set the scene fast: the sixties, punch cards and magnetic tape.
-Every program owned its own files. The same customer in three places,
+Set the scene fast: 
+- the sixties, punch cards and magnetic tape.
+- Every program owned its own files. 
+- The same customer in three places,
 in three formats – and the numbers don't match. A new question meant
 a new program.
 
-Ted Codd, IBM, 1970: tables joined on shared attributes. Store each
-fact once. The radical part: separate WHAT you're asking from WHERE
+Ted Codd, IBM, 1970: tables joined on shared attributes. 
+
+The radical part: separate WHAT you're asking from WHERE 
 it's stored. SQL: say what you want, let the database figure out how.
 
-Fun detail: Oracle read IBM's papers and beat them to market (1979).
+You are not asking a file directly, you are just asking give me this information from the table called customers.
 
 ## databasen-speil – The database: solved, and a new problem
 
-The database gave operations one shared memory.
+The database gave operations one shared memory
+.
 But it was built for operations – lots of small transactions – not analysis.
 Run a heavy report against the checkout system and the line grows.
 And with one system per function, the truth spread out again.
@@ -50,14 +52,16 @@ And with one system per function, the truth spread out again.
 ## varehuset – 1988 · The data warehouse
 
 Management wants answers ACROSS systems: Which customers are profitable?
-What's our total risk? Copy data out of the operational systems (ETL,
+Copy data out of the operational systems (ETL,
 nightly job) into ONE warehouse built for questions, not operations.
 
-Inmon: subject-oriented, integrated, time-variant, non-volatile.
-Devlin & Murphy described the architecture in 1988.
+
+Separated Operational systems and Analytical systems
+OLTP vs OLAP
+
 Banks were first – because money is data. Risk, fraud, profitability,
 and regulation all need a view across systems. They could also afford
-the “eye-watering” Teradata bill.
+the “eye-watering”
 
 ## varehuset-speil – The warehouse: solved, and a new problem
 
@@ -119,12 +123,19 @@ in the domains. Platforms fail organizationally, not technically.
 
 ## avslutning – Data lasts longer than the systems
 
-Tim Berners-Lee said it: data is a precious thing, and it will last
+Tim Berners-Lee said it - credited as the inventor of the interne
+
+Data is a precious thing, and it will last
 longer than the systems themselves.
 
 That's the whole history in one sentence. The database, the warehouse,
 the lake, the cloud, the lakehouse. We keep replacing the systems.
-The data is still here. AIS messages from 2005 are still here.
+The data is still here. 
+And it's still increasing exponentially: volume, velocity and value
 
-[[CLICK]] So we don't model the data to fit today's system.
-We model the systems to fit the data. That's why we build a platform.
+AIS messages from 2005 are still here.
+
+The systems come and go. The data stays.
+So we must model the systems to fit the data. 
+
+That's why we build a platform. Where the data is in the center, as the core component. And we build the structure around and on top of the data.

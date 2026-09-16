@@ -1,4 +1,5 @@
-import { Box, ChapterSlide, Img, QuotePage, Reveal, pt, useRevealStyle } from "../parts";
+import { useStep } from "@/components/steps";
+import { Box, BulletList, ChapterSlide, Img, QuotePage, Reveal, pt, useRevealStyle } from "../parts";
 
 const MEDIA = "/media/26-ndc-kystverket";
 import {
@@ -11,8 +12,6 @@ import {
   DatakontraktBrudd,
 } from "@/components/figures/Datakontrakt";
 import {
-  ArkivOgGit,
-  GovernanceTrio,
   PlattformProdukter,
   KontraktArk,
   KatalogKart,
@@ -116,8 +115,14 @@ export function SlideHvorfor() {
   const eksempler: [string, IkonNavn][] = [
     ["The online store that suggests products", "handlekurv"],
     ["The streaming service that gets it right", "spill"],
-    ["The taxi with a fixed price up front", "taxi"],
-    ["The airfare that's set in a second", "fly"],
+    [
+      "In your bank, fraud detection and anti-money laundering run on every transaction",
+      "skjold",
+    ],
+    [
+      "New roads planned from years of traffic data, forecasts, and noise calculations",
+      "kart",
+    ],
   ];
   return (
     <>
@@ -134,7 +139,7 @@ export function SlideHvorfor() {
         </div>
       </Box>
       <Reveal at={eksempler.length + 1}>
-        <Box box={[53.9, 440, 540, 140]}>
+        <Box box={[53.9, 440, 540, 160]}>
           <div
             style={{
               fontFamily: "var(--font-sans)",
@@ -143,26 +148,28 @@ export function SlideHvorfor() {
               color: "var(--red)",
             }}
           >
-            Behind every one of them: a platform that ingests, stores,
-            processes, and delivers data
+            Hundreds of terabytes of data — used to make the best decisions
+            from the most data. It&apos;s happening everywhere.
           </div>
         </Box>
       </Reveal>
       {eksempler.map(([f, ikon], i) => (
         <Reveal key={f} at={i + 1}>
-          <Box box={[600, 228 + i * 88, 620, 78]}>
+          <Box box={[600, 200 + i * 110, 620, 100]}>
             <div
               style={{
                 display: "flex",
-                alignItems: "center",
+                alignItems: "flex-start",
                 gap: 16,
                 fontFamily: "var(--font-serif)",
-                fontSize: pt(20),
-                lineHeight: 1.25,
+                fontSize: pt(18),
+                lineHeight: 1.3,
                 color: "var(--burgundy-2)",
               }}
             >
-              <StrekIkon navn={ikon} size={34} color="var(--teal)" strokeWidth={1.6} />
+              <div style={{ flexShrink: 0, marginTop: 2 }}>
+                <StrekIkon navn={ikon} size={34} color="var(--teal)" strokeWidth={1.6} />
+              </div>
               <span>{f}</span>
             </div>
             {i < eksempler.length - 1 && (
@@ -170,7 +177,7 @@ export function SlideHvorfor() {
                 style={{
                   position: "absolute",
                   left: 2,
-                  top: 72,
+                  top: 96,
                   width: 620,
                   height: 1.5,
                   background: "var(--divider)",
@@ -195,61 +202,10 @@ export function SlideDataflyt() {
 
 /* Slide 12 – Arkitekturfiguren (detaljert, inkl. governance-laget) */
 export function SlideArkitektur() {
-  const linjer: [string, string, string][] = [
-    ["RAW", "Never deleted", "var(--teal)"],
-    ["Transforms", "In source control", "var(--burgundy)"],
-    ["Version history", "Of every transform", "var(--red)"],
-  ];
   return (
-    <>
-      <Box box={[20, 42, 1240, 636]}>
-        <DataplattformFlytDetaljert />
-      </Box>
-      <Reveal at={1}>
-        <Box
-          box={[0, 0, 1280, 720]}
-          style={{ background: "var(--cream)" }}
-        />
-        <Box box={[66, 70, 1100, 70]}>
-          <div
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: pt(36),
-              color: "var(--burgundy)",
-            }}
-          >
-            Raw is archived. Transforms are in git.
-          </div>
-        </Box>
-        <Box box={[780, 150, 440, 380]}>
-          <ArkivOgGit />
-        </Box>
-        {linjer.map(([stor, liten, farge], i) => (
-          <Box key={stor} box={[90, 200 + i * 130, 640, 110]}>
-            <div
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: pt(36),
-                lineHeight: 1.1,
-                color: farge,
-              }}
-            >
-              {stor}
-            </div>
-            <div
-              style={{
-                marginTop: 8,
-                fontFamily: "var(--font-sans)",
-                fontSize: pt(20),
-                color: "var(--burgundy-2)",
-              }}
-            >
-              {liten}
-            </div>
-          </Box>
-        ))}
-      </Reveal>
-    </>
+    <Box box={[20, 42, 1240, 636]}>
+      <DataplattformFlytDetaljert />
+    </Box>
   );
 }
 
@@ -396,20 +352,42 @@ export function SlideMerEnnVarehus() {
   );
 }
 
-function PlattformSkjerm({
-  src,
-  alt,
-  caption,
-  position = "left top",
-  fit = "cover",
-}: {
+const PLATTFORM_SKJERM: {
   src: string;
   alt: string;
   caption: string;
-  position?: string;
-  fit?: "cover" | "contain";
-}) {
-  const linje = useRevealStyle(1);
+}[] = [
+  {
+    src: `${MEDIA}/databricks-home.png`,
+    alt: "Databricks workspace home: catalogs, jobs, compute and discover in one menu",
+    caption: "Catalog. Compute. Jobs. Discover.",
+  },
+  {
+    src: `${MEDIA}/databricks-jobs.png`,
+    alt: "Jobs and pipelines in the Databricks workspace",
+    caption: "Jobs that run.",
+  },
+  {
+    src: `${MEDIA}/databricks-catalog.png`,
+    alt: "Catalog explorer open on a governed table",
+    caption: "A catalog you can open.",
+  },
+  {
+    src: `${MEDIA}/databricks-ai-chat.png`,
+    alt: "Databricks assistant: ask the platform about the data",
+    caption: "And then you ask.",
+  },
+  {
+    src: `${MEDIA}/databricks-trollfjord.png`,
+    alt: "Trollfjord track on a map and in a table, generated from a question",
+    caption: "And it answers.",
+  },
+];
+
+/* Fem klikk gjennom Databricks: arbeidsflate, jobber, katalog, spørsmål, svar */
+export function SlideMerEnnVarehusKatalog() {
+  const step = useStep();
+  const i = Math.min(step, PLATTFORM_SKJERM.length - 1);
   return (
     <>
       <Box
@@ -420,17 +398,24 @@ function PlattformSkjerm({
           background: "#1b1b1b",
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={src}
-          alt={alt}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: fit,
-            objectPosition: position,
-          }}
-        />
+        {PLATTFORM_SKJERM.map((shot, idx) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={shot.src}
+            src={shot.src}
+            alt={shot.alt}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              objectPosition: "center top",
+              opacity: idx === i ? 1 : 0,
+              transition: "opacity 260ms ease",
+            }}
+          />
+        ))}
       </Box>
       <Box
         box={[66, 654, 1148, 48]}
@@ -447,50 +432,75 @@ function PlattformSkjerm({
             lineHeight: 1.35,
             color: "var(--red)",
             textAlign: "center",
-            ...linje,
           }}
         >
-          {caption}
+          {PLATTFORM_SKJERM[i].caption}
         </div>
       </Box>
     </>
   );
 }
 
-/* Katalogen i Databricks – beviset på at det er en plattform */
-export function SlideMerEnnVarehusKatalog() {
-  return (
-    <PlattformSkjerm
-      src={`${MEDIA}/databricks-catalog.png`}
-      alt="Databricks catalog: catalogs, compute, jobs and discover in one workspace"
-      caption="Catalog. Compute. Jobs. Discover."
-      position="left top"
-    />
-  );
-}
+/* How you structure data: the four ideas this section walks through */
+const STRUKTUR: { label: string; ikon: IkonNavn }[] = [
+  { label: "Data product", ikon: "pakke" },
+  { label: "Data contract", ikon: "kontrakt" },
+  { label: "Data catalog", ikon: "bok" },
+  { label: "Governance", ikon: "skjold" },
+];
 
-/* AI-chatten i Databricks – du spør plattformen */
-export function SlideMerEnnVarehusAi() {
+export function SlideStrukturereData() {
   return (
-    <PlattformSkjerm
-      src={`${MEDIA}/databricks-ai-chat.png`}
-      alt="Databricks assistant: ask the platform about the data"
-      caption="And then you ask."
-      position="center top"
-    />
-  );
-}
-
-/* Svaret: Trollfjord på kartet */
-export function SlideMerEnnVarehusSvar() {
-  return (
-    <PlattformSkjerm
-      src={`${MEDIA}/databricks-trollfjord.png`}
-      alt="Trollfjord positions on a map and in a table, generated from a question"
-      caption="And it answers."
-      position="center top"
-      fit="contain"
-    />
+    <>
+      <Box box={[66, 70, 1148, 70]}>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(36),
+            lineHeight: 1.15,
+            color: "var(--burgundy)",
+          }}
+        >
+          How do we architect the data to keep structure?
+        </div>
+      </Box>
+      <Box box={[66, 160, 1148, 70]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(20),
+            lineHeight: 1.4,
+            color: "var(--red)",
+          }}
+        >
+          As data grows in volume and variety, we need structure and
+          flexibility.
+        </div>
+      </Box>
+      <BulletList
+        box={[66, 270, 1100, 360]}
+        fromStep={1}
+        size={28}
+        gap={40}
+        items={STRUKTUR.map(({ label, ikon }) => (
+          <span
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 16,
+            }}
+          >
+            <StrekIkon
+              navn={ikon}
+              size={32}
+              color="var(--teal)"
+              strokeWidth={1.6}
+            />
+            {label}
+          </span>
+        ))}
+      />
+    </>
   );
 }
 
@@ -918,60 +928,34 @@ export function SlideDatakatalogDatahub() {
   );
 }
 
-/* Slide 16 – Governance: datakontrakter og katalog */
+/* Slide 16 – Governance: who can see what, and how you prove it */
 export function SlideGovernance() {
-  const linje2 = useRevealStyle(1);
   return (
     <>
-      <Box box={[390, 70, 500, 130]}>
-        <GovernanceTrio />
-      </Box>
-      <Box
-        box={[81.5, 226, 1117.1, 268]}
-        style={{ display: "flex", alignItems: "center" }}
-      >
+      <Box box={[66, 70, 1148, 70]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(40),
-            lineHeight: 1.25,
+            fontSize: pt(36),
+            lineHeight: 1.15,
             color: "var(--burgundy)",
-            textAlign: "center",
-            width: "100%",
           }}
         >
-          Data contracts, Data catalog
-          <br />
-          <span
-            style={{
-              display: "inline-block",
-              ...linje2,
-            }}
-          >
-            Centralize logging, audits, reporting
-          </span>
+          Governance
         </div>
       </Box>
-      <Reveal at={2}>
-        <Box
-          box={[802, 568.7, 650.3, 50.4]}
-          style={{
-            transform: "rotate(-5.24deg)",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(16),
-              color: "var(--red)",
-            }}
-          >
-            Unity Catalog!
-          </div>
-        </Box>
-      </Reveal>
+      <BulletList
+        box={[66, 200, 1100, 440]}
+        fromStep={1}
+        size={28}
+        gap={40}
+        items={[
+          "User administration and permissions",
+          "PII masking",
+          "Audit logging",
+          "GDPR compliance",
+        ]}
+      />
     </>
   );
 }
@@ -1000,6 +984,7 @@ const ROLLER: {
 ];
 
 export function SlideRoller() {
+  const grouped = useStep() >= 5;
   return (
     <>
       <Box box={[66, 44, 1148, 70]}>
@@ -1020,6 +1005,8 @@ export function SlideRoller() {
             fontSize: pt(13),
             letterSpacing: 2.2,
             color: "#9a5068",
+            opacity: grouped ? 0 : 1,
+            transition: "opacity 260ms ease",
           }}
         >
           ROLES BEFORE TECHNOLOGY
@@ -1040,6 +1027,18 @@ export function SlideRoller() {
           borderRadius: 8,
         }}
       />
+
+      <Reveal at={5}>
+        <Box
+          box={[16, 140, 942, 442]}
+          style={{
+            border: "2px solid var(--teal)",
+            borderRadius: 22,
+            background: "color-mix(in srgb, var(--teal) 6%, var(--cream))",
+            pointerEvents: "none",
+          }}
+        />
+      </Reveal>
 
       {ROLLER.map((r, i) => (
         <Reveal key={r.hvem} at={r.at}>
@@ -1081,6 +1080,30 @@ export function SlideRoller() {
           </Box>
         </Reveal>
       ))}
+
+      <Reveal at={5}>
+        <Box
+          box={[247, 122, 480, 38]}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "var(--cream)",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: pt(22),
+              lineHeight: 1,
+              color: "var(--teal)",
+              textAlign: "center",
+            }}
+          >
+            Dataplatform-team
+          </div>
+        </Box>
+      </Reveal>
 
       <Reveal at={4}>
         <Box

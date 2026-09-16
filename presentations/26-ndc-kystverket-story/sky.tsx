@@ -316,14 +316,101 @@ export function SlideTerraform() {
   );
 }
 
-/* Kapittel: Technical implementation details */
-export function SlideTekniskImplementasjon() {
+const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
+
+function TfKw({ children }: { children: ReactNode }) {
+  return <span style={{ color: "var(--mint)" }}>{children}</span>;
+}
+
+function TfStr({ children }: { children: ReactNode }) {
+  return <span style={{ color: "#f4b8a0" }}>{children}</span>;
+}
+
+function TfLine({ children }: { children?: ReactNode }) {
   return (
-    <ChapterSlide
-      title="Technical implementation details"
-      subtitle="Ingest, the stream, the history, H3"
-      titleSize={54}
-    />
+    <div style={{ whiteSpace: "pre", color: "var(--cream)" }}>
+      {children ?? " "}
+    </div>
+  );
+}
+
+/* Ett utdrag: workspace-ressursen, tre miljøer */
+export function SlideTerraformKode() {
+  return (
+    <>
+      <Box box={[66, 40, 1040, 70]}>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(36),
+            color: "var(--burgundy)",
+          }}
+        >
+          One resource. Three environments.
+        </div>
+      </Box>
+      <Img
+        box={[1160, 28, 72, 82]}
+        src={`${MEDIA}/terraform.svg`}
+        alt="Terraform"
+      />
+      <Box
+        box={[66, 128, 1148, 460]}
+        style={{
+          background: "var(--teal)",
+          borderRadius: 16,
+          boxShadow: "0 12px 28px rgba(28, 12, 20, 0.18), 0 28px 56px rgba(28, 12, 20, 0.22)",
+          padding: "36px 52px",
+          fontFamily: MONO,
+          fontSize: pt(20),
+          lineHeight: 1.62,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
+        <TfLine>
+          <TfKw>resource</TfKw> <TfStr>&quot;azurerm_databricks_workspace&quot;</TfStr>{" "}
+          <TfStr>&quot;this&quot;</TfStr> {"{"}
+        </TfLine>
+        <TfLine>
+          {"  "}
+          <TfKw>for_each</TfKw>
+          {" = "}
+          <TfKw>toset</TfKw>
+          {"(["}
+          <TfStr>&quot;dev&quot;</TfStr>
+          {", "}
+          <TfStr>&quot;test&quot;</TfStr>
+          {", "}
+          <TfStr>&quot;prod&quot;</TfStr>
+          {"])"}
+        </TfLine>
+        <TfLine />
+        <TfLine>
+          {"  name                = "}
+          <TfStr>&quot;dbw-kystverket-${"{"}each.key{"}"}&quot;</TfStr>
+        </TfLine>
+        <TfLine>
+          {"  resource_group_name = "}
+          <TfStr>&quot;rg-kystverket-${"{"}each.key{"}"}&quot;</TfStr>
+        </TfLine>
+        <TfLine>
+          {"  location            = "}
+          <TfStr>&quot;norwayeast&quot;</TfStr>
+        </TfLine>
+        <TfLine>
+          {"  sku                 = "}
+          <TfStr>&quot;premium&quot;</TfStr>
+        </TfLine>
+        <TfLine>{"}"}</TfLine>
+      </Box>
+      <Punchline
+        at={1}
+        y={620}
+        text="Same block. Three Databricks workspaces."
+      />
+    </>
   );
 }
 
@@ -388,6 +475,17 @@ export function SlideFireStates() {
         text="A change to storage doesn't tear down the catalog."
       />
     </>
+  );
+}
+
+/* Kapittel: How it's done */
+export function SlideTekniskImplementasjon() {
+  return (
+    <ChapterSlide
+      title="How it's done"
+      subtitle="Ingest, the jobs, the bundles"
+      titleSize={54}
+    />
   );
 }
 
@@ -468,6 +566,152 @@ export function SlideTerraformDabs() {
         ["schemas, tables, jobs", "Databricks Asset Bundles", "when the code changes"],
         <Pakke />,
       )}
+    </>
+  );
+}
+
+/* PySpark → compute → DABs: modellene blir jobber */
+export function SlidePysparkDabs() {
+  const steg = (
+    at: number,
+    x: number,
+    nr: string,
+    kicker: string,
+    title: string,
+    sub: string,
+  ) => (
+    <Reveal at={at}>
+      <Box
+        box={[x, 210, 340, 300]}
+        style={{
+          background: "var(--teal)",
+          borderRadius: 16,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          gap: 12,
+          padding: "28px 26px",
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(28),
+            lineHeight: 1,
+            color: "var(--mint)",
+          }}
+        >
+          {nr}
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontWeight: 600,
+            fontSize: pt(12),
+            letterSpacing: 1.8,
+            color: "var(--mint)",
+          }}
+        >
+          {kicker}
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(24),
+            lineHeight: 1.2,
+            color: "var(--cream)",
+          }}
+        >
+          {title}
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(15),
+            lineHeight: 1.4,
+            color: "var(--mint)",
+          }}
+        >
+          {sub}
+        </div>
+      </Box>
+    </Reveal>
+  );
+
+  const pil = (at: number, x: number) => (
+    <Reveal at={at}>
+      <Box
+        box={[x, 330, 40, 60]}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(30),
+            color: "var(--red)",
+          }}
+        >
+          →
+        </div>
+      </Box>
+    </Reveal>
+  );
+
+  return (
+    <>
+      <Box box={[66, 50, 1150, 80]}>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(36),
+            color: "var(--burgundy)",
+          }}
+        >
+          From PySpark to a pipeline
+        </div>
+      </Box>
+      <Box box={[66, 130, 1150, 40]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(17),
+            color: "var(--red)",
+          }}
+        >
+          Write the model. Deploy it. Let the bundle run it.
+        </div>
+      </Box>
+      {steg(
+        1,
+        66,
+        "1",
+        "WRITE",
+        "PySpark",
+        "MarTraf, MarU. Python and Spark. The models are just code.",
+      )}
+      {pil(2, 416)}
+      {steg(
+        2,
+        466,
+        "2",
+        "DEPLOY",
+        "Databricks compute",
+        "Same code. Serverless Spark, where the data already lives.",
+      )}
+      {pil(3, 816)}
+      {steg(
+        3,
+        866,
+        "3",
+        "AUTOMATE",
+        "Asset Bundles",
+        "A job in git. Schedule, environments, every night.",
+      )}
+      <Punchline at={4} y={560} text="They run as automated pipelines." />
     </>
   );
 }
@@ -605,10 +849,10 @@ export function SlideAisPipeline() {
 
 /* Databricks serverless */
 export function SlideServerless() {
-  const lines = [
-    "Autoscaling was cheaper than manual scaling",
-    "Saved tuning time",
-    "Saved startup time",
+  const jobs = [
+    { title: "Historical load", sub: "the huge job" },
+    { title: "Last 7 days", sub: "the weekly job" },
+    { title: "One ship", sub: "the tiny job" },
   ];
   return (
     <>
@@ -616,7 +860,7 @@ export function SlideServerless() {
         <Kapasitetsmaaler />
       </Box>
       <Box
-        box={[81.5, 160, 1117.1, 140]}
+        box={[81.5, 160, 1117.1, 110]}
         style={{
           display: "flex",
           alignItems: "center",
@@ -626,7 +870,7 @@ export function SlideServerless() {
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(54),
+            fontSize: pt(48),
             lineHeight: 1.1,
             color: "var(--burgundy)",
             textAlign: "center",
@@ -637,7 +881,7 @@ export function SlideServerless() {
         </div>
       </Box>
       <Box
-        box={[81.5, 300, 1117.1, 40]}
+        box={[81.5, 274, 1117.1, 32]}
         style={{ display: "flex", justifyContent: "center" }}
       >
         <div
@@ -651,29 +895,95 @@ export function SlideServerless() {
           DATABRICKS SERVERLESS
         </div>
       </Box>
-      {lines.map((text, i) => (
-        <Reveal key={text} at={i + 1}>
+      {jobs.map((job, i) => (
+        <Reveal key={job.title} at={1}>
           <Box
-            box={[140, 380 + i * 70, 1000, 55]}
+            box={[90 + i * 380, 330, 350, 110]}
             style={{
+              background: "#fff",
+              border: "1.5px solid var(--cream-dark)",
+              borderRadius: 14,
               display: "flex",
+              flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
+              gap: 8,
             }}
           >
             <div
               style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: pt(20),
-                color: i === 2 ? "var(--red)" : "var(--burgundy-2)",
-                textAlign: "center",
+                fontFamily: "var(--font-serif)",
+                fontSize: pt(22),
+                color: "var(--burgundy)",
               }}
             >
-              {text}
+              {job.title}
+            </div>
+            <div
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: pt(14),
+                color: "var(--burgundy-2)",
+              }}
+            >
+              {job.sub}
             </div>
           </Box>
         </Reveal>
       ))}
+      <Reveal at={2}>
+        <Box
+          box={[90, 460, 1100, 50]}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(18),
+              color: "var(--burgundy-2)",
+              textAlign: "center",
+            }}
+          >
+            We spent a lot of time getting those sizes right. Then we stopped guessing.
+          </div>
+        </Box>
+      </Reveal>
+      <Reveal at={3}>
+        <Box
+          box={[90, 530, 1100, 130]}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 10,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: pt(40),
+              color: "var(--red)",
+            }}
+          >
+            36 hours became 4
+          </div>
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(16),
+              color: "var(--burgundy-2)",
+              textAlign: "center",
+            }}
+          >
+            Serverless costs more. The time it saved was worth it.
+          </div>
+        </Box>
+      </Reveal>
     </>
   );
 }

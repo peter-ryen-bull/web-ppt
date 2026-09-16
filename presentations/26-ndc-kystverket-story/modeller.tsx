@@ -7,6 +7,7 @@ import {
   HexVsRute,
   Propell,
   Registerhull,
+  RisikoSektorer,
   Seilas,
   Soyler,
   SporTilUtslipp,
@@ -64,8 +65,13 @@ export function SlideModeller() {
         <SporTilUtslipp />
       </Box>
       <ChapterSlide
-        title="From positions to emissions"
-        subtitle="MarTraf and MarU: the products that turn AIS points into knowledge"
+        title={
+          <>
+            What products have we built
+            <br />
+            on top of this?
+          </>
+        }
         titleSize={54}
         showLogo={false}
       />
@@ -285,7 +291,7 @@ export function SlideFolgEttSkip() {
   const linje = useRevealStyle(1);
   return (
     <>
-      <SlideTitle width={760}>Follow one ship</SlideTitle>
+      <SlideTitle width={760}>MarTraf – Maritime traffic model</SlideTitle>
       <Box box={[880, 36, 340, 120]}>
         <Seilas />
       </Box>
@@ -297,7 +303,7 @@ export function SlideFolgEttSkip() {
             color: "var(--red)",
           }}
         >
-          3,800 AIS points become one voyage, port to port
+          Follow one ship. 3,800 AIS points become one voyage, port to port
         </div>
       </Box>
       <Box
@@ -434,37 +440,86 @@ export function SlideAsukaHvem() {
   );
 }
 
-/* Propellloven: derfor blir hvert punkt en beregning */
+/* Propellloven: AIS-fart → skipstype → utslipp */
 export function SlidePropellloven() {
+  const steg: { tittel: string; body: string }[] = [
+    {
+      tittel: "Two AIS points give us the speed",
+      body: "Distance over time. That's how fast the ship is going.",
+    },
+    {
+      tittel: "We know what kind of ship it is",
+      body: "The registry. Type, size, how it was built to sail.",
+    },
+    {
+      tittel: "Then we estimate what it burned",
+      body: "At this speed. Double the speed, eight times the power.",
+    },
+  ];
   return (
     <>
       <SlideTitle>The propeller law</SlideTitle>
-      <Box box={[72.4, 196, 760, 40]}>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(17),
-            color: "var(--red)",
-          }}
-        >
-          load = (speed / service speed)
-          <sup style={{ fontSize: "0.8em" }}>3</sup>
-        </div>
-      </Box>
       <Box box={[880, 200, 360, 360]}>
         <Propell />
       </Box>
-      <BulletList
-        box={[72.4, 260, 760, 380]}
-        fromStep={1}
-        size={20}
-        gap={32}
-        items={[
-          "Double the speed, and you need eight times the power.",
-          "Multiply by installed power, 0.85, and elapsed time.",
-          "Every AIS point becomes an emissions calculation.",
-        ]}
-      />
+      {steg.map(({ tittel, body }, i) => (
+        <Reveal key={tittel} at={i + 1}>
+          <Box
+            box={[72.4, 188 + i * 128, 760, 112]}
+            style={{ display: "flex", gap: 22, alignItems: "flex-start" }}
+          >
+            <div
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: pt(28),
+                lineHeight: 1,
+                color: "var(--red)",
+                width: 36,
+                flexShrink: 0,
+              }}
+            >
+              {i + 1}
+            </div>
+            <div>
+              <div
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: pt(22),
+                  lineHeight: 1.25,
+                  color: "var(--burgundy-2)",
+                }}
+              >
+                {tittel}
+              </div>
+              <div
+                style={{
+                  marginTop: 8,
+                  fontFamily: "var(--font-sans)",
+                  fontSize: pt(16),
+                  lineHeight: 1.35,
+                  color: "var(--burgundy-2)",
+                }}
+              >
+                {body}
+              </div>
+            </div>
+          </Box>
+        </Reveal>
+      ))}
+      <Reveal at={4}>
+        <Box box={[72.4, 590, 1100, 70]}>
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(18),
+              lineHeight: 1.4,
+              color: "var(--red)",
+            }}
+          >
+            Every AIS point becomes an emissions calculation.
+          </div>
+        </Box>
+      </Reveal>
     </>
   );
 }
@@ -473,7 +528,6 @@ export function SlidePropellloven() {
 export function SlideMarTraf() {
   const linje2 = useRevealStyle(1);
   const linje3 = useRevealStyle(2);
-  const linje4 = useRevealStyle(3);
   return (
     <>
       <Box box={[66.7, 48, 900, 28]}>
@@ -507,7 +561,7 @@ export function SlideMarTraf() {
             color: "var(--burgundy)",
           }}
         >
-          A hundred million points.
+          Billions of points.
         </div>
         <div
           style={{
@@ -525,22 +579,11 @@ export function SlideMarTraf() {
             fontFamily: "var(--font-serif)",
             fontSize: pt(44),
             lineHeight: 1.15,
-            color: "var(--burgundy-2)",
+            color: "var(--red)",
             ...linje3,
           }}
         >
-          The natural chunks were voyages.
-        </div>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(44),
-            lineHeight: 1.15,
-            color: "var(--red)",
-            ...linje4,
-          }}
-        >
-          Then the job wouldn&apos;t scale.
+          How do we structure that?
         </div>
       </Box>
     </>
@@ -947,6 +990,124 @@ export function SlideMarUHvorfor() {
             }}
           >
             The time series starts in 2016. Better coverage is not more emissions.
+          </div>
+        </Box>
+      </Reveal>
+    </>
+  );
+}
+
+/* Risikomodell – KystRisk */
+export function SlideKystRisk() {
+  return (
+    <>
+      <SlideTitle>The maritime risk model – KystRisk</SlideTitle>
+      <Box box={[72.4, 196, 1080, 40]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(17),
+            color: "var(--red)",
+          }}
+        >
+          Same voyages. A risk score. Every time sample.
+        </div>
+      </Box>
+      <BulletList
+        box={[72.4, 250, 1100, 300]}
+        fromStep={1}
+        size={20}
+        gap={32}
+        items={[
+          "Each ship gets a score at every AIS point",
+          "Then we find the fjords where the risk stays too high",
+          "Redraw coastal maps. Give or deny ships permission to sail.",
+        ]}
+      />
+      <Reveal at={4}>
+        <Box box={[86.6, 620, 1080, 50]}>
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(18),
+              color: "var(--red)",
+            }}
+          >
+            Still in development. We expect to publish it by the end of the year.
+          </div>
+        </Box>
+      </Reveal>
+    </>
+  );
+}
+
+/* TTI: tid til inntreff per sektor, risiko 0–1 */
+export function SlideKystRiskTti() {
+  return (
+    <>
+      <Box box={[66.7, 48, 1140, 130]}>
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(34),
+            lineHeight: 1.15,
+            color: "var(--burgundy-2)",
+          }}
+        >
+          Kystrisk: What&apos;s the probability of impact?
+          <br />
+          If you keep going, how long until you hit?
+        </div>
+      </Box>
+      <Box box={[72.4, 186, 720, 40]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(17),
+            color: "var(--red)",
+          }}
+        >
+          TTI. Time to impact. One number per sector.
+        </div>
+      </Box>
+      <Box box={[40, 250, 700, 430]}>
+        <RisikoSektorer />
+      </Box>
+      <Reveal at={1}>
+        <Box box={[760, 280, 460, 320]}>
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: pt(32),
+              lineHeight: 1.25,
+              color: "var(--burgundy-2)",
+            }}
+          >
+            Risk is 0 to 1.
+          </div>
+          <div
+            style={{
+              marginTop: 28,
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(18),
+              lineHeight: 1.45,
+              color: "var(--burgundy)",
+            }}
+          >
+            0 is infinitely small.
+            <br />
+            Based on the heading you have now.
+          </div>
+          <div
+            style={{
+              marginTop: 24,
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(18),
+              lineHeight: 1.45,
+              color: "var(--red)",
+            }}
+          >
+            High TTI, and the risk fades toward zero.
           </div>
         </Box>
       </Reveal>
