@@ -116,6 +116,7 @@ const SLIDES: SlideDef[] = [
     id: "dataplattform-flyt",
     name: "Dataplattform – dataflyt",
     component: SlideDataplattformFlyt,
+    steps: 4,
   },
   {
     id: "dataplattform-tre-lag",

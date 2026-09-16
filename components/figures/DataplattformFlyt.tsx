@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useStep } from "@/components/steps";
 
 /*
  * Arkitekturfigur for en dataplattform, tegnet som ren SVG (viewBox 1240x640)
@@ -160,6 +161,20 @@ const LAG: { title: string; cap: string[]; icon?: ReactNode }[] = [
 ];
 
 /* ---------- Byggeklosser ---------- */
+
+/** Gruppe som fades inn når klikk-steget `at` er nådd. */
+function Steg({ at, children }: { at: number; children: ReactNode }) {
+  const step = useStep();
+  const shown = step >= at;
+  return (
+    <g
+      style={{ opacity: shown ? 1 : 0, transition: "opacity 300ms ease" }}
+      pointerEvents={shown ? undefined : "none"}
+    >
+      {children}
+    </g>
+  );
+}
 
 function Kort({
   x,
@@ -522,6 +537,8 @@ function PlattformDetaljert({ x, w }: { x: number; w: number }) {
 export function DataplattformFlyt({ detaljert = false }: { detaljert?: boolean }) {
   const px = detaljert ? 360 : 400;
   const pw = detaljert ? 520 : 440;
+  // Detaljert variant vises ferdig; den enkle avsløres per klikk.
+  const at = (n: number) => (detaljert ? 0 : n);
 
   return (
     <svg
@@ -530,43 +547,47 @@ export function DataplattformFlyt({ detaljert = false }: { detaljert?: boolean }
       role="img"
       aria-label="Data platform: data flows from sources, through the platform, out to consumers"
     >
-      <Kolonnetittel cx={LEFT_X + CARD_W / 2} text="SOURCES & INGEST" w={220} />
-      <Kolonnetittel cx={RIGHT_X + CARD_W / 2} text="VALUE & USE" w={140} />
+      <Steg at={at(1)}>
+        <Kolonnetittel cx={LEFT_X + CARD_W / 2} text="SOURCES & INGEST" w={220} />
+        {KILDER.map((k, i) => (
+          <Kort key={k.title} x={LEFT_X} y={CARD_YS[i]} {...k} />
+        ))}
+      </Steg>
 
-      {/* Flytlinjer med baller: kilder -> plattform */}
-      {CARD_YS.map((y, i) => (
-        <Flyt
-          key={`inn-${y}`}
-          d={kurve(LEFT_X + CARD_W, y + CARD_H / 2, px, EDGE_YS[i])}
-          dur={6}
-          begins={[-(i * 1.5), -(i * 1.5 + 3)]}
-          color="var(--red)"
-        />
-      ))}
+      <Steg at={at(2)}>
+        {CARD_YS.map((y, i) => (
+          <Flyt
+            key={`inn-${y}`}
+            d={kurve(LEFT_X + CARD_W, y + CARD_H / 2, px, EDGE_YS[i])}
+            dur={6}
+            begins={[-(i * 1.5), -(i * 1.5 + 3)]}
+            color="var(--red)"
+          />
+        ))}
+        {detaljert ? <PlattformDetaljert x={px} w={pw} /> : <PlattformEnkel x={px} w={pw} />}
+      </Steg>
 
-      {/* Flytlinjer med baller: plattform -> konsumenter */}
-      {CARD_YS.map((y, i) => (
-        <Flyt
-          key={`ut-${y}`}
-          d={kurve(px + pw, EDGE_YS[i], RIGHT_X, y + CARD_H / 2)}
-          dur={6}
-          begins={[-(i * 1.5 + 0.8), -(i * 1.5 + 3.8)]}
-          color="var(--red)"
-        />
-      ))}
+      <Steg at={at(3)}>
+        <Kolonnetittel cx={RIGHT_X + CARD_W / 2} text="VALUE & USE" w={140} />
+        {CARD_YS.map((y, i) => (
+          <Flyt
+            key={`ut-${y}`}
+            d={kurve(px + pw, EDGE_YS[i], RIGHT_X, y + CARD_H / 2)}
+            dur={6}
+            begins={[-(i * 1.5 + 0.8), -(i * 1.5 + 3.8)]}
+            color="var(--red)"
+          />
+        ))}
+        {KONSUMENTER.map((k, i) => (
+          <Kort key={k.title} x={RIGHT_X} y={CARD_YS[i]} {...k} />
+        ))}
+      </Steg>
 
-      {KILDER.map((k, i) => (
-        <Kort key={k.title} x={LEFT_X} y={CARD_YS[i]} {...k} />
-      ))}
-      {KONSUMENTER.map((k, i) => (
-        <Kort key={k.title} x={RIGHT_X} y={CARD_YS[i]} {...k} />
-      ))}
-
-      {detaljert ? <PlattformDetaljert x={px} w={pw} /> : <PlattformEnkel x={px} w={pw} />}
-
-      {BUNNBARER.map((t, i) => (
-        <BunnBar key={t} x={20 + i * 408} text={t} />
-      ))}
+      <Steg at={at(4)}>
+        {BUNNBARER.map((t, i) => (
+          <BunnBar key={t} x={20 + i * 408} text={t} />
+        ))}
+      </Steg>
     </svg>
   );
 }
