@@ -571,7 +571,7 @@ export function SlideTerraformDabs() {
   );
 }
 
-/* PySpark → compute → DABs: modellene blir jobber */
+/* PySpark → DABs → scheduled jobs: modellene blir jobber */
 export function SlidePysparkDabs() {
   const steg = (
     at: number,
@@ -683,7 +683,7 @@ export function SlidePysparkDabs() {
             color: "var(--red)",
           }}
         >
-          Write the model. Deploy it. Let the bundle run it.
+          Write the model. Deploy the bundle. Let the jobs run.
         </div>
       </Box>
       {steg(
@@ -700,8 +700,8 @@ export function SlidePysparkDabs() {
         466,
         "2",
         "DEPLOY",
-        "Databricks compute",
-        "Same code. Serverless Spark, where the data already lives.",
+        "Asset Bundles",
+        "Same code. A YAML file in git. Dev, test, prod.",
       )}
       {pil(3, 816)}
       {steg(
@@ -709,8 +709,8 @@ export function SlidePysparkDabs() {
         866,
         "3",
         "AUTOMATE",
-        "Asset Bundles",
-        "A job in git. Schedule, environments, every night.",
+        "Scheduled jobs",
+        "Every night. Nobody presses a button.",
       )}
       <Punchline at={4} y={560} text="They run as automated pipelines." />
     </>
