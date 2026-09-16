@@ -118,7 +118,8 @@ import {
  *  Akt 6  Prosjektet         32:00  dag én, verktøykassa, terraform
  *  Akt 7  Produktene                HAIS, Asuka, MarTraf, MarU, propellloven
  *  Akt 7b Teknisk                   ingest, DABs, pipelinen
- *  Akt 7c Scaling                   historikken, H3, batch vs streaming
+ *  Akt 7c Scaling                   historikken, batch vs streaming
+ *  Akt 7d H3                        hexer, kysten gruppert
  *  Akt 8  Veien videre       53:00  domener, kontrakter, og tilbake til Stad
  */
 const APNING: SlideDef[] = [
@@ -458,6 +459,9 @@ const SCALING: SlideDef[] = [
     component: SlideStordataCompute,
     steps: 7,
   },
+];
+
+const H3: SlideDef[] = [
   {
     id: "math-opt",
     name: "Mathematical optimizations",
@@ -613,6 +617,7 @@ export const ndcKystverketStory = definePresentation({
       slides: TEKNISK,
     },
     { id: "scaling", title: "Scaling", slides: SCALING },
+    { id: "h3", title: "H3", slides: H3 },
     { id: "veien-videre", title: "The road ahead", slides: VEIEN_VIDERE },
   ],
 });
