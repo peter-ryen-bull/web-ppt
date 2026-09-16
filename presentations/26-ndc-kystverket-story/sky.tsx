@@ -160,7 +160,7 @@ export function SlideDatabricks() {
         gap={36}
         items={[
           "Lakehouse: lake and warehouse in one",
-          "One engine for batch and streaming",
+          "Scales compute well, up to many terabytes",
           "Unity Catalog: access, lineage, catalog",
         ]}
       />
@@ -282,11 +282,11 @@ export function SlideTerraform() {
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(44),
+            fontSize: pt(36),
             color: "var(--burgundy)",
           }}
         >
-          Terraform: the infrastructure
+          Deploy and version control your infrastructure
         </div>
       </Box>
       <Img
