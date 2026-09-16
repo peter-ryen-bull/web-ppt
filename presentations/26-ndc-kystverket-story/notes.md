@@ -1185,8 +1185,9 @@ can ask different questions of the same voyages.
 
 First the architecture, briefly.
 
-[[CLICK]] Raw AIS data in. [[CLICK]] MarTraf cleans and enriches. That's the shared
-layer. Voyages, phases, traffic type.
+[[CLICK]] Raw AIS data in. [[CLICK]] HAIS, if you just want the history. Extracts
+on demand. [[CLICK]] MarTraf cleans and enriches. That's the shared layer.
+Voyages, phases, traffic type.
 
 [[CLICK]] Then it splits. MarU calculates energy and emissions. Climate accounts
 for the municipalities.

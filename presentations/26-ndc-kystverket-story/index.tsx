@@ -490,7 +490,7 @@ const MODELLENE: SlideDef[] = [
     id: "modell-flyt",
     name: "One source, many products",
     component: SlideModellFlyt,
-    steps: 5,
+    steps: 6,
   },
   {
     id: "hais",
