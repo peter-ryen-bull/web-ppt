@@ -597,6 +597,187 @@ export function SlideMarTraf() {
   );
 }
 
+/* Romlig analyse i denne skalaen: contains-within og nærhet */
+export function SlideMathOpt() {
+  const kort = (
+    at: number,
+    x: number,
+    kicker: string,
+    tittel: string,
+    tekst: string,
+  ) => (
+    <Reveal at={at}>
+      <Box
+        box={[x, 196, 520, 220]}
+        style={{
+          background: "#fff",
+          border: "1.5px solid var(--cream-dark)",
+          borderRadius: 14,
+          padding: "30px 34px",
+        }}
+      >
+        <span
+          style={{
+            background: "var(--teal)",
+            color: "var(--cream)",
+            borderRadius: 999,
+            padding: "7px 18px",
+            fontFamily: "var(--font-sans)",
+            fontWeight: 600,
+            fontSize: pt(11),
+            letterSpacing: 1.5,
+          }}
+        >
+          {kicker}
+        </span>
+        <div
+          style={{
+            marginTop: 22,
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(26),
+            lineHeight: 1.2,
+            color: "var(--burgundy-2)",
+          }}
+        >
+          {tittel}
+        </div>
+        <div
+          style={{
+            marginTop: 16,
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(16),
+            lineHeight: 1.4,
+            color: "var(--burgundy)",
+          }}
+        >
+          {tekst}
+        </div>
+      </Box>
+    </Reveal>
+  );
+
+  return (
+    <>
+      <SlideTitle>Mathematical optimizations</SlideTitle>
+      <Box box={[72.4, 150, 1136, 40]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(17),
+            color: "var(--red)",
+          }}
+        >
+          Spatial analysis keeps asking two questions.
+        </div>
+      </Box>
+      {kort(
+        0,
+        80,
+        "CONTAINS",
+        "Is this point inside this area?",
+        "A port. A fish farm. The economic zone.",
+      )}
+      {kort(
+        0,
+        680,
+        "NEAR",
+        "Which points sit close to each other?",
+        "Near shore. Near a platform. Near our ship.",
+      )}
+      <Reveal at={1}>
+        <Box
+          box={[72.4, 450, 1136, 70]}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(18),
+              lineHeight: 1.45,
+              color: "var(--burgundy)",
+              textAlign: "center",
+            }}
+          >
+            Over billions of points, that becomes every point against every other
+            point.
+          </div>
+        </Box>
+      </Reveal>
+      <Reveal at={2}>
+        <Box
+          box={[72.4, 540, 1136, 80]}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(18),
+              lineHeight: 1.45,
+              color: "var(--red)",
+              textAlign: "center",
+            }}
+          >
+            So we group the points into hexes. Uber&apos;s H3.
+          </div>
+        </Box>
+      </Reveal>
+    </>
+  );
+}
+
+/* H3: hexer inni hexer, unike id-er, oppløsninger ned til ~1 m */
+export function SlideH3Hexes() {
+  return (
+    <>
+      <SlideTitle>Hexes within hexes</SlideTitle>
+      <Box box={[72.4, 150, 1136, 40]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(17),
+            color: "var(--red)",
+          }}
+        >
+          Uber&apos;s H3. Every hex has a unique id.
+        </div>
+      </Box>
+      <Box box={[80, 196, 1120, 360]}>
+        <HexHierarki />
+      </Box>
+      <Reveal at={1}>
+        <Box
+          box={[72.4, 570, 1136, 70]}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(18),
+              lineHeight: 1.45,
+              color: "var(--red)",
+              textAlign: "center",
+            }}
+          >
+            Sixteen resolutions. From huge hexes down to about one metre.
+          </div>
+        </Box>
+      </Reveal>
+    </>
+  );
+}
+
 /* Hvorfor hex: kvadrat lyver om avstand */
 export function SlideHexHvorfor() {
   return (
@@ -724,29 +905,7 @@ export function SlideHexJoin() {
               textAlign: "center",
             }}
           >
-            MarTraf, MarU, KystRisk. Not HAIS yet.
-          </div>
-        </Box>
-      </Reveal>
-      <Reveal at={2}>
-        <Box
-          box={[72.4, 540, 1136, 80]}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(18),
-              lineHeight: 1.45,
-              color: "var(--red)",
-              textAlign: "center",
-            }}
-          >
-            Resolution 8. One cell ≈ 1,100 m. Inside or outside. That&apos;s enough.
+            MarTraf, MarU, KystRisk.
           </div>
         </Box>
       </Reveal>

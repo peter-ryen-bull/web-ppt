@@ -84,6 +84,8 @@ import {
   SlideAsukaHais,
   SlideAsukaHvem,
   SlideMarTraf,
+  SlideMathOpt,
+  SlideH3Hexes,
   SlideHexHvorfor,
   SlideHexJoin,
   SlideH3Ship,
@@ -466,6 +468,18 @@ const SCALING: SlideDef[] = [
     steps: 7,
   },
   {
+    id: "math-opt",
+    name: "Mathematical optimizations",
+    component: SlideMathOpt,
+    steps: 2,
+  },
+  {
+    id: "h3-hexes",
+    name: "Hexes within hexes",
+    component: SlideH3Hexes,
+    steps: 1,
+  },
+  {
     id: "hex-hvorfor",
     name: "How do you group a coastline?",
     component: SlideHexHvorfor,
@@ -475,7 +489,7 @@ const SCALING: SlideDef[] = [
     id: "hex-join",
     name: "A join on a number",
     component: SlideHexJoin,
-    steps: 2,
+    steps: 1,
   },
   { id: "h3-ship", name: "One ship on the hex grid", component: SlideH3Ship },
 ];

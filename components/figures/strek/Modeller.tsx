@@ -115,6 +115,134 @@ export function HexRing() {
   );
 }
 
+/** H3: hexer inni hexer, tre oppløsninger fra land til ~1 m */
+export function HexHierarki() {
+  const ring: [number, number][] = [
+    [1, 0],
+    [0, 1],
+    [-1, 1],
+    [-1, 0],
+    [0, -1],
+    [1, -1],
+  ];
+  const pos = (
+    q: number,
+    r: number,
+    size: number,
+    ox: number,
+    oy: number,
+  ): [number, number] => [
+    ox + size * Math.sqrt(3) * (q + r / 2),
+    oy + size * 1.5 * r,
+  ];
+  const cluster = (
+    cx: number,
+    cy: number,
+    R: number,
+    highlight: "parent" | "child" | "center",
+  ) => {
+    const childR = R * 0.34;
+    const child = (q: number, r: number, fill: string, stroke: string, sw: number) => {
+      const [x, y] = pos(q, r, childR, cx, cy);
+      return (
+        <path
+          key={`${q},${r}`}
+          d={sekskant(x, y, childR - 1)}
+          fill={fill}
+          stroke={stroke}
+          strokeWidth={sw}
+        />
+      );
+    };
+    return (
+      <g>
+        <path
+          d={sekskant(cx, cy, R)}
+          fill={highlight === "parent" ? "rgba(255, 48, 59, 0.10)" : "rgba(0, 64, 71, 0.04)"}
+          stroke={highlight === "parent" ? ROD : TEAL}
+          strokeWidth={highlight === "parent" ? 2.2 : 1.8}
+        />
+        {ring.map(([q, r], i) =>
+          child(
+            q,
+            r,
+            highlight === "child" && i === 0
+              ? "rgba(255, 48, 59, 0.22)"
+              : "rgba(0, 64, 71, 0.10)",
+            highlight === "child" && i === 0 ? ROD : TEAL,
+            highlight === "child" && i === 0 ? 2.2 : 1.6,
+          ),
+        )}
+        <path
+          d={sekskant(cx, cy, childR - 1)}
+          fill={
+            highlight === "center" ? "rgba(255, 48, 59, 0.22)" : "rgba(0, 64, 71, 0.10)"
+          }
+          stroke={highlight === "center" ? ROD : TEAL}
+          strokeWidth={highlight === "center" ? 2.2 : 1.6}
+        />
+      </g>
+    );
+  };
+
+  const kolonner: {
+    x: number;
+    R: number;
+    highlight: "parent" | "child" | "center";
+    id: string;
+    res: string;
+    storrelse: string;
+  }[] = [
+    {
+      x: 188,
+      R: 118,
+      highlight: "parent",
+      id: "801fffffffff",
+      res: "resolution 0",
+      storrelse: "~1 100 km",
+    },
+    {
+      x: 560,
+      R: 92,
+      highlight: "child",
+      id: "882a100d2ffffff",
+      res: "resolution 8",
+      storrelse: "~1 km",
+    },
+    {
+      x: 932,
+      R: 70,
+      highlight: "center",
+      id: "8c2a100d2cb4fff",
+      res: "resolution 15",
+      storrelse: "~1 m",
+    },
+  ];
+
+  return (
+    <Figur
+      w={1120}
+      h={360}
+      label="H3 hexes inside hexes at three resolutions, from about 1100 kilometres down to about one metre"
+    >
+      {kolonner.map((k) => (
+        <g key={k.res}>
+          {cluster(k.x, 148, k.R, k.highlight)}
+          <Tekst x={k.x} y={292} size={13} weight={600} color={STREK}>
+            {k.id}
+          </Tekst>
+          <Tekst x={k.x} y={318} size={14} weight={600}>
+            {k.res}
+          </Tekst>
+          <Tekst x={k.x} y={340} size={14} color={ROD}>
+            {k.storrelse}
+          </Tekst>
+        </g>
+      ))}
+    </Figur>
+  );
+}
+
 /** Kvadrat mot heksagon: hvorfor «én celle unna» bare gir mening på hex */
 export function HexVsRute() {
   const kvadrat = () => {

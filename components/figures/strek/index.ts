@@ -45,6 +45,7 @@ export { DagEn, FireSpor, Innlesing } from "./Prosjekt";
 export {
   Seilas,
   HexRing,
+  HexHierarki,
   HexVsRute,
   Propell,
   Soyler,
