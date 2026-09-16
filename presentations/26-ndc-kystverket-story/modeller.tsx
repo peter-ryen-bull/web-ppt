@@ -12,9 +12,17 @@ import {
   SporTilUtslipp,
 } from "@/components/figures/strek";
 
-function SlideTitle({ children, width = 1140 }: { children: ReactNode; width?: number }) {
+function SlideTitle({
+  children,
+  width = 1140,
+  height = 70,
+}: {
+  children: ReactNode;
+  width?: number;
+  height?: number;
+}) {
   return (
-    <Box box={[66.7, 70, width, 70]}>
+    <Box box={[66.7, 70, width, height]}>
       <div
         style={{
           fontFamily: "var(--font-serif)",
@@ -761,14 +769,16 @@ export function SlideMarU() {
 /* MarU – ML for å fylle hull i registerdata */
 export function SlideMarUHull() {
   const items = [
-    "The registries are full of holes",
+    "The ship register we need to estimate emissions is full of holes",
     "Medians cover the easy cases",
     "Neural nets for speed, RPM, stroke",
     "70% missing fuel type. We fill it.",
   ];
   return (
     <>
-      <SlideTitle>ML as a data quality tool</SlideTitle>
+      <SlideTitle height={90}>
+        Filling the missing ship register data with ML
+      </SlideTitle>
       <Box box={[900, 200, 320, 282]}>
         <Registerhull />
       </Box>

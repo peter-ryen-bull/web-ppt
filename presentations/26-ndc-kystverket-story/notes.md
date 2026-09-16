@@ -1298,13 +1298,13 @@ That's why one hundred million rows a day isn't bragging. It's a consequence
 of the method. If you want to calculate emissions per point, you need every
 point.
 
-## maru-hull – ML as a data quality tool
+## maru-hull – Filling the missing ship register data with ML
 
 And now the honest part.
 
-[[CLICK]] The ship registries are full of holes. Especially for the small
-vessels. We know the ship exists, but not which engine it has, or how fast
-it's actually designed to go.
+[[CLICK]] The ship register we need to estimate emissions is full of holes.
+Especially for the small vessels. We know the ship exists, but not which
+engine it has, or how fast it's actually designed to go.
 
 [[CLICK]] The easiest gaps we fill with median values per ship type and length
 interval, with at least six observations per group.

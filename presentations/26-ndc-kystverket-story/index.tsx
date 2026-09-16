@@ -516,7 +516,7 @@ const MODELLENE: SlideDef[] = [
   },
   {
     id: "maru-hull",
-    name: "ML as a data quality tool",
+    name: "Filling the missing ship register data with ML",
     component: SlideMarUHull,
     steps: 5,
   },
