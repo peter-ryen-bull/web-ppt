@@ -40,6 +40,7 @@ export {
   Isfjell,
   KlyngeFast,
   KlyngeAuto,
+  ManuellVsServerless,
 } from "./Sky";
 export { DagEn, FireSpor, Innlesing } from "./Prosjekt";
 export {

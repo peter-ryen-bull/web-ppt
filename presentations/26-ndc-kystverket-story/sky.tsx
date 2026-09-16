@@ -5,7 +5,7 @@ import {
   FireSpor,
   Grunnmur,
   Innlesing,
-  Kapasitetsmaaler,
+  ManuellVsServerless,
   Pakke,
   SkyFundament,
   SkyMedKlosser,
@@ -857,11 +857,8 @@ export function SlideServerless() {
   ];
   return (
     <>
-      <Box box={[520, 30, 240, 130]}>
-        <Kapasitetsmaaler />
-      </Box>
       <Box
-        box={[81.5, 160, 1117.1, 140]}
+        box={[80, 24, 1120, 62]}
         style={{
           display: "flex",
           alignItems: "center",
@@ -871,7 +868,7 @@ export function SlideServerless() {
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(54),
+            fontSize: pt(40),
             lineHeight: 1.1,
             color: "var(--burgundy)",
             textAlign: "center",
@@ -882,13 +879,13 @@ export function SlideServerless() {
         </div>
       </Box>
       <Box
-        box={[81.5, 300, 1117.1, 40]}
+        box={[80, 86, 1120, 28]}
         style={{ display: "flex", justifyContent: "center" }}
       >
         <div
           style={{
             fontFamily: "var(--font-sans)",
-            fontSize: pt(16),
+            fontSize: pt(14),
             letterSpacing: 2,
             color: "#9a5068",
           }}
@@ -896,10 +893,13 @@ export function SlideServerless() {
           DATABRICKS SERVERLESS
         </div>
       </Box>
+      <Box box={[80, 118, 1120, 320]}>
+        <ManuellVsServerless />
+      </Box>
       {lines.map((text, i) => (
         <Reveal key={text} at={i + 1}>
           <Box
-            box={[140, 380 + i * 70, 1000, 55]}
+            box={[80, 428 + i * 58, 1120, 48]}
             style={{
               display: "flex",
               alignItems: "center",
@@ -909,7 +909,7 @@ export function SlideServerless() {
             <div
               style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: pt(20),
+                fontSize: pt(18),
                 color: i === 2 ? "var(--red)" : "var(--burgundy-2)",
                 textAlign: "center",
               }}

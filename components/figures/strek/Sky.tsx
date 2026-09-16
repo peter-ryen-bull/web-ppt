@@ -14,7 +14,8 @@ import { IkonI, type IkonNavn } from "./Ikoner";
 
 /*
  * Strek-figurer til sky- og stordata-kapitlene: sky med klosser, skyen som
- * hviler på byggeklosser, kapasitetsmåler, isfjell og klyngestørrelser.
+ * hviler på byggeklosser, kapasitetsmåler, isfjell, klyngestørrelser og
+ * manuell tuning mot serverless.
  */
 
 /** Sky med en stabel klosser inni – verktøykassa */
@@ -189,6 +190,229 @@ export function KlyngeAuto() {
       })}
       <Tekst x={100} y={48} size={10.5}>
         follows the data volume
+      </Tekst>
+    </Figur>
+  );
+}
+
+/** Samme lastkurve på begge sider – venstre gjetter for sent, høyre følger */
+const LASTKURVE =
+  "M 0 50 C 55 50 95 46 140 32 S 210 6 248 4 S 305 22 342 42 S 375 50 400 52";
+
+function LastMedHode({ x, y, T }: { x: number; y: number; T: number }) {
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      <path d={LASTKURVE} strokeWidth={2.2} />
+      <g>
+        <animateTransform
+          attributeName="transform"
+          type="translate"
+          values="0 0; 400 0"
+          keyTimes="0; 1"
+          dur={`${T}s`}
+          repeatCount="indefinite"
+        />
+        <path d="M 0 0 V 56" stroke={ROD} strokeWidth={1.8} />
+        <circle cx={0} cy={0} r={4.5} fill={ROD} stroke="none" />
+      </g>
+    </g>
+  );
+}
+
+function nodeFade(inn: number, ut: number, on = 1) {
+  const innOn = Math.min(inn + 0.03, ut);
+  if (inn <= 0 && ut >= 1) {
+    return { values: `${on}`, keyTimes: "0; 1" as const };
+  }
+  if (ut >= 1) {
+    return {
+      values: `0; 0; ${on}; ${on}`,
+      keyTimes: `0; ${inn.toFixed(3)}; ${innOn.toFixed(3)}; 1`,
+    };
+  }
+  const utOff = Math.min(ut + 0.03, 1);
+  return {
+    values: `0; 0; ${on}; ${on}; 0; 0`,
+    keyTimes: `0; ${inn.toFixed(3)}; ${innOn.toFixed(3)}; ${ut.toFixed(3)}; ${utOff.toFixed(3)}; 1`,
+  };
+}
+
+function NodeRad({
+  x,
+  y,
+  T,
+  noder,
+}: {
+  x: number;
+  y: number;
+  T: number;
+  noder: { inn: number; ut: number; queue?: boolean }[];
+}) {
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      {noder.map((n, i) => {
+        const bx = i * 28;
+        const fade = nodeFade(n.inn, n.ut, n.queue ? 0.85 : 1);
+        if (n.queue) {
+          return (
+            <rect
+              key={i}
+              x={bx}
+              y={0}
+              width={20}
+              height={20}
+              rx={3}
+              stroke={STREK}
+              strokeWidth={1.5}
+              strokeDasharray="3 3"
+              opacity={0}
+            >
+              <animate
+                attributeName="opacity"
+                values={fade.values}
+                keyTimes={fade.keyTimes}
+                dur={`${T}s`}
+                repeatCount="indefinite"
+              />
+            </rect>
+          );
+        }
+        return (
+          <g key={i}>
+            <rect
+              x={bx}
+              y={0}
+              width={20}
+              height={20}
+              rx={3}
+              stroke={TEAL}
+              strokeWidth={1.5}
+              opacity={0.35}
+            />
+            <rect
+              x={bx}
+              y={0}
+              width={20}
+              height={20}
+              rx={3}
+              fill={TEAL}
+              stroke="none"
+              opacity={n.inn <= 0 && n.ut >= 1 ? 1 : 0}
+            >
+              {!(n.inn <= 0 && n.ut >= 1) && (
+                <animate
+                  attributeName="opacity"
+                  values={fade.values}
+                  keyTimes={fade.keyTimes}
+                  dur={`${T}s`}
+                  repeatCount="indefinite"
+                />
+              )}
+            </rect>
+          </g>
+        );
+      })}
+    </g>
+  );
+}
+
+/**
+ * Manuell tuning mot serverless. Samme last, samme klokke: venstre side
+ * våkner sent og hopper i steg, høyre følger jobben.
+ */
+export function ManuellVsServerless() {
+  const T = 10;
+  const manuell = [
+    { inn: 0.14, ut: 1 },
+    { inn: 0.14, ut: 1 },
+    { inn: 0.14, ut: 1 },
+    { inn: 0.56, ut: 1 },
+    { inn: 0.56, ut: 1 },
+    { inn: 0.56, ut: 1 },
+    { inn: 0.56, ut: 1 },
+    { inn: 0.42, ut: 0.56, queue: true },
+  ];
+  const serverless = [
+    { inn: 0, ut: 1 },
+    { inn: 0.12, ut: 0.92 },
+    { inn: 0.28, ut: 0.84 },
+    { inn: 0.34, ut: 0.78 },
+    { inn: 0.4, ut: 0.7 },
+    { inn: 0.44, ut: 0.66 },
+    { inn: 0.48, ut: 0.6 },
+    { inn: 0.5, ut: 0.57 },
+  ];
+  return (
+    <Figur
+      w={1040}
+      h={300}
+      label="Manual tuning guesses a cluster size and wakes up late. Serverless follows the job."
+    >
+      <path
+        d="M 520 36 V 272"
+        stroke="var(--cream-dark)"
+        strokeWidth={1.5}
+        strokeDasharray="2 7"
+      />
+
+      <IkonI navn="verktoy" x={70} y={18} size={26} color={TEAL} />
+      <Tekst x={106} y={36} size={14} color={TEAL} weight={600} anchor="start">
+        MANUAL
+      </Tekst>
+      <LastMedHode x={70} y={58} T={T} />
+      <path d="M 86 148 V 228" strokeWidth={2.2} />
+      <circle cx={86} cy={210} r={7} fill={KREM} strokeWidth={2.2}>
+        <animate
+          attributeName="cy"
+          values="210; 210; 156; 156; 210"
+          keyTimes="0; 0.54; 0.58; 0.97; 1"
+          dur={`${T}s`}
+          repeatCount="indefinite"
+        />
+      </circle>
+      <NodeRad x={130} y={176} T={T} noder={manuell} />
+      <Tekst x={242} y={226} size={13}>
+        you guess · then you wait
+      </Tekst>
+      <Tekst x={430} y={190} size={12} color={ROD} anchor="end">
+        waking up
+        <animate
+          attributeName="opacity"
+          values="1; 1; 0; 0"
+          keyTimes="0; 0.12; 0.16; 1"
+          dur={`${T}s`}
+          repeatCount="indefinite"
+        />
+      </Tekst>
+      <Tekst x={430} y={190} size={12} color={ROD} anchor="end">
+        queued
+        <animate
+          attributeName="opacity"
+          values="0; 0; 1; 1; 0; 0"
+          keyTimes="0; 0.42; 0.45; 0.54; 0.58; 1"
+          dur={`${T}s`}
+          repeatCount="indefinite"
+        />
+      </Tekst>
+      <Tekst x={430} y={190} size={12} anchor="end">
+        idle
+        <animate
+          attributeName="opacity"
+          values="0; 0; 1; 1; 0"
+          keyTimes="0; 0.78; 0.82; 0.97; 1"
+          dur={`${T}s`}
+          repeatCount="indefinite"
+        />
+      </Tekst>
+
+      <IkonI navn="gnist" x={590} y={18} size={26} color={TEAL} />
+      <Tekst x={626} y={36} size={14} color={TEAL} weight={600} anchor="start">
+        SERVERLESS
+      </Tekst>
+      <LastMedHode x={590} y={58} T={T} />
+      <NodeRad x={650} y={176} T={T} noder={serverless} />
+      <Tekst x={762} y={226} size={13}>
+        the job decides
       </Tekst>
     </Figur>
   );
