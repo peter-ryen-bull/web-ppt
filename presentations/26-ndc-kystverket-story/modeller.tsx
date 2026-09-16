@@ -132,7 +132,7 @@ export function SlideModellFlyt() {
 
   return (
     <>
-      <SlideTitle width={900}>One source, many products</SlideTitle>
+      <SlideTitle width={900}>One source, many data products</SlideTitle>
       {box(1, [36, 292, 210, 136], "Raw AIS data", "static and dynamic messages")}
       <Reveal at={2}>
         <Box box={[246, 188, 104, 332]}>
@@ -188,7 +188,7 @@ export function SlideModellFlyt() {
               textAlign: "center",
             }}
           >
-            One source. Many products. Each with its own output others can build on.
+            One source. Many data products. Each with its own output others can build on.
           </div>
         </Box>
       </Reveal>
@@ -870,7 +870,7 @@ export function SlideMarU() {
     "Python and PySpark, computed on Databricks",
     "Main engine from the propeller law",
     "Around 330 input variables",
-    "One ship registry, five sources, versioned",
+    "One ship registry",
   ];
   return (
     <>

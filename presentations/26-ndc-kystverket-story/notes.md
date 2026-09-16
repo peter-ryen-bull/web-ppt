@@ -1224,12 +1224,10 @@ and watch it move.
 
 ## asuka-hais – Asuka, from HAIS
 
-This is Asuka. A real ship. Pulled out of HAIS.
-
-Don't narrate every turn. Let it run. Then: that's one ship. We do this
-for the whole coast.
+A real ship. Pulled out of HAIS.
 
 And then the obvious question.
+WHO IS ASUKA?
 
 ## asuka-hvem – Who is Asuka?
 
