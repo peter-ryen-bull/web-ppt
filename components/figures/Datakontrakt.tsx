@@ -129,6 +129,8 @@ function Kort({
   icon: ReactNode;
 }) {
   const cy = h / 2;
+  const lines = sub.split("\n");
+  const multi = lines.length > 1;
   return (
     <g transform={`translate(${x} ${y})`}>
       <rect width={w} height={h} rx={14} fill="#fff" stroke="var(--cream-dark)" strokeWidth={1.5} />
@@ -153,7 +155,7 @@ function Kort({
       </g>
       <text
         x={78}
-        y={cy - 3}
+        y={multi ? cy - 10 : cy - 3}
         fontFamily="var(--font-sans)"
         fontWeight={600}
         fontSize={17}
@@ -161,9 +163,18 @@ function Kort({
       >
         {title}
       </text>
-      <text x={78} y={cy + 20} fontFamily="var(--font-sans)" fontSize={12.5} fill={SUB_FARGE}>
-        {sub}
-      </text>
+      {lines.map((line, i) => (
+        <text
+          key={line}
+          x={78}
+          y={(multi ? cy + 10 : cy + 20) + i * 16}
+          fontFamily="var(--font-sans)"
+          fontSize={12.5}
+          fill={SUB_FARGE}
+        >
+          {line}
+        </text>
+      ))}
     </g>
   );
 }
@@ -278,7 +289,7 @@ export function DatakontraktApi() {
         x={60}
         y={250}
         title="Producer"
-        sub="team-ocean – owns the data product"
+        sub={"team-ocean –\nowns the data product"}
         icon={<IkonDatabase />}
       />
       {KONSUMENTER.map((k, i) => (
