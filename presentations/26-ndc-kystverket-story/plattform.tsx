@@ -1,4 +1,4 @@
-import { Box, ChapterSlide, Img, Reveal, pt, useRevealStyle } from "../parts";
+import { Box, ChapterSlide, Img, QuotePage, Reveal, pt, useRevealStyle } from "../parts";
 
 const MEDIA = "/media/26-ndc-kystverket";
 import {
@@ -77,70 +77,20 @@ export function SlideHvaEr() {
 
 /* Reid Hoffman: alt er målbart – og det blir rot uten styring */
 export function SlideReidHoffman() {
-  const quote = useRevealStyle(1);
   const pitch = useRevealStyle(2);
   return (
-    <>
-      <Box
-        box={[688.8, 63, 528.8, 560]}
-        style={{ overflow: "hidden", borderRadius: 8 }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={`${MEDIA}/reid-hoffman.jpg`}
-          alt="Reid Hoffman"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "50% 12%",
-          }}
-        />
-      </Box>
-      <Box box={[688.8, 636, 528.8, 40]}>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(15),
-            lineHeight: 1.3,
-            color: "var(--burgundy-2)",
-          }}
-        >
-          Reid Hoffman. Co-founder of LinkedIn.
-        </div>
-      </Box>
-      <Box
-        box={[66, 140, 580, 300]}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          gap: 22,
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(32),
-            lineHeight: 1.25,
-            color: "var(--burgundy)",
-            ...quote,
-          }}
-        >
+    <QuotePage
+      quote={
+        <>
           &ldquo;In the world of data, everything is measurable, and everything is
           knowable.&rdquo;
-        </div>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(16),
-            color: "var(--burgundy-2)",
-            whiteSpace: "nowrap",
-          }}
-        >
-          — Reid Hoffman
-        </div>
-      </Box>
+        </>
+      }
+      attribution="— Reid Hoffman"
+      imageSrc={`${MEDIA}/reid-hoffman.jpg`}
+      imageAlt="Reid Hoffman"
+      caption="Reid Hoffman. Co-founder of LinkedIn."
+    >
       <Box box={[66, 470, 580, 140]}>
         <div
           style={{
@@ -152,12 +102,12 @@ export function SlideReidHoffman() {
             ...pitch,
           }}
         >
-          That becomes very valuable.
+          You get a really large amount of data.
           <br />
-          And messy if you don&apos;t handle it properly.
+          And it becomes a real mess if don&apos;t handle it properly.
         </div>
       </Box>
-    </>
+    </QuotePage>
   );
 }
 

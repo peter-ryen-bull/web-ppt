@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Box, BulletItem, ChapterSlide, MilesLogo, pt, useRevealStyle } from "../../parts";
+import { Box, BulletItem, ChapterSlide, MilesLogo, QuotePage, pt } from "../../parts";
 import {
   TidslinjeFigur,
   RelasjonsFigur,
@@ -304,83 +304,18 @@ const MEDIA = "/media/26-ndc-kystverket";
 
 /* Portrait: Tim Berners-Lee 2023, Dr. Frank Gaeth, CC BY 4.0, Wikimedia Commons */
 export function SlideAvslutning() {
-  const punch = useRevealStyle(1);
   return (
-    <>
-      <Box
-        box={[688.8, 63, 528.8, 560]}
-        style={{ overflow: "hidden", borderRadius: 8 }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={`${MEDIA}/tim-berners-lee.jpg`}
-          alt="Tim Berners-Lee"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "50% 12%",
-          }}
-        />
-      </Box>
-      <Box box={[688.8, 636, 528.8, 40]}>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(15),
-            lineHeight: 1.3,
-            color: "var(--burgundy-2)",
-          }}
-        >
-          Tim Berners-Lee. Inventor of the World Wide Web.
-        </div>
-      </Box>
-      <Box
-        box={[66, 140, 580, 300]}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          gap: 22,
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(32),
-            lineHeight: 1.25,
-            color: "var(--burgundy)",
-          }}
-        >
+    <QuotePage
+      quote={
+        <>
           &ldquo;Data is a precious thing and will last longer than the systems
           themselves.&rdquo;
-        </div>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(16),
-            color: "var(--burgundy-2)",
-          }}
-        >
-          — Tim Berners-Lee
-        </div>
-      </Box>
-      <Box box={[66, 470, 580, 160]}>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontWeight: 500,
-            fontSize: pt(20),
-            lineHeight: 1.4,
-            color: "var(--red)",
-            ...punch,
-          }}
-        >
-          The systems come and go. The data stays.
-          <br />
-          So we must model the systems to fit the data.
-        </div>
-      </Box>
-    </>
+        </>
+      }
+      attribution="— Tim Berners-Lee"
+      imageSrc={`${MEDIA}/tim-berners-lee.jpg`}
+      imageAlt="Tim Berners-Lee"
+      caption="Tim Berners-Lee. Inventor of the World Wide Web."
+    />
   );
 }

@@ -258,6 +258,92 @@ export function ChapterSlide({
   );
 }
 
+/** Sitatslide: sitat til venstre, portrett med skygge til høyre */
+export function QuotePage({
+  quote,
+  attribution,
+  imageSrc,
+  imageAlt,
+  caption,
+  children,
+}: {
+  quote: ReactNode;
+  attribution: ReactNode;
+  imageSrc: string;
+  imageAlt: string;
+  caption: ReactNode;
+  children?: ReactNode;
+}) {
+  const quoteReveal = useRevealStyle(1);
+  return (
+    <>
+      <Box
+        box={[688.8, 63, 528.8, 560]}
+        style={{
+          overflow: "hidden",
+          borderRadius: 8,
+          boxShadow: "0 16px 36px rgba(28, 12, 20, 0.22)",
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "50% 12%",
+          }}
+        />
+      </Box>
+      <Box box={[688.8, 636, 528.8, 40]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(15),
+            lineHeight: 1.3,
+            color: "var(--burgundy-2)",
+          }}
+        >
+          {caption}
+        </div>
+      </Box>
+      <Box
+        box={[66, 140, 580, 300]}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          gap: 22,
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(32),
+            lineHeight: 1.25,
+            color: "var(--burgundy)",
+            ...quoteReveal,
+          }}
+        >
+          {quote}
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(16),
+            color: "var(--burgundy-2)",
+          }}
+        >
+          {attribution}
+        </div>
+      </Box>
+      {children}
+    </>
+  );
+}
+
 /** Liten rød "Pains"-etikett brukt på smerte-slidene */
 export function PainsLabel() {
   return (
