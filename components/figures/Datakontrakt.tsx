@@ -23,17 +23,31 @@ const LINJE_FARGE = "rgba(69, 13, 32, 0.25)";
 const DUS = "#9a5068";
 const ROD = "#ff303b";
 
-function Pill({ cx, y = 8, text, w }: { cx: number; y?: number; text: string; w: number }) {
+function Pill({
+  cx,
+  y = 8,
+  text,
+  w,
+  h = 30,
+  fontSize = 11.5,
+}: {
+  cx: number;
+  y?: number;
+  text: string;
+  w: number;
+  h?: number;
+  fontSize?: number;
+}) {
   return (
     <g>
-      <rect x={cx - w / 2} y={y} width={w} height={30} rx={15} fill="var(--teal)" />
+      <rect x={cx - w / 2} y={y} width={w} height={h} rx={h / 2} fill="var(--teal)" />
       <text
         x={cx}
-        y={y + 19.5}
+        y={y + h / 2 + fontSize * 0.38}
         textAnchor="middle"
         fontFamily="var(--font-sans)"
         fontWeight={600}
-        fontSize={11.5}
+        fontSize={fontSize}
         letterSpacing={1.5}
         fill="var(--cream)"
       >
@@ -119,6 +133,7 @@ function Kort({
   title,
   sub,
   icon,
+  stor = false,
 }: {
   x: number;
   y: number;
@@ -127,24 +142,34 @@ function Kort({
   title: string;
   sub: string;
   icon: ReactNode;
+  /** Stor variant med større ikon og tekst – for figurer som skal leses på avstand */
+  stor?: boolean;
 }) {
   const cy = h / 2;
   const lines = sub.split("\n");
   const multi = lines.length > 1;
+  const ikonBoks = stor ? 56 : 44;
+  const ikonSkala = stor ? 1.35 : 1;
+  const tekstX = stor ? 96 : 78;
+  const tittelSize = stor ? 23 : 17;
+  const subSize = stor ? 16 : 12.5;
+  const linjeAvstand = stor ? 21 : 16;
+  const tittelY = multi ? cy - (stor ? 14 : 10) : cy - (stor ? 5 : 3);
+  const subY = multi ? cy + (stor ? 12 : 10) : cy + (stor ? 22 : 20);
   return (
     <g transform={`translate(${x} ${y})`}>
       <rect width={w} height={h} rx={14} fill="#fff" stroke="var(--cream-dark)" strokeWidth={1.5} />
       <rect
         x={18}
-        y={cy - 22}
-        width={44}
-        height={44}
+        y={cy - ikonBoks / 2}
+        width={ikonBoks}
+        height={ikonBoks}
         rx={12}
         fill="rgba(0, 64, 71, 0.06)"
         stroke="rgba(0, 64, 71, 0.12)"
       />
       <g
-        transform={`translate(28 ${cy - 12})`}
+        transform={`translate(${18 + ikonBoks / 2 - 12 * ikonSkala} ${cy - 12 * ikonSkala}) scale(${ikonSkala})`}
         fill="none"
         stroke="var(--teal)"
         strokeWidth={1.8}
@@ -154,11 +179,11 @@ function Kort({
         {icon}
       </g>
       <text
-        x={78}
-        y={multi ? cy - 10 : cy - 3}
+        x={tekstX}
+        y={tittelY}
         fontFamily="var(--font-sans)"
         fontWeight={600}
-        fontSize={17}
+        fontSize={tittelSize}
         fill="var(--burgundy)"
       >
         {title}
@@ -166,10 +191,10 @@ function Kort({
       {lines.map((line, i) => (
         <text
           key={line}
-          x={78}
-          y={(multi ? cy + 10 : cy + 20) + i * 16}
+          x={tekstX}
+          y={subY + i * linjeAvstand}
           fontFamily="var(--font-sans)"
-          fontSize={12.5}
+          fontSize={subSize}
           fill={SUB_FARGE}
         >
           {line}
@@ -185,11 +210,13 @@ function Flyt({
   dur,
   begins,
   color,
+  r = 5,
 }: {
   d: string;
   dur: number;
   begins: number[];
   color: string;
+  r?: number;
 }) {
   return (
     <>
@@ -202,7 +229,7 @@ function Flyt({
         strokeLinecap="round"
       />
       {begins.map((b) => (
-        <circle key={b} r={5} fill={color}>
+        <circle key={b} r={r} fill={color}>
           <animateMotion dur={`${dur}s`} begin={`${b}s`} repeatCount="indefinite" path={d} />
           <animate
             attributeName="opacity"
@@ -255,7 +282,22 @@ const KONSUMENTER = [
 ];
 
 export function DatakontraktApi() {
-  const konsumentYs = [110, 256, 402];
+  /* Layouten fyller hele flaten med store elementer, slik at teksten er
+   * lesbar bakerst i salen. Kontrakten står i midten; produsent til venstre
+   * og konsumenter til høyre, alle sentrert rundt kontraktens midtlinje. */
+  const DOK_X = 440;
+  const DOK_Y = 54;
+  const DOK_W = 380;
+  const DOK_H = 520;
+  const MIDT_Y = DOK_Y + DOK_H / 2; // 314
+
+  const PROD_W = 290;
+  const PROD_H = 130;
+
+  const KONS_X = 940;
+  const KONS_W = 280;
+  const KONS_H = 116;
+  const konsumentYs = [130, MIDT_Y, 498].map((cy) => cy - KONS_H / 2);
 
   return (
     <svg
@@ -264,57 +306,75 @@ export function DatakontraktApi() {
       role="img"
       aria-label="Data contract: a YAML document between producer and consumers – an API for data"
     >
-      <Pill cx={620} text="AN API – BUT FOR DATA" w={250} />
+      <Pill cx={620} y={4} text="AN API – BUT FOR DATA" w={290} h={34} fontSize={13.5} />
 
       {/* Produsenten lover – konsumentene kan stole på */}
-      <text x={395} y={284} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={12.5} fill="var(--red)">
+      <text
+        x={(30 + PROD_W + DOK_X) / 2}
+        y={MIDT_Y - 18}
+        textAnchor="middle"
+        fontFamily="var(--font-sans)"
+        fontSize={14}
+        fill="var(--red)"
+      >
         makes promises
       </text>
-      <text x={845} y={284} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={12.5} fill="var(--red)">
+      <text
+        x={(DOK_X + DOK_W + KONS_X) / 2}
+        y={MIDT_Y - 18}
+        textAnchor="middle"
+        fontFamily="var(--font-sans)"
+        fontSize={14}
+        fill="var(--red)"
+      >
         can rely on
       </text>
 
-      <Flyt d="M 340 302 H 450" dur={5} begins={[0, -2.5]} color="var(--red)" />
+      <Flyt d={`M ${30 + PROD_W + 8} ${MIDT_Y} H ${DOK_X}`} dur={5} begins={[0, -2.5]} color="var(--red)" r={6} />
       {konsumentYs.map((y, i) => (
         <Flyt
           key={y}
-          d={kurve(790, 302, 900, y + 44)}
+          d={kurve(DOK_X + DOK_W, MIDT_Y, KONS_X, y + KONS_H / 2)}
           dur={5}
           begins={[-(i * 1.6 + 0.8), -(i * 1.6 + 3.3)]}
           color="var(--teal)"
+          r={6}
         />
       ))}
 
       <Kort
-        x={60}
-        y={250}
+        x={30}
+        y={MIDT_Y - PROD_H / 2}
+        w={PROD_W}
+        h={PROD_H}
         title="Producer"
         sub={"team-ocean –\nowns the data product"}
         icon={<IkonDatabase />}
+        stor
       />
       {KONSUMENTER.map((k, i) => (
-        <Kort key={k.title} x={900} y={konsumentYs[i]} h={88} {...k} />
+        <Kort key={k.title} x={KONS_X} y={konsumentYs[i]} w={KONS_W} h={KONS_H} stor {...k} />
       ))}
 
       {/* Selve kontrakten – et dokument mennesker og maskiner kan lese */}
-      <g transform="translate(450 64)">
-        <rect width={340} height={470} rx={14} fill="#fff" stroke="var(--cream-dark)" strokeWidth={1.5} />
+      <g transform={`translate(${DOK_X} ${DOK_Y})`}>
+        <rect width={DOK_W} height={DOK_H} rx={14} fill="#fff" stroke="var(--cream-dark)" strokeWidth={1.5} />
         <path
-          d="M 0 14 A 14 14 0 0 1 14 0 H 326 A 14 14 0 0 1 340 14 V 36 H 0 Z"
+          d={`M 0 14 A 14 14 0 0 1 14 0 H ${DOK_W - 14} A 14 14 0 0 1 ${DOK_W} 14 V 40 H 0 Z`}
           fill="var(--teal)"
         />
         <text
-          x={170}
-          y={23}
+          x={DOK_W / 2}
+          y={25.5}
           textAnchor="middle"
           fontFamily={MONO}
-          fontSize={11.5}
+          fontSize={13.5}
           fill="rgba(251, 240, 229, 0.85)"
         >
           ais_tracks · datacontract.yaml
         </text>
         {KONTRAKT_LINJER.map((linje, i) => (
-          <text key={i} x={22} y={68 + i * 25.5} fontFamily={MONO} fontSize={13.5} xmlSpace="preserve">
+          <text key={i} x={20} y={78 + i * 28} fontFamily={MONO} fontSize={17} xmlSpace="preserve">
             {linje.map((seg, j) => (
               <tspan
                 key={j}
@@ -330,10 +390,10 @@ export function DatakontraktApi() {
 
       <text
         x={620}
-        y={618}
+        y={620}
         textAnchor="middle"
         fontFamily="var(--font-sans)"
-        fontSize={15.5}
+        fontSize={19}
         fill="var(--red)"
       >
         One agreement both sides follow – readable for humans, enforceable for machines
