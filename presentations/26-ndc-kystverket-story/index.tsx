@@ -533,7 +533,7 @@ const MODELLENE: SlideDef[] = [
     id: "maru",
     name: "The maritime emissions model: MarU",
     component: SlideMarU,
-    steps: 4,
+    steps: 3,
   },
   {
     id: "maru-hull",

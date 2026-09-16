@@ -784,7 +784,6 @@ export function SlideMarTrafVideo() {
 /* Maritim utslippsmodell – MarU */
 export function SlideMarU() {
   const items = [
-    "Bottom-up. IMO and ICCT. Open source.",
     "Main engine from the propeller law",
     "Around 330 input variables",
     "One ship registry, five sources, versioned",

@@ -1348,10 +1348,6 @@ That's why you need metadata and data contracts. Not just numbers.
 
 That's the method. Now the model itself.
 
-[[CLICK]] A bottom-up model, following the methodology from the IMO's fourth
-greenhouse gas study and ICCT. Python and PySpark. And open source, the
-entire calculation is on GitHub.
-
 [[CLICK]] The main engine is calculated from the propeller law. Auxiliary
 engines and boilers are calculated per operational phase. And now you see
 why we needed the phases from MarTraf. A ship at berth uses its auxiliary
