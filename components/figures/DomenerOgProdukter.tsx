@@ -28,8 +28,9 @@ import {
  * delbildene som bygde det opp (DomenerKilder, ProduktForbruk, og
  * HvorViSkal i Domenekataloger.tsx).
  *
- * Ren SVG (viewBox 1240x640), samme palett og byggeklosser som de andre
- * katalogfigurene. HelePlattformen avslører én del per klikk.
+ * Ren SVG (HelePlattformen: viewBox 1280x720, de øvrige 1240x640), samme
+ * palett og byggeklosser som de andre katalogfigurene. HelePlattformen
+ * avslører én del per klikk.
  */
 
 const MINT_DUS = "rgba(120, 232, 219, 0.35)";
@@ -664,19 +665,22 @@ export function ProduktForbruk() {
  * 4. HELE PLATTFORMEN – alt sammen, zoomet ut
  * ===================================================================== */
 
-const H_KILDE = { x: 22, w: 92, h: 30 };
-const H_DOM_X = 138;
-const H_DOM_W = 226;
-const H_DOM_H = 84;
-const H_DOM_Y = (i: number) => 76 + i * 104;
-const H_KTR = { x: 410, y: 76, w: 200, h: 98 };
-const H_REPO = { x: 410, y: 214, w: 200, h: 58 };
-const H_UTF = { x: 410, y: 318, w: 200, h: 132 };
-const H_KAT = { x: 672, y: 60, w: 240, h: 396 };
-const H_KONS_X = 970;
-const H_KONS_W = 230;
-const H_KONS_H = 52;
-const H_KONS_Y = (i: number) => 84 + i * 70;
+const HP_W = 1280;
+const HP_H = 720;
+
+const H_KILDE = { x: 24, w: 100, h: 34 };
+const H_DOM_X = 148;
+const H_DOM_W = 236;
+const H_DOM_H = 118;
+const H_DOM_Y = (i: number) => 52 + i * 156;
+const H_KTR = { x: 424, y: 52, w: 208, h: 118 };
+const H_REPO = { x: 424, y: 214, w: 208, h: 66 };
+const H_UTF = { x: 424, y: 324, w: 208, h: 200 };
+const H_KAT = { x: 692, y: 48, w: 260, h: 590 };
+const H_KONS_X = 996;
+const H_KONS_W = 256;
+const H_KONS_H = 80;
+const H_KONS_Y = (i: number) => 52 + i * 126;
 
 const KONTRAKT_KORT: [string, string][] = [
   ["kind:", " DataContract"],
@@ -693,7 +697,7 @@ export function HelePlattformen() {
   const domBunn = H_DOM_Y(3) + H_DOM_H;
   return (
     <svg
-      viewBox={`0 0 ${W} ${H}`}
+      viewBox={`0 0 ${HP_W} ${HP_H}`}
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
       aria-label="The whole picture: sources into domain catalogs, contracts through git and CI into the data products catalog, consumers inside and outside reading from it, and an explorer built from the contracts"
@@ -705,10 +709,10 @@ export function HelePlattformen() {
         <Pill cx={domMidtX} text="DOMAIN CATALOGS" w={170} />
       </Steg>
       <Steg at={2}>
-        <Pill cx={80} text="SOURCES" w={100} />
+        <Pill cx={H_KILDE.x + H_KILDE.w / 2} text="SOURCES" w={100} />
       </Steg>
       <Steg at={4}>
-        <Pill cx={505} text="CONTRACTS" w={120} />
+        <Pill cx={H_KTR.x + H_KTR.w / 2} text="CONTRACTS" w={120} />
       </Steg>
       <Steg at={6}>
         <Pill cx={katMidtX} text="DATA PRODUCTS" w={160} />
@@ -723,11 +727,11 @@ export function HelePlattformen() {
           const y = H_DOM_Y(i);
           const top = y + 11;
           return (
-            <Sylinder key={d.navn} x={H_DOM_X} y={y} w={H_DOM_W} h={H_DOM_H} ry={11} uthevet={i === 1 && step >= 4}>
+            <Sylinder key={d.navn} x={H_DOM_X} y={y} w={H_DOM_W} h={H_DOM_H} ry={13} uthevet={i === 1 && step >= 4}>
               <g fill="none" stroke="var(--mint)" strokeLinecap="round" strokeLinejoin="round">
-                <IkonI navn={d.ikon} x={H_DOM_X + 18} y={top + 18} size={20} strokeWidth={1.7} />
+                <IkonI navn={d.ikon} x={H_DOM_X + 20} y={top + 16} size={22} strokeWidth={1.7} />
               </g>
-              <text x={H_DOM_X + 48} y={top + 33} fontFamily={MONO} fontSize={13.5} fill="var(--cream)">
+              <text x={H_DOM_X + 52} y={top + 33} fontFamily={MONO} fontSize={15} fill="var(--cream)">
                 {d.navn}
               </text>
             </Sylinder>
@@ -743,14 +747,14 @@ export function HelePlattformen() {
           return (
             <g key={d.navn}>
               {d.kilder.map((k, j) => {
-                const ky = y + 8 + j * 38;
+                const ky = y + 18 + j * 48;
                 return (
                   <g key={k.navn}>
                     <rect x={H_KILDE.x} y={ky} width={H_KILDE.w} height={H_KILDE.h} rx={10} fill="#fff" stroke="var(--cream-dark)" strokeWidth={1.3} />
                     <g fill="none" stroke="var(--red)" strokeLinecap="round" strokeLinejoin="round">
-                      <IkonI navn={k.ikon} x={H_KILDE.x + 8} y={ky + 7} size={16} strokeWidth={1.7} />
+                      <IkonI navn={k.ikon} x={H_KILDE.x + 8} y={ky + 8} size={18} strokeWidth={1.7} />
                     </g>
-                    <text x={H_KILDE.x + 29} y={ky + 18.5} fontFamily="var(--font-sans)" fontSize={8.5} fill="var(--burgundy)">
+                    <text x={H_KILDE.x + 30} y={ky + 21} fontFamily="var(--font-sans)" fontSize={9.5} fill="var(--burgundy)">
                       {k.kort}
                     </text>
                   </g>
@@ -770,9 +774,9 @@ export function HelePlattformen() {
             <g key={d.navn}>
               {LAG.map((lag, j) => (
                 <g key={lag.navn}>
-                  <rect x={H_DOM_X + 48 + j * 54} y={top + 46} width={46} height={14} rx={7} fill="rgba(251, 240, 229, 0.08)" stroke={MINT_DUS} strokeWidth={0.8} />
-                  <circle cx={H_DOM_X + 56 + j * 54} cy={top + 53} r={3} fill={lag.farge} />
-                  <text x={H_DOM_X + 63 + j * 54} y={top + 56.5} fontFamily={MONO} fontSize={8.5} fill={KREM_DUS}>
+                  <rect x={H_DOM_X + 48 + j * 58} y={top + 68} width={50} height={16} rx={8} fill="rgba(251, 240, 229, 0.08)" stroke={MINT_DUS} strokeWidth={0.8} />
+                  <circle cx={H_DOM_X + 57 + j * 58} cy={top + 76} r={3.5} fill={lag.farge} />
+                  <text x={H_DOM_X + 65 + j * 58} y={top + 79.5} fontFamily={MONO} fontSize={9.5} fill={KREM_DUS}>
                     {lag.navn}
                   </text>
                 </g>
@@ -812,8 +816,8 @@ export function HelePlattformen() {
 
       {/* 5. Git */}
       <Steg at={5}>
-        <Pil d={`M 505 ${H_KTR.y + H_KTR.h + 2} V ${H_REPO.y - 4}`} marker="pil-hel" strokeWidth={1.6} />
-        <text x={514} y={H_KTR.y + H_KTR.h + 26} fontFamily={MONO} fontSize={10} fill="var(--red)">
+        <Pil d={`M ${H_KTR.x + H_KTR.w / 2} ${H_KTR.y + H_KTR.h + 2} V ${H_REPO.y - 4}`} marker="pil-hel" strokeWidth={1.6} />
+        <text x={H_KTR.x + H_KTR.w / 2 + 10} y={H_KTR.y + H_KTR.h + 26} fontFamily={MONO} fontSize={10} fill="var(--red)">
           git push
         </text>
         <RepoBrikke x={H_REPO.x} y={H_REPO.y} w={H_REPO.w} h={H_REPO.h} fontSize={10} ikonSize={18} sub="PR · CI checks" />
@@ -830,12 +834,12 @@ export function HelePlattformen() {
           y={H_KAT.y}
           w={H_KAT.w}
           h={H_KAT.h}
-          tittelSize={24}
+          tittelSize={26}
           sub="consumable quality data"
           rader={VIEWS}
-          radH={46}
-          radGap={10}
-          radStart={94}
+          radH={82}
+          radGap={18}
+          radStart={100}
           visKilde
           radFont={12}
         />
@@ -849,14 +853,14 @@ export function HelePlattformen() {
           return (
             <g key={k.navn}>
               <Pil d={`M ${H_KAT.x + H_KAT.w + 2} ${midt} H ${H_KONS_X - 5}`} marker="pil-hel" strokeWidth={1.6} />
-              <rect x={H_KONS_X} y={y} width={H_KONS_W} height={H_KONS_H} rx={11} fill="#fff" stroke="var(--cream-dark)" strokeWidth={1.5} />
+              <rect x={H_KONS_X} y={y} width={H_KONS_W} height={H_KONS_H} rx={12} fill="#fff" stroke="var(--cream-dark)" strokeWidth={1.5} />
               <g fill="none" stroke="var(--red)" strokeLinecap="round" strokeLinejoin="round">
-                <IkonI navn={k.ikon} x={H_KONS_X + 14} y={y + 15} size={22} strokeWidth={1.7} />
+                <IkonI navn={k.ikon} x={H_KONS_X + 16} y={y + 26} size={26} strokeWidth={1.7} />
               </g>
-              <text x={H_KONS_X + 48} y={y + 22} fontFamily="var(--font-sans)" fontWeight={600} fontSize={12.5} fill="var(--burgundy)">
+              <text x={H_KONS_X + 54} y={y + 34} fontFamily="var(--font-sans)" fontWeight={600} fontSize={14} fill="var(--burgundy)">
                 {k.navn}
               </text>
-              <text x={H_KONS_X + 48} y={y + 38} fontFamily="var(--font-sans)" fontSize={9.5} fill={SUB_FARGE}>
+              <text x={H_KONS_X + 54} y={y + 52} fontFamily="var(--font-sans)" fontSize={11} fill={SUB_FARGE}>
                 {k.sub}
               </text>
             </g>
@@ -867,21 +871,21 @@ export function HelePlattformen() {
       {/* 8. Domenene leser tilbake */}
       <Steg at={8}>
         <Pil
-          d={`M ${katMidtX} ${H_KAT.y + H_KAT.h + 2} V 522 H ${domMidtX} V ${domBunn + 5}`}
+          d={`M ${katMidtX} ${H_KAT.y + H_KAT.h + 2} V 668 H ${domMidtX} V ${domBunn + 5}`}
           marker="pil-hel-teal"
           farge={TEAL_LINJE}
           strokeWidth={1.6}
           dash="2 6"
         />
-        <text x={(katMidtX + domMidtX) / 2} y={538} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={11.5} fill={SUB_FARGE}>
+        <text x={(katMidtX + domMidtX) / 2} y={702} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={SUB_FARGE}>
           the domains read each other’s products back – through the catalog
         </text>
       </Steg>
 
       {/* 9. Utforskeren */}
       <Steg at={9}>
-        <Pil d={`M 505 ${H_REPO.y + H_REPO.h + 2} V ${H_UTF.y - 4}`} marker="pil-hel" strokeWidth={1.6} />
-        <text x={514} y={H_REPO.y + H_REPO.h + 28} fontFamily={MONO} fontSize={10} fill="var(--red)">
+        <Pil d={`M ${H_REPO.x + H_REPO.w / 2} ${H_REPO.y + H_REPO.h + 2} V ${H_UTF.y - 4}`} marker="pil-hel" strokeWidth={1.6} />
+        <text x={H_REPO.x + H_REPO.w / 2 + 10} y={H_REPO.y + H_REPO.h + 28} fontFamily={MONO} fontSize={10} fill="var(--red)">
           reads
         </text>
         <Utforsker x={H_UTF.x} y={H_UTF.y} w={H_UTF.w} h={H_UTF.h} sok="ais" treff={TREFF} kompakt />

@@ -321,7 +321,7 @@ export function SlideFlereDomener() {
 /* Hvor vi skal, zoomet ut – ett bilde, ett klikk per del */
 export function SlideHvorViSkalHelhet() {
   return (
-    <Box box={[20, 42, 1240, 636]}>
+    <Box box={[0, 0, 1280, 720]}>
       <HelePlattformen />
     </Box>
   );
