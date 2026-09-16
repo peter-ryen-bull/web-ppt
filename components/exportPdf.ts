@@ -33,8 +33,17 @@ export function waitForImages(root: HTMLElement): Promise<void> {
   ).then(() => undefined);
 }
 
+/** html-to-image tegner video til canvas og krasjer på .mov / ulastede frames. */
+function isPdfCaptureNode(node: HTMLElement): boolean {
+  return node.tagName !== "VIDEO";
+}
+
 /** Stopp SMIL-animasjoner og CSS-overganger, slik at eksporten blir ett stillbilde. */
 export function freezeVisuals(root: HTMLElement) {
+  root.querySelectorAll("video").forEach((video) => {
+    video.pause();
+    video.remove();
+  });
   root.querySelectorAll("svg").forEach((svg) => {
     try {
       (svg as SVGSVGElement).pauseAnimations();
@@ -121,6 +130,7 @@ export async function captureSlidePng(el: HTMLElement): Promise<string> {
     backgroundColor: SLIDE_CREAM,
     cacheBust: true,
     fontEmbedCSS: fontEmbedCss,
+    filter: isPdfCaptureNode,
     style: {
       transform: "none",
       left: "0",
