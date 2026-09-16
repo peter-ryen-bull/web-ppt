@@ -1002,7 +1002,7 @@ answer today.
 
 We spent quite a lot of time getting that scaling just right.
 
-## serverless – No clusters to wake up at night
+## serverless – serverless vs manual tuning
 
 And then we noticed the problem.
 

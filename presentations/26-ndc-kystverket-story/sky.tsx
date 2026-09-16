@@ -877,7 +877,7 @@ export function SlideServerless() {
             width: "100%",
           }}
         >
-          No clusters to wake up at night
+          serverless vs manual tuning
         </div>
       </Box>
       <Box

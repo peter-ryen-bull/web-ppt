@@ -455,7 +455,7 @@ const SCALING: SlideDef[] = [
   },
   {
     id: "serverless",
-    name: "No clusters to wake up at night",
+    name: "serverless vs manual tuning",
     component: SlideServerless,
     steps: 3,
   },
