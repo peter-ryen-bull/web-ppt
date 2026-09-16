@@ -338,7 +338,7 @@ export function SlideVidereListe() {
   ];
   return (
     <>
-      <Box box={[53.7, 240, 540, 180]}>
+      <Box box={[53.7, 200, 540, 280]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
@@ -348,6 +348,17 @@ export function SlideVidereListe() {
           }}
         >
           What we want to achieve
+        </div>
+        <div
+          style={{
+            marginTop: 28,
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(22),
+            lineHeight: 1.3,
+            color: "var(--red)",
+          }}
+        >
+          The world&apos;s safest and cleanest coast
         </div>
       </Box>
       {facts.map(([f, ikon], i) => (

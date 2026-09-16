@@ -1529,9 +1529,11 @@ Read it from the catalog.
 
 ## videre-liste – What we want to achieve
 
-And then what we want to achieve. We work in batch. Not real time. So this
-is not about emergency alerts. It's about getting more of what we already
-have onto the platform, and using it.
+And then what we want to achieve. Back to the vision we opened with: the
+world's safest and cleanest coast. That's still the why. These are some of
+the next hows. We work in batch. Not real time. So this is not about
+emergency alerts. It's about getting more of what we already have onto the
+platform, and using it.
 
 [[CLICK]] More of Kystverkets own data in the data platform. Kystdatahuset has around 130
 datasets. Voyages. Things we already collect, that aren't on the platform
