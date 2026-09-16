@@ -128,7 +128,6 @@ export function SlideAzure() {
           "Storage, networking, identity",
           "Security and cost from day one",
           "Rebuild from the repo",
-          "Boring on purpose",
         ]}
       />
     </>

@@ -363,7 +363,7 @@ const PROSJEKTET: SlideDef[] = [
     id: "azure",
     name: "Azure: the foundation",
     component: SlideAzure,
-    steps: 4,
+    steps: 3,
   },
   {
     id: "databricks",
