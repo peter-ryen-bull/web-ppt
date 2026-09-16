@@ -850,10 +850,10 @@ export function SlideAisPipeline() {
 
 /* Databricks serverless */
 export function SlideServerless() {
-  const jobs = [
-    { title: "Historical load", sub: "the huge job" },
-    { title: "Last 7 days", sub: "the weekly job" },
-    { title: "One ship", sub: "the tiny job" },
+  const lines = [
+    "Autoscaling was cheaper than manual scaling",
+    "Saved tuning time",
+    "Saved startup time",
   ];
   return (
     <>
@@ -861,7 +861,7 @@ export function SlideServerless() {
         <Kapasitetsmaaler />
       </Box>
       <Box
-        box={[81.5, 160, 1117.1, 110]}
+        box={[81.5, 160, 1117.1, 140]}
         style={{
           display: "flex",
           alignItems: "center",
@@ -871,7 +871,7 @@ export function SlideServerless() {
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(48),
+            fontSize: pt(54),
             lineHeight: 1.1,
             color: "var(--burgundy)",
             textAlign: "center",
@@ -882,7 +882,7 @@ export function SlideServerless() {
         </div>
       </Box>
       <Box
-        box={[81.5, 274, 1117.1, 32]}
+        box={[81.5, 300, 1117.1, 40]}
         style={{ display: "flex", justifyContent: "center" }}
       >
         <div
@@ -896,95 +896,29 @@ export function SlideServerless() {
           DATABRICKS SERVERLESS
         </div>
       </Box>
-      {jobs.map((job, i) => (
-        <Reveal key={job.title} at={1}>
+      {lines.map((text, i) => (
+        <Reveal key={text} at={i + 1}>
           <Box
-            box={[90 + i * 380, 330, 350, 110]}
+            box={[140, 380 + i * 70, 1000, 55]}
             style={{
-              background: "#fff",
-              border: "1.5px solid var(--cream-dark)",
-              borderRadius: 14,
               display: "flex",
-              flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              gap: 8,
             }}
           >
             <div
               style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: pt(22),
-                color: "var(--burgundy)",
-              }}
-            >
-              {job.title}
-            </div>
-            <div
-              style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: pt(14),
-                color: "var(--burgundy-2)",
+                fontSize: pt(20),
+                color: i === 2 ? "var(--red)" : "var(--burgundy-2)",
+                textAlign: "center",
               }}
             >
-              {job.sub}
+              {text}
             </div>
           </Box>
         </Reveal>
       ))}
-      <Reveal at={2}>
-        <Box
-          box={[90, 460, 1100, 50]}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(18),
-              color: "var(--burgundy-2)",
-              textAlign: "center",
-            }}
-          >
-            We spent a lot of time getting those sizes right. Then we stopped guessing.
-          </div>
-        </Box>
-      </Reveal>
-      <Reveal at={3}>
-        <Box
-          box={[90, 530, 1100, 130]}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 10,
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: pt(40),
-              color: "var(--red)",
-            }}
-          >
-            36 hours became 4
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(16),
-              color: "var(--burgundy-2)",
-              textAlign: "center",
-            }}
-          >
-            Serverless costs more. The time it saved was worth it.
-          </div>
-        </Box>
-      </Reveal>
     </>
   );
 }

@@ -1004,32 +1004,29 @@ We spent quite a lot of time getting that scaling just right.
 
 ## serverless – serverless vs manual tuning
 
-And then we noticed the problem.
+Serverless.
 
-Remember HAIS? One week for one vessel, or every ship for a year. The
-scaling needs were not the same job to job.
-
-[[CLICK]] A huge historical load. The last seven days. One ship. Three
-different sizes. Tune the cluster for the history job, and the one-ship job
-is sitting on a warehouse. Tune it for one ship, and the history job runs
-until Friday.
-
-We did quite a lot of that tuning. Spot versus on-demand. Spark settings.
-When to scale this job and when to leave that one alone.
-
-[[CLICK]] Then we stopped guessing. Databricks has an autoscaling feature.
-They call it serverless. The job decides the size. Not us.
+Remember HAIS? One week for one vessel, or every ship for a year. That's
+why serverless fits. The job decides the size. Not us.
 
 Remember the small team that needed to sleep at night? This is where that
 comes in. No clusters to start, patch, or scale. Nobody getting an alert at
 four in the morning because a node died.
 
-[[CLICK]] Some jobs went from 36 hours to 4 hours. Same work. Wider when it
-needed to be wide.
+[[CLICK]] Autoscaling was cheaper than manual scaling. For us. We didn't have
+to guess the size of a cluster and then sit on unused capacity, or run too
+small and watch the queue grow. Capacity follows the stream. More traffic
+in the daytime than at night, more in summer than in winter, and the
+platform scales up and down by itself. And we pay for what we use. Not for
+what we fear we might need.
 
-Serverless is more expensive. It's a managed scaling service, and you pay
-for that. We still chose it. We saved so much time that it was definitely
-worth it.
+[[CLICK]] It saved tuning time. Nobody on the team spending evenings on
+cluster config. Spark settings. Spot vs. on-demand. When to scale this job
+and when to leave that one alone.
+
+[[CLICK]] And it saved startup time. No waiting for a cluster to wake up
+before the job can start. The stream doesn't wait. The history jobs
+don't wait. We don't wait.
 
 For a small team, this is the difference between building a product and
 operating infrastructure. We chose product.
