@@ -398,10 +398,15 @@ export function Video({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (el.getBoundingClientRect().width >= 400) {
-      void el.play();
-    }
-  }, []);
+    if (el.getBoundingClientRect().width < 400) return;
+    void el.play().catch((err: unknown) => {
+      // Navigating away, Strict Mode remount, or hot reload aborts play().
+      if (err instanceof DOMException && err.name === "AbortError") return;
+    });
+    return () => {
+      el.pause();
+    };
+  }, [src]);
   return (
     <Box box={box}>
       <video
@@ -410,7 +415,7 @@ export function Video({
         loop
         muted
         playsInline
-        preload="metadata"
+        preload="auto"
         style={{
           width: "100%",
           height: "100%",
