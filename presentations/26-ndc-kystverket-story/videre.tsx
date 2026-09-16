@@ -1,4 +1,4 @@
-import { Box, ChapterSlide, Img, Reveal, pt, useRevealStyle } from "../parts";
+import { Box, ChapterSlide, Reveal, pt, useRevealStyle } from "../parts";
 import { HvorViEr } from "@/components/figures/Domenekataloger";
 import { HelePlattformen } from "@/components/figures/DomenerOgProdukter";
 import { BaatSignal } from "@/components/figures/BaatSignal";
@@ -89,68 +89,87 @@ export function SlideTakk() {
     ["Live API for developers", "developer.barentswatch.no"],
     ["The whole emissions model", "github.com/Kystverket/maru"],
   ];
+  const mono = "ui-monospace, SFMono-Regular, Menlo, monospace";
   return (
     <>
-      <Box box={[66, 80, 600, 120]}>
+      {/* Venstre: takk, én setning, og adressene som det man faktisk skal taste */}
+      <Box box={[80, 88, 700, 100]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(64),
+            fontSize: pt(72),
+            lineHeight: 1,
             color: "var(--burgundy)",
           }}
         >
           Thanks.
         </div>
       </Box>
-      <Box box={[66, 190, 600, 60]}>
+      <Box box={[80, 196, 700, 40]}>
         <div
           style={{
             fontFamily: "var(--font-sans)",
-            fontSize: pt(18),
+            fontSize: pt(20),
             color: "var(--red)",
           }}
         >
           All of this is open. Try it yourself during the break.
         </div>
       </Box>
-      <Box box={[66, 270, 700, 360]}>
+      <Box
+        box={[80, 272, 720, 240]}
+        style={{
+          display: "grid",
+          gridTemplateColumns: "370px 1fr",
+          alignContent: "start",
+          columnGap: 28,
+          rowGap: 18,
+        }}
+      >
         {lenker.map(([hva, hvor]) => (
-          <div
-            key={hvor}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: 30,
-              padding: "12px 0",
-              borderBottom: "1px solid var(--divider)",
-            }}
-          >
+          <div key={hvor} style={{ display: "contents" }}>
             <span
               style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: pt(16),
-                color: "var(--burgundy-2)",
-              }}
-            >
-              {hva}
-            </span>
-            <span
-              style={{
-                fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-                fontSize: pt(15),
+                fontFamily: mono,
+                fontSize: pt(17),
+                lineHeight: 1.3,
                 color: "var(--teal)",
+                whiteSpace: "nowrap",
               }}
             >
               {hvor}
             </span>
+            <span
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: pt(15),
+                lineHeight: 1.5,
+                color: "var(--burgundy-2)",
+                opacity: 0.7,
+                whiteSpace: "nowrap",
+              }}
+            >
+              {hva}
+            </span>
           </div>
         ))}
       </Box>
-      <Box box={[860, 80, 360, 80]}>
+
+      {/* Høyre: én kolonne – navn, QR, adresse. Sentrert rundt QR-en. */}
+      <Box
+        box={[900, 96, 300, 420]}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(28),
+            fontSize: pt(26),
+            lineHeight: 1.15,
             color: "var(--burgundy)",
           }}
         >
@@ -158,41 +177,58 @@ export function SlideTakk() {
         </div>
         <div
           style={{
-            marginTop: 6,
+            marginTop: 4,
             fontFamily: "var(--font-sans)",
-            fontSize: pt(16),
+            fontSize: pt(14),
             color: "var(--burgundy-2)",
+            opacity: 0.7,
           }}
         >
           Miles
         </div>
-      </Box>
-      <Img
-        box={[860, 168, 220, 220]}
-        src={`${MEDIA}/peterbull-qr.svg`}
-        alt="QR code to peterbull.no"
-      />
-      <Box box={[860, 396, 220, 28]}>
+        <img
+          src={`${MEDIA}/peterbull-qr.svg`}
+          alt="QR code to peterbull.no"
+          style={{ width: 240, height: 240, marginTop: 24, display: "block" }}
+        />
         <div
           style={{
-            fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+            marginTop: 16,
+            fontFamily: mono,
             fontSize: pt(15),
             color: "var(--teal)",
-            textAlign: "center",
           }}
         >
           peterbull.no
         </div>
       </Box>
-      <Img
-        box={[860, 450, 300, 77]}
-        src={`${MEDIA}/kystverket-logo.svg`}
-        alt="Kystverket"
-      />
-      <Img box={[860, 545, 95.4, 29.5]} src="/media/miles-logo.svg" alt="Miles" />
-      {/* Fyret fra åpningen, nederst til venstre under lenkene */}
+
+      {/* Fyret fra åpningen, nederst til venstre */}
       <Box box={[60, 530, 380, 181]}>
         <Fyr />
+      </Box>
+
+      {/* Logoene små og dempet, på linje nederst til høyre */}
+      <Box
+        box={[900, 640, 300, 44]}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          gap: 32,
+          opacity: 0.85,
+        }}
+      >
+        <img
+          src={`${MEDIA}/kystverket-logo.svg`}
+          alt="Kystverket"
+          style={{ height: 36, display: "block" }}
+        />
+        <img
+          src="/media/miles-logo.svg"
+          alt="Miles"
+          style={{ height: 18, display: "block" }}
+        />
       </Box>
     </>
   );
