@@ -770,17 +770,42 @@ export function HelePlattformen() {
       <Steg at={3}>
         {DOMENER_MED_KILDER.map((d, i) => {
           const top = H_DOM_Y(i) + 11;
+          const barX = H_DOM_X + 14;
+          const barW = H_DOM_W - 28;
+          const barY = top + 64;
+          const barH = 22;
+          const slotW = barW / LAG.length;
           return (
             <g key={d.navn}>
-              {LAG.map((lag, j) => (
-                <g key={lag.navn}>
-                  <rect x={H_DOM_X + 48 + j * 58} y={top + 68} width={50} height={16} rx={8} fill="rgba(251, 240, 229, 0.08)" stroke={MINT_DUS} strokeWidth={0.8} />
-                  <circle cx={H_DOM_X + 57 + j * 58} cy={top + 76} r={3.5} fill={lag.farge} />
-                  <text x={H_DOM_X + 65 + j * 58} y={top + 79.5} fontFamily={MONO} fontSize={9.5} fill={KREM_DUS}>
-                    {lag.navn}
-                  </text>
-                </g>
-              ))}
+              <rect
+                x={barX}
+                y={barY}
+                width={barW}
+                height={barH}
+                rx={barH / 2}
+                fill="rgba(251, 240, 229, 0.08)"
+                stroke={MINT_DUS}
+                strokeWidth={0.8}
+              />
+              {LAG.map((lag, j) => {
+                const labelW = lag.navn.length * 5.85;
+                const groupW = 8 + 5 + labelW;
+                const gx = barX + slotW * j + (slotW - groupW) / 2;
+                return (
+                  <g key={lag.navn}>
+                    <circle cx={gx + 4} cy={barY + barH / 2} r={3.5} fill={lag.farge} />
+                    <text
+                      x={gx + 13}
+                      y={barY + barH / 2 + 3.6}
+                      fontFamily={MONO}
+                      fontSize={10}
+                      fill={KREM_DUS}
+                    >
+                      {lag.navn}
+                    </text>
+                  </g>
+                );
+              })}
             </g>
           );
         })}
