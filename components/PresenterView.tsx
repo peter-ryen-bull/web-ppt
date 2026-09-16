@@ -265,6 +265,16 @@ export default function PresenterView({
   // Flere klikk-steg igjen på denne sliden? Da viser «Neste» neste steg.
   const hasMoreSteps = currentVisiblePos !== -1 && step < maxStep;
 
+  const chapters = presentation.chapters;
+  const currentChapterIdx =
+    chapters && currentChapter
+      ? chapters.findIndex((c) => c.id === currentChapter.id)
+      : -1;
+  const nextChapter =
+    chapters && currentChapterIdx >= 0
+      ? chapters[currentChapterIdx + 1]
+      : undefined;
+
   return (
     <div className={styles.root}>
       <header className={styles.header}>
@@ -275,6 +285,20 @@ export default function PresenterView({
           <span className={styles.title}>{presentation.title}</span>
           {currentChapter && (
             <span className={styles.chapter}>{currentChapter.title}</span>
+          )}
+          {chapters && chapters.length > 1 && (
+            <button
+              className={styles.btn}
+              onClick={() => goChapter(1)}
+              disabled={!nextChapter}
+              title={
+                nextChapter
+                  ? `Neste kapittel: ${nextChapter.title} (])`
+                  : "Siste kapittel"
+              }
+            >
+              Neste kapittel →
+            </button>
           )}
         </div>
         <div className={styles.headerGroup}>

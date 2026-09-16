@@ -21,7 +21,7 @@ npm run dev
 | Forrige slide | `←`, `PgUp` | «Forrige» |
 | Første/siste slide | `Home` / `End` | – |
 | Skjul/vis en slide | – | Øye-knapp i «Oversikt» |
-| Forrige/neste kapittel | `[` / `]` | – |
+| Forrige/neste kapittel | `[` / `]` | «Neste kapittel» (presentatør, topp) |
 | Slideoversikt (med skjul-brytere) | `G` | «Oversikt» (øving og presentatør) |
 | Eksporter PDF (kun i oversikten) | – | «Eksporter PDF» |
 | Fullskjerm | `F` | `⛶` |
