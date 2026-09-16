@@ -26,13 +26,13 @@ can say "our ship," say it. The audience should recognize it.
 | 4 What you get out of it            | 27:00 | four effects with examples from the coastline                                     |
 | 5 The project                       | 32:00 | day one, the toolbox, terraform                                                   |
 | 6 The products                      |       | HAIS, Asuka, MarTraf, MarU (propeller law, how it was done earlier, the model) |
-| 6b Technical implementation details |       | ingest, the stream, the history, H3, batch vs streaming                         |
+| 6b Technical implementation details |       | ingest, the stream, the history, batch vs streaming                             |
+| 6c H3                               |       | hexes, grouping the coastline                                                   |
 | 7 The road ahead                    | 53:00 | domains, contracts, back to Stad, thanks                                        |
 
 If you're behind after the products, cut the batch/streaming sidenote (two
-slides, about three minutes). If you're behind during technical, cut
-math-opt, h3-hexes, hex-hvorfor, hex-join and h3-ship. If you're behind
-during the products, cut maru-hull.
+slides, about three minutes). If you're behind during technical, cut the
+H3 chapter. If you're behind during the products, cut maru-hull.
 
 ### Rules for the language in these notes
 
@@ -588,6 +588,8 @@ there are.
 
 Next: how do you find the products?
 
+Data catalog is the third concept that is important for the data platform architecture 
+
 In a large organization, data lives in tens of systems, owned by different
 teams. Without a shared overview, people spend their time looking. And
 decisions get made on different versions of the same ground truth.
@@ -743,7 +745,8 @@ way around.
 
 ## prosjekt – The story of the project
 
-[32:00] So. Now you have the theory. Let's go back to our ship and tell the
+[32:00] 35m øving
+ So. Now you have the theory. Let's go back to our ship and tell the
 story of how it was actually done.
 
 This is the story of the project. From one source to a platform.
@@ -782,12 +785,8 @@ Azure is the foundation.
 [[CLICK]] Security, access control, and cost control from day one, not
 something we bolt on afterwards.
 
-[[CLICK]] And everything is infrastructure as code. The entire platform can be
-recreated from the repo. That sounds obvious to you, but in the public
-sector it still isn't.
-
-[[CLICK]] And the most important thing: Azure is boring on purpose. Foundations
-should be boring. You don't want an exciting foundation.
+[[CLICK]] And it integrated well with the rest of the organization. Identity,
+networking, the things they already had. We didn't ask them to start over.
 
 ## databricks – Databricks: the engine
 
@@ -797,9 +796,8 @@ Databricks is the engine on top.
 Cheap storage of raw data, and at the same time tables you can run SQL
 against.
 
-[[CLICK]] One engine, Spark, for both batch and streaming. Same code, same
-tables. We use both, in the same tool. We'll come back to when you choose
-which.
+[[CLICK]] And it scales compute well. Up to many terabytes. The history is
+big. The engine has to grow with it.
 
 [[CLICK]] And Unity Catalog. That's the governance layer from earlier, in
 practice. Access control, lineage, catalog. Everything we talked about under
@@ -808,13 +806,26 @@ governance lives here.
 So. How do we deploy it? Because it's one thing to choose Azure and
 Databricks. It's another thing to dare to change it.
 
-## terraform – Terraform: the infrastructure
+## terraform-kode – One resource. Three environments.
+
+This is what it looks like in the repo.
+
+One resource. A Databricks workspace. And a for_each over three
+environments. Dev. Test. Prod.
+
+Same block. Three workspaces. Same name pattern. Same region. Same SKU.
+
+That's the whole point of infrastructure as code. We don't click the
+workspace into existence three times. We describe it once.
+
+So how do we get this from the repo into Azure?
+
+## terraform – Deploy and version control your infrastructure
 
 We don't click around in the portal. We commit.
 
-Remember the sentence on the Azure slide? Everything is infrastructure as
-code. The entire platform can be recreated from the repo. Now I'll show you
-how.
+Everything is infrastructure as code. The entire platform can be recreated
+from the repo.
 
 [[CLICK]] A change starts as a pull request. It lives in git. [[CLICK]] The
 pipeline runs terraform plan. Everyone can see what will actually happen
@@ -824,12 +835,8 @@ before it happens. [[CLICK]] Merge, then apply. Then it becomes reality.
 storage containers. Not just the big stuff. Also the buckets the data lands
 in.
 
-And the point, like we said before: the entire platform can be recreated
-from the repo. Even if someone deletes it. That's an insurance policy. Not a
-slogan.
-
-Let me show you what that looks like in the repo. One resource. Three
-environments.
+And the point: the entire platform can be recreated from the repo. Even if
+someone deletes it. That's an insurance policy. Not a slogan.
 
 ## fire-states – Terraform: four states. Four pipelines.
 
@@ -891,16 +898,15 @@ They're code.
 Python. DataFrames. The H3 joins, the propeller law, the phases. That's the
 model.
 
-[[CLICK]] Then we deploy that code to Databricks compute. The data is
-already there. Nobody copies a hundred million rows out to a laptop. The
-model runs where the lakehouse is.
+[[CLICK]] Then we deploy that code with Databricks Asset Bundles. The DABs
+from the last slide. A YAML file in git. Dev, test, prod. Same idea as
+Terraform, but for the logic.
 
-[[CLICK]] And Databricks Asset Bundles, the DABs from the last slide, wrap
-that into a job. A YAML file in git. Schedule. Dev, test, prod. Same idea
-as Terraform, but for the logic.
+[[CLICK]] And those bundles become scheduled jobs. Every night. A hundred
+million rows. Without anyone pressing a button.
 
-[[CLICK]] So they run as automated pipelines. Every night. A hundred million
-rows. Without anyone pressing a button.
+[[CLICK]] So they run as automated pipelines. The models you write in
+PySpark are the jobs that run in production.
 
 ## ingest – Ingest happens outside Databricks.
 
@@ -921,28 +927,6 @@ containers Terraform just created.
 there. Not when the ship transmits. That's a deliberate cut. Ingest is one
 responsibility. The lakehouse is another.
 
-## ingest-flyt – Fetch. Dump. Then lakehouse.
-
-Here's what it looks like. From the antenna to something someone can use.
-
-[[CLICK]] The sources. AIS, and the other things we fetch. [[CLICK]] Prefect.
-Python jobs, outside Databricks. [[CLICK]] Into storage, into raw. Containers
-Terraform has created.
-
-Two responsibilities. Prefect gets the data in. Databricks turns it
-into something someone can use. If you mix the two, suddenly the lakehouse
-owns the antenna. You don't want that.
-
-[[CLICK]] Into the lakehouse. The classic pattern: bronze, silver, gold. Bronze
-is raw messages, exactly as they arrived. Silver is cleaned and
-deduplicated. Gold is tracks and aggregates, ready to use. [[CLICK]] And out
-again to APIs, dashboards, and analysis.
-
-[[CLICK]] And here's the sentence that's the whole point of this chapter: one
-hundred million rows a day, without us operating a single cluster.
-
-How? First, look at what that job actually looks like.
-
 ## ais-pipeline – The job that runs every day
 
 This is the Databricks job. AIS orchestration. Production.
@@ -954,8 +938,8 @@ check, and a monthly backfill if we need one. Then it fans out. Quality.
 Mappings. Static records. Ship info. Then it comes back together into
 cleaning, and out to gold.
 
-That's the conceptual pipeline from the last slide, as it actually runs.
-One job. Every day. A hundred million rows.
+That's ingest, as it actually runs. One job. Every day. A hundred million
+rows.
 
 And still: no clusters we have to run.
 
@@ -1252,10 +1236,9 @@ And then the obvious question.
 
 Who is Asuka?
 
-Not the ship. The wrestler. Kanako Urai. WWE. I pulled this vessel out of
-HAIS because the name made me laugh, and then I ended up on Wikipedia.
+She is a female japanese wrestler. 
 
-That's the whole joke. Now: what do we do with a ship like that.
+Three days well spent for a couple thousand cruise ship passengers.
 
 ## folg-ett-skip – Follow one ship
 
@@ -1280,13 +1263,6 @@ knots, drifting a little around the anchor.
 every point has been given a phase. Without the phases, everything is just
 "a ship." With them, we know what the ship was doing at every single point.
 And that's the difference between noise and knowledge.
-
-Why is the phase so important? An offshore vessel holding position at a
-platform uses an enormous amount of energy. The same vessel in dry dock with
-its AIS on uses almost nothing. Both are standing still. Without a phase,
-they look the same.
-
-## martraf – A pile of points
 
 You just saw one ship become one voyage. Now zoom out.
 
@@ -1314,6 +1290,11 @@ and traffic type.
 
 And now we can ask the next question. What does the ship burn?
 
+Why is the phase so important? An offshore vessel holding position at a
+platform uses an enormous amount of energy. The same vessel in dry dock with
+its AIS on uses almost nothing. Both are standing still. Without a phase,
+they look the same.
+
 ## martraf-video – MarTraf on the map
 
 This is MarTraf on the coast.
@@ -1323,7 +1304,10 @@ became voyages you can actually see. That's the product.
 
 ## propellloven – MarU – maritime Emissions model
 
-So, MarU. The core of the entire emissions model is three things we already have.
+So, MarU.
+
+It's very important for us to have a clean coast, that we are tracking the climate gas emissions by our ships. 
+
 
 [[CLICK]] Two AIS points. Distance over time. That's the speed of the ship.
 Our ship off Stad. Nine knots.
@@ -1357,12 +1341,6 @@ burned.
 [[CLICK]] MarU flips it. Calculate from observed activity instead. And separate
 domestic from to-and-from-abroad and transit. Then you know what actually
 happened in Norwegian waters.
-
-[[CLICK]] And then the 2016 story, one more time, because now it carries more
-weight. The time series starts in 2016. We built out many new base stations
-in 2015, and better coverage would've looked like growth in emissions. A
-change in the collection propagates all the way out into the statistics.
-That's why you need metadata and data contracts. Not just numbers.
 
 ## maru – The maritime emissions model: MarU
 
@@ -1586,3 +1564,10 @@ Build something with it. And tell me what you built.
 The QR takes you to peterbull.no if you want to get in touch.
 
 Questions?
+
+## kystrisk-tti – Kystrisk: What's the probability of impact?
+
+Our why
+- the worlds safest and cleanest coast
+
+We know where every boat is located, and we have very accurate maps of rocks in the sea, and land
