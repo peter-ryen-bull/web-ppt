@@ -313,31 +313,8 @@ export function DataproduktAnatomi() {
         – a file in a bucket is not a product
       </text>
 
-      {/* Produkttankegang: pilen over til produktet */}
-      <text x={535} y={262} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill="var(--red)">
-        product thinking
-      </text>
-      <path
-        d="M 458 285 H 612"
-        fill="none"
-        stroke={LINJE_FARGE}
-        strokeWidth={1.6}
-        strokeDasharray="1.5 7"
-        strokeLinecap="round"
-      />
-      {[0, -1.75].map((b) => (
-        <circle key={b} r={5} fill="var(--red)">
-          <animateMotion dur="3.5s" begin={`${b}s`} repeatCount="indefinite" path="M 458 285 H 612" />
-          <animate
-            attributeName="opacity"
-            values="0;1;1;0"
-            keyTimes="0;0.12;0.88;1"
-            dur="3.5s"
-            begin={`${b}s`}
-            repeatCount="indefinite"
-          />
-        </circle>
-      ))}
+      {/* Skillelinje: de to sidene er separate ting */}
+      <rect x={533} y={80} width={4} height={480} rx={2} fill="#c9c2bb" />
 
       {/* Produktboksen: samme data, pakket og forvaltet */}
       <rect x={620} y={80} width={580} height={480} rx={20} fill="var(--teal)" />
