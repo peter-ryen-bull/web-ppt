@@ -59,6 +59,21 @@ export default function PresenterView({
     return () => clearInterval(t);
   }, []);
 
+  // Kapitteltidtaker – nullstilles når vi går inn i et nytt kapittel,
+  // og sammen med totaltidtakeren.
+  const currentChapterId = currentChapter?.id;
+  const [chapterStartedAt, setChapterStartedAt] = useState<number | null>(
+    null
+  );
+  useEffect(() => {
+    setChapterStartedAt(Date.now());
+  }, [currentChapterId]);
+  const resetTimers = useCallback(() => {
+    const t = Date.now();
+    setStartedAt(t);
+    setChapterStartedAt(t);
+  }, []);
+
   const openAudience = useCallback(() => {
     window.open(
       `/${presentationId}/vis`,
@@ -310,15 +325,33 @@ export default function PresenterView({
                 })
               : "–"}
           </span>
-          <span className={styles.timer}>
-            {now !== null && startedAt !== null
-              ? formatElapsed(now - startedAt)
-              : "00:00"}
+          <span className={styles.timers}>
+            <span className={styles.timerBlock} title="Total tid">
+              <span className={styles.timerLabel}>Totalt</span>
+              <span className={styles.timer}>
+                {now !== null && startedAt !== null
+                  ? formatElapsed(now - startedAt)
+                  : "00:00"}
+              </span>
+            </span>
+            {currentChapter && (
+              <span
+                className={styles.timerBlock}
+                title={`Tid i kapittelet «${currentChapter.title}»`}
+              >
+                <span className={styles.timerLabel}>Kapittel</span>
+                <span className={`${styles.timer} ${styles.timerChapter}`}>
+                  {now !== null && chapterStartedAt !== null
+                    ? formatElapsed(now - chapterStartedAt)
+                    : "00:00"}
+                </span>
+              </span>
+            )}
           </span>
           <button
             className={styles.btn}
-            onClick={() => setStartedAt(Date.now())}
-            title="Nullstill tidtaker"
+            onClick={resetTimers}
+            title="Nullstill tidtakere"
           >
             ↺
           </button>

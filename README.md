@@ -45,7 +45,7 @@ Hver presentasjon har tre visninger:
 | URL | Hva | Hvem ser den |
 | --- | --- | --- |
 | `/<id>` | Redigerings-/øvingsvisning med verktøylinje | Deg |
-| `/<id>/presenter` | Presentatørvisning: gjeldende + neste slide, speaker notes, teller, klokke og tidtaker | Deg |
+| `/<id>/presenter` | Presentatørvisning: gjeldende + neste slide, speaker notes, teller, klokke, total- og kapitteltidtaker | Deg |
 | `/<id>/vis` | Publikumsvisning: **kun sliden** – ingen knapper, teller eller notater | Publikum |
 
 Slik gjør du det:

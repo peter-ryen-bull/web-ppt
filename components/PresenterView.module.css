@@ -48,11 +48,37 @@
   font-variant-numeric: tabular-nums;
 }
 
+.timers {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.timerBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.05;
+}
+
+.timerLabel {
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
 .timer {
   font-size: 20px;
   font-weight: 700;
   color: var(--mint);
   font-variant-numeric: tabular-nums;
+}
+
+.timerChapter {
+  color: var(--cream);
+  opacity: 0.9;
 }
 
 .btn {
