@@ -83,7 +83,6 @@ import {
   SlideFolgEttSkip,
   SlideAsukaHais,
   SlideAsukaHvem,
-  SlideMarTraf,
   SlideMathOpt,
   SlideH3Hexes,
   SlideHexHvorfor,
@@ -518,12 +517,6 @@ const MODELLENE: SlideDef[] = [
     name: "MarTraf – Maritime traffic model",
     component: SlideFolgEttSkip,
     steps: 6,
-  },
-  {
-    id: "martraf",
-    name: "A pile of points",
-    component: SlideMarTraf,
-    steps: 2,
   },
   {
     id: "martraf-video",
