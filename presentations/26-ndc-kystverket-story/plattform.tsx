@@ -889,32 +889,35 @@ export function SlideDatakatalogHva() {
   );
 }
 
-/* DataHub-skjermbilde */
+/* DataHub-skjermbilde – fyller flaten så UI-teksten er lesbar bakerst i salen */
 export function SlideDatakatalogDatahub() {
   const caption = useRevealStyle(1);
   return (
     <>
       <Box
-        box={[120, 28, 1040, 580]}
-        style={{
-          overflow: "hidden",
-          borderRadius: 12,
-          border: "1.5px solid var(--cream-dark)",
-          background: "#fff",
-        }}
+        box={[0, 0, 1280, 720]}
+        style={{ overflow: "hidden", background: "#fff" }}
       >
         <Img
-          box={[0, 0, 1040, 580]}
+          box={[0, 0, 1280, 720]}
           src={`${MEDIA}/datahub.png`}
           alt="DataHub search: 141 datasets across Looker, dbt, Snowflake, Airflow and S3"
-          fit="contain"
+          fit="cover"
         />
       </Box>
-      <Box box={[66, 624, 1148, 52]}>
+      <Box
+        box={[0, 668, 1280, 52]}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "linear-gradient(transparent, rgba(251, 240, 229, 0.92))",
+        }}
+      >
         <div
           style={{
             fontFamily: "var(--font-sans)",
-            fontSize: pt(16),
+            fontSize: pt(18),
             lineHeight: 1.35,
             color: "var(--red)",
             textAlign: "center",
