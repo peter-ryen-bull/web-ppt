@@ -526,7 +526,7 @@ const MODELLENE: SlideDef[] = [
     id: "maru-hvorfor",
     name: "How was it done earlier?",
     component: SlideMarUHvorfor,
-    steps: 4,
+    steps: 3,
   },
   {
     id: "maru",

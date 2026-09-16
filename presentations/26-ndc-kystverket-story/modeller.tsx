@@ -1116,20 +1116,6 @@ export function SlideMarUHvorfor() {
           "MarU uses observed activity. Domestic vs transit.",
         ]}
       />
-      <Reveal at={4}>
-        <Box box={[86.6, 620, 1080, 60]}>
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(18),
-              lineHeight: 1.4,
-              color: "var(--red)",
-            }}
-          >
-            The time series starts in 2016. Better coverage is not more emissions.
-          </div>
-        </Box>
-      </Reveal>
     </>
   );
 }
