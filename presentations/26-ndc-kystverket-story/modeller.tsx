@@ -6,7 +6,6 @@ import {
   Bunkring,
   Containerskip,
   HexHierarki,
-  HexVsRute,
   Propell,
   Registerhull,
   RisikoSektorer,
@@ -739,50 +738,6 @@ export function SlideH3Hexes() {
             }}
           >
             Sixteen resolutions. From huge hexes down to about one metre.
-          </div>
-        </Box>
-      </Reveal>
-    </>
-  );
-}
-
-/* Hvorfor hex: kvadrat lyver om avstand */
-export function SlideHexHvorfor() {
-  return (
-    <>
-      <SlideTitle>How do you group a coastline?</SlideTitle>
-      <Box box={[72.4, 150, 1100, 40]}>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(17),
-            color: "var(--red)",
-          }}
-        >
-          A square lies about distance. A hex doesn&apos;t.
-        </div>
-      </Box>
-      <Box box={[80, 210, 1120, 320]}>
-        <HexVsRute />
-      </Box>
-      <Reveal at={1}>
-        <Box
-          box={[72.4, 610, 1136, 50]}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(18),
-              color: "var(--red)",
-              textAlign: "center",
-            }}
-          >
-            Every AIS point gets a hex ID. Then we count cells.
           </div>
         </Box>
       </Reveal>

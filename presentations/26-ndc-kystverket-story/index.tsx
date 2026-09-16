@@ -82,7 +82,6 @@ import {
   SlideAsukaHvem,
   SlideMathOpt,
   SlideH3Hexes,
-  SlideHexHvorfor,
   SlideHexJoin,
   SlideH3Ship,
   SlideMarTrafVideo,
@@ -458,12 +457,6 @@ const H3: SlideDef[] = [
     id: "h3-hexes",
     name: "Hexes within hexes",
     component: SlideH3Hexes,
-    steps: 1,
-  },
-  {
-    id: "hex-hvorfor",
-    name: "How do you group a coastline?",
-    component: SlideHexHvorfor,
     steps: 1,
   },
   {

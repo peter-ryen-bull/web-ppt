@@ -1070,23 +1070,6 @@ countries, down to hexes about one metre across.
 You pick the resolution that matches the question. Close to a port is a
 kilometre question. Fine work can go smaller. Same system.
 
-## hex-hvorfor – How do you group a coastline?
-
-Remember the pile of points? The job wouldn't scale. Here's why hexes.
-
-How do you group positions by cell?
-
-A square grid looks obvious. But look. A square has eight neighbours, and
-they are not the same distance. The corners are farther than the sides.
-So "one cell away" means two different things.
-
-[[CLICK]] A hex has six neighbours. All the same distance.
-That's why Uber built H3 this way. Every AIS point gets a hex ID. Then
-we count cells.
-
-We don't calculate geodesic distance. We count cells. One cell away.
-Two cells away. Same distance every direction.
-
 ## hex-join – A join on a number
 
 And here's why it scales.
