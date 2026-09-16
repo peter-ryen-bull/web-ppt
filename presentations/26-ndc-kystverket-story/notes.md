@@ -1059,13 +1059,6 @@ Distance becomes "how many cells away". That's the join we just talked about.
 If our ship is in the same hex as a port, it's at the port.
 If it's one cell out, it's nearby. That's the whole test.
 
-## martraf-video – MarTraf on the map
-
-This is what those hexes look like when you put them on the coast.
-
-Don't narrate every cell. Let it run. Then: a hundred million points
-became a grid you can actually compute on. That's how MarTraf scales.
-
 ## batch-vs-streaming – Batch vs. streaming: the flow
 
 That history job is batch. The daily stream is streaming. A sidenote,
@@ -1229,6 +1222,13 @@ voyage segments of at least five minutes, complete voyages port to port,
 and traffic type.
 
 And now we can ask the next question. What does the ship burn?
+
+## martraf-video – MarTraf on the map
+
+This is MarTraf on the coast.
+
+Don't narrate every cell. Let it run. Then: a hundred million points
+became voyages you can actually see. That's the product.
 
 ## maru – The maritime emissions model: MarU
 

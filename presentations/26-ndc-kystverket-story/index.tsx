@@ -447,11 +447,6 @@ const TEKNISK: SlideDef[] = [
   },
   { id: "h3-ship", name: "One ship on the hex grid", component: SlideH3Ship },
   {
-    id: "martraf-video",
-    name: "MarTraf on the map",
-    component: SlideMarTrafVideo,
-  },
-  {
     id: "batch-vs-streaming",
     name: "Sidenote: batch vs. streaming",
     component: SlideBatchVsStreaming,
@@ -495,6 +490,11 @@ const MODELLENE: SlideDef[] = [
     name: "A pile of points",
     component: SlideMarTraf,
     steps: 3,
+  },
+  {
+    id: "martraf-video",
+    name: "MarTraf on the map",
+    component: SlideMarTrafVideo,
   },
   {
     id: "maru",
