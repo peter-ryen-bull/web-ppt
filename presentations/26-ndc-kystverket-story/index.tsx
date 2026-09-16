@@ -117,7 +117,7 @@ import {
  *  Akt 4b Hvordan dataplattform     arkitektur, produkter
  *  Akt 5  Hva får du igjen   27:00  tre effekter med eksempler fra sjøveien
  *  Akt 6  Prosjektet         32:00  dag én, verktøykassa, terraform
- *  Akt 7  Produktene                HAIS, følg ett skip, MarTraf, MarU, propellloven
+ *  Akt 7  Produktene                HAIS, Asuka, MarTraf, MarU, propellloven
  *  Akt 7b Teknisk                   ingest, DABs, pipelinen
  *  Akt 7c Scaling                   historikken, H3, batch vs streaming
  *  Akt 8  Veien videre       53:00  domener, kontrakter, og tilbake til Stad
@@ -498,6 +498,8 @@ const MODELLENE: SlideDef[] = [
     component: SlideHais,
     steps: 3,
   },
+  { id: "asuka-hais", name: "Asuka, from HAIS", component: SlideAsukaHais },
+  { id: "asuka-hvem", name: "Who is Asuka?", component: SlideAsukaHvem },
   {
     id: "folg-ett-skip",
     name: "MarTraf – Maritime traffic model",
@@ -515,8 +517,12 @@ const MODELLENE: SlideDef[] = [
     name: "MarTraf on the map",
     component: SlideMarTrafVideo,
   },
-  { id: "asuka-hais", name: "Asuka, from HAIS", component: SlideAsukaHais },
-  { id: "asuka-hvem", name: "Who is Asuka?", component: SlideAsukaHvem },
+  {
+    id: "propellloven",
+    name: "MarU – maritime Emissions model",
+    component: SlidePropellloven,
+    steps: 4,
+  },
   {
     id: "maru",
     name: "The maritime emissions model: MarU",
@@ -527,12 +533,6 @@ const MODELLENE: SlideDef[] = [
     id: "maru-hvorfor",
     name: "How was it done earlier?",
     component: SlideMarUHvorfor,
-    steps: 4,
-  },
-  {
-    id: "propellloven",
-    name: "The propeller law",
-    component: SlidePropellloven,
     steps: 4,
   },
   {

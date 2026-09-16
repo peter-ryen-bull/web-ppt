@@ -25,7 +25,7 @@ can say "our ship," say it. The audience should recognize it.
 | 3c How a data platform works        |       | architecture, products                                                            |
 | 4 What you get out of it            | 27:00 | four effects with examples from the coastline                                     |
 | 5 The project                       | 32:00 | day one, the toolbox, terraform                                                   |
-| 6 The products                      |       | HAIS, follow one ship, MarTraf, MarU, how it was done earlier, the propeller law |
+| 6 The products                      |       | HAIS, Asuka, MarTraf, MarU (propeller law), how it was done earlier |
 | 6b Technical implementation details |       | ingest, the stream, the history, H3, batch vs streaming                         |
 | 7 The road ahead                    | 53:00 | domains, contracts, back to Stad, thanks                                        |
 
@@ -1222,6 +1222,24 @@ Not us. We don't have to guess.
 That's also why we can pull one real ship out of twenty-one years
 and watch it move.
 
+## asuka-hais – Asuka, from HAIS
+
+This is Asuka. A real ship. Pulled out of HAIS.
+
+Don't narrate every turn. Let it run. Then: that's one ship. We do this
+for the whole coast.
+
+And then the obvious question.
+
+## asuka-hvem – Who is Asuka?
+
+Who is Asuka?
+
+Not the ship. The wrestler. Kanako Urai. WWE. I pulled this vessel out of
+HAIS because the name made me laugh, and then I ended up on Wikipedia.
+
+That's the whole joke. Now: what do we do with a ship like that.
+
 ## folg-ett-skip – Follow one ship
 
 Now we follow our ship.
@@ -1250,27 +1268,6 @@ Why is the phase so important? An offshore vessel holding position at a
 platform uses an enormous amount of energy. The same vessel in dry dock with
 its AIS on uses almost nothing. Both are standing still. Without a phase,
 they look the same.
-
-## asuka-hais – Asuka, from HAIS
-
-This is Asuka. A real ship. Pulled out of HAIS.
-
-The last slide was the idea. Phases. Port to port. This is what it looks
-like when you take one vessel out of the history and watch it move.
-
-Don't narrate every turn. Let it run. Then: that's one ship. We do this
-for the whole coast.
-
-And then the obvious question.
-
-## asuka-hvem – Who is Asuka?
-
-Who is Asuka?
-
-Not the ship. The wrestler. Kanako Urai. WWE. I pulled this vessel out of
-HAIS because the name made me laugh, and then I ended up on Wikipedia.
-
-That's the whole joke. Back to the model.
 
 ## martraf – A pile of points
 
@@ -1307,9 +1304,31 @@ This is MarTraf on the coast.
 Don't narrate every cell. Let it run. Then: a hundred million points
 became voyages you can actually see. That's the product.
 
+## propellloven – MarU – maritime Emissions model
+
+So, MarU. The core of the entire emissions model is three things we already have.
+
+[[CLICK]] Two AIS points. Distance over time. That's the speed of the ship.
+Our ship off Stad. Nine knots.
+
+[[CLICK]] And we know the ship. The registry tells us what type it is. How
+big. How it was built to sail. A cargo ship is not a fishing boat.
+
+[[CLICK]] Then we estimate what it burned at that speed. Power follows the
+cube of speed. Double the speed, and you need eight times the power. Eight
+times. That's why shipping companies slow down when fuel gets expensive.
+That's why a ship doing nine knots instead of twelve saves enormously.
+
+[[CLICK]] And here's the sentence I want you to remember from this entire talk:
+every AIS point becomes an emissions calculation.
+
+That's why one hundred million rows a day isn't bragging. It's a consequence
+of the method. If you want to calculate emissions per point, you need every
+point.
+
 ## maru – The maritime emissions model: MarU
 
-So, MarU.
+That's the method. Now the model itself.
 
 [[CLICK]] A bottom-up model, following the methodology from the IMO's fourth
 greenhouse gas study and ICCT. Python and PySpark. And open source, the
@@ -1349,28 +1368,6 @@ weight. The time series starts in 2016. We built out many new base stations
 in 2015, and better coverage would've looked like growth in emissions. A
 change in the collection propagates all the way out into the statistics.
 That's why you need metadata and data contracts. Not just numbers.
-
-## propellloven – The propeller law
-
-And the core of the entire emissions model is three things we already have.
-
-[[CLICK]] Two AIS points. Distance over time. That's the speed of the ship.
-Our ship off Stad. Nine knots.
-
-[[CLICK]] And we know the ship. The registry tells us what type it is. How
-big. How it was built to sail. A cargo ship is not a fishing boat.
-
-[[CLICK]] Then we estimate what it burned at that speed. Power follows the
-cube of speed. Double the speed, and you need eight times the power. Eight
-times. That's why shipping companies slow down when fuel gets expensive.
-That's why a ship doing nine knots instead of twelve saves enormously.
-
-[[CLICK]] And here's the sentence I want you to remember from this entire talk:
-every AIS point becomes an emissions calculation.
-
-That's why one hundred million rows a day isn't bragging. It's a consequence
-of the method. If you want to calculate emissions per point, you need every
-point.
 
 ## maru-hull – Filling the missing ship register data with ML
 

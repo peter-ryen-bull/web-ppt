@@ -464,7 +464,7 @@ export function SlidePropellloven() {
   ];
   return (
     <>
-      <SlideTitle>The propeller law</SlideTitle>
+      <SlideTitle>MarU – maritime Emissions model</SlideTitle>
       <Box box={[880, 200, 360, 360]}>
         <Propell />
       </Box>
