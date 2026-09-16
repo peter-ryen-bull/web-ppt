@@ -104,20 +104,20 @@ import {
 } from "./videre";
 
 /*
- * Dramaturgi (ca. 60 min):
+ * Dramaturgi (60 min). Tid = første slide i kapittelet.
  *
- *  Akt 1  Åpningen           00:00  én scene, ett signal, ett tall
- *  Akt 2  Hvem lytter        05:00  Kystverket og det store hvorfor-et
- *  Akt 3  Hvorfor dataplattform     12:00  hvorfor alle bygger, Hoffman, hverdagen
- *  Akt 4  Historien                 femti år med samme problem
- *  Akt 4b Hvordan dataplattform     arkitektur, produkter
- *  Akt 5  Hva får du igjen   27:00  tre effekter med eksempler fra sjøveien
- *  Akt 6  Prosjektet         32:00  dag én, verktøykassa, terraform
- *  Akt 7  Produktene                HAIS, Asuka, MarTraf, MarU, propellloven
- *  Akt 7b Teknisk                   ingest, DABs, pipelinen
- *  Akt 7c Scaling                   historikken, batch vs streaming
- *  Akt 7d H3                        hexer, kysten gruppert
- *  Akt 8  Veien videre       53:00  domener, kontrakter, og tilbake til Stad
+ *  Åpningen                 00:00   5 min   scene, signal, 100 million, Peter
+ *  Hvem lytter              05:00   6 min   Kystverket, visjon, lytteposter, AIS
+ *  Hvorfor dataplattform    11:00   3 min   Hoffman, hverdagen
+ *  Historien                14:00   6 min   femti år, ett slag per epoke
+ *  Hvordan dataplattform    20:00  11 min   arkitektur, produkter, kontrakter
+ *  Hva får du igjen         31:00   4 min   fire effekter
+ *  Prosjektet               35:00   4 min   dag én, verktøykassa, terraform
+ *  Produktene               39:00   8 min   HAIS, Asuka, MarTraf, MarU, KystRisk
+ *  Teknisk                  47:00   2 min   ingest, den daglige jobben
+ *  Scaling                  49:00   3 min   historikk, batch vs streaming
+ *  H3                       52:00   3 min   hexer. Hopp over hvis du lander etter 52
+ *  Veien videre             55:00   5 min   domener, tilbake til Stad, takk
  */
 const APNING: SlideDef[] = [
   { id: "scene", name: "The time is 03:14", component: SlideScene, steps: 3 },
@@ -476,7 +476,7 @@ const MODELLENE: SlideDef[] = [
   },
   {
     id: "modell-flyt",
-    name: "One source, many products",
+    name: "One source, many data products",
     component: SlideModellFlyt,
     steps: 6,
   },
@@ -523,7 +523,7 @@ const MODELLENE: SlideDef[] = [
     component: SlideMarUHull,
     steps: 5,
   },
-  { id: "maru-ut", name: "What comes out?", component: SlideMarUUt, steps: 5 },
+  { id: "maru-ut", name: "What comes out?", component: SlideMarUUt, steps: 4 },
   {
     id: "kystrisk-tti",
     name: "Kystrisk: What's the probability of impact?",

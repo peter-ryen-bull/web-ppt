@@ -9,12 +9,14 @@ The constant:
 
 ## forside – The story of the data platform
 
+[14:00]  6 min. Next chapter at 20:00. One beat per era. Keep moving.
+
 Data platform sounds like a fad. It isn't.
 It's just the latest answer to a 50-year-old problem.
 
 ## tidslinje – Five phases, one problem
 
-1970 the releational database, 
+1970 the relational database, 
 1988 the data warehouse, 
 2006 big data,
 2010 the data lake, 
@@ -123,7 +125,7 @@ in the domains. Platforms fail organizationally, not technically.
 
 ## avslutning – Data lasts longer than the systems
 
-Tim Berners-Lee said it - credited as the inventor of the interne
+Tim Berners-Lee said it. Credited as the inventor of the internet.
 
 Data is a precious thing, and it will last
 longer than the systems themselves.
