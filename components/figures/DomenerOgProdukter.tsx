@@ -700,13 +700,13 @@ export function HelePlattformen() {
       viewBox={`0 0 ${HP_W} ${HP_H}`}
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="The whole picture: sources into domain catalogs, contracts through git and CI into the data products catalog, consumers inside and outside reading from it, and an explorer built from the contracts"
+      aria-label="The whole picture: sources into domain databases, contracts through git and CI into the data products catalog, consumers inside and outside reading from it, and an explorer built from the contracts"
     >
       <PilDefs id="pil-hel" />
       <PilDefs id="pil-hel-teal" farge={TEAL_LINJE} />
 
       <Steg at={1}>
-        <Pill cx={domMidtX} text="DOMAIN CATALOGS" w={170} />
+        <Pill cx={domMidtX} text="DOMAIN DATABASES" w={186} />
       </Steg>
       <Steg at={2}>
         <Pill cx={H_KILDE.x + H_KILDE.w / 2} text="SOURCES" w={100} />
