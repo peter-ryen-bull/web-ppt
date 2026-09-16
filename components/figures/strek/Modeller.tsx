@@ -749,15 +749,14 @@ export function RisikoSektorer() {
   const sektorer: {
     a0: number;
     a1: number;
-    tti: string;
     fill: string;
     stroke: string;
   }[] = [
-    { a0: -70, a1: -42, tti: "24 min", fill: "rgba(0, 64, 71, 0.06)", stroke: TEAL },
-    { a0: -42, a1: -14, tti: "11 min", fill: "rgba(0, 64, 71, 0.10)", stroke: TEAL },
-    { a0: -14, a1: 14, tti: "2 min", fill: "rgba(255, 48, 59, 0.16)", stroke: ROD },
-    { a0: 14, a1: 42, tti: "5 min", fill: "rgba(255, 48, 59, 0.10)", stroke: ROD },
-    { a0: 42, a1: 70, tti: "18 min", fill: "rgba(0, 64, 71, 0.06)", stroke: TEAL },
+    { a0: -70, a1: -42, fill: "rgba(0, 64, 71, 0.06)", stroke: TEAL },
+    { a0: -42, a1: -14, fill: "rgba(0, 64, 71, 0.10)", stroke: TEAL },
+    { a0: -14, a1: 14, fill: "rgba(255, 48, 59, 0.16)", stroke: ROD },
+    { a0: 14, a1: 42, fill: "rgba(255, 48, 59, 0.10)", stroke: ROD },
+    { a0: 42, a1: 70, fill: "rgba(0, 64, 71, 0.06)", stroke: TEAL },
   ];
 
   const [sx, sy] = at(0, 92);
@@ -766,18 +765,8 @@ export function RisikoSektorer() {
   return (
     <Figur w={560} h={400} label="Forward sectors from a ship, with time to impact to another ship and a skerry">
       {sektorer.map((s) => (
-        <path key={s.tti} d={wedge(s.a0, s.a1)} fill={s.fill} stroke={s.stroke} strokeWidth={1.6} />
+        <path key={`${s.a0}-${s.a1}`} d={wedge(s.a0, s.a1)} fill={s.fill} stroke={s.stroke} strokeWidth={1.6} />
       ))}
-
-      {sektorer.map((s) => {
-        const mid = (s.a0 + s.a1) / 2;
-        const [tx, ty] = at(mid, r + 18);
-        return (
-          <Tekst key={`t-${s.tti}`} x={tx} y={ty} size={13} weight={600} color={s.stroke}>
-            {s.tti}
-          </Tekst>
-        );
-      })}
 
       <g transform={`translate(${sx} ${sy})`}>
         <path d="M 0 -14 L -8 12 L 8 12 Z" fill={KREM} stroke={ROD} strokeWidth={2} />
