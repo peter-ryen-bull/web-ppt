@@ -1003,8 +1003,7 @@ export function SlideMarUUt() {
     },
     { text: "14 ship types, 9 sizes", box: [628, 288, 590, 78] },
     { text: "Municipality, county, sea area", box: [628, 366, 590, 78] },
-    { text: "Energy demand and shore power", box: [628, 444, 590, 78] },
-    { text: "Domestic, international, transit", box: [628, 522, 590, 78] },
+    { text: "Domestic, international, transit", box: [628, 444, 590, 78] },
   ];
   return (
     <>
