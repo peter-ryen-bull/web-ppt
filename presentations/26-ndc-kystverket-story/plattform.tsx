@@ -116,7 +116,6 @@ export function SlideReidHoffman() {
           flexDirection: "column",
           justifyContent: "center",
           gap: 22,
-          ...quote,
         }}
       >
         <div
@@ -125,6 +124,7 @@ export function SlideReidHoffman() {
             fontSize: pt(32),
             lineHeight: 1.25,
             color: "var(--burgundy)",
+            ...quote,
           }}
         >
           &ldquo;In the world of data, everything is measurable, and everything is
