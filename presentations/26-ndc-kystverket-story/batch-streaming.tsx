@@ -1,4 +1,4 @@
-import { Box, BulletItem, ChapterSlide, MilesLogo, Reveal, pt } from "../parts";
+import { Box, BulletItem, ChapterSlide, Reveal, pt } from "../parts";
 import { BatchVsStreamingFigur } from "@/components/figures/BatchVsStreaming";
 
 /* Kapittel: Hvordan dataplattform */
@@ -7,6 +7,7 @@ export function SlideBatchStreamingKapittel() {
     <ChapterSlide
       title="How a data platform works"
       titleSize={54}
+      showLogo={false}
     />
   );
 }
@@ -15,7 +16,6 @@ export function SlideBatchStreamingKapittel() {
 export function SlideBatchVsStreaming() {
   return (
     <>
-      <MilesLogo />
       <Box box={[48, 36, 700, 22]}>
         <div
           style={{
@@ -108,7 +108,6 @@ function ValgKort({
 export function SlideBatchStreamingValg() {
   return (
     <>
-      <MilesLogo />
       <Box box={[48, 42, 700, 60]}>
         <div
           style={{

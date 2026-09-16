@@ -485,6 +485,7 @@ export function SlideTekniskImplementasjon() {
       title="How it's done"
       subtitle="Ingest, the jobs, the bundles"
       titleSize={54}
+      showLogo={false}
     />
   );
 }

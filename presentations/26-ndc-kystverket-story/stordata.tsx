@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Box, BulletItem, BulletList, MilesLogo, Reveal, pt } from "../parts";
+import { Box, BulletItem, BulletList, Reveal, pt } from "../parts";
 import { Isfjell, KlyngeAuto, KlyngeFast } from "@/components/figures/strek";
 
 const VOLUM = {
@@ -69,7 +69,6 @@ export function SlideStordataVolum() {
 
   return (
     <>
-      <MilesLogo />
       <SlideTittel>The stream is small. The history is big.</SlideTittel>
       {tall(1, 40, VOLUM.perDogn, "of raw data per day", "var(--burgundy)")}
       {tall(2, 340, VOLUM.perAar, "per year", "var(--burgundy)")}
@@ -115,7 +114,6 @@ export function SlideStordataVolum() {
 export function SlideDatabricksCompute() {
   return (
     <>
-      <MilesLogo />
       <SlideTittel>Databricks compute</SlideTittel>
       <Box box={[48, 108, 900, 40]}>
         <div
@@ -200,7 +198,6 @@ function Kort({
 export function SlideStordataCompute() {
   return (
     <>
-      <MilesLogo />
       <SlideTittel>Days of compute, or hours?</SlideTittel>
       <Kort
         x={80}
