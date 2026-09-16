@@ -67,7 +67,6 @@ import {
   SlideTerraformDabs,
   SlidePysparkDabs,
   SlideIngest,
-  SlideIngestFlyt,
   SlideAisPipeline,
   SlideServerless,
 } from "./sky";
@@ -415,12 +414,6 @@ const TEKNISK: SlideDef[] = [
     name: "Ingest happens outside Databricks.",
     component: SlideIngest,
     steps: 3,
-  },
-  {
-    id: "ingest-flyt",
-    name: "Fetch. Dump. Then lakehouse.",
-    component: SlideIngestFlyt,
-    steps: 6,
   },
   {
     id: "ais-pipeline",

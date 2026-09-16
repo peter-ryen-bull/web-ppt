@@ -770,69 +770,6 @@ export function SlideIngest() {
   );
 }
 
-/* Flyt: kilder → Prefect → raw → lakehouse → innsikt */
-export function SlideIngestFlyt() {
-  return (
-    <>
-      <Box box={[48, 80, 1100, 60]}>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(36),
-            color: "var(--burgundy)",
-          }}
-        >
-          Fetch. Dump. Then lakehouse.
-        </div>
-      </Box>
-      <FlytBoks
-        at={1}
-        x={28}
-        w={216}
-        title="Sources"
-        sub="AIS, and the other things we fetch"
-      />
-      <FlytPil at={2} x={244} />
-      <FlytBoks
-        at={2}
-        x={280}
-        w={216}
-        title="Prefect"
-        sub="Python jobs, outside Databricks"
-      />
-      <FlytPil at={3} x={496} />
-      <FlytBoks
-        at={3}
-        x={532}
-        w={216}
-        title="Storage, raw"
-        sub="containers Terraform created"
-      />
-      <FlytPil at={4} x={748} />
-      <FlytBoks
-        at={4}
-        x={784}
-        w={216}
-        title="Lakehouse"
-        sub="bronze → silver → gold in Delta tables"
-      />
-      <FlytPil at={5} x={1000} />
-      <FlytBoks
-        at={5}
-        x={1036}
-        w={216}
-        title="Sharing"
-        sub="APIs, dashboards, and analytics"
-      />
-      <Punchline
-        at={6}
-        y={520}
-        text="100 million rows a day. No clusters to run."
-      />
-    </>
-  );
-}
-
 /* Databricks-jobben bak flyten: AIS-orkestrering, hele lerretet */
 export function SlideAisPipeline() {
   return (
