@@ -138,14 +138,22 @@ export function SlideSignal() {
 export function SlideNais() {
   return (
     <>
-      <Img
-        box={[168, 40, 944, 590]}
-        src={`${MEDIA}/nais.png`}
-        alt="NAIS – real-time map of ship traffic along the Norwegian coast"
-      />
+      <Box box={[0, 0, 1280, 720]} style={{ overflow: "hidden" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`${MEDIA}/nais.png`}
+          alt="NAIS – real-time map of ship traffic along the Norwegian coast"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "top center",
+          }}
+        />
+      </Box>
       <Reveal at={1}>
         <Box
-          box={[168, 648, 944, 40]}
+          box={[0, 656, 1280, 44]}
           style={{
             display: "flex",
             alignItems: "center",
