@@ -25,7 +25,7 @@ can say "our ship," say it. The audience should recognize it.
 | 3c How a data platform works        |       | architecture, products                                                            |
 | 4 What you get out of it            | 27:00 | four effects with examples from the coastline                                     |
 | 5 The project                       | 32:00 | day one, the toolbox, terraform                                                   |
-| 6 The products                      |       | HAIS, Asuka, MarTraf, MarU (propeller law), how it was done earlier |
+| 6 The products                      |       | HAIS, Asuka, MarTraf, MarU (propeller law, how it was done earlier, the model) |
 | 6b Technical implementation details |       | ingest, the stream, the history, H3, batch vs streaming                         |
 | 7 The road ahead                    | 53:00 | domains, contracts, back to Stad, thanks                                        |
 
@@ -1326,6 +1326,27 @@ That's why one hundred million rows a day isn't bragging. It's a consequence
 of the method. If you want to calculate emissions per point, you need every
 point.
 
+## maru-hvorfor – How was it done earlier?
+
+So how was it done earlier?
+
+[[CLICK]] Sales figures. Statistics Norway calculates emissions from domestic
+shipping based on how much fuel was sold.
+
+[[CLICK]] But vessels bunker abroad and sail here. And they bunker here and
+sail out. Sales figures describe where the fuel was bought. Not where it was
+burned.
+
+[[CLICK]] MarU flips it. Calculate from observed activity instead. And separate
+domestic from to-and-from-abroad and transit. Then you know what actually
+happened in Norwegian waters.
+
+[[CLICK]] And then the 2016 story, one more time, because now it carries more
+weight. The time series starts in 2016. We built out many new base stations
+in 2015, and better coverage would've looked like growth in emissions. A
+change in the collection propagates all the way out into the statistics.
+That's why you need metadata and data contracts. Not just numbers.
+
 ## maru – The maritime emissions model: MarU
 
 That's the method. Now the model itself.
@@ -1347,27 +1368,6 @@ sulfur limits per emission control area, GWP factors. That's a lot of knobs.
 everything that changes. S&P, ShipInfo, SafeSeaNet, NOR and NIS, and the
 fishing vessel register. Because a ship changes name, owner, and engine over
 its lifetime.
-
-## maru-hvorfor – How was it done earlier?
-
-So how was it done earlier?
-
-[[CLICK]] Sales figures. Statistics Norway calculates emissions from domestic
-shipping based on how much fuel was sold.
-
-[[CLICK]] But vessels bunker abroad and sail here. And they bunker here and
-sail out. Sales figures describe where the fuel was bought. Not where it was
-burned.
-
-[[CLICK]] MarU flips it. Calculate from observed activity instead. And separate
-domestic from to-and-from-abroad and transit. Then you know what actually
-happened in Norwegian waters.
-
-[[CLICK]] And then the 2016 story, one more time, because now it carries more
-weight. The time series starts in 2016. We built out many new base stations
-in 2015, and better coverage would've looked like growth in emissions. A
-change in the collection propagates all the way out into the statistics.
-That's why you need metadata and data contracts. Not just numbers.
 
 ## maru-hull – Filling the missing ship register data with ML
 

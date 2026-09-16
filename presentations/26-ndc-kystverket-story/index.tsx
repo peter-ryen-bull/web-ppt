@@ -524,15 +524,15 @@ const MODELLENE: SlideDef[] = [
     steps: 4,
   },
   {
-    id: "maru",
-    name: "The maritime emissions model: MarU",
-    component: SlideMarU,
-    steps: 4,
-  },
-  {
     id: "maru-hvorfor",
     name: "How was it done earlier?",
     component: SlideMarUHvorfor,
+    steps: 4,
+  },
+  {
+    id: "maru",
+    name: "The maritime emissions model: MarU",
+    component: SlideMarU,
     steps: 4,
   },
   {
