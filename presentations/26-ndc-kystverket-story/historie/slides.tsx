@@ -165,7 +165,7 @@ export function SlideForside() {
   return (
     <ChapterSlide
       title="The story of the data platform"
-      subtitle="Six decades of the same problem: turning data into decisions"
+      subtitle="50 years of the same problem: turning data into decisions"
       titleSize={60}
       showLogo={false}
     />

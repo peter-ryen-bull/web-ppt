@@ -10,7 +10,7 @@ The constant:
 ## forside – The story of the data platform
 
 Data platform sounds like a fad. It isn't.
-It's just the latest answer to a 60-year-old problem.
+It's just the latest answer to a 50-year-old problem.
 
 ## tidslinje – Five phases, one problem
 
