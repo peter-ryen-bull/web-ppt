@@ -16,19 +16,7 @@ export function SlideBatchStreamingKapittel() {
 export function SlideBatchVsStreaming() {
   return (
     <>
-      <Box box={[48, 36, 700, 22]}>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(13),
-            letterSpacing: 2.2,
-            color: "#9a5068",
-          }}
-        >
-          A SIDENOTE
-        </div>
-      </Box>
-      <Box box={[48, 58, 700, 44]}>
+      <Box box={[48, 42, 700, 44]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",

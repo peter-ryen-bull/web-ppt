@@ -438,7 +438,7 @@ const SCALING: SlideDef[] = [
   },
   {
     id: "batch-vs-streaming",
-    name: "Sidenote: batch vs. streaming",
+    name: "Batch vs. streaming",
     component: SlideBatchVsStreaming,
   },
   {
