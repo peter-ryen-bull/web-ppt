@@ -4,6 +4,7 @@ import { Box, BulletItem, BulletList, ChapterSlide, Reveal, Video, pt, useReveal
 const MEDIA = "/media/26-ndc-kystverket";
 import {
   Bunkring,
+  Containerskip,
   HexHierarki,
   HexVsRute,
   Propell,
@@ -62,8 +63,8 @@ function SourceLink({ href, top = 662 }: { href: string; top?: number }) {
 export function SlideModeller() {
   return (
     <>
-      <Box box={[430, 50, 420, 170]}>
-        <SporTilUtslipp />
+      <Box box={[0, 430, 1280, 290]}>
+        <Containerskip />
       </Box>
       <ChapterSlide
         title={
@@ -201,23 +202,23 @@ export function SlideHais() {
   const steg = (at: number, x: number, tittel: string, sub: string) => (
     <Reveal at={at}>
       <Box
-        box={[x, 250, 300, 160]}
+        box={[x, 500, 280, 118]}
         style={{
           background: "var(--teal)",
-          borderRadius: 16,
+          borderRadius: 14,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: 10,
-          padding: 18,
+          gap: 6,
+          padding: 14,
           textAlign: "center",
         }}
       >
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(20),
+            fontSize: pt(18),
             color: "var(--cream)",
           }}
         >
@@ -226,8 +227,8 @@ export function SlideHais() {
         <div
           style={{
             fontFamily: "var(--font-sans)",
-            fontSize: pt(13),
-            lineHeight: 1.35,
+            fontSize: pt(12),
+            lineHeight: 1.3,
             color: "var(--mint)",
           }}
         >
@@ -240,7 +241,7 @@ export function SlideHais() {
   const pil = (at: number, x: number) => (
     <Reveal at={at}>
       <Box
-        box={[x, 295, 40, 60]}
+        box={[x, 528, 36, 60]}
         style={{
           display: "flex",
           alignItems: "center",
@@ -250,7 +251,7 @@ export function SlideHais() {
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(30),
+            fontSize: pt(28),
             color: "var(--red)",
           }}
         >
@@ -262,17 +263,59 @@ export function SlideHais() {
 
   return (
     <>
-      <SlideTitle>HAIS: historical extracts on demand</SlideTitle>
+      <SlideTitle width={760}>HAIS: historical extracts on demand</SlideTitle>
+      <Box
+        box={[860, 78, 354, 48]}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+        }}
+      >
+        <a
+          href="https://hais.kystverket.no/"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(16),
+            color: "var(--red)",
+          }}
+        >
+          hais.kystverket.no
+        </a>
+      </Box>
+      <Box
+        box={[66, 156, 1148, 326]}
+        style={{
+          overflow: "hidden",
+          borderRadius: 12,
+          background: "#fff",
+          boxShadow: "0 8px 28px rgba(45, 20, 30, 0.12)",
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`${MEDIA}/hais.png`}
+          alt="HAIS – order historical AIS extracts on hais.kystverket.no"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "top center",
+          }}
+        />
+      </Box>
       {steg(
         1,
-        110,
+        90,
         "Request",
         "time range, area (WKT), ship type, or MMSI",
       )}
-      {pil(2, 425)}
-      {steg(2, 480, "Extract job", "reads through the history and filters")}
-      {pil(3, 795)}
-      {steg(3, 850, "Delivery", "GeoParquet or CSV by email")}
+      {pil(2, 384)}
+      {steg(2, 434, "Extract job", "reads through the history and filters")}
+      {pil(3, 728)}
+      {steg(3, 778, "Delivery", "GeoParquet or CSV by email")}
     </>
   );
 }
@@ -518,72 +561,6 @@ export function SlidePropellloven() {
           </div>
         </Box>
       </Reveal>
-    </>
-  );
-}
-
-/* Maritim trafikkmodell – historien: punkter uten struktur */
-export function SlideMarTraf() {
-  const linje2 = useRevealStyle(1);
-  const linje3 = useRevealStyle(2);
-  return (
-    <>
-      <Box box={[66.7, 48, 900, 28]}>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontWeight: 600,
-            fontSize: pt(12),
-            letterSpacing: 2,
-            color: "var(--red)",
-            textTransform: "uppercase",
-          }}
-        >
-          MarTraf
-        </div>
-      </Box>
-      <Box
-        box={[66.7, 160, 1146, 420]}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          gap: 26,
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(44),
-            lineHeight: 1.15,
-            color: "var(--burgundy)",
-          }}
-        >
-          Billions of points.
-        </div>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(44),
-            lineHeight: 1.15,
-            color: "var(--burgundy-2)",
-            ...linje2,
-          }}
-        >
-          Almost no structure.
-        </div>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(44),
-            lineHeight: 1.15,
-            color: "var(--red)",
-            ...linje3,
-          }}
-        >
-          How do we structure that?
-        </div>
-      </Box>
     </>
   );
 }
@@ -955,12 +932,15 @@ export function SlideMarU() {
         </div>
       </Box>
       <BulletList
-        box={[72.4, 250, 1100, 380]}
+        box={[72.4, 250, 640, 380]}
         fromStep={1}
         size={20}
         gap={26}
         items={items}
       />
+      <Box box={[740, 240, 440, 178]}>
+        <SporTilUtslipp />
+      </Box>
       <SourceLink href="https://www.kystverket.no/klima-og-barekraft/maru/" />
     </>
   );

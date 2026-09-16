@@ -9,6 +9,7 @@ export {
   AisKjede,
   Skipsradar,
   Bolgestripe,
+  Containerskip,
   SporTilUtslipp,
   Meldingsstrom,
   Meldingsfyll,

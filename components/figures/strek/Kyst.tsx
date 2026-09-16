@@ -3,12 +3,14 @@ import {
   Duv,
   Figur,
   KREM,
+  MINT,
   Puls,
   ROD,
   Roter,
   Signal,
   Skute,
   STREK,
+  Sving,
   TEAL,
   Tekst,
   DUS,
@@ -452,43 +454,60 @@ export function Bolgestripe() {
   );
 }
 
-/** AIS-punkter danner et spor bak skipet – og skipet ender i en utslippsberegning */
-export function SporTilUtslipp() {
-  const W = 420;
-  const H = 170;
-  const royk = (x: number, y: number, begin: number) => (
+/** Én røykslør som stiger fra (x, y), tones inn og ut. `s` skalerer lengden. */
+function Royk({
+  x,
+  y,
+  begin,
+  s = 1,
+  dur = 4,
+}: {
+  x: number;
+  y: number;
+  begin: number;
+  s?: number;
+  dur?: number;
+}) {
+  const a = 18 * s;
+  return (
     <path
-      d={`M ${x} ${y} q 7 -9 0 -18 t 0 -18 t 0 -16`}
+      d={`M ${x} ${y} q ${7 * s} ${-9 * s} 0 ${-a} t 0 ${-a} t 0 ${-16 * s}`}
       stroke={DUS}
-      strokeWidth={2}
+      strokeWidth={2 * s}
       opacity={0}
     >
       <animate
         attributeName="opacity"
         values="0; 0.7; 0"
         keyTimes="0; 0.4; 1"
-        dur="4s"
+        dur={`${dur}s`}
         begin={`${begin}s`}
         repeatCount="indefinite"
       />
       <animateTransform
         attributeName="transform"
         type="translate"
-        from="0 4"
-        to="0 -10"
-        dur="4s"
+        from={`0 ${4 * s}`}
+        to={`0 ${-10 * s}`}
+        dur={`${dur}s`}
         begin={`${begin}s`}
         repeatCount="indefinite"
       />
     </path>
   );
+}
+
+/** AIS-punkter danner et spor bak skipet – og skipet ender i en utslippsberegning */
+export function SporTilUtslipp() {
+  const W = 420;
+  const H = 170;
 
   return (
     <Figur w={W} h={H} label="AIS track behind a ship that ends in emissions">
       <Duv dy={3} dur={3.6}>
         <Skute x={296} y={124} s={0.6} signal={false} />
-        {royk(311, 78, 0)}
-        {royk(318, 82, 2)}
+        <Royk x={311} y={78} begin={0} />
+        <Royk x={318} y={82} begin={2} />
       </Duv>
 
       <Bolger y={124} w={W} h={H} amp={8} dur={9} />
@@ -504,6 +523,107 @@ export function SporTilUtslipp() {
       <Tekst x={348} y={30} size={13} color={DUS}>
         CO₂
       </Tekst>
+    </Figur>
+  );
+}
+
+/**
+ * Stort containerskip i full bredde, baug mot høyre, stablet med containere
+ * fra bro til baug. Duver og ruller sakte, røyk fra skorsteinen akter.
+ */
+export function Containerskip() {
+  const W = 1280;
+  const H = 290;
+  const VANN = 228;
+  const DEKK = 176;
+  const CW = 32;
+  const CH = 18;
+  const PX = 35;
+  const PY = 20;
+  const forsteKol = 236;
+  const stabler = [
+    4, 5, 6, 6, 5, 6, 6, 6, 5, 4, 5, 6, 6, 6, 5, 6, 6, 5, 6, 5, 5, 4, 4, 3, 2,
+  ];
+
+  const fyll = (kol: number, rad: number) => {
+    const k = (kol * 7 + rad * 3) % 11;
+    if (k === 0) return MINT;
+    if (k === 5) return DUS;
+    return KREM;
+  };
+
+  return (
+    <Figur w={W} h={H} label="A large container ship stacked with containers, riding the waves">
+      <Sving grader={0.6} cx={W / 2} cy={VANN} dur={7.5}>
+        <Duv dy={4} dur={4.4}>
+          {/* Skrog */}
+          <path
+            d={`M 62 ${DEKK} L 92 ${VANN + 34} H 1104 L 1232 ${DEKK - 22} Q 1196 ${DEKK} 1150 ${DEKK} Z`}
+            fill={KREM}
+            strokeWidth={3}
+          />
+          <path d={`M 84 ${VANN - 9} H 1118`} strokeWidth={1.4} opacity={0.4} />
+          <path d={`M 1204 ${DEKK - 6} V ${DEKK - 34}`} strokeWidth={2} />
+
+          {/* Skorstein akter */}
+          <rect x={78} y={136} width={24} height={40} rx={2} fill={KREM} />
+          <path d="M 78 146 H 102" strokeWidth={1.6} opacity={0.6} />
+          <Royk x={90} y={136} begin={0} s={1.7} dur={5} />
+          <Royk x={96} y={140} begin={2.4} s={1.7} dur={5} />
+
+          {/* Overbygg og bro */}
+          <rect x={112} y={112} width={102} height={64} rx={3} fill={KREM} />
+          <path d="M 126 132 H 200 M 126 152 H 200" strokeWidth={1.4} opacity={0.5} />
+          <rect x={102} y={90} width={122} height={24} rx={3} fill={KREM} />
+          {Array.from({ length: 6 }, (_, i) => (
+            <rect
+              key={i}
+              x={110 + i * 18}
+              y={97}
+              width={12}
+              height={9}
+              rx={1}
+              strokeWidth={1.4}
+            />
+          ))}
+          <path d="M 163 90 V 46" />
+          <path d="M 152 60 h 22" strokeWidth={2} />
+          <circle cx={163} cy={43} r={3.6} fill={ROD} stroke="none">
+            <Puls fra={0.4} til={1} dur={2.4} />
+          </circle>
+
+          {/* Containere */}
+          <g strokeWidth={1.6} strokeLinejoin="miter" strokeLinecap="butt">
+            {stabler.map((hoyde, kol) =>
+              Array.from({ length: hoyde }, (_, rad) => {
+                const x = forsteKol + kol * PX;
+                const y = DEKK - (rad + 1) * PY;
+                const f = fyll(kol, rad);
+                return (
+                  <g key={`${kol}-${rad}`}>
+                    <rect
+                      x={x}
+                      y={y}
+                      width={CW}
+                      height={CH}
+                      rx={1.5}
+                      fill={f}
+                      fillOpacity={f === DUS ? 0.3 : 1}
+                    />
+                    <path
+                      d={`M ${x + 11} ${y + 3} V ${y + CH - 3} M ${x + 21} ${y + 3} V ${y + CH - 3}`}
+                      strokeWidth={1}
+                      opacity={0.35}
+                    />
+                  </g>
+                );
+              }),
+            )}
+          </g>
+        </Duv>
+      </Sving>
+
+      <Bolger y={VANN} w={W} h={H} amp={12} dur={10} />
     </Figur>
   );
 }
