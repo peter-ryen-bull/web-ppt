@@ -1068,7 +1068,7 @@ export function SlideMarUHvorfor() {
         items={[
           "Traditionally: how much fuel was sold in Norway",
           "Ships bunker abroad and sail here. The numbers don't match.",
-          "MarU uses observed activity. Domestic vs transit.",
+          "MarU uses observed activity.",
         ]}
       />
     </>
