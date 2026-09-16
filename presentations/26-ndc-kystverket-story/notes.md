@@ -31,8 +31,8 @@ can say "our ship," say it. The audience should recognize it.
 
 If you're behind after the products, cut the batch/streaming sidenote (two
 slides, about three minutes). If you're behind during technical, cut
-hex-hvorfor, hex-join and h3-ship. If you're behind during the products, cut
-maru-hull.
+math-opt, h3-hexes, hex-hvorfor, hex-join and h3-ship. If you're behind
+during the products, cut maru-hull.
 
 ### Rules for the language in these notes
 
@@ -1006,6 +1006,10 @@ We spent quite a lot of time getting that scaling just right.
 
 Serverless.
 
+Look at the drawing. Same load, same clock. On the left we guess a size,
+wait for the cluster to wake up, then jump the slider when the peak has
+already hit. On the right the job decides. Capacity follows the curve.
+
 Remember HAIS? One week for one vessel, or every ship for a year. That's
 why serverless fits. The job decides the size. Not us.
 
@@ -1083,13 +1087,43 @@ the same. You pay for the work, not for the time it takes. The difference is
 that you get the answer today instead of on Friday. And for the person
 waiting for the number, that's the whole difference.
 
-Compute is only half of it. The other half is the question we ask a
-hundred million times a day.
+Compute is only half of it. The other half is the questions we ask the
+data.
+
+## math-opt – Mathematical optimizations
+
+A lot of the spatial work is two questions.
+
+Is this point inside this area? Contains within. A port. A fish farm.
+The economic zone.
+
+And which points sit close to each other? Near shore. Near a platform.
+Near our ship.
+
+Every product we just talked about asks those questions.
+
+[[CLICK]] Over billions of points, that job explodes. Every point
+against every other point. Geometry on every row. It does not finish.
+
+[[CLICK]] So we don't do that. We group the points into hexes.
+Uber's H3.
+
+## h3-hexes – Hexes within hexes
+
+This is H3.
+
+The planet, tiled in hexes. Hexes inside hexes. Every cell has a unique
+id. An integer. That's what we store on every AIS point.
+
+[[CLICK]] And there are sixteen resolutions. From hexes the size of
+countries, down to hexes about one metre across.
+
+You pick the resolution that matches the question. Close to a port is a
+kilometre question. Fine work can go smaller. Same system.
 
 ## hex-hvorfor – How do you group a coastline?
 
-Remember the pile of points? The job wouldn't scale. Here's why, and
-what we did.
+Remember the pile of points? The job wouldn't scale. Here's why hexes.
 
 How do you group positions by cell?
 
@@ -1098,13 +1132,11 @@ they are not the same distance. The corners are farther than the sides.
 So "one cell away" means two different things.
 
 [[CLICK]] A hex has six neighbours. All the same distance.
-That's why Uber built H3. The planet, tiled in hexes, sixteen resolution
-levels. Every AIS point gets a hex ID. The coastline becomes a grid we
-can actually count on.
+That's why Uber built H3 this way. Every AIS point gets a hex ID. Then
+we count cells.
 
-And that's the neighbour part. We don't calculate geodesic distance.
-We count cells. One cell away. Two cells away. Same distance every
-direction.
+We don't calculate geodesic distance. We count cells. One cell away.
+Two cells away. Same distance every direction.
 
 ## hex-join – A join on a number
 
@@ -1126,23 +1158,11 @@ If you calculate it from lon-lat while the query runs, there is nothing
 to prune. The engine has to look at every row anyway. We generate it
 once, when the data lands. Then the join is just a number.
 
-We do that on MarTraf, MarU, and KystRisk. Not on HAIS yet. HAIS still
-filters the area at query time. Same idea would help there.
+We do that on MarTraf, MarU, and KystRisk.
 
 The pattern, if you still need the exact answer: prune with the hex join.
 Settle the leftovers with geometry afterwards. MarTraf mostly stops at
 the hex.
-
-[[CLICK]] We use it at several resolutions. One of them is 8. One cell
-is around eleven hundred metres. In practice six to sixteen hundred,
-depending on where in the hex you sit.
-
-That is not a fine grid. Resolution 8 sits in the middle of those sixteen
-levels. A ship is already tens to hundreds of metres long. "Near a port"
-is a kilometre-scale question.
-
-And we accept that. The model only needs inside or outside a threshold.
-Not which quay is closest.
 
 One example. Is this ship close to shore? We don't calculate the exact
 distance to the land contour. We ask: is it inside a k-ring or two of a
@@ -1164,7 +1184,7 @@ Distance becomes "how many cells away". That's the join we just talked about.
 If our ship is in the same hex as a port, it's at the port.
 If it's one cell out, it's nearby. That's the whole test.
 
-Now these cells are very big, but t
+Now these cells are very big, but the hexes of course scale all the way down to 1m . So we pick the resolution that is approrprate for the corrent job.
 
 ## modeller – From positions to emissions
 
@@ -1416,29 +1436,29 @@ platform ends up in official statistics.
 
 ## veien-videre – The road ahead
 
-[53:00] Last chapter. Where are we, and where are we going?
+[53:00]
 
-And here I'm going to be honest, because that's what makes the story
-credible.
+Where are we now, and where are we going?
+What is the road ahead.
 
 ## hvor-vi-er – Where we are: one source, one catalog structure
 
-Honest status. Today we have "only" AIS. One source, one domain.
+Today we have "only" AIS. One source, one domain.
 
 The catalog structure is classic medallion. Three databases in Databricks.
-Bronze with raw messages. Silver with cleaned and enriched data. Gold with
-tracks, voyages, and emissions, ready to use.
 
 [[CLICK]] And the data products we deliver today all come out of gold. AIS
 tracks, MarTraf, MarU, HAIS.
 
 [[CLICK]] This works fine as long as everything is AIS. One source. One
-domain. One catalog. That's the honest status. The next slide is why it
-can't stay that way.
+domain. 
+it works fine for now 
+
+but we are going to expand
 
 ## flere-domener – Not just AIS
 
-AIS got us here. But Kystverket is bigger than ship positions. We want to
+AIS got us here. But Coastal Administrtion is bigger than ship positions. We want to
 expand. Several domains. Not just AIS.
 
 [[CLICK]] Customs. Declarations and cargo. What the ship actually carried,
@@ -1448,6 +1468,9 @@ not just where it was.
 
 [[CLICK]] Predictive maintenance on the lighthouses. Sensors on the lights
 that keep the coast lit. Send a boat out before a light goes dark.
+120 lighthouses across the coast and over 2000 ligts
+
+
 
 [[CLICK]] And many more. Things we already collect. Other agencies. Whatever
 comes next.
