@@ -64,8 +64,6 @@ import {
   SlideTerraformKode,
   SlideTekniskImplementasjon,
   SlideFireStates,
-  SlideTerraformDabs,
-  SlidePysparkDabs,
   SlideIngest,
   SlideAisPipeline,
   SlideServerless,
@@ -397,18 +395,6 @@ const TEKNISK: SlideDef[] = [
     id: "teknisk-implementasjon",
     name: "How it's done",
     component: SlideTekniskImplementasjon,
-  },
-  {
-    id: "terraform-dabs",
-    name: "Infrastructure and logic. Two tools.",
-    component: SlideTerraformDabs,
-    steps: 2,
-  },
-  {
-    id: "pyspark-dabs",
-    name: "From PySpark to a pipeline",
-    component: SlidePysparkDabs,
-    steps: 4,
   },
   {
     id: "ingest",

@@ -871,43 +871,6 @@ build on top of this?
 Chapter change. Back to how it was actually built. Ingest. The daily job.
 How the pipeline is wired.
 
-## terraform-dabs – Infrastructure and logic. Two tools.
-
-And there's one more split. Just as important.
-
-Terraform owns the infrastructure. Databricks Asset Bundles, DABs, own the
-logic.
-
-[[CLICK]] Terraform: workspaces, storage, containers. Unity Catalog, down to
-the catalog level. We deploy that when the platform changes. Rarely. On
-purpose.
-
-[[CLICK]] DABs: schemas, tables, jobs. We deploy that when the code changes.
-Often. As it should be.
-
-The split is deliberate. The infrastructure should be boring. The logic
-should be easy to change often. If you take one sentence from the Terraform
-slides, take that one.
-
-## pyspark-dabs – From PySpark to a pipeline
-
-The models you just saw. MarTraf. MarU. They're not a special system.
-They're code.
-
-[[CLICK]] We write them in PySpark. Same Spark you'd write in a notebook.
-Python. DataFrames. The H3 joins, the propeller law, the phases. That's the
-model.
-
-[[CLICK]] Then we deploy that code with Databricks Asset Bundles. The DABs
-from the last slide. A YAML file in git. Dev, test, prod. Same idea as
-Terraform, but for the logic.
-
-[[CLICK]] And those bundles become scheduled jobs. Every night. A hundred
-million rows. Without anyone pressing a button.
-
-[[CLICK]] So they run as automated pipelines. The models you write in
-PySpark are the jobs that run in production.
-
 ## ingest – Ingest happens outside Databricks.
 
 So. The data. Where does it come in?
@@ -1075,6 +1038,8 @@ Compute is only half of it. The other half is the questions we ask the
 data.
 
 ## math-opt – Mathematical optimizations
+
+IF > 52min, SKIP 
 
 A lot of the spatial work is two questions.
 
