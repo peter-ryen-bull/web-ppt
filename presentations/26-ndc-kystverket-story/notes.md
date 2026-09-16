@@ -20,9 +20,9 @@ can say "our ship," say it. The audience should recognize it.
 | ----------------------------------- | ----- | --------------------------------------------------------------------------------- |
 | 1 The opening                       | 00:00 | scene, signal, NAIS, 100 million, title slide, Peter                              |
 | 2 Who's listening                   | 05:00 | Kystverket, the vision, the mission, the listening posts, AIS                     |
-| 3 Why data platform                 | 12:00 | why everyone builds them, Hoffman, Uber, everyday life                            |
+| 3 Why data platform                 | 12:00 | why everyone builds them, Hoffman, everyday life                                  |
 | 3b The story of the platform        |       | fifty years, same problem                                                         |
-| 3c How a data platform works        |       | architecture, lakehouse, the pipe, pipelines, products                            |
+| 3c How a data platform works        |       | architecture, products                                                            |
 | 4 What you get out of it            | 27:00 | four effects with examples from the coastline                                     |
 | 5 The project                       | 32:00 | day one, the toolbox, terraform                                                   |
 | 6 The products                      |       | HAIS, follow one ship, MarTraf, MarU, how it was done earlier, the propeller law |
@@ -48,11 +48,11 @@ dashes. Say it the way you'd say it to a colleague over a coffee.
 - 100 million rows/day ≈ 1,157 per second. Read one per second, and one day's data takes 3.2 years.
 - The propeller law: (2)³ = 8. Double the speed, eight times the power.
 
-## scene – It's 03:14
+## scene – The time is 03:14
 
 [00:00]
 
-It's 03:14.
+[[CLICK]] The time is 03:14.
 
 [[CLICK]] We're on the sea off Stad. It's February. There's a gale from the
 northwest, and it's completely dark.
@@ -60,7 +60,7 @@ northwest, and it's completely dark.
 [[CLICK]] Out there, a lage cargo ship is heading north. Nine knots. Twenty people on board, most of them asleep. One is standing on the bridge with a cup of
 coffee, watching the radar.
 
-[[CLICK]] And while he stands there, something happens that he doesn't think
+And while he stands there, something happens that he doesn't think
 about. Something the ship does entirely on its own.
 
 ## signal – Every ten seconds, the ship says
@@ -288,62 +288,7 @@ A data platform is the latest answer to that problem. We've been trying
 to solve it for over fifty years. What problem is this, and why is the
 data platform the current answer?
 
-## uber – Uber, 2014
-
-The slide is just three labels and a figure. The paragraphs live here.
-They wrote this up themselves later. I want you to hear what they
-actually did, because it's the same story we keep seeing.
-
-And that pattern isn't theory. Uber, 2014.
-
-[[CLICK]] The start. A few terabytes. Spread across some MySQL and Postgres
-databases. When someone needed to combine data from two places, an
-engineer wrote a script. It worked. Just fine, actually. Nobody sat
-around thinking "we need a platform." There was no global view. You
-queried the database you knew.
-
-[[CLICK]] Then the company exploded. New cities every week. Tens of
-terabytes. Hundreds of people asking for the same numbers. City
-operators on the ground. Analysts. Engineers building products. And
-suddenly every team had its own database, its own script, its own
-version of the truth. Ask "how many trips did we do yesterday," and
-you'd get four different answers. Sound familiar?
-
-[[CLICK]] The turning point. Yes, they actually built a data platform. Not
-a slide. A real one. And they built it themselves.
-
-First they dumped everything into one warehouse. Vertica. Ad hoc ETL
-jobs copying from the databases and the logs. SQL as the interface. For
-the first time, everyone could see all the data in one place. Products
-like upfront pricing were built on top of that. It worked. For a while.
-
-Then the warehouse started groaning. Same data ingested three times
-because three teams needed three shapes. They were deleting old data to
-make room. The warehouse was doing the job of a lake, a warehouse, and
-a serving layer at the same time. Fragile jobs. No contract between the
-people producing the data and the people consuming it.
-
-So they built a Hadoop lake. Raw in once, no transform on the way in.
-Spark, Hive, Presto on top. Only the tables people needed right now
-stayed in the warehouse. Hadoop became the source of truth. Tens of
-petabytes. A hundred thousand jobs a day.
-
-And then they hit the next wall. New data was only visible once a day,
-because every job rebuilt the whole table. Uber runs in real time.
-Twenty-four hours is too slow when you're setting prices. So they wrote
-their own thing. Hudi. Hadoop Upserts and Incremental. Open source. It
-let them update a table instead of rebuilding it. Latency went from a
-day to half an hour. A few years later they were sitting on more than
-a hundred petabytes.
-
-[[CLICK]] That's the point. You don't need a data platform from day one.
-Uber managed fine without one. Then they built one, and then they
-rebuilt it, twice, because the first version wasn't enough. Not because
-someone read an article. Out of pure necessity. Past a certain amount
-of data, there's no alternative. And at one hundred million rows a
-day, Kystverket passed that threshold a long time ago.
-
-## hvorfor – You used four data platforms today
+## hvorfor – Data platforms are everywhere
 
 And the fact is,
 most services you have been using this week are backed by data platforms .
@@ -369,9 +314,7 @@ coastline.
 
 So how does a data platform actually work?
 
-The big picture first. Then why it's more than a warehouse. Then three
-things. A lakehouse to store and serve. A pipe: store, transform, deliver.
-And pipelines that run on their own.
+The big picture first. Then why it's more than a warehouse.
 
 Then we get to products.
 
@@ -407,6 +350,11 @@ Point to the bottom layer. That's the layer people forget. Everyone wants
 storage and processing. But without a catalog and access control, you don't
 get safe self-service. You get chaos. And we'll come back to that layer in a
 bit, because that's where platforms actually win or lose.
+
+[[CLICK]] And we have full version control of our data. Raw is archived.
+Never deleted. AIS back to 2005. The transforms live in git. Every change
+is a commit. You can replay 2018 with the 2018 code, or rerun it with
+today's. The archive stays. The code remembers.
 
 ## mer-enn-varehus – Is it just a database?
 
@@ -473,66 +421,6 @@ That's the whole argument on one screen.
 
 [[CLICK]] And it answers.
 
-## hvordan-lakehouse – Lakehouse: store and serve
-
-You already saw the two tracks meet, in the history.
-
-A lakehouse is a data lake - for storing large amount of raw, unstructured and structured data
- and a data warehouse, where data is packaged and served
-
-These are now combined. 
-The data lakehouse. Mostly what we call a data platform today. 
-
-[[CLICK]] Cheap storage for everything. And the structure and speed of a
-warehouse when you need to serve it.
-
-[[CLICK]] You store once. You serve many ways. Reports, APIs, models. Same
-tables.
-
-That's the store. Next: what happens to the data.
-
-## samle-data – Store, transform, deliver
-
-
-Point to the figure. Ingest. Store. Transform. Share. The same series
-every definition in the industry lands on.
-
-[[CLICK]] And govern the whole pipe. That's the verb most people slip up on.
-It's the bar under everything, not a step at the end.
-
-For Kystverket, this means: AIS in, insight and open data out. It's that
-simple, and that hard.
-
-## arkiv-git – Raw is archived. Transforms are in git.
-
-And here's what makes that pipe work. We store raw, and we stop throwing
-it away. That's the move the lake taught us. And Kystverket did it for
-real.
-
-[[CLICK]] The raw archive is kept. AIS messages back to 2005. We don't delete
-them. We don't overwrite them. If a transform was wrong in 2019, the raw is
-still there.
-
-[[CLICK]] The transforms live in git. Not in a notebook on someone's laptop.
-Not in a stored procedure nobody dares to open. In source control. Every
-change is a commit.
-
-[[CLICK]] Put those two together and you get something the warehouse never
-really had. Version history of every transformation, over time. You can
-replay 2018 with the 2018 code, or rerun it with today's. The archive stays.
-The code remembers.
-
-## automatiserte-pipelines – Automated pipelines
-
-And none of this should need a person in the loop.
-
-The jobs run on a schedule, or when new data lands.
-
-[[CLICK]] They fail loudly. Someone gets a ping. Nobody sits and presses go
-every morning.
-
-That's the whole point of a platform. The pipe runs without you.
-
 ## dataprodukt – Data product
 
 Next concept, and this is one of the most important: the data product.
@@ -542,8 +430,6 @@ Maintained. Documented. And with an owner who actually answers when you
 call.
 
 Not a table someone dumped somewhere and forgot.
-
-## dataprodukt-kjerne – The core output
 
 This is the sentence I want you to take from this whole section.
 
@@ -618,9 +504,9 @@ who consume it. Shared expectations. That's the whole point.
 When data is scattered, poorly documented, and nobody owns it, we spend
 our time searching, inspecting, and validating data other people produced.
 
-## datakontrakt-hva – Think API, but for data
+## datakontrakt-hva – Clear documentation of your data
 
-You're developers. You know what an API is. Think API, but for data.
+A data contract is clear documentation of your data.
 
 The contract is a document both humans and machines can read. It clears
 expectations both ways. The producer commits to something. The consumers
@@ -1609,8 +1495,6 @@ in the municipality as well.
 
 ## takk – Thanks. Try it yourself.
 
-<!-- TODO Peter: add email or LinkedIn if you want it on the slide. -->
-
 Thank you.
 
 Everything I've shown you is open. The real-time map at nais.kystverket.no.
@@ -1620,5 +1504,7 @@ for those of you who want to build something. And the entire emissions model
 on GitHub.
 
 Build something with it. And tell me what you built.
+
+The QR takes you to peterbull.no if you want to get in touch.
 
 Questions?

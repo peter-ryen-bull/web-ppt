@@ -7,8 +7,9 @@ const MEDIA = "/media/26-ndc-kystverket";
 
 /* Slide 1 – Kald åpning: én scene, én setning om gangen */
 export function SlideScene() {
-  const linje2 = useRevealStyle(1);
-  const linje3 = useRevealStyle(2);
+  const linje1 = useRevealStyle(1);
+  const linje2 = useRevealStyle(2);
+  const linje3 = useRevealStyle(3);
   return (
     <>
       <Box
@@ -26,9 +27,10 @@ export function SlideScene() {
             fontSize: pt(66),
             lineHeight: 1.1,
             color: "var(--burgundy)",
+            ...linje1,
           }}
         >
-          It&apos;s 03:14.
+          The time is 03:14.
         </div>
         <div
           style={{
@@ -53,11 +55,9 @@ export function SlideScene() {
           A cargo ship heading north at nine knots.
         </div>
       </Box>
-      <Reveal at={3}>
-        <Box box={[430, 520, 420, 170]}>
-          <BaatSignal />
-        </Box>
-      </Reveal>
+      <Box box={[430, 520, 420, 170]}>
+        <BaatSignal />
+      </Box>
     </>
   );
 }

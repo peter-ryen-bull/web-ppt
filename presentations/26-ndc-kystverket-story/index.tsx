@@ -22,20 +22,14 @@ import { historyOfTheDataPlatform } from "./historie";
 import {
   SlideHvaEr,
   SlideReidHoffman,
-  SlideArkivGit,
-  SlideUber,
   SlideHvorfor,
   SlideDataflyt,
   SlideArkitektur,
-  SlideSamleData,
-  SlideLakehouseHva,
-  SlideAutomatisertePipelines,
   SlideMerEnnVarehus,
   SlideMerEnnVarehusKatalog,
   SlideMerEnnVarehusAi,
   SlideMerEnnVarehusSvar,
   SlideDataprodukt,
-  SlideDataproduktKjerne,
   SlideDataproduktKjennetegn,
   SlideDataproduktAnatomi,
   SlideDatakontraktKapittel,
@@ -114,9 +108,9 @@ import {
  *
  *  Akt 1  Åpningen           00:00  én scene, ett signal, ett tall
  *  Akt 2  Hvem lytter        05:00  Kystverket og det store hvorfor-et
- *  Akt 3  Hvorfor dataplattform     12:00  hvorfor alle bygger, Hoffman, Uber, hverdagen
+ *  Akt 3  Hvorfor dataplattform     12:00  hvorfor alle bygger, Hoffman, hverdagen
  *  Akt 4  Historien                 femti år med samme problem
- *  Akt 4b Hvordan dataplattform     arkitektur, lakehouse, rør, pipelines, produkter
+ *  Akt 4b Hvordan dataplattform     arkitektur, produkter
  *  Akt 5  Hva får du igjen   27:00  tre effekter med eksempler fra sjøveien
  *  Akt 6  Prosjektet         32:00  dag én, verktøykassa, terraform
  *  Akt 7  Produktene                HAIS, følg ett skip, MarTraf, MarU, propellloven
@@ -124,7 +118,7 @@ import {
  *  Akt 8  Veien videre       53:00  domener, kontrakter, og tilbake til Stad
  */
 const APNING: SlideDef[] = [
-  { id: "scene", name: "It's 03:14", component: SlideScene, steps: 3 },
+  { id: "scene", name: "The time is 03:14", component: SlideScene, steps: 3 },
   {
     id: "signal",
     name: "Every ten seconds, the ship says",
@@ -208,10 +202,9 @@ const PLATTFORM: SlideDef[] = [
     component: SlideReidHoffman,
     steps: 1,
   },
-  { id: "uber", name: "Uber, 2014", component: SlideUber, steps: 4 },
   {
     id: "hvorfor",
-    name: "You used four data platforms today",
+    name: "Data platforms are everywhere",
     component: SlideHvorfor,
     steps: 5,
   },
@@ -232,6 +225,7 @@ const HVORDAN: SlideDef[] = [
     id: "arkitektur",
     name: "Architecture: source to consumer",
     component: SlideArkitektur,
+    steps: 1,
   },
   {
     id: "mer-enn-varehus",
@@ -257,37 +251,7 @@ const HVORDAN: SlideDef[] = [
     component: SlideMerEnnVarehusSvar,
     steps: 1,
   },
-  {
-    id: "hvordan-lakehouse",
-    name: "Lakehouse: store and serve",
-    component: SlideLakehouseHva,
-    steps: 2,
-  },
-  {
-    id: "samle-data",
-    name: "Store, transform, deliver",
-    component: SlideSamleData,
-    steps: 1,
-  },
-  {
-    id: "arkiv-git",
-    name: "Raw is archived. Transforms are in git.",
-    component: SlideArkivGit,
-    steps: 3,
-  },
-  {
-    id: "automatiserte-pipelines",
-    name: "Automated pipelines",
-    component: SlideAutomatisertePipelines,
-    steps: 1,
-  },
-  { id: "dataprodukt", name: "Data product", component: SlideDataprodukt },
-  {
-    id: "dataprodukt-kjerne",
-    name: "The core output",
-    component: SlideDataproduktKjerne,
-    steps: 1,
-  },
+  { id: "dataprodukt", name: "Data product", component: SlideDataprodukt, steps: 1 },
   {
     id: "dataprodukt-kjennetegn",
     name: "What makes it a product",
@@ -306,7 +270,7 @@ const HVORDAN: SlideDef[] = [
   },
   {
     id: "datakontrakt-hva",
-    name: "Think API, but for data",
+    name: "Clear documentation of your data",
     component: SlideDatakontraktHva,
     steps: 1,
   },

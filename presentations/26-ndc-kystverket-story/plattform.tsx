@@ -12,18 +12,13 @@ import {
 } from "@/components/figures/Datakontrakt";
 import {
   ArkivOgGit,
-  Automatikk,
   GovernanceTrio,
-  Grunnmur,
-  Pakke,
   PlattformProdukter,
   KontraktArk,
   KatalogKart,
   RolleFigur,
-  SiloTilPlattform,
   StrekIkon,
   VarehusVsPlattform,
-  Verbrekke,
   type IkonNavn,
   type RolleHvem,
 } from "@/components/figures/strek";
@@ -164,118 +159,6 @@ export function SlideReidHoffman() {
   );
 }
 
-/* Bro etter historien: rådata i arkiv, transformasjoner i git */
-export function SlideArkivGit() {
-  const linje = (
-    at: number,
-    y: number,
-    stor: string,
-    liten: string,
-    farge: string,
-  ) => (
-    <Reveal at={at}>
-      <Box box={[90, y, 640, 110]}>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(36),
-            lineHeight: 1.1,
-            color: farge,
-          }}
-        >
-          {stor}
-        </div>
-        <div
-          style={{
-            marginTop: 8,
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(20),
-            color: "var(--burgundy-2)",
-          }}
-        >
-          {liten}
-        </div>
-      </Box>
-    </Reveal>
-  );
-  return (
-    <>
-      <Box box={[66, 70, 1100, 70]}>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(36),
-            color: "var(--burgundy)",
-          }}
-        >
-          Raw is archived. Transforms are in git.
-        </div>
-      </Box>
-      <Box box={[780, 150, 440, 380]}>
-        <ArkivOgGit />
-      </Box>
-      {linje(1, 200, "RAW", "Never deleted", "var(--teal)")}
-      {linje(2, 330, "Transforms", "In source control", "var(--burgundy)")}
-      {linje(3, 460, "Version history", "Of every transform", "var(--red)")}
-    </>
-  );
-}
-
-/* Uber-historien: det funket fint, helt til det ikke gjorde det */
-export function SlideUber() {
-  const akt = (at: number, y: number, aar: string, farge: string) => (
-    <Reveal at={at}>
-      <Box box={[90, y, 780, 70]}>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(36),
-            lineHeight: 1.1,
-            color: farge,
-            whiteSpace: "nowrap",
-          }}
-        >
-          {aar}
-        </div>
-      </Box>
-    </Reveal>
-  );
-  return (
-    <>
-      <Box box={[66, 70, 1100, 70]}>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(36),
-            color: "var(--burgundy)",
-          }}
-        >
-          Uber, 2014
-        </div>
-      </Box>
-      <Box box={[900, 160, 320, 352]}>
-        <SiloTilPlattform />
-      </Box>
-      {akt(1, 200, "The start", "var(--teal)")}
-      {akt(2, 320, "The growth", "var(--burgundy)")}
-      {akt(3, 440, "The turning point", "var(--red)")}
-      <Reveal at={4}>
-        <Box box={[90, 575, 780, 50]}>
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(18),
-              color: "var(--red)",
-            }}
-          >
-            Past a certain scale, there&apos;s no alternative.
-          </div>
-        </Box>
-      </Reveal>
-    </>
-  );
-}
-
 /* Dataplattformer i hverdagen: du brukte fire av dem i dag */
 export function SlideHvorfor() {
   const eksempler: [string, IkonNavn][] = [
@@ -295,7 +178,7 @@ export function SlideHvorfor() {
             color: "var(--burgundy-2)",
           }}
         >
-          You used four data platforms before you got here
+          Data platforms are everywhere
         </div>
       </Box>
       <Reveal at={eksempler.length + 1}>
@@ -360,112 +243,60 @@ export function SlideDataflyt() {
 
 /* Slide 12 – Arkitekturfiguren (detaljert, inkl. governance-laget) */
 export function SlideArkitektur() {
-  return (
-    <Box box={[20, 42, 1240, 636]}>
-      <DataplattformFlytDetaljert />
-    </Box>
-  );
-}
-
-/* Slide 13 – Essensen i én setning */
-export function SlideSamleData() {
-  const linje2 = useRevealStyle(1);
+  const linjer: [string, string, string][] = [
+    ["RAW", "Never deleted", "var(--teal)"],
+    ["Transforms", "In source control", "var(--burgundy)"],
+    ["Version history", "Of every transform", "var(--red)"],
+  ];
   return (
     <>
-      <Box box={[140, 70, 1000, 170]}>
-        <Verbrekke />
+      <Box box={[20, 42, 1240, 636]}>
+        <DataplattformFlytDetaljert />
       </Box>
-      <Box box={[48.4, 300, 1183.1, 184.2]}>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(50),
-            lineHeight: 1.2,
-            textAlign: "center",
-          }}
-        >
-          <div style={{ color: "var(--burgundy)" }}>
-            Store, transform, deliver
-          </div>
-          <div style={{ color: "var(--red)", ...linje2 }}>
-            Govern the whole pipe
-          </div>
-        </div>
-      </Box>
-    </>
-  );
-}
-
-/* Lakehouse: datasjø og varehus i ett */
-export function SlideLakehouseHva() {
-  const linje2 = useRevealStyle(1);
-  return (
-    <>
-      <Box box={[430, 48, 420, 170]}>
-        <Grunnmur />
-      </Box>
-      <Box box={[48.4, 267.9, 1183.1, 184.2]}>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(50),
-            lineHeight: 1.2,
-            textAlign: "center",
-          }}
-        >
-          <div style={{ color: "var(--burgundy)" }}>Lakehouse</div>
-          <div style={{ color: "var(--red)", ...linje2 }}>
-            Data lake + data warehouse
-          </div>
-        </div>
-      </Box>
-      <Reveal at={2}>
+      <Reveal at={1}>
         <Box
-          box={[802, 520, 650.3, 50.4]}
-          style={{
-            transform: "rotate(-5.24deg)",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
+          box={[0, 0, 1280, 720]}
+          style={{ background: "var(--cream)" }}
+        />
+        <Box box={[66, 70, 1100, 70]}>
           <div
             style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: pt(16),
-              color: "var(--red)",
+              fontFamily: "var(--font-serif)",
+              fontSize: pt(36),
+              color: "var(--burgundy)",
             }}
           >
-            store and serve, in one place
+            Raw is archived. Transforms are in git.
           </div>
         </Box>
+        <Box box={[780, 150, 440, 380]}>
+          <ArkivOgGit />
+        </Box>
+        {linjer.map(([stor, liten, farge], i) => (
+          <Box key={stor} box={[90, 200 + i * 130, 640, 110]}>
+            <div
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: pt(36),
+                lineHeight: 1.1,
+                color: farge,
+              }}
+            >
+              {stor}
+            </div>
+            <div
+              style={{
+                marginTop: 8,
+                fontFamily: "var(--font-sans)",
+                fontSize: pt(20),
+                color: "var(--burgundy-2)",
+              }}
+            >
+              {liten}
+            </div>
+          </Box>
+        ))}
       </Reveal>
-    </>
-  );
-}
-
-/* Pipelines som kjører uten et menneske i loopen */
-export function SlideAutomatisertePipelines() {
-  const linje2 = useRevealStyle(1);
-  return (
-    <>
-      <Box box={[430, 48, 420, 150]}>
-        <Automatikk />
-      </Box>
-      <Box box={[48.4, 267.9, 1183.1, 184.2]}>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(50),
-            lineHeight: 1.2,
-            textAlign: "center",
-          }}
-        >
-          <div style={{ color: "var(--burgundy)" }}>Automated pipelines</div>
-          <div style={{ color: "var(--red)", ...linje2 }}>
-            Jobs that run without a person in the loop
-          </div>
-        </div>
-      </Box>
     </>
   );
 }
@@ -478,11 +309,14 @@ export function SlideMerEnnVarehus() {
     "Rapid iterations",
   ];
   const platform = [
-    ["Governance", "Audit logging"],
-    ["Data discoverability", "Pipelines"],
-    ["Developer UIs", "Code execution"],
-    ["Compute", "AI"],
-    ["AI models"],
+    "Governance",
+    "Audit logging",
+    "Discoverability",
+    "Pipelines",
+    "Developer UIs",
+    "Code execution",
+    "Compute",
+    "AI models",
   ];
   const p1 = useRevealStyle(1);
   const p2 = useRevealStyle(2);
@@ -490,31 +324,33 @@ export function SlideMerEnnVarehus() {
   const vis = [p1, p2, p3];
   return (
     <>
-      <Box
-        box={[66, 70, 680, 360]}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          gap: 28,
-        }}
-      >
+      <Box box={[66, 52, 700, 70]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(40),
+            fontSize: pt(36),
             lineHeight: 1.15,
             color: "var(--burgundy)",
           }}
         >
           Is it just a database?
         </div>
+      </Box>
+      <Box
+        box={[66, 148, 680, 168]}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          gap: 20,
+        }}
+      >
         {lakehouse.map((tekst, i) => (
           <div
             key={tekst}
             style={{
               fontFamily: "var(--font-serif)",
-              fontSize: pt(28),
+              fontSize: pt(26),
               lineHeight: 1.15,
               color: "var(--red)",
               ...vis[i],
@@ -526,42 +362,74 @@ export function SlideMerEnnVarehus() {
       </Box>
       <Reveal at={4}>
         <Box
-          box={[66, 428, 540, 168]}
+          box={[66, 340, 640, 1]}
+          style={{ background: "var(--divider)" }}
+        />
+        <Box box={[66, 360, 680, 28]}>
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontWeight: 600,
+              fontSize: pt(12),
+              letterSpacing: 2.2,
+              color: "#9a5068",
+            }}
+          >
+            THE REST OF THE BUILDING
+          </div>
+        </Box>
+        <Box
+          box={[66, 396, 680, 132]}
           style={{
             display: "grid",
-            gridTemplateColumns: "270px 220px",
-            columnGap: 32,
-            rowGap: 8,
+            gridTemplateColumns: "1fr 1fr",
+            columnGap: 28,
+            rowGap: 16,
             alignContent: "start",
           }}
         >
-          {platform.flatMap((rad) =>
-            rad.map((tekst) => (
+          {platform.map((tekst) => (
+            <div
+              key={tekst}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+              }}
+            >
               <div
-                key={tekst}
                 style={{
-                  fontFamily: "var(--font-serif)",
-                  fontSize: pt(20),
+                  width: 6,
+                  height: 6,
+                  borderRadius: 99,
+                  background: "var(--teal)",
+                  flexShrink: 0,
+                }}
+              />
+              <div
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: pt(17),
                   lineHeight: 1.2,
-                  color: "var(--red)",
+                  color: "var(--burgundy-2)",
                 }}
               >
                 {tekst}
               </div>
-            ))
-          )}
+            </div>
+          ))}
         </Box>
       </Reveal>
       <Reveal at={5}>
         <Box
-          box={[66, 640, 540, 48]}
+          box={[66, 580, 680, 64]}
           style={{ display: "flex", alignItems: "center" }}
         >
           <div
             style={{
               fontFamily: "var(--font-serif)",
-              fontSize: pt(28),
-              lineHeight: 1.2,
+              fontSize: pt(34),
+              lineHeight: 1.15,
               color: "var(--burgundy)",
             }}
           >
@@ -569,7 +437,7 @@ export function SlideMerEnnVarehus() {
           </div>
         </Box>
       </Reveal>
-      <Box box={[790, 120, 440, 420]}>
+      <Box box={[760, 80, 460, 500]}>
         <VarehusVsPlattform />
       </Box>
     </>
@@ -674,24 +542,8 @@ export function SlideMerEnnVarehusSvar() {
   );
 }
 
-/* Slide 15 – Dataprodukt */
+/* Slide 15 – Dataprodukt: tittel og kjernen i ett */
 export function SlideDataprodukt() {
-  return (
-    <>
-      <Box box={[430, 60, 420, 150]}>
-        <Pakke />
-      </Box>
-      <ChapterSlide
-        title="Data product"
-        subtitle="Quality-assured, managed, documented. And with an owner who answers."
-        showLogo={false}
-      />
-    </>
-  );
-}
-
-/* Slide 15b – Dataproduktet er det plattformen leverer */
-export function SlideDataproduktKjerne() {
   const linje = useRevealStyle(1);
   return (
     <>
@@ -712,7 +564,7 @@ export function SlideDataproduktKjerne() {
             color: "var(--burgundy)",
           }}
         >
-          The core output
+          Data product
         </div>
         <div
           style={{
@@ -869,7 +721,7 @@ export function SlideDatakontraktHva() {
             color: "var(--burgundy)",
           }}
         >
-          Think API, but for data
+          Clear documentation of your data
         </div>
         <div
           style={{
@@ -977,7 +829,7 @@ export function SlideDatakontraktInnhold() {
   );
 }
 
-/* Datakontrakt: et API for data */
+/* Datakontrakt: clear documentation of your data */
 export function SlideDatakontrakt() {
   return (
     <Box box={[20, 42, 1240, 636]}>

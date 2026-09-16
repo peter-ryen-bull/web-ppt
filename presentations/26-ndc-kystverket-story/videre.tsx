@@ -147,7 +147,7 @@ export function SlideTakk() {
           </div>
         ))}
       </Box>
-      <Box box={[860, 100, 360, 100]}>
+      <Box box={[860, 80, 360, 80]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
@@ -165,15 +165,32 @@ export function SlideTakk() {
             color: "var(--burgundy-2)",
           }}
         >
-          Miles · peterbull.no
+          Miles
         </div>
       </Box>
       <Img
-        box={[860, 240, 300, 77]}
+        box={[860, 168, 220, 220]}
+        src={`${MEDIA}/peterbull-qr.svg`}
+        alt="QR code to peterbull.no"
+      />
+      <Box box={[860, 396, 220, 28]}>
+        <div
+          style={{
+            fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+            fontSize: pt(15),
+            color: "var(--teal)",
+            textAlign: "center",
+          }}
+        >
+          peterbull.no
+        </div>
+      </Box>
+      <Img
+        box={[860, 450, 300, 77]}
         src={`${MEDIA}/kystverket-logo.svg`}
         alt="Kystverket"
       />
-      <Img box={[860, 340, 95.4, 29.5]} src="/media/miles-logo.svg" alt="Miles" />
+      <Img box={[860, 545, 95.4, 29.5]} src="/media/miles-logo.svg" alt="Miles" />
       {/* Fyret fra åpningen, nederst til venstre under lenkene */}
       <Box box={[60, 530, 380, 181]}>
         <Fyr />

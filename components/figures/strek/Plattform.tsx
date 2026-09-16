@@ -234,31 +234,31 @@ export function VarehusVsPlattform() {
   return (
     <Figur w={420} h={400} label="A database locked to one schema, versus a platform you govern, compute and build on">
       {/* Databasen */}
-      <Sylinder x={146} y={18} w={128} h={140} />
-      <ellipse cx={210} cy={38.5} rx={64} ry={20.5} fill="none" stroke={TEAL} strokeWidth={2} opacity={0}>
+      <Sylinder x={146} y={8} w={128} h={140} />
+      <ellipse cx={210} cy={28.5} rx={64} ry={20.5} fill="none" stroke={TEAL} strokeWidth={2} opacity={0}>
         <Puls fra={0.15} til={0.85} dur={3.2} />
       </ellipse>
-      <Tekst x={210} y={184} size={13}>
+      <Tekst x={210} y={176} size={13}>
         schema · migrate
       </Tekst>
 
-      <path d="M 48 208 H 372" stroke="var(--cream-dark)" strokeWidth={1.5} strokeDasharray="2 7" />
+      <path d="M 48 198 H 372" stroke="var(--cream-dark)" strokeWidth={1.5} strokeDasharray="2 7" />
 
       {/* Plattformen */}
-      <rect x={36} y={292} width={348} height={10} rx={2} fill={TEAL} />
-      <path d="M 62 302 V 346 M 118 302 V 346 M 302 302 V 346 M 358 302 V 346" strokeWidth={2.2} />
+      <rect x={36} y={286} width={348} height={10} rx={2} fill={TEAL} />
+      <path d="M 62 296 V 340 M 118 296 V 340 M 302 296 V 340 M 358 296 V 340" strokeWidth={2.2} />
       {ting.map((navn, i) => {
         const x = 70 + i * 70;
         return (
           <g key={navn}>
-            <IkonI navn={navn} x={x - 18} y={228} size={36} color={TEAL} strokeWidth={1.8} />
-            <circle cx={x} cy={214} r={3.5} fill={ROD} stroke="none">
+            <IkonI navn={navn} x={x - 18} y={222} size={36} color={TEAL} strokeWidth={1.8} />
+            <circle cx={x} cy={208} r={3.5} fill={ROD} stroke="none">
               <Puls fra={0.2} til={1} dur={2.4} begin={i * 0.55} />
             </circle>
           </g>
         );
       })}
-      <Tekst x={210} y={380} size={13}>
+      <Tekst x={210} y={372} size={13}>
         govern · compute · execute
       </Tekst>
     </Figur>
