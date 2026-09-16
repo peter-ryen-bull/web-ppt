@@ -1,4 +1,7 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { useStep } from "@/components/steps";
 
 /*
  * Figur for dataprodukt – "show, don't tell":
@@ -6,10 +9,10 @@ import type { ReactNode } from "react";
  * Venstre: den ensomme tabellen – en parquet-fil dumpet i en bucket, med
  * ubesvarte spørsmål hengende rundt seg. Høyre: nøyaktig samme data pakket
  * som produkt, med dokumentasjon, eier, tester, ferskhet, kontrakt og
- * tilgang. Spørsmålene og produkt-egenskapene toner inn i rekkefølge slik
- * at kontrasten fortelles av figuren selv.
+ * tilgang. Spørsmålene og produkt-egenskapene avsløres med klikk-steg
+ * slik at kontrasten fortelles av figuren selv.
  *
- * Ren SVG (viewBox 1240x640) i Miles-paletten, animert med SMIL.
+ * Ren SVG (viewBox 1240x640) i Miles-paletten.
  */
 
 const W = 1240;
@@ -20,21 +23,17 @@ const SUB_FARGE = "#9a5068";
 const LINJE_FARGE = "rgba(69, 13, 32, 0.25)";
 const KREM_DUS = "rgba(251, 240, 229, 0.72)";
 
-/** Total looptid (sekunder) */
-const T = 14;
-
-/** Tone inn ved `at` sekunder, hold, ton ut helt på slutten av loopen */
-function Appear({ at }: { at: number }) {
-  const t1 = Math.max(0, (at - 0.15) / T);
-  const t2 = at / T;
+/** Viser innholdet først når klikk-steget `at` er nådd */
+function Steg({ at, children }: { at: number; children: ReactNode }) {
+  const step = useStep();
+  const shown = step >= at;
   return (
-    <animate
-      attributeName="opacity"
-      values="0;0;1;1;0"
-      keyTimes={`0;${t1.toFixed(4)};${t2.toFixed(4)};0.96;1`}
-      dur={`${T}s`}
-      repeatCount="indefinite"
-    />
+    <g
+      style={{ opacity: shown ? 1 : 0, transition: "opacity 300ms ease" }}
+      pointerEvents={shown ? undefined : "none"}
+    >
+      {children}
+    </g>
   );
 }
 
@@ -135,9 +134,9 @@ const RADER = [
 
 /** Spørsmålene som henger ubesvart rundt den ensomme tabellen */
 const SPORSMAL: { x: number; y: number; text: string; lineTo: [number, number]; at: number }[] = [
-  { x: 300, y: 116, text: "What do the fields mean?", lineTo: [290, 150], at: 1.2 },
-  { x: 92, y: 462, text: "How fresh is the data?", lineTo: [140, 402], at: 2.0 },
-  { x: 268, y: 512, text: "Who answers when something looks off?", lineTo: [330, 402], at: 2.8 },
+  { x: 300, y: 116, text: "What do the fields mean?", lineTo: [290, 150], at: 1 },
+  { x: 92, y: 462, text: "How fresh is the data?", lineTo: [140, 402], at: 2 },
+  { x: 268, y: 512, text: "Who answers when something looks off?", lineTo: [330, 402], at: 3 },
 ];
 
 /** Egenskapene som gjør tabellen til et produkt */
@@ -174,8 +173,7 @@ function Egenskap({
   at: number;
 }) {
   return (
-    <g opacity={0}>
-      <Appear at={at} />
+    <Steg at={at}>
       <rect
         x={x}
         y={y}
@@ -209,7 +207,7 @@ function Egenskap({
       <text x={x + 48} y={y + 43} fontFamily="var(--font-sans)" fontSize={11} fill={KREM_DUS}>
         {sub}
       </text>
-    </g>
+    </Steg>
   );
 }
 
@@ -284,8 +282,7 @@ export function DataproduktAnatomi() {
 
       {/* Ubesvarte spørsmål rundt tabellen */}
       {SPORSMAL.map((q) => (
-        <g key={q.text} opacity={0}>
-          <Appear at={q.at} />
+        <Steg key={q.text} at={q.at}>
           <path
             d={`M ${q.x + 8} ${q.y + (q.lineTo[1] > q.y ? 10 : -14)} L ${q.lineTo[0]} ${q.lineTo[1]}`}
             fill="none"
@@ -309,7 +306,7 @@ export function DataproduktAnatomi() {
           <text x={q.x + 18} y={q.y} fontFamily="var(--font-sans)" fontSize={14.5} fill="var(--red)">
             {q.text}
           </text>
-        </g>
+        </Steg>
       ))}
 
       <text x={255} y={560} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={SUB_FARGE}>
@@ -404,10 +401,10 @@ export function DataproduktAnatomi() {
 
       {/* Egenskapene som gjør det til et produkt */}
       {EGENSKAPER_VENSTRE.map((e, i) => (
-        <Egenskap key={e.title} x={650} y={380 + i * 70} w={250} at={5.8 + i * 0.4} {...e} />
+        <Egenskap key={e.title} x={650} y={380 + i * 70} w={250} at={8 + i} {...e} />
       ))}
       {EGENSKAPER.map((e, i) => (
-        <Egenskap key={e.title} x={920} y={195 + i * 77} w={250} at={4.2 + i * 0.4} {...e} />
+        <Egenskap key={e.title} x={920} y={195 + i * 77} w={250} at={4 + i} {...e} />
       ))}
 
       <text

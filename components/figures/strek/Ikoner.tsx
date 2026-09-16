@@ -25,6 +25,7 @@ export type IkonNavn =
   | "database"
   | "rotasjon"
   | "kontrakt"
+  | "pakke"
   | "bok"
   | "server"
   | "nokkel"
@@ -156,6 +157,13 @@ const IKONER: Record<IkonNavn, ReactNode> = {
       <path d="M6.5 3h7l4.5 4.5V21h-11.5z" />
       <path d="M13.5 3v4.5H18" />
       <path d="M9 14.5l2 2 4-4.5" />
+    </>
+  ),
+  pakke: (
+    <>
+      <path d="M3.5 8 12 3.5 20.5 8 12 12.5z" />
+      <path d="M3.5 8v9L12 21.5V12.5" />
+      <path d="M20.5 8v9L12 21.5" />
     </>
   ),
   bok: (

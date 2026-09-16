@@ -52,4 +52,5 @@ export {
   TreKataloger,
   Registerhull,
   Bunkring,
+  RisikoSektorer,
 } from "./Modeller";

@@ -74,12 +74,9 @@ export default function AudienceView({
         toggleFullscreen();
       }
     };
-    const onDblClick = () => toggleFullscreen();
     window.addEventListener("keydown", onKey);
-    window.addEventListener("dblclick", onDblClick);
     return () => {
       window.removeEventListener("keydown", onKey);
-      window.removeEventListener("dblclick", onDblClick);
     };
   }, [go]);
 
@@ -90,8 +87,7 @@ export default function AudienceView({
       </div>
       {hintVisible && (
         <div className={styles.hint}>
-          Dra vinduet til den delte skjermen · F eller dobbeltklikk for
-          fullskjerm
+          Dra vinduet til den delte skjermen · F for fullskjerm
         </div>
       )}
     </div>

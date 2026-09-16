@@ -601,3 +601,79 @@ export function Bunkring() {
     </Figur>
   );
 }
+
+/** KystRisk: eget skip, sektorer forover, andre skip og skjær, TTI per sektor */
+export function RisikoSektorer() {
+  const cx = 280;
+  const cy = 300;
+  const r = 200;
+  const toRad = (deg: number) => ((deg - 90) * Math.PI) / 180;
+  const at = (deg: number, rad: number): [number, number] => [
+    cx + rad * Math.cos(toRad(deg)),
+    cy + rad * Math.sin(toRad(deg)),
+  ];
+  const wedge = (a0: number, a1: number) => {
+    const [x0, y0] = at(a0, r);
+    const [x1, y1] = at(a1, r);
+    return `M ${cx} ${cy} L ${x0} ${y0} A ${r} ${r} 0 0 1 ${x1} ${y1} Z`;
+  };
+
+  const sektorer: {
+    a0: number;
+    a1: number;
+    tti: string;
+    fill: string;
+    stroke: string;
+  }[] = [
+    { a0: -70, a1: -42, tti: "24 min", fill: "rgba(0, 64, 71, 0.06)", stroke: TEAL },
+    { a0: -42, a1: -14, tti: "11 min", fill: "rgba(0, 64, 71, 0.10)", stroke: TEAL },
+    { a0: -14, a1: 14, tti: "2 min", fill: "rgba(255, 48, 59, 0.16)", stroke: ROD },
+    { a0: 14, a1: 42, tti: "5 min", fill: "rgba(255, 48, 59, 0.10)", stroke: ROD },
+    { a0: 42, a1: 70, tti: "18 min", fill: "rgba(0, 64, 71, 0.06)", stroke: TEAL },
+  ];
+
+  const [sx, sy] = at(0, 92);
+  const [rx, ry] = at(28, 100);
+
+  return (
+    <Figur w={560} h={400} label="Forward sectors from a ship, with time to impact to another ship and a skerry">
+      {sektorer.map((s) => (
+        <path key={s.tti} d={wedge(s.a0, s.a1)} fill={s.fill} stroke={s.stroke} strokeWidth={1.6} />
+      ))}
+
+      {sektorer.map((s) => {
+        const mid = (s.a0 + s.a1) / 2;
+        const [tx, ty] = at(mid, r + 18);
+        return (
+          <Tekst key={`t-${s.tti}`} x={tx} y={ty} size={13} weight={600} color={s.stroke}>
+            {s.tti}
+          </Tekst>
+        );
+      })}
+
+      <g transform={`translate(${sx} ${sy})`}>
+        <path d="M 0 -14 L -8 12 L 8 12 Z" fill={KREM} stroke={ROD} strokeWidth={2} />
+      </g>
+      <Tekst x={sx - 18} y={sy + 4} size={12} color={ROD} anchor="end">
+        ship
+      </Tekst>
+
+      <path
+        d={`M ${rx - 9} ${ry + 7} L ${rx - 1} ${ry - 9} L ${rx + 8} ${ry - 1} L ${rx + 11} ${ry + 8} L ${rx} ${ry + 10} Z`}
+        fill={KREM}
+        stroke={ROD}
+        strokeWidth={2}
+      />
+      <Tekst x={rx + 18} y={ry + 18} size={12} color={ROD} anchor="start">
+        skerry
+      </Tekst>
+
+      <path
+        d={`M ${cx} ${cy - 34} L ${cx - 15} ${cy + 24} Q ${cx} ${cy + 32} ${cx + 15} ${cy + 24} Z`}
+        fill={KREM}
+        strokeWidth={2.6}
+      />
+      <path d={`M ${cx} ${cy - 6} L ${cx} ${cy - 46}`} stroke={ROD} strokeWidth={2} />
+    </Figur>
+  );
+}
