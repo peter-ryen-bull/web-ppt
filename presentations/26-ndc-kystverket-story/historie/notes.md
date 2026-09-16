@@ -40,6 +40,15 @@ The radical part: separate WHAT you're asking from WHERE
 it's stored. SQL: say what you want, let the database figure out how.
 
 You are not asking a file directly, you are just asking give me this information from the table called customers.
+== 
+
+The database gave operations one shared memory
+.
+But it was built for operations – lots of small transactions – not analysis.
+Run a heavy report against the checkout system and the line grows.
+And with one system per function, the truth spread out again.
+
+“Memory isn't the same as insight.”
 
 ## databasen-speil – The database: solved, and a new problem
 
@@ -65,6 +74,14 @@ Banks were first – because money is data. Risk, fraud, profitability,
 and regulation all need a view across systems. They could also afford
 the “eye-watering”
 
+==
+
+Solved: one truth, history, decisions based on facts.
+New: expensive, slow (schema first – a new source took months),
+and it only understood rows and columns.
+
+Cliffhanger: “And then came the internet.”
+
 ## varehuset-speil – The warehouse: solved, and a new problem
 
 Solved: one truth, history, decisions based on facts.
@@ -86,7 +103,7 @@ GFS + MapReduce → Hadoop (2006, open source). Big data left Google.
 
 ## datasjoen – 2010 · The data lake
 
-James Dixon (Pentaho), 2010: the data mart is bottled water – cleaned,
+James Dixon (Pentaho), 2010: 
 packaged, for known questions. The lake is water in its natural state.
 
 The warehouse pre-aggregates and therefore LIMITS the questions.
