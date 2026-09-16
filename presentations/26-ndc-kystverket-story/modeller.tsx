@@ -4,6 +4,7 @@ import { Box, BulletItem, BulletList, ChapterSlide, Reveal, Video, pt, useReveal
 const MEDIA = "/media/26-ndc-kystverket";
 import {
   Bunkring,
+  HexHierarki,
   HexVsRute,
   Propell,
   Registerhull,
@@ -784,6 +785,7 @@ export function SlideMarTrafVideo() {
 /* Maritim utslippsmodell – MarU */
 export function SlideMarU() {
   const items = [
+    "Python and PySpark, computed on Databricks",
     "Main engine from the propeller law",
     "Around 330 input variables",
     "One ship registry, five sources, versioned",
