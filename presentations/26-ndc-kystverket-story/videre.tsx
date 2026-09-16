@@ -6,7 +6,6 @@ import {
   Fyr,
   Kompass,
   StrekIkon,
-  TreKataloger,
   type IkonNavn,
 } from "@/components/figures/strek";
 
@@ -230,7 +229,7 @@ export function SlideFlereDomener() {
     ["customs", "declarations and cargo", "skjema"],
     ["internal_hr_finance", "payroll and the ledger", "mynt"],
     ["lighthouse_predictive_maintenance", "sensors on the lights", "verktoy"],
-    ["and many more", "whatever Kystverket already collects", "deling"],
+    ["and many more", "", "deling"],
   ];
   const punchline = useRevealStyle(domener.length + 1);
   return (
@@ -287,16 +286,18 @@ export function SlideFlereDomener() {
                 >
                   {navn}
                 </div>
-                <div
-                  style={{
-                    marginTop: 6,
-                    fontFamily: "var(--font-sans)",
-                    fontSize: pt(15),
-                    color: "var(--red)",
-                  }}
-                >
-                  {sub}
-                </div>
+                {sub ? (
+                  <div
+                    style={{
+                      marginTop: 6,
+                      fontFamily: "var(--font-sans)",
+                      fontSize: pt(15),
+                      color: "var(--red)",
+                    }}
+                  >
+                    {sub}
+                  </div>
+                ) : null}
               </div>
             </div>
             {i < domener.length - 1 && (
@@ -324,86 +325,6 @@ export function SlideHvorViSkalHelhet() {
     <Box box={[0, 0, 1280, 720]}>
       <HelePlattformen />
     </Box>
-  );
-}
-
-/* Slide 26d – Det domenene gir oss: tydelig eierskap, kostnad og forvaltning */
-export function SlideDomeneEffekt() {
-  const punkter = [
-    ["Clear ownership", "the domain owns its data — and the contract"],
-    ["Clear cost center", "each database has its own bill"],
-    ["Clear stewardship", "who answers when something breaks"],
-  ];
-  const linje2 = useRevealStyle(punkter.length + 1);
-  return (
-    <>
-      <Box box={[53.7, 180, 540, 160]}>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(38),
-            lineHeight: 1.2,
-            color: "var(--burgundy-2)",
-          }}
-        >
-          One domain, one database
-        </div>
-        <div
-          style={{
-            marginTop: 22,
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(18),
-            lineHeight: 1.4,
-            color: "var(--red)",
-            ...linje2,
-          }}
-        >
-            and you still find the data products in one place
-        </div>
-      </Box>
-      <Reveal at={1}>
-        <Box box={[40, 480, 540, 180]}>
-          <TreKataloger />
-        </Box>
-      </Reveal>
-      {punkter.map(([tittel, sub], i) => (
-        <Reveal key={tittel} at={i + 1}>
-          <Box box={[628.2, 220 + i * 100, 582, 90]}>
-            <div
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: pt(28),
-                color: "var(--burgundy-2)",
-              }}
-            >
-              {tittel}
-            </div>
-            <div
-              style={{
-                marginTop: 6,
-                fontFamily: "var(--font-sans)",
-                fontSize: pt(15),
-                color: "var(--red)",
-              }}
-            >
-              {sub}
-            </div>
-            {i < punkter.length - 1 && (
-              <div
-                style={{
-                  position: "absolute",
-                  left: 2,
-                  top: 84,
-                  width: 582,
-                  height: 1.5,
-                  background: "var(--divider)",
-                }}
-              />
-            )}
-          </Box>
-        </Reveal>
-      ))}
-    </>
   );
 }
 

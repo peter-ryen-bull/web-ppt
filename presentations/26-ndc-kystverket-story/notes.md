@@ -1475,17 +1475,18 @@ that keep the coast lit. Send a boat out before a light goes dark.
 [[CLICK]] And many more. Things we already collect. Other agencies. Whatever
 comes next.
 
-[[CLICK]] So one shared bronze, silver, gold won't hold. Who owns what? Who
-pays? Who answers when something breaks? We need an architecture that
-scales. Shared data has to stay high quality. And people have to find it.
-That's the next picture. We'll build it one piece at a time.
+
+[[CLICK]] So we need an architecture that scales
+Where we have a clear separation of ownership. 
+Where shared data is well documented and reliable, so domains can build upon the data from each other.
 
 ## hvor-vi-skal-helhet – Where we're going: the whole picture
 
-Here's the whole thing. One slide. Don't read it, just point.
+So we are building a new data architecture. 
+
 
 [[CLICK]] Domains first. Customs, AIS, HR and finance, the lighthouses. Each
-with its own catalog, its own team, its own cost center, its own
+with its own database in databricks, its own team, its own cost center, its own
 stewardship.
 
 [[CLICK]] Sources. Each domain ingests its own. Customs has the declarations
@@ -1525,23 +1526,6 @@ rules.
 repo. It knows every product, who owns it, the schema, the quality checks,
 the version. Search "ais" and you get the products. Find it in the explorer.
 Read it from the catalog.
-
-## domene-effekt – Clear ownership, cost, and stewardship
-
-Three things we get with one domain, one database.
-
-[[CLICK]] Ownership. The domain owns its data and the contract that describes
-it. Not "IT."
-
-[[CLICK]] Cost center. Each database has its own storage and its own bill. We
-can actually answer what the customs data costs. That's rarer than you
-think.
-
-[[CLICK]] Stewardship. It's clear who answers when something breaks, and who
-has to give notice when the contract changes.
-
-[[CLICK]] And for consumers, nothing changes. You still find the data products
-in one place.
 
 ## videre-liste – What we want to achieve
 

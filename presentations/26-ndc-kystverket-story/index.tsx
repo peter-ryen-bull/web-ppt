@@ -103,7 +103,6 @@ import {
   SlideHvorViEr,
   SlideFlereDomener,
   SlideHvorViSkalHelhet,
-  SlideDomeneEffekt,
   SlideVidereListe,
   SlideTilbakeTilStad,
   SlideTakk,
@@ -589,12 +588,6 @@ const VEIEN_VIDERE: SlideDef[] = [
     name: "Where we're going: the whole picture",
     component: SlideHvorViSkalHelhet,
     steps: 9,
-  },
-  {
-    id: "domene-effekt",
-    name: "Clear ownership, cost, and stewardship",
-    component: SlideDomeneEffekt,
-    steps: 4,
   },
   {
     id: "videre-liste",
