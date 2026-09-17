@@ -432,7 +432,7 @@ function ProduktKatalog({
   h: number;
 }) {
   const cx = x + w / 2;
-  const tittelSize = 26;
+  const tittelSize = 20;
   const radH = 82;
   const radGap = 18;
   const radStart = 100;
@@ -441,18 +441,28 @@ function ProduktKatalog({
       <rect x={x} y={y} width={w} height={h} rx={20} fill="var(--teal)" />
       <text
         x={cx}
-        y={y + tittelSize * 1.7}
+        y={y + 28}
         textAnchor="middle"
         fontFamily="var(--font-serif)"
         fontSize={tittelSize}
         fill="var(--cream)"
       >
-        dataprodukter
+        kvalitetssikret
       </text>
-      <rect x={cx - 18} y={y + tittelSize * 1.7 + 13} width={36} height={3} rx={1.5} fill="var(--mint)" />
       <text
         x={cx}
-        y={y + tittelSize * 1.7 + 40}
+        y={y + 52}
+        textAnchor="middle"
+        fontFamily="var(--font-serif)"
+        fontSize={tittelSize}
+        fill="var(--cream)"
+      >
+        datagrunnlag
+      </text>
+      <rect x={cx - 18} y={y + 64} width={36} height={3} rx={1.5} fill="var(--mint)" />
+      <text
+        x={cx}
+        y={y + 88}
         textAnchor="middle"
         fontFamily="var(--font-sans)"
         fontSize={12.5}
@@ -599,7 +609,7 @@ export function HelePlattformen() {
         <Pill cx={H_KTR.x + H_KTR.w / 2} text="KONTRAKTER" w={120} />
       </Steg>
       <Steg at={5}>
-        <Pill cx={katMidtX} text="DATAPRODUKTER" w={160} />
+        <Pill cx={katMidtX} text="KVALITETSSIKRET DATAGRUNNLAG" w={260} />
       </Steg>
       <Steg at={6}>
         <Pill cx={H_KONS_X + H_KONS_W / 2} text="KONSUMENTER" w={130} />
