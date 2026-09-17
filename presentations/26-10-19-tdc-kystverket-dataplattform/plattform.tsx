@@ -45,7 +45,7 @@ export function SlideHvaEr() {
             width: "100%",
           }}
         >
-          Why is everyone building data platforms?
+          Hvorfor bygger alle dataplattform?
         </div>
       </Box>
       <Box
@@ -67,7 +67,7 @@ export function SlideHvaEr() {
             ...sitat,
           }}
         >
-          Data is becoming more and more valuable.
+          Data blir mer og mer verdifullt.
         </div>
       </Box>
     </>
@@ -81,14 +81,13 @@ export function SlideReidHoffman() {
     <QuotePage
       quote={
         <>
-          &ldquo;In the world of data, everything is measurable, and everything is
-          knowable.&rdquo;
+          «I dataenes verden er alt målbart, og alt kan vites.»
         </>
       }
       attribution="— Reid Hoffman"
       imageSrc={`${MEDIA}/reid-hoffman.jpg`}
       imageAlt="Reid Hoffman"
-      caption="Reid Hoffman. Co-founder of LinkedIn."
+      caption="Reid Hoffman. Medgründer av LinkedIn."
     >
       <Box box={[66, 470, 580, 140]}>
         <div
@@ -101,9 +100,9 @@ export function SlideReidHoffman() {
             ...pitch,
           }}
         >
-          You get a really large amount of data.
+          Du får enormt mye data.
           <br />
-          And it becomes a real mess if don&apos;t handle it properly.
+          Og det blir et skikkelig rot hvis du ikke håndterer det ordentlig.
         </div>
       </Box>
     </QuotePage>
@@ -113,14 +112,14 @@ export function SlideReidHoffman() {
 /* Dataplattformer i hverdagen: du brukte fire av dem i dag */
 export function SlideHvorfor() {
   const eksempler: [string, IkonNavn][] = [
-    ["The online store that suggests products", "handlekurv"],
-    ["The streaming service that gets it right", "spill"],
+    ["Nettbutikken som foreslår varer", "handlekurv"],
+    ["Strømmetjenesten som treffer", "spill"],
     [
-      "In your bank, fraud detection and anti-money laundering run on every transaction",
+      "I banken din kjører svindeldeteksjon og antihvitvasking på hver transaksjon",
       "skjold",
     ],
     [
-      "New roads planned from years of traffic data, forecasts, and noise calculations",
+      "Nye veier planlagt ut fra år med trafikkdata, prognoser og støyberegninger",
       "kart",
     ],
   ];
@@ -135,7 +134,7 @@ export function SlideHvorfor() {
             color: "var(--burgundy-2)",
           }}
         >
-          Data platforms are everywhere
+          Dataplattformer er overalt
         </div>
       </Box>
       <Reveal at={eksempler.length + 1}>
@@ -148,8 +147,8 @@ export function SlideHvorfor() {
               color: "var(--red)",
             }}
           >
-            Hundreds of terabytes of data — used to make the best decisions
-            from the most data. It&apos;s happening everywhere.
+            Hundrevis av terabyte med data, brukt til å ta de beste
+            beslutningene ut fra mest mulig data. Det skjer overalt.
           </div>
         </Box>
       </Reveal>
@@ -212,19 +211,19 @@ export function SlideArkitektur() {
 /* Slide 14 – Mer enn et datavarehus */
 export function SlideMerEnnVarehus() {
   const lakehouse = [
-    "Structured and unstructured",
-    "Rollbacks",
-    "Rapid iterations",
+    "Strukturert og ustrukturert",
+    "Tilbakerulling",
+    "Raske iterasjoner",
   ];
   const platform = [
     "Governance",
-    "Audit logging",
-    "Discoverability",
+    "Revisjonslogging",
+    "Gjenfinnbarhet",
     "Pipelines",
-    "Developer UIs",
-    "Code execution",
+    "Utviklerverktøy",
+    "Kodekjøring",
     "Compute",
-    "AI models",
+    "AI-modeller",
   ];
   const p1 = useRevealStyle(1);
   const p2 = useRevealStyle(2);
@@ -241,7 +240,7 @@ export function SlideMerEnnVarehus() {
             color: "var(--burgundy)",
           }}
         >
-          Is it just a database?
+          Er det bare en database?
         </div>
       </Box>
       <Box
@@ -283,7 +282,7 @@ export function SlideMerEnnVarehus() {
               color: "#9a5068",
             }}
           >
-            THE REST OF THE BUILDING
+            RESTEN AV BYGNINGEN
           </div>
         </Box>
         <Box
@@ -341,7 +340,7 @@ export function SlideMerEnnVarehus() {
               color: "var(--burgundy)",
             }}
           >
-            It&apos;s a platform.
+            Det er en plattform.
           </div>
         </Box>
       </Reveal>
@@ -359,28 +358,28 @@ const PLATTFORM_SKJERM: {
 }[] = [
   {
     src: `${MEDIA}/databricks-home.png`,
-    alt: "Databricks workspace home: catalogs, jobs, compute and discover in one menu",
-    caption: "Catalog. Compute. Jobs. Discover.",
+    alt: "Databricks-arbeidsflaten: kataloger, jobber, compute og utforsking i én meny",
+    caption: "Katalog. Compute. Jobber. Utforsk.",
   },
   {
     src: `${MEDIA}/databricks-jobs.png`,
-    alt: "Jobs and pipelines in the Databricks workspace",
-    caption: "Jobs that run.",
+    alt: "Jobber og pipelines i Databricks-arbeidsflaten",
+    caption: "Jobber som kjører.",
   },
   {
     src: `${MEDIA}/databricks-catalog.png`,
-    alt: "Catalog explorer open on a governed table",
-    caption: "A catalog you can open.",
+    alt: "Katalogutforskeren åpen på en forvaltet tabell",
+    caption: "En katalog du kan åpne.",
   },
   {
     src: `${MEDIA}/databricks-ai-chat.png`,
-    alt: "Databricks assistant: ask the platform about the data",
-    caption: "And then you ask.",
+    alt: "Databricks-assistenten: spør plattformen om dataene",
+    caption: "Og så spør du.",
   },
   {
     src: `${MEDIA}/databricks-trollfjord.png`,
-    alt: "Trollfjord track on a map and in a table, generated from a question",
-    caption: "And it answers.",
+    alt: "Trollfjords spor på kart og i tabell, generert fra et spørsmål",
+    caption: "Og den svarer.",
   },
 ];
 
@@ -441,11 +440,11 @@ export function SlideMerEnnVarehusKatalog() {
   );
 }
 
-/* How you structure data: the four ideas this section walks through */
+/* Hvordan du strukturerer data: de fire ideene denne delen går gjennom */
 const STRUKTUR: { label: string; ikon: IkonNavn }[] = [
-  { label: "Data product", ikon: "pakke" },
-  { label: "Data contract", ikon: "kontrakt" },
-  { label: "Data catalog", ikon: "bok" },
+  { label: "Dataprodukt", ikon: "pakke" },
+  { label: "Datakontrakt", ikon: "kontrakt" },
+  { label: "Datakatalog", ikon: "bok" },
   { label: "Governance", ikon: "skjold" },
 ];
 
@@ -461,7 +460,7 @@ export function SlideStrukturereData() {
             color: "var(--burgundy)",
           }}
         >
-          How do we architect the data to keep structure?
+          Hvordan strukturerer vi dataene for å holde orden?
         </div>
       </Box>
       <Box box={[66, 160, 1148, 70]}>
@@ -473,8 +472,8 @@ export function SlideStrukturereData() {
             color: "var(--red)",
           }}
         >
-          As data grows in volume and variety, we need structure and
-          flexibility.
+          Når data vokser i mengde og variasjon, trenger vi struktur og
+          fleksibilitet.
         </div>
       </Box>
       <BulletList
@@ -526,7 +525,7 @@ export function SlideDataprodukt() {
             color: "var(--burgundy)",
           }}
         >
-          Data product
+          Dataprodukt
         </div>
         <div
           style={{
@@ -536,9 +535,9 @@ export function SlideDataprodukt() {
             color: "var(--red)",
           }}
         >
-          A data platform exists
+          En dataplattform finnes
           <br />
-          to serve data products.
+          for å levere dataprodukter.
         </div>
         <div
           style={{
@@ -549,7 +548,7 @@ export function SlideDataprodukt() {
             ...linje,
           }}
         >
-          A product has users. Users have expectations.
+          Et produkt har brukere. Brukere har forventninger.
         </div>
       </Box>
       <Box box={[720, 170, 500, 380]}>
@@ -561,10 +560,10 @@ export function SlideDataprodukt() {
 
 /* Slide 15c – Hva som gjør et datasett til et produkt */
 const KJENNETEGN: { tittel: string; sub: string; ikon: IkonNavn }[] = [
-  { tittel: "A named owner", sub: "who answers, and can improve it", ikon: "person" },
-  { tittel: "Documentation", sub: "meaning, origin, and use", ikon: "bok" },
-  { tittel: "Quality guarantees", sub: "freshness, tests, a contract", ikon: "skjold" },
-  { tittel: "Known consumers", sub: "so a change can be announced", ikon: "deling" },
+  { tittel: "En navngitt eier", sub: "som svarer, og kan forbedre det", ikon: "person" },
+  { tittel: "Dokumentasjon", sub: "betydning, opphav og bruk", ikon: "bok" },
+  { tittel: "Kvalitetsgarantier", sub: "ferskhet, tester, en kontrakt", ikon: "skjold" },
+  { tittel: "Kjente konsumenter", sub: "så en endring kan varsles", ikon: "deling" },
 ];
 
 export function SlideDataproduktKjennetegn() {
@@ -578,7 +577,7 @@ export function SlideDataproduktKjennetegn() {
             color: "var(--burgundy)",
           }}
         >
-          What makes it a product
+          Hva som gjør det til et produkt
         </div>
       </Box>
       {KJENNETEGN.map((k, i) => {
@@ -628,7 +627,7 @@ export function SlideDataproduktKjennetegn() {
               color: "var(--red)",
             }}
           >
-            Not every dataset. The ones people lean on.
+            Ikke hvert datasett. De som folk er avhengige av.
           </div>
         </Box>
       </Reveal>
@@ -653,8 +652,8 @@ export function SlideDatakontraktKapittel() {
         <KontraktArk />
       </Box>
       <ChapterSlide
-        title="Data contract"
-        subtitle="An agreement between those who change a dataset and those who consume it."
+        title="Datakontrakt"
+        subtitle="En avtale mellom de som endrer et datasett og de som bruker det."
         showLogo={false}
       />
     </>
@@ -683,7 +682,7 @@ export function SlideDatakontraktHva() {
             color: "var(--burgundy)",
           }}
         >
-          Clear documentation of your data
+          Tydelig dokumentasjon av dataene dine
         </div>
         <div
           style={{
@@ -693,9 +692,9 @@ export function SlideDatakontraktHva() {
             color: "var(--red)",
           }}
         >
-          A human and machine readable document
+          Et dokument både mennesker og maskiner kan lese,
           <br />
-          that clears expectations both ways.
+          som avklarer forventninger begge veier.
         </div>
         <div
           style={{
@@ -706,8 +705,8 @@ export function SlideDatakontraktHva() {
             ...linje,
           }}
         >
-          The schema says speed is a number. The contract says zero to sixty
-          knots, fresher than five minutes, and who you wake up when it breaks.
+          Skjemaet sier at fart er et tall. Kontrakten sier null til seksti
+          knop, ferskere enn fem minutter, og hvem du vekker når det ryker.
         </div>
       </Box>
     </>
@@ -716,10 +715,10 @@ export function SlideDatakontraktHva() {
 
 /* Hva kontrakten inneholder */
 const KONTRAKT_FELT: { tittel: string; sub: string; ikon: IkonNavn }[] = [
-  { tittel: "Schema", sub: "fields, types, what's required", ikon: "skjema" },
-  { tittel: "Meaning", sub: "what the fields mean, where they come from", ikon: "bok" },
-  { tittel: "Validation rules", sub: "min, max, relationships, tests", ikon: "skjold" },
-  { tittel: "SLAs and governance", sub: "freshness, sensitivity, who owns it", ikon: "kontrakt" },
+  { tittel: "Skjema", sub: "felter, typer, hva som er påkrevd", ikon: "skjema" },
+  { tittel: "Betydning", sub: "hva feltene betyr, hvor de kommer fra", ikon: "bok" },
+  { tittel: "Valideringsregler", sub: "min, maks, relasjoner, tester", ikon: "skjold" },
+  { tittel: "SLA og governance", sub: "ferskhet, sensitivitet, hvem som eier det", ikon: "kontrakt" },
 ];
 
 export function SlideDatakontraktInnhold() {
@@ -733,7 +732,7 @@ export function SlideDatakontraktInnhold() {
             color: "var(--burgundy)",
           }}
         >
-          What&apos;s in a contract
+          Hva en kontrakt inneholder
         </div>
       </Box>
       {KONTRAKT_FELT.map((k, i) => {
@@ -783,7 +782,7 @@ export function SlideDatakontraktInnhold() {
               color: "var(--red)",
             }}
           >
-            Unlike a wiki page, this one is tested.
+            I motsetning til en wikiside blir denne testet.
           </div>
         </Box>
       </Reveal>
@@ -791,7 +790,7 @@ export function SlideDatakontraktInnhold() {
   );
 }
 
-/* Datakontrakt: clear documentation of your data */
+/* Datakontrakt: tydelig dokumentasjon av dataene dine */
 export function SlideDatakontrakt() {
   return (
     <Box box={[20, 42, 1240, 636]}>
@@ -817,8 +816,8 @@ export function SlideDatakatalog() {
         <KatalogKart />
       </Box>
       <ChapterSlide
-        title="Data catalog"
-        subtitle="The map your organization is missing."
+        title="Datakatalog"
+        subtitle="Kartet organisasjonen din mangler."
         showLogo={false}
       />
     </>
@@ -848,7 +847,7 @@ export function SlideDatakatalogHva() {
             color: "var(--burgundy)",
           }}
         >
-          What a catalog is
+          Hva en katalog er
         </div>
         <div
           style={{
@@ -858,7 +857,7 @@ export function SlideDatakatalogHva() {
             color: "var(--red)",
           }}
         >
-          An overview of the datasets in an organization.
+          En oversikt over datasettene i en organisasjon.
         </div>
         <div
           style={{
@@ -869,8 +868,8 @@ export function SlideDatakatalogHva() {
             ...linje1,
           }}
         >
-          Search, understand, and assess a dataset without asking around,
-          or digging through databases on your own.
+          Søk opp, forstå og vurder et datasett uten å spørre rundt,
+          eller grave gjennom databaser på egen hånd.
         </div>
         <div
           style={{
@@ -881,8 +880,8 @@ export function SlideDatakatalogHva() {
             ...linje2,
           }}
         >
-          The data stays in the source systems. The catalog describes it
-          and points to where it lives.
+          Dataene blir i kildesystemene. Katalogen beskriver dem
+          og peker på hvor de ligger.
         </div>
       </Box>
     </>
@@ -901,7 +900,7 @@ export function SlideDatakatalogDatahub() {
         <Img
           box={[0, 0, 1280, 720]}
           src={`${MEDIA}/datahub.png`}
-          alt="DataHub search: 141 datasets across Looker, dbt, Snowflake, Airflow and S3"
+          alt="DataHub-søk: 141 datasett på tvers av Looker, dbt, Snowflake, Airflow og S3"
           fit="cover"
         />
       </Box>
@@ -924,14 +923,14 @@ export function SlideDatakatalogDatahub() {
             ...caption,
           }}
         >
-          DataHub. Open source. Search across many systems, not just one cloud.
+          DataHub. Åpen kildekode. Søk på tvers av mange systemer, ikke bare én sky.
         </div>
       </Box>
     </>
   );
 }
 
-/* Slide 16 – Governance: who can see what, and how you prove it */
+/* Slide 16 – Governance: hvem som får se hva, og hvordan du beviser det */
 export function SlideGovernance() {
   return (
     <>
@@ -953,10 +952,10 @@ export function SlideGovernance() {
         size={28}
         gap={40}
         items={[
-          "User administration and permissions",
-          "PII masking",
-          "Audit logging",
-          "GDPR compliance",
+          "Brukeradministrasjon og tilganger",
+          "Maskering av persondata",
+          "Revisjonslogging",
+          "GDPR-etterlevelse",
         ]}
       />
     </>
@@ -970,19 +969,19 @@ const ROLLER: {
   tittel: string;
   sub: string;
 }[] = [
-  { at: 1, hvem: "plattform", tittel: "Platform", sub: "owns the foundation" },
+  { at: 1, hvem: "plattform", tittel: "Plattform", sub: "eier grunnmuren" },
   {
     at: 2,
     hvem: "byggere",
-    tittel: "Engineers and\nanalysts",
-    sub: "build on it",
+    tittel: "Utviklere og\nanalytikere",
+    sub: "bygger på den",
   },
-  { at: 3, hvem: "governance", tittel: "Governance", sub: "sets the guardrails" },
+  { at: 3, hvem: "governance", tittel: "Governance", sub: "setter rammene" },
   {
     at: 4,
     hvem: "konsumenter",
-    tittel: "BI and\nconsumers",
-    sub: "use what comes out",
+    tittel: "BI og\nkonsumenter",
+    sub: "bruker det som kommer ut",
   },
 ];
 
@@ -998,7 +997,7 @@ export function SlideRoller() {
             color: "var(--burgundy)",
           }}
         >
-          Clear roles
+          Tydelige roller
         </div>
       </Box>
       <Box box={[66, 100, 1148, 28]}>
@@ -1012,7 +1011,7 @@ export function SlideRoller() {
             transition: "opacity 260ms ease",
           }}
         >
-          ROLES BEFORE TECHNOLOGY
+          ROLLER FØR TEKNOLOGI
         </div>
       </Box>
 
@@ -1103,7 +1102,7 @@ export function SlideRoller() {
               textAlign: "center",
             }}
           >
-            Dataplatform-team
+            Dataplattform-team
           </div>
         </Box>
       </Reveal>
@@ -1125,8 +1124,8 @@ export function SlideRoller() {
               textAlign: "center",
             }}
           >
-            From data being something IT handles, to being part of each
-            domain's own responsibility
+            Fra at data er noe IT tar seg av, til at det er en del av hvert
+            domenes eget ansvar
           </div>
         </Box>
       </Reveal>

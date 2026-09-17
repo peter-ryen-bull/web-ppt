@@ -130,11 +130,11 @@ function SpeilSlide({
             color: "var(--burgundy)",
           }}
         >
-          What it solved – and the new problem
+          Hva den løste – og det nye problemet
         </div>
       </Box>
-      {kolonne(60, "var(--teal)", "What it solved", loest)}
-      {kolonne(660, "var(--red)", "The new problem", nytt)}
+      {kolonne(60, "var(--teal)", "Dette løste den", loest)}
+      {kolonne(660, "var(--red)", "Det nye problemet", nytt)}
       {bunn && (
         <Box
           box={[60, 616, 1160, 60]}
@@ -162,8 +162,8 @@ function SpeilSlide({
 export function SlideForside() {
   return (
     <ChapterSlide
-      title="The story of the data platform"
-      subtitle="50 years of the same problem: turning data into decisions"
+      title="Historien om dataplattformen"
+      subtitle="50 år med samme problem: å gjøre data om til beslutninger"
       titleSize={60}
       showLogo={false}
     />
@@ -173,7 +173,7 @@ export function SlideForside() {
 /* 2 – Tidslinjen */
 export function SlideTidslinje() {
   return (
-    <FigurSlide tittel="Five phases – one problem">
+    <FigurSlide tittel="Fem faser – ett problem">
       <TidslinjeFigur />
     </FigurSlide>
   );
@@ -183,7 +183,7 @@ export function SlideTidslinje() {
 
 export function SlideRelasjonsmodellen() {
   return (
-    <FigurSlide kicker="1970 · The database" tittel="Codd: separate the question from the storage">
+    <FigurSlide kicker="1970 · Databasen" tittel="Codd: skill spørsmålet fra lagringen">
       <RelasjonsFigur />
     </FigurSlide>
   );
@@ -193,16 +193,16 @@ export function SlideRelasjonsmodellen() {
 export function SlideDatabasenSpeil() {
   return (
     <SpeilSlide
-      kicker="1970 · The database"
+      kicker="1970 · Databasen"
       loest={[
-        "One shared, consistent memory for the business",
-        "Transactions with guarantees – operations could trust the data",
-        "Questions without programming navigation: SQL",
+        "Én delt, konsistent hukommelse for virksomheten",
+        "Transaksjoner med garantier – driften kunne stole på dataene",
+        "Spørsmål uten å programmere navigasjon: SQL",
       ]}
       nytt={[
-        "Built for operations, not analysis – heavy queries brought the checkout to its knees",
-        "One system per function: the truth spread out across many databases again",
-        "Management still couldn't get answers across systems",
+        "Bygget for drift, ikke analyse – tunge spørringer satte kassa på kne",
+        "Ett system per funksjon: sannheten spredte seg igjen utover mange databaser",
+        "Ledelsen fikk fortsatt ikke svar på tvers av systemene",
       ]}
     />
   );
@@ -212,7 +212,7 @@ export function SlideDatabasenSpeil() {
 
 export function SlideVarehuset() {
   return (
-    <FigurSlide kicker="1988 · The data warehouse" tittel="One integrated warehouse – separate from operations">
+    <FigurSlide kicker="1988 · Datavarehuset" tittel="Ett integrert varehus – adskilt fra driften">
       <VarehusFigur />
     </FigurSlide>
   );
@@ -221,18 +221,18 @@ export function SlideVarehuset() {
 export function SlideVarehusetSpeil() {
   return (
     <SpeilSlide
-      kicker="1988 · The data warehouse"
+      kicker="1988 · Datavarehuset"
       loest={[
-        "One integrated truth across the systems",
-        "History: development over time, not just the current snapshot",
-        "Analysis without threatening operations – decisions based on facts",
+        "Én integrert sannhet på tvers av systemene",
+        "Historikk: utvikling over tid, ikke bare nå-bildet",
+        "Analyse uten å true driften – beslutninger på fakta",
       ]}
       nytt={[
-        "Expensive: specialized hardware and long projects",
-        "Slow to change: schema first, a new source took months – IT became the bottleneck",
-        "Only structured data: rows and columns, not logs, text, and images",
+        "Dyrt: spesialisert maskinvare og lange prosjekter",
+        "Tregt å endre: skjema først, ny kilde tok måneder – IT ble flaskehals",
+        "Bare strukturerte data: rader og kolonner, ikke logger, tekst og bilder",
       ]}
-      bunn="And then came the internet – and made all three problems acute."
+      bunn="Og så kom internett – og gjorde alle tre problemene akutte."
     />
   );
 }
@@ -241,7 +241,7 @@ export function SlideVarehusetSpeil() {
 
 export function SlideRegnestykket() {
   return (
-    <FigurSlide kicker="2006 · Big data" tittel="Google's answer: distribute everything">
+    <FigurSlide kicker="2006 · Stordata" tittel="Googles svar: distribuer alt">
       <RegnestykkeFigur />
     </FigurSlide>
   );
@@ -250,7 +250,7 @@ export function SlideRegnestykket() {
 /* 14 – Datasjøen */
 export function SlideDatasjoen() {
   return (
-    <FigurSlide kicker="2010 · The data lake" tittel="Store everything – raw">
+    <FigurSlide kicker="2010 · Datasjøen" tittel="Lagre alt – rått">
       <SjoFigur />
     </FigurSlide>
   );
@@ -260,18 +260,18 @@ export function SlideDatasjoen() {
 export function SlideSjoenSpeil() {
   return (
     <SpeilSlide
-      kicker="2006–2010 · Big data and the data lake"
+      kicker="2006–2010 · Stordata og datasjøen"
       loest={[
-        "The scale: store and process everything, cheaply, on ordinary hardware",
-        "All formats – logs, text, images, clickstreams",
-        "Machine learning got the raw data it needed",
+        "Skalaen: lagre og prosessere alt, billig, på vanlig maskinvare",
+        "Alle formater – logger, tekst, bilder, klikkstrømmer",
+        "Maskinlæring fikk rådataene den trengte",
       ]}
       nytt={[
-        "The data swamp: without a catalog, ownership, and metadata, the lake became a landfill",
-        "Complexity: Hadoop needed specialists – the SQL people were left outside",
-        "Two parallel worlds: warehouse for BI, lake for ML – duplicate copies, double the bill",
+        "Datasumpa: uten katalog, eierskap og metadata ble sjøen en fylling",
+        "Kompleksitet: Hadoop krevde spesialister – SQL-folket sto utenfor",
+        "To parallelle verdener: varehus for BI, sjø for ML – doble kopier, dobbel regning",
       ]}
-      bunn="A lake becomes a swamp when findability fails – not when data quality does."
+      bunn="En sjø blir en sump når gjenfinnbarheten svikter – ikke når datakvaliteten gjør det."
     />
   );
 }
@@ -280,7 +280,7 @@ export function SlideSjoenSpeil() {
 
 export function SlideSkyen() {
   return (
-    <FigurSlide kicker="2012 · The cloud" tittel="Separate storage and compute">
+    <FigurSlide kicker="2012 · Skyen" tittel="Skill lagring fra regnekraft">
       <SkyFigur />
     </FigurSlide>
   );
@@ -289,7 +289,7 @@ export function SlideSkyen() {
 /* 18 – Konvergensen */
 export function SlideLakehouse() {
   return (
-    <FigurSlide kicker="2020 · The lakehouse" tittel="Two tracks meet – and become the data platform">
+    <FigurSlide kicker="2020 · Lakehouse" tittel="To spor møtes – og blir dataplattformen">
       <KonvergensFigur />
     </FigurSlide>
   );
@@ -299,20 +299,20 @@ export function SlideLakehouse() {
 
 const MEDIA = "/media/26-ndc-kystverket";
 
-/* Portrait: Tim Berners-Lee 2023, Dr. Frank Gaeth, CC BY 4.0, Wikimedia Commons */
+/* Portrett: Tim Berners-Lee 2023, Dr. Frank Gaeth, CC BY 4.0, Wikimedia Commons */
 export function SlideAvslutning() {
   return (
     <QuotePage
       quote={
         <>
-          &ldquo;Data is a precious thing and will last longer than the systems
-          themselves.&rdquo;
+          «Data er noe verdifullt, og de vil vare lenger enn systemene
+          selv.»
         </>
       }
       attribution="— Tim Berners-Lee"
       imageSrc={`${MEDIA}/tim-berners-lee.jpg`}
       imageAlt="Tim Berners-Lee"
-      caption="Tim Berners-Lee. Inventor of the World Wide Web."
+      caption="Tim Berners-Lee. Oppfinneren av World Wide Web."
     />
   );
 }

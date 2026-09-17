@@ -27,7 +27,7 @@ import { IkonI, type IkonNavn } from "./Ikoner";
 /** Hus på en grunnmur – grunnmuren er dataplattformen */
 export function Grunnmur() {
   return (
-    <Figur w={420} h={170} label="A house standing on a foundation">
+    <Figur w={420} h={170} label="Et hus som står på en grunnmur">
       <path d="M 40 150 H 380" strokeWidth={2} opacity={0.5} />
 
       {/* Huset */}
@@ -44,7 +44,7 @@ export function Grunnmur() {
         <Puls fra={0} til={0.9} dur={3.4} />
       </rect>
       <Tekst x={210} y={140} size={11} color={MINT} weight={600}>
-        DATA PLATFORM
+        DATAPLATTFORM
       </Tekst>
     </Figur>
   );
@@ -76,7 +76,7 @@ export function SiloTilPlattform() {
     "M 150 96 C 100 40 220 40 150 30",
   ];
   return (
-    <Figur w={W} h={H} label="Three separate databases tangled together, becoming one shared platform">
+    <Figur w={W} h={H} label="Tre separate databaser floket sammen, som blir én felles plattform">
       {/* Siloene */}
       <Sylinder x={40} y={40} />
       <Sylinder x={128} y={40} />
@@ -89,7 +89,7 @@ export function SiloTilPlattform() {
         </path>
       ))}
       <Tekst x={150} y={128} size={12}>
-        every team its own truth
+        hvert team sin egen sannhet
       </Tekst>
 
       {/* Pilen ned */}
@@ -104,7 +104,7 @@ export function SiloTilPlattform() {
       <path d="M 100 246 H 132 M 168 246 H 200" stroke={TEAL} strokeWidth={2} />
       <rect x={30} y={290} width={240} height={10} rx={3} fill={TEAL} stroke="none" />
       <Tekst x={150} y={322} size={12}>
-        one shared platform
+        én felles plattform
       </Tekst>
     </Figur>
   );
@@ -113,10 +113,10 @@ export function SiloTilPlattform() {
 /** Verbrekka: hente inn → lagre → transformere → dele, med styring som lag under hele røret */
 export function Verbrekke() {
   const steg: { navn: IkonNavn; tekst: string }[] = [
-    { navn: "innboks", tekst: "ingest" },
-    { navn: "database", tekst: "store" },
-    { navn: "rotasjon", tekst: "transform" },
-    { navn: "deling", tekst: "share" },
+    { navn: "innboks", tekst: "hente inn" },
+    { navn: "database", tekst: "lagre" },
+    { navn: "rotasjon", tekst: "transformere" },
+    { navn: "deling", tekst: "dele" },
   ];
   const first = 125;
   const gap = 250;
@@ -126,7 +126,7 @@ export function Verbrekke() {
     <Figur
       w={1000}
       h={168}
-      label="Ingest, store, transform and share, with govern as a layer under the whole pipeline"
+      label="Hente inn, lagre, transformere og dele, med styring som lag under hele pipelinen"
     >
       {steg.map((s, i) => {
         const cx = first + i * gap;
@@ -150,7 +150,7 @@ export function Verbrekke() {
       <rect x={barX} y={108} width={barW} height={10} rx={3} fill={TEAL} stroke="none" />
       <IkonI navn="skjold" x={430} y={124} size={26} color={TEAL} strokeWidth={1.8} />
       <Tekst x={500} y={144} size={16} color={STREK}>
-        govern
+        styre
       </Tekst>
     </Figur>
   );
@@ -161,7 +161,7 @@ export function BolkOgStrom() {
   const T = 8;
   const blokker = [116, 134, 152, 170];
   return (
-    <Figur w={420} h={150} label="Batch: chunks at fixed intervals. Streaming: a steady stream.">
+    <Figur w={420} h={150} label="Batch: bolker med faste intervaller. Streaming: en jevn strøm.">
       <defs>
         <clipPath id="bolk-strom-clip">
           <rect x={232} y={20} width={176} height={110} />
@@ -232,14 +232,14 @@ export function BolkOgStrom() {
 export function VarehusVsPlattform() {
   const ting: IkonNavn[] = ["skjold", "bok", "server", "kode", "gnist"];
   return (
-    <Figur w={420} h={400} label="A database locked to one schema, versus a platform you govern, compute and build on">
+    <Figur w={420} h={400} label="En database låst til ett skjema, mot en plattform du styrer, regner og bygger på">
       {/* Databasen */}
       <Sylinder x={146} y={8} w={128} h={140} />
       <ellipse cx={210} cy={28.5} rx={64} ry={20.5} fill="none" stroke={TEAL} strokeWidth={2} opacity={0}>
         <Puls fra={0.15} til={0.85} dur={3.2} />
       </ellipse>
       <Tekst x={210} y={176} size={13}>
-        schema · migrate
+        skjema · migrere
       </Tekst>
 
       <path d="M 48 198 H 372" stroke="var(--cream-dark)" strokeWidth={1.5} strokeDasharray="2 7" />
@@ -259,7 +259,7 @@ export function VarehusVsPlattform() {
         );
       })}
       <Tekst x={210} y={372} size={13}>
-        govern · compute · execute
+        styre · regne · kjøre
       </Tekst>
     </Figur>
   );
@@ -281,19 +281,19 @@ function MiniPakke({ x, y }: { x: number; y: number }) {
 
 /** Plattformen som en boks: det som kommer ut er dataprodukter */
 export function PlattformProdukter() {
-  const produkter = ["AIS tracks", "vessels", "emissions"];
+  const produkter = ["AIS-spor", "fartøy", "utslipp"];
   return (
     <Figur
       w={460}
       h={340}
-      label="A data platform with data products coming out the other side"
+      label="En dataplattform med dataprodukter som kommer ut på den andre siden"
     >
       <rect x={16} y={70} width={176} height={200} rx={18} fill={TEAL} />
       <Tekst x={104} y={158} size={14} color={MINT} weight={600}>
         DATA
       </Tekst>
       <Tekst x={104} y={180} size={14} color={MINT} weight={600}>
-        PLATFORM
+        PLATTFORM
       </Tekst>
 
       <path
@@ -323,7 +323,7 @@ export function PlattformProdukter() {
 /** Dataproduktet som en pakke: merket, forseglet og med kvalitetsstempel */
 export function Pakke() {
   return (
-    <Figur w={420} h={150} label="A package with a label and a quality stamp">
+    <Figur w={420} h={150} label="En pakke med merkelapp og kvalitetsstempel">
       <path d="M 150 60 L 180 36 H 280 L 250 60 Z" fill={KREM} />
       <path d="M 250 60 L 280 36 V 106 L 250 130 Z" fill={KREM} />
       <rect x={150} y={60} width={100} height={70} fill={KREM} />
@@ -346,7 +346,7 @@ export function Pakke() {
 /** Datakontrakten som et merket dokument */
 export function KontraktArk() {
   return (
-    <Figur w={420} h={150} label="A signed document with a quality stamp">
+    <Figur w={420} h={150} label="Et signert dokument med kvalitetsstempel">
       <rect x={150} y={18} width={120} height={118} rx={8} fill={KREM} />
       <path d="M 168 48 H 252 M 168 68 H 252 M 168 88 H 228" strokeWidth={2} opacity={0.55} />
       <circle cx={246} cy={112} r={14} fill={KREM} stroke={ROD} strokeWidth={2} />
@@ -358,7 +358,7 @@ export function KontraktArk() {
 /** Katalogen som kartet organisasjonen mangler */
 export function KatalogKart() {
   return (
-    <Figur w={420} h={150} label="A folded map with a pin in the middle">
+    <Figur w={420} h={150} label="Et brettet kart med en nål i midten">
       <path d="M 130 38 L 186 50 L 242 36 L 298 50 V 128 L 242 114 L 186 128 L 130 114 Z" fill={KREM} />
       <path d="M 186 50 V 128 M 242 36 V 114" strokeWidth={1.8} opacity={0.45} />
       <path d="M 214 58 C 214 48 226 48 226 58 C 226 70 220 78 220 78 S 214 70 214 58" fill={KREM} stroke={ROD} strokeWidth={2} />
@@ -370,11 +370,11 @@ export function KatalogKart() {
 /** Kontrakt og katalog – governance etter at eierskap er dekket i dataprodukt */
 export function GovernanceTrio() {
   const deler: { navn: IkonNavn; tekst: string }[] = [
-    { navn: "kontrakt", tekst: "contract" },
-    { navn: "bok", tekst: "catalog" },
+    { navn: "kontrakt", tekst: "kontrakt" },
+    { navn: "bok", tekst: "katalog" },
   ];
   return (
-    <Figur w={500} h={130} label="Data contract and data catalog">
+    <Figur w={500} h={130} label="Datakontrakt og datakatalog">
       {deler.map((d, i) => {
         const cx = 160 + i * 180;
         return (
@@ -404,7 +404,7 @@ export function TeknikkVsOrganisasjon() {
   const pil = (d: string) => <path d={d} stroke={ROD} strokeWidth={2.2} />;
 
   return (
-    <Figur w={800} h={200} label="Gears turning, and three people pointing in different directions">
+    <Figur w={800} h={200} label="Tannhjul som går rundt, og tre personer som peker i ulike retninger">
       {/* Teknikken */}
       <Roter cx={150} cy={104} dur={16}>
         <path d={tannhjul(150, 104, 46, 10)} fill={KREM} />
@@ -417,7 +417,7 @@ export function TeknikkVsOrganisasjon() {
       <circle cx={262} cy={134} r={14} fill={KREM} stroke={TEAL} strokeWidth={2} />
       <path d="M 255.5 134 l 4.5 4.5 L 269 129.5" stroke={TEAL} strokeWidth={2.4} />
       <Tekst x={190} y={186} size={12.5}>
-        the tech keeps turning
+        teknikken går rundt
       </Tekst>
 
       <path d="M 400 30 V 170" stroke="var(--cream-dark)" strokeWidth={1.5} strokeDasharray="2 7" />
@@ -436,7 +436,7 @@ export function TeknikkVsOrganisasjon() {
         {pil("M 704 50 H 736 M 728 42 L 736 50 L 728 58")}
       </Sving>
       <Tekst x={610} y={186} size={12.5} color={DUS}>
-        the people pull in different directions
+        folkene drar i ulike retninger
       </Tekst>
     </Figur>
   );
@@ -490,10 +490,10 @@ function Nettbrett({ x, y }: { x: number; y: number }) {
 }
 
 const ROLLE_LABEL: Record<RolleHvem, string> = {
-  plattform: "The platform team that owns the foundation",
-  byggere: "Engineers and analysts building on the platform",
-  governance: "Governance setting the guardrails",
-  konsumenter: "BI and consumers using what comes out",
+  plattform: "Plattformteamet som eier grunnmuren",
+  byggere: "Utviklere og analytikere som bygger på plattformen",
+  governance: "Governance som setter rammene",
+  konsumenter: "BI og konsumenter som bruker det som kommer ut",
 };
 
 /** Én rolle som strekfigurer – brukes fire ganger på «Tydelige roller»-sliden */
@@ -579,7 +579,7 @@ export function ArkivOgGit() {
     <Figur
       w={420}
       h={360}
-      label="A vault of raw data that is never deleted, and a git commit spine for the transforms"
+      label="Et hvelv med rådata som aldri slettes, og en git-ryggrad av commits for transformasjonene"
     >
       {/* Hvelvet */}
       <rect x={28} y={58} width={168} height={214} rx={18} fill={KREM} />
@@ -597,7 +597,7 @@ export function ArkivOgGit() {
         RAW
       </Tekst>
       <Tekst x={112} y={322} size={11}>
-        never deleted
+        slettes aldri
       </Tekst>
 
       {/* Git-ryggraden */}

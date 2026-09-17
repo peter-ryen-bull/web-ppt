@@ -13,8 +13,8 @@ export function SlideEffekter() {
   return (
     <>
       <ChapterSlide
-        title="What do you get out of it?"
-        subtitle="Four effects, with examples from the coastline"
+        title="Hva får du igjen?"
+        subtitle="Fire effekter, med eksempler fra kysten"
         showLogo={false}
       />
       <Box box={[140, 60, 1000, 150]}>
@@ -108,9 +108,9 @@ export function SlideEffektKvalitet() {
   return (
     <Effekt
       nummer="1"
-      etikett="Data quality"
-      paastand="Data you can trust"
-      eksempel="Data that is tested, quality assured and updated."
+      etikett="Datakvalitet"
+      paastand="Data du kan stole på"
+      eksempel="Data som er testet, kvalitetssikret og oppdatert."
       figur={<SkjoldHake />}
     />
   );
@@ -120,9 +120,9 @@ export function SlideEffektEtterlevelse() {
   return (
     <Effekt
       nummer="2"
-      etikett="Compliance"
-      paastand="Built-in compliance"
-      eksempel="Audit logs. PII masking."
+      etikett="Etterlevelse"
+      paastand="Innebygd etterlevelse"
+      eksempel="Auditlogger. Maskering av persondata."
       figur={<Hengelas />}
     />
   );
@@ -132,9 +132,9 @@ export function SlideEffektEffektivitet() {
   return (
     <Effekt
       nummer="3"
-      etikett="Self-service"
-      paastand="Self-service data"
-      eksempel="Chat with your data. Order it yourself."
+      etikett="Selvbetjening"
+      paastand="Selvbetjente data"
+      eksempel="Snakk med dataene dine. Bestill dem selv."
       figur={<Automatikk />}
     />
   );
@@ -144,9 +144,9 @@ export function SlideEffektFremtid() {
   return (
     <Effekt
       nummer="4"
-      etikett="Future-ready"
-      paastand="AI where the data already lives"
-      eksempel="The model runs where the data already lives. Integrated in your pipelines."
+      etikett="Fremtidsrettet"
+      paastand="KI der dataene allerede bor"
+      eksempel="Modellen kjører der dataene allerede bor. Integrert i pipelinene dine."
       figur={<BrikkeMedGnist />}
     />
   );

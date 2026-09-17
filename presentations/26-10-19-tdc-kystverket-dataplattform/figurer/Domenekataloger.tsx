@@ -161,16 +161,16 @@ export function IkonView() {
  * ===================================================================== */
 
 const LAG: { navn: string; farge: string; sub: string; tabeller: string[] }[] = [
-  { navn: "bronze", farge: BRONSE, sub: "raw AIS messages – as they arrived", tabeller: ["ais_raw"] },
-  { navn: "silver", farge: SOLV, sub: "cleaned, deduplicated and enriched", tabeller: ["ais_clean", "ships"] },
-  { navn: "gold", farge: GULL, sub: "tracks, voyages and emissions – ready to use", tabeller: ["ais_tracks", "voyages", "emissions"] },
+  { navn: "bronze", farge: BRONSE, sub: "rå AIS-meldinger – som de kom inn", tabeller: ["ais_raw"] },
+  { navn: "silver", farge: SOLV, sub: "vasket, deduplisert og beriket", tabeller: ["ais_clean", "ships"] },
+  { navn: "gold", farge: GULL, sub: "tracks, seilaser og utslipp – klare til bruk", tabeller: ["ais_tracks", "voyages", "emissions"] },
 ];
 
 const PRODUKTER_IDAG: { navn: string; sub: string }[] = [
-  { navn: "AIS tracks", sub: "positions and tracks" },
-  { navn: "MarTraf", sub: "voyages port to port" },
-  { navn: "MarU", sub: "emissions per AIS point" },
-  { navn: "HAIS", sub: "historical extracts" },
+  { navn: "AIS-tracks", sub: "posisjoner og spor" },
+  { navn: "MarTraf", sub: "seilaser havn til havn" },
+  { navn: "MarU", sub: "utslipp per AIS-punkt" },
+  { navn: "HAIS", sub: "historiske uttrekk" },
 ];
 
 function TabellChips({ tekster, hoyre, y }: { tekster: string[]; hoyre: number; y: number }) {
@@ -200,10 +200,10 @@ export function HvorViEr() {
       viewBox={`0 0 ${W} ${H}`}
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="Today: AIS data through bronze, silver and gold, with data products out of gold"
+      aria-label="I dag: AIS-data gjennom bronze, silver og gold, med dataprodukter ut av gold"
     >
       <PilDefs id="pil-idag" />
-      <Pill cx={620} text="TODAY – ONE SOURCE, ONE CATALOG STRUCTURE" w={520} />
+      <Pill cx={620} text="I DAG – ÉN KILDE, ÉN KATALOGSTRUKTUR" w={520} />
 
       {/* Kilden */}
       <g transform="translate(30 280)">
@@ -222,10 +222,10 @@ export function HvorViEr() {
           AIS
         </text>
         <text x={62} y={68} fontFamily="var(--font-sans)" fontSize={12.5} fill={SUB_FARGE}>
-          100 million rows/day
+          100 millioner rader/dag
         </text>
         <text x={62} y={86} fontFamily="var(--font-sans)" fontSize={12.5} fill={SUB_FARGE}>
-          one domain, one source
+          ett domene, én kilde
         </text>
       </g>
       <Pil d="M 268 335 H 315" marker="pil-idag" />
@@ -237,7 +237,7 @@ export function HvorViEr() {
       </text>
       <rect x={587} y={142} width={36} height={3} rx={1.5} fill="var(--mint)" />
       <text x={605} y={166} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={KREM_DUS}>
-        three databases – one domain
+        tre databaser – ett domene
       </text>
 
       {LAG.map((lag, i) => {
@@ -271,7 +271,7 @@ export function HvorViEr() {
           letterSpacing={1.5}
           fill={SUB_FARGE}
         >
-          DATA PRODUCTS
+          DATAPRODUKTER
         </text>
         {PRODUKTER_IDAG.map((p, i) => {
           const y = 360 + i * 56;
@@ -291,7 +291,7 @@ export function HvorViEr() {
 
       <Steg at={2}>
         <text x={620} y={612} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={15.5} fill="var(--red)">
-          Works fine for one domain. AIS is only the first.
+          Fungerer fint for ett domene. AIS er bare det første.
         </text>
       </Steg>
     </svg>
@@ -411,7 +411,7 @@ function DomeneKort({
         fontSize={11}
         fill={KREM_DUS}
       >
-        own team · own cost center · own stewardship
+        eget team · eget kostnadssenter · eget ansvar
       </text>
     </g>
   );
@@ -461,12 +461,12 @@ export function HvorViSkal() {
       viewBox={`0 0 ${W} ${H}`}
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="Where we're going: domain catalogs on the left, a data contract pushed to a central repo that automatically becomes a view in the data products catalog"
+      aria-label="Dit vi skal: domenekataloger til venstre, en datakontrakt som pushes til et sentralt repo og automatisk blir et view i dataprodukt-katalogen"
     >
       <PilDefs id="pil-skal" />
-      <Pill cx={230} text="DOMAIN CATALOGS" w={200} />
-      <Pill cx={635} text="DATA CONTRACT" w={170} />
-      <Pill cx={1030} text="CENTRAL CATALOG" w={200} />
+      <Pill cx={230} text="DOMENEKATALOGER" w={200} />
+      <Pill cx={635} text="DATAKONTRAKT" w={170} />
+      <Pill cx={1030} text="SENTRAL KATALOG" w={200} />
 
       {/* Domenene – én katalog hver */}
       {DOMENER.map((d, i) => (
@@ -539,7 +539,7 @@ export function HvorViSkal() {
             kystverket/data-contracts
           </text>
           <text x={54} y={55} fontFamily="var(--font-sans)" fontSize={11.5} fill={KREM_DUS}>
-            central repo · PR and CI checks
+            sentralt repo · PR og CI-sjekker
           </text>
         </g>
       </Steg>
@@ -556,16 +556,16 @@ export function HvorViSkal() {
           fill="var(--red)"
           transform="rotate(-90 806 330)"
         >
-          automatic – CI creates the view
+          automatisk – CI oppretter view
         </text>
 
         <rect x={860} y={70} width={340} height={482} rx={20} fill="var(--teal)" />
         <text x={1030} y={118} textAnchor="middle" fontFamily="var(--font-serif)" fontSize={28} fill="var(--cream)">
-          data products
+          dataprodukter
         </text>
         <rect x={1012} y={131} width={36} height={3} rx={1.5} fill="var(--mint)" />
         <text x={1030} y={158} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={KREM_DUS}>
-          consumable quality data
+          kvalitetsdata, klare til bruk
         </text>
         <ViewRad {...VIEWS[0]} y={185} ny />
       </Steg>
@@ -594,7 +594,7 @@ export function HvorViSkal() {
 
       <Steg at={5}>
         <text x={620} y={612} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={15.5} fill="var(--red)">
-          One contract, one pull request, one view – the domain shares without copying data
+          Én kontrakt, én pull request, ett view – domenet deler uten å kopiere data
         </text>
       </Steg>
     </svg>

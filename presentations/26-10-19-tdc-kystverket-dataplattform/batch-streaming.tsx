@@ -5,7 +5,7 @@ import { BatchVsStreamingFigur } from "./figurer/BatchVsStreaming";
 export function SlideBatchStreamingKapittel() {
   return (
     <ChapterSlide
-      title="How a data platform works"
+      title="Slik fungerer en dataplattform"
       titleSize={54}
       showLogo={false}
     />
@@ -79,7 +79,7 @@ function ValgKort({
             color: "#9a5068",
           }}
         >
-          works when …
+          passer når …
         </span>
       </div>
       <div style={{ marginTop: 30, display: "grid", gap: 22 }}>
@@ -104,7 +104,7 @@ export function SlideBatchStreamingValg() {
             color: "var(--burgundy)",
           }}
         >
-          When do you pick which?
+          Når velger du hva?
         </div>
       </Box>
       <ValgKort
@@ -112,9 +112,9 @@ export function SlideBatchStreamingValg() {
         tittel="BATCH"
         fraSteg={1}
         punkter={[
-          "reports and historical analysis",
-          "big volumes at low cost",
-          "sources that deliver in chunks anyway, like nightly exports",
+          "rapporter og historiske analyser",
+          "store volumer til lav kostnad",
+          "kilder som uansett leverer i bolker, som nattlige eksporter",
         ]}
       />
       <ValgKort
@@ -122,9 +122,9 @@ export function SlideBatchStreamingValg() {
         tittel="STREAMING"
         fraSteg={4}
         punkter={[
-          "real-time needs – monitoring and alerting",
-          "event-driven automation",
-          "when freshness matters more than cost",
+          "sanntidsbehov: overvåkning og varsling",
+          "hendelsesdrevet automatisering",
+          "når ferskhet er viktigere enn kostnad",
         ]}
       />
       <Reveal at={7}>
@@ -144,8 +144,8 @@ export function SlideBatchStreamingValg() {
               textAlign: "center",
             }}
           >
-            In practice you usually need both. Start with batch, and add
-            streaming where fresh data actually changes something.
+            I praksis trenger du som regel begge. Start med batch, og legg til
+            streaming der ferske data faktisk endrer noe.
           </div>
         </Box>
       </Reveal>

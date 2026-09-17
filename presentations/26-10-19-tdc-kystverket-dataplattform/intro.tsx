@@ -30,7 +30,7 @@ export function SlideScene() {
             ...linje1,
           }}
         >
-          The time is 03:14.
+          Klokka er 03:14.
         </div>
         <div
           style={{
@@ -41,7 +41,7 @@ export function SlideScene() {
             ...linje2,
           }}
         >
-          The sea off Stad. February. A gale from the northwest.
+          Stadhavet. Februar. Nordvest kuling.
         </div>
         <div
           style={{
@@ -52,7 +52,7 @@ export function SlideScene() {
             ...linje3,
           }}
         >
-          A cargo ship heading north at nine knots.
+          Et lasteskip går nordover i ni knop.
         </div>
       </Box>
       <Box box={[430, 520, 420, 170]}>
@@ -107,7 +107,7 @@ export function SlideSignal() {
             color: "var(--burgundy)",
           }}
         >
-          Every ten seconds, the ship says:
+          Hvert tiende sekund sier skipet:
         </div>
       </Box>
       <Reveal at={1}>
@@ -120,10 +120,10 @@ export function SlideSignal() {
             padding: "22px 30px",
           }}
         >
-          {rad("WHO", "MMSI 257 123 000")}
-          {rad("WHERE", "62.19° N  5.08° E")}
-          {rad("HOW FAST", "9.2 knots")}
-          {rad("HEADING", "021°")}
+          {rad("HVEM", "MMSI 257 123 000")}
+          {rad("HVOR", "62,19° N  5,08° Ø")}
+          {rad("HVOR FORT", "9,2 knop")}
+          {rad("KURS", "021°")}
           {rad("STATUS", "under way using engine")}
         </Box>
       </Reveal>
@@ -142,7 +142,7 @@ export function SlideNais() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={`${MEDIA}/nais.png`}
-          alt="NAIS – real-time map of ship traffic along the Norwegian coast"
+          alt="NAIS – sanntidskart over skipstrafikken langs norskekysten"
           style={{
             width: "100%",
             height: "100%",
@@ -167,7 +167,7 @@ export function SlideNais() {
               color: "var(--red)",
             }}
           >
-            nais.kystverket.no. Open to everyone.
+            nais.kystverket.no. Åpent for alle.
           </div>
         </Box>
       </Reveal>
@@ -195,7 +195,7 @@ export function SlideHundreMillioner() {
             whiteSpace: "nowrap",
           }}
         >
-          100,000,000
+          100 000 000
         </div>
       </Box>
       <Reveal at={1}>
@@ -215,7 +215,7 @@ export function SlideHundreMillioner() {
               textAlign: "center",
             }}
           >
-            messages like that. Every single day.
+            slike meldinger. Hver eneste dag.
           </div>
         </Box>
       </Reveal>
@@ -251,10 +251,10 @@ export function SlideForside() {
             color: "var(--burgundy)",
           }}
         >
-          100 million rows a day
+          100 millioner rader om dagen
           <br />
           <span style={{ color: "var(--red)" }}>
-            The story of the data platform behind the coastline
+            Historien om dataplattformen bak kysten
           </span>
         </div>
       </Box>
@@ -320,13 +320,13 @@ export function SlideOmPeter() {
       <FotoOverlay
         at={5}
         src={`${MEDIA}/peter-bratt.jpg`}
-        alt="Ski touring down a steep line above the coast"
+        alt="Skikjøring ned en bratt linje over kysten"
         position="center 70%"
       />
       <FotoOverlay
         at={6}
         src={`${MEDIA}/hanna-peter.jpg`}
-        alt="Peter carrying Hanna on his shoulder in the mountains"
+        alt="Peter med Hanna på skulderen på fjellet"
         position="center 45%"
       />
       <Box box={[66.7, 140, 580, 80]}>
@@ -349,13 +349,13 @@ export function SlideOmPeter() {
         }}
       >
         <BulletItem at={1}>
-          Designs data platforms for large organizations
+          Designer dataplattformer for store organisasjoner
         </BulletItem>
         <BulletItem at={2}>
-          Previously tech lead for the data platform for the Norwegian Police
+          Tidligere tech lead for dataplattformen i politiet
         </BulletItem>
         <BulletItem at={3}>Azure, Databricks, Terraform</BulletItem>
-        <BulletItem at={4}>Rock climber and backcountry skiier</BulletItem>
+        <BulletItem at={4}>Klatrer og toppturskiløper</BulletItem>
       </Box>
     </>
   );

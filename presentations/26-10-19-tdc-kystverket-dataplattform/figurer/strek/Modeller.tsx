@@ -38,7 +38,7 @@ export function Seilas() {
     </g>
   );
   return (
-    <Figur w={340} h={120} label="Voyage from port to port with maneuvering and cruising">
+    <Figur w={340} h={120} label="Seilas fra havn til havn med manøvrering og cruising">
       <path d={ut} strokeDasharray="4 6" strokeWidth={2.2} />
       <path d={cruising} stroke={TEAL} strokeWidth={3} />
       <path d={inn} strokeDasharray="4 6" strokeWidth={2.2} />
@@ -61,7 +61,7 @@ export function Seilas() {
       </Tekst>
       <path d="M 186 110 h 18" strokeDasharray="4 5" strokeWidth={2.2} />
       <Tekst x={210} y={114} size={10.5} anchor="start">
-        maneuvering
+        manøvrering
       </Tekst>
     </Figur>
   );
@@ -85,7 +85,7 @@ export function HexRing() {
   }
   const [nx] = pos(1, 0);
   return (
-    <Figur w={300} h={140} label="Hexagon cells: one cell in the middle and the rings around it">
+    <Figur w={300} h={140} label="Sekskantceller: én celle i midten og ringene rundt">
       {celler.map(({ q, r, d }) => {
         const [x, y] = pos(q, r);
         if (d === 2) {
@@ -106,10 +106,10 @@ export function HexRing() {
       <circle cx={cx} cy={cy} r={2.2} fill={ROD} stroke="none" />
       <circle cx={nx} cy={cy} r={2.2} fill={ROD} stroke="none" />
       <Tekst x={252} y={66} size={11.5}>
-        one cell away
+        én celle unna
       </Tekst>
       <Tekst x={252} y={82} size={11.5} color={STREK} weight={600}>
-        ≈ 1,100 m
+        ≈ 1 100 m
       </Tekst>
     </Figur>
   );
@@ -198,7 +198,7 @@ export function HexHierarki() {
       R: 118,
       highlight: "parent",
       id: "801fffffffff",
-      res: "resolution 0",
+      res: "oppløsning 0",
       storrelse: "~1 100 km",
     },
     {
@@ -206,7 +206,7 @@ export function HexHierarki() {
       R: 92,
       highlight: "child",
       id: "882a100d2ffffff",
-      res: "resolution 8",
+      res: "oppløsning 8",
       storrelse: "~1 km",
     },
     {
@@ -214,7 +214,7 @@ export function HexHierarki() {
       R: 70,
       highlight: "center",
       id: "8c2a100d2cb4fff",
-      res: "resolution 15",
+      res: "oppløsning 15",
       storrelse: "~1 m",
     },
   ];
@@ -223,7 +223,7 @@ export function HexHierarki() {
     <Figur
       w={1120}
       h={360}
-      label="H3 hexes inside hexes at three resolutions, from about 1100 kilometres down to about one metre"
+      label="H3-sekskanter inni sekskanter i tre oppløsninger, fra rundt 1 100 kilometer ned til rundt én meter"
     >
       {kolonner.map((k) => (
         <g key={k.res}>
@@ -292,10 +292,10 @@ export function HexVsRute() {
           d
         </Tekst>
         <Tekst x={cx + s + 10} y={cy - s + 4} size={16} color={DUS}>
-          1.4·d
+          1,4·d
         </Tekst>
         <Tekst x={280} y={292} size={16} weight={600}>
-          8 neighbours, 2 distances
+          8 naboer, 2 avstander
         </Tekst>
       </g>
     );
@@ -343,14 +343,14 @@ export function HexVsRute() {
           d
         </Tekst>
         <Tekst x={840} y={292} size={16} weight={600}>
-          6 neighbours, 1 distance
+          6 naboer, 1 avstand
         </Tekst>
       </g>
     );
   };
 
   return (
-    <Figur w={1120} h={320} label="A square grid has two neighbour distances. A hex grid has one.">
+    <Figur w={1120} h={320} label="Et kvadratisk rutenett har to naboavstander. Et sekskantnett har én.">
       {kvadrat()}
       {hex()}
     </Figur>
@@ -369,7 +369,7 @@ export function Propell() {
     <Figur
       w={W}
       h={H}
-      label="Small boat with a spinning propeller sailing through water"
+      label="Liten båt med roterende propell som seiler gjennom vannet"
       style={{ overflow: "hidden" }}
     >
       <g>
@@ -458,7 +458,7 @@ export function Soyler({ at = 0 }: { at?: number }) {
   ];
   const base = 140;
   return (
-    <Figur w={560} h={180} label="Bars for CO₂, methane, NOx, SOx and particulate matter">
+    <Figur w={560} h={180} label="Søyler for CO₂, metan, NOx, SOx og svevestøv">
       <path d={`M 20 ${base} H 540`} strokeWidth={2} opacity={0.5} />
       {data.map((d, i) => {
         const cx = 70 + i * 110;
@@ -495,7 +495,7 @@ export function Kompass() {
   const cy = 78;
   const r = 56;
   return (
-    <Figur w={420} h={150} label="Compass with a swinging needle">
+    <Figur w={420} h={150} label="Kompass med nål som svinger">
       <circle cx={cx} cy={cy} r={r} fill={KREM} strokeWidth={3} />
       {[0, 45, 90, 135, 180, 225, 270, 315].map((g) => {
         const a = ((g - 90) * Math.PI) / 180;
@@ -525,12 +525,12 @@ export function Kompass() {
 /** Tre domenedatabaser – hver med sin eier, sin regning og sitt forvaltningsansvar */
 export function TreKataloger() {
   const kataloger: { navn: string; ikon: IkonNavn; tekst: string }[] = [
-    { navn: "customs", ikon: "person", tekst: "its own owner" },
-    { navn: "ais", ikon: "mynt", tekst: "its own bill" },
-    { navn: "hr", ikon: "verktoy", tekst: "its own stewardship" },
+    { navn: "customs", ikon: "person", tekst: "egen eier" },
+    { navn: "ais", ikon: "mynt", tekst: "egen regning" },
+    { navn: "hr", ikon: "verktoy", tekst: "eget forvaltningsansvar" },
   ];
   return (
-    <Figur w={540} h={180} label="Three databases, each with its own owner, its own bill and its own stewardship">
+    <Figur w={540} h={180} label="Tre databaser, hver med egen eier, egen regning og eget forvaltningsansvar">
       {kataloger.map((k, i) => {
         const x = 30 + i * 170;
         return (
@@ -559,7 +559,7 @@ export function TreKataloger() {
 export function Registerhull() {
   const W = 340;
   const H = 300;
-  const kol = ["type", "length", "speed", "rpm", "fuel"];
+  const kol = ["type", "lengde", "fart", "rpm", "drivstoff"];
   const x0 = 40;
   const y0 = 64;
   const cw = 52;
@@ -579,7 +579,7 @@ export function Registerhull() {
   const erHull = (r: number, c: number) => hull.some(([hr, hc]) => hr === r && hc === c);
 
   return (
-    <Figur w={W} h={H} label="A ship registry with holes that the model fills in, one cell at a time">
+    <Figur w={W} h={H} label="Et skipsregister med hull som modellen fyller, én celle om gangen">
       {/* Kolonneoverskrifter */}
       {kol.map((k, c) => (
         <Tekst key={k} x={x0 + c * cw + cw / 2} y={y0 - 10} size={11} weight={600}>
@@ -650,7 +650,7 @@ export function Registerhull() {
         </circle>
       </g>
       <Tekst x={150} y={290} size={12}>
-        medians and neural nets fill the holes
+        medianer og nevrale nett fyller hullene
       </Tekst>
     </Figur>
   );
@@ -688,14 +688,14 @@ export function Bunkring() {
   };
 
   return (
-    <Figur w={W} h={H} label="Ships bunkering on one side of the border and sailing to the other">
+    <Figur w={W} h={H} label="Skip som bunkrer på én side av grensa og seiler til den andre">
       {/* Grensa mellom norske farvann og utlandet */}
       <path d={`M ${grense} 24 V ${vann + 40}`} strokeDasharray="3 8" strokeWidth={2} opacity={0.6} />
       <Tekst x={grense - 12} y={22} size={12} anchor="end" weight={600}>
-        Norwegian waters
+        norske farvann
       </Tekst>
       <Tekst x={grense + 12} y={22} size={12} anchor="start" weight={600}>
-        abroad
+        utlandet
       </Tekst>
 
       {/* Kaia og pumpa på hver side */}
@@ -719,12 +719,12 @@ export function Bunkring() {
 
       {pil(52, 250, 68)}
       <Tekst x={150} y={56} size={11}>
-        bunkers here, sails out
+        bunkrer her, seiler ut
       </Tekst>
 
       {pil(308, 110, 116)}
       <Tekst x={210} y={138} size={11}>
-        bunkers abroad, sails here
+        bunkrer i utlandet, seiler hit
       </Tekst>
     </Figur>
   );
@@ -763,7 +763,7 @@ export function RisikoSektorer() {
   const [rx, ry] = at(28, 100);
 
   return (
-    <Figur w={560} h={400} label="Forward sectors from a ship, with time to impact to another ship and a skerry">
+    <Figur w={560} h={400} label="Sektorer forover fra et skip, med tid til treff mot et annet skip og et skjær">
       {sektorer.map((s) => (
         <path key={`${s.a0}-${s.a1}`} d={wedge(s.a0, s.a1)} fill={s.fill} stroke={s.stroke} strokeWidth={1.6} />
       ))}
@@ -772,7 +772,7 @@ export function RisikoSektorer() {
         <path d="M 0 -14 L -8 12 L 8 12 Z" fill={KREM} stroke={ROD} strokeWidth={2} />
       </g>
       <Tekst x={sx - 18} y={sy + 4} size={12} color={ROD} anchor="end">
-        ship
+        skip
       </Tekst>
 
       <path
@@ -782,7 +782,7 @@ export function RisikoSektorer() {
         strokeWidth={2}
       />
       <Tekst x={rx + 18} y={ry + 18} size={12} color={ROD} anchor="start">
-        skerry
+        skjær
       </Tekst>
 
       <path

@@ -68,9 +68,9 @@ export function SlideModeller() {
       <ChapterSlide
         title={
           <>
-            What products have we built
+            Hvilke produkter har vi bygget
             <br />
-            on top of this?
+            oppå dette?
           </>
         }
         titleSize={54}
@@ -132,8 +132,8 @@ export function SlideModellFlyt() {
 
   return (
     <>
-      <SlideTitle width={900}>One source, many data products</SlideTitle>
-      {box(1, [36, 292, 210, 136], "Raw AIS data", "static and dynamic messages")}
+      <SlideTitle width={900}>Én kilde, mange dataprodukter</SlideTitle>
+      {box(1, [36, 292, 210, 136], "AIS-rådata", "statiske og dynamiske meldinger")}
       <Reveal at={2}>
         <Box box={[246, 188, 104, 332]}>
           <svg width="104" height="332" viewBox="0 0 104 332" fill="none" aria-hidden>
@@ -142,7 +142,7 @@ export function SlideModellFlyt() {
           </svg>
         </Box>
       </Reveal>
-      {box(2, [350, 188, 250, 128], "HAIS", "historical extracts on demand")}
+      {box(2, [350, 188, 250, 128], "HAIS", "historiske uttrekk på bestilling")}
       <Reveal at={3}>
         <Box box={[246, 188, 104, 332]}>
           <svg width="104" height="332" viewBox="0 0 104 332" fill="none" aria-hidden>
@@ -151,7 +151,7 @@ export function SlideModellFlyt() {
           </svg>
         </Box>
       </Reveal>
-      {box(3, [350, 392, 250, 128], "MarTraf", "the traffic product – cleans and enriches")}
+      {box(3, [350, 392, 250, 128], "MarTraf", "trafikkproduktet – vasker og beriker")}
       <Reveal at={4}>
         <Box box={[600, 328, 160, 256]}>
           <svg width="160" height="256" viewBox="0 0 160 256" fill="none" aria-hidden>
@@ -168,8 +168,8 @@ export function SlideModellFlyt() {
           </svg>
         </Box>
       </Reveal>
-      {box(4, [760, 330, 480, 112], "MarU", "emissions – energy and climate accounts")}
-      {box(5, [760, 474, 480, 112], "KystRisk", "accident risk – collisions and groundings")}
+      {box(4, [760, 330, 480, 112], "MarU", "utslipp – energi og klimaregnskap")}
+      {box(5, [760, 474, 480, 112], "KystRisk", "ulykkesrisiko – kollisjoner og grunnstøtinger")}
     </>
   );
 }
@@ -240,7 +240,7 @@ export function SlideHais() {
 
   return (
     <>
-      <SlideTitle width={760}>HAIS: historical extracts on demand</SlideTitle>
+      <SlideTitle width={760}>HAIS: historiske uttrekk på bestilling</SlideTitle>
       <Box
         box={[860, 78, 354, 48]}
         style={{
@@ -274,7 +274,7 @@ export function SlideHais() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={`${MEDIA}/hais.png`}
-          alt="HAIS – order historical AIS extracts on hais.kystverket.no"
+          alt="HAIS – bestill historiske AIS-uttrekk på hais.kystverket.no"
           style={{
             width: "100%",
             height: "100%",
@@ -286,13 +286,13 @@ export function SlideHais() {
       {steg(
         1,
         90,
-        "Request",
-        "time range, area (WKT), ship type, or MMSI",
+        "Bestilling",
+        "tidsrom, område (WKT), skipstype eller MMSI",
       )}
       {pil(2, 384)}
-      {steg(2, 434, "Extract job", "reads through the history and filters")}
+      {steg(2, 434, "Uttrekksjobb", "leser gjennom historikken og filtrerer")}
       {pil(3, 728)}
-      {steg(3, 778, "Delivery", "GeoParquet or CSV by email")}
+      {steg(3, 778, "Levering", "GeoParquet eller CSV på e-post")}
     </>
   );
 }
@@ -300,16 +300,16 @@ export function SlideHais() {
 /* Følg ett skip: fra rå punkter til en seilas med faser */
 export function SlideFolgEttSkip() {
   const faser: [string, string, string][] = [
-    ["At berth", "Bergen, 22:40", "0 knots"],
-    ["Maneuvering", "out of Byfjorden", "≤ 3 knots"],
-    ["Cruising", "past Stad, 03:14", "9 knots"],
-    ["Anchoring", "waiting for a berth", "0.2 knots"],
-    ["At berth", "Ålesund, 09:15", "0 knots"],
+    ["Ved kai", "Bergen, 22:40", "0 knop"],
+    ["Manøvrering", "ut Byfjorden", "≤ 3 knop"],
+    ["Cruising", "forbi Stad, 03:14", "9 knop"],
+    ["Ankring", "venter på kaiplass", "0,2 knop"],
+    ["Ved kai", "Ålesund, 09:15", "0 knop"],
   ];
   const linje = useRevealStyle(1);
   return (
     <>
-      <SlideTitle width={760}>MarTraf – Maritime traffic model</SlideTitle>
+      <SlideTitle width={760}>MarTraf – Maritim trafikkmodell</SlideTitle>
       <Box box={[880, 36, 340, 120]}>
         <Seilas />
       </Box>
@@ -321,7 +321,7 @@ export function SlideFolgEttSkip() {
             color: "var(--red)",
           }}
         >
-          Follow one ship. 3,800 AIS points become one voyage, port to port
+          Følg ett skip. 3 800 AIS-punkter blir én seilas, havn til havn
         </div>
       </Box>
       <Box
@@ -382,7 +382,7 @@ export function SlideFolgEttSkip() {
               textAlign: "center",
             }}
           >
-            The phases turn noise into knowledge.
+            Fasene gjør støy til kunnskap.
           </div>
         </Box>
       </Reveal>
@@ -416,7 +416,7 @@ export function SlideAsukaHvem() {
             color: "var(--burgundy-2)",
           }}
         >
-          Who is Asuka?
+          Hvem er Asuka?
         </div>
       </Box>
       <Box
@@ -431,7 +431,7 @@ export function SlideAsukaHvem() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={`${MEDIA}/asuka-wikipedia.png`}
-          alt="Wikipedia article: Asuka (wrestler)"
+          alt="Wikipedia-artikkel: Asuka (fribryter)"
           style={{
             width: "100%",
             height: "100%",
@@ -462,21 +462,21 @@ export function SlideAsukaHvem() {
 export function SlidePropellloven() {
   const steg: { tittel: string; body: string }[] = [
     {
-      tittel: "Two AIS points give us the speed",
-      body: "Distance over time. That's how fast the ship is going.",
+      tittel: "To AIS-punkter gir oss farten",
+      body: "Avstand delt på tid. Så fort går skipet.",
     },
     {
-      tittel: "We know what kind of ship it is",
-      body: "The registry. Type, size, how it was built to sail.",
+      tittel: "Vi vet hva slags skip det er",
+      body: "Registeret. Type, størrelse, hvordan det er bygd for å seile.",
     },
     {
-      tittel: "Then we estimate what it burned",
-      body: "At this speed. Double the speed, eight times the power.",
+      tittel: "Så anslår vi hva det brente",
+      body: "Ved denne farten. Dobler du farten, åttedobler du effektbehovet.",
     },
   ];
   return (
     <>
-      <SlideTitle>MarU – maritime Emissions model</SlideTitle>
+      <SlideTitle>MarU – Maritim utslippsmodell</SlideTitle>
       <Box box={[880, 200, 360, 360]}>
         <Propell />
       </Box>
@@ -534,7 +534,7 @@ export function SlidePropellloven() {
               color: "var(--red)",
             }}
           >
-            Every AIS point becomes an emissions calculation.
+            Hvert AIS-punkt blir en utslippsberegning.
           </div>
         </Box>
       </Reveal>
@@ -603,7 +603,7 @@ export function SlideMathOpt() {
 
   return (
     <>
-      <SlideTitle>Mathematical optimizations</SlideTitle>
+      <SlideTitle>Matematiske optimaliseringer</SlideTitle>
       <Box box={[72.4, 150, 1136, 40]}>
         <div
           style={{
@@ -612,22 +612,22 @@ export function SlideMathOpt() {
             color: "var(--red)",
           }}
         >
-          Spatial analysis keeps asking two questions.
+          Romlig analyse stiller alltid to spørsmål.
         </div>
       </Box>
       {kort(
         0,
         80,
-        "CONTAINS",
-        "Is this point inside this area?",
-        "A port. A fish farm. The economic zone.",
+        "INNENFOR",
+        "Er dette punktet inni dette området?",
+        "En havn. Et oppdrettsanlegg. Økonomisk sone.",
       )}
       {kort(
         0,
         680,
-        "NEAR",
-        "Which points sit close to each other?",
-        "Near shore. Near a platform. Near our ship.",
+        "NÆR",
+        "Hvilke punkter ligger nær hverandre?",
+        "Nær land. Nær en plattform. Nær vårt skip.",
       )}
       <Reveal at={1}>
         <Box
@@ -647,8 +647,8 @@ export function SlideMathOpt() {
               textAlign: "center",
             }}
           >
-            Over billions of points, that becomes every point against every other
-            point.
+            Over milliarder av punkter blir det hvert punkt mot alle andre
+            punkter.
           </div>
         </Box>
       </Reveal>
@@ -670,7 +670,7 @@ export function SlideMathOpt() {
               textAlign: "center",
             }}
           >
-            So we group the points into hexes. Uber&apos;s H3.
+            Så vi grupperer punktene i heksagoner. Ubers H3.
           </div>
         </Box>
       </Reveal>
@@ -682,7 +682,7 @@ export function SlideMathOpt() {
 export function SlideH3Hexes() {
   return (
     <>
-      <SlideTitle>Hexes within hexes</SlideTitle>
+      <SlideTitle>Heksagoner inni heksagoner</SlideTitle>
       <Box box={[72.4, 150, 1136, 40]}>
         <div
           style={{
@@ -691,7 +691,7 @@ export function SlideH3Hexes() {
             color: "var(--red)",
           }}
         >
-          Uber&apos;s H3. Every hex has a unique id.
+          Ubers H3. Hvert heksagon har en unik id.
         </div>
       </Box>
       <Box box={[80, 196, 1120, 360]}>
@@ -715,7 +715,7 @@ export function SlideH3Hexes() {
               textAlign: "center",
             }}
           >
-            Sixteen resolutions. From huge hexes down to about one metre.
+            Seksten oppløsninger. Fra enorme heksagoner ned til rundt én meter.
           </div>
         </Box>
       </Reveal>
@@ -780,14 +780,14 @@ export function SlideHexJoin() {
 
   return (
     <>
-      <SlideTitle>A join on a number</SlideTitle>
-      {kort(0, 80, "GEOMETRY", "Point in polygon", [
-        "Math on every row",
-        "Fine for a thousand points",
+      <SlideTitle>En join på et tall</SlideTitle>
+      {kort(0, 80, "GEOMETRI", "Punkt i polygon", [
+        "Matematikk på hver rad",
+        "Greit for tusen punkter",
       ])}
-      {kort(1, 680, "H3", "A BIGINT already on the table", [
-        "A hash join. Then you can prune",
-        "Fine for a hundred million",
+      {kort(1, 680, "H3", "En BIGINT som alt ligger på tabellen", [
+        "En hash join. Så kan du prune",
+        "Greit for hundre millioner",
       ])}
       <Reveal at={1}>
         <Box
@@ -845,14 +845,14 @@ export function SlideMarTrafVideo() {
 /* Maritim utslippsmodell – MarU */
 export function SlideMarU() {
   const items = [
-    "Python and PySpark, computed on Databricks",
-    "Main engine from the propeller law",
-    "Around 330 input variables",
-    "One ship registry",
+    "Python og PySpark, beregnet på Databricks",
+    "Hovedmotor fra propellloven",
+    "Rundt 330 inputvariabler",
+    "Ett skipsregister",
   ];
   return (
     <>
-      <SlideTitle>The maritime emissions model – MarU</SlideTitle>
+      <SlideTitle>Maritim utslippsmodell – MarU</SlideTitle>
       <Box box={[72.4, 196, 1080, 40]}>
         <div
           style={{
@@ -861,7 +861,7 @@ export function SlideMarU() {
             color: "var(--red)",
           }}
         >
-          This is where the volume meets the method
+          Her møter volumet metoden
         </div>
       </Box>
       <BulletList
@@ -882,15 +882,15 @@ export function SlideMarU() {
 /* MarU – ML for å fylle hull i registerdata */
 export function SlideMarUHull() {
   const items = [
-    "The ship register we need to estimate emissions is full of holes",
-    "Medians cover the easy cases",
-    "Neural nets for speed, RPM, stroke",
-    "70% missing fuel type. We fill it.",
+    "Skipsregisteret vi trenger for å anslå utslipp er fullt av hull",
+    "Medianverdier dekker det enkleste",
+    "Nevrale nett for servicefart, turtall og slagtype",
+    "70 % mangler drivstofftype. Vi fyller det.",
   ];
   return (
     <>
       <SlideTitle height={90}>
-        Filling the missing ship register data with ML
+        Fyller hullene i skipsregisteret med ML
       </SlideTitle>
       <Box box={[900, 200, 320, 282]}>
         <Registerhull />
@@ -911,7 +911,7 @@ export function SlideMarUHull() {
               color: "var(--red)",
             }}
           >
-            The model is open. github.com/Kystverket/maru
+            Modellen er åpen. github.com/Kystverket/maru
           </div>
         </Box>
       </Reveal>
@@ -972,16 +972,16 @@ export function SlideMarUUt() {
     {
       text: (
         <>
-          CO₂, methane, NOx, SOx,
+          CO₂, metan, NOx, SOx,
           <br />
-          particulate matter
+          svevestøv
         </>
       ),
       box: [628, 176, 590, 112],
     },
-    { text: "14 ship types, 9 sizes", box: [628, 288, 590, 78] },
-    { text: "Municipality, county, sea area", box: [628, 366, 590, 78] },
-    { text: "Domestic, international, transit", box: [628, 444, 590, 78] },
+    { text: "14 skipstyper, 9 størrelser", box: [628, 288, 590, 78] },
+    { text: "Kommune, fylke, havområde", box: [628, 366, 590, 78] },
+    { text: "Innenriks, utenriks, gjennomfart", box: [628, 444, 590, 78] },
   ];
   return (
     <>
@@ -994,7 +994,7 @@ export function SlideMarUUt() {
             color: "var(--burgundy-2)",
           }}
         >
-          What comes out?
+          Hva kommer ut?
         </div>
         <div
           style={{
@@ -1005,7 +1005,7 @@ export function SlideMarUUt() {
             color: "var(--red)",
           }}
         >
-          Into the municipalities&apos; climate accounts
+          Inn i kommunenes klimaregnskap
         </div>
       </Box>
       <Reveal at={1}>
@@ -1031,7 +1031,7 @@ export function SlideMarUUt() {
 export function SlideMarUHvorfor() {
   return (
     <>
-      <SlideTitle>How was it done earlier?</SlideTitle>
+      <SlideTitle>Hvordan ble det gjort før?</SlideTitle>
       <Reveal at={2}>
         <Box box={[880, 210, 360, 260]}>
           <Bunkring />
@@ -1043,9 +1043,9 @@ export function SlideMarUHvorfor() {
         size={20}
         gap={32}
         items={[
-          "Traditionally: how much fuel was sold in Norway",
-          "Ships bunker abroad and sail here. The numbers don't match.",
-          "MarU uses observed activity.",
+          "Tradisjonelt: hvor mye drivstoff som ble solgt i Norge",
+          "Skip bunkrer i utlandet og seiler her. Tallene stemmer ikke.",
+          "MarU bruker observert aktivitet.",
         ]}
       />
     </>
@@ -1056,7 +1056,7 @@ export function SlideMarUHvorfor() {
 export function SlideKystRisk() {
   return (
     <>
-      <SlideTitle>The maritime risk model – KystRisk</SlideTitle>
+      <SlideTitle>Maritim risikomodell – KystRisk</SlideTitle>
       <Box box={[72.4, 196, 1080, 40]}>
         <div
           style={{
@@ -1065,7 +1065,7 @@ export function SlideKystRisk() {
             color: "var(--red)",
           }}
         >
-          Same voyages. A risk score. Every time sample.
+          Samme seilaser. En risikoscore. Hvert tidspunkt.
         </div>
       </Box>
       <BulletList
@@ -1074,9 +1074,9 @@ export function SlideKystRisk() {
         size={20}
         gap={32}
         items={[
-          "Each ship gets a score at every AIS point",
-          "Then we find the fjords where the risk stays too high",
-          "Redraw coastal maps. Give or deny ships permission to sail.",
+          "Hvert skip får en score i hvert AIS-punkt",
+          "Så finner vi fjordene der risikoen blir for høy",
+          "Tegne kystkart på nytt. Gi eller nekte skip seilingstillatelse.",
         ]}
       />
       <Reveal at={4}>
@@ -1088,7 +1088,7 @@ export function SlideKystRisk() {
               color: "var(--red)",
             }}
           >
-            Still in development. We expect to publish it by the end of the year.
+            Fortsatt under utvikling. Vi regner med å publisere den før nyttår.
           </div>
         </Box>
       </Reveal>
@@ -1109,9 +1109,9 @@ export function SlideKystRiskTti() {
             color: "var(--burgundy-2)",
           }}
         >
-          Kystrisk: What&apos;s the probability of impact?
+          KystRisk: Hva er sannsynligheten for å treffe?
           <br />
-          If you keep going, how long until you hit?
+          Holder du kursen, hvor lenge til du treffer?
         </div>
       </Box>
       <Box box={[72.4, 186, 720, 40]}>
@@ -1122,7 +1122,7 @@ export function SlideKystRiskTti() {
             color: "var(--red)",
           }}
         >
-          TTI. Time to impact. One number per sector.
+          TTI. Time to impact. Ett tall per sektor.
         </div>
       </Box>
       <Box box={[40, 250, 700, 430]}>
@@ -1138,7 +1138,7 @@ export function SlideKystRiskTti() {
               color: "var(--burgundy-2)",
             }}
           >
-            Risk is 0 to 1.
+            Risiko er 0 til 1.
           </div>
           <div
             style={{
@@ -1149,9 +1149,9 @@ export function SlideKystRiskTti() {
               color: "var(--burgundy)",
             }}
           >
-            0 is infinitely small.
+            0 er uendelig liten.
             <br />
-            Based on the heading you have now.
+            Basert på kursen du har nå.
           </div>
           <div
             style={{
@@ -1162,7 +1162,7 @@ export function SlideKystRiskTti() {
               color: "var(--red)",
             }}
           >
-            High TTI, and the risk fades toward zero.
+            Høy TTI, og risikoen går mot null.
           </div>
         </Box>
       </Reveal>

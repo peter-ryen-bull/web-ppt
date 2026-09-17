@@ -1,1574 +1,1555 @@
-# Speaker notes: 100 million rows a day (NDC 2026, 60 min)
+# Speaker notes: 100 millioner rader om dagen (TDC 2026, 60 min)
 
-Everything before the first `## slide-id` heading is ignored. This area is a
-draft.
+Alt før første `## slide-id`-overskrift ignoreres. Dette området er kladd.
 
-### The red thread
+### Den røde tråden
 
-One sentence everything hangs on:
+Én setning som alt skal henge på:
 
-> One AIS signal off Stad at 03:14 becomes, through the platform, the climate
-> accounts of a municipality. And that's why we build a data platform.
+> Ett AIS-signal utenfor Stad klokka 03:14 blir, via plattformen, til
+> klimaregnskapet i en kommune. Og det er derfor vi bygger dataplattform.
 
-The ship off Stad is our character. We meet it in the opening, follow it
-through MarTraf and MarU, and come back to it at the very end. Every time you
-can say "our ship," say it. The audience should recognize it.
+Skipet utenfor Stad er karakteren vår. Vi møter det i åpningen, følger det
+gjennom MarTraf og MarU, og kommer tilbake til det helt til slutt. Hver gang du
+kan si «skipet vårt», si det. Publikum skal kjenne det igjen.
 
-### Dramaturgy and schedule
+### Dramaturgi og tidsplan
 
-Sixty minutes. The time is when you should land on the first slide of
-that chapter. If the total timer is already past that number, you are
-behind. Calibrated to rehearsal: the project chapter lands at 35:00.
+Seksti minutter. Tiden er når du skal lande på første slide i det
+kapittelet. Hvis totaltimeren allerede har passert det tallet, ligger du
+etter. Kalibrert mot øving: prosjektkapittelet lander på 35:00.
 
-| Chapter                   | Start | Min | Content                                                                 |
-| ------------------------- | ----- | --- | ----------------------------------------------------------------------- |
-| The opening               | 00:00 | 5   | scene, signal, NAIS, 100 million, title, Peter. Don't linger on the bio |
-| Who's listening           | 05:00 | 6   | Kystverket, vision, four areas, listening posts, AIS                    |
-| Why data platform         | 11:00 | 3   | why everyone builds them, Hoffman, everyday life                        |
-| The story of the platform | 14:00 | 6   | fifty years, same problem. One beat per era. Keep moving                |
-| How a data platform works | 20:00 | 11  | architecture, products, contracts, catalog. Longest theory block        |
-| What you get out of it    | 31:00 | 4   | four effects from the coastline                                         |
-| The project               | 35:00 | 4   | day one, the toolbox, terraform                                         |
-| The products              | 39:00 | 8   | HAIS, Asuka, MarTraf, MarU, KystRisk                                    |
-| How it's done             | 47:00 | 2   | ingest, the daily job                                                   |
-| Scaling                   | 49:00 | 3   | stream vs history, batch vs streaming, serverless                       |
-| H3                        | 52:00 | 3   | hexes. Skip the whole chapter if you land here after 52:00              |
-| The road ahead            | 55:00 | 5   | domains, back to Stad, thanks. Questions if you have time               |
+| Kapittel                        | Start | Min | Innhold                                                                  |
+| ------------------------------- | ----- | --- | ------------------------------------------------------------------------ |
+| Åpningen                        | 00:00 | 5   | scene, signal, NAIS, 100 mill, forside, Peter. Ikke heng igjen på bioen  |
+| Hvem lytter                     | 05:00 | 6   | Kystverket, visjonen, fire områder, lyttepostene, AIS                    |
+| Hvorfor dataplattform           | 11:00 | 3   | hvorfor alle bygger dem, Hoffman, hverdagen                              |
+| Historien om plattformen        | 14:00 | 6   | femti år, samme problem. Ett poeng per epoke. Hold tempoet               |
+| Hvordan en dataplattform funker | 20:00 | 11  | arkitektur, produkter, kontrakter, katalog. Lengste teoriblokk           |
+| Hva får du igjen                | 31:00 | 4   | fire effekter fra sjøveien                                               |
+| Prosjektet                      | 35:00 | 4   | dag én, verktøykassa, terraform                                          |
+| Produktene                      | 39:00 | 8   | HAIS, Asuka, MarTraf, MarU, KystRisk                                     |
+| Hvordan det gjøres              | 47:00 | 2   | ingest, den daglige jobben                                               |
+| Skalering                       | 49:00 | 3   | strøm vs historikk, batch vs streaming, serverless                       |
+| H3                              | 52:00 | 3   | hekser. Hopp over hele kapittelet hvis du lander her etter 52:00         |
+| Veien videre                    | 55:00 | 5   | domener, tilbake til Stad, takk. Spørsmål hvis du har tid                |
 
-If you are behind after How it works, cut contracts and catalog down to
-the takeaway sentences. Keep "a data platform exists to serve data
-products."
+Ligger du etter når Hvordan det funker er ferdig, kutt kontrakter og katalog
+ned til takeaway-setningene. Behold «en dataplattform finnes for å servere
+dataprodukter».
 
-If you are behind after the products (not at 47:00), cut the
-batch/streaming sidenote (two slides, about two minutes), then H3.
+Ligger du etter når produktene er ferdige (ikke på 47:00), kutt
+batch/streaming-sidesporet (to slides, rundt to minutter), så H3.
 
-If you are behind during the products, cut maru-hull and KystRisk.
+Ligger du etter underveis i produktene, kutt maru-hull og KystRisk.
 
-If the total is already past 52:00 when you reach H3, skip the chapter
-and go to the road ahead.
+Hvis totalen allerede har passert 52:00 når du kommer til H3, hopp over
+kapittelet og gå til veien videre.
 
-### Rules for the language in these notes
+### Regler for språket i notatene
 
-Spoken. You and we. Short sentences here and there. Ask the audience. No em
-dashes. Say it the way you'd say it to a colleague over a coffee.
+Muntlig. Du og vi. Korte setninger innimellom. Spør publikum. Ingen
+tankestreker. Si det slik du ville sagt det til en kollega over en kaffe.
 
-### Numbers from research
+### Tall fra research
 
-- ~90 base stations, 4 operational AIS satellites (AISSat-4 launched March 2026, about NOK 15 million)
-- 100 million messages a day, data stored back to 2005
-- Open data under NLOD, real time via the BarentsWatch API and a raw TCP stream
-- AIS interval: ships moving at 0 to 14 knots transmit every 10 seconds
-- 100 million rows/day ≈ 1,157 per second. Read one per second, and one day's data takes 3.2 years.
-- The propeller law: (2)³ = 8. Double the speed, eight times the power.
+- ~90 basestasjoner, 4 operative AIS-satellitter (AISSat-4 opp mars 2026, ca. 15 MNOK)
+- 100 millioner meldinger om dagen, data lagret tilbake til 2005
+- Åpne data under NLOD, sanntid via BarentsWatch API og rå TCP-strøm
+- AIS-intervall: skip i fart 0 til 14 knop sender hvert 10. sekund
+- 100 mill rader/dag ≈ 1 157 per sekund. Lest én per sekund tar ett døgns data 3,2 år.
+- Propellloven: (2)³ = 8. Dobbel fart, åtte ganger effekten.
 
-## scene – The time is 03:14
+## scene – Klokka er 03:14
 
-[00:00] 5 min. Next chapter at 05:00. Slow. Let the scene land.
+[00:00] 5 min. Neste kapittel 05:00. Rolig. La scenen lande.
 
-[[CLICK]] The time is 03:14.
+[[CLICK]] Klokka er 03:14.
 
-[[CLICK]] We're on the sea off Stad. It's February. There's a gale from the
-northwest, and it's completely dark.
+[[CLICK]] Vi er på Stadhavet. Det er februar. Det blåser nordvest kuling, og det
+er helt mørkt.
 
-[[CLICK]] Out there, a large cargo ship is heading north. Nine knots. Twenty people on board, most of them asleep. One is standing on the bridge with a cup of
-coffee, watching the radar.
+[[CLICK]] Der ute går det et stort lasteskip nordover. Ni knop. Tjue mennesker om bord, de fleste sover. Én står på brua med en kaffekopp og ser på
+radaren.
 
-And while he stands there, something happens that he doesn't think
-about. Something the ship does entirely on its own.
+Og mens han står der, skjer det noe han ikke tenker på. Noe skipet gjør
+helt av seg selv.
 
-## signal – Every ten seconds, the ship says
+## signal – Hvert tiende sekund sier skipet
 
-Every ten seconds, the ship sends a little message out into the dark.
+Hvert tiende sekund sender skipet en liten melding ut i mørket.
 
-[[CLICK]] And the message is actually pretty simple. It says: who I am. Where I
-am. How fast I'm going. Where I'm headed. And what I'm doing right now.
-Five things. That's all.
+[[CLICK]] Og meldingen er egentlig ganske enkel. Den sier: hvem jeg er. Hvor jeg
+er. Hvor fort jeg går. Hvor jeg skal. Og hva jeg holder på med akkurat nå.
+Fem ting. Det er alt.
 
-Nobody on board thinks about it. Nobody presses a button. The message
-just goes. Over VHF, out into the gale, in every direction.
+Ingen om bord tenker på det. Det er ingen som trykker på en knapp. Meldingen
+bare går. Over VHF, ut i kulingen, i alle retninger.
 
-And so the question is: who is listening?
+Og så er spørsmålet: hvem lytter?
 
-## nais – Someone's listening: NAIS
+## nais – Noen lytter: NAIS
 
-This is the Norwegian coast.
-Every single dot on this map is a ship sending a message I just showed you.
+Dette er norskekysten.
+Hver eneste prikk på dette kartet er et skip som sender meldingen jeg nettopp viste dere.
 
-Every dot is a crew.
-Some of them are ferries with people on their way to work. Some are fishing
-boats. Some are cruise ships with over three thousand passengers.
+Hver prikk er et mannskap.
+Noen av dem er ferjer med folk på vei til jobb. Noen er fiskebåter. Noen er
+cruiseskip med over tre tusen passasjerer.
 
 [[CLICK]]
-And this map is open. nais.kystverket.no. You can open it on your
-phone right now and watch ships go by.
+Og dette kartet er åpent. nais.kystverket.no. Du kan åpne det på mobilen
+akkurat nå og se skip gå forbi.
 
-There are quite a lot of ships. And they are sending quite a lot of messages.
-And this is what I really want to talk about. Look at the number behind
-this map.
+Det er ganske mange skip. Og de sender ganske mange meldinger.
+Og det er dette jeg egentlig vil snakke om. Se på tallet bak dette kartet.
 
-## hundre-millioner – 100,000,000 every day
+## hundre-millioner – 100 000 000 hver dag
 
-One hundred million.
+Hundre millioner.
 
-[[CLICK]] That's how many of these messages go through our system. Every single
-day.
+[[CLICK]] Så mange slike meldinger går gjennom systemet vårt. Hver eneste
+dag.
 
-Let that sink in for a moment. One hundred million is a number we say
-quickly, but it's hard to feel.
+La det synke litt. Hundre millioner er et tall vi sier fort, men det er
+vanskelig å kjenne på.
 
-## hundre-millioner-fyll – The messages fill the screen
+## hundre-millioner-fyll – Meldingene fyller skjermen
 
-Each boat is a hundred messages. Every second of every day, about eleven
-hundred messages appear.
+Hver båt er hundre meldinger. Hvert sekund, hele døgnet, kommer det rundt
+elleve hundre meldinger.
 
-That's the stream this talk is about. And the question is actually pretty
-simple: how do you turn one hundred million little messages into something
-someone can use?
+Det er strømmen dette foredraget handler om. Og spørsmålet er egentlig ganske
+enkelt: hvordan gjør du hundre millioner små meldinger om til noe noen kan
+bruke?
 
-And what can we use this data for?
+Og hva kan vi bruke disse dataene til?
 
-This is every second of every day, and it just keeps coming.
-Over the years, this becomes quite a large amount of data.
+Dette skjer hvert sekund, hele døgnet, og det bare fortsetter å komme.
+Over årene blir dette en ganske stor mengde data.
 
-And this becomes not only a logic problem, but a scaling problem as well.
+Og da blir det ikke bare et logikkproblem, men et skaleringsproblem også.
 
-## forside – Title slide
+## forside – Forside
 
-This is the story of the data platform behind the coastline
+Dette er historien om dataplattformen bak sjøveien.
 
-It's a story about why an agency that runs lighthouses and beacons and pilot
-services suddenly found itself with one of the biggest data streams in the
-Norwegian public sector, and what we did with it.
+Det er en historie om hvorfor en etat som driver med fyr og lykter og los
+plutselig sto med en av de største datastrømmene i norsk offentlig sektor,
+og hva vi gjorde med den.
 
 ## om-peter – Peter Bull
 
-Ninety seconds. Not a CV. Name, Miles, Kystverket, then ski and get off.
+Nitti sekunder. Ikke en CV. Navn, Miles, Kystverket, så ski og videre.
 
-My name is Peter.
+Jeg heter Peter.
 
-[[CLICK]] I'm a data platform developer at Miles.
+[[CLICK]] Jeg er dataplattformutvikler i Miles.
 
-[[CLICK]] I design data architecture for large organizations.
+[[CLICK]] Jeg designer dataarkitektur for store organisasjoner.
 
-[[CLICK]] I build the data platform for Kystverket, the Norwegian Coastal
-Administration. Before that I've built platforms for both private companies
-and public agencies, and what I've learned is that the problems are
-surprisingly similar. It's only the data that changes names.
+[[CLICK]] Jeg bygger dataplattformen til Kystverket. Før det har jeg bygget
+plattformer for både private selskaper og offentlige etater, og det jeg har
+lært er at problemene er overraskende like. Det er bare dataene som bytter
+navn.
 
-[[CLICK]] Previously I was tech lead for the data platform for the Norwegian
-Police.
+[[CLICK]] Tidligere var jeg tech lead for dataplattformen til politiet.
 
-[[CLICK]] And I work in Azure, Databricks and Terraform.
+[[CLICK]] Og jeg jobber i Azure, Databricks og Terraform.
 
-And I ski. A lot.
+Og jeg går på ski. Mye.
 
-[[CLICK]] This is a normal Saturday. Looking down a steep line, with the coast
-underneath.
+[[CLICK]] Dette er en vanlig lørdag. Ser ned en bratt linje, med kysten
+under.
 
-[[CLICK]] This is Hanna. She puts up with all of this.
+[[CLICK]] Dette er Hanna. Hun holder ut med alt dette.
 
-## kystverket – Who's listening? Kystverket
+## kystverket – Hvem lytter? Kystverket
 
-[05:00] 6 min. Next chapter at 11:00.
+[05:00] 6 min. Neste kapittel 11:00.
 
-So. Who's listening to our ship?
+Så. Hvem er det som lytter på skipet vårt?
 
-We are the Norwegian Coastal Administration. Kystverket.
-The transport agency for the coastline. We make sure the coast, the ships and everything nautical is running smoothly.
+Vi er Kystverket.
+Transportetaten for sjøveien. Vi sørger for at kysten, skipene og alt det nautiske går som det skal.
 
-And before we get into the technology, we need to understand why we do
-what we do.
+Og før vi går inn i teknologien, må vi forstå hvorfor vi gjør det vi gjør.
 
-## visjon – The world's safest and cleanest coast
+## visjon – Verdens sikreste og reneste kyst
 
-This is the Coastal Administration's vision.
-The world's safest and cleanest coast.
+Dette er visjonen til Kystverket.
+Verdens sikreste og reneste kyst.
 
 [[CLICK]]
-We want a coast without pollution, we want a coast where no people drown.
+Vi vil ha en kyst uten forurensning, vi vil ha en kyst der ingen mennesker drukner.
 
-Because when we're talking about processing speed, data platforms and data contracts -> this is the why.
+For når vi snakker om prosesseringshastighet, dataplattformer og datakontrakter -> så er dette hvorfor-et.
 
-Everything else is the how.
+Alt det andre er hvordan.
 
-## oppdrag – About us
+## oppdrag – Om oss
 
-The coastal administration is split into four areas. 
+Kystverket er delt i fire områder.
 
 
-[[CLICK]] Pilotage. A local expert who boards the big ships and helps them in.
-In Norwegian it's called a "Los". The pilotage service, they wake up in the middle of the night, travel out to ships, come with local knowledge of the sea maps, and guide boats in.
+[[CLICK]] Lostjenesten. En kjentmann som går om bord på de store skipene og hjelper dem inn.
+Losene våkner midt på natta, reiser ut til skipene, kommer med lokalkunnskap om farvannet, og leder båtene inn.
 
-[[CLICK]] Environment. When a ship runs aground and oil starts leaking, it's the NCA
-that leads the operation. Depots with oil booms along the whole coast.
+[[CLICK]] Miljø. Når et skip går på grunn og det begynner å lekke olje, er det Kystverket
+som leder aksjonen. Depoter med lenser langs hele kysten.
 
-[[CLICK]] Navigation technology. That's the lighthouses and beacons and sea marks.
-And the vessel traffic centers, watching the traffic around the clock,
-just like air traffic controllers, only for ships. And AIS-messages.
+[[CLICK]] Navigasjonsteknologi. Det er fyrene og lyktene og sjømerkene.
+Og sjøtrafikksentralene, som ser på trafikken døgnet rundt, akkurat som
+flygeledere, bare for skip. Og AIS-meldingene.
 
-[[CLICK]] Transport, ports and fairways. The physical coastline. The channels, the
-harbors, the National Transport Plan for the sea.
+[[CLICK]] Transport, havn og farvann. Den fysiske kysten. Leiene, havnene,
+Nasjonal transportplan for sjøen.
 
-[[CLICK]] And here's what I want you to see: all four start with exactly the
-same question.
+[[CLICK]] Og her er det jeg vil at dere skal se: alle fire starter med
+nøyaktig samme spørsmål.
 
-[[CLICK]] Where are the ships right now? If you want to prevent a
-collision, you need to know where the ships are.
-If you're leading an oil spill response, you need to know which ships are nearby and can help.
-Navigation and transport is all about the ships. 
+[[CLICK]] Hvor er skipene akkurat nå? Skal du hindre en kollisjon, må du
+vite hvor skipene er.
+Skal du lede en oljevernaksjon, må du vite hvilke skip som er i nærheten og kan hjelpe.
+Navigasjon og transport handler om skipene.
 
-So how do we listen and receive these ship locations? 
-So how do you hear a ship talking over VHF out on the sea off Stad at three
-in the morning?
+Så hvordan lytter vi og tar imot disse skipsposisjonene?
+Hvordan hører man et skip som snakker over VHF ute på Stadhavet klokka tre
+om natta?
 
-## lyttepostene – The listening posts
+## lyttepostene – Lyttepostene
 
-So how do you hear a ship talking over VHF out on the sea off Stad at three
-in the morning?
+Så hvordan hører man et skip som snakker over VHF ute på Stadhavet klokka tre
+om natta?
 
-[[CLICK]] You build listening posts. We have around ninety base stations, along the
-entire coast and on Svalbard. They hear everything from land and forty to
-sixty nautical miles out.
+[[CLICK]] Man bygger lytteposter. Vi har rundt nitti basestasjoner, langs hele
+kysten og på Svalbard. De hører alt fra land og førti til seksti nautiske mil
+ut.
 
-[[CLICK]] But the ocean is bigger than that. So in 2010, Kystverket did
-something a little unusual for a transport agency.
-They launched a satellite. AISSat-1. Today, Norway has four of them listening to ships from space.
-The latest went up in March this year, and it was built for around NOK 15
-million, which when you think about it, it's quite cheap, less than the price of a small seaside apartment here in Oslo.
+[[CLICK]] Men havet er større enn det. Så i 2010 gjorde Kystverket noe litt
+uvanlig for en transportetat.
+De skjøt opp en satellitt. AISSat-1. I dag har Norge fire av dem som lytter på skip fra verdensrommet.
+Den siste gikk opp i mars i år, og den ble bygget for rundt 15 millioner
+kroner, som når du tenker på det er ganske billig, mindre enn prisen på en liten leilighet ved sjøen her i Trondheim.
 
-[[CLICK]] And the result is this. A hundred million messages a day.
-Better listening posts, more ships, and more ships with AIS.
+[[CLICK]] Og resultatet er dette. Hundre millioner meldinger om dagen.
+Bedre lytteposter, flere skip, og flere skip med AIS.
 
-[[CLICK]] And everything is stored. All the way back to 2005.
-Twenty-one years of every single ship saying where it is, every ten seconds.
-It's an archive of the entire Norwegian coastline.
+[[CLICK]] Og alt er lagret. Helt tilbake til 2005.
+Tjueett år med hvert eneste skip som sier hvor det er, hvert tiende sekund.
+Det er et arkiv over hele den norske kysten.
 
-## ais – AIS: built to avoid collisions
+## ais – AIS: laget for å unngå kollisjoner
 
-The point of these messages was never for anyone on land to listen.
+Poenget med disse meldingene var aldri at noen på land skulle lytte.
 
-[[CLICK]] AIS stands for Automatic Identification System. Ships broadcast
-identity, position, speed, and course over VHF. The point was for the ships around you to hear it.
-So two ships in fog know about each other before they see each other.
+[[CLICK]] AIS står for Automatic Identification System. Skip kringkaster
+identitet, posisjon, fart og kurs over VHF. Poenget var at skipene rundt deg skulle høre det.
+Så to skip i tåke vet om hverandre før de ser hverandre.
 
-[[CLICK]] How often they transmit depends on what they're doing. A ship
-underway transmits every couple of seconds to every ten seconds. A ship at
-berth transmits every three minutes.
+[[CLICK]] Hvor ofte de sender, avhenger av hva de gjør. Et skip i fart sender
+hvert par sekund til hvert tiende sekund. Et skip til kai sender hvert
+tredje minutt.
 
-[[CLICK]] And then there's the interesting part. Nobody planned for AIS to
-become a data source. It was an anti-collision system. But because every
-ship transmits, and because someone started listening and storing, it became
-the backbone of traffic monitoring, emergency response, and statistics.
+[[CLICK]] Og så er det den interessante delen. Ingen planla at AIS skulle bli
+en datakilde. Det var et antikollisjonssystem. Men fordi alle skip sender, og
+fordi noen begynte å lytte og lagre, ble det ryggraden i trafikkovervåking,
+beredskap og statistikk.
 
-Historical data has become valuable because of insights and analysis, and now our data platform and the technology that makes it possible to process these huge amounts of data into valuable insight.
+Historiske data har blitt verdifulle på grunn av innsikt og analyse, og nå dataplattformen vår og teknologien som gjør det mulig å prosessere disse enorme datamengdene til verdifull innsikt.
 
-## sporsmalet – What do you do with 100 million messages a day?
+## sporsmalet – Hva gjør du med 100 millioner meldinger om dagen?
 
-We've built listening posts along the entire coast and
-launched satellites
+Vi har bygget lytteposter langs hele kysten og skutt opp satellitter.
 
-[[CLICK]] What do you do with them? And how do we process them all?
+[[CLICK]] Hva gjør du med dem? Og hvordan prosesserer vi alle sammen?
 
-Because this is where it gets hard. Collecting data is the easy part.
-Turning it into something someone can use is the hard part. And it's not
-just Kystverket sitting with that question. It's the whole industry.
+For det er her det blir vanskelig. Å samle inn data er den enkle delen. Å
+gjøre dem om til noe noen kan bruke er den vanskelige delen. Og det er ikke
+bare Kystverket som sitter med det spørsmålet. Det er hele bransjen.
 
-What tech can we use for that?
+Hvilken teknologi kan vi bruke til det?
 
-## hva-er – Why is everyone building data platforms?
+## hva-er – Hvorfor bygger alle dataplattformer?
 
-[11:00] 3 min. Next chapter at 14:00.
+[11:00] 3 min. Neste kapittel 14:00.
 
-Looking around in the IT industry, in the last couple of years, a new
-word has started appearing on job listings. Data platforms.
+Ser du rundt i IT-bransjen, så har det de siste par årene begynt å dukke opp
+et nytt ord i stillingsannonsene. Dataplattformer.
 
-Municipalities, banks, retail chains, oil companies, and especially the
-government institutions. They are all building data platforms.
+Kommuner, banker, butikkjeder, oljeselskaper, og særlig de offentlige
+etatene. Alle bygger dataplattformer.
 
-Why is that?
+Hvorfor det?
 
-[[CLICK]] Because data is becoming more and more valuable. Not just for
-us, with twenty-one years of every ship on the coast. For everyone.
+[[CLICK]] Fordi data blir mer og mer verdifulle. Ikke bare for oss, med
+tjueett år med hvert skip langs kysten. For alle.
 
-## reid-hoffman – Everything is measurable
+## reid-hoffman – Alt er målbart
 
-Reid Hoffman. He co-founded LinkedIn.
+Reid Hoffman. Han var med å grunnlegge LinkedIn.
 
-He put it like this: in the world of data, everything is measurable, and
-everything is knowable.
+Han sa det slik: i dataenes verden er alt målbart, og alt kan vites.
 
-[[CLICK]] And that's the double edge. If everything is measurable, the
-data becomes extraordinarily valuable.
+[[CLICK]] Og det er det tveeggede. Hvis alt er målbart, blir dataene
+ekstremt verdifulle.
 
-But then you get a really large amount of data. And it becomes a real mess if you don't handle it properly.
+Men da får du en veldig stor mengde data. Og det blir et skikkelig rot hvis du ikke håndterer det ordentlig.
 
-We've been trying to solve that problem of keeping track of our data for over fifty years. And while we have been solving that problem, the scale of data has been exponentially increasing.
+Vi har prøvd å løse det problemet, å holde orden på dataene våre, i over femti år. Og mens vi har jobbet med det problemet, har datamengden vokst eksponentielt.
 
-And right now - a data platform is the latest answer to that problem.
+Og akkurat nå er en dataplattform det nyeste svaret på det problemet.
 
-## hvorfor – Data platforms are everywhere
+## hvorfor – Dataplattformer er overalt
 
-And the fact is,
-most services you have been using this week are backed by data platforms .
+Og faktum er at
+de fleste tjenestene du har brukt denne uka står på dataplattformer.
 
-[[CLICK]] The online store that suggests products that actually fit.
-[[CLICK]] The streaming service that recommendation shows for you in the evening.
+[[CLICK]] Nettbutikken som foreslår varer som faktisk passer.
+[[CLICK]] Strømmetjenesten som anbefaler serier til deg på kvelden.
 
-[[CLICK]] In your bank, fraud detection and anti-money laundering run on
-every transaction before it clears.
+[[CLICK]] I banken din kjører svindeldeteksjon og antihvitvasking på hver
+transaksjon før den går gjennom.
 
-[[CLICK]] New road projects are planned from years of traffic data, statistical
-forecasts of future traffic, and calculations of noise and other measures.
-Hundreds of terabytes of data — used to make the best decisions from the
-most data.
+[[CLICK]] Nye veiprosjekter planlegges ut fra årevis med trafikkdata,
+statistiske prognoser for fremtidig trafikk, og beregninger av støy og
+andre tiltak. Hundrevis av terabyte med data, brukt til å ta de beste
+beslutningene på mest mulig data.
 
-[[CLICK]] It's happening everywhere. Behind every single one of these is a
-platform that ingests, stores, processes, and delivers data.
+[[CLICK]] Det skjer overalt. Bak hver eneste av disse er det en plattform som
+henter inn, lagrer, prosesserer og leverer data.
 
-## batch-streaming – How it works
+## batch-streaming – Hvordan det funker
 
-[20:00] 11 min. Next chapter at 31:00. Longest theory block.
-Architecture, products, contracts, catalog. Don't teach a course.
-The sentence to keep: a data platform exists to serve data products.
+[20:00] 11 min. Neste kapittel 31:00. Lengste teoriblokk.
+Arkitektur, produkter, kontrakter, katalog. Ikke hold kurs.
+Setningen å holde fast i: en dataplattform finnes for å servere dataprodukter.
 
-So how does a data platform actually work?
-And why is it different from a database, or a warehouse?
+Så hvordan funker en dataplattform egentlig?
+Og hvorfor er den annerledes enn en database, eller et varehus?
 
-## dataflyt – Data flow: sources to consumers
+## dataflyt – Dataflyt: kilder til konsumenter
 
-So what is a data platform, really? Let's take the big picture first.
+Så hva er en dataplattform, egentlig? La oss ta det store bildet først.
 
-[[CLICK]] Point to the left side. Here are the sources. Operational systems, APIs,
-files, sensors. For us: the AIS antennas.
+[[CLICK]] Pek på venstre side. Her er kildene. Driftssystemer, API-er, filer,
+sensorer. Hos oss: AIS-antennene.
 
-[[CLICK]] And in the middle sits the platform. One shared layer where everything comes
-together and becomes one truth.
+[[CLICK]] Og i midten ligger plattformen. Ett felles lag der alt samles og
+blir til én sannhet.
 
-[[CLICK]] Point to the right side. Here are the people who'll use the data. Apps,
-dashboards, machine learning models, analysts.
+[[CLICK]] Pek på høyre side. Her er de som skal bruke dataene. Apper,
+dashbord, maskinlæringsmodeller, analytikere.
 
-[[CLICK]] And underneath: monitoring, infrastructure, and how people work together.
-That's what keeps the platform running.
+[[CLICK]] Og under: overvåking, infrastruktur, og hvordan folk jobber sammen.
+Det er det som holder plattformen i gang.
 
-I like to think of it as a jigsaw puzzle. Each piece is a little bit of
-information about the business. Sales figures, sensor data, positions. On
-their own, the pieces say almost nothing. The platform is the table where
-you put them together into one picture. Without the table, you just have a
-pile of pieces in different boxes.
+Jeg liker å tenke på det som et puslespill. Hver bit er en liten
+informasjonsbit om virksomheten. Salgstall, sensordata, posisjoner. Hver for
+seg sier bitene nesten ingenting. Plattformen er bordet der du legger dem
+sammen til ett bilde. Uten bordet har du bare en haug med biter i forskjellige
+esker.
 
-## arkitektur – Architecture: source to consumer
+## arkitektur – Arkitektur: kilde til konsument
 
-Now let's open the box in the middle.
+Så åpner vi boksen i midten.
 
-No matter which technology you choose, the platform consists of three
-building blocks. Storage, which today means cheap, scalable object storage
-decoupled from the compute. Processing, meaning the part that transforms raw
-data into something usable, both in batch and in real time. And then the
-layer underneath everything: catalog and governance.
+Uansett hvilken teknologi du velger, så består plattformen av tre
+byggeklosser. Lagring, som i dag betyr billig, skalerbar objektlagring som er
+frikoblet fra regnekraften. Prosessering, altså det som transformerer rådata
+til noe brukbart, både i batch og i sanntid. Og så det laget som ligger under
+alt: katalog og governance.
 
-Point to the bottom layer. That's the layer people forget. Everyone wants
-storage and processing. But without a catalog and access control, you don't
-get safe self-service. You get chaos. And we'll come back to that layer in a
-bit, because that's where platforms actually win or lose.
+Pek på det nederste laget. Det er det laget folk glemmer. Alle vil ha lagring
+og prosessering. Men uten katalog og tilgangsstyring får du ikke trygg
+selvbetjening. Du får kaos. Og det laget kommer vi tilbake til om litt, for
+det er der plattformer faktisk vinner eller taper.
 
-[[CLICK]] And we have full version control of our data. Raw is archived.
-Never deleted. AIS back to 2005. The transforms live in git. Every change
-is a commit. You can replay 2018 with the 2018 code, or rerun it with
-today's. The archive stays. The code remembers.
+[[CLICK]] Og vi har full versjonskontroll på dataene våre. Rådata arkiveres.
+Slettes aldri. AIS tilbake til 2005. Transformasjonene ligger i git. Hver
+endring er en commit. Du kan spille av 2018 på nytt med 2018-koden, eller
+kjøre det igjen med dagens. Arkivet står. Koden husker.
 
-## mer-enn-varehus – Is it just a database?
+## mer-enn-varehus – Er det bare en database?
 
-And now comes the objection I always get. Is it just a database? "Don't
-we have this already?"
+Og nå kommer innvendingen jeg alltid får. Er det bare en database? «Har vi
+ikke dette allerede?»
 
-Sure. A database is great at one thing. Structured data. Rows, columns, a
-schema everyone agreed on last year. That's the strength.
+Jo. En database er god på én ting. Strukturerte data. Rader, kolonner, et
+skjema alle ble enige om i fjor. Det er styrken.
 
-And that's also the problem. Want a new column? That's a migration. Want
-a new shape? That's a meeting, a ticket, and a weekend you're not sure
-you want. Changes are slow because the schema is the product.
+Og det er også problemet. Vil du ha en ny kolonne? Det er en migrering. Vil
+du ha en ny form? Det er et møte, en sak i køen, og en helg du ikke er sikker
+på at du vil ha. Endringer går sakte fordi skjemaet er produktet.
 
-[[CLICK]] Structured and unstructured. You take the AIS message as it is.
-JSON, files, a photo from a camera on the quay.
+[[CLICK]] Strukturert og ustrukturert. Du tar AIS-meldingen som den er.
+JSON, filer, et bilde fra et kamera på kaia.
 
-[[CLICK]] Rollbacks. If Tuesday's version was wrong, you go back to
-Monday's. Multiple versions of the data. Not one schema you're afraid
-to touch.
+[[CLICK]] Rollback. Hvis tirsdagens versjon var feil, går du tilbake til
+mandagens. Flere versjoner av dataene. Ikke ett skjema du er redd for å
+røre.
 
-[[CLICK]] Rapid iterations. You don't wait for the perfect table. You land
-it, try a transform, keep the raw.
+[[CLICK]] Raske iterasjoner. Du venter ikke på den perfekte tabellen. Du
+lander dataene, prøver en transformasjon, beholder rådataene.
 
-That's the data layer. A lakehouse already beats a database there.
+Det er datalaget. Der slår et lakehouse allerede en database.
 
-[[CLICK]] And then look at the rest of the building. Governance. Audit
-logging. You can find the data. Pipelines that run. Compute when you
-need it. Developer UIs. A place to execute code. AI. Models.
+[[CLICK]] Og se så på resten av bygningen. Governance. Auditlogging. Du kan
+finne dataene. Pipelines som kjører. Regnekraft når du trenger det.
+Utviklergrensesnitt. Et sted å kjøre kode. AI. Modeller.
 
-A database stores rows. It does not give you a catalog, a notebook, a
-job, compute, or a model registry.
+En database lagrer rader. Den gir deg ikke en katalog, en notebook, en jobb,
+regnekraft eller et modellregister.
 
-[[CLICK]] It's a platform.
+[[CLICK]] Det er en plattform.
 
-## mer-enn-varehus-katalog – Catalog. Jobs. Ask. Answer.
+## mer-enn-varehus-katalog – Katalog. Jobber. Spør. Svar.
 
-Point at the left. Catalog. Jobs. Compute.
-Discover. SQL. Dashboards. That's not a database console.
+Pek til venstre. Katalog. Jobber. Compute.
+Discover. SQL. Dashbord. Det er ikke en databasekonsoll.
 
-The list we just went through? It's in the menu.
+Lista vi nettopp gikk gjennom? Den ligger i menyen.
 
-[[CLICK]] Jobs that run. Not a query window. Pipelines.
+[[CLICK]] Jobber som kjører. Ikke et spørrevindu. Pipelines.
 
-[[CLICK]] A catalog you can open. The data has a place, a name, and a
-schema you can find without asking around.
+[[CLICK]] En katalog du kan åpne. Dataene har et sted, et navn og et skjema
+du kan finne uten å spørre rundt.
 
-[[CLICK]] And then you ask. Same platform. Analyze my data. Create a
-skill. The catalog we just saw is what this talks to.
+[[CLICK]] Og så spør du. Samme plattform. Analyser dataene mine. Lag en
+skill. Katalogen vi nettopp så er det denne snakker med.
 
-A database does not have a box that says how can I help you.
+En database har ikke en boks som sier «hva kan jeg hjelpe deg med».
 
-[[CLICK]] And it answers. Trollfjord. Positions on the eleventh of
-August. Fortøyd. Underveis. A map. A table.
+[[CLICK]] Og den svarer. Trollfjord. Posisjoner den ellevte august. Fortøyd.
+Underveis. Et kart. En tabell.
 
-You asked. The platform used the catalog, the compute, the data.
-That's the whole argument on one screen.
+Du spurte. Plattformen brukte katalogen, regnekraften, dataene.
+Det er hele argumentet på én skjerm.
 
-## strukturere-data – How do we architect the data to keep structure?
+## strukturere-data – Hvordan strukturerer vi dataene for å holde orden?
 
-This is the map for the rest of the chapter. Four ideas. We walk through each.
+Dette er kartet for resten av kapittelet. Fire ideer. Vi går gjennom hver.
 
-[[CLICK]] Data product. The dataset someone can actually use.
+[[CLICK]] Dataprodukt. Datasettet noen faktisk kan bruke.
 
-[[CLICK]] Data contract. The agreement around it.
+[[CLICK]] Datakontrakt. Avtalen rundt det.
 
-[[CLICK]] Data catalog. How you find it.
+[[CLICK]] Datakatalog. Hvordan du finner det.
 
-[[CLICK]] Governance. Why we dare to share it.
+[[CLICK]] Governance. Hvorfor vi tør å dele det.
 
-Hold this picture. Everything after this is unpacking these four.
+Hold på dette bildet. Alt etter dette er å pakke ut disse fire.
 
-## dataprodukt – Data product
+## dataprodukt – Dataprodukt
 
-Next concept, and this is one of the most important: the data product.
+Neste begrep, og dette er et av de viktigste: dataprodukt.
 
-The idea is that data should be treated as a product. Quality-assured.
-Maintained. Documented. And with an owner who actually answers when you
-call.
+Tanken er at data skal behandles som et produkt. Kvalitetssikret. Forvaltet.
+Dokumentert. Og med en eier som faktisk svarer når du ringer.
 
-Not a table someone dumped somewhere and forgot.
+Ikke en tabell noen dumpet et sted og glemte.
 
-This is the sentence I want you to take from this whole section.
+Dette er setningen jeg vil at dere skal ta med fra hele denne delen.
 
-A data platform is not the product. The data products are. Lakehouse,
-pipelines, storage: all of that is there so you can serve data people
-can actually use.
+En dataplattform er ikke produktet. Dataproduktene er det. Lakehouse,
+pipelines, lagring: alt det er der for at du skal kunne servere data folk
+faktisk kan bruke.
 
-Think about a system your company ships to customers. It has an owner,
-documentation, support when it breaks, and someone watching whether
-users are happy. Now think about a typical dataset in the same company.
-No owner. No docs. Use it at your own risk.
+Tenk på et system selskapet ditt leverer til kunder. Det har en eier,
+dokumentasjon, support når det knekker, og noen som følger med på om brukerne
+er fornøyde. Tenk så på et typisk datasett i samme selskap. Ingen eier. Ingen
+dokumentasjon. Bruk på eget ansvar.
 
-That's odd, isn't it? Million-kroner decisions rest on datasets we treat
-as byproducts.
+Det er rart, ikke sant? Millionbeslutninger hviler på datasett vi behandler
+som biprodukter.
 
-The slide says it: a data platform exists to serve data products.
-Lakehouse, pipelines, storage. All of that is how you get there.
+Sliden sier det: en dataplattform finnes for å servere dataprodukter.
+Lakehouse, pipelines, lagring. Alt det er hvordan du kommer dit.
 
-[[CLICK]] A product has users. And users have expectations. So treat the
-datasets people depend on with the same seriousness as the products you
-sell.
+[[CLICK]] Et produkt har brukere. Og brukere har forventninger. Så behandle
+datasettene folk er avhengige av med samme alvor som produktene du selger.
 
-## dataprodukt-kjennetegn – What makes it a product
+## dataprodukt-kjennetegn – Hva gjør det til et produkt
 
-So what turns a dataset into a product? Four things.
+Så hva gjør et datasett til et produkt? Fire ting.
 
-A named owner. Someone who answers for the content, and has the
-mandate to improve it.
+En navngitt eier. Noen som svarer for innholdet, og har mandat til å
+forbedre det.
 
-[[CLICK]] Documentation: what the fields mean, where the data comes
-from, what you can use it for.
+[[CLICK]] Dokumentasjon: hva feltene betyr, hvor dataene kommer fra, hva du
+kan bruke dem til.
 
-[[CLICK]] Quality guarantees. How fresh it is, which tests it has passed,
-what consumers can expect. That's the contract. We'll get to that.
+[[CLICK]] Kvalitetsgarantier. Hvor ferske de er, hvilke tester de har
+passert, hva konsumentene kan forvente. Det er kontrakten. Den kommer vi
+til.
 
-[[CLICK]] And known consumers: you know who actually uses the dataset,
-so you can warn them before a change breaks something downstream.
+[[CLICK]] Og kjente konsumenter: du vet hvem som faktisk bruker datasettet,
+så du kan varsle dem før en endring knekker noe nedstrøms.
 
-Ownership says who. The contract says what. Product thinking says why.
+Eierskap sier hvem. Kontrakten sier hva. Produkttenking sier hvorfor.
 
-[[CLICK]] And one more thing, before I show you the picture. Not every
-dataset. Product treatment costs time. Most datasets are working files
-that never get external consumers. Leave them alone. Start with the
-handful people lean on.
+[[CLICK]] Og én ting til, før jeg viser dere bildet. Ikke alle datasett.
+Produktbehandling koster tid. De fleste datasett er arbeidsfiler som aldri
+får eksterne konsumenter. La dem være. Start med den håndfullen folk lener
+seg på.
 
-## dataprodukt-anatomi – More than a table
+## dataprodukt-anatomi – Mer enn en tabell
 
-Let me show you what I mean.
+La meg vise hva jeg mener.
 
-Point to the left side. Here's a file someone put in a bucket. The data in
-it might be completely correct. But nobody dares use it.
+Pek på venstre side. Her er en fil noen har lagt i en bucket. Dataene i den
+kan være helt riktige. Men ingen tør bruke dem.
 
-[[CLICK]] What do the fields mean?
+[[CLICK]] Hva betyr feltene?
 
-[[CLICK]] How fresh is it?
+[[CLICK]] Hvor ferske er de?
 
-[[CLICK]] Who do I ask when something looks weird? Have you been there?
-I've been there many times. A file in a bucket is not a product. It's an
-object.
+[[CLICK]] Hvem spør jeg når noe ser rart ut? Har dere vært der? Jeg har vært
+der mange ganger. En fil i en bucket er ikke et produkt. Det er en
+gjenstand.
 
-Point to the right side. Exactly the same data. But packaged.
+Pek på høyre side. Nøyaktig samme data. Men pakket.
 
-[[CLICK]] Documentation: what the fields mean.
+[[CLICK]] Dokumentasjon: hva feltene betyr.
 
-[[CLICK]] A clear owner. Someone who answers.
+[[CLICK]] En tydelig eier. Noen som svarer.
 
-[[CLICK]] A data contract. A machine-readable agreement.
+[[CLICK]] En datakontrakt. En maskinlesbar avtale.
 
-[[CLICK]] And access. API, SQL, or BI.
+[[CLICK]] Og tilgang. API, SQL eller BI.
 
-[[CLICK]] Quality tests that run on every row.
+[[CLICK]] Kvalitetstester som kjører på hver rad.
 
-[[CLICK]] And freshness. An SLA: fresher than five minutes. Now people
-dare to use it.
+[[CLICK]] Og ferskhet. En SLA: ferskere enn fem minutter. Nå tør folk bruke
+det.
 
-Think of the difference between loose ingredients and a meal kit. The table
-is the ingredient. The data product is the dish, recipe and all.
+Tenk på forskjellen mellom løse ingredienser og en måltidskasse. Tabellen er
+ingrediensen. Dataproduktet er retten, med oppskrift og alt.
 
-And one warning. Not everything should be a product. When everything is a
-product, nothing is a product. The filter I use: is it shared outside the
-team? And is an error expensive enough that it's worth maintaining over
-time? If yes to both, it's a product.
+Og så én advarsel. Ikke alt skal være produkt. Når alt er produkt, er
+ingenting produkt. Filteret jeg bruker: deles det utenfor teamet? Og er en
+feil dyr nok til at det er verdt å forvalte det over tid? Hvis ja på begge, da
+er det et produkt.
 
-## datakontrakt-kapittel – Data contract
+## datakontrakt-kapittel – Datakontrakt
 
-And how do you describe a data product? With a data contract.
+Og hvordan beskriver du et dataprodukt? Med en datakontrakt.
 
-A contract is an agreement between those who change a dataset and those
-who consume it. Shared expectations. That's the whole point.
+En kontrakt er en avtale mellom de som endrer et datasett og de som
+konsumerer det. Felles forventninger. Det er hele poenget.
 
-When data is scattered, poorly documented, and nobody owns it, we spend
-our time searching, inspecting, and validating data other people produced.
+Når data er spredt, dårlig dokumentert, og ingen eier dem, bruker vi tiden
+vår på å lete, inspisere og validere data andre har produsert.
 
-## datakontrakt-hva – Clear documentation of your data
+## datakontrakt-hva – Tydelig dokumentasjon av dataene dine
 
-A data contract is clear documentation of your data.
+En datakontrakt er tydelig dokumentasjon av dataene dine.
 
-The contract is a document both humans and machines can read. It clears
-expectations both ways. The producer commits to something. The consumers
-know what they can rely on.
+Kontrakten er et dokument både mennesker og maskiner kan lese. Den avklarer
+forventninger begge veier. Produsenten forplikter seg til noe. Konsumentene
+vet hva de kan stole på.
 
-[[CLICK]] And it's more than a schema. The schema says speed is a number.
-The contract says: zero to sixty knots, fresher than five minutes, and
-here's who you wake up when it breaks.
+[[CLICK]] Og den er mer enn et skjema. Skjemaet sier at fart er et tall.
+Kontrakten sier: null til seksti knop, ferskere enn fem minutter, og her er
+hvem du vekker når det ryker.
 
-That's the difference between "I think that column is in knots" and "I
-know it is."
+Det er forskjellen mellom «jeg tror den kolonnen er i knop» og «jeg vet
+det».
 
-## datakontrakt-innhold – What's in a contract
+## datakontrakt-innhold – Hva står i en kontrakt
 
-So what do you actually write down?
+Så hva skriver du faktisk ned?
 
-Schema. Which fields exist, which types, what's required.
+Skjema. Hvilke felter som finnes, hvilke typer, hva som er påkrevd.
 
-[[CLICK]] Meaning. What the fields mean, and where they come from.
+[[CLICK]] Betydning. Hva feltene betyr, og hvor de kommer fra.
 
-[[CLICK]] Validation rules. Min, max, relationships, tests the data has
-to pass.
+[[CLICK]] Valideringsregler. Min, maks, relasjoner, tester dataene må
+passere.
 
-[[CLICK]] SLAs and governance. How fresh it should be, how sensitive it
-is, who owns it.
+[[CLICK]] SLA-er og governance. Hvor ferske de skal være, hvor sensitive de
+er, hvem som eier dem.
 
-[[CLICK]] And unlike a wiki page, this one is tested. Machines can check
-it. That's why it stays true.
+[[CLICK]] Og i motsetning til en wikiside blir denne testet. Maskiner kan
+sjekke den. Det er derfor den holder seg sann.
 
-## datakontrakt – Data contract: an API for data
+## datakontrakt – Datakontrakt: et API for data
 
-Let me show you what that looks like.
+La meg vise hvordan det ser ut.
 
-Point to the middle. This is the contract. YAML. Humans can read it.
-Machines can read it. Schema, valid values, freshness, ownership, terms.
+Pek på midten. Dette er kontrakten. YAML. Mennesker kan lese den. Maskiner
+kan lese den. Skjema, gyldige verdier, ferskhet, eierskap, vilkår.
 
-The producer is on the left. The consumers are on the right. The contract
-sits between them. Data only gets through if it matches.
+Produsenten er til venstre. Konsumentene er til høyre. Kontrakten ligger
+mellom dem. Data slipper bare gjennom hvis de matcher.
 
-The contract goes both ways. The producer commits to something. The
-consumers know what they can rely on.
+Kontrakten går begge veier. Produsenten forplikter seg til noe. Konsumentene
+vet hva de kan stole på.
 
-## datakontrakt-brudd – The contract stops the error early
+## datakontrakt-brudd – Kontrakten stopper feilen tidlig
 
-And here's why it's worth the trouble.
+Og her er hvorfor det er verdt bryet.
 
-The classic. Someone connects straight to the production database and loads
-data from it. Now the database schema has become an API, without anyone
-deciding that. The developer changes a column. She has no idea that someone
-downstream depends on it. And nobody sends a warning, because nobody knows a
-warning is needed.
+Klassikeren. Noen kobler seg rett på produksjonsdatabasen og laster data
+derfra. Nå har databaseskjemaet blitt et API, uten at noen bestemte det.
+Utvikleren endrer en kolonne. Hun aner ikke at noen nedstrøms er avhengige
+av den. Og ingen varsler, fordi ingen vet at det trengs et varsel.
 
-Point to the top. The change slides silently through. The dashboard breaks.
-And the error is discovered three weeks later, downstream, by the wrong
-people. Usually by someone who was about to use the number in a meeting.
+Pek øverst. Endringen sklir stille gjennom. Dashbordet knekker. Og feilen
+oppdages tre uker senere, nedstrøms, av feil folk. Som regel av noen som
+skulle bruke tallet i et møte.
 
-Point to the bottom. The same change. But now it hits the contract check in
-the pull request, and gets stopped before it reaches production. The
-contract isn't just documentation. It's tested.
+Pek nederst. Samme endring. Men nå møter den kontraktsjekken i pull requesten,
+og stoppes før den når produksjon. Kontrakten er ikke bare dokumentasjon. Den
+testes.
 
-The sentence I want you to take away: a silent break downstream becomes a
-loud, early failure. And loud, early failures are the cheapest failures
-there are.
+Setningen jeg vil at dere skal ta med: et stille brudd nedstrøms blir en
+høylytt, tidlig feil. Og høylytte, tidlige feil er de billigste feilene som
+finnes.
 
-## datakatalog – Data catalog
+## datakatalog – Datakatalog
 
-Next: how do you find the products?
+Neste: hvordan finner du produktene?
 
-Data catalog is the third concept that is important for the data platform architecture
+Datakatalogen er det tredje begrepet som er viktig for dataplattformarkitekturen.
 
-In a large organization, data lives in tens of systems, owned by different
-teams. Without a shared overview, people spend their time looking. And
-decisions get made on different versions of the same ground truth.
+I en stor organisasjon ligger data i titalls systemer, eid av forskjellige
+team. Uten en felles oversikt bruker folk tiden på å lete. Og beslutninger
+tas på forskjellige versjoner av samme fasit.
 
-The catalog is the map your organization is missing.
+Katalogen er kartet organisasjonen din mangler.
 
-## datakatalog-hva – What a catalog is
+## datakatalog-hva – Hva en katalog er
 
-A data catalog is an overview of the datasets in an organization.
+En datakatalog er en oversikt over datasettene i en organisasjon.
 
-It lets you search, understand, and assess a dataset without asking around
-the building, or digging through databases on your own.
+Den lar deg søke, forstå og vurdere et datasett uten å spørre rundt i
+bygget, eller grave i databaser på egen hånd.
 
-[[CLICK]] Search, understand, assess. Without the scavenger hunt.
+[[CLICK]] Søke, forstå, vurdere. Uten skattejakten.
 
-[[CLICK]] And one important thing. The data still lives in the source
-systems. The catalog describes it, and points to where it actually lives.
+[[CLICK]] Og én viktig ting. Dataene ligger fortsatt i kildesystemene.
+Katalogen beskriver dem, og peker til hvor de faktisk ligger.
 
-Most organizations only put finished, published data products in the
-catalog. That keeps it tidy. Working files stay out.
+De fleste organisasjoner legger bare ferdige, publiserte dataprodukter i
+katalogen. Det holder den ryddig. Arbeidsfiler holdes utenfor.
 
 ## datakatalog-datahub – DataHub
 
-This is what it looks like. DataHub. Open source.
+Slik ser det ut. DataHub. Åpen kildekode.
 
-You search. You see domains, platforms, published datasets. You can open
-one and see who owns it, what the fields mean, how fresh it is.
+Du søker. Du ser domener, plattformer, publiserte datasett. Du kan åpne ett
+og se hvem som eier det, hva feltene betyr, hvor ferskt det er.
 
-[[CLICK]] We picked an open source catalog because it integrates across
-many systems, not just one cloud. If you're deep in Microsoft, Purview
-does the same job. The gain is the same: a shared overview people
-actually use.
+[[CLICK]] Vi valgte en katalog med åpen kildekode fordi den integrerer på
+tvers av mange systemer, ikke bare én sky. Er du dypt inne i Microsoft, gjør
+Purview samme jobb. Gevinsten er den samme: en felles oversikt folk faktisk
+bruker.
 
-## governance – Governance: contracts and catalog
+## governance – Governance: kontrakter og katalog
 
-And then there's the word everyone hates. Governance.
+Så var det ordet alle hater. Governance.
 
-I know. It sounds like bureaucracy. But hear me out: governance is what
-makes us dare to share data. It's not the brake. It's the brakes that make
-you dare to drive fast.
+Jeg vet. Det høres ut som byråkrati. Men hør her: governance er det som gjør
+at vi tør å dele data. Det er ikke bremsen. Det er bremsene som gjør at du
+tør å kjøre fort.
 
-Ownership we already covered. It lives in the data product. What's left
-here is the contract and the catalog. [[CLICK]] And then centralized
-logging, audit, and reporting. One place, not in every system.
+Eierskap har vi allerede dekket. Det bor i dataproduktet. Det som er igjen
+her er kontrakten og katalogen. [[CLICK]] Og så sentralisert logging, audit
+og rapportering. Ett sted, ikke i hvert system.
 
-The questions governance has to answer are actually simple. Who has access?
-Who had access, and when? Where does the data live? When is it deleted?
+Spørsmålene governance skal svare på er egentlig enkle. Hvem har tilgang?
+Hvem hadde tilgang, og når? Hvor ligger dataene? Når slettes de?
 
-Concretely, for us: fishing vessels under fifteen meters and recreational
-boats under forty-five meters must not go out in the open data. That's
-privacy. And that filter lives in one place in the platform, not in every
-single system that uses the data. That's governance in practice.
+Konkret hos oss: fiskefartøy under femten meter og fritidsbåter under
+førtifem meter skal ikke ut i de åpne dataene. Det er personvern. Og det
+filteret ligger ett sted i plattformen, ikke i hvert eneste system som bruker
+dataene. Det er governance i praksis.
 
-[[CLICK]] And our tool for this is called Unity Catalog. More on that later.
+[[CLICK]] Og verktøyet vårt for dette heter Unity Catalog. Mer om det senere.
 
-## roller – Clear roles
+## roller – Tydelige roller
 
-As a data platform scales,
-Enforcement of such rules also need clear roles.
+Når en dataplattform skalerer,
+trenger håndhevingen av slike regler også tydelige roller.
 
-[[CLICK]] Someone has to own and build the platform.
+[[CLICK]] Noen må eie og bygge plattformen.
 
-[[CLICK]] Someone has to build the data pipelines and data products —
-engineers and analysts.
+[[CLICK]] Noen må bygge datapipelines og dataprodukter: engineers og
+analytikere.
 
-[[CLICK]] Someone has to be responsible for governance.
+[[CLICK]] Noen må ha ansvar for governance.
 
-[[CLICK]] And then there are the people who'll actually use what comes out —
-BI people and consumers.
+[[CLICK]] Og så er det de som faktisk skal bruke det som kommer ut: BI-folk
+og konsumenter.
 
-[[CLICK]] In practice the first three sit together as one data platform team.
+[[CLICK]] I praksis sitter de tre første sammen som ett dataplattformteam.
 
-The crucial shift is this: from data being something IT handles, to data
-being a natural part of the domain responsibility. When the pilots own the
-pilotage data, and the emergency response people own the emergency response
-data, the data gets better. More relevant. And, most importantly, actually
-used.
+Det avgjørende skiftet er dette: fra at data er noe IT håndterer, til at data
+er en naturlig del av fagansvaret. Når losene eier losdataene, og
+beredskapsfolkene eier beredskapsdataene, da blir dataene bedre. Mer
+relevante. Og, viktigst av alt, faktisk brukt.
 
-The value shows up when technology, organization, and responsibility pull in
-the same direction. That's the end of the theory part. Now let's look at
-what you get out of it.
+Verdien oppstår når teknologi, organisering og ansvar trekker i samme retning.
+Det er slutten på teoridelen. Nå skal vi se hva du får igjen.
 
-## effekter – What do you get out of it?
+## effekter – Hva får du igjen?
 
-[31:00] 4 min. Next chapter at 35:00.
+[31:00] 4 min. Neste kapittel 35:00.
 
-Chapter change. What do you actually get out of all this?
+Kapittelskifte. Hva får du egentlig igjen for alt dette?
 
-I'm going to give you four effects. And I'm not going to give them to you as
-PowerPoint bullets. I'm going to give you one concrete example from the sea
-route for each.
+Jeg skal gi dere fire effekter. Og jeg skal ikke gi dere dem som
+PowerPoint-punkter. Jeg skal gi dere ett konkret eksempel fra sjøveien for
+hver.
 
-## effekt-1 – Effect 1: Data quality
+## effekt-1 – Effekt 1: Datakvalitet
 
-One. Data quality. Data you can trust.
+Én. Datakvalitet. Data du kan stole på.
 
-[[CLICK]] Data that is tested, quality assured, and updated.
+[[CLICK]] Data som er testet, kvalitetssikret og oppdatert.
 
-Without a platform, quality is someone's inbox. A test somebody remembers to
-run. A spreadsheet that was right last Tuesday.
+Uten plattform er kvalitet noens innboks. En test noen husker å kjøre. Et
+regneark som var riktig forrige tirsdag.
 
-With a platform, the tests live in the pipeline. Bad rows stop before they
-spread. And the data you pull tomorrow is the same data everyone else is
-looking at.
+Med plattform ligger testene i pipelinen. Dårlige rader stoppes før de
+sprer seg. Og dataene du henter i morgen er de samme dataene alle andre ser
+på.
 
-## effekt-2 – Effect 2: Compliance
+## effekt-2 – Effekt 2: Etterlevelse
 
-Two. Built-in compliance.
+To. Innebygd etterlevelse.
 
-[[CLICK]] Audit logs. PII masking.
+[[CLICK]] Auditlogger. Maskering av personopplysninger.
 
-The privacy filter I mentioned. Fishing vessels under fifteen meters,
-recreational boats under forty-five meters. That's people's workplace and
-people's leisure boat, and it must not go out in the open.
+Personvernfilteret jeg nevnte. Fiskefartøy under femten meter, fritidsbåter
+under førtifem meter. Det er folks arbeidsplass og folks fritidsbåt, og det
+skal ikke ut i det åpne.
 
-Without a platform, every single system using AIS data would have to
-remember that rule itself. NAIS, HAIS, the APIs, the emissions model. Four
-places to slip up. With a platform, the filter lives in one place, and
-everyone downstream gets it for free. Same with the logs. You don't bolt
-them on afterwards. They're already there.
+Uten plattform måtte hvert eneste system som bruker AIS-data huske den
+regelen selv. NAIS, HAIS, API-ene, utslippsmodellen. Fire steder å glippe.
+Med plattform ligger filteret ett sted, og alle nedstrøms får det gratis.
+Samme med loggene. Du skrur dem ikke på etterpå. De er der allerede.
 
-## effekt-3 – Effect 3: Self-service
+## effekt-3 – Effekt 3: Selvbetjening
 
-Three. Self-service data.
+Tre. Selvbetjente data.
 
-[[CLICK]] Chat with your data. Order it yourself.
+[[CLICK]] Chat med dataene dine. Bestill selv.
 
-Here's how it used to be: you sent an email to an analyst. "Can I get AIS
-data for the Oslofjord in March?" And then you waited. The analyst had
-twenty of those in their inbox.
+Slik var det før: du sendte en e-post til en analytiker. «Kan jeg få
+AIS-data for Oslofjorden i mars?» Og så ventet du. Analytikeren hadde tjue
+slike i innboksen.
 
-Here's how it is now: you go to hais.kystverket.no. You draw an area on the
-map, pick a time range and ship type, and hit order. Then the platform reads
-through the history and emails you a Parquet file. Or you ask the data
-directly. No humans in the loop. The analyst does analysis instead of
-extracts.
+Slik er det nå: du går til hais.kystverket.no. Du tegner et område i kartet,
+velger tidsrom og skipstype, og trykker bestill. Så leser plattformen gjennom
+historikken og sender deg en Parquet-fil på e-post. Eller du spør dataene
+direkte. Ingen mennesker i loopen. Analytikeren gjør analyse i stedet for
+uttrekk.
 
-## effekt-4 – Effect 4: Future-ready
+## effekt-4 – Effekt 4: Fremtidsrettet
 
-Four. Future-ready. AI where the data already lives.
+Fire. Fremtidsrettet. AI der dataene allerede bor.
 
-[[CLICK]] The model runs where the data already lives. Integrated in your
-pipelines.
+[[CLICK]] Modellen kjører der dataene allerede bor. Integrert i pipelinene
+dine.
 
-Everyone's talking about AI. But AI needs data, and the data has to live
-somewhere. For us, the emissions model uses neural networks to fill gaps in
-the ship registry. And the interesting part isn't the model. The interesting
-part is where it runs. On the same platform as the data. In the same
-pipelines. With the same access control. Nobody copies data out to a laptop
-or a side project.
+Alle snakker om AI. Men AI trenger data, og dataene må bo et sted. Hos oss
+bruker utslippsmodellen nevrale nett til å fylle hull i skipsregisteret. Og
+det interessante er ikke modellen. Det interessante er hvor den kjører. På
+samme plattform som dataene. I de samme pipelinene. Med samme
+tilgangsstyring. Ingen kopierer data ut til en laptop eller et sideprosjekt.
 
-A good platform is the prerequisite for succeeding with AI. Not the other
-way around.
+En god plattform er forutsetningen for å lykkes med AI. Ikke omvendt.
 
-## prosjekt – The story of the project
+## prosjekt – Historien om prosjektet
 
-[35:00] 4 min. Next chapter at 39:00.
+[35:00] 4 min. Neste kapittel 39:00.
 
-So. Now you have the theory. Let's go back to our ship and tell the
-story of how it was actually done.
+Så. Nå har dere teorien. La oss gå tilbake til skipet vårt og fortelle
+historien om hvordan det faktisk ble gjort.
 
-This is the story of the project. From one source to a platform.
+Dette er historien om prosjektet. Fra én kilde til en plattform.
 
-## dag-en – Day one
+## dag-en – Dag én
 
-<!-- TODO Peter: add the start year and actual team size if you want. -->
+<!-- TODO Peter: legg inn årstall for oppstart og faktisk teamstørrelse hvis du vil. -->
 
-Day one. What did we have?
+Dag én. Hva hadde vi?
 
-[[CLICK]] One source. AIS. Nothing else. No HR data, no finance, no pilotage
-data. Just positions.
+[[CLICK]] Én kilde. AIS. Ikke noe annet. Ingen HR-data, ingen økonomi, ingen
+losdata. Bare posisjoner.
 
-[[CLICK]] One small team. That's important, and you'll see why in a couple of
+[[CLICK]] Ett lite team. Det er viktig, og dere skal se hvorfor om et par
 slides.
 
-[[CLICK]] And one stream. That never stops. Not at Christmas. Not in a gale.
-And not when we deploy. The ships don't care about our release plan. The
-messages keep coming regardless, every ten seconds, from every single dot on
-the map.
+[[CLICK]] Og én strøm. Som aldri stopper. Ikke i jula. Ikke i kuling.
+Og ikke når vi deployer. Skipene bryr seg ikke om release-planen vår.
+Meldingene kommer uansett, hvert tiende sekund, fra hver eneste prikk på
+kartet.
 
-So the first choice was: what do we build on?
+Så det første valget var: hva bygger vi på?
 
 ## azure-databricks – Azure + Databricks + Terraform
 
-The toolbox we chose. Azure, Databricks, and Terraform.
+Verktøykassa vi valgte. Azure, Databricks og Terraform.
 
-Two things, very briefly, because this is not a sales pitch. But you should
-understand why it fit.
+To ting, veldig kort, for dette er ikke et salgsforedrag. Men dere skal
+forstå hvorfor det passet.
 
-## azure – Azure: the foundation
+## azure – Azure: grunnmuren
 
-Azure is the foundation.
+Azure er grunnmuren.
 
-[[CLICK]] Storage, networking, and identity as ready-made building blocks.
-[[CLICK]] Security, access control, and cost control from day one, not
-something we bolt on afterwards.
+[[CLICK]] Lagring, nettverk og identitet som ferdige byggeklosser.
+[[CLICK]] Sikkerhet, tilgangsstyring og kostnadskontroll fra dag én, ikke
+noe vi skrur på etterpå.
 
-[[CLICK]] And it integrated well with the rest of the organization. Identity,
-networking, the things they already had. We didn't ask them to start over.
+[[CLICK]] Og det integrerte godt med resten av organisasjonen. Identitet,
+nettverk, det de allerede hadde. Vi ba dem ikke begynne på nytt.
 
-## databricks – Databricks: the engine
+## databricks – Databricks: motoren
 
-Databricks is the engine on top.
+Databricks er motoren oppå.
 
-[[CLICK]] What they call a lakehouse. Data lake and data warehouse in one.
-Cheap storage of raw data, and at the same time tables you can run SQL
-against.
+[[CLICK]] Det de kaller lakehouse. Datasjø og datavarehus i ett. Billig
+lagring av rådata, og samtidig tabeller du kan kjøre SQL mot.
 
-[[CLICK]] And it scales compute well. Up to many terabytes. The history is
-big. The engine has to grow with it.
+[[CLICK]] Og den skalerer regnekraften godt. Opp til mange terabyte.
+Historikken er stor. Motoren må vokse med den.
 
-[[CLICK]] And Unity Catalog. That's the governance layer from earlier, in
-practice. Access control, lineage, catalog. Everything we talked about under
-governance lives here.
+[[CLICK]] Og Unity Catalog. Det er governance-laget fra i sted, i praksis.
+Tilgangsstyring, lineage, katalog. Alt vi snakket om under governance bor
+her.
 
-So. How do we deploy it? Because it's one thing to choose Azure and
-Databricks. It's another thing to dare to change it.
+Så. Hvordan deployer vi det? For det er én ting å velge Azure og Databricks.
+En annen ting er å tørre å endre det.
 
-## terraform-kode – One resource. Three environments.
+## terraform-kode – Én ressurs. Tre miljøer.
 
-This is what it looks like in the repo.
+Slik ser det ut i repoet.
 
-One resource. A Databricks workspace. And a for_each over three
-environments. Dev. Test. Prod.
+Én ressurs. Et Databricks-workspace. Og en for_each over tre miljøer. Dev.
+Test. Prod.
 
-Same block. Three workspaces. Same name pattern. Same region. Same SKU.
+Samme blokk. Tre workspaces. Samme navnemønster. Samme region. Samme SKU.
 
-That's the whole point of infrastructure as code. We don't click the
-workspace into existence three times. We describe it once.
+Det er hele poenget med infrastruktur som kode. Vi klikker ikke workspacet
+til live tre ganger. Vi beskriver det én gang.
 
-So how do we get this from the repo into Azure?
+Så hvordan får vi dette fra repoet og inn i Azure?
 
-## terraform – Deploy and version control your infrastructure
+## terraform – Deploy og versjonskontroller infrastrukturen
 
-We don't click around in the portal. We commit.
+Vi klikker ikke rundt i portalen. Vi committer.
 
-Everything is infrastructure as code. The entire platform can be recreated
-from the repo.
+Alt er infrastruktur som kode. Hele plattformen kan gjenskapes fra repoet.
 
-[[CLICK]] A change starts as a pull request. It lives in git. [[CLICK]] The
-pipeline runs terraform plan. Everyone can see what will actually happen
-before it happens. [[CLICK]] Merge, then apply. Then it becomes reality.
+[[CLICK]] En endring starter som en pull request. Den ligger i git. [[CLICK]]
+Pipelinen kjører terraform plan. Alle kan se hva som faktisk skjer før det
+skjer. [[CLICK]] Merge, så apply. Da blir det virkelighet.
 
-[[CLICK]] Terraform describes Azure and Databricks. Down to catalogs and
-storage containers. Not just the big stuff. Also the buckets the data lands
-in.
+[[CLICK]] Terraform beskriver Azure og Databricks. Ned til kataloger og
+storage-containere. Ikke bare det store. Også bøttene dataene lander i.
 
-And the point: the entire platform can be recreated from the repo. Even if
-someone deletes it. That's an insurance policy. Not a slogan.
+Og poenget: hele plattformen kan gjenskapes fra repoet. Også om noen sletter
+den. Det er en forsikring. Ikke et slagord.
 
-## fire-states – Terraform: four states. Four pipelines.
+## fire-states – Terraform: fire states. Fire pipelines.
 
-We don't have one Terraform state. We have four deployments. And each one
-is duplicated across dev, test, and prod. Four times three. That's twelve.
+Vi har ikke én Terraform-state. Vi har fire deployments. Og hver av dem er
+duplisert på tvers av dev, test og prod. Fire ganger tre. Det blir tolv.
 
-Why split them? Because one big state is one big blast radius. A mistake
-in storage shouldn't tear down the catalog. A change in the workspace
-shouldn't touch the account level.
+Hvorfor splitte dem? Fordi én stor state er én stor blast radius. En feil i
+lagring skal ikke rive ned katalogen. En endring i workspacet skal ikke røre
+kontonivået.
 
-[[CLICK]] Workspace. The Databricks workspace. The one the team logs into.
+[[CLICK]] Workspace. Databricks-arbeidsområdet. Det teamet logger inn i.
 
-[[CLICK]] Storage accounts. Storage and containers. Including raw. Where the
-data lands before Databricks sees it. Remember that word. Raw. We'll come
-back to it when we talk about ingest.
+[[CLICK]] Storage accounts. Lagring og containere. Inkludert raw. Der dataene
+lander før Databricks ser dem. Husk det ordet. Raw. Vi kommer tilbake til
+det når vi snakker om ingest.
 
-[[CLICK]] Unity Catalog. The catalogs and the access control. Governance as
-code.
+[[CLICK]] Unity Catalog. Katalogene og tilgangsstyringen. Governance som
+kode.
 
-[[CLICK]] The Databricks account. Account level. Identity, groups, everything
-that sits above the workspace.
+[[CLICK]] Databricks-kontoen. Kontonivå. Identitet, grupper, alt som ligger
+over workspacet.
 
-[[CLICK]] Four deployments. Each one in dev, test, and prod. A change in
-storage doesn't tear down the catalog. And a change in dev doesn't touch
-prod. That's the whole point of splitting.
+[[CLICK]] Fire deployments. Hver av dem i dev, test og prod. En endring i
+lagring river ikke ned katalogen. Og en endring i dev rører ikke prod. Det er
+hele poenget med å splitte.
 
-And before we go deeper into ingest and the pipelines: what do we actually
-build on top of this?
+Og før vi går dypere inn i ingest og pipelinene: hva bygger vi egentlig oppå
+dette?
 
-## teknisk-implementasjon – Technical implementation details
+## teknisk-implementasjon – Tekniske implementasjonsdetaljer
 
-[47:00] 2 min. Next chapter at 49:00.
+[47:00] 2 min. Neste kapittel 49:00.
 
-Chapter change. Back to how it was actually built. Ingest. The daily job.
-How the pipeline is wired.
+Kapittelskifte. Tilbake til hvordan det faktisk ble bygget. Ingest. Den
+daglige jobben. Hvordan pipelinen er koblet sammen.
 
-## ingest – Ingest happens outside Databricks.
+## ingest – Innlesingen skjer utenfor Databricks.
 
-So. The data. Where does it come in?
+Så. Dataene. Hvor kommer de inn?
 
-Ingest happens outside Databricks. Databricks doesn't own the antenna. It
-owns what comes after raw.
+Innlesingen skjer utenfor Databricks. Databricks eier ikke antennen. Den
+eier det som kommer etter raw.
 
-We want to decouple the raw jobs from Databricks. Databricks will probably
-be replaced at some point. So it's cheaper and more resilient to base the
-raw ingest on open source.
+Vi vil frikoble raw-jobbene fra Databricks. Databricks blir sannsynligvis
+byttet ut en dag. Så det er billigere og mer robust å basere raw-innlesingen
+på åpen kildekode.
 
-[[CLICK]] We use Prefect. A Python library for orchestrating jobs. Not
-Databricks jobs. Plain Python jobs.
+[[CLICK]] Vi bruker Prefect. Et Python-bibliotek for å orkestrere jobber.
+Ikke Databricks-jobs. Vanlige Python-jobber.
 
-[[CLICK]] The jobs fetch data and dump it in storage. In raw. Done. In the
-containers Terraform just created.
+[[CLICK]] Jobbene henter data og dumper dem i storage. I raw. Ferdig. I
+containerne Terraform nettopp laget.
 
-[[CLICK]] Databricks reads from there. The platform begins when the file is
-there. Not when the ship transmits. That's a deliberate cut. Ingest is one
-responsibility. The lakehouse is another.
+[[CLICK]] Databricks leser derfra. Plattformen begynner når filen ligger der.
+Ikke når skipet sender. Det er et bevisst kutt. Ingest er ett ansvar.
+Lakehouse er et annet.
 
-## ais-pipeline – The job that runs every day
+## ais-pipeline – Jobben som kjører hver dag
 
-This is the Databricks job. AIS orchestration. Production.
+Dette er Databricks-jobben. AIS-orkestrering. Produksjon.
 
-Don't read the node names. The audience can see them. Point at the shape.
+Ikke les nodenavnene. Publikum kan se dem. Pek på formen.
 
-On the left: import. The raw AIS coming in. Then a previous-month status
-check, and a monthly backfill if we need one. Then it fans out. Quality.
-Mappings. Static records. Ship info. Then it comes back together into
-cleaning, and out to gold.
+Til venstre: import. Rå AIS som kommer inn. Så en statussjekk for forrige
+måned, og en månedlig backfill hvis vi trenger det. Så vifter det ut.
+Kvalitet. Mappinger. Statiske poster. Skipsinfo. Så samles det igjen i
+vasking, og ut til gold.
 
-That's ingest, as it actually runs. One job. Every day. A hundred million
-rows.
+Det er ingest, slik den faktisk kjører. Én jobb. Hver dag. Hundre millioner
+rader.
 
-And still: no clusters we have to run.
+Og fortsatt: ingen klynger vi må drifte.
 
-## stordata-volum – The stream is small, the history is big
+## stordata-volum – Strømmen er liten, historikken er stor
 
-[49:00] 3 min. Next chapter at 52:00.
-If you are behind, cut the two batch/streaming slides and keep the
-volume plus serverless.
+[49:00] 3 min. Neste kapittel 52:00.
+Ligger du etter, kutt de to batch/streaming-slidene og behold volum pluss
+serverless.
 
-Chapter change. Scaling. The stream and the history. How we make the
-spatial joins scale. And when you choose batch versus streaming.
+Kapittelskifte. Skalering. Strømmen og historikken. Hvordan vi får de
+romlige joinene til å skalere. Og når du velger batch kontra streaming.
 
-Click, click, click through the numbers. Around 5 GB of raw data per day.
-Around 1.8 TB per year. Around 40 TB of AIS history, back to 2005.
+Klikk, klikk, klikk gjennom tallene. Rundt 5 GB rådata om dagen. Rundt 1,8 TB
+i året. Rundt 40 TB AIS-historikk, tilbake til 2005.
 
-Daily processing is easy. Twelve hundred rows per second? That's peanuts.
-A laptop can handle that.
+Den daglige prosesseringen er lett. Tolv hundre rader i sekundet? Det er
+småtteri. Det klarer en laptop.
 
-The heavy part is the history. Twenty-one years. Around 40 TB of positions. A
-full historical job is the hard part, because of those 40 TB.
+Det tunge er historikken. Tjueett år. Rundt 40 TB med posisjoner. En full
+historisk jobb er det vanskelige, på grunn av de 40 TB.
 
-[[CLICK]] And we have to run through that history again. Not once. Every time
-something changes. A new version of the emissions model. A new emission
-factor. A bug we found in the cleaning. Then all twenty years have to be
-recalculated.
+[[CLICK]] Og den historikken må vi kjøre gjennom på nytt. Ikke én gang. Hver
+gang noe endrer seg. Ny versjon av utslippsmodellen. Ny utslippsfaktor. En
+feil vi fant i vaskingen. Da må alle tjue årene regnes om.
 
-## databricks-compute – Clusters are managed VMs in Azure
+## databricks-compute – Klynger er administrerte VM-er i Azure
 
-So how do you actually run those jobs?
+Så hvordan kjører du egentlig de jobbene?
 
-Databricks compute. You spin up a cluster. And a cluster is just managed
-VMs in Azure. That's the whole trick. Databricks starts them, Databricks
-stops them. They live in our subscription.
+Databricks compute. Du starter en klynge. Og en klynge er bare administrerte
+VM-er i Azure. Det er hele trikset. Databricks starter dem, Databricks
+stopper dem. De bor i vår subscription.
 
-[[CLICK]] You scale the cluster to the volume. More data, bigger machines.
-Or more of them.
+[[CLICK]] Du skalerer klyngen etter volumet. Mer data, større maskiner. Eller
+flere av dem.
 
-[[CLICK]] A terabyte through the job? You need a fairly big VM. Remember the
-history? Around 40 TB. That is not a laptop job.
+[[CLICK]] En terabyte gjennom jobben? Da trenger du en ganske stor VM. Husker
+dere historikken? Rundt 40 TB. Det er ikke en laptop-jobb.
 
-[[CLICK]] And here's the part people get wrong. Not everything has to fit in
-memory at the same time. Spark chunks the data. It reads a piece, works on
-it, writes it out, takes the next piece.
+[[CLICK]] Og her er det folk tar feil av. Ikke alt må passe i minnet
+samtidig. Spark deler opp dataene. Den leser en bit, jobber med den, skriver
+den ut, tar neste bit.
 
-[[CLICK]] So the VM size is not "does it fit." The VM size is "how long does
-it take." Same job. Small cluster, you wait. Big cluster, you get the
-answer today.
+[[CLICK]] Så VM-størrelsen er ikke «får det plass». VM-størrelsen er «hvor
+lang tid tar det». Samme jobb. Liten klynge, du venter. Stor klynge, du får
+svaret i dag.
 
-We spent quite a lot of time getting that scaling just right.
+Vi brukte ganske mye tid på å få den skaleringen helt riktig.
 
-## serverless – serverless vs manual tuning
+## serverless – Serverless vs. manuell tuning
 
 Serverless.
 
-Look at the drawing. Same load, same clock. On the left we guess a size,
-wait for the cluster to wake up, then jump the slider when the peak has
-already hit. On the right the job decides. Capacity follows the curve.
+Se på tegningen. Samme last, samme klokke. Til venstre gjetter vi en
+størrelse, venter på at klyngen våkner, og hopper med slideren når toppen
+allerede har kommet. Til høyre bestemmer jobben. Kapasiteten følger kurven.
 
-Remember HAIS? One week for one vessel, or every ship for a year. That's
-why serverless fits. The job decides the size. Not us.
+Husker dere HAIS? Én uke for ett fartøy, eller alle skip i ett år. Det er
+derfor serverless passer. Jobben bestemmer størrelsen. Ikke vi.
 
-Remember the small team that needed to sleep at night? This is where that
-comes in. No clusters to start, patch, or scale. Nobody getting an alert at
-four in the morning because a node died.
+Husker dere det lille teamet som skulle sove om natta? Det er her det kommer
+inn. Ingen klynger å starte, patche eller skalere. Ingen som får en alarm
+klokka fire fordi en node døde.
 
-[[CLICK]] Autoscaling was cheaper than manual scaling. For us. We didn't have
-to guess the size of a cluster and then sit on unused capacity, or run too
-small and watch the queue grow. Capacity follows the stream. More traffic
-in the daytime than at night, more in summer than in winter, and the
-platform scales up and down by itself. And we pay for what we use. Not for
-what we fear we might need.
+[[CLICK]] Autoskalering var billigere enn manuell skalering. For oss. Vi
+slapp å gjette størrelsen på en klynge og så sitte på ubrukt kapasitet, eller
+kjøre for lite og se køen vokse. Kapasiteten følger strømmen. Mer trafikk om
+dagen enn om natta, mer om sommeren enn om vinteren, og plattformen skalerer
+opp og ned selv. Og vi betaler for det vi bruker. Ikke for det vi frykter vi
+kommer til å trenge.
 
-[[CLICK]] It saved tuning time. Nobody on the team spending evenings on
-cluster config. Spark settings. Spot vs. on-demand. When to scale this job
-and when to leave that one alone.
+[[CLICK]] Det sparte tuning-tid. Ingen på teamet som bruker kveldene på
+klyngekonfig. Spark-innstillinger. Spot kontra on-demand. Når denne jobben
+skal skaleres og når den andre skal få stå.
 
-[[CLICK]] And it saved startup time. No waiting for a cluster to wake up
-before the job can start. The stream doesn't wait. The history jobs
-don't wait. We don't wait.
+[[CLICK]] Og det sparte oppstartstid. Ingen venting på at en klynge skal
+våkne før jobben kan starte. Strømmen venter ikke. Historikkjobbene venter
+ikke. Vi venter ikke.
 
-For a small team, this is the difference between building a product and
-operating infrastructure. We chose product.
+For et lite team er dette forskjellen på å bygge produkt og å drifte
+infrastruktur. Vi valgte produkt.
 
-## batch-vs-streaming – Batch vs. streaming: the flow
+## batch-vs-streaming – Batch vs. streaming: flyten
 
-That history job is batch. The daily stream is streaming. A sidenote,
-because it's a choice you're going to have to make.
+Den historikkjobben er batch. Den daglige strømmen er streaming. Et lite
+sidespor, for det er et valg dere kommer til å måtte ta.
 
-Look at the animation. At the top, batch collects data and moves it at fixed
-intervals. Once an hour, once a night. At the bottom, streaming forwards
-every event the moment it happens.
+Se på animasjonen. Øverst samler batch opp data og flytter dem med faste
+intervaller. En gang i timen, en gang i natta. Nederst sender streaming hver
+hendelse videre i det øyeblikket den skjer.
 
-And here's the point many people miss: the difference is not about
-technology. It's about how fresh the data needs to be. Does the vessel
-traffic center need to know where the ship is now? Yes, that's streaming.
-Do the climate accounts need to know where the ship was last year? That can
-happily run overnight.
+Og her er poenget mange bommer på: forskjellen handler ikke om teknologi.
+Den handler om hvor ferske dataene må være. Trenger sjøtrafikksentralen å
+vite hvor skipet er nå? Ja, det er streaming. Trenger klimaregnskapet å vite
+hvor skipet var i fjor? Det kan gjerne kjøre om natta.
 
-## batch-streaming-valg – When do you choose what?
+## batch-streaming-valg – Når velger du hva?
 
-So when do you choose what?
+Så når velger du hva?
 
-Click through the batch points. Batch fits reports and historical analysis.
-Large volumes, because it's cheap. And sources that arrive in chunks anyway,
-like a nightly export from an old system.
+Klikk gjennom batch-punktene. Batch passer for rapporter og historiske
+analyser. For store volumer, fordi det er billig. Og for kilder som uansett
+kommer i bolker, som en nattlig eksport fra et gammelt system.
 
-Click through the streaming points. Streaming fits when you actually have to
-react now. Monitoring and alerting. Event-driven automation. And when
-freshness matters more than cost.
+Klikk gjennom streaming-punktene. Streaming passer når du faktisk må reagere
+nå. Overvåking og varsling. Hendelsesdrevet automatisering. Og når ferskhet
+er viktigere enn kostnad.
 
-[[CLICK]] And in practice, you usually need both. My advice: start with batch.
-It's simpler and cheaper. Add streaming where fresh data actually changes a
-decision. Not because it's cool.
+[[CLICK]] Og i praksis trenger du som regel begge. Mitt råd: start med batch.
+Det er enklere og billigere. Legg til streaming der ferske data faktisk
+endrer en beslutning. Ikke fordi det er kult.
 
-For us, the AIS stream comes in continuously. But much of what we build on
-top runs in batch. Both, in the same platform.
+Hos oss kommer AIS-strømmen inn fortløpende. Men mye av det vi bygger oppå
+kjører i batch. Begge deler, i samme plattform.
 
-## stordata-compute – Days of compute, or hours?
+## stordata-compute – Døgn med kjøretid, eller timer?
 
-And then the question becomes: how long does that take?
+Og da blir spørsmålet: hvor lang tid tar det?
 
-Click through the fixed cluster points. On classic compute, you decide the
-size of the cluster before the job starts. A full reprocessing can take
-several days. And if you have several jobs like that, they queue up. So you
-sit there waiting for Friday.
+Klikk gjennom fast klynge. På klassisk compute bestemmer du størrelsen på
+klyngen før jobben starter. En full reprosessering kan bruke flere døgn. Og
+har du flere slike jobber, står de i kø. Så du sitter der og venter på
+fredag.
 
-Click through the autoscaling points. With autoscaling, capacity follows the
-amount of data in the job. It scales up where there's a lot to do, and back
-down afterwards. Days become hours, because we can go wide.
+Klikk gjennom autoskalering. Med autoskalering følger kapasiteten datamengden
+i jobben. Den skalerer opp der det er mye å gjøre, og ned igjen etterpå.
+Døgn blir timer, fordi vi kan bruke bredden.
 
-[[CLICK]] And here's the nuance I want you to take away: the bill ends up about
-the same. You pay for the work, not for the time it takes. The difference is
-that you get the answer today instead of on Friday. And for the person
-waiting for the number, that's the whole difference.
+[[CLICK]] Og her er nyansen jeg vil at dere skal ta med: regningen blir
+omtrent den samme. Du betaler for arbeidet, ikke for tiden det tar.
+Forskjellen er at du får svaret i dag i stedet for på fredag. Og for den som
+venter på tallet, er det hele forskjellen.
 
-Compute is only half of it. The other half is the questions we ask the
-data.
+Regnekraft er bare halvparten. Den andre halvparten er spørsmålene vi
+stiller dataene.
 
-## math-opt – Mathematical optimizations
+## math-opt – Matematiske optimaliseringer
 
-[52:00] 3 min. Next chapter at 55:00.
-If the total is already past 52:00, skip this chapter. Go to the road ahead.
+[52:00] 3 min. Neste kapittel 55:00.
+Hvis totalen allerede har passert 52:00, hopp over dette kapittelet. Gå til
+veien videre.
 
-A lot of the spatial work is two questions.
+Mye av det romlige arbeidet er to spørsmål.
 
-Is this point inside this area? Contains within. A port. A fish farm.
-The economic zone.
+Er dette punktet inne i dette området? Contains within. En havn. Et
+oppdrettsanlegg. Den økonomiske sonen.
 
-And which points sit close to each other? Near shore. Near a platform.
-Near our ship.
+Og hvilke punkter ligger nær hverandre? Nær land. Nær en plattform. Nær
+skipet vårt.
 
-Every product we just talked about asks those questions.
+Hvert produkt vi nettopp snakket om stiller de spørsmålene.
 
-[[CLICK]] Over billions of points, that job explodes. Every point
-against every other point. Geometry on every row. It does not finish.
+[[CLICK]] Over milliarder av punkter eksploderer den jobben. Hvert punkt mot
+hvert annet punkt. Geometri på hver rad. Det blir ikke ferdig.
 
-[[CLICK]] So we don't do that. We group the points into hexes.
-Uber's H3.
+[[CLICK]] Så det gjør vi ikke. Vi grupperer punktene i hekser. Ubers H3.
 
-## h3-hexes – Hexes within hexes
+## h3-hexes – Hekser i hekser
 
-This is H3.
+Dette er H3.
 
-The planet, tiled in hexes. Hexes inside hexes. Every cell has a unique
-id. An integer. That's what we store on every AIS point.
+Planeten, delt inn i hekser. Hekser inni hekser. Hver celle har en unik id.
+Et heltall. Det er det vi lagrer på hvert AIS-punkt.
 
-[[CLICK]] And there are sixteen resolutions. From hexes the size of
-countries, down to hexes about one metre across.
+[[CLICK]] Og det er seksten oppløsninger. Fra hekser på størrelse med land,
+ned til hekser på rundt én meter.
 
-You pick the resolution that matches the question. Close to a port is a
-kilometre question. Fine work can go smaller. Same system.
+Du velger oppløsningen som passer spørsmålet. Nær en havn er et
+kilometerspørsmål. Finarbeid kan gå mindre. Samme system.
 
-## hex-join – A join on a number
+## hex-join – En join på et tall
 
-And here's why it scales.
+Og her er hvorfor det skalerer.
 
-Same question, a hundred million times a day. Is this point inside
-this area? Near a port. Near a fish farm. Near an oil installation.
-Inside the economic zone.
+Samme spørsmål, hundre millioner ganger om dagen. Er dette punktet inne i
+dette området? Nær en havn. Nær et oppdrettsanlegg. Nær en oljeinstallasjon.
+Inne i den økonomiske sonen.
 
-The usual way is geometry. ST_Within. Math on every row. A bounding
-box test, then point-in-polygon against every edge. Fine for a thousand
-points. Not for a hundred million.
+Den vanlige måten er geometri. ST_Within. Matte på hver rad. En bounding
+box-test, så punkt-i-polygon mot hver kant. Greit for tusen punkter. Ikke
+for hundre millioner.
 
-[[CLICK]] H3 is a BIGINT. An integer. It joins and groups like any other
-column. A hash join. Geometry never gets touched.
+[[CLICK]] H3 er en BIGINT. Et heltall. Den joiner og grupperer som enhver
+annen kolonne. En hash join. Geometrien rører vi aldri.
 
-One catch. The hex ID has to already sit on the table you join against.
-If you calculate it from lon-lat while the query runs, there is nothing
-to prune. The engine has to look at every row anyway. We generate it
-once, when the data lands. Then the join is just a number.
+Én hake. Heks-id-en må allerede ligge på tabellen du joiner mot. Regner du
+den ut fra lon-lat mens spørringen kjører, er det ingenting å prune. Motoren
+må se på hver rad uansett. Vi genererer den én gang, når dataene lander. Så
+er joinen bare et tall.
 
-We do that on MarTraf, MarU, and KystRisk.
+Det gjør vi på MarTraf, MarU og KystRisk.
 
-The pattern, if you still need the exact answer: prune with the hex join.
-Settle the leftovers with geometry afterwards. MarTraf mostly stops at
-the hex.
+Mønsteret, hvis du fortsatt trenger det eksakte svaret: prune med
+heks-joinen. Avgjør restene med geometri etterpå. MarTraf stopper stort sett
+ved heksen.
 
-One example. Is this ship close to shore? We don't calculate the exact
-distance to the land contour. We ask: is it inside a k-ring or two of a
-land hex? If yes, is_close_to_shore equals true.
+Ett eksempel. Er dette skipet nær land? Vi regner ikke ut den eksakte
+avstanden til kystkonturen. Vi spør: er det innenfor en k-ring eller to fra
+en land-heks? Hvis ja, er is_close_to_shore lik true.
 
-That test, times two billion rows, is much simpler than geodesic distance
-on every row.
+Den testen, ganger to milliarder rader, er mye enklere enn geodetisk avstand
+på hver rad.
 
-The phases use the same ruler. A wellboat at a fish farm is one hexagon
-and under one knot. Distance is just how many cells away.
+Fasene bruker samme målestokk. En brønnbåt ved et oppdrettsanlegg er én
+heksagon og under én knop. Avstand er bare hvor mange celler unna.
 
-## h3-ship – One ship on the hex grid
+## h3-ship – Ett skip på heksnettet
 
-This is what that looks like for one ship.
+Slik ser det ut for ett skip.
 
-The track is just points. Each point lands in a hex.
-Distance becomes "how many cells away". That's the join we just talked about.
+Sporet er bare punkter. Hvert punkt lander i en heks.
+Avstand blir «hvor mange celler unna». Det er joinen vi nettopp snakket om.
 
-If our ship is in the same hex as a port, it's at the port.
-If it's one cell out, it's nearby. That's the whole test.
+Er skipet vårt i samme heks som en havn, er det i havna.
+Er det én celle ut, er det i nærheten. Det er hele testen.
 
-Now these cells are very big, but the hexes of course scale all the way down to one metre. So we pick the resolution that is appropriate for the current job.
+Nå er disse cellene veldig store, men heksene skalerer selvsagt helt ned til én meter. Så vi velger oppløsningen som passer for den aktuelle jobben.
 
-## modeller – From positions to emissions
+## modeller – Fra posisjoner til utslipp
 
-[39:00] 8 min. Next chapter at 47:00. This is the payoff. Follow the ship.
-If you are behind, cut maru-hull and KystRisk.
+[39:00] 8 min. Neste kapittel 47:00. Dette er gevinsten. Følg skipet.
+Ligger du etter, kutt maru-hull og KystRisk.
 
-Chapter change. We have the toolbox. Azure, Databricks, Terraform. Before we
-go into ingest and the pipelines, here's what we actually use the data for.
+Kapittelskifte. Vi har verktøykassa. Azure, Databricks, Terraform. Før vi
+går inn i ingest og pipelinene, her er hva vi faktisk bruker dataene til.
 
-MarTraf sits on top of the stream. Then it splits. MarU, KystRisk.
-And HAIS, if you just want the history. Tonight we follow our ship
-through MarTraf and MarU.
+MarTraf ligger oppå strømmen. Så deler det seg. MarU, KystRisk.
+Og HAIS, hvis du bare vil ha historikken. I dag følger vi skipet vårt
+gjennom MarTraf og MarU.
 
-The short version: MarTraf turns positions into voyages. Then several products
-can ask different questions of the same voyages.
+Kortversjonen: MarTraf gjør posisjoner om til seilaser. Så kan flere
+produkter stille forskjellige spørsmål til de samme seilasene.
 
-## modell-flyt – One source, many data products
+## modell-flyt – Én kilde, mange dataprodukter
 
-First the architecture, briefly.
+Først arkitekturen, kort.
 
-[[CLICK]] Raw AIS data in. [[CLICK]] HAIS, if you just want the history. Extracts
-on demand. Parallel to the traffic model, not in front of it. [[CLICK]] MarTraf
-cleans and enriches. That's the shared layer. Voyages, phases, traffic type.
+[[CLICK]] AIS-rådata inn. [[CLICK]] HAIS, hvis du bare vil ha historikken.
+Uttrekk på bestilling. Parallelt med trafikkmodellen, ikke foran den.
+[[CLICK]] MarTraf vasker og beriker. Det er det felles laget. Seilaser,
+faser, trafikktype.
 
-[[CLICK]] Then it splits. MarU calculates energy and emissions. Climate accounts
-for the municipalities.
+[[CLICK]] Så deler det seg. MarU regner energi og utslipp. Klimaregnskap for
+kommunene.
 
-[[CLICK]] KystRisk. Accident risk. Collisions and groundings. The same voyages,
-a different question.
+[[CLICK]] KystRisk. Ulykkesrisiko. Kollisjoner og grunnstøtinger. De samme
+seilasene, et annet spørsmål.
 
-And here's the point for those of you who build systems. The predecessor,
-Havbase, did everything in one model. One big black box. Now we have one
-source, and many data products on top. MarTraf's output is a product others
-can build on.
+Og her er poenget for dere som bygger systemer. Forgjengeren, Havbase,
+gjorde alt i én modell. Én stor svart boks. Nå har vi én kilde, og mange
+dataprodukter oppå. MarTrafs output er et produkt andre kan bygge på.
 
-Recognize that? It's the data product thinking from earlier. In practice.
+Kjenner dere igjen det? Det er dataprodukt-tenkingen fra tidligere. I
+praksis.
 
-And a bonus: Havbase was developed and operated by an external partner. MarU
-is Kystverket's move to own the assumptions and the calculations themselves.
+Og en bonus: Havbase var utviklet og driftet av en ekstern partner. MarU er
+Kystverkets grep for å eie forutsetningene og beregningene selv.
 
-## hais – HAIS: historical extracts on demand
+## hais – HAIS: historisk uttrekk på bestilling
 
-One more output. Another product. A service on the history. HAIS.
+Ett output til. Enda et produkt. En tjeneste på historikken. HAIS.
 
-[[CLICK]] Anyone can go to hais.kystverket.no and order up to one year of
-historical AIS data. Time range, area as a polygon, ship type, or a single
-vessel. [[CLICK]] That starts a job that reads through the history and filters.
-[[CLICK]] And the result arrives as GeoParquet or CSV by email.
+[[CLICK]] Hvem som helst kan gå til hais.kystverket.no og bestille inntil ett
+år med historiske AIS-data. Tidsrom, område som polygon, skipstype eller ett
+enkelt fartøy. [[CLICK]] Det starter en jobb som leser gjennom historikken og
+filtrerer. [[CLICK]] Og resultatet kommer som GeoParquet eller CSV på e-post.
 
-And here's the point: we don't know in advance what the next order will be.
-Is it one vessel for one week? Or every ship for a whole year? The first
-takes seconds. The second is a serious job. The job decides the size.
-Not us. We don't have to guess.
+Og her er poenget: vi vet ikke på forhånd hva neste bestilling er. Er det
+ett fartøy i én uke? Eller alle skip i ett helt år? Den første tar sekunder.
+Den andre er en skikkelig jobb. Jobben bestemmer størrelsen. Ikke vi. Vi
+slipper å gjette.
 
-That's also why we can pull one real ship out of twenty-one years
-and watch it move.
+Det er også derfor vi kan hente ett ekte skip ut av tjueett år og se det
+bevege seg.
 
-## asuka-hais – Asuka, from HAIS
+## asuka-hais – Asuka, fra HAIS
 
-A real ship. Pulled out of HAIS.
+Et ekte skip. Hentet ut av HAIS.
 
-And then the obvious question.
-WHO IS ASUKA?
+Og så det åpenbare spørsmålet.
+HVEM ER ASUKA?
 
-## asuka-hvem – Who is Asuka?
+## asuka-hvem – Hvem er Asuka?
 
-Who is Asuka?
+Hvem er Asuka?
 
-She is a female japanese wrestler.
+Hun er en japansk wrestler.
 
-Three days well spent for a couple thousand cruise ship passengers.
+Tre dager godt brukt for et par tusen cruisepassasjerer.
 
-## folg-ett-skip – Follow one ship
+## folg-ett-skip – Følg ett skip
 
-Now we follow our ship.
+Nå følger vi skipet vårt.
 
-[[CLICK]] It's at berth in Bergen. It's 22:40. Zero knots. The AIS transmits
-every three minutes, because the ship is standing still.
+[[CLICK]] Det ligger til kai i Bergen. Klokka er 22:40. Null knop. AIS-en
+sender hvert tredje minutt, for skipet står stille.
 
-[[CLICK]] Then it casts off and maneuvers out the Byfjorden. Under three knots.
-Now it transmits more often.
+[[CLICK]] Så løsner det og manøvrerer ut Byfjorden. Under tre knop. Nå sender
+det oftere.
 
-[[CLICK]] And then it sets course north. Cruising. Nine knots. And at 03:14 it
-passes Stad, in a gale, and sends the message we started with. One point out
-of thousands.
+[[CLICK]] Og så setter det kursen nordover. Cruising. Ni knop. Og klokka 03:14
+passerer det Stad, i kuling, og sender meldingen vi startet med. Ett punkt
+av tusenvis.
 
-[[CLICK]] Off Ålesund, there's no berth available yet. So it anchors. 0.2
-knots, drifting a little around the anchor.
+[[CLICK]] Utenfor Ålesund er det ikke kaiplass ennå. Så det ankrer. 0,2 knop,
+driver litt rundt ankeret.
 
-[[CLICK]] And at 09:15 it's at berth in Ålesund.
+[[CLICK]] Og klokka 09:15 ligger det til kai i Ålesund.
 
-[[CLICK]] Around 3,800 AIS points have become one voyage. Port to port. And
-every point has been given a phase. Without the phases, everything is just
-"a ship." With them, we know what the ship was doing at every single point.
-And that's the difference between noise and knowledge.
+[[CLICK]] Rundt 3 800 AIS-punkter er blitt én seilas. Havn til havn. Og
+hvert punkt har fått en fase. Uten fasene er alt bare «et skip». Med dem vet
+vi hva skipet holdt på med i hvert eneste punkt. Og det er forskjellen på
+støy og kunnskap.
 
-You just saw one ship become one voyage. Now zoom out.
+Dere så nettopp ett skip bli én seilas. Zoom ut nå.
 
-A hundred million points a day. And twenty-one years of them.
-That's a lot of AIS. But as it is, it's almost unusable.
-Each point says who, where, how fast. That's it. No voyage. No "this ship
-went from Bergen to Ålesund." No structure.
+Hundre millioner punkter om dagen. Og tjueett år med dem.
+Det er mye AIS. Men som det er, er det nesten ubrukelig.
+Hvert punkt sier hvem, hvor, hvor fort. Det er alt. Ingen seilas. Ingen
+«dette skipet gikk fra Bergen til Ålesund». Ingen struktur.
 
-[[CLICK]] To do anything with it, we had to group it. Into chunks.
-You can't compute on a hundred million lonely dots. You need a unit of work.
+[[CLICK]] For å gjøre noe med det måtte vi gruppere det. I biter.
+Du kan ikke regne på hundre millioner ensomme prikker. Du trenger en
+arbeidsenhet.
 
-[[CLICK]] The natural chunks were voyages. Port to port.
-That's what a ship actually does. That's what MarTraf builds.
-Phases, segments, traffic type. All of that sits on the voyage.
+[[CLICK]] De naturlige bitene var seilaser. Havn til havn.
+Det er det et skip faktisk gjør. Det er det MarTraf bygger.
+Faser, segmenter, trafikktype. Alt det ligger på seilasen.
 
-[[CLICK]] And then we hit the scaling problem.
-Asking "is this point near a port" a hundred million times, with real
-geometry, doesn't finish. So we simplified the map.
+[[CLICK]] Og så traff vi skaleringsproblemet.
+Å spørre «er dette punktet nær en havn» hundre millioner ganger, med ekte
+geometri, blir ikke ferdig. Så vi forenklet kartet.
 
-I'll come back to how. First: what do we do with the voyages?
+Jeg kommer tilbake til hvordan. Først: hva gjør vi med seilasene?
 
-If you want the five steps later: geographic enrichment, eleven phases,
-voyage segments of at least five minutes, complete voyages port to port,
-and traffic type.
+Hvis du vil ha de fem stegene senere: geografisk berikelse, elleve faser,
+seilassegmenter på minst fem minutter, komplette seilaser havn til havn, og
+trafikktype.
 
-And now we can ask the next question. What does the ship burn?
+Og nå kan vi stille neste spørsmål. Hva brenner skipet?
 
-Why is the phase so important? An offshore vessel holding position at a
-platform uses an enormous amount of energy. The same vessel in dry dock with
-its AIS on uses almost nothing. Both are standing still. Without a phase,
-they look the same.
+Hvorfor er fasen så viktig? Et offshorefartøy som holder posisjonen ved en
+plattform bruker enormt med energi. Samme fartøy i tørrdokk med AIS-en på
+bruker nesten ingenting. Begge står stille. Uten fase ser de like ut.
 
-## martraf-video – MarTraf on the map
+## martraf-video – MarTraf på kartet
 
-This is MarTraf on the coast.
+Dette er MarTraf langs kysten.
 
-Don't narrate every cell. Let it run. Then: a hundred million points
-became voyages you can actually see. That's the product.
+Ikke fortell om hver celle. La det kjøre. Så: hundre millioner punkter ble
+seilaser du faktisk kan se. Det er produktet.
 
-## propellloven – MarU – maritime Emissions model
+## propellloven – MarU: maritim utslippsmodell
 
-So, MarU.
+Så, MarU.
 
-It's very important for us to have a clean coast, that we are tracking the climate gas emissions by our ships.
+Det er veldig viktig for oss, for å ha en ren kyst, at vi følger med på klimagassutslippene fra skipene våre.
 
-[[CLICK]] Two AIS points. Distance over time. That's the speed of the ship.
-Our ship off Stad. Nine knots.
+[[CLICK]] To AIS-punkter. Avstand over tid. Det er farten til skipet.
+Skipet vårt utenfor Stad. Ni knop.
 
-[[CLICK]] And we know the ship. The registry tells us what type it is. How
-big. How it was built to sail. A cargo ship is not a fishing boat.
+[[CLICK]] Og vi kjenner skipet. Registeret forteller hvilken type det er.
+Hvor stort. Hvordan det ble bygget for å seile. Et lasteskip er ikke en
+fiskebåt.
 
-[[CLICK]] Then we estimate what it burned at that speed. Power follows the
-cube of speed. Double the speed, and you need eight times the power. Eight
-times. That's why shipping companies slow down when fuel gets expensive.
-That's why a ship doing nine knots instead of twelve saves enormously.
+[[CLICK]] Så anslår vi hva det brente i den farten. Effekten følger farten i
+tredje potens. Dobler du farten, trenger du åtte ganger effekten. Åtte
+ganger. Det er derfor rederiene sakker ned når drivstoffet blir dyrt. Det er
+derfor et skip som går i ni knop i stedet for tolv sparer enormt.
 
-[[CLICK]] And here's the sentence I want you to remember from this entire talk:
-every AIS point becomes an emissions calculation.
+[[CLICK]] Og her er setningen jeg vil at dere skal huske fra hele foredraget:
+hvert AIS-punkt blir en utslippsberegning.
 
-That's why one hundred million rows a day isn't bragging. It's a consequence
-of the method. If you want to calculate emissions per point, you need every
-point.
+Det er derfor hundre millioner rader om dagen ikke er skryt. Det er en
+konsekvens av metoden. Skal du regne utslipp per punkt, trenger du hvert
+punkt.
 
-## maru-hvorfor – How was it done earlier?
+## maru-hvorfor – Hvordan ble det gjort før?
 
-So how was it done earlier?
+Så hvordan ble det gjort før?
 
-[[CLICK]] Sales figures. Statistics Norway calculates emissions from domestic
-shipping based on how much fuel was sold.
+[[CLICK]] Salgstall. SSB regner utslipp fra innenriks sjøfart ut fra hvor
+mye drivstoff som ble solgt.
 
-[[CLICK]] But vessels bunker abroad and sail here. And they bunker here and
-sail out. Sales figures describe where the fuel was bought. Not where it was
-burned.
+[[CLICK]] Men fartøy bunkrer i utlandet og seiler her. Og de bunkrer her og
+seiler ut. Salgstall beskriver hvor drivstoffet ble kjøpt. Ikke hvor det ble
+brent.
 
-[[CLICK]] MarU flips it. Calculate from observed activity instead. And separate
-domestic from to-and-from-abroad and transit. Then you know what actually
-happened in Norwegian waters.
+[[CLICK]] MarU snur det. Regn fra observert aktivitet i stedet. Og skill
+innenriks fra til og fra utlandet og gjennomfart. Da vet du hva som faktisk
+skjedde i norske farvann.
 
-## maru – The maritime emissions model: MarU
+## maru – Den maritime utslippsmodellen: MarU
 
-That's the method. Now the model itself.
+Det er metoden. Nå modellen selv.
 
-[[CLICK]] Python and PySpark. Computed on Databricks.
+[[CLICK]] Python og PySpark. Beregnet på Databricks.
 
-[[CLICK]] The main engine is calculated from the propeller law. Auxiliary
-engines and boilers are calculated per operational phase. And now you see
-why we needed the phases from MarTraf. A ship at berth uses its auxiliary
-engine for power and heat, not the main engine. Without the phase, we
-would've calculated wrong.
+[[CLICK]] Hovedmotoren regnes fra propellloven. Hjelpemotorer og kjeler regnes
+per operasjonsfase. Og nå ser dere hvorfor vi trengte fasene fra MarTraf. Et
+skip til kai bruker hjelpemotor til strøm og varme, ikke hovedmotor. Uten
+fase hadde vi regnet feil.
 
-[[CLICK]] Around 330 input variables. Emission factors, low-load adjustments,
-sulfur limits per emission control area, GWP factors. That's a lot of knobs.
+[[CLICK]] Rundt 330 inputvariabler. Utslippsfaktorer, lavlastjusteringer,
+svovelgrenser per utslippskontrollsone, GWP-faktorer. Det er mange knapper.
 
-[[CLICK]] And the ship registry. Five sources merged, with versioning of
-everything that changes. S&P, ShipInfo, SafeSeaNet, NOR and NIS, and the
-fishing vessel register. Because a ship changes name, owner, and engine over
-its lifetime.
+[[CLICK]] Og skipsregisteret. Fem kilder slått sammen, med versjonering av
+alt som endrer seg. S&P, ShipInfo, SafeSeaNet, NOR og NIS, og
+fiskefartøyregisteret. For et skip bytter navn, eier og motor i løpet av
+livet.
 
-## maru-hull – Filling the missing ship register data with ML
+## maru-hull – Fyller hullene i skipsregisteret med ML
 
-And now the honest part.
+Og nå den ærlige delen.
 
-[[CLICK]] The ship register we need to estimate emissions is full of holes.
-Especially for the small vessels. We know the ship exists, but not which
-engine it has, or how fast it's actually designed to go.
+[[CLICK]] Skipsregisteret vi trenger for å anslå utslipp er fullt av hull.
+Særlig for de små fartøyene. Vi vet at skipet finnes, men ikke hvilken motor
+det har, eller hvor fort det egentlig er designet for å gå.
 
-[[CLICK]] The easiest gaps we fill with median values per ship type and length
-interval, with at least six observations per group.
+[[CLICK]] De enkleste hullene fyller vi med medianverdier per skipstype og
+lengdeintervall, med minst seks observasjoner per gruppe.
 
-[[CLICK]] The harder ones we fill with neural networks. Service speed, RPM, and
-stroke type. The RPM even has its own loss function on relative error, to
-avoid overfitting on high-RPM engines.
+[[CLICK]] De vanskeligere fyller vi med nevrale nett. Servicefart, turtall og
+slagtype. Turtallet har til og med en egen tapsfunksjon på relativ feil, for
+å ikke overtilpasse på høyturtallsmotorer.
 
-[[CLICK]] And the number that surprised me: around seventy percent of the
-vessels in Norwegian waters in 2022 and 2023 were missing fuel type in the
-registries. Seventy percent. It's filled in following the IMO's method.
+[[CLICK]] Og tallet som overrasket meg: rundt sytti prosent av fartøyene i
+norske farvann i 2022 og 2023 manglet drivstofftype i registrene. Sytti
+prosent. Den fylles etter IMOs metode.
 
-The point: machine learning is used here as a data quality tool. Not as an
-AI feature to show off on the front page. As a tool to fill gaps. And it
-might be the most useful use of ML I've seen.
+Poenget: her brukes maskinlæring som datakvalitetsverktøy. Ikke som en
+AI-feature å vise på forsiden. Som et verktøy for å fylle hull. Og det er
+kanskje den mest nyttige bruken av ML jeg har sett.
 
-[[CLICK]] And it's all open. github.com/Kystverket/maru. You can read the
-entire calculation in the break.
+[[CLICK]] Og alt er åpent. github.com/Kystverket/maru. Dere kan lese hele
+beregningen i pausen.
 
-## maru-ut – What comes out?
+## maru-ut – Hva kommer ut?
 
-So what comes out the other end?
+Så hva kommer ut i andre enden?
 
-[[CLICK]] Emissions. CO2 and CO2 equivalents, methane, NOx, SOx, particulate
-matter. Plus energy demand, fuel consumption, distance, and operating hours.
+[[CLICK]] Utslipp. CO2 og CO2-ekvivalenter, metan, NOx, SOx, svevestøv. Pluss
+energibehov, drivstofforbruk, distanse og driftstimer.
 
-[[CLICK]] Broken down by fourteen ship types and nine sizes.
-gross tons are split more finely than before, because Norwegian waters have
-a lot of small vessels.
+[[CLICK]] Fordelt på fjorten skipstyper og ni størrelser.
+Bruttotonnasjen er splittet finere enn før, fordi norske farvann har veldig
+mange små fartøy.
 
-[[CLICK]] Geographically: municipality, county, sea area.
+[[CLICK]] Geografisk: kommune, fylke, havområde.
 
-[[CLICK]] And
-domestic, international, transit.
+[[CLICK]] Og
+innenriks, utenriks, gjennomfart.
 
-And that means you can ask questions like this: how much CO2 do the biggest cruise ships emit in Geiranger in July, while they're lying still? We can answer that. Per ship, per month.
+Og det gjør at du kan stille spørsmål som dette: hvor mye CO2 slipper de største cruiseskipene ut i Geiranger i juli, mens de ligger stille? Det kan vi svare på. Per skip, per måned.
 
-And then the big one: the Norwegian Environment Agency - Miljødirektoratet - is planning to use the MarU figures in the climate accounts for the municipalities. The
-platform ends up in official statistics.
+Og så det store: Miljødirektoratet legger opp til å bruke MarU-tallene i klimaregnskapet for kommunene. Plattformen ender i offisiell statistikk.
 
-## veien-videre – The road ahead
+## veien-videre – Veien videre
 
-[55:00] 5 min. Land on thanks by 60:00. Questions if you have time.
+[55:00] 5 min. Land på takk innen 60:00. Spørsmål hvis du har tid.
 
-Where are we now, and where are we going?
-What is the road ahead.
+Hvor er vi nå, og hvor skal vi?
+Hva er veien videre.
 
-## hvor-vi-er – Where we are: one source, one catalog structure
+## hvor-vi-er – Hvor vi er: én kilde, én katalogstruktur
 
-Today we have "only" AIS. One source, one domain.
+I dag har vi «bare» AIS. Én kilde, ett domene.
 
-The catalog structure is classic medallion. Three databases in Databricks.
+Katalogstrukturen er klassisk medallion. Tre databaser i Databricks.
 
-[[CLICK]] And the data products we deliver today all come out of gold. AIS
-tracks, MarTraf, MarU, HAIS.
+[[CLICK]] Og dataproduktene vi leverer i dag kommer alle ut av gold. AIS-tracks,
+MarTraf, MarU, HAIS.
 
-[[CLICK]] This works fine as long as everything is AIS. One source. One
-domain. Fine for now. But we are going to expand.
+[[CLICK]] Dette funker fint så lenge alt er AIS. Én kilde. Ett domene. Greit
+for nå. Men vi skal utvide.
 
-## flere-domener – Not just AIS
+## flere-domener – Ikke bare AIS
 
-AIS got us here. But the Coastal Administration is bigger than ship positions. We want to
-expand. Several domains. Not just AIS.
+AIS fikk oss hit. Men Kystverket er større enn skipsposisjoner. Vi vil
+utvide. Flere domener. Ikke bare AIS.
 
-[[CLICK]] Customs. Declarations and cargo. What the ship actually carried,
-not just where it was.
+[[CLICK]] Toll. Deklarasjoner og last. Hva skipet faktisk fraktet, ikke bare
+hvor det var.
 
-[[CLICK]] Internal HR and finance. Payroll. The ledger. What things cost.
+[[CLICK]] Intern HR og økonomi. Lønn. Regnskapet. Hva ting koster.
 
-[[CLICK]] Predictive maintenance on the lighthouses. Sensors on the lights
-that keep the coast lit. Send a boat out before a light goes dark.
-120 lighthouses across the coast and over 2000 lights.
+[[CLICK]] Prediktivt vedlikehold av fyrene. Sensorer på lyktene som holder
+kysten opplyst. Send ut en båt før en lykt slukner.
+120 fyr langs kysten og over 2000 lykter.
 
-[[CLICK]] And many more. Things we already collect. Other agencies. Whatever
-comes next.
+[[CLICK]] Og mange flere. Ting vi allerede samler inn. Andre etater. Det som
+kommer.
 
-[[CLICK]] So we need an architecture that scales
-Where we have a clear separation of ownership.
-Where shared data is well documented and reliable, so domains can build upon the data from each other.
+[[CLICK]] Så vi trenger en arkitektur som skalerer.
+Der vi har et tydelig skille i eierskap.
+Der delte data er godt dokumentert og pålitelige, så domenene kan bygge på hverandres data.
 
-## hvor-vi-skal-helhet – Where we're going: the whole picture
+## hvor-vi-skal-helhet – Hvor vi skal: hele bildet
 
-So we are building a new data architecture.
+Så vi bygger en ny dataarkitektur.
 
-[[CLICK]] Domains first. Customs, AIS, HR and finance, the lighthouses. Each
-with its own database in databricks, its own team, its own cost center, its own
-stewardship.
+[[CLICK]] Domener først. Toll, AIS, HR og økonomi, fyrene. Hvert med sin egen
+database i Databricks, sitt eget team, sitt eget kostnadssenter, sitt eget
+forvaltningsansvar.
 
-[[CLICK]] Sources. Each domain ingests its own. Customs has the declarations
-and the cargo manifests. AIS has the stream and the ship register. HR and
-finance has payroll and the ledger. The lighthouses have sensors and the
-maintenance log. The domain ingests them. Not the platform team.
+[[CLICK]] Kilder. Hvert domene leser inn sine egne. Toll har deklarasjonene
+og lastemanifestene. AIS har strømmen og skipsregisteret. HR og økonomi har
+lønn og regnskap. Fyrene har sensorer og vedlikeholdsloggen. Domenet leser
+dem inn. Ikke plattformteamet.
 
-[[CLICK]] Inside each catalog, the same bronze, silver, gold we've had for
-AIS. Raw as it arrived. Cleaned and enriched. Ready to use. The pattern
-doesn't change. It's repeated once per domain. Nobody touches another
-domain's raw data.
+[[CLICK]] Inni hver katalog, samme bronze, silver, gold som vi har hatt for
+AIS. Rått som det kom. Vasket og beriket. Klart til bruk. Mønsteret endrer
+seg ikke. Det gjentas én gang per domene. Ingen rører et annet domenes
+rådata.
 
-[[CLICK]] When a domain wants to share something, it writes a data contract.
-Open Data Contract Standard. Id, owner, schema, quality requirements. Owned
-by the domain. Not by the platform team.
+[[CLICK]] Når et domene vil dele noe, skriver det en datakontrakt. Open Data
+Contract Standard. Id, eier, skjema, kvalitetskrav. Eid av domenet. Ikke av
+plattformteamet.
 
-[[CLICK]] The contract is pushed to one central repo. Pull request. CI
-validates the contract against the gold table it points to.
+[[CLICK]] Kontrakten pushes til ett sentralt repo. Pull request. CI validerer
+kontrakten mot gold-tabellen den peker på.
 
-[[CLICK]] And then the part that makes this scale: CI automatically creates a
-view in the data products catalog. No copying of data. The view points
-straight at the domain's gold table. Consumers only need to know one
-catalog, no matter how many domains sit behind it.
+[[CLICK]] Og så det som gjør at dette skalerer: CI oppretter automatisk et
+view i dataprodukt-katalogen. Ingen kopiering av data. Viewet peker rett på
+domenets gold-tabell. Konsumentene trenger bare å kjenne én katalog, uansett
+hvor mange domener som ligger bak.
 
-[[CLICK]] Who reads from that catalog? Everyone outside the domains. The
-Environment Agency and the municipalities with the climate accounts.
-Developers through BarentsWatch. Analysts with dashboards. Researchers.
-Other agencies. One catalog. Inside or outside, you read from the same
-place.
+[[CLICK]] Hvem leser fra den katalogen? Alle utenfor domenene.
+Miljødirektoratet og kommunene med klimaregnskapet. Utviklere gjennom
+BarentsWatch. Analytikere med dashbord. Forskere. Andre etater. Én katalog.
+Innenfor eller utenfor, du leser fra samme sted.
 
-[[CLICK]] And the domains themselves. Customs wants AIS tracks next to the
-declarations. They don't go to each other's gold tables. They read from the
-data products catalog, like everyone else. Same contract, same view, same
-rules.
+[[CLICK]] Og domenene selv. Toll vil ha AIS-tracks ved siden av
+deklarasjonene. De går ikke til hverandres gold-tabeller. De leser fra
+dataprodukt-katalogen, som alle andre. Samme kontrakt, samme view, samme
+regler.
 
-[[CLICK]] And explorer.kystverket.no, built from the contracts in the same
-repo. It knows every product, who owns it, the schema, the quality checks,
-the version. Search "ais" and you get the products. Find it in the explorer.
-Read it from the catalog.
+[[CLICK]] Og explorer.kystverket.no, bygget fra kontraktene i samme repo. Den
+kjenner hvert produkt, hvem som eier det, skjemaet, kvalitetssjekkene,
+versjonen. Søk på «ais» og du får produktene. Finn det i exploreren. Les det
+fra katalogen.
 
-## videre-liste – What we want to achieve
+## videre-liste – Dette vil vi få til
 
-And then what we want to achieve. Back to the vision we opened with: the
-world's safest and cleanest coast. That's still the why. These are some of
-the next hows. We work in batch. Not real time. So this is not about
-emergency alerts. It's about getting more of what we already have onto the
-platform, and using it.
+Og så det vi vil få til. Tilbake til visjonen vi åpnet med: verdens sikreste
+og reneste kyst. Det er fortsatt hvorfor-et. Dette er noen av de neste
+hvordan-ene. Vi jobber i batch. Ikke sanntid. Så dette handler ikke om
+beredskapsvarsler. Det handler om å få mer av det vi allerede har inn på
+plattformen, og bruke det.
 
-[[CLICK]] More of Kystverkets own data in the data platform. Kystdatahuset has around 130
-datasets. Voyages. Things we already collect, that aren't on the platform
-yet. The next job is to bring them in.
+[[CLICK]] Mer av Kystverkets egne data i dataplattformen. Kystdatahuset har
+rundt 130 datasett. Seilaser. Ting vi allerede samler inn, som ikke er på
+plattformen ennå. Neste jobb er å få dem inn.
 
-[[CLICK]] Customs analysis. Another domain coming in. Declarations next to
-AIS and voyages. What actually moved, not just where the ship was.
+[[CLICK]] Tollanalyse. Enda et domene som kommer inn. Deklarasjoner ved siden
+av AIS og seilaser. Hva som faktisk ble fraktet, ikke bare hvor skipet var.
 
-[[CLICK]] Predictive maintenance on the lighthouses. The ones that keep the
-coast lit. Sensors, history, when to send a boat out. Not when a light has
-already gone dark.
+[[CLICK]] Prediktivt vedlikehold av fyrene. De som holder kysten opplyst.
+Sensorer, historikk, når man skal sende ut en båt. Ikke når en lykt allerede
+har sluknet.
 
-[[CLICK]] And faster, better organization. Clearer ownership. Less waiting.
-The platform as a way of working, not just a place to put tables.
+[[CLICK]] Og raskere, bedre organisering. Tydeligere eierskap. Mindre venting.
+Plattformen som en måte å jobbe på, ikke bare et sted å legge tabeller.
 
-But before we wrap up, we're going back to our ship.
+Men før vi avslutter, skal vi tilbake til skipet vårt.
 
-## tilbake-til-stad – Back to Stad
+## tilbake-til-stad – Tilbake til Stad
 
-Slow pace. This is the ending. Let it land.
+Rolig tempo. Dette er slutten. La det lande.
 
-It's 03:14.
+Klokka er 03:14.
 
-A ship is in the sea.
+Et skip er ute på havet.
 
-[[CLICK]] The sea off Stad. February. A gale from the northwest.
+[[CLICK]] Stadhavet. Februar. Nordvest kuling.
 
-[[CLICK]] A cargo ship heading north at nine knots.
+[[CLICK]] Et lasteskip på vei nordover i ni knop.
 
-[[CLICK]] We are listening.
+[[CLICK]] Vi lytter.
 
-And perhaps that is comforting for the ship's crew, sleeping in their beds.
-That somewhere out there, in a data platform, we are listening.
+Og kanskje er det betryggende for mannskapet, som sover i køyene sine. At et
+sted der ute, i en dataplattform, lytter vi.
 
-And in a month's time, the data will be in a climate accounting software
-in the municipality as well.
+Og om en måned ligger dataene i et klimaregnskapsverktøy i kommunen også.
 
-## takk – Thanks. Try it yourself.
+## takk – Takk. Prøv selv.
 
-Thank you.
+Takk.
 
-Everything I've shown you is open. The real-time map at nais.kystverket.no.
-History on demand at hais.kystverket.no. The raw AIS stream on a TCP port,
-no registration, if you want to connect directly. A live API at BarentsWatch
-for those of you who want to build something. And the entire emissions model
-on GitHub.
+Alt jeg har vist dere er åpent. Sanntidskartet på nais.kystverket.no.
+Historikk på bestilling på hais.kystverket.no. Den rå AIS-strømmen på en
+TCP-port, uten registrering, hvis du vil koble deg rett på. Live-API hos
+BarentsWatch for dere som vil bygge noe. Og hele utslippsmodellen på GitHub.
 
-Build something with it. And tell me what you built.
+Bygg noe med det. Og fortell meg hva dere bygde.
 
-The QR takes you to peterbull.no if you want to get in touch.
+QR-koden tar deg til peterbull.no hvis du vil ta kontakt.
 
-Questions?
+Spørsmål?
 
-## kystrisk-tti – Kystrisk: What's the probability of impact?
+## kystrisk-tti – Kystrisk: Hva er sannsynligheten for å treffe?
 
-Our why again. The world's safest and cleanest coast.
+Hvorfor-et vårt igjen. Verdens sikreste og reneste kyst.
 
-We know where every boat is. We have accurate maps of the rocks and the land.
+Vi vet hvor hver båt er. Vi har nøyaktige kart over skjærene og landet.
 
-TTI. Time to impact. If you keep going on this heading, how long until you hit?
+TTI. Time to impact. Fortsetter du på denne kursen, hvor lang tid tar det før du treffer?
 
-[[CLICK]] Risk is a number from 0 to 1. Based on the heading you have now.
-High TTI, and the risk fades toward zero.
+[[CLICK]] Risiko er et tall fra 0 til 1. Basert på kursen du har nå. Høy TTI,
+og risikoen går mot null.
 
-## kystrisk – The maritime risk model: KystRisk
+## kystrisk – Den maritime risikomodellen: KystRisk
 
-Same voyages from MarTraf. A different question.
+Samme seilaser fra MarTraf. Et annet spørsmål.
 
-Not what the ship burned. What the ship might hit.
+Ikke hva skipet brente. Hva skipet kan treffe.
 
-[[CLICK]] Every AIS point gets a risk score.
+[[CLICK]] Hvert AIS-punkt får en risikoscore.
 
-[[CLICK]] Then we look for the fjords where that score stays too high.
+[[CLICK]] Så ser vi etter fjordene der den scoren holder seg for høy.
 
-[[CLICK]] And that is how you redraw a coastal map. Give ships permission. Or deny it.
+[[CLICK]] Og det er slik du tegner et kystkart på nytt. Gi skip tillatelse.
+Eller nekte dem.
 
-[[CLICK]] Still in development. We expect to publish it by the end of the year.
+[[CLICK]] Fortsatt under utvikling. Vi regner med å publisere det innen
+utgangen av året.
 
-If you are short on time, one sentence is enough: same voyages, a risk
-score, maps that change who is allowed to sail.
+Har du dårlig tid, holder én setning: samme seilaser, en risikoscore, kart
+som endrer hvem som får seile.

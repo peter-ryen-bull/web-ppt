@@ -120,67 +120,67 @@ import {
  *  Veien videre             55:00   5 min   domener, tilbake til Stad, takk
  */
 const APNING: SlideDef[] = [
-  { id: "scene", name: "The time is 03:14", component: SlideScene, steps: 3 },
+  { id: "scene", name: "Klokka er 03:14", component: SlideScene, steps: 3 },
   {
     id: "signal",
-    name: "Every ten seconds, the ship says",
+    name: "Hvert tiende sekund sier skipet",
     component: SlideSignal,
     steps: 1,
   },
   {
     id: "nais",
-    name: "Someone's listening: NAIS",
+    name: "Noen lytter: NAIS",
     component: SlideNais,
     steps: 1,
   },
   {
     id: "hundre-millioner",
-    name: "100,000,000 every day",
+    name: "100 000 000 hver dag",
     component: SlideHundreMillioner,
     steps: 1,
   },
   {
     id: "hundre-millioner-fyll",
-    name: "The messages fill the screen",
+    name: "Meldingene fyller skjermen",
     component: SlideHundreMillionerFyll,
   },
-  { id: "forside", name: "Title slide", component: SlideForside },
+  { id: "forside", name: "Forside", component: SlideForside },
   { id: "om-peter", name: "Peter Bull", component: SlideOmPeter, steps: 6 },
 ];
 
 const HVEM_LYTTER: SlideDef[] = [
   {
     id: "kystverket",
-    name: "Who's listening? Kystverket",
+    name: "Hvem lytter? Kystverket",
     component: SlideKystverket,
   },
   {
     id: "visjon",
-    name: "The world's safest and cleanest coast",
+    name: "Verdens sikreste og reneste kyst",
     component: SlideVisjon,
     steps: 1,
   },
   {
     id: "oppdrag",
-    name: "About us: the NCA",
+    name: "Om oss: Kystverket",
     component: SlideOppdrag,
     steps: 6,
   },
   {
     id: "lyttepostene",
-    name: "The listening posts",
+    name: "Lyttepostene",
     component: SlideLyttepostene,
     steps: 4,
   },
   {
     id: "ais",
-    name: "AIS: built to avoid collisions",
+    name: "AIS: laget for å ikke kollidere",
     component: SlideAis,
     steps: 3,
   },
   {
     id: "sporsmalet",
-    name: "What do you do with 100 million messages a day?",
+    name: "Hva gjør du med 100 millioner meldinger om dagen?",
     component: SlideSporsmalet,
     steps: 1,
   },
@@ -188,25 +188,25 @@ const HVEM_LYTTER: SlideDef[] = [
 
 const HISTORIE = embedAsChapter(historyOfTheDataPlatform, {
   id: "historie",
-  title: "The story of the data platform",
+  title: "Historien om dataplattformen",
 });
 
 const PLATTFORM: SlideDef[] = [
   {
     id: "hva-er",
-    name: "Why is everyone building data platforms?",
+    name: "Hvorfor bygger alle dataplattform?",
     component: SlideHvaEr,
     steps: 1,
   },
   {
     id: "reid-hoffman",
-    name: "Everything is measurable",
+    name: "Alt kan måles",
     component: SlideReidHoffman,
     steps: 2,
   },
   {
     id: "hvorfor",
-    name: "Data platforms are everywhere",
+    name: "Dataplattformer er overalt",
     component: SlideHvorfor,
     steps: 5,
   },
@@ -215,86 +215,86 @@ const PLATTFORM: SlideDef[] = [
 const HVORDAN: SlideDef[] = [
   {
     id: "batch-streaming",
-    name: "How it works",
+    name: "Slik fungerer det",
     component: SlideBatchStreamingKapittel,
   },
   {
     id: "dataflyt",
-    name: "Data flow: sources to consumers",
+    name: "Dataflyt: kilder til konsumenter",
     component: SlideDataflyt,
     steps: 4,
   },
   {
     id: "arkitektur",
-    name: "Architecture: source to consumer",
+    name: "Arkitektur: kilde til konsument",
     component: SlideArkitektur,
   },
   {
     id: "mer-enn-varehus",
-    name: "Is it just a database?",
+    name: "Er det bare en database?",
     component: SlideMerEnnVarehus,
     steps: 5,
   },
   {
     id: "mer-enn-varehus-katalog",
-    name: "Catalog. Jobs. Ask. Answer.",
+    name: "Katalog. Jobber. Spør. Svar.",
     component: SlideMerEnnVarehusKatalog,
     steps: 4,
   },
   {
     id: "strukturere-data",
-    name: "How do we architect the data to keep structure?",
+    name: "Hvordan strukturerer vi dataene?",
     component: SlideStrukturereData,
     steps: 4,
   },
-  { id: "dataprodukt", name: "Data product", component: SlideDataprodukt, steps: 1 },
+  { id: "dataprodukt", name: "Dataprodukt", component: SlideDataprodukt, steps: 1 },
   {
     id: "dataprodukt-kjennetegn",
-    name: "What makes it a product",
+    name: "Hva gjør det til et produkt",
     component: SlideDataproduktKjennetegn,
     steps: 4,
   },
   {
     id: "dataprodukt-anatomi",
-    name: "More than a table",
+    name: "Mer enn en tabell",
     component: SlideDataproduktAnatomi,
     steps: 9,
   },
   {
     id: "datakontrakt-kapittel",
-    name: "Data contract",
+    name: "Datakontrakt",
     component: SlideDatakontraktKapittel,
   },
   {
     id: "datakontrakt-hva",
-    name: "Clear documentation of your data",
+    name: "Tydelig dokumentasjon av dataene",
     component: SlideDatakontraktHva,
     steps: 1,
   },
   {
     id: "datakontrakt-innhold",
-    name: "What's in a contract",
+    name: "Hva står i en kontrakt",
     component: SlideDatakontraktInnhold,
     steps: 4,
   },
   {
     id: "datakontrakt",
-    name: "Data contract: an API for data",
+    name: "Datakontrakt: et API for data",
     component: SlideDatakontrakt,
   },
   {
     id: "datakontrakt-brudd",
-    name: "The contract stops the error early",
+    name: "Kontrakten stopper feilen tidlig",
     component: SlideDatakontraktBrudd,
   },
   {
     id: "datakatalog",
-    name: "Data catalog",
+    name: "Datakatalog",
     component: SlideDatakatalog,
   },
   {
     id: "datakatalog-hva",
-    name: "What a catalog is",
+    name: "Hva en katalog er",
     component: SlideDatakatalogHva,
     steps: 2,
   },
@@ -310,36 +310,36 @@ const HVORDAN: SlideDef[] = [
     component: SlideGovernance,
     steps: 4,
   },
-  { id: "roller", name: "Clear roles", component: SlideRoller, steps: 5 },
+  { id: "roller", name: "Tydelige roller", component: SlideRoller, steps: 5 },
 ];
 
 const EFFEKTER: SlideDef[] = [
   {
     id: "effekter",
-    name: "What do you get out of it?",
+    name: "Hva får du igjen?",
     component: SlideEffekter,
   },
   {
     id: "effekt-1",
-    name: "Effect 1: Data quality",
+    name: "Effekt 1: Datakvalitet",
     component: SlideEffektKvalitet,
     steps: 1,
   },
   {
     id: "effekt-2",
-    name: "Effect 2: Compliance",
+    name: "Effekt 2: Etterlevelse",
     component: SlideEffektEtterlevelse,
     steps: 1,
   },
   {
     id: "effekt-3",
-    name: "Effect 3: Self-service",
+    name: "Effekt 3: Selvbetjening",
     component: SlideEffektEffektivitet,
     steps: 1,
   },
   {
     id: "effekt-4",
-    name: "Effect 4: Future-ready",
+    name: "Effekt 4: Fremtidsrettet",
     component: SlideEffektFremtid,
     steps: 1,
   },
@@ -348,10 +348,10 @@ const EFFEKTER: SlideDef[] = [
 const PROSJEKTET: SlideDef[] = [
   {
     id: "prosjekt",
-    name: "The story of the project",
+    name: "Historien om prosjektet",
     component: SlideProsjekt,
   },
-  { id: "dag-en", name: "Day one", component: SlideDagEn, steps: 3 },
+  { id: "dag-en", name: "Dag én", component: SlideDagEn, steps: 3 },
   {
     id: "azure-databricks",
     name: "Azure + Databricks + Terraform",
@@ -359,31 +359,31 @@ const PROSJEKTET: SlideDef[] = [
   },
   {
     id: "azure",
-    name: "Azure: the foundation",
+    name: "Azure: grunnmuren",
     component: SlideAzure,
     steps: 3,
   },
   {
     id: "databricks",
-    name: "Databricks: the engine",
+    name: "Databricks: motoren",
     component: SlideDatabricks,
     steps: 3,
   },
   {
     id: "terraform-kode",
-    name: "One resource. Three environments.",
+    name: "Én ressurs. Tre miljøer.",
     component: SlideTerraformKode,
     steps: 1,
   },
   {
     id: "terraform",
-    name: "Deploy and version control your infrastructure",
+    name: "Deploy og versjonskontroller infrastrukturen",
     component: SlideTerraform,
     steps: 4,
   },
   {
     id: "fire-states",
-    name: "Terraform: four states. Four pipelines.",
+    name: "Terraform: fire states. Fire pipelines.",
     component: SlideFireStates,
     steps: 5,
   },
@@ -392,18 +392,18 @@ const PROSJEKTET: SlideDef[] = [
 const TEKNISK: SlideDef[] = [
   {
     id: "teknisk-implementasjon",
-    name: "How it's done",
+    name: "Slik gjør vi det",
     component: SlideTekniskImplementasjon,
   },
   {
     id: "ingest",
-    name: "Ingest happens outside Databricks.",
+    name: "Ingest skjer utenfor Databricks.",
     component: SlideIngest,
     steps: 3,
   },
   {
     id: "ais-pipeline",
-    name: "The job that runs every day",
+    name: "Jobben som kjører hver dag",
     component: SlideAisPipeline,
   },
 ];
@@ -411,7 +411,7 @@ const TEKNISK: SlideDef[] = [
 const SCALING: SlideDef[] = [
   {
     id: "stordata-volum",
-    name: "The stream is small, the history is big",
+    name: "Strømmen er liten, historikken er stor",
     component: SlideStordataVolum,
     steps: 4,
   },
@@ -422,25 +422,25 @@ const SCALING: SlideDef[] = [
   },
   {
     id: "batch-streaming-valg",
-    name: "When do you choose what?",
+    name: "Når velger du hva?",
     component: SlideBatchStreamingValg,
     steps: 7,
   },
   {
     id: "databricks-compute",
-    name: "Clusters are managed VMs in Azure",
+    name: "Klynger er administrerte VM-er i Azure",
     component: SlideDatabricksCompute,
     steps: 4,
   },
   {
     id: "serverless",
-    name: "serverless vs manual tuning",
+    name: "serverless vs manuell tuning",
     component: SlideServerless,
     steps: 3,
   },
   {
     id: "stordata-compute",
-    name: "Days of compute, or hours?",
+    name: "Døgn med kjøretid, eller timer?",
     component: SlideStordataCompute,
     steps: 7,
   },
@@ -449,128 +449,128 @@ const SCALING: SlideDef[] = [
 const H3: SlideDef[] = [
   {
     id: "math-opt",
-    name: "Mathematical optimizations",
+    name: "Matematiske optimaliseringer",
     component: SlideMathOpt,
     steps: 2,
   },
   {
     id: "h3-hexes",
-    name: "Hexes within hexes",
+    name: "Hexer i hexer",
     component: SlideH3Hexes,
     steps: 1,
   },
   {
     id: "hex-join",
-    name: "A join on a number",
+    name: "En join på et tall",
     component: SlideHexJoin,
     steps: 1,
   },
-  { id: "h3-ship", name: "One ship on the hex grid", component: SlideH3Ship },
+  { id: "h3-ship", name: "Ett skip på hex-nettet", component: SlideH3Ship },
 ];
 
 const MODELLENE: SlideDef[] = [
   {
     id: "modeller",
-    name: "What products have we built on top of this?",
+    name: "Hvilke produkter har vi bygget på dette?",
     component: SlideModeller,
   },
   {
     id: "modell-flyt",
-    name: "One source, many data products",
+    name: "Én kilde, mange dataprodukter",
     component: SlideModellFlyt,
     steps: 5,
   },
   {
     id: "hais",
-    name: "HAIS: historical extracts on demand",
+    name: "HAIS: historisk uttrekk på bestilling",
     component: SlideHais,
     steps: 3,
   },
-  { id: "asuka-hais", name: "Asuka, from HAIS", component: SlideAsukaHais },
-  { id: "asuka-hvem", name: "Who is Asuka?", component: SlideAsukaHvem },
+  { id: "asuka-hais", name: "Asuka, fra HAIS", component: SlideAsukaHais },
+  { id: "asuka-hvem", name: "Hvem er Asuka?", component: SlideAsukaHvem },
   {
     id: "folg-ett-skip",
-    name: "MarTraf – Maritime traffic model",
+    name: "MarTraf – maritim trafikkmodell",
     component: SlideFolgEttSkip,
     steps: 6,
   },
   {
     id: "martraf-video",
-    name: "MarTraf on the map",
+    name: "MarTraf på kartet",
     component: SlideMarTrafVideo,
   },
   {
     id: "propellloven",
-    name: "MarU – maritime Emissions model",
+    name: "MarU – maritim utslippsmodell",
     component: SlidePropellloven,
     steps: 4,
   },
   {
     id: "maru-hvorfor",
-    name: "How was it done earlier?",
+    name: "Hvordan gjorde man det før?",
     component: SlideMarUHvorfor,
     steps: 3,
   },
   {
     id: "maru",
-    name: "The maritime emissions model: MarU",
+    name: "Maritim utslippsmodell: MarU",
     component: SlideMarU,
     steps: 4,
   },
   {
     id: "maru-hull",
-    name: "Filling the missing ship register data with ML",
+    name: "Fyller hullene i skipsregisteret med ML",
     component: SlideMarUHull,
     steps: 5,
   },
-  { id: "maru-ut", name: "What comes out?", component: SlideMarUUt, steps: 4 },
+  { id: "maru-ut", name: "Hva kommer ut?", component: SlideMarUUt, steps: 4 },
   {
     id: "kystrisk-tti",
-    name: "Kystrisk: What's the probability of impact?",
+    name: "KystRisk: hva er sannsynligheten for en ulykke?",
     component: SlideKystRiskTti,
     steps: 1,
   },
   {
     id: "kystrisk",
-    name: "The maritime risk model: KystRisk",
+    name: "Maritim risikomodell: KystRisk",
     component: SlideKystRisk,
     steps: 4,
   },
 ];
 
 const VEIEN_VIDERE: SlideDef[] = [
-  { id: "veien-videre", name: "The road ahead", component: SlideVeienVidere },
+  { id: "veien-videre", name: "Veien videre", component: SlideVeienVidere },
   {
     id: "hvor-vi-er",
-    name: "Where we are: one source, one catalog structure",
+    name: "Hvor vi er: én kilde, én katalogstruktur",
     component: SlideHvorViEr,
     steps: 2,
   },
   {
     id: "flere-domener",
-    name: "Not just AIS: more domains are coming",
+    name: "Ikke bare AIS: flere domener kommer",
     component: SlideFlereDomener,
     steps: 5,
   },
   {
     id: "hvor-vi-skal-helhet",
-    name: "Where we're going: the whole picture",
+    name: "Hvor vi skal: helheten",
     component: SlideHvorViSkalHelhet,
     steps: 9,
   },
   {
     id: "videre-liste",
-    name: "What we want to achieve",
+    name: "Dette vil vi få til",
     component: SlideVidereListe,
     steps: 4,
   },
   {
     id: "tilbake-til-stad",
-    name: "Back to Stad",
+    name: "Tilbake til Stad",
     component: SlideTilbakeTilStad,
     steps: 3,
   },
-  { id: "takk", name: "Thanks. Try it yourself.", component: SlideTakk },
+  { id: "takk", name: "Takk. Prøv selv.", component: SlideTakk },
 ];
 
 export const tdcKystverketDataplattform = definePresentation({
@@ -579,24 +579,25 @@ export const tdcKystverketDataplattform = definePresentation({
     "100 millioner rader om dagen: dataplattformen bak kysten",
   description:
     "Fra ett AIS-signal utenfor Stad til klimaregnskapet i en kommune. Historien om hvordan Kystverket bygde en dataplattform med Azure og Databricks serverless. TDC 2026, 60 minutter.",
-  date: "TDC, 19. oktober 2026",
+  date: "19. oktober 2026",
+  place: "TDC",
   notes: notesRaw,
   chapters: [
-    { id: "apning", title: "The opening", slides: APNING },
-    { id: "hvem-lytter", title: "Who's listening", slides: HVEM_LYTTER },
-    { id: "plattform", title: "Why data platform", slides: PLATTFORM },
+    { id: "apning", title: "Åpningen", slides: APNING },
+    { id: "hvem-lytter", title: "Hvem lytter", slides: HVEM_LYTTER },
+    { id: "plattform", title: "Hvorfor dataplattform", slides: PLATTFORM },
     HISTORIE,
-    { id: "hvordan", title: "How it works", slides: HVORDAN },
-    { id: "effekter", title: "What you get out of it", slides: EFFEKTER },
-    { id: "prosjektet", title: "The story of the project", slides: PROSJEKTET },
-    { id: "modellene", title: "The products", slides: MODELLENE },
+    { id: "hvordan", title: "Slik fungerer det", slides: HVORDAN },
+    { id: "effekter", title: "Hva får du igjen", slides: EFFEKTER },
+    { id: "prosjektet", title: "Historien om prosjektet", slides: PROSJEKTET },
+    { id: "modellene", title: "Produktene", slides: MODELLENE },
     {
       id: "teknisk",
-      title: "How it's done",
+      title: "Slik gjør vi det",
       slides: TEKNISK,
     },
-    { id: "scaling", title: "Scaling", slides: SCALING },
+    { id: "scaling", title: "Skalering", slides: SCALING },
     { id: "h3", title: "H3", slides: H3 },
-    { id: "veien-videre", title: "The road ahead", slides: VEIEN_VIDERE },
+    { id: "veien-videre", title: "Veien videre", slides: VEIEN_VIDERE },
   ],
 });

@@ -105,7 +105,7 @@ export function Fyr() {
     <Figur
       w={W}
       h={H}
-      label="Lighthouse on an islet with a rotating light beam, and a small boat at sea"
+      label="Fyr på en holme med roterende lyskjegle, og en liten skute i sjøen"
       style={{ overflow: "visible" }}
     >
       <defs>
@@ -343,7 +343,7 @@ export function AisKjede() {
   const buer = [30, 52, 78];
 
   return (
-    <Figur w={W} h={H} label="Two ships sending AIS signals to each other">
+    <Figur w={W} h={H} label="To skip som sender AIS-signal til hverandre">
       <Duv dy={3} dur={3.4}>
         <Lasteskip x={venstre} y={vann} s={s} flip={false} />
         <SignalMot
@@ -394,7 +394,7 @@ export function Skipsradar() {
   const sy = cy + r * Math.sin(rad(sveipStart));
 
   return (
-    <Figur w={W} h={H} label="Radar view with ship markers lighting up as the sweep passes">
+    <Figur w={W} h={H} label="Radarbilde med skipsmarkører som lyser opp når sveipen passerer">
       <circle cx={cx} cy={cy} r={r} fill={KREM} stroke={TEAL} strokeWidth={2} />
       {[r / 3, (2 * r) / 3].map((rr) => (
         <circle key={rr} cx={cx} cy={cy} r={rr} stroke={TEAL} strokeWidth={1.2} opacity={0.5} />
@@ -448,7 +448,7 @@ export function Skipsradar() {
 /** Ren bølgestripe i full bredde – «strømmen» */
 export function Bolgestripe() {
   return (
-    <Figur w={1280} h={100} label="Waves">
+    <Figur w={1280} h={100} label="Bølger">
       <Bolger y={52} w={1280} h={100} amp={12} dur={11} />
     </Figur>
   );
@@ -503,7 +503,7 @@ export function SporTilUtslipp() {
   const H = 170;
 
   return (
-    <Figur w={W} h={H} label="AIS track behind a ship that ends in emissions">
+    <Figur w={W} h={H} label="AIS-spor bak et skip som ender i utslipp">
       <Duv dy={3} dur={3.6}>
         <Skute x={296} y={124} s={0.6} signal={false} />
         <Royk x={311} y={78} begin={0} />
@@ -553,7 +553,7 @@ export function Containerskip() {
   };
 
   return (
-    <Figur w={W} h={H} label="A large container ship stacked with containers, riding the waves">
+    <Figur w={W} h={H} label="Et stort containerskip stablet med containere, som rir på bølgene">
       <Sving grader={0.6} cx={W / 2} cy={VANN} dur={7.5}>
         <Duv dy={4} dur={4.4}>
           {/* Skrog */}
@@ -640,7 +640,7 @@ export function Meldingsstrom() {
   const dur = 1.5;
   const y = 48;
   return (
-    <Figur w={W} h={H} label="Fourteen balls a second flying past. Each ball is 100 messages.">
+    <Figur w={W} h={H} label="Fjorten kuler i sekundet som flyr forbi. Hver kule er 100 meldinger.">
       <path d={`M 16 ${y} H ${W - 16}`} stroke={TEAL} strokeWidth={1.4} opacity={0.28} />
       {Array.from({ length: n }, (_, i) => (
         <circle
@@ -662,13 +662,13 @@ export function Meldingsstrom() {
         </circle>
       ))}
       <Tekst x={W / 2} y={104} size={13.5} color={DUS}>
-        each of these is 100 messages
+        hver av disse er 100 meldinger
       </Tekst>
     </Figur>
   );
 }
 
-/** Side-view boat small enough to tile the fill slide. Origo is mid-hull. */
+/** Liten båt sett fra siden, liten nok til å flislegge fyll-sliden. Origo er midt på skroget. */
 function MiniBaat({
   x,
   y,
@@ -756,7 +756,7 @@ export function Meldingsfyll() {
   });
 
   return (
-    <Figur w={W} h={H} strokeWidth={2} label="Messages appearing until they fill the screen. Each boat is 100 messages.">
+    <Figur w={W} h={H} strokeWidth={2} label="Meldinger som dukker opp til de fyller skjermen. Hver båt er 100 meldinger.">
       {Array.from({ length: n }, (_, i) => {
         const c = i % cols;
         const row = Math.floor(i / cols);
@@ -785,7 +785,7 @@ export function Meldingsfyll() {
       })}
       <rect x={W / 2 - 210} y={H - 48} width={420} height={32} rx={16} fill={KREM} stroke="none" />
       <Tekst x={W / 2} y={H - 26} size={15} color={DUS}>
-        each of these is 100 messages
+        hver av disse er 100 meldinger
       </Tekst>
     </Figur>
   );
@@ -846,9 +846,9 @@ export function Lyttepost({ type }: { type: LyttepostType }) {
 }
 
 const LYTTEPOST_LABEL: Record<LyttepostType, string> = {
-  base: "Base station on land receiving AIS",
-  satellitt: "Satellite listening over the ocean",
-  meldinger: "A growing pile of AIS messages",
+  base: "Basestasjon på land som tar imot AIS",
+  satellitt: "Satellitt som lytter over havet",
+  meldinger: "En voksende bunke AIS-meldinger",
 };
 
 /** Oljevern: en liten skute legger lense rundt et oljeflak */
@@ -856,7 +856,7 @@ export function Oljevern() {
   const W = 420;
   const H = 200;
   return (
-    <Figur w={W} h={H} label="A boat laying an oil boom around a slick">
+    <Figur w={W} h={H} label="En skute som legger lense rundt et oljeflak">
       <Duv dy={3} dur={3.6}>
         <Skute x={320} y={160} s={0.55} signal={false} />
       </Duv>

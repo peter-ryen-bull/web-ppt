@@ -26,7 +26,7 @@ export function SkyMedKlosser() {
     { y: 56, w: 32 },
   ];
   return (
-    <Figur w={420} h={150} label="A cloud with a stack of blocks inside">
+    <Figur w={420} h={150} label="En sky med en stabel klosser inni">
       <Duv dy={4} dur={5}>
         <path d={SKYFORM} transform="translate(90 12)" fill={KREM} strokeWidth={3} />
         {klosser.map((k) => (
@@ -40,12 +40,12 @@ export function SkyMedKlosser() {
 /** Skyen hviler på tre byggeklosser: lagring, nettverk og identitet */
 export function SkyFundament() {
   const klosser: { navn: IkonNavn; tekst: string }[] = [
-    { navn: "database", tekst: "storage" },
-    { navn: "nettverk", tekst: "network" },
-    { navn: "nokkel", tekst: "identity" },
+    { navn: "database", tekst: "lagring" },
+    { navn: "nettverk", tekst: "nettverk" },
+    { navn: "nokkel", tekst: "identitet" },
   ];
   return (
-    <Figur w={420} h={160} label="A cloud resting on the blocks storage, network and identity">
+    <Figur w={420} h={160} label="En sky som hviler på klossene lagring, nettverk og identitet">
       <path d="M 40 140 H 380" strokeWidth={2} opacity={0.5} />
       {klosser.map((k, i) => {
         const x = 75 + i * 100;
@@ -71,7 +71,7 @@ export function Kapasitetsmaaler() {
   const r = 80;
   const ticks = [180, 210, 240, 270, 300, 330, 360];
   return (
-    <Figur w={240} h={130} label="Gauge where the needle follows the load up and down">
+    <Figur w={240} h={130} label="Måler der nålen følger belastningen opp og ned">
       <path d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`} strokeWidth={3} />
       {ticks.map((g) => {
         const a = (g * Math.PI) / 180;
@@ -99,10 +99,10 @@ export function Kapasitetsmaaler() {
       </g>
       <circle cx={cx} cy={cy} r={6} fill={KREM} strokeWidth={2.5} />
       <Tekst x={cx - r + 4} y={cy + 18} size={11}>
-        quiet night
+        stille natt
       </Tekst>
       <Tekst x={cx + r - 4} y={cy + 18} size={11}>
-        traffic peak
+        trafikktopp
       </Tekst>
     </Figur>
   );
@@ -113,7 +113,7 @@ export function Isfjell() {
   const W = 400;
   const H = 140;
   return (
-    <Figur w={W} h={H} label="Iceberg – a small tip above water and a huge mass below">
+    <Figur w={W} h={H} label="Isfjell: en liten topp over vann og en stor masse under">
       <Bolger y={46} w={W} h={H} amp={7} dur={10} />
       <Duv dy={3} dur={4.4}>
         <path
@@ -125,10 +125,10 @@ export function Isfjell() {
         <path d="M 170 46 L 190 12 L 212 30 L 234 46 Z" fill={KREM} strokeWidth={2.5} />
       </Duv>
       <Tekst x={246} y={18} size={12} anchor="start">
-        the stream
+        strømmen
       </Tekst>
       <Tekst x={200} y={98} size={13} color={TEAL} weight={600}>
-        the history
+        historikken
       </Tekst>
     </Figur>
   );
@@ -137,7 +137,7 @@ export function Isfjell() {
 /** Fast klynge: bestemt størrelse, og jobber som står i kø */
 export function KlyngeFast() {
   return (
-    <Figur w={200} h={60} label="Fixed cluster with jobs in a queue">
+    <Figur w={200} h={60} label="Fast klynge med jobber i kø">
       {[0, 1, 2, 3, 4, 5].map((i) => (
         <rect key={i} x={8 + i * 22} y={12} width={16} height={16} rx={3} fill={TEAL} stroke="none" />
       ))}
@@ -156,10 +156,10 @@ export function KlyngeFast() {
         </rect>
       ))}
       <Tekst x={74} y={48} size={10.5}>
-        decided up front
+        bestemt på forhånd
       </Tekst>
       <Tekst x={169} y={48} size={10.5}>
-        queued
+        i kø
       </Tekst>
     </Figur>
   );
@@ -169,7 +169,7 @@ export function KlyngeFast() {
 export function KlyngeAuto() {
   const T = 10;
   return (
-    <Figur w={200} h={60} label="Autoscaling – the number of nodes grows and shrinks again">
+    <Figur w={200} h={60} label="Autoskalering: antall noder vokser og skrus ned igjen">
       {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
         const inn = 0.08 + i * 0.05;
         const ut = 0.9 - i * 0.05;
@@ -189,7 +189,7 @@ export function KlyngeAuto() {
         );
       })}
       <Tekst x={100} y={48} size={10.5}>
-        follows the data volume
+        følger datamengden
       </Tekst>
     </Figur>
   );
@@ -346,7 +346,7 @@ export function ManuellVsServerless() {
     <Figur
       w={1040}
       h={300}
-      label="Manual tuning guesses a cluster size and wakes up late. Serverless follows the job."
+      label="Manuell tuning gjetter en klyngestørrelse og våkner for sent. Serverless følger jobben."
     >
       <path
         d="M 520 36 V 272"
@@ -357,7 +357,7 @@ export function ManuellVsServerless() {
 
       <IkonI navn="verktoy" x={70} y={18} size={26} color={TEAL} />
       <Tekst x={106} y={36} size={14} color={TEAL} weight={600} anchor="start">
-        MANUAL
+        MANUELL
       </Tekst>
       <LastMedHode x={70} y={58} T={T} />
       <path d="M 86 148 V 228" strokeWidth={2.2} />
@@ -372,10 +372,10 @@ export function ManuellVsServerless() {
       </circle>
       <NodeRad x={130} y={176} T={T} noder={manuell} />
       <Tekst x={242} y={226} size={13}>
-        you guess · then you wait
+        du gjetter · så venter du
       </Tekst>
       <Tekst x={430} y={190} size={12} color={ROD} anchor="end">
-        waking up
+        våkner
         <animate
           attributeName="opacity"
           values="1; 1; 0; 0"
@@ -385,7 +385,7 @@ export function ManuellVsServerless() {
         />
       </Tekst>
       <Tekst x={430} y={190} size={12} color={ROD} anchor="end">
-        queued
+        i kø
         <animate
           attributeName="opacity"
           values="0; 0; 1; 1; 0; 0"
@@ -395,7 +395,7 @@ export function ManuellVsServerless() {
         />
       </Tekst>
       <Tekst x={430} y={190} size={12} anchor="end">
-        idle
+        ledig
         <animate
           attributeName="opacity"
           values="0; 0; 1; 1; 0"
@@ -412,7 +412,7 @@ export function ManuellVsServerless() {
       <LastMedHode x={590} y={58} T={T} />
       <NodeRad x={650} y={176} T={T} noder={serverless} />
       <Tekst x={762} y={226} size={13}>
-        the job decides
+        jobben bestemmer
       </Tekst>
     </Figur>
   );

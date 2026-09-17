@@ -18,18 +18,18 @@ import {
 } from "./slides";
 
 const SLIDES: SlideDef[] = [
-  { id: "forside", name: "The story of the data platform", component: SlideForside },
-  { id: "tidslinje", name: "Five phases, one problem", component: SlideTidslinje, steps: TIDSLINJE_STEG },
-  { id: "relasjonsmodellen", name: "1970 · The database", component: SlideRelasjonsmodellen },
-  { id: "databasen-speil", name: "The database: solved, and a new problem", component: SlideDatabasenSpeil },
-  { id: "varehuset", name: "1988 · The data warehouse", component: SlideVarehuset },
-  { id: "varehuset-speil", name: "The warehouse: solved, and a new problem", component: SlideVarehusetSpeil },
-  { id: "regnestykket", name: "2006 · Big data", component: SlideRegnestykket },
-  { id: "datasjoen", name: "2010 · The data lake", component: SlideDatasjoen },
-  { id: "sjoen-speil", name: "The lake: solved, and a new problem", component: SlideSjoenSpeil },
-  { id: "skyen", name: "2012 · The cloud", component: SlideSkyen },
-  { id: "lakehouse", name: "2020 · The lakehouse", component: SlideLakehouse },
-  { id: "avslutning", name: "Data lasts longer than the systems", component: SlideAvslutning, steps: 1 },
+  { id: "forside", name: "Historien om dataplattformen", component: SlideForside },
+  { id: "tidslinje", name: "Fem faser, ett problem", component: SlideTidslinje, steps: TIDSLINJE_STEG },
+  { id: "relasjonsmodellen", name: "1970 · Databasen", component: SlideRelasjonsmodellen },
+  { id: "databasen-speil", name: "Databasen: løst, og et nytt problem", component: SlideDatabasenSpeil },
+  { id: "varehuset", name: "1988 · Datavarehuset", component: SlideVarehuset },
+  { id: "varehuset-speil", name: "Varehuset: løst, og et nytt problem", component: SlideVarehusetSpeil },
+  { id: "regnestykket", name: "2006 · Stordata", component: SlideRegnestykket },
+  { id: "datasjoen", name: "2010 · Datasjøen", component: SlideDatasjoen },
+  { id: "sjoen-speil", name: "Sjøen: løst, og et nytt problem", component: SlideSjoenSpeil },
+  { id: "skyen", name: "2012 · Skyen", component: SlideSkyen },
+  { id: "lakehouse", name: "2020 · Lakehouse", component: SlideLakehouse },
+  { id: "avslutning", name: "Data varer lenger enn systemene", component: SlideAvslutning, steps: 1 },
 ];
 
 export const historyOfTheDataPlatform: PresentationDef = definePresentation({
@@ -42,7 +42,7 @@ export const historyOfTheDataPlatform: PresentationDef = definePresentation({
   chapters: [
     {
       id: "historie",
-      title: "The story of the data platform",
+      title: "Historien om dataplattformen",
       slides: SLIDES,
     },
   ],

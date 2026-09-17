@@ -35,7 +35,7 @@ export function SlideTilbakeTilStad() {
             color: "var(--burgundy)",
           }}
         >
-          It&apos;s 03:14.
+          Klokka er 03:14.
         </div>
         <div
           style={{
@@ -46,7 +46,7 @@ export function SlideTilbakeTilStad() {
             ...linje2,
           }}
         >
-          The sea off Stad. February. A gale from the northwest.
+          Havet utenfor Stad. Februar. Kuling fra nordvest.
         </div>
         <div
           style={{
@@ -57,7 +57,7 @@ export function SlideTilbakeTilStad() {
             ...linje3,
           }}
         >
-          A cargo ship heading north at nine knots.
+          Et lasteskip på vei nordover i ni knop.
         </div>
         <div
           style={{
@@ -68,7 +68,7 @@ export function SlideTilbakeTilStad() {
             ...linje4,
           }}
         >
-          We are listening.
+          Vi lytter.
         </div>
       </Box>
       <Reveal at={3}>
@@ -83,11 +83,11 @@ export function SlideTilbakeTilStad() {
 /* Takk, og «prøv selv» til utviklerne i salen */
 export function SlideTakk() {
   const lenker: [string, string][] = [
-    ["The live map", "nais.kystverket.no"],
-    ["Historical data on demand", "hais.kystverket.no"],
-    ["Raw AIS stream over TCP", "153.44.253.27:5631"],
-    ["Live API for developers", "developer.barentswatch.no"],
-    ["The whole emissions model", "github.com/Kystverket/maru"],
+    ["Sanntidskartet", "nais.kystverket.no"],
+    ["Historikk på bestilling", "hais.kystverket.no"],
+    ["Rå AIS-strøm over TCP", "153.44.253.27:5631"],
+    ["Live-API for utviklere", "developer.barentswatch.no"],
+    ["Hele utslippsmodellen", "github.com/Kystverket/maru"],
   ];
   const mono = "ui-monospace, SFMono-Regular, Menlo, monospace";
   return (
@@ -102,7 +102,7 @@ export function SlideTakk() {
             color: "var(--burgundy)",
           }}
         >
-          Thanks.
+          Takk.
         </div>
       </Box>
       <Box box={[80, 196, 700, 40]}>
@@ -113,7 +113,7 @@ export function SlideTakk() {
             color: "var(--red)",
           }}
         >
-          All of this is open. Try it yourself during the break.
+          Alt dette er åpent. Prøv selv i pausen.
         </div>
       </Box>
       <Box
@@ -188,7 +188,7 @@ export function SlideTakk() {
         </div>
         <img
           src={`${MEDIA}/peterbull-qr.svg`}
-          alt="QR code to peterbull.no"
+          alt="QR-kode til peterbull.no"
           style={{ width: 240, height: 240, marginTop: 24, display: "block" }}
         />
         <div
@@ -242,7 +242,7 @@ export function SlideVeienVidere() {
         <Kompass />
       </Box>
       <ChapterSlide
-        title="The road ahead for the data platform"
+        title="Veien videre for dataplattformen"
         titleSize={54}
         showLogo={false}
       />
@@ -262,10 +262,10 @@ export function SlideHvorViEr() {
 /* Slide 26c – Hvorfor arkitekturen må skalere: flere domener enn AIS */
 export function SlideFlereDomener() {
   const domener: [string, string, IkonNavn][] = [
-    ["customs", "declarations and cargo", "skjema"],
-    ["internal_hr_finance", "payroll and the ledger", "mynt"],
-    ["lighthouse_predictive_maintenance", "sensors on the lights", "verktoy"],
-    ["and many more", "", "deling"],
+    ["customs", "deklarasjoner og last", "skjema"],
+    ["internal_hr_finance", "lønn og regnskap", "mynt"],
+    ["lighthouse_predictive_maintenance", "sensorer på lyktene", "verktoy"],
+    ["og mange flere", "", "deling"],
   ];
   const punchline = useRevealStyle(domener.length + 1);
   return (
@@ -279,7 +279,7 @@ export function SlideFlereDomener() {
             color: "var(--burgundy-2)",
           }}
         >
-          Not just AIS
+          Ikke bare AIS
         </div>
         <div
           style={{
@@ -291,8 +291,8 @@ export function SlideFlereDomener() {
             ...punchline,
           }}
         >
-          So we need an architecture that scales. Shared data stays high
-          quality. And findable.
+          Så vi trenger en arkitektur som skalerer. Delte data holder høy
+          kvalitet. Og er lette å finne.
         </div>
       </Box>
       {domener.map(([navn, sub, ikon], i) => (
@@ -367,10 +367,10 @@ export function SlideHvorViSkalHelhet() {
 /* Slide 27 – Dette vil vi få til */
 export function SlideVidereListe() {
   const facts: [string, IkonNavn][] = [
-    ["More of Kystverket's own data in the data platform", "kart"],
-    ["Customs analysis", "soyler"],
-    ["Predictive maintenance on lighthouses", "verktoy"],
-    ["Faster and better organization", "person"],
+    ["Mer av Kystverkets egne data inn i dataplattformen", "kart"],
+    ["Tollanalyse", "soyler"],
+    ["Prediktivt vedlikehold av lykter", "verktoy"],
+    ["Raskere og bedre organisasjon", "person"],
   ];
   return (
     <>
@@ -383,7 +383,7 @@ export function SlideVidereListe() {
             color: "var(--burgundy-2)",
           }}
         >
-          What we want to achieve
+          Dette vil vi få til
         </div>
         <div
           style={{
@@ -394,7 +394,7 @@ export function SlideVidereListe() {
             color: "var(--red)",
           }}
         >
-          The world&apos;s safest and cleanest coast
+          Verdens tryggeste og reneste kyst
         </div>
       </Box>
       {facts.map(([f, ikon], i) => (

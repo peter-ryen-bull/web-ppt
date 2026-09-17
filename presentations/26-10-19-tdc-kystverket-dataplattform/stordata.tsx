@@ -69,14 +69,14 @@ export function SlideStordataVolum() {
 
   return (
     <>
-      <SlideTittel>The stream is small. The history is big.</SlideTittel>
-      {tall(1, 40, VOLUM.perDogn, "of raw data per day", "var(--burgundy)")}
-      {tall(2, 340, VOLUM.perAar, "per year", "var(--burgundy)")}
+      <SlideTittel>Strømmen er liten. Historikken er stor.</SlideTittel>
+      {tall(1, 40, VOLUM.perDogn, "rådata i døgnet", "var(--burgundy)")}
+      {tall(2, 340, VOLUM.perAar, "i året", "var(--burgundy)")}
       {tall(
         3,
         640,
         VOLUM.historikk,
-        "of AIS history back to 2005",
+        "AIS-historikk tilbake til 2005",
         "var(--red)",
       )}
       <Reveal at={3}>
@@ -102,7 +102,7 @@ export function SlideStordataVolum() {
               textAlign: "center",
             }}
           >
-            Daily processing is easy. Replaying twenty-one years is the hard part.
+            Døgnet er enkelt. Det tunge er å kjøre gjennom tjueen år på nytt.
           </div>
         </Box>
       </Reveal>
@@ -114,7 +114,7 @@ export function SlideStordataVolum() {
 export function SlideDatabricksCompute() {
   return (
     <>
-      <SlideTittel>Databricks compute</SlideTittel>
+      <SlideTittel>Databricks-compute</SlideTittel>
       <Box box={[48, 108, 900, 40]}>
         <div
           style={{
@@ -123,7 +123,7 @@ export function SlideDatabricksCompute() {
             color: "var(--red)",
           }}
         >
-          Clusters are managed VMs in Azure
+          Klynger er administrerte VM-er i Azure
         </div>
       </Box>
       <BulletList
@@ -132,10 +132,10 @@ export function SlideDatabricksCompute() {
         gap={36}
         size={22}
         items={[
-          "You scale the cluster to the volume",
-          "1 TB processed? You need a fairly big VM",
-          "Data is chunked. It doesn't all have to fit in memory.",
-          "The VM size decides how long the job takes",
+          "Du skalerer klyngen etter volumet",
+          "1 TB som skal prosesseres? Da trenger du en ganske stor VM",
+          "Dataene deles opp. Alt trenger ikke å få plass i minnet.",
+          "VM-størrelsen bestemmer hvor lang tid jobben tar",
         ]}
       />
     </>
@@ -198,27 +198,27 @@ function Kort({
 export function SlideStordataCompute() {
   return (
     <>
-      <SlideTittel>Days of compute, or hours?</SlideTittel>
+      <SlideTittel>Døgn med kjøretid, eller timer?</SlideTittel>
       <Kort
         x={80}
-        tittel="FIXED CLUSTER"
+        tittel="FAST KLYNGE"
         fraSteg={1}
         figur={<KlyngeFast />}
         punkter={[
-          "the size is decided before the job starts",
-          "a full reprocessing can take several days",
-          "run a few of those at once, and they queue up",
+          "størrelsen er bestemt før jobben starter",
+          "en full reprosessering kan bruke flere døgn",
+          "flere slike jobber samtidig, og de står i kø",
         ]}
       />
       <Kort
         x={668}
-        tittel="AUTOSCALING"
+        tittel="AUTOSKALERING"
         fraSteg={4}
         figur={<KlyngeAuto />}
         punkter={[
-          "capacity follows the amount of data in the job",
-          "days become hours when we can go wide",
-          "and everything scales back down when the job is done",
+          "kapasiteten følger datamengden i jobben",
+          "døgn blir timer når vi kan bruke bredden",
+          "og alt skrus ned igjen når jobben er ferdig",
         ]}
       />
       <Reveal at={7}>
@@ -239,7 +239,7 @@ export function SlideStordataCompute() {
               textAlign: "center",
             }}
           >
-            Same bill. The answer today, not on Friday.
+            Samme regning. Svaret i dag, ikke på fredag.
           </div>
         </Box>
       </Reveal>

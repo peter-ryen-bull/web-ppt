@@ -30,7 +30,7 @@ export function SlideKystverket() {
         src={`${MEDIA}/kystverket-logo.svg`}
         alt="Kystverket"
       />
-      <ChapterSlide title="Who's listening?" showLogo={false} />
+      <ChapterSlide title="Hvem lytter?" showLogo={false} />
       <Box box={[430, 550, 420, 170]}>
         <BaatSignal />
       </Box>
@@ -56,7 +56,7 @@ export function SlideVisjon() {
           }}
         >
           <div style={{ color: "var(--burgundy)" }}>
-            The world&apos;s safest and cleanest coast
+            Verdens sikreste og reneste kyst
           </div>
           <div
             style={{
@@ -68,7 +68,7 @@ export function SlideVisjon() {
               ...linje2,
             }}
           >
-            That&apos;s the whole why. Everything else is how.
+            Det er hele hvorfor-et. Alt annet er hvordan.
           </div>
         </div>
       </Box>
@@ -84,23 +84,23 @@ const NCA_OMRADER: {
 }[] = [
   {
     ikon: "person",
-    tittel: "Pilotage",
-    tekst: "A local expert boards the ship and brings it in.",
+    tittel: "Lostjenesten",
+    tekst: "En kjentmann går om bord og tar skipet inn.",
   },
   {
     ikon: "varsel",
-    tittel: "Environment",
-    tekst: "National response when oil starts leaking.",
+    tittel: "Miljøberedskap",
+    tekst: "Nasjonal beredskap når oljen begynner å lekke.",
   },
   {
     ikon: "antenne",
-    tittel: "Navigation technology",
-    tekst: "Lights, vessel traffic centers, and AIS.",
+    tittel: "Navigasjonsteknologi",
+    tekst: "Fyr og lykter, sjøtrafikksentraler og AIS.",
   },
   {
     ikon: "kart",
-    tittel: "Transport, ports and fairways",
-    tekst: "The physical coastline. Harbors and channels.",
+    tittel: "Transport, havn og farled",
+    tekst: "Den fysiske kysten. Havner og seilingsleder.",
   },
 ];
 
@@ -165,7 +165,7 @@ export function SlideOppdrag() {
       <Img
         box={[940, 48, 260, 67]}
         src={`${MEDIA}/kystverket-logo.svg`}
-        alt="Norwegian Coastal Administration"
+        alt="Kystverket"
       />
       <Box box={[66, 48, 820, 120]}>
         <div
@@ -175,7 +175,7 @@ export function SlideOppdrag() {
             color: "var(--burgundy)",
           }}
         >
-          About us
+          Om oss
         </div>
         <div
           style={{
@@ -186,7 +186,7 @@ export function SlideOppdrag() {
             color: "var(--red)",
           }}
         >
-          The Norwegian Coastal Administration
+          Kystverket
         </div>
       </Box>
       <Box
@@ -214,9 +214,9 @@ export function SlideOppdrag() {
           }}
         >
           <span style={spoersmaalIntro}>
-            All four start with the same question:
+            Alle fire starter med samme spørsmål:
           </span>
-          <span style={spoersmaal}> where are the ships right now?</span>
+          <span style={spoersmaal}> hvor er skipene akkurat nå?</span>
         </div>
       </Box>
     </>
@@ -281,12 +281,12 @@ export function SlideLyttepostene() {
             color: "var(--burgundy)",
           }}
         >
-          The listening posts
+          Lyttepostene
         </div>
       </Box>
-      {tall(1, 80, "~90", "base stations", "var(--teal)", "base")}
-      {tall(2, 460, "4", "satellites", "var(--teal)", "satellitt")}
-      {tall(3, 840, "100M", "messages a day", "var(--red)", "meldinger")}
+      {tall(1, 80, "~90", "basestasjoner", "var(--teal)", "base")}
+      {tall(2, 460, "4", "satellitter", "var(--teal)", "satellitt")}
+      {tall(3, 840, "100M", "meldinger om dagen", "var(--red)", "meldinger")}
       <Reveal at={4}>
         <Box
           box={[120, 500, 1040, 80]}
@@ -304,7 +304,7 @@ export function SlideLyttepostene() {
               textAlign: "center",
             }}
           >
-            Data stored back to 2005
+            Alt lagret tilbake til 2005
           </div>
         </Box>
       </Reveal>
@@ -324,7 +324,7 @@ export function SlideAis() {
             color: "var(--burgundy-2)",
           }}
         >
-          AIS: built to avoid collisions
+          AIS: laget for å ikke kollidere
         </div>
       </Box>
       <Box box={[850, 28, 390, 390]}>
@@ -335,9 +335,9 @@ export function SlideAis() {
         fromStep={1}
         gap={36}
         items={[
-          "Identity, position, speed, course",
-          "Every few seconds, or a few minutes",
-          "Built for collisions. Became the backbone.",
+          "Identitet, posisjon, fart, kurs",
+          "Hvert par sekund, eller noen minutter",
+          "Laget mot kollisjoner. Ble ryggraden.",
         ]}
       />
       <Box box={[0, 470, 1280, 250]}>
@@ -362,10 +362,10 @@ export function SlideSporsmalet() {
           }}
         >
           <div style={{ color: "var(--burgundy)" }}>
-            So you&apos;ve got 100 million messages a day.
+            Så du har 100 millioner meldinger om dagen.
           </div>
           <div style={{ color: "var(--red)", marginTop: 20, ...linje2 }}>
-            How do you process them all?
+            Hvordan får du behandlet alle sammen?
           </div>
         </div>
       </Box>

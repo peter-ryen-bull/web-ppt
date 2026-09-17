@@ -262,23 +262,23 @@ const KONTRAKT_LINJER: Seg[][] = [
   [{ t: "owner:", nokkel: true }, { t: "        team-ocean" }],
   [],
   [{ t: "schema:", nokkel: true }],
-  [{ t: "  mmsi:", nokkel: true }, { t: "       integer · not null" }],
-  [{ t: "  position:", nokkel: true }, { t: "   valid lat/lon" }],
-  [{ t: "  speed:", nokkel: true }, { t: "      0–60 knots" }],
+  [{ t: "  mmsi:", nokkel: true }, { t: "       heltall · ikke null" }],
+  [{ t: "  position:", nokkel: true }, { t: "   gyldig lat/lon" }],
+  [{ t: "  speed:", nokkel: true }, { t: "      0–60 knop" }],
   [],
   [{ t: "quality:", nokkel: true }],
-  [{ t: "  freshness:", nokkel: true }, { t: "  < 5 minutes" }],
-  [{ t: "  duplicates:", nokkel: true }, { t: " none" }],
+  [{ t: "  freshness:", nokkel: true }, { t: "  < 5 minutter" }],
+  [{ t: "  duplicates:", nokkel: true }, { t: " ingen" }],
   [],
   [{ t: "terms:", nokkel: true }],
-  [{ t: "  use:", nokkel: true }, { t: "        open data (NLOD)" }],
+  [{ t: "  use:", nokkel: true }, { t: "        åpne data (NLOD)" }],
   [{ t: "  alerts:", nokkel: true }, { t: "     #oncall-ocean" }],
 ];
 
 const KONSUMENTER = [
-  { title: "Dashboard", sub: "insight & analysis", icon: <IkonSoyler /> },
-  { title: "ML model", sub: "arrival prediction", icon: <IkonGnist /> },
-  { title: "Open data", sub: "API · BarentsWatch", icon: <IkonDeling /> },
+  { title: "Dashbord", sub: "innsikt & analyse", icon: <IkonSoyler /> },
+  { title: "ML-modell", sub: "ankomstprediksjon", icon: <IkonGnist /> },
+  { title: "Åpne data", sub: "API · BarentsWatch", icon: <IkonDeling /> },
 ];
 
 export function DatakontraktApi() {
@@ -304,9 +304,9 @@ export function DatakontraktApi() {
       viewBox={`0 0 ${W} ${H}`}
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="Data contract: a YAML document between producer and consumers – an API for data"
+      aria-label="Datakontrakt: et YAML-dokument mellom produsent og konsumenter – et API for data"
     >
-      <Pill cx={620} y={4} text="AN API – BUT FOR DATA" w={290} h={34} fontSize={13.5} />
+      <Pill cx={620} y={4} text="ET API – MEN FOR DATA" w={290} h={34} fontSize={13.5} />
 
       {/* Produsenten lover – konsumentene kan stole på */}
       <text
@@ -317,7 +317,7 @@ export function DatakontraktApi() {
         fontSize={14}
         fill="var(--red)"
       >
-        makes promises
+        forplikter seg
       </text>
       <text
         x={(DOK_X + DOK_W + KONS_X) / 2}
@@ -327,7 +327,7 @@ export function DatakontraktApi() {
         fontSize={14}
         fill="var(--red)"
       >
-        can rely on
+        kan stole på
       </text>
 
       <Flyt d={`M ${30 + PROD_W + 8} ${MIDT_Y} H ${DOK_X}`} dur={5} begins={[0, -2.5]} color="var(--red)" r={6} />
@@ -347,8 +347,8 @@ export function DatakontraktApi() {
         y={MIDT_Y - PROD_H / 2}
         w={PROD_W}
         h={PROD_H}
-        title="Producer"
-        sub={"team-ocean –\nowns the data product"}
+        title="Produsent"
+        sub={"team-ocean –\neier dataproduktet"}
         icon={<IkonDatabase />}
         stor
       />
@@ -371,7 +371,7 @@ export function DatakontraktApi() {
           fontSize={13.5}
           fill="rgba(251, 240, 229, 0.85)"
         >
-          ais_tracks · datacontract.yaml
+          ais_tracks · datakontrakt.yaml
         </text>
         {KONTRAKT_LINJER.map((linje, i) => (
           <text key={i} x={20} y={78 + i * 28} fontFamily={MONO} fontSize={17} xmlSpace="preserve">
@@ -396,7 +396,7 @@ export function DatakontraktApi() {
         fontSize={19}
         fill="var(--red)"
       >
-        One agreement both sides follow – readable for humans, enforceable for machines
+        Én avtale begge sider følger – lesbar for mennesker, håndhevbar for maskiner
       </text>
     </svg>
   );
@@ -482,18 +482,18 @@ function EndringKort({ y }: { y: number }) {
         <IkonKode />
       </g>
       <text x={56} y={34} fontFamily="var(--font-sans)" fontSize={12.5} fill={SUB_FARGE}>
-        producer changes the schema
+        produsenten endrer skjemaet
       </text>
       <text x={56} y={62} fontFamily={MONO} fontSize={15} xmlSpace="preserve">
         <tspan fill="var(--teal)" fontWeight={600}>
           speed:{" "}
         </tspan>
         <tspan fill={SUB_FARGE} textDecoration="line-through">
-          number
+          tall
         </tspan>
         <tspan fill="var(--burgundy)"> → </tspan>
         <tspan fill="var(--red)" fontWeight={600}>
-          text
+          tekst
         </tspan>
       </text>
     </g>
@@ -517,7 +517,7 @@ function DashbordKort({ y, sub }: { y: number; sub: string }) {
         <IkonSoyler />
       </g>
       <text x={74} y={41} fontFamily="var(--font-sans)" fontWeight={600} fontSize={16} fill="var(--burgundy)">
-        Dashboard
+        Dashbord
       </text>
       <text x={74} y={63} fontFamily="var(--font-sans)" fontSize={12} fill={SUB_FARGE}>
         {sub}
@@ -532,10 +532,10 @@ export function DatakontraktBrudd() {
       viewBox={`0 0 ${W} ${H}`}
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="The same schema change without and with a data contract: without a contract the dashboard breaks silently, with a contract the change is stopped in the pull request"
+      aria-label="Samme skjemaendring uten og med datakontrakt: uten kontrakt knekker dashbordet stille, med kontrakt stoppes endringen i pull requesten"
     >
       {/* ---------- Løp 1: uten kontrakt ---------- */}
-      <Pill cx={135} y={40} text="WITHOUT CONTRACT" w={190} />
+      <Pill cx={135} y={40} text="UTEN KONTRAKT" w={190} />
 
       <path
         d="M 310 130 H 940"
@@ -547,12 +547,12 @@ export function DatakontraktBrudd() {
       />
       <EngangsBall path="M 310 130 L 940 130" fra={1} til={5} blirRodVed={4.9} />
       <EndringKort y={85} />
-      <DashbordKort y={85} sub="in production" />
+      <DashbordKort y={85} sub="i produksjon" />
 
       <g opacity={0}>
         <Appear at={3.0} />
         <text x={625} y={114} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={12.5} fill={SUB_FARGE}>
-          no alert – the dependency is hidden
+          ingen varsel – avhengigheten er skjult
         </text>
       </g>
 
@@ -566,15 +566,15 @@ export function DatakontraktBrudd() {
       <g opacity={0}>
         <Appear at={5.6} />
         <text x={1070} y={202} textAnchor="middle" fontFamily="var(--font-sans)" fontWeight={600} fontSize={13.5} fill="var(--red)">
-          breaks silently
+          knekker stille
         </text>
         <text x={1070} y={222} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={12} fill={SUB_FARGE}>
-          the bug is found weeks later – downstream
+          feilen oppdages uker senere – nedstrøms
         </text>
       </g>
 
       {/* ---------- Løp 2: med kontrakt ---------- */}
-      <Pill cx={135} y={250} text="WITH CONTRACT" w={190} />
+      <Pill cx={135} y={250} text="MED KONTRAKT" w={190} />
 
       <path
         d="M 310 380 H 560"
@@ -594,7 +594,7 @@ export function DatakontraktBrudd() {
       />
       <EngangsBall path="M 310 380 L 552 380" fra={1} til={2.8} blirRodVed={2.7} />
       <EndringKort y={335} />
-      <DashbordKort y={335} sub="still healthy" />
+      <DashbordKort y={335} sub="fortsatt friskt" />
 
       {/* Grønn hake: produksjon er uberørt */}
       <circle cx={1178} cy={357} r={11} fill="rgba(120, 232, 219, 0.3)" stroke="var(--teal)" strokeWidth={1.5} />
@@ -621,7 +621,7 @@ export function DatakontraktBrudd() {
           <IkonSkjold />
         </g>
         <text x={650} y={368} textAnchor="middle" fontFamily="var(--font-serif)" fontSize={19} fill="var(--cream)">
-          Contract check
+          Kontraktsjekk
         </text>
         <rect x={632} y={379} width={36} height={3} rx={1.5} fill="var(--mint)" />
         <rect x={584} y={396} width={132} height={26} rx={13} fill="rgba(120, 232, 219, 0.12)" stroke="var(--mint)" strokeWidth={1} />
@@ -635,7 +635,7 @@ export function DatakontraktBrudd() {
           letterSpacing={0.5}
           fill="var(--mint)"
         >
-          in the pull request
+          i pull requesten
         </text>
       </g>
 
@@ -644,7 +644,7 @@ export function DatakontraktBrudd() {
         <Appear at={3.0} />
         <text x={560} y={502} fontFamily={MONO} fontSize={13.5} fill="var(--red)" xmlSpace="preserve">
           <tspan fontWeight={700}>FAIL  </tspan>
-          <tspan>schema: speed must be a number (0–60)</tspan>
+          <tspan>schema: speed må være et tall (0–60)</tspan>
         </text>
       </g>
       <g opacity={0}>
@@ -660,7 +660,7 @@ export function DatakontraktBrudd() {
           <IkonBjelle />
         </g>
         <text x={592} y={533} fontFamily="var(--font-sans)" fontSize={13} fill="var(--red)">
-          alert to the producer – before anything reaches production
+          varsel til produsenten – før noe når produksjon
         </text>
       </g>
 
@@ -672,7 +672,7 @@ export function DatakontraktBrudd() {
         fontSize={15.5}
         fill="var(--red)"
       >
-        A silent breach downstream becomes a loud and early failure
+        Et stille brudd nedstrøms blir en høylytt og tidlig feil
       </text>
     </svg>
   );

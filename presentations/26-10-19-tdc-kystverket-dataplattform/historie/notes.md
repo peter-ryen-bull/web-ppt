@@ -1,160 +1,160 @@
-# The story of the data platform – speaker notes
+# Historien om dataplattformen – speaker notes
 
-Draft: Each phase is an answer to a concrete problem, and each solution
-creates the next problem. The groundwork is in
+Kladd: Hver fase er et svar på et konkret problem, og hver løsning
+skaper det neste problemet. Grunnlaget ligger i
 research/historien-om-dataplattform/ (01–05).
 
-The constant:
-“More people want to ask more questions of more data – faster.”
+Konstanten:
+«Flere folk vil stille flere spørsmål til mer data, raskere.»
 
-## forside – The story of the data platform
+## forside – Historien om dataplattformen
 
-[14:00]  6 min. Next chapter at 20:00. One beat per era. Keep moving.
+[14:00]  6 min. Neste kapittel ved 20:00. Ett poeng per epoke. Hold tempoet.
 
-Data platform sounds like a fad. It isn't.
-It's just the latest answer to a 50-year-old problem.
+Dataplattform høres ut som en motesak. Det er det ikke.
+Det er bare det foreløpig siste svaret på et 50 år gammelt problem.
 
-## tidslinje – Five phases, one problem
+## tidslinje – Fem faser, ett problem
 
-1970 the relational database, 
-1988 the data warehouse, 
-2006 big data,
-2010 the data lake, 
-2012 the cloud, 
-2020 the lakehouse.
+1970 relasjonsdatabasen,
+1988 datavarehuset,
+2006 stordata,
+2010 datasjøen,
+2012 skyen,
+2020 lakehouse.
 
-The technology has been evolving, and constantly shifting
+Teknologien har utviklet seg hele veien, og skifter stadig.
 
-## relasjonsmodellen – 1970 · The database
+## relasjonsmodellen – 1970 · Databasen
 
-Set the scene fast: 
-- the sixties, punch cards and magnetic tape.
-- Every program owned its own files. 
-- The same customer in three places,
-in three formats – and the numbers don't match. A new question meant
-a new program.
+Sett scenen raskt:
+- 60-tallet, hullkort og magnetbånd.
+- Hvert program eide sine egne filer.
+- Samme kunde tre steder,
+i tre formater, og tallene spriker. Et nytt spørsmål betydde
+et nytt program.
 
-Ted Codd, IBM, 1970: tables joined on shared attributes. 
+Ted Codd, IBM, 1970: tabeller som kobles på felles kjennetegn.
 
-The radical part: separate WHAT you're asking from WHERE 
-it's stored. SQL: say what you want, let the database figure out how.
+Det radikale: skill HVA du spør om fra HVOR
+det ligger. SQL: si hva du vil ha, la databasen finne ut hvordan.
 
-You are not asking a file directly, you are just asking give me this information from the table called customers.
-== 
+Du spør ikke en fil direkte, du sier bare: gi meg denne informasjonen fra tabellen som heter kunder.
+==
 
-The database gave operations one shared memory
-.
-But it was built for operations – lots of small transactions – not analysis.
-Run a heavy report against the checkout system and the line grows.
-And with one system per function, the truth spread out again.
+Databasen ga driften ett delt minne.
 
-“Memory isn't the same as insight.”
+Men den var bygget for drift, mange små transaksjoner, ikke analyse.
+Kjør en tung rapport mot kassasystemet og køen vokser.
+Og med ett system per funksjon spredte sannheten seg igjen.
 
-## databasen-speil – The database: solved, and a new problem
+«Hukommelse er ikke det samme som innsikt.»
 
-The database gave operations one shared memory
-.
-But it was built for operations – lots of small transactions – not analysis.
-Run a heavy report against the checkout system and the line grows.
-And with one system per function, the truth spread out again.
+## databasen-speil – Databasen: løst, og et nytt problem
 
-“Memory isn't the same as insight.”
+Databasen ga driften ett delt minne.
 
-## varehuset – 1988 · The data warehouse
+Men den var bygget for drift, mange små transaksjoner, ikke analyse.
+Kjør en tung rapport mot kassasystemet og køen vokser.
+Og med ett system per funksjon spredte sannheten seg igjen.
 
-Management wants answers ACROSS systems: Which customers are profitable?
-Copy data out of the operational systems (ETL,
-nightly job) into ONE warehouse built for questions, not operations.
+«Hukommelse er ikke det samme som innsikt.»
+
+## varehuset – 1988 · Datavarehuset
+
+Ledelsen vil ha svar PÅ TVERS av systemer: Hvilke kunder er lønnsomme?
+Kopier data ut av driftssystemene (ETL,
+nattjobb) inn i ETT varehus bygget for spørsmål, ikke drift.
 
 
-Separated Operational systems and Analytical systems
-OLTP vs OLAP
+Skilte driftssystemer og analysesystemer.
+OLTP mot OLAP.
 
-Banks were first – because money is data. Risk, fraud, profitability,
-and regulation all need a view across systems. They could also afford
-the “eye-watering”
+Bankene var først, fordi penger er data. Risiko, svindel, lønnsomhet
+og regulering krever alle et blikk på tvers av systemene. De hadde også
+råd til det «eye-watering» dyre.
 
 ==
 
-Solved: one truth, history, decisions based on facts.
-New: expensive, slow (schema first – a new source took months),
-and it only understood rows and columns.
+Løst: én sannhet, historikk, beslutninger på fakta.
+Nytt: dyrt, tregt (skjema først, en ny kilde tok måneder),
+og det forsto bare rader og kolonner.
 
-Cliffhanger: “And then came the internet.”
+Cliffhanger: «Og så kom internett.»
 
-## varehuset-speil – The warehouse: solved, and a new problem
+## varehuset-speil – Varehuset: løst, og et nytt problem
 
-Solved: one truth, history, decisions based on facts.
-New: expensive, slow (schema first – a new source took months),
-and it only understood rows and columns.
+Løst: én sannhet, historikk, beslutninger på fakta.
+Nytt: dyrt, tregt (skjema først, en ny kilde tok måneder),
+og det forsto bare rader og kolonner.
 
-Cliffhanger: “And then came the internet.”
+Cliffhanger: «Og så kom internett.»
 
-## regnestykket – 2006 · Big data
+## regnestykket – 2006 · Stordata
 
-Clickstreams, logs, search, social media. Volume, variety, and
-fault tolerance all broke the warehouse.
+Klikkstrømmer, logger, søk, sosiale medier. Volum, variasjon og
+feiltoleranse knakk alle varehuset.
 
-Jeff Dean's math (2006): the entire web = 400 TB.
-One machine reads 30–35 MB/s → four months just to READ it.
-A thousand machines → under three hours.
+Jeff Deans regnestykke (2006): hele nettet = 400 TB.
+Én maskin leser 30–35 MB/s → fire måneder bare for å LESE det.
+Tusen maskiner → under tre timer.
 
-GFS + MapReduce → Hadoop (2006, open source). Big data left Google.
+GFS + MapReduce → Hadoop (2006, åpen kildekode). Stordata forlot Google.
 
-## datasjoen – 2010 · The data lake
+## datasjoen – 2010 · Datasjøen
 
-James Dixon (Pentaho), 2010: 
-packaged, for known questions. The lake is water in its natural state.
+James Dixon (Pentaho), 2010:
+pakket, for kjente spørsmål. Sjøen er vann i naturlig tilstand.
 
-The warehouse pre-aggregates and therefore LIMITS the questions.
-You store raw data because you don't know tomorrow's questions.
+Varehuset forhåndsaggregerer og BEGRENSER dermed spørsmålene.
+Du lagrer rådata fordi du ikke kjenner morgendagens spørsmål.
 
-## sjoen-speil – The lake: solved, and a new problem
+## sjoen-speil – Sjøen: løst, og et nytt problem
 
-Solved: scale, all formats, ML got its raw data.
-New: the data swamp – “ingest everything, figure out governance later.
-Later never comes.” A lake becomes a swamp when FINDABILITY fails.
-And: two worlds – warehouse for BI, lake for ML. Double the copies,
-double the bill.
+Løst: skala, alle formater, ML fikk rådataene sine.
+Nytt: datasumpa. «Ingest everything, figure out governance later.
+Later never comes.» En sjø blir en sump når GJENFINNBARHETEN svikter.
+Og: to verdener, varehus for BI, sjø for ML. Doble kopier,
+dobbel regning.
 
-## skyen – 2012 · The cloud
+## skyen – 2012 · Skyen
 
-Both the warehouse and Hadoop assumed you owned the hardware,
-sized for the peaks.
+Både varehuset og Hadoop forutsatte at du eide jernet,
+dimensjonert for toppene.
 
-Redshift (2012): the first petabyte warehouse as a cloud service.
-Snowflake's move: storage and compute as two independent services.
-Several teams on the same data at the same time. Rent instead of buy.
+Redshift (2012): det første petabyte-varehuset som skytjeneste.
+Snowflakes grep: lagring og regnekraft som to uavhengige tjenester.
+Flere team på samme data samtidig. Leie i stedet for å kjøpe.
 
-## lakehouse – 2020 · The lakehouse
+## lakehouse – 2020 · Lakehouse
 
-Two tracks across 40 years: the warehouse's order and governance,
-the lake's scale and economics. The lakehouse unites them –
-a transactional metadata layer (Delta, Iceberg) on top of object storage.
-One copy of the data, for both BI and AI.
+To spor gjennom 40 år: varehusets orden og governance,
+sjøens skala og økonomi. Lakehouse forener dem:
+et transaksjonelt metadatalag (Delta, Iceberg) oppå objektlagringen.
+Én kopi av dataene, for både BI og KI.
 
-Today's platform isn't a gadget from 2020. Each layer is the legacy
-of an era: SQL (1970), integrated history (1988), cheap raw storage
-(2010), elasticity (2012), one governed layer (2020).
+Dagens plattform er ikke en dings fra 2020. Hvert lag er arven
+fra en epoke: SQL (1970), integrert historikk (1988), billig rålagring
+(2010), elastisitet (2012), ett governed lag (2020).
 
-Data mesh (2019) is the organizational counterpart: ownership out
-in the domains. Platforms fail organizationally, not technically.
+Data mesh (2019) er det organisatoriske motstykket: eierskap ut
+i domenene. Plattformer feiler organisatorisk, ikke teknisk.
 
-## avslutning – Data lasts longer than the systems
+## avslutning – Data varer lenger enn systemene
 
-Tim Berners-Lee said it. Credited as the inventor of the internet.
+Tim Berners-Lee sa det. Regnes som oppfinneren av internett.
 
-Data is a precious thing, and it will last
-longer than the systems themselves.
+Data er noe verdifullt, og de varer
+lenger enn systemene selv.
 
-That's the whole history in one sentence. The database, the warehouse,
-the lake, the cloud, the lakehouse. We keep replacing the systems.
-The data is still here. 
-And it's still increasing exponentially: volume, velocity and value
+Det er hele historien i én setning. Databasen, varehuset,
+sjøen, skyen, lakehouse. Vi bytter ut systemene hele tiden.
+Dataene er fortsatt her.
+Og de vokser fortsatt eksponentielt: volum, hastighet og verdi.
 
-AIS messages from 2005 are still here.
+AIS-meldinger fra 2005 er fortsatt her.
 
-The systems come and go. The data stays.
-So we must model the systems to fit the data. 
+Systemene kommer og går. Dataene blir.
+Så vi må modellere systemene etter dataene.
 
-That's why we build a platform. Where the data is in the center, as the core component. And we build the structure around and on top of the data.
+Derfor bygger vi en plattform. Der dataene ligger i sentrum, som kjernekomponenten. Og vi bygger strukturen rundt og oppå dataene.

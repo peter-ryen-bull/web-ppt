@@ -38,7 +38,7 @@ export function DagEn() {
   const H = 400;
   const vann = 318;
   return (
-    <Figur w={W} h={H} label="One AIS mast, two people, and one stream that never stops">
+    <Figur w={W} h={H} label="Én AIS-mast, to personer, og én strøm som aldri stopper">
       {/* Strømmen – skuta i sjøen til høyre */}
       <Steg at={3}>
         <Duv dy={3} dur={3.6}>
@@ -60,7 +60,7 @@ export function DagEn() {
         </circle>
         <Signal x={74} y={118} rot={60} radier={[14, 24, 34]} dur={3} />
         <Tekst x={74} y={vann + 40} size={12}>
-          one source
+          én kilde
         </Tekst>
       </Steg>
 
@@ -78,13 +78,13 @@ export function DagEn() {
           <Menneske x={206} y={vann + 2} s={1} arms="akimbo" />
         </Duv>
         <Tekst x={178} y={vann + 40} size={12}>
-          one small team
+          ett lite team
         </Tekst>
       </Steg>
 
       <Steg at={3}>
         <Tekst x={318} y={vann + 46} size={12}>
-          one stream
+          én strøm
         </Tekst>
       </Steg>
     </Figur>
@@ -107,7 +107,7 @@ export function FireSpor() {
   const H = 420;
   const radH = 100;
   return (
-    <Figur w={W} h={H} label="Four separate Terraform states, each with its own pipeline">
+    <Figur w={W} h={H} label="Fire separate Terraform-stater, hver med sin egen pipeline">
       {STATER.map((s, i) => {
         const y = 52 + i * radH;
         return (
@@ -165,7 +165,7 @@ export function Innlesing() {
   const W = 400;
   const H = 400;
   return (
-    <Figur w={W} h={H} label="Prefect dumps files into raw storage; the lakehouse reads from there">
+    <Figur w={W} h={H} label="Prefect dumper filer i raw-lagring; lakehouset leser derfra">
       {/* Prefect: jobben utenfor Databricks */}
       <Steg at={1}>
         <Ror d="M 16 92 H 36" />
@@ -175,7 +175,7 @@ export function Innlesing() {
         </path>
         <path d="M 96 76 h 40 M 96 88 h 28 M 96 100 h 36" stroke={TEAL} strokeWidth={1.8} />
         <Tekst x={96} y={40} size={12}>
-          Prefect fetches
+          Prefect henter
         </Tekst>
       </Steg>
 

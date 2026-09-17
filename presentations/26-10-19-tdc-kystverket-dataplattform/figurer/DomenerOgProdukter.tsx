@@ -47,50 +47,50 @@ const DOMENER_MED_KILDER: Domene[] = [
     navn: "customs",
     ikon: "skjema",
     kilder: [
-      { navn: "declarations", kort: "declarations", ikon: "skjema" },
-      { navn: "cargo manifests", kort: "manifests", ikon: "innboks" },
+      { navn: "deklarasjoner", kort: "deklarasjoner", ikon: "skjema" },
+      { navn: "lastemanifester", kort: "manifester", ikon: "innboks" },
     ],
   },
   {
     navn: "ais",
     ikon: "antenne",
     kilder: [
-      { navn: "AIS stream", kort: "AIS stream", ikon: "antenne" },
-      { navn: "ship register", kort: "ship register", ikon: "bok" },
+      { navn: "AIS-strøm", kort: "AIS-strøm", ikon: "antenne" },
+      { navn: "skipsregister", kort: "skipsregister", ikon: "bok" },
     ],
   },
   {
     navn: "hr_and_finance",
     ikon: "mynt",
     kilder: [
-      { navn: "payroll", kort: "payroll", ikon: "person" },
-      { navn: "ERP ledger", kort: "ERP ledger", ikon: "mynt" },
+      { navn: "lønn", kort: "lønn", ikon: "person" },
+      { navn: "ERP-hovedbok", kort: "ERP-hovedbok", ikon: "mynt" },
     ],
   },
   {
     navn: "lighthouses",
     ikon: "verktoy",
     kilder: [
-      { navn: "sensors", kort: "sensors", ikon: "puls" },
-      { navn: "maintenance log", kort: "maint. log", ikon: "verktoy" },
+      { navn: "sensorer", kort: "sensorer", ikon: "puls" },
+      { navn: "vedlikeholdslogg", kort: "vedl.logg", ikon: "verktoy" },
     ],
   },
 ];
 
 const LAG: { navn: string; farge: string; sub: string }[] = [
-  { navn: "bronze", farge: BRONSE, sub: "raw, as it arrived" },
-  { navn: "silver", farge: SOLV, sub: "cleaned and enriched" },
-  { navn: "gold", farge: GULL, sub: "ready to use" },
+  { navn: "bronze", farge: BRONSE, sub: "rått, som det kom inn" },
+  { navn: "silver", farge: SOLV, sub: "vasket og beriket" },
+  { navn: "gold", farge: GULL, sub: "klart til bruk" },
 ];
 
 /* ---------- Konsumentene utenfor domenene ---------- */
 
 const KONSUMENTER: { navn: string; sub: string; ikon: IkonNavn }[] = [
-  { navn: "Climate accounts", sub: "Environment Agency · municipalities", ikon: "royk" },
-  { navn: "BarentsWatch API", sub: "developers, live and historical", ikon: "kode" },
-  { navn: "Dashboards and BI", sub: "analysts across Kystverket", ikon: "soyler" },
-  { navn: "Researchers", sub: "notebooks and HAIS extracts", ikon: "bok" },
-  { navn: "Other agencies", sub: "customs, police, rescue services", ikon: "deling" },
+  { navn: "Klimaregnskap", sub: "Miljødirektoratet · kommuner", ikon: "royk" },
+  { navn: "BarentsWatch API", sub: "utviklere, sanntid og historikk", ikon: "kode" },
+  { navn: "Dashbord og BI", sub: "analytikere i hele Kystverket", ikon: "soyler" },
+  { navn: "Forskere", sub: "notebooks og HAIS-uttrekk", ikon: "bok" },
+  { navn: "Andre etater", sub: "toll, politi, redningstjeneste", ikon: "deling" },
 ];
 
 /* =====================================================================
@@ -258,7 +258,7 @@ function ProduktKatalog({
     <g>
       <rect x={x} y={y} width={w} height={h} rx={20} fill="var(--teal)" />
       <text x={cx} y={y + tittelSize * 1.7} textAnchor="middle" fontFamily="var(--font-serif)" fontSize={tittelSize} fill="var(--cream)">
-        data products
+        dataprodukter
       </text>
       <rect x={cx - 18} y={y + tittelSize * 1.7 + 13} width={36} height={3} rx={1.5} fill="var(--mint)" />
       <text x={cx} y={y + tittelSize * 1.7 + 40} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={12.5} fill={KREM_DUS}>
@@ -379,7 +379,7 @@ function Utforsker({
       </text>
       {!kompakt && (
         <text x={x + 12} y={feltY + feltH + 28} fontFamily="var(--font-sans)" fontSize={11} fill={SUB_FARGE}>
-          owner · schema · quality checks · version
+          eier · skjema · kvalitetssjekker · versjon
         </text>
       )}
 
@@ -407,8 +407,8 @@ function Utforsker({
 }
 
 const TREFF = [
-  { navn: "ais.tracks", sub: "owner ais · v3.0.2 · active · 3 quality checks" },
-  { navn: "ais.emissions", sub: "owner ais · v1.4.0 · active · 5 quality checks" },
+  { navn: "ais.tracks", sub: "eier ais · v3.0.2 · aktiv · 3 kvalitetssjekker" },
+  { navn: "ais.emissions", sub: "eier ais · v1.4.0 · aktiv · 5 kvalitetssjekker" },
 ];
 
 /* =====================================================================
@@ -426,11 +426,11 @@ export function DomenerKilder() {
       viewBox={`0 0 ${W} ${H}`}
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="Every domain ingests its own sources into its own catalog, with bronze, silver and gold inside"
+      aria-label="Hvert domene henter inn sine egne kilder i sin egen katalog, med bronze, silver og gold inni"
     >
       <PilDefs id="pil-kilder" />
       <PilDefs id="pil-kilder-mint" farge="var(--mint)" />
-      <Pill cx={620} text="EVERY DOMAIN INGESTS ITS OWN SOURCES" w={440} />
+      <Pill cx={620} text="HVERT DOMENE HENTER INN SINE EGNE KILDER" w={440} />
 
       {DOMENER_MED_KILDER.map((d, i) => {
         const y = K_RAD_Y(i);
@@ -461,7 +461,7 @@ export function DomenerKilder() {
                 {d.navn}
               </text>
               <text x={K_SYL_X + 66} y={top + 68} fontFamily="var(--font-sans)" fontSize={11.5} fill={KREM_DUS}>
-                own team · own cost center · own stewardship
+                eget team · eget kostnadssenter · eget ansvar
               </text>
 
               {/* Medaljongen inne i katalogen */}
@@ -493,7 +493,7 @@ export function DomenerKilder() {
 
       <Steg at={3}>
         <text x={620} y={608} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={15.5} fill="var(--red)">
-          Ingest, clean and refine – inside the domain. Nobody touches another domain’s raw data.
+          Hent inn, vask og foredle – inne i domenet. Ingen rører et annet domenes rådata.
         </text>
       </Steg>
     </svg>
@@ -535,13 +535,13 @@ export function ProduktForbruk() {
       viewBox={`0 0 ${W} ${H}`}
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="The data products catalog in the middle: domains read each other's products back, consumers outside read from the same catalog, and a data explorer built from the contracts is how you find things"
+      aria-label="Dataprodukt-katalogen i midten: domenene leser hverandres produkter tilbake, konsumenter utenfor leser fra samme katalog, og en datautforsker bygget på kontraktene er måten du finner fram"
     >
       <PilDefs id="pil-forbruk" />
       <PilDefs id="pil-forbruk-teal" farge={TEAL_LINJE} />
-      <Pill cx={180} text="DOMAINS" w={130} />
-      <Pill cx={620} text="THE ORGANIZATION’S DATA" w={260} />
-      <Pill cx={1050} text="CONSUMERS" w={150} />
+      <Pill cx={180} text="DOMENER" w={130} />
+      <Pill cx={620} text="ORGANISASJONENS DATA" w={260} />
+      <Pill cx={1050} text="KONSUMENTER" w={150} />
 
       {/* Domenene til venstre */}
       {DOMENER_MED_KILDER.map((d, i) => {
@@ -557,7 +557,7 @@ export function ProduktForbruk() {
               {d.navn}
             </text>
             <text x={F_DOM_X + 54} y={top + 54} fontFamily="var(--font-sans)" fontSize={10.5} fill={KREM_DUS}>
-              own catalog · bronze / silver / gold
+              egen katalog · bronze / silver / gold
             </text>
           </Sylinder>
         );
@@ -569,7 +569,7 @@ export function ProduktForbruk() {
         y={F_KAT.y}
         w={F_KAT.w}
         h={F_KAT.h}
-        sub="consumable quality data"
+        sub="kvalitetsdata, klare til bruk"
         rader={VIEWS}
         radH={radH}
         radGap={radGap}
@@ -598,10 +598,10 @@ export function ProduktForbruk() {
           );
         })}
         <text x={385} y={452} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={11.5} fill={SUB_FARGE}>
-          domains read each other’s products
+          domenene leser hverandres produkter
         </text>
         <text x={385} y={467} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={11.5} fill={SUB_FARGE}>
-          through the catalog – never the gold tables
+          via katalogen – aldri gold-tabellene
         </text>
       </Steg>
 
@@ -630,20 +630,20 @@ export function ProduktForbruk() {
 
       {/* Utforskeren, bygget på kontraktene i repoet */}
       <Steg at={3}>
-        <RepoBrikke x={F_REPO.x} y={F_REPO.y} w={F_REPO.w} h={F_REPO.h} sub="every contract, every version" fontSize={12} />
+        <RepoBrikke x={F_REPO.x} y={F_REPO.y} w={F_REPO.w} h={F_REPO.h} sub="hver kontrakt, hver versjon" fontSize={12} />
         <Pil d={`M ${F_REPO.x + F_REPO.w + 2} ${F_REPO.y + F_REPO.h / 2} H ${F_UTF.x - 4}`} marker="pil-forbruk" />
         <text x={(F_REPO.x + F_REPO.w + F_UTF.x) / 2} y={F_REPO.y + F_REPO.h / 2 - 9} textAnchor="middle" fontFamily={MONO} fontSize={10.5} fill="var(--red)">
-          reads
+          leser
         </text>
         <Utforsker x={F_UTF.x} y={F_UTF.y} w={F_UTF.w} h={F_UTF.h} sok="ais" treff={TREFF} />
         <text x={F_UTF.x + F_UTF.w + 14} y={F_UTF.y + 40} fontFamily="var(--font-sans)" fontSize={12} fill={SUB_FARGE}>
-          a small web app
+          en liten webapp
         </text>
         <text x={F_UTF.x + F_UTF.w + 14} y={F_UTF.y + 57} fontFamily="var(--font-sans)" fontSize={12} fill={SUB_FARGE}>
-          built from the contracts:
+          bygget på kontraktene:
         </text>
         <text x={F_UTF.x + F_UTF.w + 14} y={F_UTF.y + 74} fontFamily="var(--font-sans)" fontSize={12} fill={SUB_FARGE}>
-          search, find, understand
+          søk, finn, forstå
         </text>
       </Steg>
 
@@ -651,10 +651,10 @@ export function ProduktForbruk() {
       <Steg at={4}>
         <Pil d={`M 620 ${F_UTF.y - 2} V ${F_KAT.y + F_KAT.h + 4}`} marker="pil-forbruk" />
         <text x={632} y={F_KAT.y + F_KAT.h + 20} fontFamily={MONO} fontSize={11} fill="var(--red)">
-          found it → query it
+          funnet → les det
         </text>
         <text x={620} y={624} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={15.5} fill="var(--red)">
-          Find it in the explorer. Read it from the catalog. Inside and outside the organization.
+          Finn det i utforskeren. Les det fra katalogen. I og utenfor organisasjonen.
         </text>
       </Steg>
     </svg>
@@ -700,25 +700,25 @@ export function HelePlattformen() {
       viewBox={`0 0 ${HP_W} ${HP_H}`}
       style={{ width: "100%", height: "100%", display: "block" }}
       role="img"
-      aria-label="The whole picture: sources into domain databases, contracts through git and CI into the data products catalog, consumers inside and outside reading from it, and an explorer built from the contracts"
+      aria-label="Hele bildet: kilder inn i domenedatabaser, kontrakter via git og CI inn i dataprodukt-katalogen, konsumenter i og utenfor organisasjonen som leser fra den, og en utforsker bygget på kontraktene"
     >
       <PilDefs id="pil-hel" />
       <PilDefs id="pil-hel-teal" farge={TEAL_LINJE} />
 
       <Steg at={1}>
-        <Pill cx={domMidtX} text="DOMAIN DATABASES" w={186} />
+        <Pill cx={domMidtX} text="DOMENEDATABASER" w={186} />
       </Steg>
       <Steg at={2}>
-        <Pill cx={H_KILDE.x + H_KILDE.w / 2} text="SOURCES" w={100} />
+        <Pill cx={H_KILDE.x + H_KILDE.w / 2} text="KILDER" w={100} />
       </Steg>
       <Steg at={4}>
-        <Pill cx={H_KTR.x + H_KTR.w / 2} text="CONTRACTS" w={120} />
+        <Pill cx={H_KTR.x + H_KTR.w / 2} text="KONTRAKTER" w={120} />
       </Steg>
       <Steg at={6}>
-        <Pill cx={katMidtX} text="DATA PRODUCTS" w={160} />
+        <Pill cx={katMidtX} text="DATAPRODUKTER" w={160} />
       </Steg>
       <Steg at={7}>
-        <Pill cx={H_KONS_X + H_KONS_W / 2} text="CONSUMERS" w={130} />
+        <Pill cx={H_KONS_X + H_KONS_W / 2} text="KONSUMENTER" w={130} />
       </Steg>
 
       {/* 1. Domenene */}
@@ -845,7 +845,7 @@ export function HelePlattformen() {
         <text x={H_KTR.x + H_KTR.w / 2 + 10} y={H_KTR.y + H_KTR.h + 26} fontFamily={MONO} fontSize={10} fill="var(--red)">
           git push
         </text>
-        <RepoBrikke x={H_REPO.x} y={H_REPO.y} w={H_REPO.w} h={H_REPO.h} fontSize={10} ikonSize={18} sub="PR · CI checks" />
+        <RepoBrikke x={H_REPO.x} y={H_REPO.y} w={H_REPO.w} h={H_REPO.h} fontSize={10} ikonSize={18} sub="PR · CI-sjekker" />
       </Steg>
 
       {/* 6. Dataprodukter */}
@@ -860,7 +860,7 @@ export function HelePlattformen() {
           w={H_KAT.w}
           h={H_KAT.h}
           tittelSize={26}
-          sub="consumable quality data"
+          sub="kvalitetsdata, klare til bruk"
           rader={VIEWS}
           radH={82}
           radGap={18}
@@ -903,7 +903,7 @@ export function HelePlattformen() {
           dash="2 6"
         />
         <text x={(katMidtX + domMidtX) / 2} y={702} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={SUB_FARGE}>
-          the domains read each other’s products back – through the catalog
+          domenene leser hverandres produkter tilbake – via katalogen
         </text>
       </Steg>
 
@@ -911,12 +911,12 @@ export function HelePlattformen() {
       <Steg at={9}>
         <Pil d={`M ${H_REPO.x + H_REPO.w / 2} ${H_REPO.y + H_REPO.h + 2} V ${H_UTF.y - 4}`} marker="pil-hel" strokeWidth={1.6} />
         <text x={H_REPO.x + H_REPO.w / 2 + 10} y={H_REPO.y + H_REPO.h + 28} fontFamily={MONO} fontSize={10} fill="var(--red)">
-          reads
+          leser
         </text>
         <Utforsker x={H_UTF.x} y={H_UTF.y} w={H_UTF.w} h={H_UTF.h} sok="ais" treff={TREFF} kompakt />
         <Pil d={`M ${H_UTF.x + H_UTF.w + 2} ${H_UTF.y + H_UTF.h / 2} H ${H_KAT.x - 4}`} marker="pil-hel" strokeWidth={1.6} />
         <text x={(H_UTF.x + H_UTF.w + H_KAT.x) / 2} y={H_UTF.y + H_UTF.h / 2 - 8} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={9.5} fill="var(--red)">
-          find → query
+          finn → les
         </text>
       </Steg>
     </svg>
