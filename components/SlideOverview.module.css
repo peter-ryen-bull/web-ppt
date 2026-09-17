@@ -1,34 +1,34 @@
 /* ---------------------------------------------------------------------------
-   Slideoversikt – samme chrome som forsiden (app/home.module.css).
-   Paletten er kopiert derfra så oversikten følger den lyse stilen.
+   Slideoversikt – samme mørke burgunder som presentatørvisningen
+   (body / speaker notes: #2a0813, header: --burgundy).
    --------------------------------------------------------------------------- */
 
 .overview {
-  --bg: #f4f1ea;
-  --bg-glow-1: rgba(120, 232, 219, 0.35);
-  --bg-glow-2: rgba(255, 48, 59, 0.08);
-  --surface: #ffffff;
-  --surface-hover: #f6f3ec;
-  --surface-muted: #efebe3;
-  --ink: #1d1a17;
-  --ink-2: #5a554e;
-  --ink-3: #8d867c;
-  --line: rgba(29, 26, 23, 0.08);
-  --line-strong: rgba(29, 26, 23, 0.14);
-  --accent: #0e5c63;
-  --accent-ink: #063f45;
-  --accent-soft: rgba(14, 92, 99, 0.1);
-  --ring: rgba(14, 92, 99, 0.3);
-  --shadow-sm: 0 1px 2px rgba(29, 26, 23, 0.05), 0 1px 1px rgba(29, 26, 23, 0.03);
+  --bg: #2a0813;
+  --bg-glow-1: rgba(255, 48, 59, 0.1);
+  --bg-glow-2: rgba(120, 232, 219, 0.06);
+  --surface: #450d20;
+  --surface-hover: #5a1230;
+  --surface-muted: rgba(251, 240, 229, 0.08);
+  --ink: var(--cream);
+  --ink-2: rgba(251, 240, 229, 0.75);
+  --ink-3: rgba(251, 240, 229, 0.55);
+  --line: rgba(251, 240, 229, 0.12);
+  --line-strong: rgba(251, 240, 229, 0.28);
+  --accent: var(--mint);
+  --accent-ink: var(--teal);
+  --accent-soft: rgba(120, 232, 219, 0.12);
+  --ring: rgba(120, 232, 219, 0.35);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(0, 0, 0, 0.15);
   --shadow-md:
-    0 1px 2px rgba(29, 26, 23, 0.05), 0 12px 32px -12px rgba(29, 26, 23, 0.18);
-  --error: #9a2a1c;
+    0 1px 2px rgba(0, 0, 0, 0.25), 0 12px 32px -12px rgba(0, 0, 0, 0.5);
+  --error: var(--red);
 
   position: fixed;
   inset: 0;
   z-index: 20;
   overflow-y: auto;
-  color-scheme: light;
+  color-scheme: dark;
   color: var(--ink);
   font-family: var(--font-sans);
   background-color: var(--bg);
@@ -224,8 +224,8 @@
   height: 22px;
   padding: 0 8px;
   border-radius: 999px;
-  background: rgba(180, 110, 20, 0.12);
-  color: #8a4b00;
+  background: rgba(196, 122, 26, 0.22);
+  color: #f0c27a;
   font-size: 11.5px;
   font-weight: 600;
   letter-spacing: 0.01em;
