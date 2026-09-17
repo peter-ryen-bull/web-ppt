@@ -9,7 +9,7 @@ import {
   SkyMedKlosser,
 } from "./figurer/strek";
 
-const MEDIA = "/media/26-ndc-kystverket";
+const MEDIA = "/media/26-09-17-ndc-kystverket-dataplatform";
 
 /* Kapittel: Historien om prosjektet */
 export function SlideProsjekt() {

@@ -1,7 +1,7 @@
 import { useStep } from "@/components/steps";
 import { Box, BulletList, ChapterSlide, Img, QuotePage, Reveal, pt, useRevealStyle } from "../parts";
 
-const MEDIA = "/media/26-ndc-kystverket";
+const MEDIA = "/media/26-09-17-ndc-kystverket-dataplatform";
 import {
   DataplattformFlyt,
   DataplattformFlytDetaljert,

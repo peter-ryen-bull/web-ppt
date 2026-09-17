@@ -297,7 +297,7 @@ export function SlideLakehouse() {
 
 /* ================= Hvorfor vi er der vi er ================= */
 
-const MEDIA = "/media/26-ndc-kystverket";
+const MEDIA = "/media/26-09-17-ndc-kystverket-dataplatform";
 
 /* Portrett: Tim Berners-Lee 2023, Dr. Frank Gaeth, CC BY 4.0, Wikimedia Commons */
 export function SlideAvslutning() {

@@ -9,7 +9,7 @@ import {
   type IkonNavn,
 } from "@/components/figures/strek";
 
-const MEDIA = "/media/26-ndc-kystverket";
+const MEDIA = "/media/26-09-17-ndc-kystverket-dataplatform";
 
 /* Avslutning: tilbake til skipet utenfor Stad */
 export function SlideTilbakeTilStad() {

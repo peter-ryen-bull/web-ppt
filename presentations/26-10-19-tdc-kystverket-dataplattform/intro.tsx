@@ -3,7 +3,7 @@ import { useStep } from "@/components/steps";
 import { BaatSignal } from "./figurer/BaatSignal";
 import { Meldingsfyll } from "./figurer/strek";
 
-const MEDIA = "/media/26-ndc-kystverket";
+const MEDIA = "/media/26-09-17-ndc-kystverket-dataplatform";
 
 /* Slide 1 – Kald åpning: én scene, én setning om gangen */
 export function SlideScene() {

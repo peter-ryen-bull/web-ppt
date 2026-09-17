@@ -19,7 +19,7 @@ import {
   type LyttepostType,
 } from "./figurer/strek";
 
-const MEDIA = "/media/26-ndc-kystverket";
+const MEDIA = "/media/26-09-17-ndc-kystverket-dataplatform";
 
 /* Kapittel: Kystverket – hvem lytter, og hvorfor */
 export function SlideKystverket() {

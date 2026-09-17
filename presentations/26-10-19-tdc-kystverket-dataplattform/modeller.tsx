@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Box, BulletItem, BulletList, ChapterSlide, Reveal, Video, pt, useRevealStyle } from "../parts";
 
-const MEDIA = "/media/26-ndc-kystverket";
+const MEDIA = "/media/26-09-17-ndc-kystverket-dataplatform";
 import {
   Bunkring,
   Containerskip,
