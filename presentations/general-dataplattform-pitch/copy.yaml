@@ -1,0 +1,130 @@
+forside:
+  title: "Mer innsikt med en moderne dataplattform"
+  lead: "Fra spredt data til kvalitetssikrede dataprodukter"
+
+pains:
+  kicker: "UTFORDRINGEN"
+  title: "Mye data – for lite innsikt"
+  section: "DAGENS SITUASJON"
+  items:
+    - "Data spredt på flere systemer med begrenset integrasjon"
+    - "Samme nøkkeltall beregnes ulikt – ingen felles sannhet"
+    - "Kunde-, produkt- og inntektsdata lever i hver sin silo"
+    - "Analyser krever manuelle uttrekk og datavask"
+    - "Begrenset intern kapasitet til å bygge og forvalte"
+
+konsekvenser:
+  kicker: "KONSEKVENSEN"
+  title: "Mer tid på dataarbeid enn på analyse"
+  section: "DETTE KOSTER"
+  items:
+    - "Folk vasker data i stedet for å bruke den"
+    - "Lav selvbetjening gir personavhengighet og lang ledetid"
+    - "Innsikt er ikke løpende tilgjengelig"
+    - "Hver ny problemstilling krever en ny modell"
+    - "Etterlevelse, GDPR og logging blir manuelt og tungt"
+
+malbilde:
+  kicker: "MÅLBILDE"
+  title: "Fra ad-hoc uttrekk til dataprodukter du kan stole på"
+  idag_tittel: "I DAG"
+  idag:
+    - "Manuelle uttrekk og datavask"
+    - "Regneark og rapporter som blir utdaterte"
+    - "Spredt datagrunnlag – vanskelig å se på tvers"
+    - "Lav sporbarhet fra tall til kilde"
+    - "Tilgang gis ad hoc, per person"
+  malbilde_tittel: "DIT VI SKAL"
+  malbilde:
+    - "Dokumenterte dataprodukter med navngitt eier"
+    - "Felles KPI-lag med versjonert historikk"
+    - "Samme tall i rapporter, API og KI-chat"
+    - "Sporbarhet og auditlogger i alle transaksjoner"
+    - "Tilgang styrt av policy og roller"
+  prinsipper_label: "BÆRENDE PRINSIPPER"
+  prinsipper:
+    - tittel: "Domeneeierskap"
+      tekst: "Domenene eier og forvalter sine egne data"
+    - tittel: "Data som produkt"
+      tekst: "Kvalitetssikret, dokumentert og gjenbrukbart"
+    - tittel: "Selvbetjening"
+      tekst: "Plattformen fjerner flaskehalser, den lager dem ikke"
+    - tittel: "Innebygd styring"
+      tekst: "Sikkerhet, logging og etterlevelse er en del av flyten"
+
+evner:
+  kicker: "ARKITEKTUR"
+  title: "Fire evner – og hva de gir"
+  cards:
+    - tittel: "Lagring"
+      tekst: "Ett felles, styrt datalag. Rådata i bronse, modellert i sølv, dataprodukt i gull."
+      gevinst: "Billig historikk, åpne formater, backup og lineage på samme sted."
+    - tittel: "Prosessering"
+      tekst: "Pipelines som kjører likt hver gang. Modellert i kode, testet før noen ser resultatet."
+      gevinst: "Ingen manuelle uttrekk. Avvik stoppes før de når konsumentene."
+    - tittel: "Publisering"
+      tekst: "Data der folk faktisk jobber: BI, API, apper og chat mot egne data."
+      gevinst: "Samme tall uansett kanal. Vi ser hva som brukes – og hva som kan slås av."
+    - tittel: "Styring"
+      tekst: "Eier, tilgang, klassifisering og sporbarhet. Hvert datasett har en navngitt eier."
+      gevinst: "Tillit til tallene, trygg deling og revisjonsklart grunnlag."
+
+domener:
+  kicker: "ARKITEKTUR"
+  title: "Domeneoppdeling og eierskap"
+  section: "Domener"
+  items:
+    - "Hvert domene eier og forvalter sine data"
+    - "Domener er ikke flaskehals for hverandre"
+    - "Felles infrastruktur, separert data"
+    - "Deling skjer som dataprodukter, med kontrakt"
+    - "Kostnader fordeles per domene"
+  cards:
+    - tittel: "Salg og kunde"
+      tekst: "CRM, ordre, churn og margin. Eier: kommersiell leder."
+    - tittel: "Drift og leveranse"
+      tekst: "Fagsystem, kapasitet og kvalitet. Eier: driftsleder."
+    - tittel: "Økonomi og HR"
+      tekst: "Hovedbok, lønn og bemanning. Eier: CFO."
+    - tittel: "Produkt og digitalt"
+      tekst: "Bruksdata, apper og integrasjoner. Eier: produktsjef."
+  footer: "Domeneoppdeling fjerner flaskehalser. Plattformen er felles – ansvaret er lokalt."
+
+gevinster:
+  kicker: "GEVINST"
+  title: "Hva får du igjen?"
+  cards:
+    - nummer: "01"
+      tittel: "Data du kan stole på"
+      tekst: "Testet, dokumentert og oppdatert. Tallene stemmer overens – uansett hvem som spør."
+    - nummer: "02"
+      tittel: "Innebygd etterlevelse"
+      tekst: "Tilgang, maskering, sletteregler og auditlogger ligger i plattformen. Ikke i et regneark."
+    - nummer: "03"
+      tittel: "Selvbetjening"
+      tekst: "Bestill data selv. Snakk med dem. Bygg rapporter uten å stå i kø hos IT."
+    - nummer: "04"
+      tittel: "Klar for KI"
+      tekst: "Modellene kjører der dataene allerede bor. KI er en akselerator – ikke en snarvei rundt grunnarbeidet."
+
+hvordan:
+  kicker: "VEIEN DIT"
+  title: "Hvordan begynner man?"
+  steps:
+    - tittel: "Start med behovet, ikke verktøyet"
+      tekst: "Hvilke beslutninger skal bli bedre? Teknologi alene løser ingenting."
+    - tittel: "Bygg dataprodukter først"
+      tekst: "Lever verdi underveis. Infrastruktur kommer etter behov – ikke to år med plattform uten brukere."
+    - tittel: "Sett eierskap og kontrakter tidlig"
+      tekst: "Navngitt eier, maskinlesbar avtale, katalog. Da tåler plattformen vekst."
+    - tittel: "Skalér og fjern flaskehalser"
+      tekst: "Desentraliser der det er trygt. Plattformen skal gjøre teamene raskere, ikke stå i veien."
+
+avslutning:
+  title: "Tydelige effekter – når det gjøres riktig"
+  items:
+    - "Ett felles datagrunnlag i stedet for flere sannheter"
+    - "Dataprodukter med eier, kvalitet og kontrakt"
+    - "Arkitektur som skalerer uten å bli en flaskehals"
+    - "Gevinst i tillit, etterlevelse, selvbetjening og KI"
+  footer: "Vi elsker å løse utfordringer. La oss ta en prat."

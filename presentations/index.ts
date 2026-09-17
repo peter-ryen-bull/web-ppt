@@ -9,6 +9,7 @@ import { stoeDataplattform } from "./26-08-26-stoe-miles-kundeevent-dataplattfor
 import { cloudConnectionKundemote } from "./26-09-11-cloud-connection-kundemote";
 import { ndcKystverketStory } from "./26-09-17-ndc-kystverket-dataplatform";
 import { tdcKystverketDataplattform } from "./26-10-19-tdc-kystverket-dataplattform";
+import { generalDataplattformPitch } from "./general-dataplattform-pitch";
 
 export { definePresentation, embedAsChapter } from "./chapters";
 export { eventDateFromId, isInProgress } from "./status";
@@ -31,6 +32,7 @@ export const PRESENTATIONS: PresentationDef[] = [
   cloudConnectionKundemote,
   ndcKystverketStory,
   tdcKystverketDataplattform,
+  generalDataplattformPitch,
 ];
 
 export function getPresentation(id: string): PresentationDef | undefined {
