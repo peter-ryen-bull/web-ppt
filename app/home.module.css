@@ -1,7 +1,7 @@
 .page {
   min-height: 100vh;
-  background: var(--cream);
-  color: var(--burgundy);
+  background: #f4f0ea;
+  color: #14110f;
 }
 
 .main {
@@ -14,13 +14,14 @@
 }
 
 .header {
-  color: var(--burgundy);
+  color: #14110f;
 }
 
 .title {
   font-family: var(--font-serif);
   font-size: 22px;
-  font-weight: 400;
+  font-weight: 500;
+  color: #14110f;
 }
 
 .searchWrap {
@@ -45,8 +46,8 @@
   width: 100%;
   box-sizing: border-box;
   background: #fff;
-  color: var(--burgundy);
-  border: 1px solid var(--divider);
+  color: #14110f;
+  border: 1.5px solid #14110f;
   border-radius: 8px;
   padding: 8px 11px;
   font-family: var(--font-sans);
@@ -55,19 +56,19 @@
 }
 
 .search::placeholder {
-  color: var(--burgundy);
-  opacity: 0.45;
+  color: #5c534c;
+  opacity: 1;
 }
 
 .search:focus {
-  border-color: var(--burgundy);
+  border-color: var(--red-deep);
+  box-shadow: 0 0 0 3px rgba(183, 35, 24, 0.18);
   background: #fff;
 }
 
 .empty {
-  color: var(--burgundy);
+  color: #3d3834;
   font-size: 13px;
-  opacity: 0.65;
   padding: 8px 2px;
 }
 
@@ -75,7 +76,7 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--divider);
+  border-top: 1.5px solid #14110f;
 }
 
 .row {
@@ -83,15 +84,15 @@
   align-items: center;
   gap: 12px;
   background: transparent;
-  color: var(--burgundy);
+  color: #14110f;
   text-decoration: none;
-  padding: 10px 2px;
-  border-bottom: 1px solid var(--divider);
+  padding: 12px 2px;
+  border-bottom: 1px solid #c8beb4;
   transition: background 0.12s;
 }
 
 .row:hover {
-  background: rgba(69, 13, 32, 0.05);
+  background: #fff;
 }
 
 .rowBody {
@@ -105,15 +106,16 @@
 .rowWhenWhere {
   font-family: var(--font-serif);
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.25;
+  color: #14110f;
 }
 
 .rowTitle {
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.35;
-  color: #6b3a48;
+  color: #004047;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -121,7 +123,7 @@
 
 .rowArrow {
   font-size: 14px;
-  color: var(--red);
+  color: var(--red-deep);
   flex-shrink: 0;
   transition: transform 0.15s;
 }
