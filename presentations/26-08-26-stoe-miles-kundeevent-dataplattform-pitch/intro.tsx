@@ -17,7 +17,7 @@ export function Slide01Forside() {
           Mer innsikt med en moderne dataplattform
         </div>
       </Box>
-      <Img box={[39, 423.2, 822.5, 254.7]} src="/media/stoe-dataplattform/image1.svg" alt="Miles" />
+      <Img box={[39, 423.2, 822.5, 254.7]} src="/media/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/image1.svg" alt="Miles" />
     </>
   );
 }
@@ -75,7 +75,7 @@ export function Slide03OmPeter() {
     <>
       <Img
         box={[688.8, 63, 528.8, 594]}
-        src="/media/stoe-dataplattform/image13.jpeg"
+        src="/media/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/image13.jpeg"
         alt="Peter Bull"
         fit="cover"
       />
@@ -119,12 +119,12 @@ export function Slide04DataOgAI() {
       </Box>
       <Img
         box={[50.3, 279, 447.8, 86.2]}
-        src="/media/stoe-dataplattform/image10.svg"
+        src="/media/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/image10.svg"
         alt="Data og AI"
       />
       <Img
         box={[878.6, 202.1, 320.5, 315.8]}
-        src="/media/stoe-dataplattform/image9.svg"
+        src="/media/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/image9.svg"
         alt="Illustrasjon av chip"
       />
       <Box box={[28.8, 589.5, 693.8, 74.3]}>
@@ -277,17 +277,17 @@ export function Slide09Logoer() {
       <MilesLogo />
       <Img
         box={[85.6, 263.4, 300.6, 157.8]}
-        src="/media/stoe-dataplattform/image14.png"
+        src="/media/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/image14.png"
         alt="Databricks"
       />
       <Img
         box={[470.5, 324.3, 333.2, 87.8]}
-        src="/media/stoe-dataplattform/image15.png"
+        src="/media/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/image15.png"
         alt="Snowflake"
       />
       <Img
         box={[873.1, 273.9, 355.4, 199.9]}
-        src="/media/stoe-dataplattform/image16.png"
+        src="/media/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/image16.png"
         alt="Microsoft Fabric"
       />
     </>

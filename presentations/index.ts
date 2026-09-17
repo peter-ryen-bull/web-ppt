@@ -1,6 +1,7 @@
 import type { ChapterDef, PresentationDef, SlideDef } from "./types";
-import { stoeDataplattform } from "./stoe-dataplattform";
-import { ndcKystverketStory } from "./26-ndc-kystverket-story";
+import { stoeDataplattform } from "./26-08-26-stoe-miles-kundeevent-dataplattform-pitch";
+import { ndcKystverketStory } from "./26-09-17-ndc-kystverket-dataplatform";
+import { tdcKystverketDataplattform } from "./26-10-19-tdc-kystverket-dataplattform";
 
 export { definePresentation, embedAsChapter } from "./chapters";
 

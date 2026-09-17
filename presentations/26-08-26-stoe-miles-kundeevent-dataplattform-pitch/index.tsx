@@ -79,7 +79,7 @@ const HVORDAN: SlideDef[] = [
 ];
 
 export const stoeDataplattform = definePresentation({
-  id: "stoe-dataplattform",
+  id: "26-08-26-stoe-miles-kundeevent-dataplattform-pitch",
   title: "Mer innsikt med en moderne dataplattform",
   description:
     "Hvorfor og hvordan bygge en moderne dataplattform – presentert for Stø.",

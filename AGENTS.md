@@ -46,8 +46,8 @@ på noe annet – det holder kontekstvinduet lite.
 **Arkiverte** (holdt, ferdige – **ikke rediger** slides, `notes.md` eller
 media for disse; ikke les dem uten at brukeren ber om det):
 
-- `presentations/stoe-dataplattform/` – holdt 27. aug 2026
-- `presentations/26-ndc-kystverket-story/` – holdt sep 2026 (NDC)
+- `presentations/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/` – holdt 27. aug 2026
+- `presentations/26-09-17-ndc-kystverket-dataplatform/` – holdt sep 2026 (NDC)
 
 Når en ny presentasjon påbegynnes: legg den under **Aktive**. Når den er holdt:
 flytt den til **Arkiverte** med dato. Arkiverte presentasjoner skal fortsatt

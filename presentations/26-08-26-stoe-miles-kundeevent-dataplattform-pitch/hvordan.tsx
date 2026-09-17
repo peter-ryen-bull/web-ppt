@@ -202,12 +202,12 @@ export function Slide33Avslutning() {
       <Img box={[33.1, 40.7, 182.5, 56.5]} src="/media/miles-logo.svg" alt="Miles" />
       <Img
         box={[522.9, 11.9, 851.5, 708.1]}
-        src="/media/stoe-dataplattform/image12.svg"
+        src="/media/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/image12.svg"
         alt="Illustrasjon: person som fanger skyer med håv"
       />
       <Img
         box={[39, 311.6, 634, 191]}
-        src="/media/stoe-dataplattform/image11.svg"
+        src="/media/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/image11.svg"
         alt="Vi elsker å løse utfordringer!"
       />
     </>

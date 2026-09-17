@@ -23,7 +23,7 @@ function DiagramSlide({
     <>
       <Img
         box={[22.2, 39.5, 1221.4, 640.9]}
-        src="/media/stoe-dataplattform/image17.png"
+        src="/media/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/image17.png"
         alt="Arkitekturdiagram for dataplattform"
       />
       {masks.map((m, i) => (

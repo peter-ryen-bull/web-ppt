@@ -57,7 +57,7 @@ export function Slide19Datakontrakt() {
       </Box>
       <Img
         box={[232, 192.7, 816, 334.5]}
-        src="/media/stoe-dataplattform/image19.png"
+        src="/media/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/image19.png"
         alt="Data Producer, Data Contract og Data Consumer"
       />
     </>
@@ -71,7 +71,7 @@ export function Slide20Yaml() {
       <MilesLogo />
       <Img
         box={[376.9, 88.9, 445.3, 562.7]}
-        src="/media/stoe-dataplattform/image20.png"
+        src="/media/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/image20.png"
         alt="Eksempel på datakontrakt i YAML (ODCS)"
       />
     </>

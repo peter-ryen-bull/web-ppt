@@ -2,7 +2,7 @@
 
 Next.js-app for interaktive presentasjoner i nettleseren. Appen kan inneholde
 mange presentasjoner: forsiden viser en oversikt, og hver presentasjon har sin
-egen URL (f.eks. `/stoe-dataplattform`).
+egen URL (f.eks. `/26-08-26-stoe-miles-kundeevent-dataplattform-pitch`).
 
 ## Kom i gang
 
@@ -78,7 +78,7 @@ presentations/
   chapters.ts               definePresentation, embedAsChapter
   parts.tsx                 Felles byggeklosser (Box, Img, ChapterSlide …)
   notes.ts                  Parser for speaker notes (notes.md → slides)
-  stoe-dataplattform/       Slides for én presentasjon
+  26-08-26-stoe-miles-kundeevent-dataplattform-pitch/  Slides for én presentasjon
     notes.md                Speaker notes – én stor markdown-fil
 public/media/
   <presentasjons-id>/       Bilder per presentasjon
@@ -88,7 +88,7 @@ public/media/
 ## Legg til en ny presentasjon
 
 1. Lag en ny mappe `presentations/<id>/` med en `index.tsx` som eksporterer en
-   `PresentationDef` (se `presentations/stoe-dataplattform/index.tsx` som mal):
+   `PresentationDef` (se `presentations/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/index.tsx` som mal):
 
    ```tsx
    import type { PresentationDef, SlideDef } from "../types";
@@ -176,7 +176,7 @@ men du kan bruke vilkårlig HTML/JSX.
 
 ## Om Stø-presentasjonen
 
-`stoe-dataplattform` gjenskaper `2026_08_27_stoe_dataplattform.pptx`
+`26-08-26-stoe-miles-kundeevent-dataplattform-pitch` gjenskaper `2026_08_27_stoe_dataplattform.pptx`
 ("Mer innsikt med en moderne dataplattform"). Posisjoner og størrelser er
 hentet direkte fra PowerPoint-XML-en, og slides 10–15 er den progressive
 avdekkingen av arkitekturdiagrammet, gjenskapt med kremfargede maskefelter

@@ -574,7 +574,7 @@ const VEIEN_VIDERE: SlideDef[] = [
 ];
 
 export const ndcKystverketStory = definePresentation({
-  id: "26-ndc-kystverket-story",
+  id: "26-09-17-ndc-kystverket-dataplatform",
   title:
     "100 million rows a day: the data platform behind the coastline (storytelling version)",
   description:

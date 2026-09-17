@@ -23,7 +23,7 @@ export interface ChapterDef {
 }
 
 export interface PresentationDef {
-  /** Brukes i URL-en, f.eks. /stoe-dataplattform */
+  /** Brukes i URL-en, f.eks. /26-08-26-stoe-miles-kundeevent-dataplattform-pitch */
   id: string;
   title: string;
   description: string;
