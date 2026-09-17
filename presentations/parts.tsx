@@ -55,7 +55,8 @@ export function Reveal({
         opacity: shown ? 1 : 0,
         transform: shown ? "none" : "translateY(14px)",
         transition: "opacity 260ms ease, transform 260ms ease",
-        pointerEvents: shown ? undefined : "none",
+        /* Wrapperen dekker hele lerretet – ikke stjel klikk fra titler under. */
+        pointerEvents: "none",
       }}
     >
       {children}

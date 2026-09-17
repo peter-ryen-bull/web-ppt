@@ -2,6 +2,12 @@
   cursor: context-menu;
 }
 
+/* Kort tittel i en bred boks (f.eks. «Lyttepostene») – hele raden er trefflate. */
+:where(div) > .editable:only-child {
+  display: block;
+  width: 100%;
+}
+
 .editable:hover {
   outline: 1px dashed rgba(255, 48, 59, 0.45);
   outline-offset: 3px;

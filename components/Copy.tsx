@@ -135,6 +135,7 @@ export function Copy({
   const fromYaml = getCopyString(ctx?.copy, path);
   const text = ctx?.overrides[path] ?? fromYaml;
   const editable = Boolean(ctx?.editable);
+  const heading = k === "title" || k === "kicker" || k === "subtitle";
 
   const onContextMenu = (event: React.MouseEvent) => {
     if (!editable || !ctx) return;
@@ -147,7 +148,17 @@ export function Copy({
     <>
       <Tag
         className={editable ? styles.editable : undefined}
-        style={style}
+        style={{
+          ...(heading ? { display: "block", width: "100%" } : null),
+          ...style,
+          ...(editable
+            ? {
+                position: style?.position ?? "relative",
+                zIndex: style?.zIndex ?? 2,
+                pointerEvents: "auto",
+              }
+            : null),
+        }}
         onContextMenu={onContextMenu}
       >
         {text || (editable ? `[${path}]` : "")}
