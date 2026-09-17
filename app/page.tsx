@@ -16,6 +16,10 @@ export default function Home() {
       <main className={styles.main}>
         <header className={styles.header}>
           <h1 className={styles.title}>Presentasjoner</h1>
+          <p className={styles.meta}>
+            {items.length}{" "}
+            {items.length === 1 ? "presentasjon" : "presentasjoner"}
+          </p>
         </header>
         <HomeList items={items} />
       </main>
