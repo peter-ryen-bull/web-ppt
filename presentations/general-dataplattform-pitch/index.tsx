@@ -8,6 +8,7 @@ import {
   SlideDatakontrakter,
   SlideDataprodukter,
   SlideDomener,
+  SlideHelhet,
   SlideKontraktBrudd,
 } from "./produkt";
 import { SlideAvslutning, SlideGevinster, SlideHvordan } from "./verdi";
@@ -74,6 +75,12 @@ const PRODUKT: SlideDef[] = [
     id: "domener",
     name: "Domeneoppdeling og eierskap",
     component: SlideDomener,
+  },
+  {
+    id: "helhet",
+    name: "Hele bildet: domener, kontrakter, produkter",
+    component: SlideHelhet,
+    steps: 9,
   },
 ];
 
