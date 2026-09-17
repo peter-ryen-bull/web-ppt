@@ -36,7 +36,7 @@ function haystack(item: HomeListItem): string {
     item.id,
     ...tags,
     ...tags.map((tag) => TAG_LABELS[tag]),
-    item.inProgress ? "under arbeid in progress" : "holdt arkiv",
+    item.inProgress ? "under arbeid in progress" : "ferdig holdt arkiv",
   ]
     .filter(Boolean)
     .join(" ")
@@ -386,7 +386,7 @@ export default function HomeList({ items }: { items: HomeListItem[] }) {
           {heldItems.length > 0 && (
             <section className={styles.section} aria-labelledby="held-heading">
               <h2 id="held-heading" className={styles.sectionTitle}>
-                Holdt
+                Ferdig
               </h2>
               <PresentationRows items={heldItems} />
             </section>
