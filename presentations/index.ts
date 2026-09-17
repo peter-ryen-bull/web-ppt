@@ -26,4 +26,10 @@ export function getPresentation(id: string): PresentationDef | undefined {
   return PRESENTATIONS.find((p) => p.id === id);
 }
 
-export type { PresentationDef, SlideDef, ChapterDef };
+export { PRESENTATION_TAGS } from "./types";
+export type {
+  PresentationDef,
+  SlideDef,
+  ChapterDef,
+  PresentationTag,
+} from "./types";

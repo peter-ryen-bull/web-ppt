@@ -2,6 +2,10 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import {
+  PRESENTATION_TAGS,
+  type PresentationTag,
+} from "@/presentations";
 import styles from "./home.module.css";
 
 export type HomeListItem = {
@@ -10,17 +14,21 @@ export type HomeListItem = {
   description: string;
   date?: string;
   place?: string;
+  tags?: PresentationTag[];
 };
 
 function haystack(item: HomeListItem): string {
-  return [item.date, item.place, item.title, item.description, item.id]
+  return [
+    item.date,
+    item.place,
+    item.title,
+    item.description,
+    item.id,
+    ...(item.tags ?? []),
+  ]
     .filter(Boolean)
     .join(" ")
     .toLowerCase();
-}
-
-function whenWhere(item: HomeListItem): string {
-  return [item.place, item.date].filter(Boolean).join(" · ");
 }
 
 function SearchIcon() {
@@ -69,32 +77,86 @@ function PageIcon() {
   );
 }
 
+function tagClass(tag: PresentationTag): string {
+  if (tag === "conference") return styles.tagConference;
+  if (tag === "pitch") return styles.tagPitch;
+  return styles.tagPrivate;
+}
+
+function TagPills({ tags }: { tags: PresentationTag[] }) {
+  return (
+    <ul className={styles.rowTags}>
+      {tags.map((tag) => (
+        <li key={tag} className={`${styles.tag} ${tagClass(tag)}`}>
+          {tag}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default function HomeList({ items }: { items: HomeListItem[] }) {
   const [query, setQuery] = useState("");
+  const [activeTag, setActiveTag] = useState<PresentationTag | null>(null);
+
+  const availableTags = useMemo(() => {
+    const used = new Set<PresentationTag>();
+    for (const item of items) {
+      for (const tag of item.tags ?? []) used.add(tag);
+    }
+    return PRESENTATION_TAGS.filter((tag) => used.has(tag));
+  }, [items]);
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return items;
-    return items.filter((item) => haystack(item).includes(q));
-  }, [items, query]);
+    return items.filter((item) => {
+      if (activeTag && !(item.tags ?? []).includes(activeTag)) return false;
+      if (q && !haystack(item).includes(q)) return false;
+      return true;
+    });
+  }, [items, query, activeTag]);
 
   return (
     <>
-      <div className={styles.searchWrap}>
-        <label className={styles.searchLabel} htmlFor="presentation-search">
-          Søk
-        </label>
-        <div className={styles.searchBox}>
-          <SearchIcon />
-          <input
-            id="presentation-search"
-            className={styles.search}
-            type="search"
-            placeholder="Søk etter dato, sted eller tittel"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            autoComplete="off"
-          />
+      <div className={styles.controls}>
+        <div className={styles.searchWrap}>
+          <label className={styles.searchLabel} htmlFor="presentation-search">
+            Søk
+          </label>
+          <div className={styles.searchBox}>
+            <SearchIcon />
+            <input
+              id="presentation-search"
+              className={styles.search}
+              type="search"
+              placeholder="Søk etter dato, sted, tittel eller tag"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              autoComplete="off"
+            />
+          </div>
         </div>
+
+        {availableTags.length > 0 && (
+          <div className={styles.filters} role="group" aria-label="Filtrer på tag">
+            {availableTags.map((tag) => {
+              const pressed = activeTag === tag;
+              return (
+                <button
+                  key={tag}
+                  type="button"
+                  className={`${styles.filter} ${tagClass(tag)} ${
+                    pressed ? styles.filterActive : ""
+                  }`}
+                  aria-pressed={pressed}
+                  onClick={() => setActiveTag(pressed ? null : tag)}
+                >
+                  {tag}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {filtered.length === 0 ? (
@@ -106,11 +168,17 @@ export default function HomeList({ items }: { items: HomeListItem[] }) {
               <Link href={`/${item.id}`} className={styles.row}>
                 <PageIcon />
                 <div className={styles.rowBody}>
-                  {whenWhere(item) && (
-                    <p className={styles.rowWhenWhere}>{whenWhere(item)}</p>
+                  {item.place && (
+                    <p className={styles.rowPlace}>{item.place}</p>
                   )}
                   <h2 className={styles.rowTitle}>{item.title}</h2>
                 </div>
+                {item.date ? (
+                  <p className={styles.rowDate}>{item.date}</p>
+                ) : (
+                  <span className={styles.rowDate} />
+                )}
+                <TagPills tags={item.tags ?? []} />
                 <span className={styles.rowArrow} aria-hidden>
                   →
                 </span>

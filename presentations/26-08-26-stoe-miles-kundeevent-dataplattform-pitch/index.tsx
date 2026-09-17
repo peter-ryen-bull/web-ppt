@@ -85,6 +85,7 @@ export const stoeDataplattform = definePresentation({
     "Hvorfor og hvordan bygge en moderne dataplattform – presentert for Stø.",
   date: "27. august 2026",
   place: "Miles kundeevent, Stø",
+  tags: ["pitch"],
   notes: notesRaw,
   chapters: [
     { id: "intro", title: "Hvorfor dataplattform", slides: INTRO },

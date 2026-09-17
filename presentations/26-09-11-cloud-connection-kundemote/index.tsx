@@ -128,6 +128,7 @@ export const cloudConnectionKundemote = definePresentation({
     "Kundemøte om hvorfor og hvordan bygge en moderne dataplattform – fra spredt data til kvalitetssikrede dataprodukter.",
   date: "11. september 2026",
   place: "Cloud Connection",
+  tags: ["pitch"],
   notes: notesRaw,
   chapters: [
     { id: "intro", title: "Bakgrunn og målbilde", slides: INTRO },

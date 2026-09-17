@@ -104,6 +104,7 @@ public/media/
      description: "Kort beskrivelse som vises på forsiden.",
      date: "19. oktober 2026",
      place: "TDC",
+     tags: ["conference"],
      chapters: [
        { id: "intro", title: "Intro", slides: INTRO },
      ],
@@ -113,6 +114,10 @@ public/media/
    Kapitler er intern oppdeling: synlige i oversikt og presentatørvisning,
    aldri i publikumsvisningen. En annen presentasjon kan legges inn som ett
    kapittel med `embedAsChapter(annenPresentasjon, { id: "historie" })`.
+
+   `tags` er `conference` (offentlig foredrag), `pitch` (kundemøte/salg)
+   eller `private` (internt). De vises som merkelapper på forsiden og kan
+   søkes på.
 
    Presentasjoner uten kapitler kan fortsatt bruke en flat `slides`-liste.
 

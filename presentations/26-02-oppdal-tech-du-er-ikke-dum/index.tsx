@@ -96,6 +96,7 @@ export const oppdalTechDuErIkkeDum = definePresentation({
     "Hvorfor du glemmer det du leser, og tre teknikker som faktisk virker. Retrieval, spacing og interleaving, fra Weinstein et al. Oppdal Tech 2026.",
   date: "februar 2026",
   place: "Oppdal Tech",
+  tags: ["conference"],
   notes: notesRaw,
   chapters: [
     { id: "apning", title: "Åpningen", slides: APNING },

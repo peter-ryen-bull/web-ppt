@@ -148,6 +148,7 @@ export const tdcStrings = definePresentation({
     "Hvorfor strenger er farlige, og hvordan value objects i C# gir deg typer du kan stole på. TDC 2025.",
   date: "20. oktober 2025",
   place: "TDC",
+  tags: ["conference"],
   notes: notesRaw,
   chapters: [
     { id: "intro", title: "Trust issues", slides: INTRO },

@@ -581,6 +581,7 @@ export const tdcKystverketDataplattform = definePresentation({
     "Fra ett AIS-signal utenfor Stad til klimaregnskapet i en kommune. Historien om hvordan Kystverket bygde en dataplattform med Azure og Databricks serverless. TDC 2026, 60 minutter.",
   date: "19. oktober 2026",
   place: "TDC",
+  tags: ["conference"],
   notes: notesRaw,
   chapters: [
     { id: "apning", title: "Åpningen", slides: APNING },

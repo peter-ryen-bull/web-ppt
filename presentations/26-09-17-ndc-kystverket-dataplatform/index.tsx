@@ -581,6 +581,7 @@ export const ndcKystverketStory = definePresentation({
     "From one AIS signal off Stad to the climate accounts of a municipality. The story of how the Norwegian Coastal Administration built a data platform with Azure and Databricks serverless. NDC 2026, 60 minutes.",
   date: "17. september 2026",
   place: "NDC",
+  tags: ["conference"],
   notes: notesRaw,
   chapters: [
     { id: "apning", title: "The opening", slides: APNING },

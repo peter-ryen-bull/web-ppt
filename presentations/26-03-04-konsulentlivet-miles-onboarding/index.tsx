@@ -231,6 +231,7 @@ export const konsulentlivetMilesOnboarding = definePresentation({
     "Miles-verdier i bruk: gi andre æren, lær alle navn, snakk i bilder, eliminer distraksjoner, vær sulten på å lære.",
   date: "4. mars 2026",
   place: "Miles onboarding",
+  tags: ["private"],
   notes: notesRaw,
   chapters: [
     { id: "intro", title: "Hej", slides: INTRO },
