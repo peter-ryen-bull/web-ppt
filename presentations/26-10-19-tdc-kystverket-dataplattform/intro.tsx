@@ -354,10 +354,10 @@ export function SlideOmPeter() {
           Designer dataplattformer for store organisasjoner
         </BulletItem>
         <BulletItem at={2}>
-          Tidligere tech lead for dataplattformen i politiet
+          Tidligere tech lead for politiets dataplattform
         </BulletItem>
         <BulletItem at={3}>Azure, Databricks, Terraform</BulletItem>
-        <BulletItem at={4}>Klatrer og toppturskiløper</BulletItem>
+        <BulletItem at={4}>Klatrer og skigåer</BulletItem>
       </Box>
     </>
   );

@@ -153,7 +153,7 @@ plattformer for både private selskaper og offentlige etater, og det jeg har
 lært er at problemene er overraskende like. Det er bare dataene som bytter
 navn.
 
-[[CLICK]] Tidligere var jeg tech lead for dataplattformen til politiet.
+[[CLICK]] Tidligere var jeg tech lead for politiets dataplattform.
 
 [[CLICK]] Og jeg jobber i Azure, Databricks og Terraform.
 
