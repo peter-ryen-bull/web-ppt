@@ -230,17 +230,14 @@ export default function HomeList({ items }: { items: HomeListItem[] }) {
   const isFiltering =
     query.trim() !== "" || activeTag !== null || inProgressOnly;
 
-  // "/" fokuserer søkefeltet, som i GitHub/Linear.
+  // ⌘K / Ctrl+K fokuserer søkefeltet.
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
-      const target = e.target as HTMLElement | null;
-      const tag = target?.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA" || target?.isContentEditable) {
-        return;
-      }
+      if (!(e.metaKey || e.ctrlKey) || e.key.toLowerCase() !== "k") return;
       e.preventDefault();
-      inputRef.current?.focus();
+      const input = inputRef.current;
+      input?.focus();
+      input?.select();
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
@@ -293,7 +290,7 @@ export default function HomeList({ items }: { items: HomeListItem[] }) {
               </button>
             ) : (
               <kbd className={styles.kbd} aria-hidden>
-                /
+                ⌘K
               </kbd>
             )}
           </div>
