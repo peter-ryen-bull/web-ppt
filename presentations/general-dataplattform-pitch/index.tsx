@@ -73,7 +73,7 @@ const PRODUKT: SlideDef[] = [
     id: "helhet",
     name: "Hele bildet: domener, kontrakter, produkter",
     component: SlideHelhet,
-    steps: 9,
+    steps: 8,
   },
 ];
 

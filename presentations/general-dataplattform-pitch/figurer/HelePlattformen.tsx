@@ -589,28 +589,28 @@ export function HelePlattformen() {
       <PilDefs id="pil-hel" />
       <PilDefs id="pil-hel-teal" farge={TEAL_LINJE} />
 
-      <Steg at={1}>
+      <Steg at={0}>
         <Pill cx={domMidtX} text="DOMENEDATABASER" w={186} />
       </Steg>
-      <Steg at={2}>
+      <Steg at={1}>
         <Pill cx={H_KILDE.x + H_KILDE.w / 2} text="KILDER" w={100} />
       </Steg>
-      <Steg at={4}>
+      <Steg at={3}>
         <Pill cx={H_KTR.x + H_KTR.w / 2} text="KONTRAKTER" w={120} />
       </Steg>
-      <Steg at={6}>
+      <Steg at={5}>
         <Pill cx={katMidtX} text="DATAPRODUKTER" w={160} />
       </Steg>
-      <Steg at={7}>
+      <Steg at={6}>
         <Pill cx={H_KONS_X + H_KONS_W / 2} text="KONSUMENTER" w={130} />
       </Steg>
 
-      <Steg at={1}>
+      <Steg at={0}>
         {DOMENER.map((d, i) => {
           const y = H_DOM_Y(i);
           const top = y + 11;
           return (
-            <Sylinder key={d.navn} x={H_DOM_X} y={y} w={H_DOM_W} h={H_DOM_H} ry={13} uthevet={i === 0 && step >= 4}>
+            <Sylinder key={d.navn} x={H_DOM_X} y={y} w={H_DOM_W} h={H_DOM_H} ry={13} uthevet={i === 0 && step >= 3}>
               <g fill="none" stroke="var(--mint)" strokeLinecap="round" strokeLinejoin="round">
                 <IkonI navn={d.ikon} x={H_DOM_X + 20} y={top + 16} size={22} strokeWidth={1.7} />
               </g>
@@ -622,7 +622,7 @@ export function HelePlattformen() {
         })}
       </Steg>
 
-      <Steg at={2}>
+      <Steg at={1}>
         {DOMENER.map((d, i) => {
           const y = H_DOM_Y(i);
           const midt = y + H_DOM_H / 2;
@@ -657,7 +657,7 @@ export function HelePlattformen() {
         })}
       </Steg>
 
-      <Steg at={3}>
+      <Steg at={2}>
         {DOMENER.map((d, i) => {
           const top = H_DOM_Y(i) + 11;
           const barX = H_DOM_X + 14;
@@ -695,7 +695,7 @@ export function HelePlattformen() {
         })}
       </Steg>
 
-      <Steg at={4}>
+      <Steg at={3}>
         <path
           d={`M ${H_DOM_X + H_DOM_W} ${salesY} C 395 ${salesY}, 395 ${H_KTR.y + H_KTR.h / 2}, ${H_KTR.x} ${H_KTR.y + H_KTR.h / 2}`}
           fill="none"
@@ -732,7 +732,7 @@ export function HelePlattformen() {
         </g>
       </Steg>
 
-      <Steg at={5}>
+      <Steg at={4}>
         <Pil d={`M ${H_KTR.x + H_KTR.w / 2} ${H_KTR.y + H_KTR.h + 2} V ${H_REPO.y - 4}`} marker="pil-hel" strokeWidth={1.6} />
         <text x={H_KTR.x + H_KTR.w / 2 + 10} y={H_KTR.y + H_KTR.h + 26} fontFamily={MONO} fontSize={10} fill="var(--red)">
           git push
@@ -740,7 +740,7 @@ export function HelePlattformen() {
         <RepoBrikke x={H_REPO.x} y={H_REPO.y} w={H_REPO.w} h={H_REPO.h} />
       </Steg>
 
-      <Steg at={6}>
+      <Steg at={5}>
         <Pil d={`M ${H_REPO.x + H_REPO.w + 2} ${H_REPO.y + H_REPO.h / 2} H ${H_KAT.x - 4}`} marker="pil-hel" strokeWidth={1.6} />
         <text
           x={(H_REPO.x + H_REPO.w + H_KAT.x) / 2}
@@ -755,7 +755,7 @@ export function HelePlattformen() {
         <ProduktKatalog x={H_KAT.x} y={H_KAT.y} w={H_KAT.w} h={H_KAT.h} />
       </Steg>
 
-      <Steg at={7}>
+      <Steg at={6}>
         {KONSUMENTER.map((k, i) => {
           const y = H_KONS_Y(i);
           const midt = y + H_KONS_H / 2;
@@ -786,7 +786,7 @@ export function HelePlattformen() {
         })}
       </Steg>
 
-      <Steg at={8}>
+      <Steg at={7}>
         <Pil
           d={`M ${katMidtX} ${H_KAT.y + H_KAT.h + 2} V 668 H ${domMidtX} V ${domBunn + 5}`}
           marker="pil-hel-teal"
@@ -799,7 +799,7 @@ export function HelePlattformen() {
         </text>
       </Steg>
 
-      <Steg at={9}>
+      <Steg at={8}>
         <Pil d={`M ${H_REPO.x + H_REPO.w / 2} ${H_REPO.y + H_REPO.h + 2} V ${H_UTF.y - 4}`} marker="pil-hel" strokeWidth={1.6} />
         <text x={H_REPO.x + H_REPO.w / 2 + 10} y={H_REPO.y + H_REPO.h + 28} fontFamily={MONO} fontSize={10} fill="var(--red)">
           leser

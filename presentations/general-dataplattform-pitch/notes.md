@@ -67,10 +67,11 @@ Kortene er illustrasjon. Bytt navn til deres virksomhet.
 
 ## helhet – Hele bildet
 
-Samme figur som mot slutten av NDC. Bygg den opp med klikk.
+Samme figur som mot slutten av NDC. Domenene står der når sliden
+kommer. Bygg videre med klikk.
 
-[[CLICK]] Domener først. Salg, drift, økonomi, produkt. Hvert med
-sin egen katalog, sitt eget team, sitt eget kostnadssenter.
+Domener først. Salg, drift, økonomi, produkt. Hvert med sin egen
+katalog, sitt eget team, sitt eget kostnadssenter.
 
 [[CLICK]] Kilder. Hvert domene leser inn sine egne. CRM og ordre.
 Fagsystem og kapasitet. Lønn og hovedbok. Bruksdata og apper.
