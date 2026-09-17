@@ -1,6 +1,7 @@
 import type { SlideDef } from "../types";
 import notesRaw from "./notes.md";
 import { definePresentation } from "../chapters";
+import { BildeIkon } from "@/components/icons/BildeIkon";
 import { SlideBilde } from "./slides";
 
 function s(n: number, id: string, name: string): SlideDef {
@@ -94,6 +95,9 @@ export const offentligPaas = definePresentation({
   date: "26. mai 2026",
   place: "Offentlig PaaS, Forskningsparken",
   tags: ["conference"],
+  icon: (
+    <BildeIkon src="/media/26-05-26-offentlig-paas/ikon.png" alt="Politiet" />
+  ),
   notes: notesRaw,
   chapters: [
     { id: "apning", title: "Lastebil-Jonas", slides: APNING },
