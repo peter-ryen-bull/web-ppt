@@ -129,6 +129,7 @@ export const cloudConnectionKundemote = definePresentation({
   date: "11. september 2026",
   place: "Cloud Connection",
   tags: ["pitch"],
+  inProgress: true,
   notes: notesRaw,
   chapters: [
     { id: "intro", title: "Bakgrunn og målbilde", slides: INTRO },

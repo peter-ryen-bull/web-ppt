@@ -105,6 +105,7 @@ public/media/
      date: "19. oktober 2026",
      place: "TDC",
      tags: ["conference"],
+     inProgress: true, // eller fremtidig YY-MM-DD i id-en
      chapters: [
        { id: "intro", title: "Intro", slides: INTRO },
      ],
@@ -118,6 +119,12 @@ public/media/
    `tags` er `conference` (offentlig foredrag), `pitch` (kundemøte/salg)
    eller `private` (internt). De vises som merkelapper på forsiden og kan
    søkes på.
+
+   `inProgress: true` markerer at presentasjonen er under arbeid (vises som
+   «Under arbeid» på forsiden). Uten flagg telles den som under arbeid hvis
+   id-en har et `YY-MM-DD`-prefiks i fremtiden. Holdte presentasjoner er
+   arkiv: ikke rediger slides, notes eller media etter import – gjenbruk med
+   kopi eller `embedAsChapter`.
 
    `icon` (valgfritt) er ikonet i lista på forsiden, f.eks. en liten
    SVG-figur fra slidene (`icon: <FyrIkon />`) eller et utsnitt av et

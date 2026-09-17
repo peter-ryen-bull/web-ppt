@@ -15,6 +15,7 @@ export type HomeListItem = {
   date?: string;
   place?: string;
   tags?: PresentationTag[];
+  inProgress: boolean;
   /** Ferdig rendret ikon fra PresentationDef; ellers standardikonet */
   icon?: ReactNode;
 };
@@ -35,6 +36,7 @@ function haystack(item: HomeListItem): string {
     item.id,
     ...tags,
     ...tags.map((tag) => TAG_LABELS[tag]),
+    item.inProgress ? "under arbeid in progress" : "holdt arkiv",
   ]
     .filter(Boolean)
     .join(" ")
@@ -117,10 +119,21 @@ function toneClass(tag: PresentationTag | undefined): string {
   return styles.toneNeutral;
 }
 
-function TagPills({ tags }: { tags: PresentationTag[] }) {
-  if (tags.length === 0) return <span className={styles.rowTags} />;
+function TagPills({
+  tags,
+  inProgress,
+}: {
+  tags: PresentationTag[];
+  inProgress: boolean;
+}) {
+  if (!inProgress && tags.length === 0) {
+    return <span className={styles.rowTags} />;
+  }
   return (
     <ul className={styles.rowTags} aria-label="Tags">
+      {inProgress && (
+        <li className={`${styles.tag} ${styles.toneProgress}`}>Under arbeid</li>
+      )}
       {tags.map((tag) => (
         <li key={tag} className={`${styles.tag} ${toneClass(tag)}`}>
           {TAG_LABELS[tag]}
@@ -130,9 +143,49 @@ function TagPills({ tags }: { tags: PresentationTag[] }) {
   );
 }
 
+function PresentationRows({ items }: { items: HomeListItem[] }) {
+  return (
+    <ul className={styles.list}>
+      {items.map((item) => {
+        const tags = item.tags ?? [];
+        return (
+          <li key={item.id} className={styles.listItem}>
+            <Link href={`/${item.id}`} className={styles.row}>
+              <span
+                className={`${styles.rowIcon} ${
+                  item.inProgress ? styles.toneProgress : toneClass(tags[0])
+                } ${item.icon ? styles.rowIconCustom : ""}`}
+              >
+                {item.icon ?? <PageIcon />}
+              </span>
+              <div className={styles.rowBody}>
+                {(item.place || item.date) && (
+                  <p className={styles.rowMeta}>
+                    {item.place && <span>{item.place}</span>}
+                    {item.place && item.date && (
+                      <span className={styles.rowMetaDot} aria-hidden>
+                        ·
+                      </span>
+                    )}
+                    {item.date && <span>{item.date}</span>}
+                  </p>
+                )}
+                <h2 className={styles.rowTitle}>{item.title}</h2>
+              </div>
+              <TagPills tags={tags} inProgress={item.inProgress} />
+              <ChevronIcon />
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
 export default function HomeList({ items }: { items: HomeListItem[] }) {
   const [query, setQuery] = useState("");
   const [activeTag, setActiveTag] = useState<PresentationTag | null>(null);
+  const [inProgressOnly, setInProgressOnly] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const tagCounts = useMemo(() => {
@@ -150,16 +203,32 @@ export default function HomeList({ items }: { items: HomeListItem[] }) {
     [tagCounts],
   );
 
+  const inProgressCount = useMemo(
+    () => items.filter((item) => item.inProgress).length,
+    [items],
+  );
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return items.filter((item) => {
+      if (inProgressOnly && !item.inProgress) return false;
       if (activeTag && !(item.tags ?? []).includes(activeTag)) return false;
       if (q && !haystack(item).includes(q)) return false;
       return true;
     });
-  }, [items, query, activeTag]);
+  }, [items, query, activeTag, inProgressOnly]);
 
-  const isFiltering = query.trim() !== "" || activeTag !== null;
+  const inProgressItems = useMemo(
+    () => filtered.filter((item) => item.inProgress),
+    [filtered],
+  );
+  const heldItems = useMemo(
+    () => filtered.filter((item) => !item.inProgress),
+    [filtered],
+  );
+
+  const isFiltering =
+    query.trim() !== "" || activeTag !== null || inProgressOnly;
 
   // "/" fokuserer søkefeltet, som i GitHub/Linear.
   useEffect(() => {
@@ -180,6 +249,7 @@ export default function HomeList({ items }: { items: HomeListItem[] }) {
   function reset() {
     setQuery("");
     setActiveTag(null);
+    setInProgressOnly(false);
     inputRef.current?.focus();
   }
 
@@ -230,48 +300,59 @@ export default function HomeList({ items }: { items: HomeListItem[] }) {
         </div>
 
         <div className={styles.filterBar}>
-          {availableTags.length > 0 && (
-            <div
-              className={styles.filters}
-              role="group"
-              aria-label="Filtrer på tag"
+          <div className={styles.filters} role="group" aria-label="Filtrer på tag">
+            <button
+              type="button"
+              className={`${styles.filter} ${
+                activeTag === null ? styles.filterActive : ""
+              }`}
+              aria-pressed={activeTag === null}
+              onClick={() => setActiveTag(null)}
             >
+              Alle
+              <span className={styles.filterCount}>{items.length}</span>
+            </button>
+            {availableTags.map((tag) => {
+              const pressed = activeTag === tag;
+              return (
+                <button
+                  key={tag}
+                  type="button"
+                  className={`${styles.filter} ${
+                    pressed ? styles.filterActive : ""
+                  }`}
+                  aria-pressed={pressed}
+                  onClick={() => setActiveTag(pressed ? null : tag)}
+                >
+                  <span
+                    className={`${styles.filterDot} ${toneClass(tag)}`}
+                    aria-hidden
+                  />
+                  {TAG_LABELS[tag]}
+                  <span className={styles.filterCount}>
+                    {tagCounts.get(tag)}
+                  </span>
+                </button>
+              );
+            })}
+            {inProgressCount > 0 && (
               <button
                 type="button"
                 className={`${styles.filter} ${
-                  activeTag === null ? styles.filterActive : ""
+                  inProgressOnly ? styles.filterActive : ""
                 }`}
-                aria-pressed={activeTag === null}
-                onClick={() => setActiveTag(null)}
+                aria-pressed={inProgressOnly}
+                onClick={() => setInProgressOnly((on) => !on)}
               >
-                Alle
-                <span className={styles.filterCount}>{items.length}</span>
+                <span
+                  className={`${styles.filterDot} ${styles.toneProgress}`}
+                  aria-hidden
+                />
+                Under arbeid
+                <span className={styles.filterCount}>{inProgressCount}</span>
               </button>
-              {availableTags.map((tag) => {
-                const pressed = activeTag === tag;
-                return (
-                  <button
-                    key={tag}
-                    type="button"
-                    className={`${styles.filter} ${
-                      pressed ? styles.filterActive : ""
-                    }`}
-                    aria-pressed={pressed}
-                    onClick={() => setActiveTag(pressed ? null : tag)}
-                  >
-                    <span
-                      className={`${styles.filterDot} ${toneClass(tag)}`}
-                      aria-hidden
-                    />
-                    {TAG_LABELS[tag]}
-                    <span className={styles.filterCount}>
-                      {tagCounts.get(tag)}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          )}
+            )}
+          </div>
           {isFiltering && (
             <p className={styles.resultCount} aria-live="polite">
               {filtered.length} av {items.length}
@@ -293,40 +374,24 @@ export default function HomeList({ items }: { items: HomeListItem[] }) {
           </button>
         </div>
       ) : (
-        <ul className={styles.list}>
-          {filtered.map((item) => {
-            const tags = item.tags ?? [];
-            return (
-              <li key={item.id} className={styles.listItem}>
-                <Link href={`/${item.id}`} className={styles.row}>
-                  <span
-                    className={`${styles.rowIcon} ${toneClass(tags[0])} ${
-                      item.icon ? styles.rowIconCustom : ""
-                    }`}
-                  >
-                    {item.icon ?? <PageIcon />}
-                  </span>
-                  <div className={styles.rowBody}>
-                    {(item.place || item.date) && (
-                      <p className={styles.rowMeta}>
-                        {item.place && <span>{item.place}</span>}
-                        {item.place && item.date && (
-                          <span className={styles.rowMetaDot} aria-hidden>
-                            ·
-                          </span>
-                        )}
-                        {item.date && <span>{item.date}</span>}
-                      </p>
-                    )}
-                    <h2 className={styles.rowTitle}>{item.title}</h2>
-                  </div>
-                  <TagPills tags={tags} />
-                  <ChevronIcon />
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <div className={styles.groups}>
+          {inProgressItems.length > 0 && (
+            <section className={styles.section} aria-labelledby="in-progress-heading">
+              <h2 id="in-progress-heading" className={styles.sectionTitle}>
+                Under arbeid
+              </h2>
+              <PresentationRows items={inProgressItems} />
+            </section>
+          )}
+          {heldItems.length > 0 && (
+            <section className={styles.section} aria-labelledby="held-heading">
+              <h2 id="held-heading" className={styles.sectionTitle}>
+                Holdt
+              </h2>
+              <PresentationRows items={heldItems} />
+            </section>
+          )}
+        </div>
       )}
     </>
   );

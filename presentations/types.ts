@@ -37,6 +37,14 @@ export interface PresentationDef {
   /** conference = offentlig foredrag, pitch = kundemøte/salg, private = internt */
   tags?: PresentationTag[];
   /**
+   * Under arbeid. Sett `true` mens du importerer eller redigerer, også etter
+   * at datoen har passert. Uten flagg: avledet fra id-prefikset `YY-MM-DD`
+   * (fremtidig dato = under arbeid). Holdte presentasjoner er arkiv: ikke
+   * rediger slides, notes eller media – gjenbruk med kopi eller
+   * `embedAsChapter`.
+   */
+  inProgress?: boolean;
+  /**
    * Ikon i lista på forsiden – typisk en liten SVG-figur fra slidene eller et
    * utsnitt fra et slidebilde (se `components/icons/`). Vises i en ~42 px
    * rute; uten ikon brukes standardikonet.

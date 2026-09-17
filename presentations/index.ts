@@ -9,11 +9,13 @@ import { oppdalTechDuErIkkeDum } from "./26-02-06-oppdal-tech-du-er-ikke-dum";
 import { boosterDuErIkkeDum } from "./26-03-11-booster-du-er-ikke-dum";
 
 export { definePresentation, embedAsChapter } from "./chapters";
+export { eventDateFromId, isInProgress } from "./status";
 
 /**
  * Registeret over alle presentasjoner i appen.
  * Legg til nye presentasjoner her – de dukker automatisk opp på forsiden.
- * Se AGENTS.md for hvilke som er aktive og hvilke som er arkiverte.
+ * Under arbeid: `inProgress: true` eller fremtidig `YY-MM-DD` i id-en.
+ * Resten er arkiv (se AGENTS.md).
  */
 export const PRESENTATIONS: PresentationDef[] = [
   boosterSmartOcean,

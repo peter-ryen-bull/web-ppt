@@ -98,6 +98,7 @@ export const oppdalTechDuErIkkeDum = definePresentation({
   date: "6. februar 2026",
   place: "Oppdal Tech",
   tags: ["conference"],
+  inProgress: true,
   icon: (
     <BildeIkon src="/media/26-02-06-oppdal-tech-du-er-ikke-dum/ikon.png" />
   ),

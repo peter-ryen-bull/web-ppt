@@ -36,6 +36,9 @@
   --tone-neutral-bg: rgba(29, 26, 23, 0.06);
   --tone-neutral-fg: #5a554e;
   --tone-neutral-dot: #8d867c;
+  --tone-progress-bg: rgba(180, 110, 20, 0.12);
+  --tone-progress-fg: #8a4b00;
+  --tone-progress-dot: #c47a1a;
 
   color-scheme: light;
   min-height: 100dvh;
@@ -330,7 +333,35 @@
   --tone-dot: var(--tone-neutral-dot);
 }
 
+.toneProgress {
+  --tone-bg: var(--tone-progress-bg);
+  --tone-fg: var(--tone-progress-fg);
+  --tone-dot: var(--tone-progress-dot);
+}
+
 /* --- Liste ---------------------------------------------------------------- */
+
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sectionTitle {
+  margin: 0;
+  padding: 0 4px;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
 
 .list {
   list-style: none;

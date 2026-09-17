@@ -583,6 +583,7 @@ export const tdcKystverketDataplattform = definePresentation({
   date: "19. oktober 2026",
   place: "TDC",
   tags: ["conference"],
+  inProgress: true,
   icon: <FyrIkon />,
   notes: notesRaw,
   chapters: [

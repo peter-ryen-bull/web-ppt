@@ -33,13 +33,24 @@ terminal, ofte midt i en øving eller presentasjon.
   `node_modules`) og kjør den derfra på en annen port. Stopp den når du er
   ferdig.
 
-## Presentasjoner: aktive vs. arkiverte
+## Presentasjoner: under arbeid vs. arkiv
 
-Bare presentasjonene under **Aktive** er under arbeid. Åpne og les kun disse
-(og `presentations/*.ts` med felles kode) med mindre brukeren eksplisitt peker
-på noe annet – det holder kontekstvinduet lite.
+En presentasjon er **under arbeid** når `inProgress: true` er satt, eller når
+id-en har et `YY-MM-DD`-prefiks i fremtiden (`isInProgress` i
+`presentations/status.ts`). Åpne og les kun disse (og `presentations/*.ts` med
+felles kode) med mindre brukeren eksplisitt peker på noe annet.
 
-**Aktive**
+Holdte presentasjoner er **arkiv**. Etter at de er opprettet og importert skal
+de stort sett være skrivebeskyttet: **ikke rediger** slides, `notes.md` eller
+media. Trenger en ny presentasjon innhold fra en arkivert, kopier eller bruk
+`embedAsChapter` – ikke endre originalen. Arkiverte skal fortsatt stå i
+`presentations/index.ts` så de vises på forsiden.
+
+Når du starter en ny presentasjon: sett `inProgress: true` (fremtidig dato i
+id-en holder også). Når den er holdt og ferdig: fjern flagget (eller sett
+`inProgress: false`).
+
+**Under arbeid**
 
 - `presentations/26-02-06-oppdal-tech-du-er-ikke-dum/` – Oppdal Tech, 6. feb 2026.
   «Du er ikke dum – En forskningsbasert metode for å lære fort». Slidene er
@@ -53,25 +64,24 @@ på noe annet – det holder kontekstvinduet lite.
   Norsk versjon av NDC-foredraget. Har egne kopier av figurene i `figurer/`
   (oversatt) – bruk dem, ikke `components/figures/`.
 
-**Arkiverte** (holdt, ferdige – **ikke rediger** slides, `notes.md` eller
-media for disse; ikke les dem uten at brukeren ber om det):
+**Arkiv** (ikke les uten at brukeren ber om det):
 
 - `presentations/22-03-23-booster-smart-ocean/` – holdt 23. mars 2022
   (Booster). «How Digitalizing The Ocean Creates a Brighter Future for
   Everyone». Slidene er eksportert som bilder fra
   `2022_03_22_booster_smart_ocean.pptx`.
+- `presentations/24-10-22-tdc-du-er-ikke-dum/` – holdt 22. okt 2024 (TDC).
+  «Du er ikke dum». Slidene er eksportert som bilder fra
+  `2024_10_22_tdc_peter_du_er_ikke_dum.pptx`.
 - `presentations/25-10-20-tdc-strings/` – holdt 20. okt 2025 (TDC). C# value
   objects vs. stringly typed. Importert fra `2025_10_20_tdc-strings.pptx`.
+- `presentations/26-05-26-offentlig-paas/` – holdt 26. mai 2026 (Offentlig
+  PaaS, Forskningsparken). «Dataplattform for et datadrevet politi».
+  Slidene er eksportert som bilder fra original-PPTX.
 - `presentations/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/` – holdt 27. aug 2026
 - `presentations/26-09-17-ndc-kystverket-dataplatform/` – holdt 17. sep 2026
   (NDC, engelsk). Bruker `components/figures/` (engelsk tekst), som regnes som
   del av arkivet.
-
-Når en ny presentasjon påbegynnes: legg den under **Aktive**. Når den er holdt:
-flytt den til **Arkiverte** med dato. Arkiverte presentasjoner skal fortsatt
-være registrert i `presentations/index.ts` så de kan vises, men de skal ikke
-endres. Trenger en ny presentasjon slides fra en arkivert, kopier eller bruk
-`embedAsChapter` – ikke endre originalen.
 
 ## Speaker notes
 
