@@ -549,14 +549,14 @@ export function DataplattformFlyt({ detaljert = false }: { detaljert?: boolean }
       role="img"
       aria-label="Dataplattform: dataflyt fra kilder, gjennom plattformen, ut til konsumenter"
     >
-      <Steg at={at(1)}>
+      <Steg at={at(0)}>
         <Kolonnetittel cx={LEFT_X + CARD_W / 2} text="KILDER & INNHENTING" w={220} />
         {KILDER.map((k, i) => (
           <Kort key={k.title} x={LEFT_X} y={CARD_YS[i]} {...k} />
         ))}
       </Steg>
 
-      <Steg at={at(2)}>
+      <Steg at={at(1)}>
         {CARD_YS.map((y, i) => (
           <Flyt
             key={`inn-${y}`}
@@ -569,7 +569,7 @@ export function DataplattformFlyt({ detaljert = false }: { detaljert?: boolean }
         {detaljert ? <PlattformDetaljert x={px} w={pw} /> : <PlattformEnkel x={px} w={pw} />}
       </Steg>
 
-      <Steg at={at(3)}>
+      <Steg at={at(2)}>
         <Kolonnetittel cx={RIGHT_X + CARD_W / 2} text="VERDI & BRUK" w={140} />
         {CARD_YS.map((y, i) => (
           <Flyt
@@ -585,7 +585,7 @@ export function DataplattformFlyt({ detaljert = false }: { detaljert?: boolean }
         ))}
       </Steg>
 
-      <Steg at={at(4)}>
+      <Steg at={at(3)}>
         {BUNNBARER.map((t, i) => (
           <BunnBar key={t} x={20 + i * 408} text={t} />
         ))}

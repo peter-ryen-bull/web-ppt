@@ -32,8 +32,9 @@ domeneeierskap, data som produkt, selvbetjening, innebygd styring.
 
 ## dataflyt – Dataplattformen
 
-Én figur. Bygg den opp med klikk: kilder inn, plattformen i midten,
-verdi ut, så bunnen (forvaltning, sikkerhet, samhandling).
+Kildene står der når sliden kommer. Bygg videre med klikk:
+plattformen i midten, verdi ut, så bunnen (forvaltning, sikkerhet,
+samhandling).
 
 Si: plattformen er grunnmuren – ikke enda et verktøy.
 

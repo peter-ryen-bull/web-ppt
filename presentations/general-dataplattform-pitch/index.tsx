@@ -43,7 +43,7 @@ const PLATTFORM: SlideDef[] = [
     id: "dataflyt",
     name: "Dataplattformen",
     component: SlideDataflyt,
-    steps: 4,
+    steps: 3,
   },
   {
     id: "arkitektur",
