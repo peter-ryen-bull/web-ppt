@@ -53,6 +53,10 @@ på noe annet – det holder kontekstvinduet lite.
 **Arkiverte** (holdt, ferdige – **ikke rediger** slides, `notes.md` eller
 media for disse; ikke les dem uten at brukeren ber om det):
 
+- `presentations/22-03-23-booster-smart-ocean/` – holdt 23. mars 2022
+  (Booster). «How Digitalizing The Ocean Creates a Brighter Future for
+  Everyone». Slidene er eksportert som bilder fra
+  `2022_03_22_booster_smart_ocean.pptx`.
 - `presentations/25-10-20-tdc-strings/` – holdt 20. okt 2025 (TDC). C# value
   objects vs. stringly typed. Importert fra `2025_10_20_tdc-strings.pptx`.
 - `presentations/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/` – holdt 27. aug 2026
