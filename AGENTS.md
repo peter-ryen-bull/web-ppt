@@ -40,11 +40,18 @@ id-en har et `YY-MM-DD`-prefiks i fremtiden (`isInProgress` i
 `presentations/status.ts`). Åpne og les kun disse (og `presentations/*.ts` med
 felles kode) med mindre brukeren eksplisitt peker på noe annet.
 
-Holdte presentasjoner er **arkiv**. Etter at de er opprettet og importert skal
-de stort sett være skrivebeskyttet: **ikke rediger** slides, `notes.md` eller
-media. Trenger en ny presentasjon innhold fra en arkivert, kopier eller bruk
-`embedAsChapter` – ikke endre originalen. Arkiverte skal fortsatt stå i
+Ferdige presentasjoner er **arkiv og skrivebeskyttede**. Etter import skal
+slides, `notes.md` og media **ikke redigeres**. Brukeren endrer sjelden en
+ferdig presentasjon; ny bruk skjer ved å lage en ny og kopiere eller
+`embedAsChapter` – ikke ved å endre originalen. Arkiverte skal fortsatt stå i
 `presentations/index.ts` så de vises på forsiden.
+
+Rediger en ferdig presentasjon **bare** når brukeren eksplisitt ber om å
+endre akkurat den (id, mappe eller dato+sted). «Fiks sliden om AIS» eller
+«oppdater Du er ikke dum» er ikke nok. Før du rører arkivet: dobbeltsjekk
+at hen ikke mener en nyere versjon eller en lignende talk som er under
+arbeid (samme tema, annen dato/arrangement). Er det tvil, spør – ikke
+rediger.
 
 Når du starter en ny presentasjon: sett `inProgress: true` (fremtidig dato i
 id-en holder også). Når den er holdt og ferdig: fjern flagget (eller sett
@@ -64,7 +71,7 @@ id-en holder også). Når den er holdt og ferdig: fjern flagget (eller sett
   Norsk versjon av NDC-foredraget. Har egne kopier av figurene i `figurer/`
   (oversatt) – bruk dem, ikke `components/figures/`.
 
-**Arkiv** (ikke les uten at brukeren ber om det):
+**Arkiv** (ikke les eller rediger uten at brukeren peker på akkurat denne):
 
 - `presentations/22-03-23-booster-smart-ocean/` – holdt 23. mars 2022
   (Booster). «How Digitalizing The Ocean Creates a Brighter Future for
