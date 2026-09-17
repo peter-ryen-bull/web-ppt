@@ -22,9 +22,93 @@
 
 .inline {
   width: 100%;
-  margin-bottom: 20px;
-  box-shadow: none;
-  background: rgba(0, 0, 0, 0.25);
+  margin-bottom: 0;
+  color: var(--ink, var(--cream));
+  background: var(--surface, rgba(0, 0, 0, 0.25));
+  border: 1px solid var(--line, rgba(251, 240, 229, 0.25));
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm, none);
+}
+
+.inline .title {
+  opacity: 1;
+  color: var(--ink-3, inherit);
+}
+
+.inline .summary {
+  opacity: 1;
+  color: var(--ink-2, inherit);
+}
+
+.inline .miniBtn {
+  border-color: var(--line-strong, rgba(251, 240, 229, 0.25));
+  color: var(--ink-2, var(--cream));
+  border-radius: 999px;
+}
+
+.inline .miniBtn:hover:not(:disabled) {
+  background: var(--surface-hover, rgba(251, 240, 229, 0.12));
+  color: var(--ink, var(--cream));
+}
+
+.inline .promptPreview {
+  background: var(--surface-muted, rgba(0, 0, 0, 0.3));
+  color: var(--ink-2, inherit);
+  opacity: 1;
+}
+
+.inline .log {
+  background: var(--surface-muted, rgba(251, 240, 229, 0.06));
+  border-color: var(--line, rgba(251, 240, 229, 0.12));
+}
+
+.inline .log_done {
+  color: var(--accent, var(--mint));
+}
+
+.inline .log_error {
+  color: var(--error, #ffb4b8);
+}
+
+.inline .textarea {
+  background: var(--surface, rgba(251, 240, 229, 0.08));
+  border-color: var(--line-strong, rgba(251, 240, 229, 0.2));
+  color: var(--ink, inherit);
+  border-radius: 12px;
+}
+
+.inline .textarea:focus {
+  border-color: var(--accent, rgba(120, 232, 219, 0.6));
+  background: var(--surface, rgba(251, 240, 229, 0.11));
+  box-shadow: 0 0 0 3px var(--ring, transparent);
+}
+
+.inline .textarea::placeholder {
+  color: var(--ink-3, inherit);
+  opacity: 1;
+}
+
+.inline .transportHint {
+  opacity: 1;
+  color: var(--ink-3, inherit);
+}
+
+.inline .btn {
+  border-color: var(--line-strong, rgba(251, 240, 229, 0.35));
+  color: var(--ink-2, var(--cream));
+  border-radius: 999px;
+}
+
+.inline .btn:hover:not(:disabled) {
+  background: var(--surface-hover, rgba(251, 240, 229, 0.12));
+  color: var(--ink, var(--cream));
+}
+
+.inline .btnPrimary,
+.inline .btnPrimary:hover:not(:disabled) {
+  background: var(--ink, var(--mint));
+  color: var(--surface, var(--burgundy));
+  border-color: var(--ink, var(--mint));
 }
 
 .header {

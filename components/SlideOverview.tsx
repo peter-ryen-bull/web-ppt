@@ -112,18 +112,22 @@ export default function SlideOverview({
 
   return (
     <div className={styles.overview}>
-      <div className={styles.overviewHeader}>
-        <h2>{presentation.title}</h2>
-        <p>
-          {exportMode
-            ? "Huk av slidene som skal med i PDF-en. Hver slide tas med én gang, på siste steg."
-            : promptActive
-              ? "Huk av slidene Cursor skal bruke som kontekst – eller la alle stå umerket for å prompte om hele presentasjonen."
-              : "Klikk for å gå til en slide. Bruk øye-knappen for å skjule eller vise den. Kapitler er bare synlige her – ikke for publikum."}
-        </p>
+      <header className={styles.header}>
+        <div className={styles.headerText}>
+          <p className={styles.eyebrow}>Oversikt</p>
+          <h2 className={styles.title}>{presentation.title}</h2>
+          <p className={styles.meta}>
+            {exportMode
+              ? "Huk av slidene som skal med i PDF-en. Hver slide tas med én gang, på siste steg."
+              : promptActive
+                ? "Huk av slidene Cursor skal bruke som kontekst – eller la alle stå umerket for å prompte om hele presentasjonen."
+                : "Klikk for å gå til en slide. Bruk øye-knappen for å skjule eller vise den. Kapitler er bare synlige her – ikke for publikum."}
+          </p>
+        </div>
         <div className={styles.overviewActions}>
           {promptEnabled && !exportMode && !promptMode && (
             <button
+              type="button"
               className={styles.btn}
               onClick={() => setPromptMode(true)}
               title="Prompt Cursor om presentasjonen eller utvalgte slides"
@@ -133,6 +137,7 @@ export default function SlideOverview({
           )}
           {exportState && !exportMode && !promptActive && (
             <button
+              type="button"
               className={styles.btn}
               onClick={exportState.onStart}
               title="Last ned slides som PDF"
@@ -140,159 +145,220 @@ export default function SlideOverview({
               Eksporter PDF
             </button>
           )}
-          <button className={styles.btn} onClick={onClose} disabled={exporting}>
+          <button
+            type="button"
+            className={styles.btn}
+            onClick={onClose}
+            disabled={exporting}
+          >
             Lukk (Esc)
           </button>
         </div>
-      </div>
+      </header>
 
-      {exportState && exportMode && (
-        <div className={styles.exportBar}>
-          {exporting && exportState.progress ? (
-            <p>
-              Lager PDF… slide {exportState.progress.current} av{" "}
-              {exportState.progress.total}
-            </p>
-          ) : (
-            <>
-              <button className={styles.btn} onClick={exportState.onSelectAll}>
+      <div className={styles.body}>
+        {exportState && exportMode && (
+          <div className={styles.exportBar}>
+            {exporting && exportState.progress ? (
+              <p>
+                Lager PDF… slide {exportState.progress.current} av{" "}
+                {exportState.progress.total}
+              </p>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  className={styles.btn}
+                  onClick={exportState.onSelectAll}
+                >
+                  Alle
+                </button>
+                <button
+                  type="button"
+                  className={styles.btn}
+                  onClick={exportState.onSelectNone}
+                >
+                  Ingen
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.btn} ${styles.btnPrimary}`}
+                  disabled={exportState.selected.size === 0}
+                  onClick={exportState.onRun}
+                >
+                  Last ned PDF ({exportState.selected.size})
+                </button>
+                <button
+                  type="button"
+                  className={styles.btn}
+                  onClick={exportState.onCancel}
+                >
+                  Avbryt
+                </button>
+              </>
+            )}
+            {exportState.error && (
+              <p className={styles.exportError}>{exportState.error}</p>
+            )}
+          </div>
+        )}
+
+        {promptActive && prompt && (
+          <div className={styles.promptSection}>
+            <div className={styles.exportBar}>
+              <button
+                type="button"
+                className={styles.btn}
+                onClick={() =>
+                  setPromptSelected(new Set(slides.map((s) => s.id)))
+                }
+              >
                 Alle
               </button>
-              <button className={styles.btn} onClick={exportState.onSelectNone}>
+              <button
+                type="button"
+                className={styles.btn}
+                onClick={() => setPromptSelected(new Set())}
+              >
                 Ingen
               </button>
+              <p>{promptSummary}</p>
               <button
-                className={`${styles.btn} ${styles.btnPrimary}`}
-                disabled={exportState.selected.size === 0}
-                onClick={exportState.onRun}
+                type="button"
+                className={styles.btn}
+                onClick={() => setPromptMode(false)}
+                disabled={prompt.session.running}
               >
-                Last ned PDF ({exportState.selected.size})
-              </button>
-              <button className={styles.btn} onClick={exportState.onCancel}>
                 Avbryt
               </button>
-            </>
-          )}
-          {exportState.error && (
-            <p className={styles.exportError}>{exportState.error}</p>
-          )}
-        </div>
-      )}
-
-      {promptActive && prompt && (
-        <div className={styles.promptSection}>
-          <div className={styles.exportBar}>
-            <button
-              className={styles.btn}
-              onClick={() => setPromptSelected(new Set(slides.map((s) => s.id)))}
-            >
-              Alle
-            </button>
-            <button
-              className={styles.btn}
-              onClick={() => setPromptSelected(new Set())}
-            >
-              Ingen
-            </button>
-            <p>{promptSummary}</p>
-            <button
-              className={styles.btn}
-              onClick={() => setPromptMode(false)}
-              disabled={prompt.session.running}
-            >
-              Avbryt
-            </button>
-          </div>
-          <CursorPromptPanel
-            session={prompt.session}
-            variant="inline"
-            summary={promptSummary}
-            context={{
-              view: prompt.view,
-              overview: true,
-              current: { index: current, step: 0 },
-              slideIds: slides
-                .map((s) => s.id)
-                .filter((id) => promptSelected.has(id)),
-            }}
-          />
-        </div>
-      )}
-
-      {chapters?.length ? (
-        chapters.map((ch) => {
-          const chapterHidden = isChapterFullyHidden(ch, hidden);
-          const chapterIds = ch.slides.map((s) => s.id);
-          const chapterSelected =
-            !!selection &&
-            chapterIds.length > 0 &&
-            chapterIds.every((id) => selection.selected.has(id));
-          return (
-            <section key={ch.id} className={styles.chapter}>
-              <div className={styles.chapterHeader}>
-                <div>
-                  <h3 className={styles.chapterTitle}>{ch.title}</h3>
-                  <span className={styles.chapterMeta}>
-                    {ch.slides.length} slides
-                    {chapterHidden && " · skjult"}
-                  </span>
-                </div>
-                {selection && (
-                  <div className={styles.chapterActions}>
-                    <button
-                      className={styles.btn}
-                      onClick={() => selection.toggleChapter(ch.id)}
-                      disabled={exporting}
-                    >
-                      {chapterSelected ? "Fjern kapittel" : "Velg kapittel"}
-                    </button>
-                  </div>
-                )}
-              </div>
-              <div className={styles.grid}>
-                {ch.slides.map((s) => {
-                  const i = slides.findIndex((x) => x.id === s.id);
-                  if (i < 0) return null;
-                  return (
-                    <OverviewThumb
-                      key={s.id}
-                      slide={slides[i]}
-                      index={i}
-                      isCurrent={i === current}
-                      isHidden={hidden.has(s.id)}
-                      selectMode={selection?.kind ?? null}
-                      selected={selection?.selected.has(s.id) ?? false}
-                      exporting={exporting}
-                      onGo={() => onGo(i)}
-                      onToggleHidden={() => onToggleHidden(s.id)}
-                      onToggleSelected={() => selection?.toggle(s.id)}
-                    />
-                  );
-                })}
-              </div>
-            </section>
-          );
-        })
-      ) : (
-        <div className={styles.grid}>
-          {slides.map((s, i) => (
-            <OverviewThumb
-              key={s.id}
-              slide={s}
-              index={i}
-              isCurrent={i === current}
-              isHidden={hidden.has(s.id)}
-              selectMode={selection?.kind ?? null}
-              selected={selection?.selected.has(s.id) ?? false}
-              exporting={exporting}
-              onGo={() => onGo(i)}
-              onToggleHidden={() => onToggleHidden(s.id)}
-              onToggleSelected={() => selection?.toggle(s.id)}
+            </div>
+            <CursorPromptPanel
+              session={prompt.session}
+              variant="inline"
+              summary={promptSummary}
+              context={{
+                view: prompt.view,
+                overview: true,
+                current: { index: current, step: 0 },
+                slideIds: slides
+                  .map((s) => s.id)
+                  .filter((id) => promptSelected.has(id)),
+              }}
             />
-          ))}
-        </div>
-      )}
+          </div>
+        )}
+
+        {chapters?.length ? (
+          chapters.map((ch) => {
+            const chapterHidden = isChapterFullyHidden(ch, hidden);
+            const chapterIds = ch.slides.map((s) => s.id);
+            const chapterSelected =
+              !!selection &&
+              chapterIds.length > 0 &&
+              chapterIds.every((id) => selection.selected.has(id));
+            return (
+              <section key={ch.id} className={styles.chapter}>
+                <div className={styles.chapterHeader}>
+                  <div className={styles.chapterHeading}>
+                    <h3 className={styles.chapterTitle}>{ch.title}</h3>
+                    <span className={styles.chapterMeta}>
+                      {ch.slides.length}{" "}
+                      {ch.slides.length === 1 ? "slide" : "slides"}
+                    </span>
+                    {chapterHidden && (
+                      <span className={styles.tag}>Skjult</span>
+                    )}
+                  </div>
+                  {selection && (
+                    <div className={styles.chapterActions}>
+                      <button
+                        type="button"
+                        className={styles.btn}
+                        onClick={() => selection.toggleChapter(ch.id)}
+                        disabled={exporting}
+                      >
+                        {chapterSelected ? "Fjern kapittel" : "Velg kapittel"}
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <div className={styles.grid}>
+                  {ch.slides.map((s) => {
+                    const i = slides.findIndex((x) => x.id === s.id);
+                    if (i < 0) return null;
+                    return (
+                      <OverviewThumb
+                        key={s.id}
+                        slide={slides[i]}
+                        index={i}
+                        isCurrent={i === current}
+                        isHidden={hidden.has(s.id)}
+                        selectMode={selection?.kind ?? null}
+                        selected={selection?.selected.has(s.id) ?? false}
+                        exporting={exporting}
+                        onGo={() => onGo(i)}
+                        onToggleHidden={() => onToggleHidden(s.id)}
+                        onToggleSelected={() => selection?.toggle(s.id)}
+                      />
+                    );
+                  })}
+                </div>
+              </section>
+            );
+          })
+        ) : (
+          <div className={styles.grid}>
+            {slides.map((s, i) => (
+              <OverviewThumb
+                key={s.id}
+                slide={s}
+                index={i}
+                isCurrent={i === current}
+                isHidden={hidden.has(s.id)}
+                selectMode={selection?.kind ?? null}
+                selected={selection?.selected.has(s.id) ?? false}
+                exporting={exporting}
+                onGo={() => onGo(i)}
+                onToggleHidden={() => onToggleHidden(s.id)}
+                onToggleSelected={() => selection?.toggle(s.id)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
+  );
+}
+
+function EyeIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden>
+      <path
+        d="M2 10s2.8-5.5 8-5.5S18 10 18 10s-2.8 5.5-8 5.5S2 10 2 10Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <circle cx="10" cy="10" r="2.2" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function EyeOffIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden>
+      <path
+        d="M3 3.5 17 16.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M4.6 6.2C3.2 7.4 2.2 9 2 10c0 0 2.8 5.5 8 5.5 1.4 0 2.6-.4 3.7-1M15.7 13.2C16.9 12 17.8 10.6 18 10c0 0-2.8-5.5-8-5.5-.9 0-1.7.1-2.5.4"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
   );
 }
 
@@ -337,6 +403,7 @@ function OverviewThumb({
       }`}
     >
       <button
+        type="button"
         className={styles.thumbCanvasWrap}
         onClick={() => {
           if (selecting) onToggleSelected();
@@ -365,11 +432,13 @@ function OverviewThumb({
         </span>
         {!selecting && (
           <button
+            type="button"
             className={styles.eyeBtn}
             onClick={onToggleHidden}
             title={isHidden ? "Vis slide" : "Skjul slide"}
+            aria-label={isHidden ? "Vis slide" : "Skjul slide"}
           >
-            {isHidden ? "🚫" : "👁"}
+            {isHidden ? <EyeOffIcon /> : <EyeIcon />}
           </button>
         )}
       </div>
