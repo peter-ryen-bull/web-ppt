@@ -90,11 +90,11 @@ const AVSLUTNING: SlideDef[] = [
 ];
 
 export const oppdalTechDuErIkkeDum = definePresentation({
-  id: "26-02-oppdal-tech-du-er-ikke-dum",
-  title: "Du er ikke dum",
+  id: "26-02-06-oppdal-tech-du-er-ikke-dum",
+  title: "Du er ikke dum – En forskningsbasert metode for å lære fort",
   description:
     "Hvorfor du glemmer det du leser, og tre teknikker som faktisk virker. Retrieval, spacing og interleaving, fra Weinstein et al. Oppdal Tech 2026.",
-  date: "februar 2026",
+  date: "6. februar 2026",
   place: "Oppdal Tech",
   tags: ["conference"],
   notes: notesRaw,

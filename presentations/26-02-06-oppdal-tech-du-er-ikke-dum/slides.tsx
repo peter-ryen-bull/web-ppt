@@ -1,4 +1,4 @@
-const MEDIA = "/media/26-02-oppdal-tech-du-er-ikke-dum";
+const MEDIA = "/media/26-02-06-oppdal-tech-du-er-ikke-dum";
 
 export function SlideBilde({ n, alt }: { n: number; alt: string }) {
   const src = `${MEDIA}/slide-${String(n).padStart(2, "0")}.png`;

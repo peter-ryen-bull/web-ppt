@@ -1,4 +1,4 @@
-# Speaker notes: Du er ikke dum (Oppdal Tech, februar 2026)
+# Speaker notes: Du er ikke dum – En forskningsbasert metode for å lære fort (Oppdal Tech, 6. februar 2026)
 
 Alt før første `## slide-id` ignoreres.
 
