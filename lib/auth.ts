@@ -1,7 +1,7 @@
 export const AUTH_COOKIE = "ppt-session";
 export const AUTH_USER = "peterbull";
-export const AUTH_PASSWORD = "bull-ppt";
-export const AUTH_TOKEN = "ppt-session-v1-peterbull";
+export const AUTH_PASSWORD = "raxsa3-burgeh-jiKkyv";
+export const AUTH_TOKEN = "ppt-session-v2-peterbull";
 
 const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "::1", "0.0.0.0"]);
 
