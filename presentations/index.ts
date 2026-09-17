@@ -4,6 +4,7 @@ import { tdcDuErIkkeDum } from "./24-10-22-tdc-du-er-ikke-dum";
 import { tdcStrings } from "./25-10-20-tdc-strings";
 import { oppdalTechDuErIkkeDum } from "./26-02-06-oppdal-tech-du-er-ikke-dum";
 import { boosterDuErIkkeDum } from "./26-03-11-booster-du-er-ikke-dum";
+import { offentligPaas } from "./26-05-26-offentlig-paas";
 import { stoeDataplattform } from "./26-08-26-stoe-miles-kundeevent-dataplattform-pitch";
 import { cloudConnectionKundemote } from "./26-09-11-cloud-connection-kundemote";
 import { ndcKystverketStory } from "./26-09-17-ndc-kystverket-dataplatform";
@@ -24,6 +25,7 @@ export const PRESENTATIONS: PresentationDef[] = [
   tdcStrings,
   oppdalTechDuErIkkeDum,
   boosterDuErIkkeDum,
+  offentligPaas,
   stoeDataplattform,
   cloudConnectionKundemote,
   ndcKystverketStory,
