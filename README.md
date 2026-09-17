@@ -24,33 +24,11 @@ npm run dev
 | Forrige/neste kapittel | `[` / `]` | «Neste kapittel» (presentatør, topp) |
 | Slideoversikt (med skjul-brytere) | `G` | «Oversikt» (øving og presentatør) |
 | Eksporter PDF (kun i oversikten) | – | «Eksporter PDF» |
-| Prompt Cursor om sliden (kun dev) | `⌘I` | «✎ Cursor» |
 | Fullskjerm | `F` | `⛶` |
 | Tilbake til alle presentasjoner | – | «⌂ Presentasjoner» |
 
 Skjulte slides hoppes over i visningen og huskes i `localStorage` per
 presentasjon.
-
-### Prompt Cursor fra sliden (dev)
-
-I øvings- og presentatørvisningen kan du sende en prompt direkte til
-[Cursor CLI](https://cursor.com/cli) uten å forlate sliden. Trykk `⌘I` (eller
-«✎ Cursor»). Prompten får med presentasjon, slide, kapittel og kildefil, og
-CLI-en kjører i bakgrunnen med `--force` slik at endringene lastes inn live.
-
-Fra slideoversikten (`G`) kan du velge én eller flere slides som kontekst, eller
-prompte om hele presentasjonen.
-
-Krever Cursor CLI og innlogging (kun første gang):
-
-```bash
-curl https://cursor.com/install -fsS | bash
-# Legg ~/.local/bin i PATH (installereren viser hvordan)
-agent login
-```
-
-Uten CLI, eller før du er innlogget, åpnes prompten i Cursor-appen i stedet.
-Overstyr binærsti med `CURSOR_AGENT_BIN` hvis `agent` ligger et uvanlig sted.
 
 ### Eksporter PDF
 

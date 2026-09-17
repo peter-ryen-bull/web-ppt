@@ -51,7 +51,6 @@ app/
   [presentation]/presenter/    Presentatør
   [presentation]/vis/          Publikum
   api/notes/                   Skriver notes.md i dev
-  api/cursor-prompt/           Bygger prompt fra åpen slide (⌘I)
   globals.css                  Miles-farger og skriftvariabler
 components/
   Deck.tsx                     Navigasjon, skjulte slides, steg
@@ -283,16 +282,6 @@ Det som står her vises i /presenter. Linjeskift bevares.
   *u*-prefiksede id-en i kilde-`notes.md`).
 - Tekst etter id-en på overskriftslinjen er bare lesehjelp.
 - I dev logges advarsel om notat-id-er som ikke matcher noen slide.
-
-## Cursor-prompt fra sliden (⌘I)
-
-I øving/presenter kan brukeren sende en prompt til agenten med
-presentasjon, slide-id, kapittel og kildefil. Da:
-
-- Rediger den pekte komponenten for synlig innhold, `notes.md` for
-  notater.
-- Start ikke en ny dev-server – den kjører allerede.
-- Respekter arkivregelen selv om prompten peker på en holdt deck.
 
 ## Git: commit etter hver ferdig oppgave
 

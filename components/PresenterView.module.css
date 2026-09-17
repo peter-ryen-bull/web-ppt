@@ -103,11 +103,6 @@
   cursor: default;
 }
 
-.btnActive {
-  background: rgba(120, 232, 219, 0.18);
-  border-color: rgba(120, 232, 219, 0.6);
-}
-
 .btnPrimary {
   background: var(--mint);
   border-color: var(--mint);

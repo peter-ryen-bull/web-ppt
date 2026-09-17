@@ -6,11 +6,6 @@ import { getPresentation } from "@/presentations";
 import { SlideCanvas, useContainerScale } from "./SlideCanvas";
 import SlideOverview from "./SlideOverview";
 import { useSyncedDeck } from "./useSyncedDeck";
-import {
-  CURSOR_PROMPT_ENABLED,
-  CursorPromptPanel,
-  useCursorPrompt,
-} from "./CursorPrompt";
 import styles from "./PresenterView.module.css";
 
 function formatElapsed(ms: number) {
@@ -48,8 +43,6 @@ export default function PresenterView({
     isCurrentChapterHidden,
   } = useSyncedDeck(presentation);
   const [overview, setOverview] = useState(false);
-  const [promptOpen, setPromptOpen] = useState(false);
-  const cursorPrompt = useCursorPrompt(presentation);
 
   const currentStageRef = useRef<HTMLDivElement>(null);
   const nextStageRef = useRef<HTMLDivElement>(null);
@@ -239,16 +232,6 @@ export default function PresenterView({
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (
-        CURSOR_PROMPT_ENABLED &&
-        (e.metaKey || e.ctrlKey) &&
-        (e.key === "i" || e.key === "I")
-      ) {
-        if (overview) return;
-        e.preventDefault();
-        setPromptOpen((o) => !o);
-        return;
-      }
       const target = e.target as HTMLElement | null;
       if (
         target &&
@@ -268,7 +251,6 @@ export default function PresenterView({
         go(-1);
       } else if (e.key === "Escape") {
         if (overview) setOverview(false);
-        else setPromptOpen(false);
       } else if (e.key === "g" || e.key === "G") {
         setOverview((o) => !o);
       } else if (e.key === "h" || e.key === "H") {
@@ -380,15 +362,6 @@ export default function PresenterView({
           >
             Oversikt
           </button>
-          {CURSOR_PROMPT_ENABLED && (
-            <button
-              className={`${styles.btn} ${promptOpen ? styles.btnActive : ""}`}
-              onClick={() => setPromptOpen((o) => !o)}
-              title="Prompt Cursor om denne sliden (⌘I)"
-            >
-              ✎ Cursor
-            </button>
-          )}
           <button
             className={`${styles.btn} ${styles.btnPrimary}`}
             onClick={openAudience}
@@ -567,23 +540,6 @@ export default function PresenterView({
         </div>
       </footer>
 
-      {CURSOR_PROMPT_ENABLED && promptOpen && !overview && (
-        <CursorPromptPanel
-          session={cursorPrompt}
-          variant="dock"
-          summary={`Slide ${current + 1} · ${currentSlide.name}${
-            currentChapter ? ` · ${currentChapter.title}` : ""
-          }`}
-          context={{
-            view: "presenter",
-            overview: false,
-            current: { index: current, step },
-            slideIds: [],
-          }}
-          onClose={() => setPromptOpen(false)}
-        />
-      )}
-
       {overview && (
         <SlideOverview
           presentation={presentation}
@@ -595,11 +551,6 @@ export default function PresenterView({
           }}
           onToggleHidden={toggleHidden}
           onClose={() => setOverview(false)}
-          prompt={
-            CURSOR_PROMPT_ENABLED
-              ? { session: cursorPrompt, view: "presenter" }
-              : undefined
-          }
         />
       )}
     </div>

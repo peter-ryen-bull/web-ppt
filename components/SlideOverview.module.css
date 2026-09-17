@@ -181,12 +181,6 @@
   font-size: 13px;
 }
 
-.promptSection {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
 .chapter {
   display: flex;
   flex-direction: column;
