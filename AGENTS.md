@@ -41,6 +41,8 @@ på noe annet – det holder kontekstvinduet lite.
 
 **Aktive**
 
+- `presentations/26-09-11-cloud-connection-kundemote/` – Cloud Connection
+  kundemøte, 11. sep 2026. Norsk pitch om moderne dataplattform.
 - `presentations/26-10-19-tdc-kystverket-dataplattform/` – TDC, 19. okt 2026.
   Norsk versjon av NDC-foredraget. Har egne kopier av figurene i `figurer/`
   (oversatt) – bruk dem, ikke `components/figures/`.
