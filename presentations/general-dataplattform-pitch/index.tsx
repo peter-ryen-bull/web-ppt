@@ -6,7 +6,6 @@ import { SlideForside, SlideKonsekvenser, SlideMalbilde, SlidePains } from "./in
 import { SlideArkitektur, SlideDataflyt, SlideEvner } from "./plattform";
 import {
   SlideDatakontrakter,
-  SlideDataprodukter,
   SlideDomener,
   SlideHelhet,
   SlideKontraktBrudd,
@@ -55,12 +54,6 @@ const PLATTFORM: SlideDef[] = [
 ];
 
 const PRODUKT: SlideDef[] = [
-  {
-    id: "dataprodukter",
-    name: "Mer enn en tabell",
-    component: SlideDataprodukter,
-    steps: 2,
-  },
   {
     id: "datakontrakter",
     name: "Datakontrakt: et API for data",

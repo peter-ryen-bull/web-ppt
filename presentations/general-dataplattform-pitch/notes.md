@@ -47,15 +47,6 @@ og delbare data ut.
 Lagring, prosessering, publisering, styring. Hold deg på gevinsten,
 ikke på produktnavn.
 
-## dataprodukter – Mer enn en tabell
-
-Venstre: en fil dumpet i en bucket. Første klikk: spørsmålene
-ingen kan svare på. Andre klikk: samme data pakket som produkt.
-
-Setningen nederst: en tabell er en ingrediens. Dataproduktet er retten.
-
-AIS er et eksempel. Bytt til deres egne data hvis rommet tåler det.
-
 ## datakontrakter – Et API for data
 
 Kontrakten står mellom den som lager og den som bruker.
