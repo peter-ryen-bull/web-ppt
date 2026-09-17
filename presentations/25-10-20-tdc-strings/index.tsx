@@ -1,6 +1,7 @@
 import type { SlideDef } from "../types";
 import notesRaw from "./notes.md";
 import { definePresentation } from "../chapters";
+import { BildeIkon } from "@/components/icons/BildeIkon";
 import * as S from "./slides";
 
 const INTRO: SlideDef[] = [
@@ -149,6 +150,7 @@ export const tdcStrings = definePresentation({
   date: "20. oktober 2025",
   place: "TDC",
   tags: ["conference"],
+  icon: <BildeIkon src="/media/tdc-logo.svg" alt="TDC" />,
   notes: notesRaw,
   chapters: [
     { id: "intro", title: "Trust issues", slides: INTRO },
