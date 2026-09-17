@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    Forsiden – liste over presentasjoner.
-   Paletten bygger på temaet i globals.css (teal, burgunder, krem) i en lys
-   og mørk variant. Alt av farger går via variablene på .page.
+   Paletten bygger på temaet i globals.css (teal, burgunder, krem). Alt av
+   farger går via variablene på .page. Alltid lys – ingen dark mode.
    --------------------------------------------------------------------------- */
 
 .page {
@@ -37,6 +37,7 @@
   --tone-neutral-fg: #5a554e;
   --tone-neutral-dot: #8d867c;
 
+  color-scheme: light;
   min-height: 100dvh;
   background-color: var(--bg);
   background-image:
@@ -45,41 +46,6 @@
   background-repeat: no-repeat;
   color: var(--ink);
   font-family: var(--font-sans);
-}
-
-@media (prefers-color-scheme: dark) {
-  .page {
-    --bg: #14110f;
-    --bg-glow-1: rgba(120, 232, 219, 0.1);
-    --bg-glow-2: rgba(255, 48, 59, 0.08);
-    --surface: #1c1916;
-    --surface-hover: #24201c;
-    --surface-muted: #221e1a;
-    --ink: #f2ede5;
-    --ink-2: #b6ada1;
-    --ink-3: #7f776c;
-    --line: rgba(242, 237, 229, 0.08);
-    --line-strong: rgba(242, 237, 229, 0.14);
-    --accent: #78e8db;
-    --accent-ink: #a5f0e7;
-    --accent-soft: rgba(120, 232, 219, 0.12);
-    --ring: rgba(120, 232, 219, 0.35);
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.3), 0 16px 40px -16px rgba(0, 0, 0, 0.6);
-
-    --tone-conference-bg: rgba(120, 232, 219, 0.12);
-    --tone-conference-fg: #8eeee3;
-    --tone-conference-dot: #78e8db;
-    --tone-pitch-bg: rgba(255, 48, 59, 0.14);
-    --tone-pitch-fg: #ff8a90;
-    --tone-pitch-dot: #ff5a63;
-    --tone-private-bg: rgba(226, 195, 201, 0.12);
-    --tone-private-fg: #d9b9c1;
-    --tone-private-dot: #c39aa5;
-    --tone-neutral-bg: rgba(242, 237, 229, 0.08);
-    --tone-neutral-fg: #b6ada1;
-    --tone-neutral-dot: #7f776c;
-  }
 }
 
 .main {
