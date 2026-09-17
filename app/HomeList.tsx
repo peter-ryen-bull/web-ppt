@@ -20,7 +20,7 @@ function haystack(item: HomeListItem): string {
 }
 
 function whenWhere(item: HomeListItem): string {
-  return [item.date, item.place].filter(Boolean).join(" · ");
+  return [item.place, item.date].filter(Boolean).join(" · ");
 }
 
 export default function HomeList({ items }: { items: HomeListItem[] }) {
