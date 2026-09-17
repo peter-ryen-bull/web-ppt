@@ -128,7 +128,8 @@ public/media/
 
    `icon` (valgfritt) er ikonet i lista på forsiden, f.eks. en liten
    SVG-figur fra slidene (`icon: <FyrIkon />`) eller et utsnitt av et
-   slidebilde via `<BildeIkon src="/media/<id>/ikon.png" />`. Ikonene ligger
+   slidebilde via `<BildeIkon src="/media/<id>/ikon.png" />`. Pitch bruker
+   kundens logo (`<BildeIkon src="…/stoe-logo.svg" />`). Ikonene ligger
    i `components/icons/`. Uten `icon` brukes standardikonet.
 
    Presentasjoner uten kapitler kan fortsatt bruke en flat `slides`-liste.

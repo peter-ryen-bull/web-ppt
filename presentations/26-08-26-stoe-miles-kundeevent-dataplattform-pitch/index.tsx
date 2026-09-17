@@ -1,6 +1,7 @@
 import type { SlideDef } from "../types";
 import notesRaw from "./notes.md";
 import { definePresentation } from "../chapters";
+import { BildeIkon } from "@/components/icons/BildeIkon";
 import {
   Slide01Forside,
   Slide02Hvorfor,
@@ -86,6 +87,12 @@ export const stoeDataplattform = definePresentation({
   date: "27. august 2026",
   place: "Miles kundeevent, Stø",
   tags: ["pitch"],
+  icon: (
+    <BildeIkon
+      src="/media/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/stoe-logo.svg"
+      alt="Stø"
+    />
+  ),
   notes: notesRaw,
   chapters: [
     { id: "intro", title: "Hvorfor dataplattform", slides: INTRO },

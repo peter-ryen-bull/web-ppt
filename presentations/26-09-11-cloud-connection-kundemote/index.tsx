@@ -1,6 +1,7 @@
 import type { SlideDef } from "../types";
 import notesRaw from "./notes.md";
 import { definePresentation } from "../chapters";
+import { BildeIkon } from "@/components/icons/BildeIkon";
 import {
   SlideBehovet,
   SlideForside,
@@ -129,6 +130,12 @@ export const cloudConnectionKundemote = definePresentation({
   date: "11. september 2026",
   place: "Cloud Connection",
   tags: ["pitch"],
+  icon: (
+    <BildeIkon
+      src="/media/26-09-11-cloud-connection-kundemote/cloud-connection-mark.svg"
+      alt="Cloud Connection"
+    />
+  ),
   inProgress: true,
   notes: notesRaw,
   chapters: [

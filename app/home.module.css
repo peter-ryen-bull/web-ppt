@@ -428,7 +428,7 @@
 /* Egendefinerte ikoner (figurer fra slidene) har egne farger: hold flisen
    lys på hover og gi kunsten litt luft. */
 .rowIconCustom {
-  padding: 4px;
+  padding: 6px;
   overflow: hidden;
 }
 

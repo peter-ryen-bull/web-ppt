@@ -1,13 +1,11 @@
-import Image from "next/image";
-
 /**
- * Ikon på forsiden basert på et bildeutsnitt, f.eks. en figur klippet ut av
- * et eksportert slidebilde. Bildet bør være kvadratisk med gjennomsiktig
- * bakgrunn (PNG), rundt 320 px.
+ * Ikon på forsiden – utsnitt av et slidebilde, eller et firmalogo
+ * (SVG/PNG) for pitch. Bildet bør ha gjennomsiktig bakgrunn.
  */
 export function BildeIkon({ src, alt = "" }: { src: string; alt?: string }) {
   return (
-    <Image
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
       src={src}
       alt={alt}
       width={84}
