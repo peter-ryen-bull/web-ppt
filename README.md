@@ -102,7 +102,8 @@ public/media/
      id: "min-presentasjon", // brukes i URL-en
      title: "Tittel på presentasjonen",
      description: "Kort beskrivelse som vises på forsiden.",
-     date: "September 2026",
+     date: "19. oktober 2026",
+     place: "TDC",
      chapters: [
        { id: "intro", title: "Intro", slides: INTRO },
      ],

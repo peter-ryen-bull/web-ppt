@@ -27,8 +27,10 @@ export interface PresentationDef {
   id: string;
   title: string;
   description: string;
-  /** Vises på forsiden, f.eks. "August 2026" */
+  /** Vises øverst på forsiden, f.eks. "19. oktober 2026" */
   date?: string;
+  /** Sted eller arrangement, f.eks. "TDC" */
+  place?: string;
   /** Intern oppdeling. Publikum ser den ikke. */
   chapters?: ChapterDef[];
   /** Flat liste brukt til avspilling. Avledet fra chapters når de finnes. */

@@ -15,10 +15,19 @@ export default function Home() {
           <li key={p.id}>
             <Link href={`/${p.id}`} className={styles.card}>
               <div className={styles.cardBody}>
+                {(p.date || p.place) && (
+                  <p className={styles.cardWhenWhere}>
+                    <span className={styles.cardWhenWhereLabel}>
+                      Når og hvor
+                    </span>
+                    <span className={styles.cardWhenWhereValue}>
+                      {[p.date, p.place].filter(Boolean).join(" · ")}
+                    </span>
+                  </p>
+                )}
                 <h2 className={styles.cardTitle}>{p.title}</h2>
                 <p className={styles.cardDescription}>{p.description}</p>
                 <p className={styles.cardMeta}>
-                  {p.date && <span>{p.date}</span>}
                   <span>{p.slides.length} slides</span>
                 </p>
               </div>
