@@ -1,6 +1,7 @@
 import type { SlideDef } from "../types";
 import notesRaw from "./notes.md";
 import { definePresentation, embedAsChapter } from "../chapters";
+import { FyrIkon } from "@/components/icons/FyrIkon";
 import {
   SlideScene,
   SlideSignal,
@@ -582,6 +583,7 @@ export const ndcKystverketStory = definePresentation({
   date: "17. september 2026",
   place: "NDC",
   tags: ["conference"],
+  icon: <FyrIkon />,
   notes: notesRaw,
   chapters: [
     { id: "apning", title: "The opening", slides: APNING },

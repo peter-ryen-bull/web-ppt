@@ -10,6 +10,7 @@ export default function Home() {
     date: p.date,
     place: p.place,
     tags: p.tags,
+    icon: p.icon,
   }));
 
   return (

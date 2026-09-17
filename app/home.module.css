@@ -394,6 +394,28 @@
   color: var(--surface);
 }
 
+/* Egendefinerte ikoner (figurer fra slidene) har egne farger: hold flisen
+   lys på hover og gi kunsten litt luft. */
+.rowIconCustom {
+  padding: 4px;
+  overflow: hidden;
+}
+
+.rowIconCustom > svg,
+.rowIconCustom > img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.row:hover .rowIconCustom,
+.row:focus-visible .rowIconCustom {
+  background: var(--tone-bg);
+  color: inherit;
+  transform: translateY(-1px) scale(1.08);
+}
+
 .rowBody {
   grid-area: body;
   min-width: 0;

@@ -1,4 +1,4 @@
-import type { ComponentType } from "react";
+import type { ComponentType, ReactNode } from "react";
 
 export interface SlideDef {
   id: string;
@@ -36,6 +36,12 @@ export interface PresentationDef {
   place?: string;
   /** conference = offentlig foredrag, pitch = kundemøte/salg, private = internt */
   tags?: PresentationTag[];
+  /**
+   * Ikon i lista på forsiden – typisk en liten SVG-figur fra slidene eller et
+   * utsnitt fra et slidebilde (se `components/icons/`). Vises i en ~42 px
+   * rute; uten ikon brukes standardikonet.
+   */
+  icon?: ReactNode;
   /** Intern oppdeling. Publikum ser den ikke. */
   chapters?: ChapterDef[];
   /** Flat liste brukt til avspilling. Avledet fra chapters når de finnes. */

@@ -119,6 +119,11 @@ public/media/
    eller `private` (internt). De vises som merkelapper på forsiden og kan
    søkes på.
 
+   `icon` (valgfritt) er ikonet i lista på forsiden, f.eks. en liten
+   SVG-figur fra slidene (`icon: <FyrIkon />`) eller et utsnitt av et
+   slidebilde via `<BildeIkon src="/media/<id>/ikon.png" />`. Ikonene ligger
+   i `components/icons/`. Uten `icon` brukes standardikonet.
+
    Presentasjoner uten kapitler kan fortsatt bruke en flat `slides`-liste.
 
 2. Registrer den i `presentations/index.ts`:

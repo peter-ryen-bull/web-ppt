@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import {
   PRESENTATION_TAGS,
@@ -15,6 +15,8 @@ export type HomeListItem = {
   date?: string;
   place?: string;
   tags?: PresentationTag[];
+  /** Ferdig rendret ikon fra PresentationDef; ellers standardikonet */
+  icon?: ReactNode;
 };
 
 const TAG_LABELS: Record<PresentationTag, string> = {
@@ -297,8 +299,12 @@ export default function HomeList({ items }: { items: HomeListItem[] }) {
             return (
               <li key={item.id} className={styles.listItem}>
                 <Link href={`/${item.id}`} className={styles.row}>
-                  <span className={`${styles.rowIcon} ${toneClass(tags[0])}`}>
-                    <PageIcon />
+                  <span
+                    className={`${styles.rowIcon} ${toneClass(tags[0])} ${
+                      item.icon ? styles.rowIconCustom : ""
+                    }`}
+                  >
+                    {item.icon ?? <PageIcon />}
                   </span>
                   <div className={styles.rowBody}>
                     {(item.place || item.date) && (
