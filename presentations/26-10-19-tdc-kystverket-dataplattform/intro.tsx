@@ -165,6 +165,8 @@ export function SlideNais() {
               fontFamily: "var(--font-sans)",
               fontSize: pt(14),
               color: "var(--red)",
+              background: "var(--cream)",
+              padding: "6px 16px",
             }}
           >
             nais.kystverket.no. Åpent for alle.
