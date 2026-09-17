@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { getPresentation, isInProgress } from "@/presentations";
+import { getPresentation } from "@/presentations";
+import { presentationHasCopy } from "@/presentations/copy";
 import { SlideCanvas, useContainerScale } from "./SlideCanvas";
 import SlideOverview from "./SlideOverview";
 import { useSyncedDeck } from "./useSyncedDeck";
@@ -86,7 +87,8 @@ export default function PresenterView({
   const currentSlide = slides[current];
   const canEditNotes = process.env.NODE_ENV === "development";
   const canEditCopy =
-    process.env.NODE_ENV === "development" && isInProgress(presentation);
+    process.env.NODE_ENV === "development" &&
+    presentationHasCopy(presentation);
 
   // Fontstørrelse på notater – justerbar med +/- og lagret i localStorage
   const [notesFontSize, setNotesFontSize] = useState(20);

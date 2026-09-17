@@ -1,3 +1,4 @@
+import { Copy } from "@/components/Copy";
 import { Box, ChapterSlide, Img, MilesLogo, pt } from "../parts";
 
 /* Slide 16 – Samle data / analyser den */
@@ -14,10 +15,8 @@ export function Slide16Samle() {
             textAlign: "center",
           }}
         >
-          <div style={{ color: "var(--burgundy)" }}>
-            Samle data fra kildesystemer
-          </div>
-          <div style={{ color: "var(--red)" }}>Analyser den, og dele videre</div>
+          <Copy k="line1" as="div" style={{ color: "var(--burgundy)" }} />
+          <Copy k="line2" as="div" style={{ color: "var(--red)" }} />
         </div>
       </Box>
     </>
@@ -26,17 +25,12 @@ export function Slide16Samle() {
 
 /* Slide 17 – Kapittel: Data som produkt */
 export function Slide17DataSomProdukt() {
-  return <ChapterSlide title="Data som produkt" />;
+  return <ChapterSlide />;
 }
 
 /* Slide 18 – Dataprodukt + undertittel */
 export function Slide18Dataprodukt() {
-  return (
-    <ChapterSlide
-      title="Dataprodukt"
-      subtitle="Kvalitetssikret, forvaltet, dokumentert"
-    />
-  );
+  return <ChapterSlide subtitle={<Copy k="subtitle" />} />;
 }
 
 /* Slide 19 – Datakontrakt-diagram */
@@ -45,15 +39,15 @@ export function Slide19Datakontrakt() {
     <>
       <MilesLogo />
       <Box box={[48, 42, 700, 60]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(30),
             color: "var(--burgundy)",
           }}
-        >
-          Datakontrakt
-        </div>
+        />
       </Box>
       <Img
         box={[232, 192.7, 816, 334.5]}

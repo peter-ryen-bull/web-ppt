@@ -1,5 +1,5 @@
 scene:
-  line1: "Klokka er 03:14."
+  line1: "Klokka er 03:14"
   line2: "Stadhavet. Februar. Nordvest kuling."
   line3: "Et lasteskip går nordover i ni knop."
 
@@ -41,7 +41,7 @@ kystverket:
 
 visjon:
   title: "Verdens sikreste og reneste kyst"
-  subtitle: "Det er hele hvorfor-et. Alt annet er hvordan."
+  subtitle: "Det er hvorfor. Alt annet er hvordan."
 
 oppdrag:
   title: "Om oss"

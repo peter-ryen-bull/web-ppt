@@ -1,4 +1,5 @@
 import type { SlideDef } from "../types";
+import copyRaw from "./copy.yaml";
 import notesRaw from "./notes.md";
 import { definePresentation } from "../chapters";
 import { BildeIkon } from "@/components/icons/BildeIkon";
@@ -94,6 +95,7 @@ export const stoeDataplattform = definePresentation({
     />
   ),
   notes: notesRaw,
+  copy: copyRaw,
   chapters: [
     { id: "intro", title: "Hvorfor dataplattform", slides: INTRO },
     { id: "arkitektur", title: "Arkitektur", slides: ARKITEKTUR },

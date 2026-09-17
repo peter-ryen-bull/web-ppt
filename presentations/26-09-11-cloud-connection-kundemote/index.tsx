@@ -1,4 +1,5 @@
 import type { SlideDef } from "../types";
+import copyRaw from "./copy.yaml";
 import notesRaw from "./notes.md";
 import { definePresentation } from "../chapters";
 import { BildeIkon } from "@/components/icons/BildeIkon";
@@ -137,6 +138,7 @@ export const cloudConnectionKundemote = definePresentation({
     />
   ),
   notes: notesRaw,
+  copy: copyRaw,
   chapters: [
     { id: "intro", title: "Bakgrunn og målbilde", slides: INTRO },
     { id: "plattform", title: "Plattformen", slides: PLATTFORM },

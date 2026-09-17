@@ -12,6 +12,7 @@ import { tdcKystverketDataplattform } from "./26-10-19-tdc-kystverket-dataplattf
 
 export { definePresentation, embedAsChapter } from "./chapters";
 export { eventDateFromId, isInProgress } from "./status";
+export { presentationHasCopy } from "./copy";
 
 /**
  * Registeret over alle presentasjoner i appen.

@@ -20,6 +20,7 @@ export function definePresentation(
   const withText = copy ? withCopy(slides, copy) : slides;
   return {
     ...rest,
+    hasCopy: Boolean(copy?.trim()),
     slides: notes ? withNotes(withText, notes) : withText,
   };
 }

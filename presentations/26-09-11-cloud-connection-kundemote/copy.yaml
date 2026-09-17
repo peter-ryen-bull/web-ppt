@@ -1,0 +1,429 @@
+forside:
+  title: "Struktur og oversikt med en moderne dataplattform"
+  place: "Cloud Connection"
+  date: "11. september 2026"
+
+mye-data:
+  kicker: "BAKGRUNN · 1 AV 3"
+  title: "Mye data – for lite innsikt"
+  section: "DAGENS SITUASJON"
+  items:
+    - "Data spredt på flere systemer med begrenset integrasjon"
+    - "Manglende felles KPI-rammeverk og ulik beregning av nøkkeltall"
+    - "Mangler felles sannhetskilde for kunde-, produkt- og inntektsdata"
+    - "Kundeøkonomi og utvikling er vanskelig å følge på tvers"
+    - "Begrenset intern kapasitet til å bygge og forvalte"
+
+mer-tid:
+  kicker: "BAKGRUNN · 2 AV 3"
+  title: "Mer tid på dataarbeid enn på analyse"
+  section: "KONSEKVENSER"
+  items:
+    - "Analyser krever manuelle uttrekk og datavask"
+    - "Nye problemstillinger krever nye modeller"
+    - "Innsikt er ikke løpende tilgjengelig"
+    - "Lav selvbetjening gir personavhengighet og lang ledetid"
+    - "Mer tid på dataarbeid enn på analyse og handling"
+
+behovet:
+  kicker: "BAKGRUNN · 3 AV 3"
+  title: "Behovet: ett felles datagrunnlag"
+  section: "STRATEGISK BEHOV"
+  items:
+    - "Felles datagrunnlag med finansielle og operasjonelle data"
+    - "Felles KPI-definisjoner og konsistent historikk"
+    - "Automatiserte analyser for operasjonell styring"
+    - "Lavere risiko i due diligence og salgsprosess"
+    - "Datadrevet equity story – uten verdsettelsesrabatt"
+  footer: "→ Redusere «black box» og gjøre verdidriverne målbare, sporbare og beslutningsrelevante"
+
+malbilde:
+  kicker: "MÅLBILDE"
+  title: "Fra ad-hoc uttrekk til kvalitetssikrede dataprodukter"
+  idag_tittel: "I DAG"
+  idag:
+    - "Manuelle uttrekk og datavask"
+    - "Regneark og rapporter som blir utdaterte"
+    - "Spredt datagrunnlag – vanskelig å se data på tvers"
+    - "Lav sporbarhet fra tall til kilde"
+    - "Tilgang gis ad hoc, per person"
+    - "Kostnader og forbruk kan bli uoversiktlig"
+  malbilde_tittel: "MÅLBILDE"
+  malbilde:
+    - "Dokumenterte datasett (dataprodukter) som er data du kan stole på"
+    - "Felles KPI-lag med versjonert historikk"
+    - "PowerBI-rapporter bygges på felles datagrunnlag"
+    - "Chatte med egne data ved hjelp av LLM"
+    - "Sporbarhet og auditlogger i alle transaksjoner"
+    - "Tilgang styrt av policy og roller"
+    - "Forbruk og kostnad synlig og fordelt per domene"
+  prinsipper_label: "BÆRENDE PRINSIPPER"
+  prinsipper:
+    - tittel: "Domeneeierskap"
+      tekst: "Domenene eier og forvalter sine egne data"
+    - tittel: "Data som produkt"
+      tekst: "Kvalitetssikret, dokumentert og gjenbrukbart"
+    - tittel: "Selvbetjening"
+      tekst: "Plattformen er selvbetjent, og man jobber aktivt mot flaskehalser"
+    - tittel: "Innebygd styring"
+      tekst: "Sikkerhet, logging og etterlevelse er integrert i flyten"
+
+oversikt:
+  kicker: "OVERSIKT"
+  title: "Dataplattformen"
+  kilder_label: "KILDER OG INNHENTING"
+  bruk_label: "VERDI OG BRUK"
+  kilder:
+    - tittel: "Driftssystemer"
+      tekst: "ERP · CRM · fagsystem"
+    - tittel: "API"
+      tekst: "tjenester · integrasjoner"
+    - tittel: "Filer"
+      tekst: "dokumenter · eksporter"
+    - tittel: "Sensor og IoT"
+      tekst: "målinger · telemetri"
+  platform_title: "Dataplattform"
+  platform_lead: "Ett felles sannhetslag for hele virksomheten."
+  capabilities:
+    - "LAGRING"
+    - "PROSESSERING"
+    - "PUBLISERING"
+    - "STYRING"
+  bruk:
+    - tittel: "Automatisering"
+      tekst: "agenter · integrasjoner"
+    - tittel: "Applikasjoner"
+      tekst: "app · innbyggerflate"
+    - tittel: "Innsikt og analyse"
+      tekst: "dashboard · KI-chat"
+    - tittel: "Maskinlæring"
+      tekst: "prediksjon · modeller"
+  layers:
+    - "OVERVÅKING OG FORVALTNING"
+    - "INFRASTRUKTUR OG SIKKERHET"
+    - "SAMHANDLING OG METODIKK"
+
+lagring:
+  kicker: "PLATTFORM"
+  title: "Lagring – arkiv, struktur og lagring med governance"
+  lead: "Ett felles, styrt datalag."
+  side:
+    - "Billig lagring"
+    - "Åpne formater"
+    - "Sikret backup"
+  rows:
+    - label: "Stegvis lagring"
+      pills:
+        - "Bronse – arkiv"
+        - "Sølv – prosessert"
+        - "Gull – dataprodukt"
+    - label: "GOVERNANCE"
+      pills:
+        - "Katalog og eierskap"
+        - "Tilgang og roller"
+        - "Lineage og audit"
+    - label: "BACKUP"
+      pills:
+        - "Versjonering"
+        - "Replika og snapshot"
+        - "Gjenoppretting"
+
+prosessering:
+  kicker: "PLATTFORM"
+  title: "Prosessering – fra rådata til dataprodukt"
+  lead: "Automatiserte og testede pipelines som kjører likt hver gang."
+  rows:
+    - label: "INNHENTING"
+      pills:
+        - "Batch og strøm"
+        - "ELT-mønster"
+        - "Landingssone"
+      caption: "Kilder hentes uten å endre rådata."
+    - label: "MODELLERING"
+      pills:
+        - "Bronse til sølv"
+        - "Forretningslogikk"
+        - "Inkrementelt"
+      caption: "Modellert i kode og versjonert i Git."
+    - label: "KVALITET"
+      pills:
+        - "Datatester"
+        - "Overvåking"
+        - "Varsling"
+      caption: "Avvik oppdages før de når konsumentene."
+  side:
+    - "Versjonskontrollert"
+    - "Batch og streaming"
+    - "Automatisert"
+    - "KI i dataflyten"
+
+publisering:
+  kicker: "PLATTFORM"
+  title: "Publisering – til forretning og bruk"
+  lead: "Data gjort tilgjengelig der brukerne faktisk jobber."
+  why_label: "HVORFOR"
+  why:
+    - "Én sannhet"
+    - "Selvbetjening"
+    - "Mindre ad hoc"
+    - "Målbar verdi"
+    - "Kostnadskontroll"
+    - "Klar for KI"
+  kanaler_label: "KANALER"
+  kanaler:
+    - "BI og rapporter"
+    - "Selvbetjening"
+    - "Chat med data"
+    - "Koble KI på samme data"
+    - "Apper og systemer"
+    - "API"
+  kanaler_caption: "Samme tall uansett hvor de konsumeres."
+  statistikk_label: "STATISTIKK"
+  statistikk:
+    - "Bruksstatistikk"
+    - "Kostnad per produkt"
+    - "Tilbakemeldinger"
+  statistikk_caption: "Vi ser hva som brukes – og hva som kan avvikles."
+
+styring:
+  kicker: "PLATTFORM"
+  title: "Styring – eierskap, tilgang og etterlevelse"
+  lead: "Felles spilleregler for data, uansett kilde og konsument."
+  rows:
+    - label: "EIERSKAP"
+      pills:
+        - "Domeneeier"
+        - "Datakontrakt"
+        - "SLA og ansvar"
+      caption: "Hvert datasett har en navngitt eier."
+    - label: "TILGANG"
+      pills:
+        - "Roller og grupper"
+        - "Rad- og kolonnenivå"
+        - "Tidsbegrenset"
+      caption: "Minste nødvendige tilgang, styrt sentralt."
+    - label: "REGELVERK"
+      pills:
+        - "Personvern og GDPR"
+        - "Klassifisering"
+        - "Sletteregler"
+      caption: "Krav dokumentert og teknisk håndhevet."
+    - label: "SPORBARHET"
+      pills:
+        - "Lineage"
+        - "Oversikt"
+        - "Logg og audit"
+      caption: "Alltid mulig å svare på hvor tallet kommer fra."
+  why_label: "HVORFOR"
+  why:
+    - "Tillit til tallene"
+    - "Trygg deling"
+    - "Revisjonsklart"
+    - "Raskere onboarding"
+
+domener:
+  kicker: "ARKITEKTUR"
+  title: "Domeneoppdeling og eierskap"
+  section: "Domener"
+  items:
+    - "Hvert domene eier og forvalter sin data"
+    - "Domener er ikke flaskehals for hverandre"
+    - "Kjører på felles infrastruktur med separert data"
+    - "Data publiseres og deles mellom domener, med en tydelig eier"
+    - "Kostnader fordeles per domene"
+  cards:
+    - tittel: "ERP NO"
+      linjer:
+        - "Eier: Driftsleder Norge"
+    - tittel: "CRM / salg & support"
+      linjer:
+        - "Eier: Produktsjef"
+        - "Churn, marginer, bruk"
+    - tittel: "Konsernfunksjoner"
+      linjer:
+        - "Eier: CFO"
+        - "HR, finans, ordre, IT"
+    - tittel: "ERP SE"
+      linjer:
+        - "Eier: Driftsleder Sverige"
+        - "Kapasitet"
+  footer: "Domeneoppdeling fjerner flaskehalser"
+
+datadeling:
+  kicker: "ARKITEKTUR"
+  title: "Datadeling mellom domener"
+  domains:
+    - "ERP NO"
+    - "ERP SE"
+    - "CRM"
+    - "Konsern"
+  contract: "Datakontrakter"
+  products: "Dataprodukter"
+
+dataprodukter:
+  kicker: "ARKITEKTUR"
+  title: "Dataprodukter"
+  lead: "Et dataprodukt er et tall eller datasett som er kvalitetssikret, og derfor kan stoles på"
+  cards:
+    - tittel: "Eier og team"
+      tekst: "Navngitt eier i domenet med ansvar for innhold og kvalitet"
+    - tittel: "Datakontrakt"
+      tekst: "Skjema, frekvens, SLA og klassifisering er avtalt"
+    - tittel: "Kvalitet og tester"
+      tekst: "Automatiske tester kjøres ved hver oppdatering"
+    - tittel: "Dokumentasjon"
+      tekst: "Formål, definisjoner, KPI-logikk og lineage i katalogen"
+    - tittel: "Tilgang og deling"
+      tekst: "Tilgang gis til roller, ikke personer, og logges"
+    - tittel: "Livsløp og versjon"
+      tekst: "Versjonert historikk, endringsvarsel og utfasing"
+  example_label: "Dataprodukt:"
+  example:
+    - "Ordre- og fakturadata"
+    - "Transformering, kvalitetssikring og sammenstilling"
+    - "Dataprodukt med eier: «ARR across all value streams»"
+    - "Dashboards, rapporter, analyser og KI"
+
+datakontrakter:
+  kicker: "ARKITEKTUR"
+  title: "Datakontrakter – avtalen mellom produsent og konsument"
+  section: "DETTE STÅR I EN DATAKONTRAKT"
+  items:
+    - "Skjema og datatyper – felter, format, nøkler"
+    - "Eier og konsumenter – hvem leverer, hvem bruker"
+    - "Frekvens og SLA – når kommer data, hvor ofte"
+    - "Kvalitetskrav – terskler for feil og avvik"
+    - "Klassifisering – personopplysninger og sensitivitet"
+    - "Versjonering – endringsvarsel og bakoverkompatibilitet"
+  example_label: "EKSEMPEL"
+  example: "produkt:        kunde.kundemaster
+
+    eier:           Kundedomenet
+
+    frekvens:       daglig kl. 06:00
+
+    sla:            99,5 % innen kl. 07:00
+
+    kvalitet:       unik kunde_id, orgnr uten null
+
+    klassifisering: personopplysninger
+
+    versjon:        2.1 – 30 dagers endringsvarsel"
+  cards:
+    - tittel: "Endringer er versjonert og kvalitetssikret"
+      tekst: "Kontrakten testes automatisk ved hver kjøring, og endringer versjoneres"
+    - tittel: "Tydelig ansvar"
+      tekst: "Eier svarer for kvalitet, konsument for bruk"
+    - tittel: "Tydelig tilgangsstyring"
+      tekst: "Kontrakten inneholder tilgangsregler"
+
+datakvalitet:
+  kicker: "ARKITEKTUR"
+  title: "Datakvalitet og datatester"
+  tester_label: "FIRE LAG AV TESTER I HVER PIPELINE"
+  tester:
+    - tittel: "Skjematester"
+      tekst: "Felter, datatyper og nøkler finnes og er som avtalt"
+    - tittel: "Integritetstester"
+      tekst: "Unike nøkler, gyldige referanser, ingen tomme verdier"
+    - tittel: "Forretningsregler"
+      tekst: "Summer stemmer, KPI-er ligger innenfor forventet intervall"
+    - tittel: "Ferskhet og volum"
+      tekst: "Data kom til rett tid og i forventet mengde"
+  feil_label: "NÅR EN TEST FEILER"
+  feil:
+    - "Kjøringen stopper før data publiseres"
+    - "Eier i domenet varsles automatisk"
+    - "Konsumenter ser status i katalogen"
+    - "Avviket logges og følges opp i governance-forum"
+  cards:
+    - tittel: "Testdekning"
+      tekst: "Andel dataprodukter med aktive tester"
+    - tittel: "Kjøringer uten avvik"
+      tekst: "Målt per uke og per domene"
+    - tittel: "Tid til retting"
+      tekst: "Fra varsel til publisert korreksjon"
+
+deling:
+  kicker: "ARKITEKTUR"
+  title: "Deling, tilgang og kostnadsfordeling"
+  deling_tittel: "DELING OG TILGANG"
+  deling:
+    - "Tilgang til roller – ikke til enkeltpersoner"
+    - "Intern deling – via katalogen – bestill tilgang til et dataprodukt"
+    - "Ekstern deling – API og Delta Sharing – uten å sende kopier"
+    - "Avtalefestet bruk – formål og varighet er registrert og logget"
+    - "Personvern – maskering og aggregering før deling"
+  kostnad_tittel: "KOSTNADSFORDELING"
+  kostnad:
+    - "Tagging – alle ressurser merkes med domene og dataprodukt"
+    - "Måling – compute, lagring og spørringer måles per tag"
+    - "Modell – fast plattformbasis + variabelt forbruk per domene"
+    - "Rapport – månedlig kostnadsoversikt per domene og produkt"
+    - "Insentiv – eierne ser egen kostnad og kan optimalisere"
+  cards:
+    - tittel: "Plattformbasis"
+      tekst: "Felles infrastruktur, katalog og governance – dekkes sentralt"
+    - tittel: "Domeneforbruk"
+      tekst: "Variabel kostnad følger domenets eget forbruk"
+    - tittel: "Initiativ og prosjekt"
+      tekst: "Nye dataprodukter belastes initiativet som bestiller"
+
+sikkerhet:
+  kicker: "ARKITEKTUR"
+  title: "Sikkerhet og infrastruktur"
+  sikkerhet_label: "SIKKERHET"
+  sikkerhet:
+    - "Sikkerhet er en del av plattformen, ikke et tillegg"
+    - "Identitet og roller styres i Entra ID"
+    - "Tilgangsstyring på rad- og kolonnenivå"
+    - "Kryptering"
+    - "Private nettverk"
+    - "Full logging og sporbart audit-spor"
+    - "Sikkerhetsvurdering ved nye dataprodukter"
+    - "Periodisk gjennomgang av alle tilganger"
+  infrastruktur_label: "INFRASTRUKTUR"
+  infrastruktur:
+    - tittel: "Skyplattform"
+      tekst: "Azure som felles fundament"
+    - tittel: "Lakehouse"
+      tekst: "Databricks eller Fabric for lagring og compute"
+    - tittel: "Orkestrering"
+      tekst: "Planlagte og hendelsesdrevne kjøringer"
+    - tittel: "Infrastruktur som kode"
+      tekst: "Terraform og Bicep"
+    - tittel: "CI/CD og miljøer"
+      tekst: "Dev, test og prod med automatisk utrulling"
+    - tittel: "Overvåking"
+      tekst: "Ytelse, feil og kostnad i ett dashboard"
+  footer: "Alt som kjører i produksjon er definert som kode. Infrastruktur, pipelines og tilgangsregler versjoneres i Git og rulles ut via CI/CD – det gir reproduserbarhet, revisjonsspor og trygge endringer."
+
+governance:
+  kicker: "GOVERNANCE"
+  title: "Roller, beslutninger og etterlevelse"
+  roller:
+    - tittel: "Dataeier"
+      tekst: "Leder i domenet. Eier innhold, godkjenner tilgang og prioriterer."
+    - tittel: "Data steward"
+      tekst: "Definisjoner, KPI-logikk, dokumentasjon og datakvalitet."
+    - tittel: "Plattformteam"
+      tekst: "Infrastruktur, verktøy og selvbetjening. Bygger ikke alt selv."
+    - tittel: "Governance-forum"
+      tekst: "Policy, prinsipper, prioritering og unntak – møtes månedlig."
+  beslutninger_tittel: "BESLUTNINGER OG MØTEPUNKT"
+  beslutninger:
+    - "Nye dataprodukter godkjennes i governance-forum"
+    - "Arkitekturvalg dokumenteres som beslutningsnotat"
+    - "Felles backlog prioriteres på verdi og risiko"
+    - "Unntak gis tidsbegrenset, aldri permanent"
+  etterlevelse_tittel: "ETTERLEVELSE OG PERSONVERN"
+  etterlevelse:
+    - "Behandlingsgrunnlag og sletteregler ligger i katalogen"
+    - "Klassifisering styrer tilgang, maskering og deling"
+    - "All bruk logges – audit-spor på tvers av plattformen"
+    - "Tilganger gjennomgås periodisk og trekkes automatisk"
+  footer: "Governance skal gjøre det enkelt å gjøre riktig – ikke vanskelig å komme i gang."
+
+teknologi:
+  kicker: "ARKITEKTUR"
+  title: "Teknologivalg – mange gode muligheter"

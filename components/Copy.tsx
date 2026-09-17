@@ -12,7 +12,12 @@ import {
   type ReactNode,
 } from "react";
 import { createPortal } from "react-dom";
-import { copyPathFromParts, getCopyString } from "@/presentations/copy";
+import {
+  copyLength,
+  copyPathFromParts,
+  getCopyString,
+  getCopyValue,
+} from "@/presentations/copy";
 import type { SlideCopy, SlideDef } from "@/presentations/types";
 import styles from "./Copy.module.css";
 
@@ -117,21 +122,33 @@ export function useCopy(): SlideCopy {
   return useContext(CopyContext)?.copy ?? {};
 }
 
+export function useHasCopy(k: string): boolean {
+  return getCopyValue(useCopy(), k) !== undefined;
+}
+
+/** Antall elementer i en yaml-liste (`items`, `cards`, …). */
+export function useCopyCount(k: string): number {
+  return copyLength(useCopy(), k);
+}
+
 export function Copy({
   k,
   i,
   field,
+  path: pathProp,
   style,
   as: Tag = "span",
 }: {
-  k: string;
+  k?: string;
   i?: number;
   field?: string;
+  /** Full feltsti, f.eks. `rows.0.pills.1`. Overstyrer k/i/field. */
+  path?: string;
   style?: CSSProperties;
   as?: "span" | "div";
 }) {
   const ctx = useContext(CopyContext);
-  const path = copyPathFromParts(k, i, field);
+  const path = pathProp ?? copyPathFromParts(k ?? "text", i, field);
   const fromYaml = getCopyString(ctx?.copy, path);
   const text = ctx?.overrides[path] ?? fromYaml;
   const editable = Boolean(ctx?.editable);

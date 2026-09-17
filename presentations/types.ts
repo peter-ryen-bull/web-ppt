@@ -66,4 +66,9 @@ export interface PresentationDef {
   chapters?: ChapterDef[];
   /** Flat liste brukt til avspilling. Avledet fra chapters når de finnes. */
   slides: SlideDef[];
+  /**
+   * True når definePresentation fikk en copy.yaml. Styrer om publikumstekst
+   * kan redigeres i dev (høyreklikk). PNG-import har ikke dette.
+   */
+  hasCopy?: boolean;
 }

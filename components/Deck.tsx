@@ -8,7 +8,8 @@ import {
   useState,
 } from "react";
 import Link from "next/link";
-import { getPresentation, isInProgress } from "@/presentations";
+import { getPresentation } from "@/presentations";
+import { presentationHasCopy } from "@/presentations/copy";
 import { chapterOf } from "@/presentations/chapters";
 import { SlideCanvas, useContainerScale } from "./SlideCanvas";
 import { usePdfExport } from "./PdfExport";
@@ -45,7 +46,8 @@ export default function Deck({ presentationId }: { presentationId: string }) {
   const stageRef = useRef<HTMLDivElement>(null);
   const scale = useContainerScale(stageRef);
   const canEditCopy =
-    process.env.NODE_ENV === "development" && isInProgress(presentation);
+    process.env.NODE_ENV === "development" &&
+    presentationHasCopy(presentation);
 
   // Last inn skjulte slides fra localStorage + slide fra URL-hash (#7)
   useEffect(() => {

@@ -1,16 +1,14 @@
+import { Copy } from "@/components/Copy";
 import { Box, ChapterSlide, Img, MilesLogo, pt } from "../parts";
 
 /* Slide 26 – Kapittel: Hvordan begynner man å bygge dataplattform */
 export function Slide26Hvordan() {
-  return <ChapterSlide title="Hvordan begynner man å bygge dataplattform" />;
+  return <ChapterSlide />;
 }
 
 /* Slide 27 – 1. Definere roller (ellipse med roller) */
 export function Slide27Roller() {
-  const label = (
-    center: [number, number],
-    text: string
-  ) => (
+  const label = (center: [number, number], i: number) => (
     <div
       style={{
         position: "absolute",
@@ -23,7 +21,7 @@ export function Slide27Roller() {
         whiteSpace: "nowrap",
       }}
     >
-      {text}
+      <Copy k="roles" i={i} />
     </div>
   );
 
@@ -39,7 +37,9 @@ export function Slide27Roller() {
         }}
       />
       <Box box={[81.5, 120, 1117.1, 180]} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(65),
@@ -47,14 +47,12 @@ export function Slide27Roller() {
             textAlign: "center",
             width: "100%",
           }}
-        >
-          1. Definere roller
-        </div>
+        />
       </Box>
-      {label([248.5, 433.6], "Plattform")}
-      {label([640, 491.6], "Engineers/analytikere")}
-      {label([302.2, 609.5], "Governance")}
-      {label([977.8, 596.9], "BI- og konsumbrukere")}
+      {label([248.5, 433.6], 0)}
+      {label([640, 491.6], 1)}
+      {label([302.2, 609.5], 2)}
+      {label([977.8, 596.9], 3)}
     </>
   );
 }
@@ -65,9 +63,9 @@ export function Slide28Dataprodukter() {
     <ChapterSlide
       title={
         <>
-          2. Bygge dataprodukter først –{" "}
+          <Copy k="title" style={{ display: "inline" }} />{" "}
           <span style={{ fontSize: pt(40) }}>
-            bygge infrastruktur etter behov
+            <Copy k="subtitle" style={{ display: "inline" }} />
           </span>
         </>
       }
@@ -77,7 +75,7 @@ export function Slide28Dataprodukter() {
 
 /* Slide 29 – 3. Forvalte metadata og informasjonssikkerhet */
 export function Slide29Metadata() {
-  return <ChapterSlide title="3. Forvalte metadata og informasjonssikkerhet" />;
+  return <ChapterSlide />;
 }
 
 /* Slide 30 – Datakontrakter, Dataeierskap, Datakatalog + Purview! */
@@ -99,11 +97,12 @@ export function Slide30Forvaltning() {
             width: "100%",
           }}
         >
-          Datakontrakter, Dataeierskap, Datakatalog
-          <br />
-          <span style={{ fontFamily: "var(--font-sans)", fontWeight: 500 }}>
-            Sentralisere logging, audits, rapportering
-          </span>
+          <Copy k="title" as="div" />
+          <Copy
+            k="subtitle"
+            as="div"
+            style={{ fontFamily: "var(--font-sans)", fontWeight: 500 }}
+          />
         </div>
       </Box>
       <Box
@@ -114,15 +113,15 @@ export function Slide30Forvaltning() {
           alignItems: "center",
         }}
       >
-        <div
+        <Copy
+          k="note"
+          as="div"
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: pt(16),
             color: "var(--red)",
           }}
-        >
-          Purview!
-        </div>
+        />
       </Box>
     </>
   );
@@ -141,16 +140,16 @@ export function Slide31Skaler() {
           alignItems: "center",
         }}
       >
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(92.4),
             lineHeight: 0.95,
             color: "var(--burgundy)",
           }}
-        >
-          4. Skalér og fjern flaskehalser
-        </div>
+        />
       </Box>
     </>
   );
@@ -165,7 +164,9 @@ export function Slide32Oppsummering() {
         box={[63.8, 278.4, 1117.1, 268]}
         style={{ display: "flex", alignItems: "flex-start" }}
       >
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(62),
@@ -174,12 +175,12 @@ export function Slide32Oppsummering() {
             textAlign: "center",
             width: "100%",
           }}
-        >
-          Hvorfor bygger “alle” dataplattform?
-        </div>
+        />
       </Box>
       <Box box={[367.1, 507.7, 640.3, 38.8]}>
-        <div
+        <Copy
+          k="subtitle"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(18),
@@ -187,9 +188,7 @@ export function Slide32Oppsummering() {
             textAlign: "center",
             width: "100%",
           }}
-        >
-          Tydelige effekter - Men det må gjøres riktig
-        </div>
+        />
       </Box>
     </>
   );

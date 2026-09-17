@@ -83,11 +83,11 @@ via webpack-regelen i `next.config.mjs`.
 komponent på et fast 1280×720-lerret. Kapitler i egne filer
 (`intro.tsx`, `plattform.tsx`, …). Bruk dette for alt under arbeid.
 
-Beste maler:
+Beste maler (begge har `copy.yaml` – kopier det mønsteret):
 
 - Konferanse, lang: `presentations/26-10-19-tdc-kystverket-dataplattform/`
 - Pitch: `presentations/26-09-11-cloud-connection-kundemote/`
-  (lokal `ui.tsx` med Header/Card/Stack) eller Stø-pitchen.
+  (lokal `ui.tsx` med Header/Card/Stack som leser copy) eller Stø-pitchen.
 
 **2. PPTX-import (arkiv).** Ferdige talks eksportert som PNG
 (`public/media/<id>/slide-NN.png`) og en `SlideBilde`-hjelper. Ikke
@@ -103,10 +103,14 @@ id-en har et `YY-MM-DD`-prefiks i fremtiden (`isInProgress` i
 `presentations/status.ts`). Åpne og les kun disse (og `presentations/*.ts`
 med felles kode) med mindre brukeren eksplisitt peker på noe annet.
 
-Ferdige presentasjoner er **arkiv og skrivebeskyttede**. Etter import skal
-slides, `notes.md` og media **ikke redigeres**. Ny bruk: kopi eller
-`embedAsChapter` – ikke endre originalen. Arkiverte skal stå i
+Ferdige presentasjoner er **arkiv**. Etter at de er holdt skal
+slide-komponenter, `notes.md` og media **ikke redigeres**. Ny bruk: kopi
+eller `embedAsChapter` – ikke endre originalen. Arkiverte skal stå i
 `presentations/index.ts` så de vises på forsiden.
+
+Native decks med `copy.yaml` kan likevel få publikumstekst redigert i
+dev (høyreklikk → Rediger). PNG-import har ingen `copy.yaml` og kan
+ikke redigeres i UI.
 
 Rediger en ferdig presentasjon **bare** når brukeren eksplisitt ber om å
 endre akkurat den (id, mappe eller dato+sted). «Fiks sliden om AIS» eller
@@ -145,8 +149,9 @@ ber om det.
    for arrangementet). Samme id brukes i URL og i `public/media/<id>/`.
 2. `index.tsx` eksporterer en `PresentationDef` via `definePresentation`.
    Del slidene i kapitler; ett kapittel ≈ én fil.
-3. `copy.yaml` med publikumstekst per slide-id. Send inn som
-   `copy: copyRaw` til `definePresentation`.
+3. **`copy.yaml` er påkrevd** for native decks. Publikumstekst per
+   slide-id. Send inn som `copy: copyRaw` til `definePresentation`.
+   Uten dette blir `hasCopy` false og høyreklikk-redigering slås av.
 4. `notes.md` med `## <slide-id>` per slide. Send inn som
    `notes: notesRaw` til `definePresentation`.
 5. Registrer eksporten i `presentations/index.ts` (`PRESENTATIONS`).
@@ -211,10 +216,16 @@ inline `style` og CSS-variablene i `app/globals.css`. Byggeklosser fra
 - `MilesLogo` øverst til høyre på de fleste Miles-slides.
 - `ChapterSlide` til kapittelforsider. `BulletList` / `BulletItem` til
   punktlister. `Img` / `Video` til media. `QuotePage` til sitat + bilde.
-- Publikumstekst i `copy.yaml`, rendret med `<Copy k="…" />`
-  (`import { Copy } from "@/components/Copy"`). Ikke hardkod titler,
-  punktoppsett eller brødtekst i JSX. Figurer/SVG-etiketter kan stå i
-  `figurer/`.
+- Publikumstekst **må** ligge i `copy.yaml` og rendres med `<Copy>`.
+  Ikke hardkod titler, punktoppsett eller brødtekst i JSX. Uten
+  `<Copy>` kan teksten ikke redigeres i UI, selv om yaml finnes.
+- Delte primitive leser copy når du utelater teksten:
+  `<ChapterSlide />` → `title`; `<QuotePage imageSrc … />` →
+  `quote` / `attribution` / `caption`; `<BulletList itemsKey="items" />`;
+  `<PainsLabel />` → `label`. Pitch-`Header` leser `kicker` / `title` /
+  `lead`.
+- Figurer/SVG-etiketter kan stå i `figurer/` (ikke CMS).
+- Bilde-only slides (logoer, diagram-PNG) kan utelate yaml-seksjon.
 - Figurer: SVG-komponenter i deckens `figurer/` (eller
   `components/figures/` bare for engelsk NDC-arkiv).
 - `"use client"` i filer som kaller `useStep` / `useRevealStyle`.
@@ -287,10 +298,19 @@ scene:
 ```
 
 I sliden: `<Copy k="line1" />`, `<Copy k="items" i={0} />`,
-`<Copy k="omrader" i={0} field="tittel" />`. I dev, på øvings- og
-nåværende presentatørslide: høyreklikk → Rediger → Lagre skriver tilbake
-via `app/api/copy/route.ts`. Arkiverte decks kan ikke skrives. `/vis`,
-miniatyrer og PDF er skrivebeskyttet.
+`<Copy k="omrader" i={0} field="tittel" />`,
+`<Copy path="rows.0.pills.1" />` for dypere stier.
+
+I dev, på øvings- og nåværende presentatørslide: høyreklikk → Rediger →
+Lagre skriver tilbake via `app/api/copy/route.ts`. Krever at
+presentasjonen er satt opp med `copy: copyRaw` (`hasCopy`). PNG-import
+uten yaml kan ikke skrives. `/vis`, miniatyrer og PDF er
+skrivebeskyttet.
+
+Parseren (`presentations/copy.ts`) varsler i dev om yaml-nøkler uten
+slide. `setCopyFieldInYaml` oppdaterer bare eksisterende
+streng-blader – den lager ikke nye felt. Kjør
+`npx tsx presentations/copy.selftest.ts` etter endringer i copy.ts.
 
 Speaker notes er et annet spor (`notes.md`). Ikke bland dem.
 

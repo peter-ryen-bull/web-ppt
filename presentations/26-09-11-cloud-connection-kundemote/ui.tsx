@@ -1,6 +1,7 @@
 "use client";
 
 import type { CSSProperties, ReactNode } from "react";
+import { Copy, useCopyCount, useHasCopy } from "@/components/Copy";
 import { Box, MilesLogo, pt } from "../parts";
 
 export const MEDIA = "/media/26-09-11-cloud-connection-kundemote";
@@ -10,55 +11,46 @@ export const MUTED = "#5A4A50";
 const sans: CSSProperties = { fontFamily: "var(--font-sans)" };
 const serif: CSSProperties = { fontFamily: "var(--font-serif)" };
 
-export function Header({
-  kicker,
-  title,
-  lead,
-  titleSize = 30,
-}: {
-  kicker: string;
-  title: string;
-  lead?: string;
-  titleSize?: number;
-}) {
+export function Header({ titleSize = 30 }: { titleSize?: number }) {
+  const hasLead = useHasCopy("lead");
   return (
     <>
       <MilesLogo />
       <Box box={[81.3, 48, 800, 29.3]}>
-        <div
+        <Copy
+          k="kicker"
+          as="div"
           style={{
             ...sans,
             fontSize: pt(14),
             letterSpacing: 1.2,
             color: "var(--red)",
           }}
-        >
-          {kicker}
-        </div>
+        />
       </Box>
       <Box box={[81.3, 77.3, 1117.3, titleSize >= 28 ? 53.3 : 58.7]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             ...serif,
             fontSize: pt(titleSize),
             lineHeight: 1.15,
             color: "var(--burgundy)",
           }}
-        >
-          {title}
-        </div>
+        />
       </Box>
-      {lead && (
+      {hasLead && (
         <Box box={[81.3, 138.7, 880, 32]}>
-          <div
+          <Copy
+            k="lead"
+            as="div"
             style={{
               ...sans,
               fontSize: pt(14),
               color: "var(--burgundy)",
             }}
-          >
-            {lead}
-          </div>
+          />
         </Box>
       )}
     </>
@@ -169,27 +161,40 @@ export function Body({
 
 export function Stack({
   items,
+  itemsK,
   title,
+  titleK,
   titleColor,
   gap = 8,
   size = 14,
   color = "var(--burgundy)",
 }: {
-  items: ReactNode[];
+  items?: ReactNode[];
+  itemsK?: string;
   title?: ReactNode;
+  titleK?: string;
   titleColor?: string;
   gap?: number;
   size?: number;
   color?: string;
 }) {
+  const copyCount = useCopyCount(itemsK ?? "");
+  const nodes =
+    items ??
+    (itemsK
+      ? Array.from({ length: copyCount }, (_, i) => (
+          <Copy key={i} k={itemsK} i={i} />
+        ))
+      : []);
+  const titleNode = titleK ? <Copy k={titleK} /> : title;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap }}>
-      {title != null && (
+      {titleNode != null && (
         <Label size={size + 1} color={titleColor ?? color}>
-          {title}
+          {titleNode}
         </Label>
       )}
-      {items.map((item, i) => (
+      {nodes.map((item, i) => (
         <Body key={i} size={size} color={color}>
           {item}
         </Body>
@@ -257,20 +262,21 @@ export function DarkPanel({
 
 export function WhyList({
   box,
-  items,
+  itemsK = "why",
 }: {
   box: [number, number, number, number];
-  items: string[];
+  itemsK?: string;
 }) {
+  const count = useCopyCount(itemsK);
   return (
     <DarkPanel box={box}>
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         <Label size={14} color="var(--mint)">
-          HVORFOR
+          <Copy k="why_label" />
         </Label>
-        {items.map((item) => (
-          <Body key={item} size={14} color="var(--mint)">
-            {item}
+        {Array.from({ length: count }, (_, i) => (
+          <Body key={i} size={14} color="var(--mint)">
+            <Copy k={itemsK} i={i} />
           </Body>
         ))}
       </div>
@@ -280,9 +286,11 @@ export function WhyList({
 
 export function FooterNote({
   box,
+  k = "footer",
   children,
 }: {
   box?: [number, number, number, number];
+  k?: string;
   children?: ReactNode;
 }) {
   return (
@@ -303,7 +311,7 @@ export function FooterNote({
           color: "var(--burgundy)",
         }}
       >
-        {children}
+        {children ?? <Copy k={k} as="div" />}
       </div>
     </Box>
   );
@@ -311,12 +319,12 @@ export function FooterNote({
 
 export function PinkCard({
   box,
-  title,
-  body,
+  k = "cards",
+  i,
 }: {
   box: [number, number, number, number];
-  title: string;
-  body: string;
+  k?: string;
+  i: number;
 }) {
   return (
     <Box
@@ -328,10 +336,10 @@ export function PinkCard({
     >
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <Label size={15} color="var(--red-deep)">
-          {title}
+          <Copy k={k} i={i} field="tittel" />
         </Label>
         <Body size={14} color="var(--burgundy)">
-          {body}
+          <Copy k={k} i={i} field="tekst" />
         </Body>
       </div>
     </Box>

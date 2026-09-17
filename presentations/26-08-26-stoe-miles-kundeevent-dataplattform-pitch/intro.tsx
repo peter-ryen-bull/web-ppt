@@ -1,3 +1,4 @@
+import { Copy } from "@/components/Copy";
 import { Box, ChapterSlide, Img, MilesLogo, PainsLabel, pt } from "../parts";
 
 /* Slide 1 – Forside (layout "Forside Lys") */
@@ -5,7 +6,9 @@ export function Slide01Forside() {
   return (
     <>
       <Box box={[39, 49.1, 668.2, 200]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-sans)",
             fontWeight: 500,
@@ -13,9 +16,7 @@ export function Slide01Forside() {
             lineHeight: 1.25,
             color: "var(--burgundy)",
           }}
-        >
-          Mer innsikt med en moderne dataplattform
-        </div>
+        />
       </Box>
       <Img box={[39, 423.2, 822.5, 254.7]} src="/media/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/image1.svg" alt="Miles" />
     </>
@@ -28,7 +29,9 @@ export function Slide02Hvorfor() {
     <>
       <MilesLogo />
       <Box box={[206.3, 228.9, 867.5, 239.2]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(66),
@@ -36,9 +39,7 @@ export function Slide02Hvorfor() {
             color: "var(--burgundy)",
             textAlign: "center",
           }}
-        >
-          Hvorfor bygger &apos;alle&apos; dataplattform?
-        </div>
+        />
       </Box>
     </>
   );
@@ -49,7 +50,7 @@ export function Slide03OmPeter() {
   const item = (
     box: [number, number, number, number],
     lineH: number,
-    text: string
+    i: number
   ) => (
     <>
       <Box
@@ -65,7 +66,7 @@ export function Slide03OmPeter() {
             color: "var(--burgundy-2)",
           }}
         >
-          {text}
+          <Copy k="items" i={i} />
         </div>
       </Box>
     </>
@@ -80,23 +81,19 @@ export function Slide03OmPeter() {
         fit="cover"
       />
       <Box box={[66.7, 150.3, 436.5, 73.8]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(48),
             color: "var(--burgundy-2)",
           }}
-        >
-          Peter Bull
-        </div>
+        />
       </Box>
-      {item([86.6, 268.4, 347.9, 52.9], 40, "Dataplattformutvikler")}
-      {item(
-        [86.6, 351.1, 575.5, 88.5],
-        76.5,
-        "Bred erfaring med å bygge dataplattform i offentlig og privat virksomhet"
-      )}
-      {item([86.6, 470.5, 425.6, 62.9], 40, "Azure og Databricks-ekspert")}
+      {item([86.6, 268.4, 347.9, 52.9], 40, 0)}
+      {item([86.6, 351.1, 575.5, 88.5], 76.5, 1)}
+      {item([86.6, 470.5, 425.6, 62.9], 40, 2)}
     </>
   );
 }
@@ -107,15 +104,15 @@ export function Slide04DataOgAI() {
     <>
       <MilesLogo />
       <Box box={[28.8, 35.4, 752.7, 58.2]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: pt(30),
             color: "var(--burgundy)",
           }}
-        >
-          Tjenesteområde
-        </div>
+        />
       </Box>
       <Img
         box={[50.3, 279, 447.8, 86.2]}
@@ -128,17 +125,16 @@ export function Slide04DataOgAI() {
         alt="Illustrasjon av chip"
       />
       <Box box={[28.8, 589.5, 693.8, 74.3]}>
-        <div
+        <Copy
+          k="body"
+          as="div"
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: pt(20),
             lineHeight: 1.3,
             color: "#FF0000",
           }}
-        >
-          Dataplattform, dataanalyse, AI, maskinlæring, data engineering, data
-          scientist, big data, RAG
-        </div>
+        />
       </Box>
     </>
   );
@@ -154,16 +150,16 @@ export function Slide05Pains1() {
         box={[81.5, 226, 1117.1, 268]}
         style={{ display: "flex", alignItems: "center" }}
       >
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(65),
             lineHeight: 1.1,
             color: "var(--burgundy)",
           }}
-        >
-          Excelarket, Eposten, Rapporten, Datauttrekket
-        </div>
+        />
       </Box>
     </>
   );
@@ -187,11 +183,12 @@ export function Slide06Pains2() {
             color: "var(--burgundy)",
           }}
         >
-          Dokumentering, Rapportering,{" "}
-          <span style={{ fontFamily: "var(--font-sans)", fontWeight: 500 }}>
-            GDPR, sletting,
-          </span>{" "}
-          loggføring
+          <Copy k="title_before" />{" "}
+          <Copy
+            k="title_mid"
+            style={{ fontFamily: "var(--font-sans)", fontWeight: 500 }}
+          />{" "}
+          <Copy k="title_after" />
         </div>
       </Box>
     </>
@@ -200,30 +197,23 @@ export function Slide06Pains2() {
 
 /* Slide 7 – Stø har et enormt datagrunnlag */
 export function Slide07Stoe() {
-  const facts = [
-    "2,3 milliarder transaksjoner i året",
-    "5 millioner brukere",
-    "1500+ bedrifter under KYC",
-    "3 separate domener",
-    "Flere oppkjøp de siste årene",
-  ];
   return (
     <>
       <MilesLogo />
       <Box box={[53.7, 278.8, 618, 162.4]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(44),
             lineHeight: 1.15,
             color: "var(--burgundy-2)",
           }}
-        >
-          Stø har et enormt datagrunnalg
-        </div>
+        />
       </Box>
-      {facts.map((f, i) => (
-        <Box key={f} box={[628.2, 201.9 + i * 77.5, 582, 66.4]}>
+      {[0, 1, 2, 3, 4].map((i) => (
+        <Box key={i} box={[628.2, 201.9 + i * 77.5, 582, 66.4]}>
           <div
             style={{
               fontFamily: "var(--font-serif)",
@@ -231,9 +221,9 @@ export function Slide07Stoe() {
               color: "var(--burgundy-2)",
             }}
           >
-            {f}
+            <Copy k="items" i={i} />
           </div>
-          {i < facts.length - 1 && (
+          {i < 4 && (
             <div
               style={{
                 position: "absolute",
@@ -258,7 +248,7 @@ export function Slide07Stoe() {
             color: "#9A5068",
           }}
         >
-          https://stoe.no/en/about-the-company
+          <Copy k="link" />
         </a>
       </Box>
     </>
@@ -267,7 +257,7 @@ export function Slide07Stoe() {
 
 /* Slide 8 – Kapittel: Hva er en dataplattform */
 export function Slide08HvaEr() {
-  return <ChapterSlide title="Hva er en dataplattform" titleSize={54} />;
+  return <ChapterSlide titleSize={54} />;
 }
 
 /* Slide 9 – Logoer: Databricks, Snowflake, Microsoft Fabric */

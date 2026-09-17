@@ -1,0 +1,83 @@
+forside:
+  title: "Mer innsikt med en moderne dataplattform"
+
+hvorfor:
+  title: "Hvorfor bygger 'alle' dataplattform?"
+
+om-peter:
+  title: "Peter Bull"
+  items:
+    - "Dataplattformutvikler"
+    - "Bred erfaring med å bygge dataplattform i offentlig og privat virksomhet"
+    - "Azure og Databricks-ekspert"
+
+data-og-ai:
+  title: "Tjenesteområde"
+  body: "Dataplattform, dataanalyse, AI, maskinlæring, data engineering, data scientist, big data, RAG"
+
+pains-1:
+  label: "Pains"
+  title: "Excelarket, Eposten, Rapporten, Datauttrekket"
+
+pains-2:
+  label: "Pains"
+  title_before: "Dokumentering, Rapportering,"
+  title_mid: "GDPR, sletting,"
+  title_after: "loggføring"
+
+stoe-data:
+  title: "Stø har et enormt datagrunnalg"
+  items:
+    - "2,3 milliarder transaksjoner i året"
+    - "5 millioner brukere"
+    - "1500+ bedrifter under KYC"
+    - "3 separate domener"
+    - "Flere oppkjøp de siste årene"
+  link: "https://stoe.no/en/about-the-company"
+
+hva-er:
+  title: "Hva er en dataplattform"
+
+samle-data:
+  line1: "Samle data fra kildesystemer"
+  line2: "Analyser den, og dele videre"
+
+data-som-produkt:
+  title: "Data som produkt"
+
+dataprodukt:
+  title: "Dataprodukt"
+  subtitle: "Kvalitetssikret, forvaltet, dokumentert"
+
+datakontrakt:
+  title: "Datakontrakt"
+
+hvordan:
+  title: "Hvordan begynner man å bygge dataplattform"
+
+roller:
+  title: "1. Definere roller"
+  roles:
+    - "Plattform"
+    - "Engineers/analytikere"
+    - "Governance"
+    - "BI- og konsumbrukere"
+
+dataprodukter-forst:
+  title: "2. Bygge dataprodukter først –"
+  subtitle: "bygge infrastruktur etter behov"
+
+metadata:
+  title: "3. Forvalte metadata og informasjonssikkerhet"
+
+forvaltning:
+  title: "Datakontrakter, Dataeierskap, Datakatalog"
+  subtitle: "Sentralisere logging, audits, rapportering"
+  note: "Purview!"
+
+skaler:
+  title: "4. Skalér og fjern flaskehalser"
+
+oppsummering:
+  title: "Hvorfor bygger “alle” dataplattform?"
+  subtitle: "Tydelige effekter - Men det må gjøres riktig"

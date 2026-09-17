@@ -1,8 +1,13 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import path from "path";
 import { after, NextResponse } from "next/server";
-import { getPresentation, isInProgress } from "@/presentations";
-import { isCopyPath, setCopyFieldInYaml, yamlHasSlide } from "@/presentations/copy";
+import { getPresentation } from "@/presentations";
+import {
+  isCopyPath,
+  presentationHasCopy,
+  setCopyFieldInYaml,
+  yamlHasSlide,
+} from "@/presentations/copy";
 
 const SAFE_ID = /^[a-zA-Z0-9][a-zA-Z0-9_-]*$/;
 const MAX_VALUE_CHARS = 20_000;
@@ -104,9 +109,9 @@ export async function POST(req: Request) {
       { status: 404 }
     );
   }
-  if (!isInProgress(presentation)) {
+  if (!presentationHasCopy(presentation)) {
     return NextResponse.json(
-      { error: "Arkiverte presentasjoner kan ikke redigeres." },
+      { error: "Presentasjonen har ikke copy.yaml – PNG-import kan ikke redigeres." },
       { status: 403 }
     );
   }

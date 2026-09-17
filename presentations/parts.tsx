@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import { Copy, useCopyCount } from "@/components/Copy";
 import { useStep } from "@/components/steps";
 
 /*
@@ -118,18 +119,29 @@ export function BulletItem({
 export function BulletList({
   box,
   items,
+  itemsKey,
   fromStep,
   size = 22,
   gap = 28,
   color,
 }: {
   box: [number, number, number, number];
-  items: ReactNode[];
+  items?: ReactNode[];
+  /** Leser `copy.yaml`-listen og rendrer hvert punkt som `<Copy>`. */
+  itemsKey?: string;
   fromStep?: number;
   size?: number;
   gap?: number;
   color?: string;
 }) {
+  const copyCount = useCopyCount(itemsKey ?? "");
+  const nodes =
+    items ??
+    (itemsKey
+      ? Array.from({ length: copyCount }, (_, i) => (
+          <Copy key={i} k={itemsKey} i={i} />
+        ))
+      : []);
   return (
     <Box
       box={box}
@@ -140,9 +152,9 @@ export function BulletList({
         gap,
       }}
     >
-      {items.map((item, i) => (
+      {nodes.map((item, i) => (
         <BulletItem
-          key={typeof item === "string" ? item : i}
+          key={i}
           at={fromStep == null ? undefined : fromStep + i}
           size={size}
           color={color}
@@ -203,12 +215,15 @@ export function ChapterSlide({
   align = "center",
   showLogo = true,
 }: {
-  title: ReactNode;
+  /** Utelatt = `<Copy k="title" />` fra copy.yaml. */
+  title?: ReactNode;
+  /** Utelatt = ingen undertittel. Send `<Copy k="subtitle" />` for CMS. */
   subtitle?: ReactNode;
   titleSize?: number;
   align?: "center" | "left";
   showLogo?: boolean;
 }) {
+  const titleNode = title ?? <Copy k="title" as="div" />;
   return (
     <>
       {showLogo && <MilesLogo />}
@@ -230,10 +245,10 @@ export function ChapterSlide({
             width: "100%",
           }}
         >
-          {title}
+          {titleNode}
         </div>
       </Box>
-      {subtitle && (
+      {subtitle != null && (
         <Box
           box={[160, 508, 960, 80]}
           style={{
@@ -268,11 +283,11 @@ export function QuotePage({
   caption,
   children,
 }: {
-  quote: ReactNode;
-  attribution: ReactNode;
+  quote?: ReactNode;
+  attribution?: ReactNode;
   imageSrc: string;
   imageAlt: string;
-  caption: ReactNode;
+  caption?: ReactNode;
   children?: ReactNode;
 }) {
   const quoteReveal = useRevealStyle(1);
@@ -307,7 +322,7 @@ export function QuotePage({
             color: "var(--burgundy-2)",
           }}
         >
-          {caption}
+          {caption ?? <Copy k="caption" />}
         </div>
       </Box>
       <Box
@@ -328,7 +343,7 @@ export function QuotePage({
             ...quoteReveal,
           }}
         >
-          {quote}
+          {quote ?? <Copy k="quote" as="div" />}
         </div>
         <div
           style={{
@@ -337,7 +352,7 @@ export function QuotePage({
             color: "var(--burgundy-2)",
           }}
         >
-          {attribution}
+          {attribution ?? <Copy k="attribution" />}
         </div>
       </Box>
       {children}
@@ -356,7 +371,7 @@ export function PainsLabel() {
           color: "var(--red)",
         }}
       >
-        Pains
+        <Copy k="label" />
       </span>
     </Box>
   );

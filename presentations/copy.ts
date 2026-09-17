@@ -89,24 +89,53 @@ export function withCopy(slides: SlideDef[], raw: string): SlideDef[] {
   return slides.map((s) => ({ ...s, copy: deck[s.id] ?? s.copy }));
 }
 
-export function getCopyString(
+export function getCopyValue(
   copy: SlideCopy | undefined,
   path: string
-): string {
-  if (!copy || !isCopyPath(path)) return "";
+): CopyValue | undefined {
+  if (!copy || !isCopyPath(path)) return undefined;
   let current: unknown = copy;
   for (const part of parseCopyPath(path)) {
-    if (current == null) return "";
+    if (current == null) return undefined;
     if (typeof part === "number") {
-      if (!Array.isArray(current)) return "";
+      if (!Array.isArray(current)) return undefined;
       current = current[part];
     } else if (typeof current === "object") {
       current = (current as Record<string, unknown>)[part];
     } else {
-      return "";
+      return undefined;
     }
   }
-  return typeof current === "string" ? current : "";
+  return asCopyValue(current) ?? undefined;
+}
+
+export function getCopyString(
+  copy: SlideCopy | undefined,
+  path: string
+): string {
+  const value = getCopyValue(copy, path);
+  return typeof value === "string" ? value : "";
+}
+
+/** Antall elementer i en yaml-liste, ellers 0. */
+export function copyLength(copy: SlideCopy | undefined, path: string): number {
+  const value = getCopyValue(copy, path);
+  return Array.isArray(value) ? value.length : 0;
+}
+
+export function getCopyStrings(
+  copy: SlideCopy | undefined,
+  path: string
+): string[] {
+  const value = getCopyValue(copy, path);
+  if (!Array.isArray(value)) return [];
+  return value.filter((item): item is string => typeof item === "string");
+}
+
+export function presentationHasCopy(
+  presentation: Pick<{ hasCopy?: boolean }, "hasCopy">
+): boolean {
+  return Boolean(presentation.hasCopy);
 }
 
 export function yamlHasSlide(raw: string, slideId: string): boolean {
