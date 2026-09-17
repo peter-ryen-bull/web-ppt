@@ -17,6 +17,7 @@
     sans-serif;
   --font-manrope-stack: "Manrope SemiBold", "Manrope", var(--font-manrope),
     Arial, sans-serif;
+  --font-cutive-stack: var(--font-cutive), Cutive, Georgia, serif;
 }
 
 * {

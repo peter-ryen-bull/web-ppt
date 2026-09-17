@@ -175,6 +175,13 @@ men du kan bruke vilkårlig HTML/JSX.
   er kommersiell og følger ikke med – har du den installert lokalt brukes den
   automatisk, ellers brukes Fraunces som nærmeste åpne alternativ.
 
+## Om konsulentlivet-presentasjonen
+
+`26-03-04-konsulentlivet-miles-onboarding` gjenskaper
+`2026_03_04_konsulentlivet_miles_onboarding.pptx` («Å være konsulent i Miles»).
+69 slides med fill-in-the-blank-titler, historier og håndtegnede figurer.
+Skriften Cutive lastes fra Google Fonts.
+
 ## Om Stø-presentasjonen
 
 `26-08-26-stoe-miles-kundeevent-dataplattform-pitch` gjenskaper `2026_08_27_stoe_dataplattform.pptx`

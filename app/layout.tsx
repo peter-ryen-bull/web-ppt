@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Manrope } from "next/font/google";
+import { Cutive, DM_Sans, Manrope } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -25,6 +25,12 @@ const gelica = localFont({
   variable: "--font-gelica",
 });
 
+const cutive = Cutive({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-cutive",
+});
+
 export const metadata: Metadata = {
   title: "Presentasjoner",
   description: "Interaktive presentasjoner som webapp",
@@ -36,7 +42,7 @@ export default function RootLayout({
   return (
     <html
       lang="nb"
-      className={`${dmSans.variable} ${manrope.variable} ${gelica.variable}`}
+      className={`${dmSans.variable} ${manrope.variable} ${gelica.variable} ${cutive.variable}`}
     >
       <body>{children}</body>
     </html>
