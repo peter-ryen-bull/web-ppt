@@ -1,4 +1,5 @@
 import type { ChapterDef, PresentationDef, SlideDef } from "./types";
+import { withCopy } from "./copy";
 import { withNotes } from "./notes";
 
 /**
@@ -9,15 +10,17 @@ export function definePresentation(
   def: Omit<PresentationDef, "slides"> & {
     chapters: ChapterDef[];
     notes?: string;
+    copy?: string;
   }
 ): PresentationDef {
-  const { notes, ...rest } = def;
+  const { notes, copy, ...rest } = def;
   const slides: SlideDef[] = rest.chapters.flatMap((ch) =>
     ch.slides.map((s) => ({ ...s, chapterId: ch.id }))
   );
+  const withText = copy ? withCopy(slides, copy) : slides;
   return {
     ...rest,
-    slides: notes ? withNotes(slides, notes) : slides,
+    slides: notes ? withNotes(withText, notes) : withText,
   };
 }
 

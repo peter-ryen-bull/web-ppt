@@ -1,0 +1,82 @@
+forside:
+  title: "Historien om dataplattformen"
+  subtitle: "50 år med samme problem: å gjøre data om til beslutninger"
+
+tidslinje:
+  title: "Fem faser – ett problem"
+
+relasjonsmodellen:
+  kicker: "1970 · Databasen"
+  title: "Codd: skill spørsmålet fra lagringen"
+
+databasen-speil:
+  kicker: "1970 · Databasen"
+  title: "Hva den løste – og det nye problemet"
+  columns:
+    - tittel: "Dette løste den"
+      items:
+        - "Én delt, konsistent hukommelse for virksomheten"
+        - "Transaksjoner med garantier – driften kunne stole på dataene"
+        - "Spørsmål uten å programmere navigasjon: SQL"
+    - tittel: "Det nye problemet"
+      items:
+        - "Bygget for drift, ikke analyse – tunge spørringer satte kassa på kne"
+        - "Ett system per funksjon: sannheten spredte seg igjen utover mange databaser"
+        - "Ledelsen fikk fortsatt ikke svar på tvers av systemene"
+
+varehuset:
+  kicker: "1988 · Datavarehuset"
+  title: "Ett integrert varehus – adskilt fra driften"
+
+varehuset-speil:
+  kicker: "1988 · Datavarehuset"
+  title: "Hva den løste – og det nye problemet"
+  columns:
+    - tittel: "Dette løste den"
+      items:
+        - "Én integrert sannhet på tvers av systemene"
+        - "Historikk: utvikling over tid, ikke bare nå-bildet"
+        - "Analyse uten å true driften – beslutninger på fakta"
+    - tittel: "Det nye problemet"
+      items:
+        - "Dyrt: spesialisert maskinvare og lange prosjekter"
+        - "Tregt å endre: skjema først, ny kilde tok måneder – IT ble flaskehals"
+        - "Bare strukturerte data: rader og kolonner, ikke logger, tekst og bilder"
+  footer: "Og så kom internett – og gjorde alle tre problemene akutte."
+
+regnestykket:
+  kicker: "2006 · Stordata"
+  title: "Googles svar: distribuer alt"
+
+datasjoen:
+  kicker: "2010 · Datasjøen"
+  title: "Lagre alt – rått"
+
+sjoen-speil:
+  kicker: "2006–2010 · Stordata og datasjøen"
+  title: "Hva den løste – og det nye problemet"
+  columns:
+    - tittel: "Dette løste den"
+      items:
+        - "Skalaen: lagre og prosessere alt, billig, på vanlig maskinvare"
+        - "Alle formater – logger, tekst, bilder, klikkstrømmer"
+        - "Maskinlæring fikk rådataene den trengte"
+    - tittel: "Det nye problemet"
+      items:
+        - "Datasumpa: uten katalog, eierskap og metadata ble sjøen en fylling"
+        - "Kompleksitet: Hadoop krevde spesialister – SQL-folket sto utenfor"
+        - "To parallelle verdener: varehus for BI, sjø for ML – doble kopier, dobbel regning"
+  footer: "En sjø blir en sump når gjenfinnbarheten svikter – ikke når datakvaliteten gjør det."
+
+skyen:
+  kicker: "2012 · Skyen"
+  title: "Skill lagring fra regnekraft"
+
+lakehouse:
+  kicker: "2020 · Lakehouse"
+  title: "To spor møtes – og blir dataplattformen"
+
+avslutning:
+  quote: "«Data er noe verdifullt, og de vil vare lenger enn systemene selv.»"
+  attribution: "— Tim Berners-Lee"
+  caption: "Tim Berners-Lee. Oppfinneren av World Wide Web."

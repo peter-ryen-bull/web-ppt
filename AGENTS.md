@@ -51,10 +51,12 @@ app/
   [presentation]/presenter/    Presentatør
   [presentation]/vis/          Publikum
   api/notes/                   Skriver notes.md i dev
+  api/copy/                    Skriver copy.yaml i dev
   globals.css                  Miles-farger og skriftvariabler
 components/
   Deck.tsx                     Navigasjon, skjulte slides, steg
   SlideCanvas.tsx              Skalerer 1280×720-lerretet
+  Copy.tsx                     Høyreklikk-redigering av publikumstekst
   steps.ts                     useStep() / StepContext
   figures/                     Engelske figurer (NDC-arkivet)
 presentations/
@@ -63,6 +65,7 @@ presentations/
   chapters.ts                  definePresentation, embedAsChapter
   parts.tsx                    Box, Img, Reveal, ChapterSlide, …
   notes.ts                     notes.md → SlideDef.notes
+  copy.ts                      copy.yaml → SlideDef.copy
   status.ts                    isInProgress (flagg eller fremtidig dato)
   <id>/                        Én mappe per presentasjon
 public/media/<id>/             Bilder, logoer, video per deck
@@ -70,8 +73,9 @@ research/                      Kildemateriale til innhold – ikke slides
 ```
 
 Alias: `@/*` peker på repo-roten (`@/components/…`, `@/presentations`).
-`notes.md` importeres som tekst (`import notesRaw from "./notes.md"`) via
-webpack-regelen i `next.config.mjs`.
+`notes.md` og `copy.yaml` importeres som tekst
+(`import notesRaw from "./notes.md"`, `import copyRaw from "./copy.yaml"`)
+via webpack-regelen i `next.config.mjs`.
 
 ## To slags decks
 
@@ -141,17 +145,20 @@ ber om det.
    for arrangementet). Samme id brukes i URL og i `public/media/<id>/`.
 2. `index.tsx` eksporterer en `PresentationDef` via `definePresentation`.
    Del slidene i kapitler; ett kapittel ≈ én fil.
-3. `notes.md` med `## <slide-id>` per slide. Send inn som
+3. `copy.yaml` med publikumstekst per slide-id. Send inn som
+   `copy: copyRaw` til `definePresentation`.
+4. `notes.md` med `## <slide-id>` per slide. Send inn som
    `notes: notesRaw` til `definePresentation`.
-4. Registrer eksporten i `presentations/index.ts` (`PRESENTATIONS`).
+5. Registrer eksporten i `presentations/index.ts` (`PRESENTATIONS`).
    Uten dette vises den ikke.
-5. Media i `public/media/<id>/`. Referer som `/media/<id>/fil.png`.
-6. Sett `inProgress: true`, `tags` (`conference` | `pitch` | `private`),
+6. Media i `public/media/<id>/`. Referer som `/media/<id>/fil.png`.
+7. Sett `inProgress: true`, `tags` (`conference` | `pitch` | `private`),
    `date`, `place` og ev. `icon`
    (`<FyrIkon />` eller `<BildeIkon src="…/ikon.png" />`).
 
 ```tsx
 import type { SlideDef } from "../types";
+import copyRaw from "./copy.yaml";
 import notesRaw from "./notes.md";
 import { definePresentation } from "../chapters";
 
@@ -169,6 +176,7 @@ export const minPresentasjon = definePresentation({
   tags: ["conference"],
   inProgress: true,
   notes: notesRaw,
+  copy: copyRaw,
   chapters: [{ id: "intro", title: "Intro", slides: INTRO }],
 });
 ```
@@ -176,8 +184,8 @@ export const minPresentasjon = definePresentation({
 Kapitler er intern oppdeling (oversikt + presentatør), aldri synlige for
 publikum. En annen deck kan bli ett kapittel med
 `embedAsChapter(annen, { id: "historie" })` – slide-id-er prefikses
-(`historie-forside`). Da kan notes ligge i kapittelmappens egen
-`notes.md`.
+(`historie-forside`). Da kan notes og copy ligge i kapittelmappens egen
+`notes.md` og `copy.yaml`.
 
 Gjenbruk arkiv ved å **kopiere** filer inn i den nye mappen, eller
 `embedAsChapter`. Ikke rediger originalen.
@@ -203,6 +211,10 @@ inline `style` og CSS-variablene i `app/globals.css`. Byggeklosser fra
 - `MilesLogo` øverst til høyre på de fleste Miles-slides.
 - `ChapterSlide` til kapittelforsider. `BulletList` / `BulletItem` til
   punktlister. `Img` / `Video` til media. `QuotePage` til sitat + bilde.
+- Publikumstekst i `copy.yaml`, rendret med `<Copy k="…" />`
+  (`import { Copy } from "@/components/Copy"`). Ikke hardkod titler,
+  punktoppsett eller brødtekst i JSX. Figurer/SVG-etiketter kan stå i
+  `figurer/`.
 - Figurer: SVG-komponenter i deckens `figurer/` (eller
   `components/figures/` bare for engelsk NDC-arkiv).
 - `"use client"` i filer som kaller `useStep` / `useRevealStyle`.
@@ -223,24 +235,25 @@ export function SlideScene() {
   return (
     <>
       <Box box={[80, 150, 1120, 360]}>
-        <div style={{ fontFamily: "var(--font-serif)", fontSize: pt(66),
-                      color: "var(--burgundy)" }}>
-          Klokka er 03:14.
-        </div>
-        <div style={{ fontFamily: "var(--font-serif)", fontSize: pt(44),
-                      color: "var(--burgundy-2)", ...linje2 }}>
-          Stadhavet. Februar.
-        </div>
+        <Copy k="line1" as="div" style={{ fontFamily: "var(--font-serif)",
+                      fontSize: pt(66), color: "var(--burgundy)" }} />
+        <Copy k="line2" as="div" style={{ fontFamily: "var(--font-serif)",
+                      fontSize: pt(44), color: "var(--burgundy-2)", ...linje2 }} />
       </Box>
       <Reveal at={3}>
         <Box box={[80, 520, 1120, 80]} style={{ color: "var(--red)" }}>
-          Et lasteskip går nordover.
+          <Copy k="line3" />
         </Box>
       </Reveal>
     </>
   );
 }
 // SlideDef: { id: "scene", name: "Klokka er 03:14", component: SlideScene, steps: 3 }
+// copy.yaml:
+//   scene:
+//     line1: "Klokka er 03:14."
+//     line2: "Stadhavet. Februar."
+//     line3: "Et lasteskip går nordover."
 ```
 
 Skjul slides via øye-knappen i oversikten (`G`) – ikke slett dem. Skjulte
@@ -259,6 +272,27 @@ Når brukeren ber om å arkivere en holdt PowerPoint:
 
 Ikke konverter en talk som fortsatt øves til bilder – da mister du steg
 og live-redigering.
+
+## Publikumstekst (copy.yaml)
+
+Publikumstekst ligger i `presentations/<id>/copy.yaml` (ev. nestet
+`copy.yaml` i kapittelmapper, som notes). Nøkler er `SlideDef.id`, felt
+er semantiske (`title`, `items`, `quote`, …).
+
+```yaml
+scene:
+  line1: "Klokka er 03:14."
+  items:
+    - "Første punkt"
+```
+
+I sliden: `<Copy k="line1" />`, `<Copy k="items" i={0} />`,
+`<Copy k="omrader" i={0} field="tittel" />`. I dev, på øvings- og
+nåværende presentatørslide: høyreklikk → Rediger → Lagre skriver tilbake
+via `app/api/copy/route.ts`. Arkiverte decks kan ikke skrives. `/vis`,
+miniatyrer og PDF er skrivebeskyttet.
+
+Speaker notes er et annet spor (`notes.md`). Ikke bland dem.
 
 ## Speaker notes
 

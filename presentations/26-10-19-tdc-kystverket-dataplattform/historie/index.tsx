@@ -1,4 +1,5 @@
 import type { PresentationDef, SlideDef } from "../../types";
+import copyRaw from "./copy.yaml";
 import notesRaw from "./notes.md";
 import { definePresentation } from "../../chapters";
 import { TIDSLINJE_STEG } from "./figurer";
@@ -39,6 +40,7 @@ export const historyOfTheDataPlatform: PresentationDef = definePresentation({
     "Fra databasen via datavarehuset til lakehouse: hver fase speilet mot problemet den skulle løse, og hvorfor vi er der vi er.",
   date: "TDC 2026",
   notes: notesRaw,
+  copy: copyRaw,
   chapters: [
     {
       id: "historie",

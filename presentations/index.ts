@@ -42,4 +42,8 @@ export type {
   SlideDef,
   ChapterDef,
   PresentationTag,
+  SlideCopy,
+  DeckCopy,
+  CopyField,
+  CopyMap,
 } from "./types";

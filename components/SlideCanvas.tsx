@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { SlideDef } from "@/presentations";
+import { CopyProvider, type CopyEditProps } from "./Copy";
 import { StepContext } from "./steps";
 import styles from "./SlideCanvas.module.css";
 
@@ -35,16 +36,20 @@ export function lastStepOf(slide: SlideDef): number {
 export function SlideSurface({
   slide,
   step,
+  copyEdit,
 }: {
   slide: SlideDef;
   /** Gjeldende klikk-steg. Utelatt = vis alt (miniatyrer o.l.) */
   step?: number;
+  copyEdit?: CopyEditProps;
 }) {
   const Slide = slide.component;
   return (
-    <StepContext.Provider value={step ?? Number.POSITIVE_INFINITY}>
-      <Slide />
-    </StepContext.Provider>
+    <CopyProvider slide={slide} copyEdit={copyEdit}>
+      <StepContext.Provider value={step ?? Number.POSITIVE_INFINITY}>
+        <Slide />
+      </StepContext.Provider>
+    </CopyProvider>
   );
 }
 
@@ -52,11 +57,13 @@ export function SlideCanvas({
   slide,
   scale,
   step,
+  copyEdit,
 }: {
   slide: SlideDef;
   scale: number;
   /** Gjeldende klikk-steg. Utelatt = vis alt (miniatyrer o.l.) */
   step?: number;
+  copyEdit?: CopyEditProps;
 }) {
   return (
     <div
@@ -67,7 +74,7 @@ export function SlideCanvas({
         transform: `scale(${scale})`,
       }}
     >
-      <SlideSurface slide={slide} step={step} />
+      <SlideSurface slide={slide} step={step} copyEdit={copyEdit} />
     </div>
   );
 }

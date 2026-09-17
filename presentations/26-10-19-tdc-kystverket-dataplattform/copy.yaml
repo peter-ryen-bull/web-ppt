@@ -1,0 +1,610 @@
+scene:
+  line1: "Klokka er 03:14."
+  line2: "Stadhavet. Februar. Nordvest kuling."
+  line3: "Et lasteskip går nordover i ni knop."
+
+signal:
+  title: "Hvert tiende sekund sier skipet:"
+  rows:
+    - label: HVEM
+      value: "MMSI 257 123 000"
+    - label: HVOR
+      value: "62,19° N  5,08° Ø"
+    - label: "HVOR FORT"
+      value: "9,2 knop"
+    - label: KURS
+      value: "021°"
+    - label: STATUS
+      value: "under way using engine"
+
+nais:
+  caption: "nais.kystverket.no. Åpent for alle."
+
+hundre-millioner:
+  number: "100 000 000"
+  caption: "slike meldinger. Hver eneste dag."
+
+forside:
+  title: "100 millioner rader om dagen"
+  subtitle: "Historien om dataplattformen bak kysten"
+
+om-peter:
+  title: "Peter Bull"
+  items:
+    - "Designer dataplattformer for store organisasjoner"
+    - "Tidligere tech lead for politiets dataplattform"
+    - "Azure, Databricks, Terraform"
+    - "Klatrer og skigåer"
+
+kystverket:
+  title: "Hvem lytter?"
+
+visjon:
+  title: "Verdens sikreste og reneste kyst"
+  subtitle: "Det er hele hvorfor-et. Alt annet er hvordan."
+
+oppdrag:
+  title: "Om oss"
+  subtitle: "Kystverket"
+  omrader:
+    - tittel: "Lostjenesten"
+      tekst: "En kjentmann går om bord og tar skipet inn."
+    - tittel: "Miljøberedskap"
+      tekst: "Nasjonal beredskap når oljen begynner å lekke."
+    - tittel: "Navigasjonsteknologi"
+      tekst: "Fyr og lykter, sjøtrafikksentraler og AIS."
+    - tittel: "Transport, havn og farled"
+      tekst: "Den fysiske kysten. Havner og seilingsleder."
+  questionIntro: "Alle fire starter med samme spørsmål:"
+  question: " hvor er skipene akkurat nå?"
+
+lyttepostene:
+  title: "Lyttepostene"
+  posts:
+    - value: "~90"
+      label: "basestasjoner"
+    - value: "4"
+      label: "satellitter"
+    - value: "100M"
+      label: "meldinger om dagen"
+  footer: "Alt lagret tilbake til 2005"
+
+ais:
+  title: "AIS: laget for å ikke kollidere"
+  items:
+    - "Identitet, posisjon, fart, kurs"
+    - "Hvert par sekund, eller noen minutter"
+    - "Laget mot kollisjoner. Ble ryggraden."
+
+sporsmalet:
+  line1: "Så du har 100 millioner meldinger om dagen."
+  line2: "Hvordan får du behandlet alle sammen?"
+
+hva-er:
+  title: "Hvorfor bygger alle dataplattform?"
+  lead: "Data blir mer og mer verdifullt."
+
+reid-hoffman:
+  quote: "«I dataenes verden er alt målbart, og alt kan vites.»"
+  attribution: "— Reid Hoffman"
+  caption: "Reid Hoffman. Medgründer av LinkedIn."
+  lead: |-
+    Du får enormt mye data.
+    Og det blir et skikkelig rot hvis du ikke håndterer det ordentlig.
+
+hvorfor:
+  title: "Dataplattformer er overalt"
+  lead: "Hundrevis av terabyte med data, brukt til å ta de beste beslutningene ut fra mest mulig data. Det skjer overalt."
+  items:
+    - "Nettbutikken som foreslår varer"
+    - "Strømmetjenesten som treffer"
+    - "I banken din kjører svindeldeteksjon og antihvitvasking på hver transaksjon"
+    - "Nye veier planlagt ut fra år med trafikkdata, prognoser og støyberegninger"
+
+mer-enn-varehus:
+  title: "Er det bare en database?"
+  items:
+    - "Strukturert og ustrukturert"
+    - "Tilbakerulling"
+    - "Raske iterasjoner"
+  section_label: "RESTEN AV BYGNINGEN"
+  platform_items:
+    - "Governance"
+    - "Revisjonslogging"
+    - "Gjenfinnbarhet"
+    - "Pipelines"
+    - "Utviklerverktøy"
+    - "Kodekjøring"
+    - "Compute"
+    - "AI-modeller"
+  closing: "Det er en plattform."
+
+mer-enn-varehus-katalog:
+  captions:
+    - "Katalog. Compute. Jobber. Utforsk."
+    - "Jobber som kjører."
+    - "En katalog du kan åpne."
+    - "Og så spør du."
+    - "Og den svarer."
+
+strukturere-data:
+  title: "Hvordan strukturerer vi dataene for å holde orden?"
+  lead: "Når data vokser i mengde og variasjon, trenger vi struktur og fleksibilitet."
+  items:
+    - "Dataprodukt"
+    - "Datakontrakt"
+    - "Datakatalog"
+    - "Governance"
+
+dataprodukt:
+  title: "Dataprodukt"
+  lead: |-
+    En dataplattform finnes
+    for å levere dataprodukter.
+  body: "Et produkt har brukere. Brukere har forventninger."
+
+dataprodukt-kjennetegn:
+  title: "Hva som gjør det til et produkt"
+  cards:
+    - tittel: "En navngitt eier"
+      tekst: "som svarer, og kan forbedre det"
+    - tittel: "Dokumentasjon"
+      tekst: "betydning, opphav og bruk"
+    - tittel: "Kvalitetsgarantier"
+      tekst: "ferskhet, tester, en kontrakt"
+    - tittel: "Kjente konsumenter"
+      tekst: "så en endring kan varsles"
+  footer: "Ikke hvert datasett. De som folk er avhengige av."
+
+datakontrakt-kapittel:
+  title: "Datakontrakt"
+  subtitle: "En avtale mellom de som endrer et datasett og de som bruker det."
+
+datakontrakt-hva:
+  title: "Tydelig dokumentasjon av dataene dine"
+  lead: |-
+    Et dokument både mennesker og maskiner kan lese,
+    som avklarer forventninger begge veier.
+  body: "Skjemaet sier at fart er et tall. Kontrakten sier null til seksti knop, ferskere enn fem minutter, og hvem du vekker når det ryker."
+
+datakontrakt-innhold:
+  title: "Hva en kontrakt inneholder"
+  cards:
+    - tittel: "Skjema"
+      tekst: "felter, typer, hva som er påkrevd"
+    - tittel: "Betydning"
+      tekst: "hva feltene betyr, hvor de kommer fra"
+    - tittel: "Valideringsregler"
+      tekst: "min, maks, relasjoner, tester"
+    - tittel: "SLA og governance"
+      tekst: "ferskhet, sensitivitet, hvem som eier det"
+  footer: "I motsetning til en wikiside blir denne testet."
+
+datakatalog:
+  title: "Datakatalog"
+  subtitle: "Kartet organisasjonen din mangler."
+
+datakatalog-hva:
+  title: "Hva en katalog er"
+  lead: "En oversikt over datasettene i en organisasjon."
+  body:
+    - "Søk opp, forstå og vurder et datasett uten å spørre rundt, eller grave gjennom databaser på egen hånd."
+    - "Dataene blir i kildesystemene. Katalogen beskriver dem og peker på hvor de ligger."
+
+datakatalog-datahub:
+  caption: "DataHub. Åpen kildekode. Søk på tvers av mange systemer, ikke bare én sky."
+
+governance:
+  title: "Governance"
+  items:
+    - "Brukeradministrasjon og tilganger"
+    - "Maskering av persondata"
+    - "Revisjonslogging"
+    - "GDPR-etterlevelse"
+
+roller:
+  title: "Tydelige roller"
+  section_label: "ROLLER FØR TEKNOLOGI"
+  cards:
+    - tittel: "Plattform"
+      tekst: "eier grunnmuren"
+    - tittel: |-
+        Utviklere og
+        analytikere
+      tekst: "bygger på den"
+    - tittel: "Governance"
+      tekst: "setter rammene"
+    - tittel: |-
+        BI og
+        konsumenter
+      tekst: "bruker det som kommer ut"
+  team_label: "Dataplattform-team"
+  footer: "Fra at data er noe IT tar seg av, til at det er en del av hvert domenes eget ansvar"
+
+batch-streaming:
+  title: "Slik fungerer en dataplattform"
+
+batch-vs-streaming:
+  title: "Batch vs. streaming"
+
+batch-streaming-valg:
+  title: "Når velger du hva?"
+  passer: "passer når …"
+  batch:
+    tittel: BATCH
+    punkter:
+      - "rapporter og historiske analyser"
+      - "store volumer til lav kostnad"
+      - "kilder som uansett leverer i bolker, som nattlige eksporter"
+  streaming:
+    tittel: STREAMING
+    punkter:
+      - "sanntidsbehov: overvåkning og varsling"
+      - "hendelsesdrevet automatisering"
+      - "når ferskhet er viktigere enn kostnad"
+  footer: "I praksis trenger du som regel begge. Start med batch, og legg til streaming der ferske data faktisk endrer noe."
+
+effekter:
+  title: "Hva får du igjen?"
+  subtitle: "Fire effekter, med eksempler fra kysten"
+
+effekt-1:
+  nummer: "1"
+  etikett: "Datakvalitet"
+  paastand: "Data du kan stole på"
+  eksempel: "Data som er testet, kvalitetssikret og oppdatert."
+
+effekt-2:
+  nummer: "2"
+  etikett: "Etterlevelse"
+  paastand: "Innebygd etterlevelse"
+  eksempel: "Auditlogger. Maskering av persondata."
+
+effekt-3:
+  nummer: "3"
+  etikett: "Selvbetjening"
+  paastand: "Selvbetjente data"
+  eksempel: "Snakk med dataene dine. Bestill dem selv."
+
+effekt-4:
+  nummer: "4"
+  etikett: "Fremtidsrettet"
+  paastand: "KI der dataene allerede bor"
+  eksempel: "Modellen kjører der dataene allerede bor. Integrert i pipelinene dine."
+
+prosjekt:
+  title: "Historien om prosjektet"
+  subtitle: "Fra én kilde til en plattform"
+
+dag-en:
+  title: "Dag én"
+  rows:
+    - label: "Én kilde."
+      value: "AIS"
+    - label: "Ett lite team."
+      value: ""
+    - label: "Én strøm."
+      value: "Den stopper aldri"
+
+azure-databricks:
+  title: "Azure + Databricks + Terraform"
+  subtitle: "Verktøykassa vi valgte"
+
+azure:
+  title: "Azure: grunnmuren"
+  items:
+    - "Lagring, nettverk, identitet"
+    - "Sikkerhet og kostnadskontroll fra dag én"
+    - "Godt integrert med resten av organisasjonen"
+
+databricks:
+  title: "Databricks: motoren"
+  items:
+    - "Lakehouse: datasjø og datavarehus i ett"
+    - "Skalerer compute godt, opp til mange terabyte"
+    - "Unity Catalog: tilgang, lineage, katalog"
+
+terraform-kode:
+  title: "Én ressurs. Tre miljøer."
+  code: |-
+    resource "azurerm_databricks_workspace" "this" {
+      for_each = toset(["dev", "test", "prod"])
+
+      name                = "dbw-kystverket-${each.key}"
+      resource_group_name = "rg-kystverket-${each.key}"
+      location            = "norwayeast"
+      sku                 = "premium"
+    }
+  punchline: "Samme blokk. Tre Databricks-workspaces."
+
+terraform:
+  title: |-
+    Deploy og versjonskontroller
+    infrastrukturen din
+  lead: "Infrastruktur som kode. Terraform. Gjennom CI/CD."
+  cards:
+    - tittel: "Pull request"
+      tekst: "endringen ligger i git"
+    - tittel: "terraform plan"
+      tekst: "hva som kommer til å skje"
+    - tittel: "apply"
+      tekst: "merge, så blir det virkelighet"
+  punchline: "Hele plattformen kan gjenskapes fra repoet."
+
+fire-states:
+  title: "Terraform: fire states. Fire pipelines."
+  rows:
+    - label: "workspace"
+      value: "her logger teamet inn"
+    - label: "storage accounts"
+      value: "inkludert raw"
+    - label: "unity catalog"
+      value: "tilgang som kode"
+    - label: "databricks_account"
+      value: "identitet, over workspacet"
+  punchline: "En endring i lagring river ikke ned katalogen."
+
+teknisk-implementasjon:
+  title: "Slik gjør vi det"
+  subtitle: "Ingest, jobbene, bundlene"
+
+ingest:
+  title: "Innlesingen skjer utenfor Databricks."
+  rows:
+    - label: "Prefect."
+      value: "Python-jobber, utenfor Databricks"
+    - label: "Dumper i raw."
+      value: "Så er den ferdig"
+    - label: "Databricks leser derfra."
+      value: "Plattformen begynner når filen ligger der"
+
+serverless:
+  title: "serverless vs manuell tuning"
+  kicker: "DATABRICKS SERVERLESS"
+  items:
+    - "Autoskalering ble billigere enn manuell skalering"
+    - "Spart tid på tuning"
+    - "Spart oppstartstid"
+
+stordata-volum:
+  title: "Strømmen er liten. Historikken er stor."
+  stats:
+    - value: "~5 GB"
+      label: "rådata i døgnet"
+    - value: "~1.8 TB"
+      label: "i året"
+    - value: "~40 TB"
+      label: "AIS-historikk tilbake til 2005"
+  lead: "Døgnet er enkelt. Det tunge er å kjøre gjennom tjueen år på nytt."
+
+databricks-compute:
+  title: "Databricks-compute"
+  lead: "Klynger er administrerte VM-er i Azure"
+  items:
+    - "Du skalerer klyngen etter volumet"
+    - "1 TB som skal prosesseres? Da trenger du en ganske stor VM"
+    - "Dataene deles opp. Alt trenger ikke å få plass i minnet."
+    - "VM-størrelsen bestemmer hvor lang tid jobben tar"
+
+stordata-compute:
+  title: "Døgn med kjøretid, eller timer?"
+  cards:
+    - label: "FAST KLYNGE"
+      items:
+        - "størrelsen er bestemt før jobben starter"
+        - "en full reprosessering kan bruke flere døgn"
+        - "flere slike jobber samtidig, og de står i kø"
+    - label: "AUTOSKALERING"
+      items:
+        - "kapasiteten følger datamengden i jobben"
+        - "døgn blir timer når vi kan bruke bredden"
+        - "og alt skrus ned igjen når jobben er ferdig"
+  punchline: "Samme regning. Svaret i dag, ikke på fredag."
+
+modeller:
+  title: |-
+    Hvilke produkter har vi bygget
+    oppå dette?
+
+modell-flyt:
+  title: "Én kilde, mange dataprodukter"
+  cards:
+    - tittel: "AIS-rådata"
+      tekst: "statiske og dynamiske meldinger"
+    - tittel: "HAIS"
+      tekst: "historiske uttrekk på bestilling"
+    - tittel: "MarTraf"
+      tekst: "trafikkproduktet – vasker og beriker"
+    - tittel: "MarU"
+      tekst: "utslipp – energi og klimaregnskap"
+    - tittel: "KystRisk"
+      tekst: "ulykkesrisiko – kollisjoner og grunnstøtinger"
+
+hais:
+  title: "HAIS: historiske uttrekk på bestilling"
+  link: "hais.kystverket.no"
+  cards:
+    - tittel: "Bestilling"
+      tekst: "tidsrom, område (WKT), skipstype eller MMSI"
+    - tittel: "Uttrekksjobb"
+      tekst: "leser gjennom historikken og filtrerer"
+    - tittel: "Levering"
+      tekst: "GeoParquet eller CSV på e-post"
+
+asuka-hvem:
+  title: "Hvem er Asuka?"
+
+folg-ett-skip:
+  title: "MarTraf – Maritim trafikkmodell"
+  lead: "Følg ett skip. 3 800 AIS-punkter blir én seilas, havn til havn"
+  faser:
+    - fase: "Ved kai"
+      sted: "Bergen, 22:40"
+      fart: "0 knop"
+    - fase: "Manøvrering"
+      sted: "ut Byfjorden"
+      fart: "≤ 3 knop"
+    - fase: "Cruising"
+      sted: "forbi Stad, 03:14"
+      fart: "9 knop"
+    - fase: "Ankring"
+      sted: "venter på kaiplass"
+      fart: "0,2 knop"
+    - fase: "Ved kai"
+      sted: "Ålesund, 09:15"
+      fart: "0 knop"
+  footer: "Fasene gjør støy til kunnskap."
+
+propellloven:
+  title: "MarU – Maritim utslippsmodell"
+  cards:
+    - tittel: "To AIS-punkter gir oss farten"
+      tekst: "Avstand delt på tid. Så fort går skipet."
+    - tittel: "Vi vet hva slags skip det er"
+      tekst: "Registeret. Type, størrelse, hvordan det er bygd for å seile."
+    - tittel: "Så anslår vi hva det brente"
+      tekst: "Ved denne farten. Dobler du farten, åttedobler du effektbehovet."
+  footer: "Hvert AIS-punkt blir en utslippsberegning."
+
+maru-hvorfor:
+  title: "Hvordan ble det gjort før?"
+  items:
+    - "Tradisjonelt: hvor mye drivstoff som ble solgt i Norge"
+    - "Skip bunkrer i utlandet og seiler her. Tallene stemmer ikke."
+    - "MarU bruker observert aktivitet."
+
+maru:
+  title: "Maritim utslippsmodell – MarU"
+  lead: "Her møter volumet metoden"
+  items:
+    - "Python og PySpark, beregnet på Databricks"
+    - "Hovedmotor fra propellloven"
+    - "Rundt 330 inputvariabler"
+    - "Ett skipsregister"
+  source: "https://www.kystverket.no/klima-og-barekraft/maru/"
+
+maru-hull:
+  title: "Fyller hullene i skipsregisteret med ML"
+  items:
+    - "Skipsregisteret vi trenger for å anslå utslipp er fullt av hull"
+    - "Medianverdier dekker det enkleste"
+    - "Nevrale nett for servicefart, turtall og slagtype"
+    - "70 % mangler drivstofftype. Vi fyller det."
+  footer: "Modellen er åpen. github.com/Kystverket/maru"
+
+maru-ut:
+  title: "Hva kommer ut?"
+  subtitle: "Inn i kommunenes klimaregnskap"
+  items:
+    - |-
+      CO₂, metan, NOx, SOx,
+      svevestøv
+    - "14 skipstyper, 9 størrelser"
+    - "Kommune, fylke, havområde"
+    - "Innenriks, utenriks, gjennomfart"
+
+kystrisk-tti:
+  title: |-
+    KystRisk: Hva er sannsynligheten for å treffe?
+    Holder du kursen, hvor lenge til du treffer?
+  lead: "TTI. Time to impact. Ett tall per sektor."
+  body:
+    - "Risiko er 0 til 1."
+    - |-
+      0 er uendelig liten.
+      Basert på kursen du har nå.
+    - "Høy TTI, og risikoen går mot null."
+
+kystrisk:
+  title: "Maritim risikomodell – KystRisk"
+  lead: "Samme seilaser. En risikoscore. Hvert tidspunkt."
+  items:
+    - "Hvert skip får en score i hvert AIS-punkt"
+    - "Så finner vi fjordene der risikoen blir for høy"
+    - "Tegne kystkart på nytt. Gi eller nekte skip seilingstillatelse."
+  footer: "Fortsatt under utvikling. Vi regner med å publisere den før nyttår."
+
+math-opt:
+  title: "Matematiske optimaliseringer"
+  lead: "Romlig analyse stiller alltid to spørsmål."
+  cards:
+    - label: "INNENFOR"
+      tittel: "Er dette punktet inni dette området?"
+      tekst: "En havn. Et oppdrettsanlegg. Økonomisk sone."
+    - label: "NÆR"
+      tittel: "Hvilke punkter ligger nær hverandre?"
+      tekst: "Nær land. Nær en plattform. Nær vårt skip."
+  body:
+    - "Over milliarder av punkter blir det hvert punkt mot alle andre punkter."
+    - "Så vi grupperer punktene i heksagoner. Ubers H3."
+
+h3-hexes:
+  title: "Heksagoner inni heksagoner"
+  lead: "Ubers H3. Hvert heksagon har en unik id."
+  footer: "Seksten oppløsninger. Fra enorme heksagoner ned til rundt én meter."
+
+hex-join:
+  title: "En join på et tall"
+  cards:
+    - label: "GEOMETRI"
+      tittel: "Punkt i polygon"
+      items:
+        - "Matematikk på hver rad"
+        - "Greit for tusen punkter"
+    - label: "H3"
+      tittel: "En BIGINT som alt ligger på tabellen"
+      items:
+        - "En hash join. Så kan du prune"
+        - "Greit for hundre millioner"
+  caption: "MarTraf, MarU, KystRisk."
+
+veien-videre:
+  title: "Veien videre for dataplattformen"
+
+flere-domener:
+  title: "Ikke bare AIS"
+  lead: "Så vi trenger en arkitektur som skalerer. Delte data holder høy kvalitet. Og er lette å finne."
+  rows:
+    - label: "customs"
+      tekst: "deklarasjoner og last"
+    - label: "internal_hr_finance"
+      tekst: "lønn og regnskap"
+    - label: "lighthouse_predictive_maintenance"
+      tekst: "sensorer på lyktene"
+    - label: "og mange flere"
+      tekst: ""
+
+videre-liste:
+  title: "Dette vil vi få til"
+  subtitle: "Verdens tryggeste og reneste kyst"
+  items:
+    - "Mer av Kystverkets egne data inn i dataplattformen"
+    - "Tollanalyse"
+    - "Prediktivt vedlikehold av lykter"
+    - "Raskere og bedre organisasjon"
+
+tilbake-til-stad:
+  lines:
+    - "Klokka er 03:14."
+    - "Havet utenfor Stad. Februar. Kuling fra nordvest."
+    - "Et lasteskip på vei nordover i ni knop."
+    - "Vi lytter."
+
+takk:
+  title: "Takk."
+  lead: "Alt dette er åpent. Prøv selv i pausen."
+  links:
+    - url: "nais.kystverket.no"
+      label: "Sanntidskartet"
+    - url: "hais.kystverket.no"
+      label: "Historikk på bestilling"
+    - url: "153.44.253.27:5631"
+      label: "Rå AIS-strøm over TCP"
+    - url: "developer.barentswatch.no"
+      label: "Live-API for utviklere"
+    - url: "github.com/Kystverket/maru"
+      label: "Hele utslippsmodellen"
+  contact:
+    name: "Peter Bull"
+    org: "Miles"
+    url: "peterbull.no"

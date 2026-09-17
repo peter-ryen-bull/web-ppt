@@ -78,8 +78,10 @@ presentations/
   chapters.ts               definePresentation, embedAsChapter
   parts.tsx                 Felles byggeklosser (Box, Img, ChapterSlide …)
   notes.ts                  Parser for speaker notes (notes.md → slides)
+  copy.ts                   Parser for publikumstekst (copy.yaml → slides)
   26-08-26-stoe-miles-kundeevent-dataplattform-pitch/  Slides for én presentasjon
     notes.md                Speaker notes – én stor markdown-fil
+    copy.yaml               Publikumstekst (titler, punkter, sitater)
 public/media/
   <presentasjons-id>/       Bilder per presentasjon
   miles-logo.svg            Felles logo
@@ -123,8 +125,8 @@ public/media/
    `inProgress: true` markerer at presentasjonen er under arbeid (vises som
    «Under arbeid» på forsiden). Uten flagg telles den som under arbeid hvis
    id-en har et `YY-MM-DD`-prefiks i fremtiden. Holdte presentasjoner er
-   arkiv: ikke rediger slides, notes eller media etter import – gjenbruk med
-   kopi eller `embedAsChapter`.
+   arkiv: ikke rediger slides, notes, copy.yaml eller media etter import –
+   gjenbruk med kopi eller `embedAsChapter`.
 
    `icon` (valgfritt) er ikonet i lista på forsiden, f.eks. en liten
    SVG-figur fra slidene (`icon: <FyrIkon />`) eller et utsnitt av et
@@ -145,8 +147,16 @@ public/media/
 
 3. Legg bilder i `public/media/<id>/`.
 
-4. Opprett `presentations/<id>/notes.md` med speaker notes (se under) og flett
-   dem inn med `slides: withNotes(SLIDES, notesRaw)`.
+4. Opprett `presentations/<id>/copy.yaml` med publikumstekst (se under) og
+   `notes.md` med speaker notes. Send begge til `definePresentation`.
+
+## Publikumstekst
+
+Titler, punktoppsett og annen synlig tekst ligger i
+`presentations/<id>/copy.yaml`, ikke hardkodet i React. I øvingsvisningen
+(`/<id>`) og på den gjeldende sliden i presentatørvisningen kan du i
+dev-modus høyreklikke teksten, velge **Rediger** og lagre – da skrives
+feltet tilbake til `copy.yaml`.
 
 ## Speaker notes
 

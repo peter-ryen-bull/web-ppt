@@ -1,4 +1,5 @@
 import type { SlideDef } from "../types";
+import copyRaw from "./copy.yaml";
 import notesRaw from "./notes.md";
 import { definePresentation, embedAsChapter } from "../chapters";
 import { FyrIkon } from "@/components/icons/FyrIkon";
@@ -586,6 +587,7 @@ export const tdcKystverketDataplattform = definePresentation({
   inProgress: true,
   icon: <FyrIkon />,
   notes: notesRaw,
+  copy: copyRaw,
   chapters: [
     { id: "apning", title: "Åpningen", slides: APNING },
     { id: "hvem-lytter", title: "Hvem lytter", slides: HVEM_LYTTER },

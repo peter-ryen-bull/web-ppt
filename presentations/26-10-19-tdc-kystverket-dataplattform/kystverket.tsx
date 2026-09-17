@@ -1,3 +1,4 @@
+import { Copy } from "@/components/Copy";
 import {
   Box,
   BulletList,
@@ -30,7 +31,7 @@ export function SlideKystverket() {
         src={`${MEDIA}/kystverket-logo.svg`}
         alt="Kystverket"
       />
-      <ChapterSlide title="Hvem lytter?" showLogo={false} />
+      <ChapterSlide title={<Copy k="title" />} showLogo={false} />
       <Box box={[430, 550, 420, 170]}>
         <BaatSignal />
       </Box>
@@ -55,10 +56,10 @@ export function SlideVisjon() {
             textAlign: "center",
           }}
         >
-          <div style={{ color: "var(--burgundy)" }}>
-            Verdens sikreste og reneste kyst
-          </div>
-          <div
+          <Copy k="title" as="div" style={{ color: "var(--burgundy)" }} />
+          <Copy
+            k="subtitle"
+            as="div"
             style={{
               marginTop: 24,
               fontFamily: "var(--font-sans)",
@@ -67,9 +68,7 @@ export function SlideVisjon() {
               color: "var(--red)",
               ...linje2,
             }}
-          >
-            Det er hele hvorfor-et. Alt annet er hvordan.
-          </div>
+          />
         </div>
       </Box>
     </>
@@ -77,43 +76,16 @@ export function SlideVisjon() {
 }
 
 /* Om NCA: fire virksomhetsområder */
-const NCA_OMRADER: {
-  ikon: IkonNavn;
-  tittel: string;
-  tekst: string;
-}[] = [
-  {
-    ikon: "person",
-    tittel: "Lostjenesten",
-    tekst: "En kjentmann går om bord og tar skipet inn.",
-  },
-  {
-    ikon: "varsel",
-    tittel: "Miljøberedskap",
-    tekst: "Nasjonal beredskap når oljen begynner å lekke.",
-  },
-  {
-    ikon: "antenne",
-    tittel: "Navigasjonsteknologi",
-    tekst: "Fyr og lykter, sjøtrafikksentraler og AIS.",
-  },
-  {
-    ikon: "kart",
-    tittel: "Transport, havn og farled",
-    tekst: "Den fysiske kysten. Havner og seilingsleder.",
-  },
-];
+const NCA_IKONER: IkonNavn[] = ["person", "varsel", "antenne", "kart"];
 
 function OmradeKort({
   at,
   ikon,
-  tittel,
-  tekst,
+  index,
 }: {
   at: number;
   ikon: IkonNavn;
-  tittel: string;
-  tekst: string;
+  index: number;
 }) {
   const reveal = useRevealStyle(at);
   return (
@@ -140,7 +112,7 @@ function OmradeKort({
           color: "var(--burgundy)",
         }}
       >
-        {tittel}
+        <Copy k="omrader" i={index} field="tittel" />
       </div>
       <div
         style={{
@@ -150,7 +122,7 @@ function OmradeKort({
           color: "var(--burgundy-2)",
         }}
       >
-        {tekst}
+        <Copy k="omrader" i={index} field="tekst" />
       </div>
     </div>
   );
@@ -175,9 +147,11 @@ export function SlideOppdrag() {
             color: "var(--burgundy)",
           }}
         >
-          Om oss
+          <Copy k="title" />
         </div>
-        <div
+        <Copy
+          k="subtitle"
+          as="div"
           style={{
             marginTop: 8,
             fontFamily: "var(--font-sans)",
@@ -185,9 +159,7 @@ export function SlideOppdrag() {
             fontSize: pt(20),
             color: "var(--red)",
           }}
-        >
-          Kystverket
-        </div>
+        />
       </Box>
       <Box
         box={[66, 188, 1148, 400]}
@@ -198,8 +170,8 @@ export function SlideOppdrag() {
           rowGap: 20,
         }}
       >
-        {NCA_OMRADER.map((o, i) => (
-          <OmradeKort key={o.tittel} at={i + 1} {...o} />
+        {NCA_IKONER.map((ikon, i) => (
+          <OmradeKort key={ikon} at={i + 1} ikon={ikon} index={i} />
         ))}
       </Box>
       <Box
@@ -213,10 +185,8 @@ export function SlideOppdrag() {
             color: "var(--red)",
           }}
         >
-          <span style={spoersmaalIntro}>
-            Alle fire starter med samme spørsmål:
-          </span>
-          <span style={spoersmaal}> hvor er skipene akkurat nå?</span>
+          <Copy k="questionIntro" style={spoersmaalIntro} />
+          <Copy k="question" style={spoersmaal} />
         </div>
       </Box>
     </>
@@ -228,8 +198,7 @@ export function SlideLyttepostene() {
   const tall = (
     at: number,
     x: number,
-    verdi: string,
-    label: string,
+    index: number,
     farge: string,
     figur: LyttepostType,
   ) => (
@@ -254,7 +223,7 @@ export function SlideLyttepostene() {
             color: farge,
           }}
         >
-          {verdi}
+          <Copy k="posts" i={index} field="value" />
         </div>
         <div
           style={{
@@ -265,7 +234,7 @@ export function SlideLyttepostene() {
             lineHeight: 1.35,
           }}
         >
-          {label}
+          <Copy k="posts" i={index} field="label" />
         </div>
       </Box>
     </Reveal>
@@ -281,12 +250,12 @@ export function SlideLyttepostene() {
             color: "var(--burgundy)",
           }}
         >
-          Lyttepostene
+          <Copy k="title" />
         </div>
       </Box>
-      {tall(1, 80, "~90", "basestasjoner", "var(--teal)", "base")}
-      {tall(2, 460, "4", "satellitter", "var(--teal)", "satellitt")}
-      {tall(3, 840, "100M", "meldinger om dagen", "var(--red)", "meldinger")}
+      {tall(1, 80, 0, "var(--teal)", "base")}
+      {tall(2, 460, 1, "var(--teal)", "satellitt")}
+      {tall(3, 840, 2, "var(--red)", "meldinger")}
       <Reveal at={4}>
         <Box
           box={[120, 500, 1040, 80]}
@@ -304,7 +273,7 @@ export function SlideLyttepostene() {
               textAlign: "center",
             }}
           >
-            Alt lagret tilbake til 2005
+            <Copy k="footer" />
           </div>
         </Box>
       </Reveal>
@@ -324,7 +293,7 @@ export function SlideAis() {
             color: "var(--burgundy-2)",
           }}
         >
-          AIS: laget for å ikke kollidere
+          <Copy k="title" />
         </div>
       </Box>
       <Box box={[850, 28, 390, 390]}>
@@ -335,9 +304,9 @@ export function SlideAis() {
         fromStep={1}
         gap={36}
         items={[
-          "Identitet, posisjon, fart, kurs",
-          "Hvert par sekund, eller noen minutter",
-          "Laget mot kollisjoner. Ble ryggraden.",
+          <Copy k="items" i={0} />,
+          <Copy k="items" i={1} />,
+          <Copy k="items" i={2} />,
         ]}
       />
       <Box box={[0, 470, 1280, 250]}>
@@ -361,12 +330,12 @@ export function SlideSporsmalet() {
             textAlign: "center",
           }}
         >
-          <div style={{ color: "var(--burgundy)" }}>
-            Så du har 100 millioner meldinger om dagen.
-          </div>
-          <div style={{ color: "var(--red)", marginTop: 20, ...linje2 }}>
-            Hvordan får du behandlet alle sammen?
-          </div>
+          <Copy k="line1" as="div" style={{ color: "var(--burgundy)" }} />
+          <Copy
+            k="line2"
+            as="div"
+            style={{ color: "var(--red)", marginTop: 20, ...linje2 }}
+          />
         </div>
       </Box>
       <Box box={[0, 600, 1280, 100]}>

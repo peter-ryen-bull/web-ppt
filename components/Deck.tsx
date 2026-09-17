@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import Link from "next/link";
-import { getPresentation } from "@/presentations";
+import { getPresentation, isInProgress } from "@/presentations";
 import { chapterOf } from "@/presentations/chapters";
 import { SlideCanvas, useContainerScale } from "./SlideCanvas";
 import { usePdfExport } from "./PdfExport";
@@ -40,9 +40,12 @@ export default function Deck({ presentationId }: { presentationId: string }) {
   const [exportMode, setExportMode] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(() => new Set());
   const [exportError, setExportError] = useState<string | null>(null);
+  const [copyEditing, setCopyEditing] = useState(false);
   const { exportSlides, captureNode, progress, exporting } = usePdfExport();
   const stageRef = useRef<HTMLDivElement>(null);
   const scale = useContainerScale(stageRef);
+  const canEditCopy =
+    process.env.NODE_ENV === "development" && isInProgress(presentation);
 
   // Last inn skjulte slides fra localStorage + slide fra URL-hash (#7)
   useEffect(() => {
@@ -159,7 +162,7 @@ export default function Deck({ presentationId }: { presentationId: string }) {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (isTypingTarget(e.target)) return;
+      if (isTypingTarget(e.target) || copyEditing) return;
       if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
         if (overview || exporting) return;
         e.preventDefault();
@@ -215,6 +218,7 @@ export default function Deck({ presentationId }: { presentationId: string }) {
     exportMode,
     exporting,
     overview,
+    copyEditing,
   ]);
 
   const isCurrentHidden = hidden.has(slides[current]?.id);
@@ -275,8 +279,27 @@ export default function Deck({ presentationId }: { presentationId: string }) {
 
   return (
     <div className={styles.root}>
-      <div className={styles.stage} ref={stageRef} onClick={() => go(1)}>
-        <SlideCanvas slide={slides[current]} scale={scale} step={step} />
+      <div
+        className={styles.stage}
+        ref={stageRef}
+        onClick={() => {
+          if (!copyEditing) go(1);
+        }}
+      >
+        <SlideCanvas
+          slide={slides[current]}
+          scale={scale}
+          step={step}
+          copyEdit={
+            canEditCopy
+              ? {
+                  presentationId: presentation.id,
+                  enabled: true,
+                  onEditingChange: setCopyEditing,
+                }
+              : undefined
+          }
+        />
         {isCurrentHidden && (
           <div className={styles.hiddenBadge}>
             Denne sliden er skjult – hoppes over i visning

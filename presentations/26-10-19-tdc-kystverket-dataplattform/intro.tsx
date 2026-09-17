@@ -1,4 +1,5 @@
 import { Box, BulletItem, Img, Reveal, pt, useRevealStyle } from "../parts";
+import { Copy } from "@/components/Copy";
 import { useStep } from "@/components/steps";
 import { BaatSignal } from "./figurer/BaatSignal";
 import { Meldingsfyll } from "./figurer/strek";
@@ -21,7 +22,9 @@ export function SlideScene() {
           gap: 26,
         }}
       >
-        <div
+        <Copy
+          k="line1"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(66),
@@ -29,10 +32,10 @@ export function SlideScene() {
             color: "var(--burgundy)",
             ...linje1,
           }}
-        >
-          Klokka er 03:14.
-        </div>
-        <div
+        />
+        <Copy
+          k="line2"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(44),
@@ -40,10 +43,10 @@ export function SlideScene() {
             color: "var(--burgundy-2)",
             ...linje2,
           }}
-        >
-          Stadhavet. Februar. Nordvest kuling.
-        </div>
-        <div
+        />
+        <Copy
+          k="line3"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(44),
@@ -51,9 +54,7 @@ export function SlideScene() {
             color: "var(--red)",
             ...linje3,
           }}
-        >
-          Et lasteskip går nordover i ni knop.
-        </div>
+        />
       </Box>
       <Box box={[430, 520, 420, 170]}>
         <BaatSignal />
@@ -64,7 +65,7 @@ export function SlideScene() {
 
 /* Slide 2 – Hvert tiende sekund forlater en liten melding skipet */
 export function SlideSignal() {
-  const rad = (label: string, verdi: string) => (
+  const rad = (i: number) => (
     <div
       style={{
         display: "flex",
@@ -74,41 +75,43 @@ export function SlideSignal() {
         borderBottom: "1px solid var(--divider)",
       }}
     >
-      <span
+      <Copy
+        k="rows"
+        i={i}
+        field="label"
         style={{
           fontFamily: "var(--font-sans)",
           fontSize: pt(15),
           color: "#9a5068",
           letterSpacing: 1,
         }}
-      >
-        {label}
-      </span>
-      <span
+      />
+      <Copy
+        k="rows"
+        i={i}
+        field="value"
         style={{
           fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
           fontSize: pt(17),
           color: "var(--burgundy)",
         }}
-      >
-        {verdi}
-      </span>
+      />
     </div>
   );
 
   return (
     <>
       <Box box={[66, 80, 640, 150]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(44),
             lineHeight: 1.15,
             color: "var(--burgundy)",
           }}
-        >
-          Hvert tiende sekund sier skipet:
-        </div>
+        />
       </Box>
       <Reveal at={1}>
         <Box
@@ -120,11 +123,11 @@ export function SlideSignal() {
             padding: "22px 30px",
           }}
         >
-          {rad("HVEM", "MMSI 257 123 000")}
-          {rad("HVOR", "62,19° N  5,08° Ø")}
-          {rad("HVOR FORT", "9,2 knop")}
-          {rad("KURS", "021°")}
-          {rad("STATUS", "under way using engine")}
+          {rad(0)}
+          {rad(1)}
+          {rad(2)}
+          {rad(3)}
+          {rad(4)}
         </Box>
       </Reveal>
       <Box box={[720, 250, 500, 200]}>
@@ -160,7 +163,9 @@ export function SlideNais() {
             justifyContent: "center",
           }}
         >
-          <div
+          <Copy
+            k="caption"
+            as="div"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: pt(14),
@@ -168,9 +173,7 @@ export function SlideNais() {
               background: "var(--cream)",
               padding: "6px 16px",
             }}
-          >
-            nais.kystverket.no. Åpent for alle.
-          </div>
+          />
         </Box>
       </Reveal>
     </>
@@ -189,16 +192,16 @@ export function SlideHundreMillioner() {
           justifyContent: "center",
         }}
       >
-        <div
+        <Copy
+          k="number"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(105),
             color: "var(--red)",
             whiteSpace: "nowrap",
           }}
-        >
-          100 000 000
-        </div>
+        />
       </Box>
       <Reveal at={1}>
         <Box
@@ -209,16 +212,16 @@ export function SlideHundreMillioner() {
             justifyContent: "center",
           }}
         >
-          <div
+          <Copy
+            k="caption"
+            as="div"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: pt(24),
               color: "var(--burgundy)",
               textAlign: "center",
             }}
-          >
-            slike meldinger. Hver eneste dag.
-          </div>
+          />
         </Box>
       </Reveal>
     </>
@@ -253,11 +256,9 @@ export function SlideForside() {
             color: "var(--burgundy)",
           }}
         >
-          100 millioner rader om dagen
+          <Copy k="title" />
           <br />
-          <span style={{ color: "var(--red)" }}>
-            Historien om dataplattformen bak kysten
-          </span>
+          <Copy k="subtitle" style={{ color: "var(--red)" }} />
         </div>
       </Box>
       <Img
@@ -332,15 +333,15 @@ export function SlideOmPeter() {
         position="center 45%"
       />
       <Box box={[66.7, 140, 580, 80]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(48),
             color: "var(--burgundy-2)",
           }}
-        >
-          Peter Bull
-        </div>
+        />
       </Box>
       <Box
         box={[72.4, 232, 580, 420]}
@@ -351,13 +352,17 @@ export function SlideOmPeter() {
         }}
       >
         <BulletItem at={1}>
-          Designer dataplattformer for store organisasjoner
+          <Copy k="items" i={0} />
         </BulletItem>
         <BulletItem at={2}>
-          Tidligere tech lead for politiets dataplattform
+          <Copy k="items" i={1} />
         </BulletItem>
-        <BulletItem at={3}>Azure, Databricks, Terraform</BulletItem>
-        <BulletItem at={4}>Klatrer og skigåer</BulletItem>
+        <BulletItem at={3}>
+          <Copy k="items" i={2} />
+        </BulletItem>
+        <BulletItem at={4}>
+          <Copy k="items" i={3} />
+        </BulletItem>
       </Box>
     </>
   );

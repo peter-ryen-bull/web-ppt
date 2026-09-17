@@ -1,14 +1,9 @@
 import type { ReactNode } from "react";
+import { Copy } from "@/components/Copy";
 import { Box, BulletItem, BulletList, Reveal, pt } from "../parts";
 import { Isfjell, KlyngeAuto, KlyngeFast } from "./figurer/strek";
 
-const VOLUM = {
-  perDogn: "~5 GB",
-  perAar: "~1.8 TB",
-  historikk: "~40 TB",
-};
-
-function SlideTittel({ children }: { children: string }) {
+function SlideTittel({ children }: { children: ReactNode }) {
   return (
     <Box box={[48, 42, 900, 60]}>
       <div
@@ -29,8 +24,7 @@ export function SlideStordataVolum() {
   const tall = (
     at: number,
     x: number,
-    verdi: string,
-    label: string,
+    i: number,
     farge: string,
   ) => (
     <Reveal at={at}>
@@ -51,7 +45,7 @@ export function SlideStordataVolum() {
             color: farge,
           }}
         >
-          {verdi}
+          <Copy k="stats" i={i} field="value" />
         </div>
         <div
           style={{
@@ -61,7 +55,7 @@ export function SlideStordataVolum() {
             textAlign: "center",
           }}
         >
-          {label}
+          <Copy k="stats" i={i} field="label" />
         </div>
       </Box>
     </Reveal>
@@ -69,16 +63,12 @@ export function SlideStordataVolum() {
 
   return (
     <>
-      <SlideTittel>Strømmen er liten. Historikken er stor.</SlideTittel>
-      {tall(1, 40, VOLUM.perDogn, "rådata i døgnet", "var(--burgundy)")}
-      {tall(2, 340, VOLUM.perAar, "i året", "var(--burgundy)")}
-      {tall(
-        3,
-        640,
-        VOLUM.historikk,
-        "AIS-historikk tilbake til 2005",
-        "var(--red)",
-      )}
+      <SlideTittel>
+        <Copy k="title" />
+      </SlideTittel>
+      {tall(1, 40, 0, "var(--burgundy)")}
+      {tall(2, 340, 1, "var(--burgundy)")}
+      {tall(3, 640, 2, "var(--red)")}
       <Reveal at={3}>
         <Box box={[940, 250, 320, 112]}>
           <Isfjell />
@@ -102,7 +92,7 @@ export function SlideStordataVolum() {
               textAlign: "center",
             }}
           >
-            Døgnet er enkelt. Det tunge er å kjøre gjennom tjueen år på nytt.
+            <Copy k="lead" />
           </div>
         </Box>
       </Reveal>
@@ -114,7 +104,9 @@ export function SlideStordataVolum() {
 export function SlideDatabricksCompute() {
   return (
     <>
-      <SlideTittel>Databricks-compute</SlideTittel>
+      <SlideTittel>
+        <Copy k="title" />
+      </SlideTittel>
       <Box box={[48, 108, 900, 40]}>
         <div
           style={{
@@ -123,7 +115,7 @@ export function SlideDatabricksCompute() {
             color: "var(--red)",
           }}
         >
-          Klynger er administrerte VM-er i Azure
+          <Copy k="lead" />
         </div>
       </Box>
       <BulletList
@@ -132,10 +124,10 @@ export function SlideDatabricksCompute() {
         gap={36}
         size={22}
         items={[
-          "Du skalerer klyngen etter volumet",
-          "1 TB som skal prosesseres? Da trenger du en ganske stor VM",
-          "Dataene deles opp. Alt trenger ikke å få plass i minnet.",
-          "VM-størrelsen bestemmer hvor lang tid jobben tar",
+          <Copy k="items" i={0} />,
+          <Copy k="items" i={1} />,
+          <Copy k="items" i={2} />,
+          <Copy k="items" i={3} />,
         ]}
       />
     </>
@@ -144,14 +136,12 @@ export function SlideDatabricksCompute() {
 
 function Kort({
   x,
-  tittel,
-  punkter,
+  card,
   fraSteg,
   figur,
 }: {
   x: number;
-  tittel: string;
-  punkter: string[];
+  card: number;
   /** Klikk-steget der første punkt dukker opp */
   fraSteg: number;
   figur: ReactNode;
@@ -181,12 +171,12 @@ function Kort({
           letterSpacing: 1.5,
         }}
       >
-        {tittel}
+        <Copy k="cards" i={card} field="label" />
       </span>
       <div style={{ marginTop: 30, display: "grid", gap: 22 }}>
-        {punkter.map((p, i) => (
-          <BulletItem key={p} at={fraSteg + i} size={15} color="var(--burgundy)">
-            {p}
+        {[0, 1, 2].map((i) => (
+          <BulletItem key={i} at={fraSteg + i} size={15} color="var(--burgundy)">
+            <Copy k={`cards.${card}.items`} i={i} />
           </BulletItem>
         ))}
       </div>
@@ -198,28 +188,20 @@ function Kort({
 export function SlideStordataCompute() {
   return (
     <>
-      <SlideTittel>Døgn med kjøretid, eller timer?</SlideTittel>
+      <SlideTittel>
+        <Copy k="title" />
+      </SlideTittel>
       <Kort
         x={80}
-        tittel="FAST KLYNGE"
+        card={0}
         fraSteg={1}
         figur={<KlyngeFast />}
-        punkter={[
-          "størrelsen er bestemt før jobben starter",
-          "en full reprosessering kan bruke flere døgn",
-          "flere slike jobber samtidig, og de står i kø",
-        ]}
       />
       <Kort
         x={668}
-        tittel="AUTOSKALERING"
+        card={1}
         fraSteg={4}
         figur={<KlyngeAuto />}
-        punkter={[
-          "kapasiteten følger datamengden i jobben",
-          "døgn blir timer når vi kan bruke bredden",
-          "og alt skrus ned igjen når jobben er ferdig",
-        ]}
       />
       <Reveal at={7}>
         <Box
@@ -239,7 +221,7 @@ export function SlideStordataCompute() {
               textAlign: "center",
             }}
           >
-            Samme regning. Svaret i dag, ikke på fredag.
+            <Copy k="punchline" />
           </div>
         </Box>
       </Reveal>

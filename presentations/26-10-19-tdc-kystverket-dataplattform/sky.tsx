@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Copy } from "@/components/Copy";
 import { Box, BulletList, ChapterSlide, Img, Reveal, pt } from "../parts";
 import {
   DagEn,
@@ -21,8 +22,8 @@ export function SlideProsjekt() {
         alt="Kystverket"
       />
       <ChapterSlide
-        title="Historien om prosjektet"
-        subtitle="Fra én kilde til en plattform"
+        title={<Copy k="title" />}
+        subtitle={<Copy k="subtitle" />}
         titleSize={60}
         showLogo={false}
       />
@@ -32,11 +33,6 @@ export function SlideProsjekt() {
 
 /* Dag én: hva vi hadde å starte med */
 export function SlideDagEn() {
-  const linjer = [
-    ["Én kilde.", "AIS"],
-    ["Ett lite team."],
-    ["Én strøm.", "Den stopper aldri"],
-  ];
   return (
     <>
       <Box box={[66, 70, 1100, 70]}>
@@ -47,14 +43,14 @@ export function SlideDagEn() {
             color: "var(--burgundy)",
           }}
         >
-          Dag én
+          <Copy k="title" />
         </div>
       </Box>
       <Box box={[800, 170, 400, 400]}>
         <DagEn />
       </Box>
-      {linjer.map(([stor, liten], i) => (
-        <Reveal key={stor} at={i + 1}>
+      {[0, 1, 2].map((i) => (
+        <Reveal key={i} at={i + 1}>
           <Box box={[90, 180 + i * 140, 680, 110]}>
             <div
               style={{
@@ -64,7 +60,7 @@ export function SlideDagEn() {
                 color: i === 2 ? "var(--red)" : "var(--burgundy)",
               }}
             >
-              {stor}
+              <Copy k="rows" i={i} field="label" />
             </div>
             <div
               style={{
@@ -74,7 +70,7 @@ export function SlideDagEn() {
                 color: "var(--burgundy-2)",
               }}
             >
-              {liten}
+              <Copy k="rows" i={i} field="value" />
             </div>
           </Box>
         </Reveal>
@@ -91,8 +87,8 @@ export function SlideAzureDatabricks() {
         <SkyMedKlosser />
       </Box>
       <ChapterSlide
-        title="Azure + Databricks + Terraform"
-        subtitle="Verktøykassa vi valgte"
+        title={<Copy k="title" />}
+        subtitle={<Copy k="subtitle" />}
         titleSize={52}
         showLogo={false}
       />
@@ -112,7 +108,7 @@ export function SlideAzure() {
             color: "var(--burgundy-2)",
           }}
         >
-          Azure: grunnmuren
+          <Copy k="title" />
         </div>
       </Box>
       <Box box={[800, 250, 420, 160]}>
@@ -123,9 +119,9 @@ export function SlideAzure() {
         fromStep={1}
         gap={32}
         items={[
-          "Lagring, nettverk, identitet",
-          "Sikkerhet og kostnadskontroll fra dag én",
-          "Godt integrert med resten av organisasjonen",
+          <Copy k="items" i={0} />,
+          <Copy k="items" i={1} />,
+          <Copy k="items" i={2} />,
         ]}
       />
     </>
@@ -144,7 +140,7 @@ export function SlideDatabricks() {
             color: "var(--burgundy-2)",
           }}
         >
-          Databricks: motoren
+          <Copy k="title" />
         </div>
       </Box>
       <Img
@@ -157,9 +153,9 @@ export function SlideDatabricks() {
         fromStep={1}
         gap={36}
         items={[
-          "Lakehouse: datasjø og datavarehus i ett",
-          "Skalerer compute godt, opp til mange terabyte",
-          "Unity Catalog: tilgang, lineage, katalog",
+          <Copy k="items" i={0} />,
+          <Copy k="items" i={1} />,
+          <Copy k="items" i={2} />,
         ]}
       />
     </>
@@ -178,8 +174,8 @@ function FlytBoks({
   x: number;
   y?: number;
   w?: number;
-  title: string;
-  sub: string;
+  title: ReactNode;
+  sub: ReactNode;
 }) {
   return (
     <Reveal at={at}>
@@ -246,7 +242,7 @@ function FlytPil({ at, x, y = 345 }: { at: number; x: number; y?: number }) {
   );
 }
 
-function Punchline({ at, y, text }: { at: number; y: number; text: string }) {
+function Punchline({ at, y, text }: { at: number; y: number; text: ReactNode }) {
   return (
     <Reveal at={at}>
       <Box
@@ -285,9 +281,7 @@ export function SlideTerraform() {
             color: "var(--burgundy)",
           }}
         >
-          Deploy og versjonskontroller
-          <br />
-          infrastrukturen din
+          <Copy k="title" as="div" style={{ whiteSpace: "pre-line" }} />
         </div>
       </Box>
       <Img
@@ -303,36 +297,41 @@ export function SlideTerraform() {
             color: "var(--red)",
           }}
         >
-          Infrastruktur som kode. Terraform. Gjennom CI/CD.
+          <Copy k="lead" />
         </div>
       </Box>
-      <FlytBoks at={1} x={80} y={230} w={300} title="Pull request" sub="endringen ligger i git" />
+      <FlytBoks
+        at={1}
+        x={80}
+        y={230}
+        w={300}
+        title={<Copy k="cards" i={0} field="tittel" />}
+        sub={<Copy k="cards" i={0} field="tekst" />}
+      />
       <FlytPil at={1} x={390} y={270} />
-      <FlytBoks at={2} x={440} y={230} w={300} title="terraform plan" sub="hva som kommer til å skje" />
+      <FlytBoks
+        at={2}
+        x={440}
+        y={230}
+        w={300}
+        title={<Copy k="cards" i={1} field="tittel" />}
+        sub={<Copy k="cards" i={1} field="tekst" />}
+      />
       <FlytPil at={2} x={750} y={270} />
-      <FlytBoks at={3} x={800} y={230} w={300} title="apply" sub="merge, så blir det virkelighet" />
-      <Punchline at={4} y={460} text="Hele plattformen kan gjenskapes fra repoet." />
+      <FlytBoks
+        at={3}
+        x={800}
+        y={230}
+        w={300}
+        title={<Copy k="cards" i={2} field="tittel" />}
+        sub={<Copy k="cards" i={2} field="tekst" />}
+      />
+      <Punchline at={4} y={460} text={<Copy k="punchline" />} />
     </>
   );
 }
 
 const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
-
-function TfKw({ children }: { children: ReactNode }) {
-  return <span style={{ color: "var(--mint)" }}>{children}</span>;
-}
-
-function TfStr({ children }: { children: ReactNode }) {
-  return <span style={{ color: "#f4b8a0" }}>{children}</span>;
-}
-
-function TfLine({ children }: { children?: ReactNode }) {
-  return (
-    <div style={{ whiteSpace: "pre", color: "var(--cream)" }}>
-      {children ?? " "}
-    </div>
-  );
-}
 
 /* Ett utdrag: workspace-ressursen, tre miljøer */
 export function SlideTerraformKode() {
@@ -346,7 +345,7 @@ export function SlideTerraformKode() {
             color: "var(--burgundy)",
           }}
         >
-          Én ressurs. Tre miljøer.
+          <Copy k="title" />
         </div>
       </Box>
       <Img
@@ -369,46 +368,16 @@ export function SlideTerraformKode() {
           justifyContent: "center",
         }}
       >
-        <TfLine>
-          <TfKw>resource</TfKw> <TfStr>&quot;azurerm_databricks_workspace&quot;</TfStr>{" "}
-          <TfStr>&quot;this&quot;</TfStr> {"{"}
-        </TfLine>
-        <TfLine>
-          {"  "}
-          <TfKw>for_each</TfKw>
-          {" = "}
-          <TfKw>toset</TfKw>
-          {"(["}
-          <TfStr>&quot;dev&quot;</TfStr>
-          {", "}
-          <TfStr>&quot;test&quot;</TfStr>
-          {", "}
-          <TfStr>&quot;prod&quot;</TfStr>
-          {"])"}
-        </TfLine>
-        <TfLine />
-        <TfLine>
-          {"  name                = "}
-          <TfStr>&quot;dbw-kystverket-${"{"}each.key{"}"}&quot;</TfStr>
-        </TfLine>
-        <TfLine>
-          {"  resource_group_name = "}
-          <TfStr>&quot;rg-kystverket-${"{"}each.key{"}"}&quot;</TfStr>
-        </TfLine>
-        <TfLine>
-          {"  location            = "}
-          <TfStr>&quot;norwayeast&quot;</TfStr>
-        </TfLine>
-        <TfLine>
-          {"  sku                 = "}
-          <TfStr>&quot;premium&quot;</TfStr>
-        </TfLine>
-        <TfLine>{"}"}</TfLine>
+        <Copy
+          k="code"
+          as="div"
+          style={{ whiteSpace: "pre", color: "var(--cream)" }}
+        />
       </Box>
       <Punchline
         at={1}
         y={620}
-        text="Samme blokk. Tre Databricks-workspaces."
+        text={<Copy k="punchline" />}
       />
     </>
   );
@@ -416,12 +385,6 @@ export function SlideTerraformKode() {
 
 /* Fire Terraform-states */
 export function SlideFireStates() {
-  const states: [string, string][] = [
-    ["workspace", "her logger teamet inn"],
-    ["storage accounts", "inkludert raw"],
-    ["unity catalog", "tilgang som kode"],
-    ["databricks_account", "identitet, over workspacet"],
-  ];
   return (
     <>
       <Box box={[66, 50, 1040, 70]}>
@@ -432,7 +395,7 @@ export function SlideFireStates() {
             color: "var(--burgundy)",
           }}
         >
-          Terraform: fire states. Fire pipelines.
+          <Copy k="title" />
         </div>
       </Box>
       <Img
@@ -443,8 +406,8 @@ export function SlideFireStates() {
       <Box box={[820, 130, 400, 420]}>
         <FireSpor />
       </Box>
-      {states.map(([navn, tekst], i) => (
-        <Reveal key={navn} at={i + 1}>
+      {[0, 1, 2, 3].map((i) => (
+        <Reveal key={i} at={i + 1}>
           <Box box={[90, 140 + i * 110, 700, 95]}>
             <div
               style={{
@@ -454,7 +417,7 @@ export function SlideFireStates() {
                 color: "var(--burgundy)",
               }}
             >
-              {navn}
+              <Copy k="rows" i={i} field="label" />
             </div>
             <div
               style={{
@@ -464,7 +427,7 @@ export function SlideFireStates() {
                 color: "var(--burgundy-2)",
               }}
             >
-              {tekst}
+              <Copy k="rows" i={i} field="value" />
             </div>
           </Box>
         </Reveal>
@@ -472,7 +435,7 @@ export function SlideFireStates() {
       <Punchline
         at={5}
         y={580}
-        text="En endring i lagring river ikke ned katalogen."
+        text={<Copy k="punchline" />}
       />
     </>
   );
@@ -482,8 +445,8 @@ export function SlideFireStates() {
 export function SlideTekniskImplementasjon() {
   return (
     <ChapterSlide
-      title="Slik gjør vi det"
-      subtitle="Ingest, jobbene, bundlene"
+      title={<Copy k="title" />}
+      subtitle={<Copy k="subtitle" />}
       titleSize={54}
       showLogo={false}
     />
@@ -492,11 +455,6 @@ export function SlideTekniskImplementasjon() {
 
 /* Innlesing utenfor Databricks */
 export function SlideIngest() {
-  const linjer = [
-    ["Prefect.", "Python-jobber, utenfor Databricks"],
-    ["Dumper i raw.", "Så er den ferdig"],
-    ["Databricks leser derfra.", "Plattformen begynner når filen ligger der"],
-  ];
   return (
     <>
       <Box box={[66, 50, 1150, 90]}>
@@ -507,14 +465,14 @@ export function SlideIngest() {
             color: "var(--burgundy)",
           }}
         >
-          Innlesingen skjer utenfor Databricks.
+          <Copy k="title" />
         </div>
       </Box>
       <Box box={[820, 150, 400, 400]}>
         <Innlesing />
       </Box>
-      {linjer.map(([stor, liten], i) => (
-        <Reveal key={stor} at={i + 1}>
+      {[0, 1, 2].map((i) => (
+        <Reveal key={i} at={i + 1}>
           <Box box={[90, 170 + i * 140, 700, 120]}>
             <div
               style={{
@@ -524,7 +482,7 @@ export function SlideIngest() {
                 color: i === 2 ? "var(--red)" : "var(--burgundy)",
               }}
             >
-              {stor}
+              <Copy k="rows" i={i} field="label" />
             </div>
             <div
               style={{
@@ -534,7 +492,7 @@ export function SlideIngest() {
                 color: "var(--burgundy-2)",
               }}
             >
-              {liten}
+              <Copy k="rows" i={i} field="value" />
             </div>
           </Box>
         </Reveal>
@@ -560,11 +518,6 @@ export function SlideAisPipeline() {
 
 /* Databricks serverless */
 export function SlideServerless() {
-  const lines = [
-    "Autoskalering ble billigere enn manuell skalering",
-    "Spart tid på tuning",
-    "Spart oppstartstid",
-  ];
   return (
     <>
       <Box
@@ -585,7 +538,7 @@ export function SlideServerless() {
             width: "100%",
           }}
         >
-          serverless vs manuell tuning
+          <Copy k="title" />
         </div>
       </Box>
       <Box
@@ -600,14 +553,14 @@ export function SlideServerless() {
             color: "#9a5068",
           }}
         >
-          DATABRICKS SERVERLESS
+          <Copy k="kicker" />
         </div>
       </Box>
       <Box box={[80, 118, 1120, 320]}>
         <ManuellVsServerless />
       </Box>
-      {lines.map((text, i) => (
-        <Reveal key={text} at={i + 1}>
+      {[0, 1, 2].map((i) => (
+        <Reveal key={i} at={i + 1}>
           <Box
             box={[80, 428 + i * 58, 1120, 48]}
             style={{
@@ -624,7 +577,7 @@ export function SlideServerless() {
                 textAlign: "center",
               }}
             >
-              {text}
+              <Copy k="items" i={i} />
             </div>
           </Box>
         </Reveal>

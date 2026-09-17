@@ -1,7 +1,6 @@
+import { Copy } from "@/components/Copy";
 import { useStep } from "@/components/steps";
 import { Box, BulletList, ChapterSlide, Img, QuotePage, Reveal, pt, useRevealStyle } from "../parts";
-
-const MEDIA = "/media/26-09-17-ndc-kystverket-dataplatform";
 import {
   DataplattformFlyt,
   DataplattformFlytDetaljert,
@@ -22,6 +21,8 @@ import {
   type RolleHvem,
 } from "./figurer/strek";
 
+const MEDIA = "/media/26-09-17-ndc-kystverket-dataplatform";
+
 /* Kapittel: Hvorfor bygger alle dataplattform? */
 export function SlideHvaEr() {
   const sitat = useRevealStyle(1);
@@ -35,7 +36,9 @@ export function SlideHvaEr() {
           justifyContent: "center",
         }}
       >
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(54),
@@ -44,9 +47,7 @@ export function SlideHvaEr() {
             textAlign: "center",
             width: "100%",
           }}
-        >
-          Hvorfor bygger alle dataplattform?
-        </div>
+        />
       </Box>
       <Box
         box={[120, 500, 1040, 90]}
@@ -56,7 +57,9 @@ export function SlideHvaEr() {
           justifyContent: "center",
         }}
       >
-        <div
+        <Copy
+          k="lead"
+          as="div"
           style={{
             fontFamily: "var(--font-sans)",
             fontWeight: 500,
@@ -66,9 +69,7 @@ export function SlideHvaEr() {
             textAlign: "center",
             ...sitat,
           }}
-        >
-          Data blir mer og mer verdifullt.
-        </div>
+        />
       </Box>
     </>
   );
@@ -79,31 +80,26 @@ export function SlideReidHoffman() {
   const pitch = useRevealStyle(2);
   return (
     <QuotePage
-      quote={
-        <>
-          «I dataenes verden er alt målbart, og alt kan vites.»
-        </>
-      }
-      attribution="— Reid Hoffman"
+      quote={<Copy k="quote" />}
+      attribution={<Copy k="attribution" />}
       imageSrc={`${MEDIA}/reid-hoffman.jpg`}
       imageAlt="Reid Hoffman"
-      caption="Reid Hoffman. Medgründer av LinkedIn."
+      caption={<Copy k="caption" />}
     >
       <Box box={[66, 470, 580, 140]}>
-        <div
+        <Copy
+          k="lead"
+          as="div"
           style={{
             fontFamily: "var(--font-sans)",
             fontWeight: 500,
             fontSize: pt(20),
             lineHeight: 1.4,
             color: "var(--red)",
+            whiteSpace: "pre-line",
             ...pitch,
           }}
-        >
-          Du får enormt mye data.
-          <br />
-          Og det blir et skikkelig rot hvis du ikke håndterer det ordentlig.
-        </div>
+        />
       </Box>
     </QuotePage>
   );
@@ -111,49 +107,37 @@ export function SlideReidHoffman() {
 
 /* Dataplattformer i hverdagen: du brukte fire av dem i dag */
 export function SlideHvorfor() {
-  const eksempler: [string, IkonNavn][] = [
-    ["Nettbutikken som foreslår varer", "handlekurv"],
-    ["Strømmetjenesten som treffer", "spill"],
-    [
-      "I banken din kjører svindeldeteksjon og antihvitvasking på hver transaksjon",
-      "skjold",
-    ],
-    [
-      "Nye veier planlagt ut fra år med trafikkdata, prognoser og støyberegninger",
-      "kart",
-    ],
-  ];
+  const ikoner: IkonNavn[] = ["handlekurv", "spill", "skjold", "kart"];
   return (
     <>
       <Box box={[53.7, 210, 540, 200]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(38),
             lineHeight: 1.2,
             color: "var(--burgundy-2)",
           }}
-        >
-          Dataplattformer er overalt
-        </div>
+        />
       </Box>
-      <Reveal at={eksempler.length + 1}>
+      <Reveal at={ikoner.length + 1}>
         <Box box={[53.9, 440, 540, 160]}>
-          <div
+          <Copy
+            k="lead"
+            as="div"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: pt(18),
               lineHeight: 1.4,
               color: "var(--red)",
             }}
-          >
-            Hundrevis av terabyte med data, brukt til å ta de beste
-            beslutningene ut fra mest mulig data. Det skjer overalt.
-          </div>
+          />
         </Box>
       </Reveal>
-      {eksempler.map(([f, ikon], i) => (
-        <Reveal key={f} at={i + 1}>
+      {ikoner.map((ikon, i) => (
+        <Reveal key={ikon} at={i + 1}>
           <Box box={[600, 200 + i * 110, 620, 100]}>
             <div
               style={{
@@ -169,9 +153,9 @@ export function SlideHvorfor() {
               <div style={{ flexShrink: 0, marginTop: 2 }}>
                 <StrekIkon navn={ikon} size={34} color="var(--teal)" strokeWidth={1.6} />
               </div>
-              <span>{f}</span>
+              <Copy k="items" i={i} />
             </div>
-            {i < eksempler.length - 1 && (
+            {i < ikoner.length - 1 && (
               <div
                 style={{
                   position: "absolute",
@@ -210,21 +194,6 @@ export function SlideArkitektur() {
 
 /* Slide 14 – Mer enn et datavarehus */
 export function SlideMerEnnVarehus() {
-  const lakehouse = [
-    "Strukturert og ustrukturert",
-    "Tilbakerulling",
-    "Raske iterasjoner",
-  ];
-  const platform = [
-    "Governance",
-    "Revisjonslogging",
-    "Gjenfinnbarhet",
-    "Pipelines",
-    "Utviklerverktøy",
-    "Kodekjøring",
-    "Compute",
-    "AI-modeller",
-  ];
   const p1 = useRevealStyle(1);
   const p2 = useRevealStyle(2);
   const p3 = useRevealStyle(3);
@@ -232,16 +201,16 @@ export function SlideMerEnnVarehus() {
   return (
     <>
       <Box box={[66, 52, 700, 70]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(36),
             lineHeight: 1.15,
             color: "var(--burgundy)",
           }}
-        >
-          Er det bare en database?
-        </div>
+        />
       </Box>
       <Box
         box={[66, 148, 680, 168]}
@@ -252,9 +221,12 @@ export function SlideMerEnnVarehus() {
           gap: 20,
         }}
       >
-        {lakehouse.map((tekst, i) => (
-          <div
-            key={tekst}
+        {[0, 1, 2].map((i) => (
+          <Copy
+            key={i}
+            k="items"
+            i={i}
+            as="div"
             style={{
               fontFamily: "var(--font-serif)",
               fontSize: pt(26),
@@ -262,9 +234,7 @@ export function SlideMerEnnVarehus() {
               color: "var(--red)",
               ...vis[i],
             }}
-          >
-            {tekst}
-          </div>
+          />
         ))}
       </Box>
       <Reveal at={4}>
@@ -273,7 +243,9 @@ export function SlideMerEnnVarehus() {
           style={{ background: "var(--divider)" }}
         />
         <Box box={[66, 360, 680, 28]}>
-          <div
+          <Copy
+            k="section_label"
+            as="div"
             style={{
               fontFamily: "var(--font-sans)",
               fontWeight: 600,
@@ -281,9 +253,7 @@ export function SlideMerEnnVarehus() {
               letterSpacing: 2.2,
               color: "#9a5068",
             }}
-          >
-            RESTEN AV BYGNINGEN
-          </div>
+          />
         </Box>
         <Box
           box={[66, 396, 680, 132]}
@@ -295,9 +265,9 @@ export function SlideMerEnnVarehus() {
             alignContent: "start",
           }}
         >
-          {platform.map((tekst) => (
+          {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
             <div
-              key={tekst}
+              key={i}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -313,16 +283,17 @@ export function SlideMerEnnVarehus() {
                   flexShrink: 0,
                 }}
               />
-              <div
+              <Copy
+                k="platform_items"
+                i={i}
+                as="div"
                 style={{
                   fontFamily: "var(--font-sans)",
                   fontSize: pt(17),
                   lineHeight: 1.2,
                   color: "var(--burgundy-2)",
                 }}
-              >
-                {tekst}
-              </div>
+              />
             </div>
           ))}
         </Box>
@@ -332,16 +303,16 @@ export function SlideMerEnnVarehus() {
           box={[66, 580, 680, 64]}
           style={{ display: "flex", alignItems: "center" }}
         >
-          <div
+          <Copy
+            k="closing"
+            as="div"
             style={{
               fontFamily: "var(--font-serif)",
               fontSize: pt(34),
               lineHeight: 1.15,
               color: "var(--burgundy)",
             }}
-          >
-            Det er en plattform.
-          </div>
+          />
         </Box>
       </Reveal>
       <Box box={[760, 80, 460, 500]}>
@@ -354,32 +325,26 @@ export function SlideMerEnnVarehus() {
 const PLATTFORM_SKJERM: {
   src: string;
   alt: string;
-  caption: string;
 }[] = [
   {
     src: `${MEDIA}/databricks-home.png`,
     alt: "Databricks-arbeidsflaten: kataloger, jobber, compute og utforsking i én meny",
-    caption: "Katalog. Compute. Jobber. Utforsk.",
   },
   {
     src: `${MEDIA}/databricks-jobs.png`,
     alt: "Jobber og pipelines i Databricks-arbeidsflaten",
-    caption: "Jobber som kjører.",
   },
   {
     src: `${MEDIA}/databricks-catalog.png`,
     alt: "Katalogutforskeren åpen på en forvaltet tabell",
-    caption: "En katalog du kan åpne.",
   },
   {
     src: `${MEDIA}/databricks-ai-chat.png`,
     alt: "Databricks-assistenten: spør plattformen om dataene",
-    caption: "Og så spør du.",
   },
   {
     src: `${MEDIA}/databricks-trollfjord.png`,
     alt: "Trollfjords spor på kart og i tabell, generert fra et spørsmål",
-    caption: "Og den svarer.",
   },
 ];
 
@@ -424,7 +389,10 @@ export function SlideMerEnnVarehusKatalog() {
           justifyContent: "center",
         }}
       >
-        <div
+        <Copy
+          k="captions"
+          i={i}
+          as="div"
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: pt(16),
@@ -432,56 +400,48 @@ export function SlideMerEnnVarehusKatalog() {
             color: "var(--red)",
             textAlign: "center",
           }}
-        >
-          {PLATTFORM_SKJERM[i].caption}
-        </div>
+        />
       </Box>
     </>
   );
 }
 
 /* Hvordan du strukturerer data: de fire ideene denne delen går gjennom */
-const STRUKTUR: { label: string; ikon: IkonNavn }[] = [
-  { label: "Dataprodukt", ikon: "pakke" },
-  { label: "Datakontrakt", ikon: "kontrakt" },
-  { label: "Datakatalog", ikon: "bok" },
-  { label: "Governance", ikon: "skjold" },
-];
+const STRUKTUR: IkonNavn[] = ["pakke", "kontrakt", "bok", "skjold"];
 
 export function SlideStrukturereData() {
   return (
     <>
       <Box box={[66, 70, 1148, 70]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(36),
             lineHeight: 1.15,
             color: "var(--burgundy)",
           }}
-        >
-          Hvordan strukturerer vi dataene for å holde orden?
-        </div>
+        />
       </Box>
       <Box box={[66, 160, 1148, 70]}>
-        <div
+        <Copy
+          k="lead"
+          as="div"
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: pt(20),
             lineHeight: 1.4,
             color: "var(--red)",
           }}
-        >
-          Når data vokser i mengde og variasjon, trenger vi struktur og
-          fleksibilitet.
-        </div>
+        />
       </Box>
       <BulletList
         box={[66, 270, 1100, 360]}
         fromStep={1}
         size={28}
         gap={40}
-        items={STRUKTUR.map(({ label, ikon }) => (
+        items={STRUKTUR.map((ikon, i) => (
           <span
             style={{
               display: "flex",
@@ -495,7 +455,7 @@ export function SlideStrukturereData() {
               color="var(--teal)"
               strokeWidth={1.6}
             />
-            {label}
+            <Copy k="items" i={i} />
           </span>
         ))}
       />
@@ -517,29 +477,30 @@ export function SlideDataprodukt() {
           gap: 26,
         }}
       >
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(42),
             lineHeight: 1.15,
             color: "var(--burgundy)",
           }}
-        >
-          Dataprodukt
-        </div>
-        <div
+        />
+        <Copy
+          k="lead"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(28),
             lineHeight: 1.25,
             color: "var(--red)",
+            whiteSpace: "pre-line",
           }}
-        >
-          En dataplattform finnes
-          <br />
-          for å levere dataprodukter.
-        </div>
-        <div
+        />
+        <Copy
+          k="body"
+          as="div"
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: pt(20),
@@ -547,9 +508,7 @@ export function SlideDataprodukt() {
             color: "var(--burgundy-2)",
             ...linje,
           }}
-        >
-          Et produkt har brukere. Brukere har forventninger.
-        </div>
+        />
       </Box>
       <Box box={[720, 170, 500, 380]}>
         <PlattformProdukter />
@@ -559,34 +518,33 @@ export function SlideDataprodukt() {
 }
 
 /* Slide 15c – Hva som gjør et datasett til et produkt */
-const KJENNETEGN: { tittel: string; sub: string; ikon: IkonNavn }[] = [
-  { tittel: "En navngitt eier", sub: "som svarer, og kan forbedre det", ikon: "person" },
-  { tittel: "Dokumentasjon", sub: "betydning, opphav og bruk", ikon: "bok" },
-  { tittel: "Kvalitetsgarantier", sub: "ferskhet, tester, en kontrakt", ikon: "skjold" },
-  { tittel: "Kjente konsumenter", sub: "så en endring kan varsles", ikon: "deling" },
-];
+const KJENNETEGN: IkonNavn[] = ["person", "bok", "skjold", "deling"];
 
 export function SlideDataproduktKjennetegn() {
   return (
     <>
       <Box box={[66, 48, 1148, 64]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(36),
             color: "var(--burgundy)",
           }}
-        >
-          Hva som gjør det til et produkt
-        </div>
+        />
       </Box>
-      {KJENNETEGN.map((k, i) => {
+      {KJENNETEGN.map((ikon, i) => {
         const col = i % 2;
         const row = Math.floor(i / 2);
         const cell = (
-          <Box key={k.tittel} box={[66 + col * 590, 150 + row * 200, 540, 170]}>
-            <StrekIkon navn={k.ikon} size={36} color="var(--teal)" strokeWidth={1.6} />
-            <div
+          <Box key={ikon} box={[66 + col * 590, 150 + row * 200, 540, 170]}>
+            <StrekIkon navn={ikon} size={36} color="var(--teal)" strokeWidth={1.6} />
+            <Copy
+              k="cards"
+              i={i}
+              field="tittel"
+              as="div"
               style={{
                 marginTop: 18,
                 fontFamily: "var(--font-serif)",
@@ -594,10 +552,12 @@ export function SlideDataproduktKjennetegn() {
                 lineHeight: 1.15,
                 color: "var(--burgundy-2)",
               }}
-            >
-              {k.tittel}
-            </div>
-            <div
+            />
+            <Copy
+              k="cards"
+              i={i}
+              field="tekst"
+              as="div"
               style={{
                 marginTop: 10,
                 fontFamily: "var(--font-sans)",
@@ -605,30 +565,28 @@ export function SlideDataproduktKjennetegn() {
                 lineHeight: 1.35,
                 color: "var(--red)",
               }}
-            >
-              {k.sub}
-            </div>
+            />
           </Box>
         );
         return i === 0 ? (
           cell
         ) : (
-          <Reveal key={k.tittel} at={i}>
+          <Reveal key={ikon} at={i}>
             {cell}
           </Reveal>
         );
       })}
       <Reveal at={4}>
         <Box box={[66, 560, 1148, 80]}>
-          <div
+          <Copy
+            k="footer"
+            as="div"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: pt(20),
               color: "var(--red)",
             }}
-          >
-            Ikke hvert datasett. De som folk er avhengige av.
-          </div>
+          />
         </Box>
       </Reveal>
     </>
@@ -652,8 +610,8 @@ export function SlideDatakontraktKapittel() {
         <KontraktArk />
       </Box>
       <ChapterSlide
-        title="Datakontrakt"
-        subtitle="En avtale mellom de som endrer et datasett og de som bruker det."
+        title={<Copy k="title" />}
+        subtitle={<Copy k="subtitle" />}
         showLogo={false}
       />
     </>
@@ -674,29 +632,30 @@ export function SlideDatakontraktHva() {
           gap: 28,
         }}
       >
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(42),
             lineHeight: 1.15,
             color: "var(--burgundy)",
           }}
-        >
-          Tydelig dokumentasjon av dataene dine
-        </div>
-        <div
+        />
+        <Copy
+          k="lead"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(26),
             lineHeight: 1.3,
             color: "var(--red)",
+            whiteSpace: "pre-line",
           }}
-        >
-          Et dokument både mennesker og maskiner kan lese,
-          <br />
-          som avklarer forventninger begge veier.
-        </div>
-        <div
+        />
+        <Copy
+          k="body"
+          as="div"
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: pt(20),
@@ -704,44 +663,40 @@ export function SlideDatakontraktHva() {
             color: "var(--burgundy-2)",
             ...linje,
           }}
-        >
-          Skjemaet sier at fart er et tall. Kontrakten sier null til seksti
-          knop, ferskere enn fem minutter, og hvem du vekker når det ryker.
-        </div>
+        />
       </Box>
     </>
   );
 }
 
 /* Hva kontrakten inneholder */
-const KONTRAKT_FELT: { tittel: string; sub: string; ikon: IkonNavn }[] = [
-  { tittel: "Skjema", sub: "felter, typer, hva som er påkrevd", ikon: "skjema" },
-  { tittel: "Betydning", sub: "hva feltene betyr, hvor de kommer fra", ikon: "bok" },
-  { tittel: "Valideringsregler", sub: "min, maks, relasjoner, tester", ikon: "skjold" },
-  { tittel: "SLA og governance", sub: "ferskhet, sensitivitet, hvem som eier det", ikon: "kontrakt" },
-];
+const KONTRAKT_FELT: IkonNavn[] = ["skjema", "bok", "skjold", "kontrakt"];
 
 export function SlideDatakontraktInnhold() {
   return (
     <>
       <Box box={[66, 48, 1148, 64]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(36),
             color: "var(--burgundy)",
           }}
-        >
-          Hva en kontrakt inneholder
-        </div>
+        />
       </Box>
-      {KONTRAKT_FELT.map((k, i) => {
+      {KONTRAKT_FELT.map((ikon, i) => {
         const col = i % 2;
         const row = Math.floor(i / 2);
         const cell = (
-          <Box key={k.tittel} box={[66 + col * 590, 150 + row * 200, 540, 170]}>
-            <StrekIkon navn={k.ikon} size={36} color="var(--teal)" strokeWidth={1.6} />
-            <div
+          <Box key={ikon} box={[66 + col * 590, 150 + row * 200, 540, 170]}>
+            <StrekIkon navn={ikon} size={36} color="var(--teal)" strokeWidth={1.6} />
+            <Copy
+              k="cards"
+              i={i}
+              field="tittel"
+              as="div"
               style={{
                 marginTop: 18,
                 fontFamily: "var(--font-serif)",
@@ -749,10 +704,12 @@ export function SlideDatakontraktInnhold() {
                 lineHeight: 1.15,
                 color: "var(--burgundy-2)",
               }}
-            >
-              {k.tittel}
-            </div>
-            <div
+            />
+            <Copy
+              k="cards"
+              i={i}
+              field="tekst"
+              as="div"
               style={{
                 marginTop: 10,
                 fontFamily: "var(--font-sans)",
@@ -760,30 +717,28 @@ export function SlideDatakontraktInnhold() {
                 lineHeight: 1.35,
                 color: "var(--red)",
               }}
-            >
-              {k.sub}
-            </div>
+            />
           </Box>
         );
         return i === 0 ? (
           cell
         ) : (
-          <Reveal key={k.tittel} at={i}>
+          <Reveal key={ikon} at={i}>
             {cell}
           </Reveal>
         );
       })}
       <Reveal at={4}>
         <Box box={[66, 560, 1148, 80]}>
-          <div
+          <Copy
+            k="footer"
+            as="div"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: pt(20),
               color: "var(--red)",
             }}
-          >
-            I motsetning til en wikiside blir denne testet.
-          </div>
+          />
         </Box>
       </Reveal>
     </>
@@ -816,8 +771,8 @@ export function SlideDatakatalog() {
         <KatalogKart />
       </Box>
       <ChapterSlide
-        title="Datakatalog"
-        subtitle="Kartet organisasjonen din mangler."
+        title={<Copy k="title" />}
+        subtitle={<Copy k="subtitle" />}
         showLogo={false}
       />
     </>
@@ -839,27 +794,30 @@ export function SlideDatakatalogHva() {
           gap: 26,
         }}
       >
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(42),
             lineHeight: 1.15,
             color: "var(--burgundy)",
           }}
-        >
-          Hva en katalog er
-        </div>
-        <div
+        />
+        <Copy
+          k="lead"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(26),
             lineHeight: 1.3,
             color: "var(--red)",
           }}
-        >
-          En oversikt over datasettene i en organisasjon.
-        </div>
-        <div
+        />
+        <Copy
+          k="body"
+          i={0}
+          as="div"
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: pt(20),
@@ -867,11 +825,11 @@ export function SlideDatakatalogHva() {
             color: "var(--burgundy-2)",
             ...linje1,
           }}
-        >
-          Søk opp, forstå og vurder et datasett uten å spørre rundt,
-          eller grave gjennom databaser på egen hånd.
-        </div>
-        <div
+        />
+        <Copy
+          k="body"
+          i={1}
+          as="div"
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: pt(20),
@@ -879,10 +837,7 @@ export function SlideDatakatalogHva() {
             color: "var(--burgundy-2)",
             ...linje2,
           }}
-        >
-          Dataene blir i kildesystemene. Katalogen beskriver dem
-          og peker på hvor de ligger.
-        </div>
+        />
       </Box>
     </>
   );
@@ -913,7 +868,9 @@ export function SlideDatakatalogDatahub() {
           background: "linear-gradient(transparent, rgba(251, 240, 229, 0.92))",
         }}
       >
-        <div
+        <Copy
+          k="caption"
+          as="div"
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: pt(18),
@@ -922,9 +879,7 @@ export function SlideDatakatalogDatahub() {
             textAlign: "center",
             ...caption,
           }}
-        >
-          DataHub. Åpen kildekode. Søk på tvers av mange systemer, ikke bare én sky.
-        </div>
+        />
       </Box>
     </>
   );
@@ -935,16 +890,16 @@ export function SlideGovernance() {
   return (
     <>
       <Box box={[66, 70, 1148, 70]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(36),
             lineHeight: 1.15,
             color: "var(--burgundy)",
           }}
-        >
-          Governance
-        </div>
+        />
       </Box>
       <BulletList
         box={[66, 200, 1100, 440]}
@@ -952,10 +907,10 @@ export function SlideGovernance() {
         size={28}
         gap={40}
         items={[
-          "Brukeradministrasjon og tilganger",
-          "Maskering av persondata",
-          "Revisjonslogging",
-          "GDPR-etterlevelse",
+          <Copy k="items" i={0} />,
+          <Copy k="items" i={1} />,
+          <Copy k="items" i={2} />,
+          <Copy k="items" i={3} />,
         ]}
       />
     </>
@@ -966,23 +921,11 @@ export function SlideGovernance() {
 const ROLLER: {
   at: number;
   hvem: RolleHvem;
-  tittel: string;
-  sub: string;
 }[] = [
-  { at: 1, hvem: "plattform", tittel: "Plattform", sub: "eier grunnmuren" },
-  {
-    at: 2,
-    hvem: "byggere",
-    tittel: "Utviklere og\nanalytikere",
-    sub: "bygger på den",
-  },
-  { at: 3, hvem: "governance", tittel: "Governance", sub: "setter rammene" },
-  {
-    at: 4,
-    hvem: "konsumenter",
-    tittel: "BI og\nkonsumenter",
-    sub: "bruker det som kommer ut",
-  },
+  { at: 1, hvem: "plattform" },
+  { at: 2, hvem: "byggere" },
+  { at: 3, hvem: "governance" },
+  { at: 4, hvem: "konsumenter" },
 ];
 
 export function SlideRoller() {
@@ -990,18 +933,20 @@ export function SlideRoller() {
   return (
     <>
       <Box box={[66, 44, 1148, 70]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(36),
             color: "var(--burgundy)",
           }}
-        >
-          Tydelige roller
-        </div>
+        />
       </Box>
       <Box box={[66, 100, 1148, 28]}>
-        <div
+        <Copy
+          k="section_label"
+          as="div"
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: pt(13),
@@ -1010,9 +955,7 @@ export function SlideRoller() {
             opacity: grouped ? 0 : 1,
             transition: "opacity 260ms ease",
           }}
-        >
-          ROLLER FØR TEKNOLOGI
-        </div>
+        />
       </Box>
 
       <Box
@@ -1057,7 +1000,11 @@ export function SlideRoller() {
               gap: 8,
             }}
           >
-            <div
+            <Copy
+              k="cards"
+              i={i}
+              field="tittel"
+              as="div"
               style={{
                 fontFamily: "var(--font-serif)",
                 fontSize: pt(20),
@@ -1066,19 +1013,19 @@ export function SlideRoller() {
                 whiteSpace: "pre-line",
                 minHeight: 62,
               }}
-            >
-              {r.tittel}
-            </div>
-            <div
+            />
+            <Copy
+              k="cards"
+              i={i}
+              field="tekst"
+              as="div"
               style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: pt(15),
                 lineHeight: 1.3,
                 color: "var(--red)",
               }}
-            >
-              {r.sub}
-            </div>
+            />
           </Box>
         </Reveal>
       ))}
@@ -1093,7 +1040,9 @@ export function SlideRoller() {
             background: "var(--cream)",
           }}
         >
-          <div
+          <Copy
+            k="team_label"
+            as="div"
             style={{
               fontFamily: "var(--font-serif)",
               fontSize: pt(22),
@@ -1101,9 +1050,7 @@ export function SlideRoller() {
               color: "var(--teal)",
               textAlign: "center",
             }}
-          >
-            Dataplattform-team
-          </div>
+          />
         </Box>
       </Reveal>
 
@@ -1116,17 +1063,16 @@ export function SlideRoller() {
             justifyContent: "center",
           }}
         >
-          <div
+          <Copy
+            k="footer"
+            as="div"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: pt(16),
               color: "var(--red)",
               textAlign: "center",
             }}
-          >
-            Fra at data er noe IT tar seg av, til at det er en del av hvert
-            domenes eget ansvar
-          </div>
+          />
         </Box>
       </Reveal>
     </>

@@ -1,3 +1,4 @@
+import { Copy } from "@/components/Copy";
 import { Box, ChapterSlide, Reveal, pt, useRevealStyle } from "../parts";
 import { HvorViEr } from "./figurer/Domenekataloger";
 import { HelePlattformen } from "./figurer/DomenerOgProdukter";
@@ -27,17 +28,21 @@ export function SlideTilbakeTilStad() {
           gap: 26,
         }}
       >
-        <div
+        <Copy
+          k="lines"
+          i={0}
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(66),
             lineHeight: 1.1,
             color: "var(--burgundy)",
           }}
-        >
-          Klokka er 03:14.
-        </div>
-        <div
+        />
+        <Copy
+          k="lines"
+          i={1}
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(44),
@@ -45,10 +50,11 @@ export function SlideTilbakeTilStad() {
             color: "var(--burgundy-2)",
             ...linje2,
           }}
-        >
-          Havet utenfor Stad. Februar. Kuling fra nordvest.
-        </div>
-        <div
+        />
+        <Copy
+          k="lines"
+          i={2}
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(44),
@@ -56,10 +62,11 @@ export function SlideTilbakeTilStad() {
             color: "var(--burgundy-2)",
             ...linje3,
           }}
-        >
-          Et lasteskip på vei nordover i ni knop.
-        </div>
-        <div
+        />
+        <Copy
+          k="lines"
+          i={3}
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(44),
@@ -67,9 +74,7 @@ export function SlideTilbakeTilStad() {
             color: "var(--red)",
             ...linje4,
           }}
-        >
-          Vi lytter.
-        </div>
+        />
       </Box>
       <Reveal at={3}>
         <Box box={[430, 530, 420, 170]}>
@@ -82,39 +87,32 @@ export function SlideTilbakeTilStad() {
 
 /* Takk, og «prøv selv» til utviklerne i salen */
 export function SlideTakk() {
-  const lenker: [string, string][] = [
-    ["Sanntidskartet", "nais.kystverket.no"],
-    ["Historikk på bestilling", "hais.kystverket.no"],
-    ["Rå AIS-strøm over TCP", "153.44.253.27:5631"],
-    ["Live-API for utviklere", "developer.barentswatch.no"],
-    ["Hele utslippsmodellen", "github.com/Kystverket/maru"],
-  ];
   const mono = "ui-monospace, SFMono-Regular, Menlo, monospace";
   return (
     <>
       {/* Venstre: takk, én setning, og adressene som det man faktisk skal taste */}
       <Box box={[80, 88, 700, 100]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(72),
             lineHeight: 1,
             color: "var(--burgundy)",
           }}
-        >
-          Takk.
-        </div>
+        />
       </Box>
       <Box box={[80, 196, 700, 40]}>
-        <div
+        <Copy
+          k="lead"
+          as="div"
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: pt(20),
             color: "var(--red)",
           }}
-        >
-          Alt dette er åpent. Prøv selv i pausen.
-        </div>
+        />
       </Box>
       <Box
         box={[80, 272, 720, 240]}
@@ -126,9 +124,12 @@ export function SlideTakk() {
           rowGap: 18,
         }}
       >
-        {lenker.map(([hva, hvor]) => (
-          <div key={hvor} style={{ display: "contents" }}>
-            <span
+        {[0, 1, 2, 3, 4].map((i) => (
+          <div key={i} style={{ display: "contents" }}>
+            <Copy
+              k="links"
+              i={i}
+              field="url"
               style={{
                 fontFamily: mono,
                 fontSize: pt(17),
@@ -136,10 +137,11 @@ export function SlideTakk() {
                 color: "var(--teal)",
                 whiteSpace: "nowrap",
               }}
-            >
-              {hvor}
-            </span>
-            <span
+            />
+            <Copy
+              k="links"
+              i={i}
+              field="label"
               style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: pt(15),
@@ -148,9 +150,7 @@ export function SlideTakk() {
                 opacity: 0.7,
                 whiteSpace: "nowrap",
               }}
-            >
-              {hva}
-            </span>
+            />
           </div>
         ))}
       </Box>
@@ -165,17 +165,21 @@ export function SlideTakk() {
           textAlign: "center",
         }}
       >
-        <div
+        <Copy
+          k="contact"
+          field="name"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(26),
             lineHeight: 1.15,
             color: "var(--burgundy)",
           }}
-        >
-          Peter Bull
-        </div>
-        <div
+        />
+        <Copy
+          k="contact"
+          field="org"
+          as="div"
           style={{
             marginTop: 4,
             fontFamily: "var(--font-sans)",
@@ -183,24 +187,23 @@ export function SlideTakk() {
             color: "var(--burgundy-2)",
             opacity: 0.7,
           }}
-        >
-          Miles
-        </div>
+        />
         <img
           src={`${MEDIA}/peterbull-qr.svg`}
           alt="QR-kode til peterbull.no"
           style={{ width: 240, height: 240, marginTop: 24, display: "block" }}
         />
-        <div
+        <Copy
+          k="contact"
+          field="url"
+          as="div"
           style={{
             marginTop: 16,
             fontFamily: mono,
             fontSize: pt(15),
             color: "var(--teal)",
           }}
-        >
-          peterbull.no
-        </div>
+        />
       </Box>
 
       {/* Fyret fra åpningen, nederst til venstre */}
@@ -242,7 +245,7 @@ export function SlideVeienVidere() {
         <Kompass />
       </Box>
       <ChapterSlide
-        title="Veien videre for dataplattformen"
+        title={<Copy k="title" />}
         titleSize={54}
         showLogo={false}
       />
@@ -260,28 +263,26 @@ export function SlideHvorViEr() {
 }
 
 /* Slide 26c – Hvorfor arkitekturen må skalere: flere domener enn AIS */
+const DOMENE_IKONER: IkonNavn[] = ["skjema", "mynt", "verktoy", "deling"];
+
 export function SlideFlereDomener() {
-  const domener: [string, string, IkonNavn][] = [
-    ["customs", "deklarasjoner og last", "skjema"],
-    ["internal_hr_finance", "lønn og regnskap", "mynt"],
-    ["lighthouse_predictive_maintenance", "sensorer på lyktene", "verktoy"],
-    ["og mange flere", "", "deling"],
-  ];
-  const punchline = useRevealStyle(domener.length + 1);
+  const punchline = useRevealStyle(DOMENE_IKONER.length + 1);
   return (
     <>
       <Box box={[53.7, 160, 540, 280]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(38),
             lineHeight: 1.2,
             color: "var(--burgundy-2)",
           }}
-        >
-          Ikke bare AIS
-        </div>
-        <div
+        />
+        <Copy
+          k="lead"
+          as="div"
           style={{
             marginTop: 22,
             fontFamily: "var(--font-sans)",
@@ -290,13 +291,10 @@ export function SlideFlereDomener() {
             color: "var(--red)",
             ...punchline,
           }}
-        >
-          Så vi trenger en arkitektur som skalerer. Delte data holder høy
-          kvalitet. Og er lette å finne.
-        </div>
+        />
       </Box>
-      {domener.map(([navn, sub, ikon], i) => (
-        <Reveal key={navn} at={i + 1}>
+      {DOMENE_IKONER.map((ikon, i) => (
+        <Reveal key={ikon} at={i + 1}>
           <Box box={[600, 168 + i * 112, 620, 100]}>
             <div
               style={{
@@ -309,34 +307,36 @@ export function SlideFlereDomener() {
                 <StrekIkon navn={ikon} size={34} color="var(--teal)" strokeWidth={1.6} />
               </div>
               <div>
-                <div
+                <Copy
+                  k="rows"
+                  i={i}
+                  field="label"
+                  as="div"
                   style={{
                     fontFamily:
-                      i === domener.length - 1
+                      i === DOMENE_IKONER.length - 1
                         ? "var(--font-serif)"
                         : "ui-monospace, SFMono-Regular, Menlo, monospace",
                     fontSize: pt(18),
                     lineHeight: 1.25,
                     color: "var(--burgundy-2)",
                   }}
-                >
-                  {navn}
-                </div>
-                {sub ? (
-                  <div
-                    style={{
-                      marginTop: 6,
-                      fontFamily: "var(--font-sans)",
-                      fontSize: pt(15),
-                      color: "var(--red)",
-                    }}
-                  >
-                    {sub}
-                  </div>
-                ) : null}
+                />
+                <Copy
+                  k="rows"
+                  i={i}
+                  field="tekst"
+                  as="div"
+                  style={{
+                    marginTop: 6,
+                    fontFamily: "var(--font-sans)",
+                    fontSize: pt(15),
+                    color: "var(--red)",
+                  }}
+                />
               </div>
             </div>
-            {i < domener.length - 1 && (
+            {i < DOMENE_IKONER.length - 1 && (
               <div
                 style={{
                   position: "absolute",
@@ -365,27 +365,25 @@ export function SlideHvorViSkalHelhet() {
 }
 
 /* Slide 27 – Dette vil vi få til */
+const VIDERE_IKONER: IkonNavn[] = ["kart", "soyler", "verktoy", "person"];
+
 export function SlideVidereListe() {
-  const facts: [string, IkonNavn][] = [
-    ["Mer av Kystverkets egne data inn i dataplattformen", "kart"],
-    ["Tollanalyse", "soyler"],
-    ["Prediktivt vedlikehold av lykter", "verktoy"],
-    ["Raskere og bedre organisasjon", "person"],
-  ];
   return (
     <>
       <Box box={[53.7, 200, 540, 280]}>
-        <div
+        <Copy
+          k="title"
+          as="div"
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(38),
             lineHeight: 1.2,
             color: "var(--burgundy-2)",
           }}
-        >
-          Dette vil vi få til
-        </div>
-        <div
+        />
+        <Copy
+          k="subtitle"
+          as="div"
           style={{
             marginTop: 28,
             fontFamily: "var(--font-serif)",
@@ -393,12 +391,10 @@ export function SlideVidereListe() {
             lineHeight: 1.3,
             color: "var(--red)",
           }}
-        >
-          Verdens tryggeste og reneste kyst
-        </div>
+        />
       </Box>
-      {facts.map(([f, ikon], i) => (
-        <Reveal key={f} at={i + 1}>
+      {VIDERE_IKONER.map((ikon, i) => (
+        <Reveal key={ikon} at={i + 1}>
           <Box box={[600, 210 + i * 96, 620, 86]}>
             <div
               style={{
@@ -412,9 +408,9 @@ export function SlideVidereListe() {
               }}
             >
               <StrekIkon navn={ikon} size={34} color="var(--teal)" strokeWidth={1.6} />
-              <span>{f}</span>
+              <Copy k="items" i={i} />
             </div>
-            {i < facts.length - 1 && (
+            {i < VIDERE_IKONER.length - 1 && (
               <div
                 style={{
                   position: "absolute",

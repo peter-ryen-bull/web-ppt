@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { getPresentation } from "@/presentations";
+import { getPresentation, isInProgress } from "@/presentations";
 import { SlideCanvas, useContainerScale } from "./SlideCanvas";
 import SlideOverview from "./SlideOverview";
 import { useSyncedDeck } from "./useSyncedDeck";
@@ -43,6 +43,7 @@ export default function PresenterView({
     isCurrentChapterHidden,
   } = useSyncedDeck(presentation);
   const [overview, setOverview] = useState(false);
+  const [copyEditing, setCopyEditing] = useState(false);
 
   const currentStageRef = useRef<HTMLDivElement>(null);
   const nextStageRef = useRef<HTMLDivElement>(null);
@@ -84,6 +85,8 @@ export default function PresenterView({
 
   const currentSlide = slides[current];
   const canEditNotes = process.env.NODE_ENV === "development";
+  const canEditCopy =
+    process.env.NODE_ENV === "development" && isInProgress(presentation);
 
   // Fontstørrelse på notater – justerbar med +/- og lagret i localStorage
   const [notesFontSize, setNotesFontSize] = useState(20);
@@ -234,10 +237,11 @@ export default function PresenterView({
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
       if (
-        target &&
-        (target.tagName === "TEXTAREA" ||
-          target.tagName === "INPUT" ||
-          target.isContentEditable)
+        copyEditing ||
+        (target &&
+          (target.tagName === "TEXTAREA" ||
+            target.tagName === "INPUT" ||
+            target.isContentEditable))
       ) {
         return;
       }
@@ -265,7 +269,7 @@ export default function PresenterView({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go, goChapter, toggleHidden, current, slides, openAudience, overview]);
+  }, [go, goChapter, toggleHidden, current, slides, openAudience, overview, copyEditing]);
 
   // Neste synlige slide (den publikum ser etter neste tastetrykk)
   const nextIndex =
@@ -384,7 +388,20 @@ export default function PresenterView({
             )}
           </div>
           <div className={styles.stage} ref={currentStageRef}>
-            <SlideCanvas slide={currentSlide} scale={currentScale} step={step} />
+            <SlideCanvas
+              slide={currentSlide}
+              scale={currentScale}
+              step={step}
+              copyEdit={
+                canEditCopy
+                  ? {
+                      presentationId,
+                      enabled: true,
+                      onEditingChange: setCopyEditing,
+                    }
+                  : undefined
+              }
+            />
           </div>
         </section>
 

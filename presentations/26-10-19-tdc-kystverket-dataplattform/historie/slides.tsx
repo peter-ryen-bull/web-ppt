@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Copy } from "@/components/Copy";
 import { Box, BulletItem, ChapterSlide, QuotePage, pt } from "../../parts";
 import {
   TidslinjeFigur,
@@ -18,8 +19,8 @@ function FigurSlide({
   tittel,
   children,
 }: {
-  kicker?: string;
-  tittel?: string;
+  kicker?: ReactNode;
+  tittel?: ReactNode;
   children: ReactNode;
 }) {
   return (
@@ -59,23 +60,8 @@ function FigurSlide({
 }
 
 /** Speil-slide: hva fasen løste – og det nye problemet den skapte */
-function SpeilSlide({
-  kicker,
-  loest,
-  nytt,
-  bunn,
-}: {
-  kicker: string;
-  loest: string[];
-  nytt: string[];
-  bunn?: string;
-}) {
-  const kolonne = (
-    x: number,
-    farge: string,
-    tittel: string,
-    punkter: string[],
-  ) => (
+function SpeilSlide({ footer }: { footer?: boolean }) {
+  const kolonne = (x: number, farge: string, col: number) => (
     <Box
       box={[x, 190, 560, 400]}
       style={{
@@ -94,12 +80,12 @@ function SpeilSlide({
           marginBottom: 26,
         }}
       >
-        {tittel}
+        <Copy k="columns" i={col} field="tittel" />
       </div>
-      {punkter.map((p) => (
-        <div key={p} style={{ marginBottom: 18 }}>
+      {[0, 1, 2].map((j) => (
+        <div key={j} style={{ marginBottom: 18 }}>
           <BulletItem size={15} color="var(--burgundy)" bar={farge}>
-            {p}
+            <Copy k={`columns.${col}.items`} i={j} />
           </BulletItem>
         </div>
       ))}
@@ -119,7 +105,7 @@ function SpeilSlide({
             textTransform: "uppercase",
           }}
         >
-          {kicker}
+          <Copy k="kicker" />
         </div>
       </Box>
       <Box box={[48, 80, 1100, 64]}>
@@ -130,26 +116,26 @@ function SpeilSlide({
             color: "var(--burgundy)",
           }}
         >
-          Hva den løste – og det nye problemet
+          <Copy k="title" />
         </div>
       </Box>
-      {kolonne(60, "var(--teal)", "Dette løste den", loest)}
-      {kolonne(660, "var(--red)", "Det nye problemet", nytt)}
-      {bunn && (
+      {kolonne(60, "var(--teal)", 0)}
+      {kolonne(660, "var(--red)", 1)}
+      {footer && (
         <Box
           box={[60, 616, 1160, 60]}
           style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
         >
-          <div
+          <Copy
+            k="footer"
+            as="div"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: pt(15),
               color: "var(--red)",
               textAlign: "center",
             }}
-          >
-            {bunn}
-          </div>
+          />
         </Box>
       )}
     </>
@@ -162,8 +148,8 @@ function SpeilSlide({
 export function SlideForside() {
   return (
     <ChapterSlide
-      title="Historien om dataplattformen"
-      subtitle="50 år med samme problem: å gjøre data om til beslutninger"
+      title={<Copy k="title" />}
+      subtitle={<Copy k="subtitle" />}
       titleSize={60}
       showLogo={false}
     />
@@ -173,7 +159,7 @@ export function SlideForside() {
 /* 2 – Tidslinjen */
 export function SlideTidslinje() {
   return (
-    <FigurSlide tittel="Fem faser – ett problem">
+    <FigurSlide tittel={<Copy k="title" />}>
       <TidslinjeFigur />
     </FigurSlide>
   );
@@ -183,7 +169,7 @@ export function SlideTidslinje() {
 
 export function SlideRelasjonsmodellen() {
   return (
-    <FigurSlide kicker="1970 · Databasen" tittel="Codd: skill spørsmålet fra lagringen">
+    <FigurSlide kicker={<Copy k="kicker" />} tittel={<Copy k="title" />}>
       <RelasjonsFigur />
     </FigurSlide>
   );
@@ -192,19 +178,7 @@ export function SlideRelasjonsmodellen() {
 /* 7 – Speil: databasen */
 export function SlideDatabasenSpeil() {
   return (
-    <SpeilSlide
-      kicker="1970 · Databasen"
-      loest={[
-        "Én delt, konsistent hukommelse for virksomheten",
-        "Transaksjoner med garantier – driften kunne stole på dataene",
-        "Spørsmål uten å programmere navigasjon: SQL",
-      ]}
-      nytt={[
-        "Bygget for drift, ikke analyse – tunge spørringer satte kassa på kne",
-        "Ett system per funksjon: sannheten spredte seg igjen utover mange databaser",
-        "Ledelsen fikk fortsatt ikke svar på tvers av systemene",
-      ]}
-    />
+    <SpeilSlide />
   );
 }
 
@@ -212,7 +186,7 @@ export function SlideDatabasenSpeil() {
 
 export function SlideVarehuset() {
   return (
-    <FigurSlide kicker="1988 · Datavarehuset" tittel="Ett integrert varehus – adskilt fra driften">
+    <FigurSlide kicker={<Copy k="kicker" />} tittel={<Copy k="title" />}>
       <VarehusFigur />
     </FigurSlide>
   );
@@ -220,20 +194,7 @@ export function SlideVarehuset() {
 
 export function SlideVarehusetSpeil() {
   return (
-    <SpeilSlide
-      kicker="1988 · Datavarehuset"
-      loest={[
-        "Én integrert sannhet på tvers av systemene",
-        "Historikk: utvikling over tid, ikke bare nå-bildet",
-        "Analyse uten å true driften – beslutninger på fakta",
-      ]}
-      nytt={[
-        "Dyrt: spesialisert maskinvare og lange prosjekter",
-        "Tregt å endre: skjema først, ny kilde tok måneder – IT ble flaskehals",
-        "Bare strukturerte data: rader og kolonner, ikke logger, tekst og bilder",
-      ]}
-      bunn="Og så kom internett – og gjorde alle tre problemene akutte."
-    />
+    <SpeilSlide footer />
   );
 }
 
@@ -241,7 +202,7 @@ export function SlideVarehusetSpeil() {
 
 export function SlideRegnestykket() {
   return (
-    <FigurSlide kicker="2006 · Stordata" tittel="Googles svar: distribuer alt">
+    <FigurSlide kicker={<Copy k="kicker" />} tittel={<Copy k="title" />}>
       <RegnestykkeFigur />
     </FigurSlide>
   );
@@ -250,7 +211,7 @@ export function SlideRegnestykket() {
 /* 14 – Datasjøen */
 export function SlideDatasjoen() {
   return (
-    <FigurSlide kicker="2010 · Datasjøen" tittel="Lagre alt – rått">
+    <FigurSlide kicker={<Copy k="kicker" />} tittel={<Copy k="title" />}>
       <SjoFigur />
     </FigurSlide>
   );
@@ -259,20 +220,7 @@ export function SlideDatasjoen() {
 /* 15 – Speil: sjøen */
 export function SlideSjoenSpeil() {
   return (
-    <SpeilSlide
-      kicker="2006–2010 · Stordata og datasjøen"
-      loest={[
-        "Skalaen: lagre og prosessere alt, billig, på vanlig maskinvare",
-        "Alle formater – logger, tekst, bilder, klikkstrømmer",
-        "Maskinlæring fikk rådataene den trengte",
-      ]}
-      nytt={[
-        "Datasumpa: uten katalog, eierskap og metadata ble sjøen en fylling",
-        "Kompleksitet: Hadoop krevde spesialister – SQL-folket sto utenfor",
-        "To parallelle verdener: varehus for BI, sjø for ML – doble kopier, dobbel regning",
-      ]}
-      bunn="En sjø blir en sump når gjenfinnbarheten svikter – ikke når datakvaliteten gjør det."
-    />
+    <SpeilSlide footer />
   );
 }
 
@@ -280,7 +228,7 @@ export function SlideSjoenSpeil() {
 
 export function SlideSkyen() {
   return (
-    <FigurSlide kicker="2012 · Skyen" tittel="Skill lagring fra regnekraft">
+    <FigurSlide kicker={<Copy k="kicker" />} tittel={<Copy k="title" />}>
       <SkyFigur />
     </FigurSlide>
   );
@@ -289,7 +237,7 @@ export function SlideSkyen() {
 /* 18 – Konvergensen */
 export function SlideLakehouse() {
   return (
-    <FigurSlide kicker="2020 · Lakehouse" tittel="To spor møtes – og blir dataplattformen">
+    <FigurSlide kicker={<Copy k="kicker" />} tittel={<Copy k="title" />}>
       <KonvergensFigur />
     </FigurSlide>
   );
@@ -303,16 +251,11 @@ const MEDIA = "/media/26-09-17-ndc-kystverket-dataplatform";
 export function SlideAvslutning() {
   return (
     <QuotePage
-      quote={
-        <>
-          «Data er noe verdifullt, og de vil vare lenger enn systemene
-          selv.»
-        </>
-      }
-      attribution="— Tim Berners-Lee"
+      quote={<Copy k="quote" />}
+      attribution={<Copy k="attribution" />}
       imageSrc={`${MEDIA}/tim-berners-lee.jpg`}
       imageAlt="Tim Berners-Lee"
-      caption="Tim Berners-Lee. Oppfinneren av World Wide Web."
+      caption={<Copy k="caption" />}
     />
   );
 }

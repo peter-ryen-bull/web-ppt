@@ -11,9 +11,21 @@ export interface SlideDef {
   steps?: number;
   /** Speaker notes – vises kun i presentatørvisningen (/presenter) */
   notes?: string;
+  /**
+   * Publikumstekst fra copy.yaml. Nøkler er feltnavn (`title`, `items`, …).
+   * Settes av definePresentation.
+   */
+  copy?: SlideCopy;
   /** Settes av definePresentation – aldri vist til publikum */
   chapterId?: string;
 }
+
+/** Publikumstekst: streng, liste eller nøstet objekt (kort, rader). */
+export type CopyValue = string | CopyValue[] | { [key: string]: CopyValue };
+export type CopyField = CopyValue;
+export type CopyMap = { [key: string]: CopyValue };
+export type SlideCopy = Record<string, CopyValue>;
+export type DeckCopy = Record<string, SlideCopy>;
 
 /** Intern oppdeling. Kapitteltittel vises bare i øvings- og presentatørvisning. */
 export interface ChapterDef {
