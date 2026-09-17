@@ -6,6 +6,11 @@ import { getPresentation } from "@/presentations";
 import { SlideCanvas, useContainerScale } from "./SlideCanvas";
 import SlideOverview from "./SlideOverview";
 import { useSyncedDeck } from "./useSyncedDeck";
+import {
+  CURSOR_PROMPT_ENABLED,
+  CursorPromptPanel,
+  useCursorPrompt,
+} from "./CursorPrompt";
 import styles from "./PresenterView.module.css";
 
 function formatElapsed(ms: number) {
@@ -43,6 +48,8 @@ export default function PresenterView({
     isCurrentChapterHidden,
   } = useSyncedDeck(presentation);
   const [overview, setOverview] = useState(false);
+  const [promptOpen, setPromptOpen] = useState(false);
+  const cursorPrompt = useCursorPrompt(presentation);
 
   const currentStageRef = useRef<HTMLDivElement>(null);
   const nextStageRef = useRef<HTMLDivElement>(null);
@@ -250,9 +257,13 @@ export default function PresenterView({
         e.preventDefault();
         go(-1);
       } else if (e.key === "Escape") {
-        setOverview(false);
+        if (overview) setOverview(false);
+        else setPromptOpen(false);
       } else if (e.key === "g" || e.key === "G") {
         setOverview((o) => !o);
+      } else if ((e.key === "p" || e.key === "P") && CURSOR_PROMPT_ENABLED) {
+        if (overview) return;
+        setPromptOpen((o) => !o);
       } else if (e.key === "h" || e.key === "H") {
         toggleHidden(slides[current].id);
       } else if (e.key === "[") {
@@ -362,6 +373,15 @@ export default function PresenterView({
           >
             Oversikt
           </button>
+          {CURSOR_PROMPT_ENABLED && (
+            <button
+              className={`${styles.btn} ${promptOpen ? styles.btnActive : ""}`}
+              onClick={() => setPromptOpen((o) => !o)}
+              title="Prompt Cursor om denne sliden (P)"
+            >
+              ✎ Cursor
+            </button>
+          )}
           <button
             className={`${styles.btn} ${styles.btnPrimary}`}
             onClick={openAudience}
@@ -540,6 +560,23 @@ export default function PresenterView({
         </div>
       </footer>
 
+      {CURSOR_PROMPT_ENABLED && promptOpen && !overview && (
+        <CursorPromptPanel
+          session={cursorPrompt}
+          variant="dock"
+          summary={`Slide ${current + 1} · ${currentSlide.name}${
+            currentChapter ? ` · ${currentChapter.title}` : ""
+          }`}
+          context={{
+            view: "presenter",
+            overview: false,
+            current: { index: current, step },
+            slideIds: [],
+          }}
+          onClose={() => setPromptOpen(false)}
+        />
+      )}
+
       {overview && (
         <SlideOverview
           presentation={presentation}
@@ -551,6 +588,11 @@ export default function PresenterView({
           }}
           onToggleHidden={toggleHidden}
           onClose={() => setOverview(false)}
+          prompt={
+            CURSOR_PROMPT_ENABLED
+              ? { session: cursorPrompt, view: "presenter" }
+              : undefined
+          }
         />
       )}
     </div>

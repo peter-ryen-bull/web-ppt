@@ -13,7 +13,22 @@ import { chapterOf } from "@/presentations/chapters";
 import { SlideCanvas, useContainerScale } from "./SlideCanvas";
 import { usePdfExport } from "./PdfExport";
 import SlideOverview from "./SlideOverview";
+import {
+  CURSOR_PROMPT_ENABLED,
+  CursorPromptPanel,
+  useCursorPrompt,
+} from "./CursorPrompt";
 import styles from "./Deck.module.css";
+
+function isTypingTarget(target: EventTarget | null): boolean {
+  const el = target as HTMLElement | null;
+  return (
+    !!el &&
+    (el.tagName === "TEXTAREA" ||
+      el.tagName === "INPUT" ||
+      el.isContentEditable)
+  );
+}
 
 export default function Deck({ presentationId }: { presentationId: string }) {
   const presentation = getPresentation(presentationId);
@@ -31,6 +46,8 @@ export default function Deck({ presentationId }: { presentationId: string }) {
   const [selected, setSelected] = useState<Set<string>>(() => new Set());
   const [exportError, setExportError] = useState<string | null>(null);
   const { exportSlides, captureNode, progress, exporting } = usePdfExport();
+  const [promptOpen, setPromptOpen] = useState(false);
+  const cursorPrompt = useCursorPrompt(presentation);
   const stageRef = useRef<HTMLDivElement>(null);
   const scale = useContainerScale(stageRef);
 
@@ -149,6 +166,8 @@ export default function Deck({ presentationId }: { presentationId: string }) {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      // Skriver brukeren i et tekstfelt (Cursor-prompt), la det være
+      if (isTypingTarget(e.target)) return;
       if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
         if (overview || exporting) return;
         e.preventDefault();
@@ -166,11 +185,18 @@ export default function Deck({ presentationId }: { presentationId: string }) {
           setExportMode(false);
           return;
         }
-        setOverview(false);
+        if (overview) {
+          setOverview(false);
+          return;
+        }
+        setPromptOpen(false);
       } else if (e.key === "g" || e.key === "G") {
         if (exporting) return;
         setOverview((o) => !o);
         setExportMode(false);
+      } else if ((e.key === "p" || e.key === "P") && CURSOR_PROMPT_ENABLED) {
+        if (overview) return;
+        setPromptOpen((o) => !o);
       } else if (e.key === "[") {
         goChapter(-1);
       } else if (e.key === "]") {
@@ -325,6 +351,15 @@ export default function Deck({ presentationId }: { presentationId: string }) {
           >
             Oversikt
           </button>
+          {CURSOR_PROMPT_ENABLED && (
+            <button
+              className={`${styles.btn} ${promptOpen ? styles.btnActive : ""}`}
+              onClick={() => setPromptOpen((o) => !o)}
+              title="Prompt Cursor om denne sliden (P)"
+            >
+              ✎ Cursor
+            </button>
+          )}
           <button
             className={styles.btn}
             onClick={() => {
@@ -337,6 +372,23 @@ export default function Deck({ presentationId }: { presentationId: string }) {
           </button>
         </div>
       </div>
+
+      {CURSOR_PROMPT_ENABLED && promptOpen && !overview && (
+        <CursorPromptPanel
+          session={cursorPrompt}
+          variant="dock"
+          summary={`Slide ${current + 1} · ${slides[current].name}${
+            currentChapter ? ` · ${currentChapter.title}` : ""
+          }`}
+          context={{
+            view: "deck",
+            overview: false,
+            current: { index: current, step },
+            slideIds: [],
+          }}
+          onClose={() => setPromptOpen(false)}
+        />
+      )}
 
       {captureNode}
 
@@ -367,6 +419,11 @@ export default function Deck({ presentationId }: { presentationId: string }) {
             onRun: runExport,
             onCancel: () => setExportMode(false),
           }}
+          prompt={
+            CURSOR_PROMPT_ENABLED
+              ? { session: cursorPrompt, view: "deck" }
+              : undefined
+          }
         />
       )}
     </div>

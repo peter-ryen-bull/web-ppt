@@ -89,6 +89,14 @@
   font-size: 13px;
 }
 
+.promptSection {
+  margin-bottom: 8px;
+}
+
+.promptSection .exportBar {
+  margin-bottom: 12px;
+}
+
 .chapter {
   margin-bottom: 28px;
 }
