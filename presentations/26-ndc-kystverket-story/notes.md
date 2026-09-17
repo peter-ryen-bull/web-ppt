@@ -20,20 +20,20 @@ Sixty minutes. The time is when you should land on the first slide of
 that chapter. If the total timer is already past that number, you are
 behind. Calibrated to rehearsal: the project chapter lands at 35:00.
 
-| Chapter                      | Start | Min | Content                                                                 |
-| ---------------------------- | ----- | --- | ----------------------------------------------------------------------- |
-| The opening                  | 00:00 | 5   | scene, signal, NAIS, 100 million, title, Peter. Don't linger on the bio |
-| Who's listening              | 05:00 | 6   | Kystverket, vision, four areas, listening posts, AIS                    |
-| Why data platform            | 11:00 | 3   | why everyone builds them, Hoffman, everyday life                        |
-| The story of the platform    | 14:00 | 6   | fifty years, same problem. One beat per era. Keep moving                |
-| How a data platform works    | 20:00 | 11  | architecture, products, contracts, catalog. Longest theory block        |
-| What you get out of it       | 31:00 | 4   | four effects from the coastline                                         |
-| The project                  | 35:00 | 4   | day one, the toolbox, terraform                                         |
-| The products                 | 39:00 | 8   | HAIS, Asuka, MarTraf, MarU, KystRisk                                    |
-| How it's done                | 47:00 | 2   | ingest, the daily job                                                   |
-| Scaling                      | 49:00 | 3   | stream vs history, batch vs streaming, serverless                       |
-| H3                           | 52:00 | 3   | hexes. Skip the whole chapter if you land here after 52:00              |
-| The road ahead               | 55:00 | 5   | domains, back to Stad, thanks. Questions if you have time               |
+| Chapter                   | Start | Min | Content                                                                 |
+| ------------------------- | ----- | --- | ----------------------------------------------------------------------- |
+| The opening               | 00:00 | 5   | scene, signal, NAIS, 100 million, title, Peter. Don't linger on the bio |
+| Who's listening           | 05:00 | 6   | Kystverket, vision, four areas, listening posts, AIS                    |
+| Why data platform         | 11:00 | 3   | why everyone builds them, Hoffman, everyday life                        |
+| The story of the platform | 14:00 | 6   | fifty years, same problem. One beat per era. Keep moving                |
+| How a data platform works | 20:00 | 11  | architecture, products, contracts, catalog. Longest theory block        |
+| What you get out of it    | 31:00 | 4   | four effects from the coastline                                         |
+| The project               | 35:00 | 4   | day one, the toolbox, terraform                                         |
+| The products              | 39:00 | 8   | HAIS, Asuka, MarTraf, MarU, KystRisk                                    |
+| How it's done             | 47:00 | 2   | ingest, the daily job                                                   |
+| Scaling                   | 49:00 | 3   | stream vs history, batch vs streaming, serverless                       |
+| H3                        | 52:00 | 3   | hexes. Skip the whole chapter if you land here after 52:00              |
+| The road ahead            | 55:00 | 5   | domains, back to Stad, thanks. Questions if you have time               |
 
 If you are behind after How it works, cut contracts and catalog down to
 the takeaway sentences. Keep "a data platform exists to serve data
@@ -63,7 +63,7 @@ dashes. Say it the way you'd say it to a colleague over a coffee.
 
 ## scene – The time is 03:14
 
-[00:00]  5 min. Next chapter at 05:00. Slow. Let the scene land.
+[00:00] 5 min. Next chapter at 05:00. Slow. Let the scene land.
 
 [[CLICK]] The time is 03:14.
 
@@ -169,32 +169,32 @@ underneath.
 
 ## kystverket – Who's listening? Kystverket
 
-[05:00]  6 min. Next chapter at 11:00.
+[05:00] 6 min. Next chapter at 11:00.
 
 So. Who's listening to our ship?
 
-We are the Norwegian Coastal Administration. Kystverket. 
-The transport agency for the coastline. We make sure the coast, the ships and everything nautical is running smoothly. 
+We are the Norwegian Coastal Administration. Kystverket.
+The transport agency for the coastline. We make sure the coast, the ships and everything nautical is running smoothly.
 
 And before we get into the technology, we need to understand why we do
 what we do.
 
 ## visjon – The world's safest and cleanest coast
 
-This is the Coastal Administration's vision. 
+This is the Coastal Administration's vision.
 The world's safest and cleanest coast.
 
-[[CLICK]] 
-We want a coast without pollution, we want a coast where no people drown. 
+[[CLICK]]
+We want a coast without pollution, we want a coast where no people drown.
 
-Because when we're talking about processing speed, data platforms and data contracts -> this is the why. 
-
+Because when we're talking about processing speed, data platforms and data contracts -> this is the why.
 
 Everything else is the how.
 
 ## oppdrag – About us
 
 The coastal administration is split into four areas. 
+
 
 [[CLICK]] Pilotage. A local expert who boards the big ships and helps them in.
 In Norwegian it's called a "Los". The pilotage service, they wake up in the middle of the night, travel out to ships, come with local knowledge of the sea maps, and guide boats in.
@@ -226,14 +226,13 @@ in the morning?
 So how do you hear a ship talking over VHF out on the sea off Stad at three
 in the morning?
 
-
 [[CLICK]] You build listening posts. We have around ninety base stations, along the
 entire coast and on Svalbard. They hear everything from land and forty to
 sixty nautical miles out.
 
 [[CLICK]] But the ocean is bigger than that. So in 2010, Kystverket did
-something a little unusual for a transport agency. 
-They launched a satellite. AISSat-1. Today, Norway has four of them listening to ships from space. 
+something a little unusual for a transport agency.
+They launched a satellite. AISSat-1. Today, Norway has four of them listening to ships from space.
 The latest went up in March this year, and it was built for around NOK 15
 million, which when you think about it, it's quite cheap, less than the price of a small seaside apartment here in Oslo.
 
@@ -249,12 +248,12 @@ It's an archive of the entire Norwegian coastline.
 The point of these messages was never for anyone on land to listen.
 
 [[CLICK]] AIS stands for Automatic Identification System. Ships broadcast
-identity, position, speed, and course over VHF.  The point was for the ships around you to hear it.
-So two ships in fog know about each other before they see each other. 
+identity, position, speed, and course over VHF. The point was for the ships around you to hear it.
+So two ships in fog know about each other before they see each other.
 
 [[CLICK]] How often they transmit depends on what they're doing. A ship
 underway transmits every couple of seconds to every ten seconds. A ship at
-berth transmits every three minutes. 
+berth transmits every three minutes.
 
 [[CLICK]] And then there's the interesting part. Nobody planned for AIS to
 become a data source. It was an anti-collision system. But because every
@@ -278,7 +277,7 @@ What tech can we use for that?
 
 ## hva-er – Why is everyone building data platforms?
 
-[11:00]  3 min. Next chapter at 14:00.
+[11:00] 3 min. Next chapter at 14:00.
 
 Looking around in the IT industry, in the last couple of years, a new
 word has started appearing on job listings. Data platforms.
@@ -299,11 +298,11 @@ He put it like this: in the world of data, everything is measurable, and
 everything is knowable.
 
 [[CLICK]] And that's the double edge. If everything is measurable, the
-data becomes extraordinarily valuable. 
+data becomes extraordinarily valuable.
 
 But then you get a really large amount of data. And it becomes a real mess if you don't handle it properly.
 
-We've been trying to solve that problem of keeping track of our data for over fifty years. And while we have been solving that problem, the scale of data has been exponentially increasing. 
+We've been trying to solve that problem of keeping track of our data for over fifty years. And while we have been solving that problem, the scale of data has been exponentially increasing.
 
 And right now - a data platform is the latest answer to that problem.
 
@@ -328,7 +327,7 @@ platform that ingests, stores, processes, and delivers data.
 
 ## batch-streaming – How it works
 
-[20:00]  11 min. Next chapter at 31:00. Longest theory block.
+[20:00] 11 min. Next chapter at 31:00. Longest theory block.
 Architecture, products, contracts, catalog. Don't teach a course.
 The sentence to keep: a data platform exists to serve data products.
 
@@ -412,10 +411,7 @@ job, compute, or a model registry.
 
 ## mer-enn-varehus-katalog – Catalog. Jobs. Ask. Answer.
 
-
-
-
- Point at the left. Catalog. Jobs. Compute.
+Point at the left. Catalog. Jobs. Compute.
 Discover. SQL. Dashboards. That's not a database console.
 
 The list we just went through? It's in the menu.
@@ -623,7 +619,7 @@ there are.
 
 Next: how do you find the products?
 
-Data catalog is the third concept that is important for the data platform architecture 
+Data catalog is the third concept that is important for the data platform architecture
 
 In a large organization, data lives in tens of systems, owned by different
 teams. Without a shared overview, people spend their time looking. And
@@ -682,9 +678,8 @@ single system that uses the data. That's governance in practice.
 
 ## roller – Clear roles
 
-As a data platform scales, 
-Enforcement of such rules also need clear roles. 
-
+As a data platform scales,
+Enforcement of such rules also need clear roles.
 
 [[CLICK]] Someone has to own and build the platform.
 
@@ -710,7 +705,7 @@ what you get out of it.
 
 ## effekter – What do you get out of it?
 
-[31:00]  4 min. Next chapter at 35:00.
+[31:00] 4 min. Next chapter at 35:00.
 
 Chapter change. What do you actually get out of all this?
 
@@ -782,7 +777,7 @@ way around.
 
 ## prosjekt – The story of the project
 
-[35:00]  4 min. Next chapter at 39:00.
+[35:00] 4 min. Next chapter at 39:00.
 
 So. Now you have the theory. Let's go back to our ship and tell the
 story of how it was actually done.
@@ -906,7 +901,7 @@ build on top of this?
 
 ## teknisk-implementasjon – Technical implementation details
 
-[47:00]  2 min. Next chapter at 49:00.
+[47:00] 2 min. Next chapter at 49:00.
 
 Chapter change. Back to how it was actually built. Ingest. The daily job.
 How the pipeline is wired.
@@ -920,8 +915,7 @@ owns what comes after raw.
 
 We want to decouple the raw jobs from Databricks. Databricks will probably
 be replaced at some point. So it's cheaper and more resilient to base the
-raw ingest on open source. 
-
+raw ingest on open source.
 
 [[CLICK]] We use Prefect. A Python library for orchestrating jobs. Not
 Databricks jobs. Plain Python jobs.
@@ -951,7 +945,7 @@ And still: no clusters we have to run.
 
 ## stordata-volum – The stream is small, the history is big
 
-[49:00]  3 min. Next chapter at 52:00.
+[49:00] 3 min. Next chapter at 52:00.
 If you are behind, cut the two batch/streaming slides and keep the
 volume plus serverless.
 
@@ -1086,8 +1080,8 @@ data.
 
 ## math-opt – Mathematical optimizations
 
-[52:00]  3 min. Next chapter at 55:00.
-If the total is already past 52:00, skip this chapter. Go to the road ahead. 
+[52:00] 3 min. Next chapter at 55:00.
+If the total is already past 52:00, skip this chapter. Go to the road ahead.
 
 A lot of the spatial work is two questions.
 
@@ -1168,7 +1162,7 @@ Now these cells are very big, but the hexes of course scale all the way down to 
 
 ## modeller – From positions to emissions
 
-[39:00]  8 min. Next chapter at 47:00. This is the payoff. Follow the ship.
+[39:00] 8 min. Next chapter at 47:00. This is the payoff. Follow the ship.
 If you are behind, cut maru-hull and KystRisk.
 
 Chapter change. We have the toolbox. Azure, Databricks, Terraform. Before we
@@ -1233,7 +1227,7 @@ WHO IS ASUKA?
 
 Who is Asuka?
 
-She is a female japanese wrestler. 
+She is a female japanese wrestler.
 
 Three days well spent for a couple thousand cruise ship passengers.
 
@@ -1303,8 +1297,7 @@ became voyages you can actually see. That's the product.
 
 So, MarU.
 
-It's very important for us to have a clean coast, that we are tracking the climate gas emissions by our ships. 
-
+It's very important for us to have a clean coast, that we are tracking the climate gas emissions by our ships.
 
 [[CLICK]] Two AIS points. Distance over time. That's the speed of the ship.
 Our ship off Stad. Nine knots.
@@ -1392,23 +1385,23 @@ So what comes out the other end?
 [[CLICK]] Emissions. CO2 and CO2 equivalents, methane, NOx, SOx, particulate
 matter. Plus energy demand, fuel consumption, distance, and operating hours.
 
-[[CLICK]] Broken down by fourteen ship types and nine sizes. 
+[[CLICK]] Broken down by fourteen ship types and nine sizes.
 gross tons are split more finely than before, because Norwegian waters have
 a lot of small vessels.
 
-[[CLICK]] Geographically: municipality, county, sea area. 
+[[CLICK]] Geographically: municipality, county, sea area.
 
 [[CLICK]] And
 domestic, international, transit.
 
 And that means you can ask questions like this: how much CO2 do the biggest cruise ships emit in Geiranger in July, while they're lying still? We can answer that. Per ship, per month.
 
-And then the big one: the Norwegian Environment Agency - Miljødirektoratet -  is planning to use the MarU figures in the climate accounts for the municipalities. The
+And then the big one: the Norwegian Environment Agency - Miljødirektoratet - is planning to use the MarU figures in the climate accounts for the municipalities. The
 platform ends up in official statistics.
 
 ## veien-videre – The road ahead
 
-[55:00]  5 min. Land on thanks by 60:00. Questions if you have time.
+[55:00] 5 min. Land on thanks by 60:00. Questions if you have time.
 
 Where are we now, and where are we going?
 What is the road ahead.
@@ -1439,20 +1432,16 @@ not just where it was.
 that keep the coast lit. Send a boat out before a light goes dark.
 120 lighthouses across the coast and over 2000 lights.
 
-
-
 [[CLICK]] And many more. Things we already collect. Other agencies. Whatever
 comes next.
 
-
 [[CLICK]] So we need an architecture that scales
-Where we have a clear separation of ownership. 
+Where we have a clear separation of ownership.
 Where shared data is well documented and reliable, so domains can build upon the data from each other.
 
 ## hvor-vi-skal-helhet – Where we're going: the whole picture
 
-So we are building a new data architecture. 
-
+So we are building a new data architecture.
 
 [[CLICK]] Domains first. Customs, AIS, HR and finance, the lighthouses. Each
 with its own database in databricks, its own team, its own cost center, its own
