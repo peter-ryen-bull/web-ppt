@@ -33,6 +33,28 @@ terminal, ofte midt i en øving eller presentasjon.
   `node_modules`) og kjør den derfra på en annen port. Stopp den når du er
   ferdig.
 
+## Presentasjoner: aktive vs. arkiverte
+
+Bare presentasjonene under **Aktive** er under arbeid. Åpne og les kun disse
+(og `presentations/*.ts` med felles kode) med mindre brukeren eksplisitt peker
+på noe annet – det holder kontekstvinduet lite.
+
+**Aktive**
+
+- _(ingen akkurat nå – neste presentasjon legges til her når arbeidet starter)_
+
+**Arkiverte** (holdt, ferdige – **ikke rediger** slides, `notes.md` eller
+media for disse; ikke les dem uten at brukeren ber om det):
+
+- `presentations/stoe-dataplattform/` – holdt 27. aug 2026
+- `presentations/26-ndc-kystverket-story/` – holdt sep 2026 (NDC)
+
+Når en ny presentasjon påbegynnes: legg den under **Aktive**. Når den er holdt:
+flytt den til **Arkiverte** med dato. Arkiverte presentasjoner skal fortsatt
+være registrert i `presentations/index.ts` så de kan vises, men de skal ikke
+endres. Trenger en ny presentasjon slides fra en arkivert, kopier eller bruk
+`embedAsChapter` – ikke endre originalen.
+
 ## Speaker notes
 
 Notater ligger i `presentations/<id>/notes.md` (ev. nedarvede `notes.md` i
