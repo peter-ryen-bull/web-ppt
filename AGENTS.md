@@ -44,6 +44,9 @@ på noe annet – det holder kontekstvinduet lite.
 - `presentations/26-02-06-oppdal-tech-du-er-ikke-dum/` – Oppdal Tech, 6. feb 2026.
   «Du er ikke dum – En forskningsbasert metode for å lære fort». Slidene er
   eksportert som bilder fra original-PPTX.
+- `presentations/26-03-11-booster-du-er-ikke-dum/` – Booster, 11. mars 2026.
+  Kortere versjon av samme talk. Slidene er eksportert som bilder fra
+  `2026_03_11_booster_du_er_ikke_dum_peter_bull.pptx`.
 - `presentations/26-09-11-cloud-connection-kundemote/` – Cloud Connection
   kundemøte, 11. sep 2026. Norsk pitch om moderne dataplattform.
 - `presentations/26-10-19-tdc-kystverket-dataplattform/` – TDC, 19. okt 2026.

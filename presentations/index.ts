@@ -6,6 +6,7 @@ import { cloudConnectionKundemote } from "./26-09-11-cloud-connection-kundemote"
 import { ndcKystverketStory } from "./26-09-17-ndc-kystverket-dataplatform";
 import { tdcKystverketDataplattform } from "./26-10-19-tdc-kystverket-dataplattform";
 import { oppdalTechDuErIkkeDum } from "./26-02-06-oppdal-tech-du-er-ikke-dum";
+import { boosterDuErIkkeDum } from "./26-03-11-booster-du-er-ikke-dum";
 
 export { definePresentation, embedAsChapter } from "./chapters";
 
@@ -18,6 +19,7 @@ export const PRESENTATIONS: PresentationDef[] = [
   boosterSmartOcean,
   tdcStrings,
   oppdalTechDuErIkkeDum,
+  boosterDuErIkkeDum,
   stoeDataplattform,
   cloudConnectionKundemote,
   ndcKystverketStory,

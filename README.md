@@ -185,6 +185,13 @@ men du kan bruke vilkårlig HTML/JSX.
   er kommersiell og følger ikke med – har du den installert lokalt brukes den
   automatisk, ellers brukes Fraunces som nærmeste åpne alternativ.
 
+## Om Booster-presentasjonen
+
+`26-03-11-booster-du-er-ikke-dum` er Booster-versjonen av «Du er ikke dum»
+(11. mars 2026). 37 slides eksportert som bilder fra
+`2026_03_11_booster_du_er_ikke_dum_peter_bull.pptx`. Kortere enn
+Oppdal Tech-versjonen: retrieval og spacing, uten interleaving og søvn.
+
 ## Om konsulentlivet-presentasjonen
 
 `26-03-04-konsulentlivet-miles-onboarding` gjenskaper
