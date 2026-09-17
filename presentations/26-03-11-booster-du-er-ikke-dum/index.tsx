@@ -68,7 +68,6 @@ export const boosterDuErIkkeDum = definePresentation({
   date: "11. mars 2026",
   place: "Booster",
   tags: ["conference"],
-  inProgress: true,
   notes: notesRaw,
   chapters: [
     { id: "apning", title: "Åpningen", slides: APNING },

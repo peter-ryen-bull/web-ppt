@@ -59,14 +59,6 @@ id-en holder også). Når den er holdt og ferdig: fjern flagget (eller sett
 
 **Under arbeid**
 
-- `presentations/26-02-06-oppdal-tech-du-er-ikke-dum/` – Oppdal Tech, 6. feb 2026.
-  «Du er ikke dum – En forskningsbasert metode for å lære fort». Slidene er
-  eksportert som bilder fra original-PPTX.
-- `presentations/26-03-11-booster-du-er-ikke-dum/` – Booster, 11. mars 2026.
-  Kortere versjon av samme talk. Slidene er eksportert som bilder fra
-  `2026_03_11_booster_du_er_ikke_dum_peter_bull.pptx`.
-- `presentations/26-09-11-cloud-connection-kundemote/` – Cloud Connection
-  kundemøte, 11. sep 2026. Norsk pitch om moderne dataplattform.
 - `presentations/26-10-19-tdc-kystverket-dataplattform/` – TDC, 19. okt 2026.
   Norsk versjon av NDC-foredraget. Har egne kopier av figurene i `figurer/`
   (oversatt) – bruk dem, ikke `components/figures/`.
@@ -82,10 +74,18 @@ id-en holder også). Når den er holdt og ferdig: fjern flagget (eller sett
   `2024_10_22_tdc_peter_du_er_ikke_dum.pptx`.
 - `presentations/25-10-20-tdc-strings/` – holdt 20. okt 2025 (TDC). C# value
   objects vs. stringly typed. Importert fra `2025_10_20_tdc-strings.pptx`.
+- `presentations/26-02-06-oppdal-tech-du-er-ikke-dum/` – holdt 6. feb 2026
+  (Oppdal Tech). «Du er ikke dum – En forskningsbasert metode for å lære
+  fort». Slidene er eksportert som bilder fra original-PPTX.
+- `presentations/26-03-11-booster-du-er-ikke-dum/` – holdt 11. mars 2026
+  (Booster). Kortere versjon av samme talk. Slidene er eksportert som
+  bilder fra `2026_03_11_booster_du_er_ikke_dum_peter_bull.pptx`.
 - `presentations/26-05-26-offentlig-paas/` – holdt 26. mai 2026 (Offentlig
   PaaS, Forskningsparken). «Dataplattform for et datadrevet politi».
   Slidene er eksportert som bilder fra original-PPTX.
 - `presentations/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/` – holdt 27. aug 2026
+- `presentations/26-09-11-cloud-connection-kundemote/` – holdt 11. sep 2026
+  (Cloud Connection). Norsk pitch om moderne dataplattform.
 - `presentations/26-09-17-ndc-kystverket-dataplatform/` – holdt 17. sep 2026
   (NDC, engelsk). Bruker `components/figures/` (engelsk tekst), som regnes som
   del av arkivet.

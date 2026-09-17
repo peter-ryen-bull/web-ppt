@@ -136,7 +136,6 @@ export const cloudConnectionKundemote = definePresentation({
       alt="Cloud Connection"
     />
   ),
-  inProgress: true,
   notes: notesRaw,
   chapters: [
     { id: "intro", title: "Bakgrunn og målbilde", slides: INTRO },
