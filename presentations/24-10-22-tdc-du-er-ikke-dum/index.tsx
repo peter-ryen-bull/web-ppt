@@ -1,6 +1,7 @@
 import type { SlideDef } from "../types";
 import notesRaw from "./notes.md";
 import { definePresentation } from "../chapters";
+import { BildeIkon } from "@/components/icons/BildeIkon";
 import { SlideBilde } from "./slides";
 
 function s(n: number, id: string, name: string): SlideDef {
@@ -91,6 +92,9 @@ export const tdcDuErIkkeDum = definePresentation({
   date: "22. oktober 2024",
   place: "TDC",
   tags: ["conference"],
+  icon: (
+    <BildeIkon src="/media/24-10-22-tdc-du-er-ikke-dum/ikon.png" />
+  ),
   notes: notesRaw,
   chapters: [
     { id: "apning", title: "Åpningen", slides: APNING },
