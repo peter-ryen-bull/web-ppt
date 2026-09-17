@@ -239,6 +239,16 @@ export default function PresenterView({
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (
+        CURSOR_PROMPT_ENABLED &&
+        (e.metaKey || e.ctrlKey) &&
+        (e.key === "i" || e.key === "I")
+      ) {
+        if (overview) return;
+        e.preventDefault();
+        setPromptOpen((o) => !o);
+        return;
+      }
       const target = e.target as HTMLElement | null;
       if (
         target &&
@@ -261,9 +271,6 @@ export default function PresenterView({
         else setPromptOpen(false);
       } else if (e.key === "g" || e.key === "G") {
         setOverview((o) => !o);
-      } else if ((e.key === "p" || e.key === "P") && CURSOR_PROMPT_ENABLED) {
-        if (overview) return;
-        setPromptOpen((o) => !o);
       } else if (e.key === "h" || e.key === "H") {
         toggleHidden(slides[current].id);
       } else if (e.key === "[") {
@@ -377,7 +384,7 @@ export default function PresenterView({
             <button
               className={`${styles.btn} ${promptOpen ? styles.btnActive : ""}`}
               onClick={() => setPromptOpen((o) => !o)}
-              title="Prompt Cursor om denne sliden (P)"
+              title="Prompt Cursor om denne sliden (⌘I)"
             >
               ✎ Cursor
             </button>

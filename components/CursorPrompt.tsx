@@ -446,7 +446,7 @@ export function CursorPromptPanel({
             <button
               className={styles.miniBtn}
               onClick={onClose}
-              title="Lukk (P)"
+              title="Lukk (⌘I)"
               aria-label="Lukk"
             >
               ×

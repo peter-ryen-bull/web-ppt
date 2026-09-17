@@ -166,6 +166,16 @@ export default function Deck({ presentationId }: { presentationId: string }) {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (
+        CURSOR_PROMPT_ENABLED &&
+        (e.metaKey || e.ctrlKey) &&
+        (e.key === "i" || e.key === "I")
+      ) {
+        if (overview) return;
+        e.preventDefault();
+        setPromptOpen((o) => !o);
+        return;
+      }
       // Skriver brukeren i et tekstfelt (Cursor-prompt), la det være
       if (isTypingTarget(e.target)) return;
       if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
@@ -194,9 +204,6 @@ export default function Deck({ presentationId }: { presentationId: string }) {
         if (exporting) return;
         setOverview((o) => !o);
         setExportMode(false);
-      } else if ((e.key === "p" || e.key === "P") && CURSOR_PROMPT_ENABLED) {
-        if (overview) return;
-        setPromptOpen((o) => !o);
       } else if (e.key === "[") {
         goChapter(-1);
       } else if (e.key === "]") {
@@ -355,7 +362,7 @@ export default function Deck({ presentationId }: { presentationId: string }) {
             <button
               className={`${styles.btn} ${promptOpen ? styles.btnActive : ""}`}
               onClick={() => setPromptOpen((o) => !o)}
-              title="Prompt Cursor om denne sliden (P)"
+              title="Prompt Cursor om denne sliden (⌘I)"
             >
               ✎ Cursor
             </button>

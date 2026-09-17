@@ -24,7 +24,7 @@ npm run dev
 | Forrige/neste kapittel | `[` / `]` | «Neste kapittel» (presentatør, topp) |
 | Slideoversikt (med skjul-brytere) | `G` | «Oversikt» (øving og presentatør) |
 | Eksporter PDF (kun i oversikten) | – | «Eksporter PDF» |
-| Prompt Cursor om sliden (kun dev) | `P` | «✎ Cursor» |
+| Prompt Cursor om sliden (kun dev) | `⌘I` | «✎ Cursor» |
 | Fullskjerm | `F` | `⛶` |
 | Tilbake til alle presentasjoner | – | «⌂ Presentasjoner» |
 
@@ -34,7 +34,7 @@ presentasjon.
 ### Prompt Cursor fra sliden (dev)
 
 I øvings- og presentatørvisningen kan du sende en prompt direkte til
-[Cursor CLI](https://cursor.com/cli) uten å forlate sliden. Trykk `P` (eller
+[Cursor CLI](https://cursor.com/cli) uten å forlate sliden. Trykk `⌘I` (eller
 «✎ Cursor»). Prompten får med presentasjon, slide, kapittel og kildefil, og
 CLI-en kjører i bakgrunnen med `--force` slik at endringene lastes inn live.
 
