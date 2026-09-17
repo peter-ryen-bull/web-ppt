@@ -13,6 +13,7 @@ export { definePresentation, embedAsChapter } from "./chapters";
 export const PRESENTATIONS: PresentationDef[] = [
   stoeDataplattform,
   ndcKystverketStory,
+  tdcKystverketDataplattform,
 ];
 
 export function getPresentation(id: string): PresentationDef | undefined {

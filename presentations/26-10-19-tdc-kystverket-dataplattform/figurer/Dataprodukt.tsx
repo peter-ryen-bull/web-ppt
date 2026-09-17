@@ -1,0 +1,399 @@
+"use client";
+
+import type { ReactNode } from "react";
+import { useStep } from "@/components/steps";
+
+/*
+ * Figur for dataprodukt – "show, don't tell":
+ *
+ * Venstre: den ensomme tabellen – en parquet-fil dumpet i en bucket, med
+ * ubesvarte spørsmål hengende rundt seg. Høyre: nøyaktig samme data pakket
+ * som produkt, med dokumentasjon, eier, tester, ferskhet, kontrakt og
+ * tilgang. Spørsmålene og produkt-egenskapene avsløres med klikk-steg
+ * slik at kontrasten fortelles av figuren selv.
+ *
+ * Ren SVG (viewBox 1240x640) i Miles-paletten.
+ */
+
+const W = 1240;
+const H = 640;
+
+const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
+const SUB_FARGE = "#9a5068";
+const LINJE_FARGE = "rgba(69, 13, 32, 0.25)";
+const KREM_DUS = "rgba(251, 240, 229, 0.72)";
+
+/** Viser innholdet først når klikk-steget `at` er nådd */
+function Steg({ at, children }: { at: number; children: ReactNode }) {
+  const step = useStep();
+  const shown = step >= at;
+  return (
+    <g
+      style={{ opacity: shown ? 1 : 0, transition: "opacity 300ms ease" }}
+      pointerEvents={shown ? undefined : "none"}
+    >
+      {children}
+    </g>
+  );
+}
+
+function Pill({ cx, text, w }: { cx: number; text: string; w: number }) {
+  return (
+    <g>
+      <rect x={cx - w / 2} y={8} width={w} height={30} rx={15} fill="var(--teal)" />
+      <text
+        x={cx}
+        y={27.5}
+        textAnchor="middle"
+        fontFamily="var(--font-sans)"
+        fontWeight={600}
+        fontSize={11.5}
+        letterSpacing={1.5}
+        fill="var(--cream)"
+      >
+        {text}
+      </text>
+    </g>
+  );
+}
+
+/* ---------- Ikoner (24x24, strek-stil) ---------- */
+
+function IkonFil() {
+  return (
+    <>
+      <path d="M6.5 3h7l4.5 4.5V21h-11.5z" />
+      <path d="M13.5 3v4.5H18" />
+    </>
+  );
+}
+
+function IkonPerson() {
+  return (
+    <>
+      <circle cx={12} cy={8} r={3.5} />
+      <path d="M5 20a7 7 0 0 1 14 0" />
+    </>
+  );
+}
+
+function IkonKontrakt() {
+  return (
+    <>
+      <path d="M6.5 3h7l4.5 4.5V21h-11.5z" />
+      <path d="M13.5 3v4.5H18" />
+      <path d="M9 14.5l2 2 4-4.5" />
+    </>
+  );
+}
+
+function IkonSkjold() {
+  return (
+    <>
+      <path d="M12 3l7 3v5.5c0 4.5-3 7.5-7 9.5-4-2-7-5-7-9.5V6z" />
+      <path d="M8.7 12l2.2 2.2 4.4-4.4" />
+    </>
+  );
+}
+
+function IkonKlokke() {
+  return (
+    <>
+      <circle cx={12} cy={12} r={8.5} />
+      <path d="M12 7.5V12l3.5 2" />
+    </>
+  );
+}
+
+function IkonDeling() {
+  return (
+    <>
+      <circle cx={6} cy={12} r={2.8} />
+      <circle cx={18} cy={5.5} r={2.8} />
+      <circle cx={18} cy={18.5} r={2.8} />
+      <path d="M8.5 10.6l7-3.7" />
+      <path d="M8.5 13.4l7 3.7" />
+    </>
+  );
+}
+
+/* ---------- Innhold ---------- */
+
+const KOLONNER = [
+  { label: "MMSI", x: 28 },
+  { label: "TIME", x: 156 },
+  { label: "SPEED (KN)", x: 276 },
+];
+
+const RADER = [
+  ["257061000", "09:41:02", "12.3"],
+  ["259122000", "09:41:03", "8.7"],
+  ["258963000", "09:41:04", "6.4"],
+  ["257845000", "09:41:05", "14.1"],
+];
+
+/** Spørsmålene som henger ubesvart rundt den ensomme tabellen */
+const SPORSMAL: { x: number; y: number; text: string; lineTo: [number, number]; at: number }[] = [
+  { x: 300, y: 116, text: "What do the fields mean?", lineTo: [290, 150], at: 1 },
+  { x: 92, y: 462, text: "How fresh is the data?", lineTo: [140, 402], at: 2 },
+  { x: 268, y: 512, text: "Who answers when something looks off?", lineTo: [330, 402], at: 3 },
+];
+
+/** Egenskapene som gjør tabellen til et produkt */
+const EGENSKAPER: { title: string; sub: string; icon: ReactNode }[] = [
+  { title: "Documentation", sub: "what the fields mean", icon: <IkonFil /> },
+  { title: "Clear owner", sub: "team-ocean answers", icon: <IkonPerson /> },
+  { title: "Data contract", sub: "machine-readable agreement", icon: <IkonKontrakt /> },
+  { title: "Access", sub: "API · SQL · BI", icon: <IkonDeling /> },
+];
+
+const EGENSKAPER_VENSTRE: { title: string; sub: string; icon: ReactNode }[] = [
+  { title: "Quality tests", sub: "run on every single row", icon: <IkonSkjold /> },
+  { title: "Freshness", sub: "SLA: fresher than 5 min", icon: <IkonKlokke /> },
+];
+
+/* ---------- Byggeklosser ---------- */
+
+/** Egenskaps-chip inne i produktboksen */
+function Egenskap({
+  x,
+  y,
+  w,
+  title,
+  sub,
+  icon,
+  at,
+}: {
+  x: number;
+  y: number;
+  w: number;
+  title: string;
+  sub: string;
+  icon: ReactNode;
+  at: number;
+}) {
+  return (
+    <Steg at={at}>
+      <rect
+        x={x}
+        y={y}
+        width={w}
+        height={56}
+        rx={12}
+        fill="rgba(251, 240, 229, 0.08)"
+        stroke="rgba(120, 232, 219, 0.35)"
+        strokeWidth={1}
+      />
+      <g
+        transform={`translate(${x + 13} ${y + 16.5})`}
+        fill="none"
+        stroke="var(--mint)"
+        strokeWidth={1.8}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        {icon}
+      </g>
+      <text
+        x={x + 48}
+        y={y + 25}
+        fontFamily="var(--font-sans)"
+        fontWeight={600}
+        fontSize={14}
+        fill="var(--cream)"
+      >
+        {title}
+      </text>
+      <text x={x + 48} y={y + 43} fontFamily="var(--font-sans)" fontSize={11} fill={KREM_DUS}>
+        {sub}
+      </text>
+    </Steg>
+  );
+}
+
+/* ---------- Hovedfigur ---------- */
+
+export function DataproduktAnatomi() {
+  return (
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      style={{ width: "100%", height: "100%", display: "block" }}
+      role="img"
+      aria-label="Data product: a lonely table on the left, the same data packaged as a product on the right"
+    >
+      <Pill cx={255} text="JUST A TABLE" w={190} />
+      <Pill cx={910} text="A DATA PRODUCT" w={200} />
+
+      {/* Den ensomme tabellen – en fil dumpet i en bucket */}
+      <g transform="translate(60 150)">
+        <rect width={390} height={252} rx={14} fill="#fff" stroke="var(--cream-dark)" strokeWidth={1.5} />
+        <path
+          d="M 0 14 A 14 14 0 0 1 14 0 H 376 A 14 14 0 0 1 390 14 V 34 H 0 Z"
+          fill="var(--cream)"
+        />
+        <g
+          transform="translate(14 6) scale(0.9)"
+          fill="none"
+          stroke={SUB_FARGE}
+          strokeWidth={1.8}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <IkonFil />
+        </g>
+        <text x={44} y={22.5} fontFamily={MONO} fontSize={12} fill={SUB_FARGE}>
+          ais_dump_latest_v2_FINAL.parquet
+        </text>
+        {KOLONNER.map((k) => (
+          <text
+            key={k.label}
+            x={k.x}
+            y={64}
+            fontFamily="var(--font-sans)"
+            fontWeight={600}
+            fontSize={11}
+            letterSpacing={1}
+            fill={SUB_FARGE}
+          >
+            {k.label}
+          </text>
+        ))}
+        <path d="M 18 76 H 372" stroke="var(--cream-dark)" strokeWidth={1.5} />
+        {RADER.map((rad, i) => (
+          <g key={i}>
+            {rad.map((verdi, j) => (
+              <text
+                key={j}
+                x={KOLONNER[j].x}
+                y={106 + i * 36}
+                fontFamily={MONO}
+                fontSize={14.5}
+                fill="var(--burgundy)"
+              >
+                {verdi}
+              </text>
+            ))}
+            {i < RADER.length - 1 && (
+              <path d={`M 18 ${116 + i * 36} H 372`} stroke="rgba(69, 13, 32, 0.08)" strokeWidth={1} />
+            )}
+          </g>
+        ))}
+      </g>
+
+      {/* Ubesvarte spørsmål rundt tabellen */}
+      {SPORSMAL.map((q) => (
+        <Steg key={q.text} at={q.at}>
+          <path
+            d={`M ${q.x + 8} ${q.y + (q.lineTo[1] > q.y ? 10 : -14)} L ${q.lineTo[0]} ${q.lineTo[1]}`}
+            fill="none"
+            stroke={LINJE_FARGE}
+            strokeWidth={1.4}
+            strokeDasharray="1.5 6"
+            strokeLinecap="round"
+          />
+          <circle cx={q.x} cy={q.y - 5} r={10} fill="rgba(255, 48, 59, 0.1)" stroke="var(--red)" strokeWidth={1.4} />
+          <text
+            x={q.x}
+            y={q.y - 0.5}
+            textAnchor="middle"
+            fontFamily="var(--font-sans)"
+            fontWeight={700}
+            fontSize={13}
+            fill="var(--red)"
+          >
+            ?
+          </text>
+          <text x={q.x + 18} y={q.y} fontFamily="var(--font-sans)" fontSize={14.5} fill="var(--red)">
+            {q.text}
+          </text>
+        </Steg>
+      ))}
+
+      <text x={255} y={560} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={SUB_FARGE}>
+        – a file in a bucket is not a product
+      </text>
+
+      {/* Skillelinje: de to sidene er separate ting */}
+      <rect x={533} y={80} width={4} height={480} rx={2} fill="#c9c2bb" />
+
+      {/* Produktboksen: samme data, pakket og forvaltet */}
+      <rect x={620} y={80} width={580} height={480} rx={20} fill="var(--teal)" />
+      <text
+        x={910}
+        y={130}
+        textAnchor="middle"
+        fontFamily="var(--font-serif)"
+        fontSize={30}
+        fill="var(--cream)"
+      >
+        AIS tracks
+      </text>
+      <rect x={892} y={144} width={36} height={3} rx={1.5} fill="var(--mint)" />
+      <text x={910} y={172} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={KREM_DUS}>
+        same data – packaged as a product
+      </text>
+
+      {/* Samme tabell, nå ryddig og versjonert */}
+      <g transform="translate(650 195)">
+        <rect width={250} height={170} rx={12} fill="#fff" stroke="var(--cream-dark)" strokeWidth={1.5} />
+        <path
+          d="M 0 12 A 12 12 0 0 1 12 0 H 238 A 12 12 0 0 1 250 12 V 28 H 0 Z"
+          fill="var(--cream)"
+        />
+        <text x={14} y={19} fontFamily={MONO} fontSize={11} fill={SUB_FARGE}>
+          ais_tracks · v2.1.0
+        </text>
+        {["MMSI", "TIME", "SPEED"].map((label, j) => (
+          <text
+            key={label}
+            x={[18, 110, 190][j]}
+            y={50}
+            fontFamily="var(--font-sans)"
+            fontWeight={600}
+            fontSize={10}
+            letterSpacing={1}
+            fill={SUB_FARGE}
+          >
+            {label}
+          </text>
+        ))}
+        <path d="M 12 60 H 238" stroke="var(--cream-dark)" strokeWidth={1.2} />
+        {RADER.slice(0, 3).map((rad, i) => (
+          <g key={i}>
+            {rad.map((verdi, j) => (
+              <text
+                key={j}
+                x={[18, 110, 190][j]}
+                y={86 + i * 32}
+                fontFamily={MONO}
+                fontSize={12.5}
+                fill="var(--burgundy)"
+              >
+                {verdi}
+              </text>
+            ))}
+          </g>
+        ))}
+      </g>
+
+      {/* Egenskapene som gjør det til et produkt */}
+      {EGENSKAPER_VENSTRE.map((e, i) => (
+        <Egenskap key={e.title} x={650} y={380 + i * 70} w={250} at={8 + i} {...e} />
+      ))}
+      {EGENSKAPER.map((e, i) => (
+        <Egenskap key={e.title} x={920} y={195 + i * 77} w={250} at={4 + i} {...e} />
+      ))}
+
+      <text
+        x={620}
+        y={618}
+        textAnchor="middle"
+        fontFamily="var(--font-sans)"
+        fontSize={15.5}
+        fill="var(--red)"
+      >
+        A table is an ingredient. The data product is the dish.
+      </text>
+    </svg>
+  );
+}

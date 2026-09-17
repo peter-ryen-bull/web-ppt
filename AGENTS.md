@@ -41,13 +41,17 @@ på noe annet – det holder kontekstvinduet lite.
 
 **Aktive**
 
-- _(ingen akkurat nå – neste presentasjon legges til her når arbeidet starter)_
+- `presentations/26-10-19-tdc-kystverket-dataplattform/` – TDC, 19. okt 2026.
+  Norsk versjon av NDC-foredraget. Har egne kopier av figurene i `figurer/`
+  (oversatt) – bruk dem, ikke `components/figures/`.
 
 **Arkiverte** (holdt, ferdige – **ikke rediger** slides, `notes.md` eller
 media for disse; ikke les dem uten at brukeren ber om det):
 
 - `presentations/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/` – holdt 27. aug 2026
-- `presentations/26-09-17-ndc-kystverket-dataplatform/` – holdt sep 2026 (NDC)
+- `presentations/26-09-17-ndc-kystverket-dataplatform/` – holdt 17. sep 2026
+  (NDC, engelsk). Bruker `components/figures/` (engelsk tekst), som regnes som
+  del av arkivet.
 
 Når en ny presentasjon påbegynnes: legg den under **Aktive**. Når den er holdt:
 flytt den til **Arkiverte** med dato. Arkiverte presentasjoner skal fortsatt
