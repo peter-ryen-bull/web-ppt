@@ -44,6 +44,11 @@ type CopyContextValue = {
 
 const CopyContext = createContext<CopyContextValue | null>(null);
 
+/** Overstyringer er per slide, ellers lekker `title` til neste slide. */
+function overrideKey(slideId: string, path: string) {
+  return `${slideId}\n${path}`;
+}
+
 export function CopyProvider({
   slide,
   copyEdit,
@@ -58,20 +63,30 @@ export function CopyProvider({
   const [menuPos, setMenuPos] = useState<MenuPos | null>(null);
   const onEditingChange = copyEdit?.onEditingChange;
   const copy = slide.copy;
+  const slideId = slide.id;
+
+  useEffect(() => {
+    setActivePathState(null);
+    setMenuPos(null);
+    onEditingChange?.(false);
+  }, [slideId, onEditingChange]);
 
   useEffect(() => {
     setOverrides((prev) => {
       let changed = false;
       const next = { ...prev };
-      for (const [path, value] of Object.entries(prev)) {
+      const prefix = `${slideId}\n`;
+      for (const [key, value] of Object.entries(prev)) {
+        if (!key.startsWith(prefix)) continue;
+        const path = key.slice(prefix.length);
         if (getCopyString(copy, path) === value) {
-          delete next[path];
+          delete next[key];
           changed = true;
         }
       }
       return changed ? next : prev;
     });
-  }, [copy]);
+  }, [copy, slideId]);
 
   const setActivePath = useCallback(
     (path: string | null, pos?: MenuPos) => {
@@ -82,9 +97,12 @@ export function CopyProvider({
     [onEditingChange, menuPos]
   );
 
-  const setOverride = useCallback((path: string, value: string) => {
-    setOverrides((prev) => ({ ...prev, [path]: value }));
-  }, []);
+  const setOverride = useCallback(
+    (path: string, value: string) => {
+      setOverrides((prev) => ({ ...prev, [overrideKey(slideId, path)]: value }));
+    },
+    [slideId]
+  );
 
   const value = useMemo<CopyContextValue>(
     () => ({
@@ -150,7 +168,9 @@ export function Copy({
   const ctx = useContext(CopyContext);
   const path = pathProp ?? copyPathFromParts(k ?? "text", i, field);
   const fromYaml = getCopyString(ctx?.copy, path);
-  const text = ctx?.overrides[path] ?? fromYaml;
+  const text =
+    (ctx ? ctx.overrides[overrideKey(ctx.slideId, path)] : undefined) ??
+    fromYaml;
   const editable = Boolean(ctx?.editable);
   const heading = k === "title" || k === "kicker" || k === "subtitle";
 

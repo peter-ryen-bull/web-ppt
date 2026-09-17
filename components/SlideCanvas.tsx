@@ -45,7 +45,7 @@ export function SlideSurface({
 }) {
   const Slide = slide.component;
   return (
-    <CopyProvider slide={slide} copyEdit={copyEdit}>
+    <CopyProvider key={slide.id} slide={slide} copyEdit={copyEdit}>
       <StepContext.Provider value={step ?? Number.POSITIVE_INFINITY}>
         <Slide />
       </StepContext.Provider>
