@@ -1,0 +1,257 @@
+forside:
+  title: "Slett meg hvis du kan"
+  subtitle: "Sletting, lineage og personvern i en dataplattform"
+  speaker: "Peter Bull · Miles"
+
+scene:
+  kicker: "MANDAG 08:12"
+  fra: "Kari Nordmann <kari.nordmann@example.com>"
+  emne: "Sletting av personopplysninger"
+  tekst: "Hei! Jeg ber om at dere sletter alt dere har om meg. Mvh Kari Nordmann"
+  frist: "Fristen er én måned."
+  sporsmal: "Hvor mange steder har vi henne?"
+  tenkt: "Tenkt eksempel"
+
+kap-regler:
+  title: "Hva sier loven?"
+  subtitle: "GDPR artikkel 17: retten til sletting"
+
+loven:
+  kicker: "GDPR ARTIKKEL 17"
+  title: "Kari har rett til å bli slettet"
+  cards:
+    - tittel: "Uten ugrunnet opphold"
+      tekst: "Svar så raskt du kan, og senest innen én måned. Er saken komplisert, kan fristen forlenges med to måneder. Kari må da få beskjed innen den første måneden."
+    - tittel: "Overalt der hun finnes"
+      tekst: "Plikten gjelder personopplysningene om Kari, ikke bare tabellen du kjenner best. Rapporter, filer og kopier hører med."
+    - tittel: "Si fra til andre"
+      tekst: "Har du gitt opplysningene videre, skal mottakerne få beskjed om slettingen. Unntak: når det er umulig eller krever uforholdsmessig stor innsats."
+  kilde: "Kilder: personvernforordningen artikkel 12, 17 og 19 (Lovdata) og Datatilsynet."
+
+unntak:
+  kicker: "ARTIKKEL 17 NR. 3"
+  title: "Noen ganger skal du ikke slette"
+  items:
+    - "Loven krever at du beholder opplysningene. Regnskapsbilag er et eksempel."
+    - "Du trenger dem for å fastsette, gjøre gjeldende eller forsvare et rettskrav."
+    - "Oppgaver i allmennhetens interesse eller offentlig myndighetsutøvelse."
+    - "Arkiv, forskning eller statistikk, på bestemte vilkår."
+  punch: "Noen data skal bli. Da må du vite hvilke, og hvorfor."
+
+kap-enkel:
+  title: "Den enkle løsningen"
+  subtitle: "En rad i en tabell"
+
+naiv:
+  kicker: "DET ENKLE TILFELLET"
+  title: "Én tabell, én rad, én kommando"
+  caption: "Ferdig. I dette ene systemet."
+  tenkt: "Tenkt eksempel"
+
+kart:
+  kicker: "DET VIRKELIGE BILDET"
+  title: "Men Kari er ikke bare i kundesystemet"
+  footer: "Kari bor i kopier, avledede tabeller, rapporter, filer, meldinger, sikkerhetskopier og logger."
+  tenkt: "Tenkt eksempel"
+
+slack:
+  kicker: "DEN ENKLE LØSNINGEN, DEL 2"
+  title: "Slik sprer slettebehovet seg"
+  avsender: "Nina, personvern"
+  melding: "Hei alle! Kari Nordmann (kari.nordmann@example.com) har bedt om å bli slettet. Kan alle sjekke tabeller og rapporter?"
+  svar:
+    - navn: "Jonas, kundesystem"
+      tekst: "Slettet i kundesystemet."
+    - navn: "Mia, rapporter"
+      tekst: "Kundetall-rapporten viser navnet hennes. Jeg fikser."
+    - navn: "Erik, analyse"
+      tekst: "Jeg har en Excel-fil fra i fjor …"
+  poeng1: "Navn og e-post står nå i Slack."
+  poeng2: "Varselet om slettingen er blitt enda et sted å slette fra."
+  tenkt: "Tenkt eksempel"
+
+rapport:
+  kicker: "RAPPORTEN"
+  title: "Rapporten har sin egen kopi"
+  items:
+    - "Med importerte data ligger en kopi i rapportens datasett."
+    - "Sletter du i kilden, lever kopien til neste oppdatering."
+    - "Brukere eksporterer til Excel og PDF. Da ligger kopiene utenfor din kontroll."
+    - "Abonnement sender rapporten på e-post til faste tider."
+
+logg:
+  kicker: "OVERRASKELSEN"
+  title: "Slettingen setter spor"
+  logg_tittel: "Spørrehistorikk og saker"
+  poeng: "Loggen husker navnet hennes."
+  fix: "Slett på intern nøkkel, ikke på navn. Hold personopplysninger ute av logger og saker."
+  tenkt: "Tenkt eksempel"
+
+kap-lagring:
+  title: "Å slette er ikke å slette"
+  subtitle: "Lagring husker mer enn du tror"
+
+versjoner:
+  kicker: "LAGRING MED HISTORIKK"
+  title: "Tidsreise gir Kari tilbake"
+  items:
+    - "DELETE lager en ny versjon. De gamle filene blir liggende."
+    - "Tidsreise leser den gamle versjonen, med Kari i."
+    - "VACUUM fjerner gamle filer når oppbevaringstiden er ute. Standard er sju dager."
+  footer: "Med «deletion vectors» merkes radene bare som slettet. Kjør også REORG TABLE … APPLY (PURGE) for å skrive filene om, og deretter VACUUM. Kilder: Delta Lake og Databricks-dokumentasjonen."
+
+backup:
+  kicker: "SIKKERHETSKOPIER"
+  title: "Og backupen?"
+  cards:
+    - tittel: "Slett i backupen"
+      tekst: "Mulig bare når backupen lar deg røre enkeltrader, for eksempel en vanlig kopi av en database. Ofte går ikke det."
+    - tittel: "Bruk en slettelogg"
+      tekst: "La backupen leve ut en kort, fast levetid. Skriv slettingen i en logg, og kjør loggen på nytt hvis backupen gjenopprettes."
+  footer: "Loggen skal ikke inneholde navn. Nøkkel og tidspunkt er nok. Kilde: Datatilsynet (Danmark), veiledning om sletting."
+
+soft-delete:
+  kicker: "SLETTEFLAGG"
+  title: "«Slettet» er ikke slettet"
+  items:
+    - "Soft delete betyr at raden får et flagg. Innholdet ligger der fortsatt."
+    - "Nyttig som angre-knapp. Ikke det samme som å slette personopplysninger."
+    - "Det samme gjelder papirkurv og versjonering i fillagring."
+    - "Gi flagget en frist. Etter fristen skal innholdet fjernes for godt."
+
+kap-metoder:
+  title: "Flere måter å slette på"
+  subtitle: "Fjern raden, koblingen eller nøkkelen"
+
+metoder:
+  kicker: "VERKTØYKASSA"
+  title: "Fire måter å få Kari til å forsvinne"
+  fordel_label: "FORDEL"
+  pris_label: "PRIS"
+  cards:
+    - tittel: "Fjern raden"
+      fordel: "Helt borte."
+      pris: "Du må finne alle kopier."
+    - tittel: "Skjul raden"
+      fordel: "Enkelt å angre."
+      pris: "Innholdet ligger der. Det er ikke sletting."
+    - tittel: "Fjern koblingen"
+      fordel: "Personopplysninger på ett sted. Slett der, og resten peker ikke lenger på noen."
+      pris: "Kan resten fortsatt kjennes igjen?"
+    - tittel: "Fjern nøkkelen"
+      fordel: "Egen nøkkel per person. Slett nøkkelen, og dataene er uleselige."
+      pris: "Nøkkelstyring. Tung analyse på krypterte data."
+  footer: "Hashing står ikke på lista. Det er ikke sletting. Mer om det om litt."
+
+oppslag:
+  kicker: "OPPSLAGSTABELL"
+  title: "Slett koblingen, behold statistikken"
+  advarsel: "Pass på: fødselsdato, postnummer og kjønn sammen kan peke ut én person. Da er koblingen ikke brutt i praksis. Om dataene er anonyme, er en juridisk vurdering."
+
+krypto:
+  kicker: "KRYPTERING"
+  title: "Slett nøkkelen, ikke dataene"
+  vault: "Nøkkelhvelv"
+  items:
+    - "Nøklene må styres nøye, også i sikkerhetskopier av nøklene."
+    - "Analyse på krypterte data er tungt."
+    - "Om dette teller som sletting, er en juridisk vurdering."
+
+hashing:
+  kicker: "HASHING"
+  title: "Hashing er ikke sletting"
+  items:
+    - "Samme input gir alltid samme hash. Det er poenget, og problemet."
+    - "Et mobilnummer har åtte siffer: høyst 100 millioner muligheter. Å prøve alle tar kort tid."
+    - "Bedre: hash med en hemmelig nøkkel, eller bruk en tilfeldig nøkkel med oppslagstabell."
+    - "Pseudonymiserte data er fortsatt personopplysninger."
+
+kap-drift:
+  title: "Slik gjør du det i praksis"
+  subtitle: "Sletting som rutine, ikke som brann"
+
+samtidig:
+  kicker: "MANGE LESERE"
+  title: "Alle leser samme tabell samtidig"
+  items:
+    - "En lesing fortsetter på versjonen den startet på. Nattjobben ser Kari helt til den er ferdig."
+    - "Nye lesinger ser den nye versjonen. For dem er Kari borte."
+    - "VACUUM må vente på de tregeste leserne. Derfor har tabellene oppbevaringstid."
+
+nedstroms:
+  kicker: "FRA KILDE TIL PLATTFORM"
+  title: "Kilden sier ikke at noe er borte"
+  lasting: "Nattlig innlasting henter nye og endrede rader"
+  resultat: "0 rader"
+  items:
+    - "Kari er ikke endret. Hun er borte. Ingen melding følger med."
+    - "Løsning: kilden sender sletting som en hendelse."
+    - "Eller: sammenlign nøkler jevnlig med kilden."
+    - "Eller: plattformen fører sin egen sletteliste."
+
+bestilling:
+  kicker: "SLETTEFORESPØRSLER"
+  title: "Fra e-post til bekreftet sletting"
+  cards:
+    - tittel: "1 · Motta"
+      tekst: "Én inngang, ikke en melding i chatten. Fristen starter her."
+    - tittel: "2 · Bekrefte"
+      tekst: "Sjekk at det er Kari som spør."
+    - tittel: "3 · Finne"
+      tekst: "Katalog og lineage viser hvilke tabeller og rapporter som har henne."
+    - tittel: "4 · Slette"
+      tekst: "Slett eller anonymiser. Eller begrunn hvorfor dataene må bli."
+    - tittel: "5 · Svare"
+      tekst: "Gi Kari beskjed, og dem som har fått opplysningene, innen fristen."
+    - tittel: "6 · Logge"
+      tekst: "Lagre at det er gjort, med nøkkel og dato. Ikke navnet."
+
+sletteregister:
+  kicker: "SLETTEREGISTER"
+  title: "Sørg for at Kari blir borte, også neste gang"
+  items:
+    - "Registeret har bare intern nøkkel og datoer. Ikke navn."
+    - "Hver dataflyt leser det og fjerner nøklene, hver gang den kjører."
+    - "Samme register brukes når du laster historikk på nytt eller gjenoppretter en backup. Ellers dukker Kari opp igjen."
+  konsumenter_tittel: "Leser registeret"
+  konsumenter:
+    - "Nattlige dataflyter"
+    - "Ny innlasting av historikk fra kilden"
+    - "Gjenoppretting fra backup"
+    - "Kopier til testmiljø"
+
+lineage:
+  kicker: "LINEAGE"
+  title: "Lineage viser hvor Kari har reist"
+  merking: "Kolonner merket som persondata følger kjeden nedover. Da kan du spørre: hvilke tabeller og rapporter berøres?"
+  footer: "Lineage viser bare det verktøyet har fått se. Excel, e-post og Slack ligger utenfor."
+
+verktoy:
+  kicker: "VERKTØY"
+  title: "Hva verktøy gjør, og ikke gjør"
+  hjelper_tittel: "Hjelper deg med"
+  hjelper:
+    - "Å finne persondata: skanning og klassifisering"
+    - "Å se sammenhenger: lineage fra kilde til rapport"
+    - "Å styre saken: frister, oppgaver og dokumentasjon"
+  hjelper_ikke_tittel: "Gjør ikke for deg"
+  hjelper_ikke:
+    - "Slettingen i hvert enkelt system"
+    - "Vurderingen av om noe må beholdes"
+    - "Opprydding i Excel, e-post og Slack"
+  eksempler: "Eksempler: Microsoft Purview (skanning, klassifisering, lineage), Unity Catalog i Databricks (lineage, tagger på kolonner) og Microsoft Priva (saksflyt for forespørsler om personvernrettigheter)."
+
+sporsmaal:
+  kicker: "TA MED HJEM"
+  title: "Fem spørsmål du kan stille i morgen"
+  items:
+    - "Vet vi hvor personopplysningene ligger, og har vi tegnet det?"
+    - "Kan vi peke ut en person med en intern nøkkel, uten å bruke navn?"
+    - "Hva skjer med historikk, tidsreise og sikkerhetskopier?"
+    - "Hva skjer når noen laster dataene på nytt fra kilden?"
+    - "Hva står i loggene våre, og hvor lenge?"
+
+slutt:
+  title: "Sletting er ikke en kommando"
+  subtitle: "Det er en egenskap du bygger inn fra dag én."
+  takk: "Takk! Spørsmål?"

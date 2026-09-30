@@ -126,6 +126,10 @@ holder også). Når den er holdt: fjern flagget (eller sett
   Norsk versjon av NDC-foredraget. Figurer ligger i `figurer/` (oversatt) –
   bruk dem, ikke `components/figures/`.
 
+- `presentations/26-11-01-slett-meg-hvis-du-kan/` – «Slett meg hvis du kan»
+  (sletting, lineage og personvern). Dato og sted er plassholdere i id-en;
+  bytt når arrangementet er avklart. Kari Nordmann er et tenkt eksempel.
+
 **Arkiv** (ikke les eller rediger uten at brukeren peker på akkurat denne):
 
 - `22-03-23-booster-smart-ocean` – Booster 23. mar 2022. PNG-import.
