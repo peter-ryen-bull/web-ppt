@@ -20,7 +20,7 @@ import {
 
 const SLIDES: SlideDef[] = [
   { id: "forside", name: "Historien om dataplattformen", component: SlideForside },
-  { id: "tidslinje", name: "Fem faser, ett problem", component: SlideTidslinje, steps: TIDSLINJE_STEG },
+  { id: "tidslinje", name: "Seks faser, ett problem", component: SlideTidslinje, steps: TIDSLINJE_STEG },
   { id: "relasjonsmodellen", name: "1970 · Databasen", component: SlideRelasjonsmodellen },
   { id: "databasen-speil", name: "Databasen: løst, og et nytt problem", component: SlideDatabasenSpeil },
   { id: "varehuset", name: "1988 · Datavarehuset", component: SlideVarehuset },

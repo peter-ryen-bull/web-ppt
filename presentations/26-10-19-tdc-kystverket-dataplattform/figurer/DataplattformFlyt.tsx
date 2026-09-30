@@ -156,8 +156,8 @@ const BUNNBARER = [
 
 const LAG: { title: string; cap: string[]; icon?: ReactNode }[] = [
   { title: "Lagring", cap: ["rådata", "full historikk"], icon: <IkonDatabase /> },
-  { title: "Transformasjon", cap: ["vasking", "modellering"], icon: <IkonRotasjon /> },
-  { title: "Eksponering", cap: ["dataprodukter", "API · SQL · BI"], icon: <IkonDeling /> },
+  { title: "Bearbeiding", cap: ["vasking", "modellering"], icon: <IkonRotasjon /> },
+  { title: "Deling", cap: ["dataprodukter", "API · SQL · BI"], icon: <IkonDeling /> },
 ];
 
 /* ---------- Byggeklosser ---------- */
@@ -355,7 +355,7 @@ function PlattformEnkel({ x, w }: { x: number; w: number }) {
         fontSize={14.5}
         fill={KREM_DUS}
       >
-        Lagring, prosessering og governance –
+        Lagring, behandling og forvaltning –
       </text>
       <text
         x={cx}

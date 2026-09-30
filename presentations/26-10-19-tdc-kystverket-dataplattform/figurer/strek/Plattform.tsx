@@ -492,8 +492,8 @@ function Nettbrett({ x, y }: { x: number; y: number }) {
 const ROLLE_LABEL: Record<RolleHvem, string> = {
   plattform: "Plattformteamet som eier grunnmuren",
   byggere: "Utviklere og analytikere som bygger på plattformen",
-  governance: "Governance som setter rammene",
-  konsumenter: "BI og konsumenter som bruker det som kommer ut",
+  governance: "Dataforvaltning som setter rammene",
+  konsumenter: "BI og databrukere som bruker det som kommer ut",
 };
 
 /** Én rolle som strekfigurer – brukes fire ganger på «Tydelige roller»-sliden */

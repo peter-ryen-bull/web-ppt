@@ -3,7 +3,7 @@ forside:
   subtitle: "50 år med samme problem: å gjøre data om til beslutninger"
 
 tidslinje:
-  title: "Fem faser – ett problem"
+  title: "Seks faser – ett problem"
 
 relasjonsmodellen:
   kicker: "1970 · Databasen"
@@ -11,42 +11,42 @@ relasjonsmodellen:
 
 databasen-speil:
   kicker: "1970 · Databasen"
-  title: "Hva den løste – og det nye problemet"
+  title: "Hva ble løst – og hva ble det neste problemet?"
   columns:
-    - tittel: "Dette løste den"
+    - tittel: "Dette ble løst"
       items:
-        - "Én delt, konsistent hukommelse for virksomheten"
+        - "Én felles kilde til data for virksomheten"
         - "Transaksjoner med garantier – driften kunne stole på dataene"
-        - "Spørsmål uten å programmere navigasjon: SQL"
+        - "Still spørsmål med SQL uten å styre hvordan dataene hentes"
     - tittel: "Det nye problemet"
       items:
         - "Bygget for drift, ikke analyse – tunge spørringer satte kassa på kne"
-        - "Ett system per funksjon: sannheten spredte seg igjen utover mange databaser"
+        - "Ett system per funksjon: dataene ble spredt på mange databaser igjen"
         - "Ledelsen fikk fortsatt ikke svar på tvers av systemene"
 
 varehuset:
   kicker: "1988 · Datavarehuset"
-  title: "Ett integrert varehus – adskilt fra driften"
+  title: "Ett felles datavarehus – atskilt fra driften"
 
 varehuset-speil:
   kicker: "1988 · Datavarehuset"
-  title: "Hva den løste – og det nye problemet"
+  title: "Hva ble løst – og hva ble det neste problemet?"
   columns:
-    - tittel: "Dette løste den"
+    - tittel: "Dette ble løst"
       items:
-        - "Én integrert sannhet på tvers av systemene"
-        - "Historikk: utvikling over tid, ikke bare nå-bildet"
-        - "Analyse uten å true driften – beslutninger på fakta"
+        - "Ett felles datagrunnlag på tvers av systemene"
+        - "Historikk: se utviklingen over tid"
+        - "Analyser uten å forstyrre driften"
     - tittel: "Det nye problemet"
       items:
         - "Dyrt: spesialisert maskinvare og lange prosjekter"
-        - "Tregt å endre: skjema først, ny kilde tok måneder – IT ble flaskehals"
+        - "Tregt å endre: å legge til en ny kilde tok måneder"
         - "Bare strukturerte data: rader og kolonner, ikke logger, tekst og bilder"
   footer: "Og så kom internett – og gjorde alle tre problemene akutte."
 
 regnestykket:
   kicker: "2006 · Stordata"
-  title: "Googles svar: distribuer alt"
+  title: "Googles svar: la mange maskiner dele arbeidet"
 
 datasjoen:
   kicker: "2010 · Datasjøen"
@@ -54,19 +54,19 @@ datasjoen:
 
 sjoen-speil:
   kicker: "2006–2010 · Stordata og datasjøen"
-  title: "Hva den løste – og det nye problemet"
+  title: "Hva ble løst – og hva ble det neste problemet?"
   columns:
-    - tittel: "Dette løste den"
+    - tittel: "Dette ble løst"
       items:
-        - "Skalaen: lagre og prosessere alt, billig, på vanlig maskinvare"
+        - "Store datamengder kunne lagres og behandles billig"
         - "Alle formater – logger, tekst, bilder, klikkstrømmer"
         - "Maskinlæring fikk rådataene den trengte"
     - tittel: "Det nye problemet"
       items:
-        - "Datasumpa: uten katalog, eierskap og metadata ble sjøen en fylling"
+        - "Datasumpa: uten oversikt og eierskap var dataene vanskelige å bruke"
         - "Kompleksitet: Hadoop krevde spesialister – SQL-folket sto utenfor"
         - "To parallelle verdener: varehus for BI, sjø for ML – doble kopier, dobbel regning"
-  footer: "En sjø blir en sump når gjenfinnbarheten svikter – ikke når datakvaliteten gjør det."
+  footer: "Uten oversikt er det vanskelig å finne og bruke dataene."
 
 skyen:
   kicker: "2012 · Skyen"

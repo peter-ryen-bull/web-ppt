@@ -346,7 +346,7 @@ export function ManuellVsServerless() {
     <Figur
       w={1040}
       h={300}
-      label="Manuell tuning gjetter en klyngestørrelse og våkner for sent. Serverless følger jobben."
+      label="Ved manuell tilpasning gjetter vi klyngestørrelsen og reagerer for sent. Serverless følger jobben."
     >
       <path
         d="M 520 36 V 272"

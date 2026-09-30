@@ -72,7 +72,7 @@ function kurve(x1: number, y1: number, x2: number, y2: number) {
 const EPOKER = [
   { aar: "1970", navn: "Databasen", sub: "én delt sannhet for driften" },
   { aar: "1988", navn: "Datavarehuset", sub: "innsikt på tvers – finans først" },
-  { aar: "2006", navn: "Stordata", sub: "distribuer alt – Hadoop" },
+  { aar: "2006", navn: "Stordata", sub: "del arbeidet – Hadoop" },
   { aar: "2010", navn: "Datasjøen", sub: "lagre alt, rått" },
   { aar: "2012", navn: "Skyen", sub: "elastisk – betal for bruk" },
   { aar: "2020", navn: "Lakehouse", sub: "én plattform for BI og KI" },
@@ -1157,7 +1157,7 @@ export function KonvergensFigur() {
   return (
     <Svg label="To spor – varehuset og sjøen – møtes i lakehouse og blir dagens dataplattform">
       <text x={90} y={100} fontFamily="var(--font-serif)" fontSize={21} fill="var(--burgundy)">
-        Varehus-sporet: orden og governance
+        Varehus-sporet: orden og forvaltning
       </text>
       <text x={90} y={480} fontFamily="var(--font-serif)" fontSize={21} fill="var(--burgundy)">
         Sjø-sporet: skala og rådata
@@ -1241,7 +1241,7 @@ export function KonvergensFigur() {
         BI · KI · sanntid
       </text>
       <text x={1065} y={yMid + 46} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={KREM_DUS}>
-        governance i bunn
+        forvaltning i bunn
       </text>
     </Svg>
   );

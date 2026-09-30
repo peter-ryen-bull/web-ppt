@@ -31,11 +31,11 @@ etter. Kalibrert mot øving: prosjektkapittelet lander på 35:00.
 | Produktene                      | 39:00 | 8   | HAIS, Asuka, MarTraf, MarU, KystRisk                                     |
 | Hvordan det gjøres              | 47:00 | 2   | ingest, den daglige jobben                                               |
 | Skalering                       | 49:00 | 3   | strøm vs historikk, batch vs streaming, serverless                       |
-| H3                              | 52:00 | 3   | hekser. Hopp over hele kapittelet hvis du lander her etter 52:00         |
+| H3                              | 52:00 | 3   | sekskanter. Hopp over hele kapittelet hvis du lander her etter 52:00         |
 | Veien videre                    | 55:00 | 5   | domener, tilbake til Stad, takk. Spørsmål hvis du har tid                |
 
 Ligger du etter når Hvordan det funker er ferdig, kutt kontrakter og katalog
-ned til takeaway-setningene. Behold «en dataplattform finnes for å servere
+ned til hovedpoengene. Behold «en dataplattform finnes for å levere
 dataprodukter».
 
 Ligger du etter når produktene er ferdige (ikke på 47:00), kutt
@@ -66,10 +66,10 @@ tankestreker. Si det slik du ville sagt det til en kollega over en kaffe.
 
 [[CLICK]] Klokka er 03:14.
 
-[[CLICK]] Vi er på Stadhavet. Det er februar. Det blåser nordvest kuling, og det
+[[CLICK]] Vi er på Stadhavet. Det er februar. Det blåser kuling fra nordvest, og det
 er helt mørkt.
 
-[[CLICK]] Der ute går det et stort lasteskip nordover. Ni knop. Tjue mennesker om bord, de fleste sover. Én står på brua med en kaffekopp og ser på
+[[CLICK]] Der ute går det et stort lasteskip nordover. Ni knop. Tjue mennesker er om bord. De fleste sover. Én står på brua med en kaffekopp og ser på
 radaren.
 
 Og mens han står der, skjer det noe han ikke tenker på. Noe skipet gjør
@@ -80,7 +80,7 @@ helt av seg selv.
 Hvert tiende sekund sender skipet en liten melding ut i mørket.
 
 [[CLICK]] Og meldingen er egentlig ganske enkel. Den sier: hvem jeg er. Hvor jeg
-er. Hvor fort jeg går. Hvor jeg skal. Og hva jeg holder på med akkurat nå.
+er. Hvor fort jeg går. Hvilken kurs jeg holder. Og hva jeg holder på med akkurat nå.
 Fem ting. Det er alt.
 
 Ingen om bord tenker på det. Det er ingen som trykker på en knapp. Meldingen
@@ -148,12 +148,12 @@ Jeg heter Peter.
 
 [[CLICK]] Jeg designer dataarkitektur for store organisasjoner.
 
-[[CLICK]] Jeg bygger dataplattformen til Kystverket. Før det har jeg bygget
+[[CLICK]] Jeg bygger dataplattformen til Kystverket. Før det bygget jeg
 plattformer for både private selskaper og offentlige etater, og det jeg har
 lært er at problemene er overraskende like. Det er bare dataene som bytter
 navn.
 
-[[CLICK]] Tidligere var jeg tech lead for politiets dataplattform.
+[[CLICK]] Tidligere var jeg teknisk leder for politiets dataplattform.
 
 [[CLICK]] Og jeg jobber i Azure, Databricks og Terraform.
 
@@ -171,7 +171,7 @@ under.
 Så. Hvem er det som lytter på skipet vårt?
 
 Vi er Kystverket.
-Transportetaten for sjøveien. Vi sørger for at kysten, skipene og alt det nautiske går som det skal.
+Vi er transportetaten for sjøveien. Vi jobber for trygg ferdsel langs kysten.
 
 Og før vi går inn i teknologien, må vi forstå hvorfor vi gjør det vi gjør.
 
@@ -183,9 +183,9 @@ Verdens sikreste og reneste kyst.
 [[CLICK]]
 Vi vil ha en kyst uten forurensning, vi vil ha en kyst der ingen mennesker drukner.
 
-For når vi snakker om prosesseringshastighet, dataplattformer og datakontrakter -> så er dette hvorfor-et.
+Når vi snakker om databehandling, dataplattformer og datakontrakter, er det dette vi jobber for.
 
-Alt det andre er hvordan.
+Teknologien er veien dit.
 
 ## oppdrag – Om oss
 
@@ -193,7 +193,7 @@ Kystverket er delt i fire områder.
 
 
 [[CLICK]] Lostjenesten. En kjentmann som går om bord på de store skipene og hjelper dem inn.
-Losene våkner midt på natta, reiser ut til skipene, kommer med lokalkunnskap om farvannet, og leder båtene inn.
+Losene våkner midt på natta, reiser ut til skipene, bruker lokalkunnskapen sin og hjelper skipene trygt fram.
 
 [[CLICK]] Miljø. Når et skip går på grunn og det begynner å lekke olje, er det Kystverket
 som leder aksjonen. Depoter med lenser langs hele kysten.
@@ -256,13 +256,13 @@ en datakilde. Det var et antikollisjonssystem. Men fordi alle skip sender, og
 fordi noen begynte å lytte og lagre, ble det ryggraden i trafikkovervåking,
 beredskap og statistikk.
 
-Historiske data har blitt verdifulle på grunn av innsikt og analyse, og nå dataplattformen vår og teknologien som gjør det mulig å prosessere disse enorme datamengdene til verdifull innsikt.
+Historikken lar oss se mønstre over tid. Dataplattformen gjør det mulig å behandle alle disse dataene og bruke dem i analyser.
 
 ## sporsmalet – Hva gjør du med 100 millioner meldinger om dagen?
 
 Vi har bygget lytteposter langs hele kysten og skutt opp satellitter.
 
-[[CLICK]] Hva gjør du med dem? Og hvordan prosesserer vi alle sammen?
+[[CLICK]] Hva gjør vi med alle meldingene? Og hvordan behandler vi dem?
 
 For det er her det blir vanskelig. Å samle inn data er den enkle delen. Å
 gjøre dem om til noe noen kan bruke er den vanskelige delen. Og det er ikke
@@ -291,7 +291,7 @@ Reid Hoffman. Han var med å grunnlegge LinkedIn.
 
 Han sa det slik: i dataenes verden er alt målbart, og alt kan vites.
 
-[[CLICK]] Og det er det tveeggede. Hvis alt er målbart, blir dataene
+[[CLICK]] Og det gir oss både en mulighet og et problem. Hvis alt er målbart, blir dataene
 ekstremt verdifulle.
 
 Men da får du en veldig stor mengde data. Og det blir et skikkelig rot hvis du ikke håndterer det ordentlig.
@@ -302,33 +302,32 @@ Og akkurat nå er en dataplattform det nyeste svaret på det problemet.
 
 ## hvorfor – Dataplattformer er overalt
 
-Og faktum er at
-de fleste tjenestene du har brukt denne uka står på dataplattformer.
+Mange av tjenestene du har brukt denne uka bygger på dataplattformer.
 
 [[CLICK]] Nettbutikken som foreslår varer som faktisk passer.
 [[CLICK]] Strømmetjenesten som anbefaler serier til deg på kvelden.
 
-[[CLICK]] I banken din kjører svindeldeteksjon og antihvitvasking på hver
+[[CLICK]] I banken din kjører kontroller for svindel og hvitvasking på hver
 transaksjon før den går gjennom.
 
 [[CLICK]] Nye veiprosjekter planlegges ut fra årevis med trafikkdata,
 statistiske prognoser for fremtidig trafikk, og beregninger av støy og
 andre tiltak. Hundrevis av terabyte med data, brukt til å ta de beste
-beslutningene på mest mulig data.
+beslutningene med et godt datagrunnlag.
 
 [[CLICK]] Det skjer overalt. Bak hver eneste av disse er det en plattform som
-henter inn, lagrer, prosesserer og leverer data.
+henter inn, lagrer, behandler og leverer data.
 
 ## batch-streaming – Hvordan det funker
 
 [20:00] 11 min. Neste kapittel 31:00. Lengste teoriblokk.
 Arkitektur, produkter, kontrakter, katalog. Ikke hold kurs.
-Setningen å holde fast i: en dataplattform finnes for å servere dataprodukter.
+Setningen å holde fast i: en dataplattform finnes for å levere dataprodukter.
 
 Så hvordan funker en dataplattform egentlig?
 Og hvorfor er den annerledes enn en database, eller et varehus?
 
-## dataflyt – Dataflyt: kilder til konsumenter
+## dataflyt – Dataflyt: fra kilder til brukere
 
 Så hva er en dataplattform, egentlig? La oss ta det store bildet først.
 
@@ -350,7 +349,7 @@ seg sier bitene nesten ingenting. Plattformen er bordet der du legger dem
 sammen til ett bilde. Uten bordet har du bare en haug med biter i forskjellige
 esker.
 
-## arkitektur – Arkitektur: kilde til konsument
+## arkitektur – Arkitektur: fra kilde til bruker
 
 Så åpner vi boksen i midten.
 
@@ -358,7 +357,7 @@ Uansett hvilken teknologi du velger, så består plattformen av tre
 byggeklosser. Lagring, som i dag betyr billig, skalerbar objektlagring som er
 frikoblet fra regnekraften. Prosessering, altså det som transformerer rådata
 til noe brukbart, både i batch og i sanntid. Og så det laget som ligger under
-alt: katalog og governance.
+alt: katalog og dataforvaltning.
 
 Pek på det nederste laget. Det er det laget folk glemmer. Alle vil ha lagring
 og prosessering. Men uten katalog og tilgangsstyring får du ikke trygg
@@ -385,18 +384,18 @@ på at du vil ha. Endringer går sakte fordi skjemaet er produktet.
 [[CLICK]] Strukturert og ustrukturert. Du tar AIS-meldingen som den er.
 JSON, filer, et bilde fra et kamera på kaia.
 
-[[CLICK]] Rollback. Hvis tirsdagens versjon var feil, går du tilbake til
+[[CLICK]] Tilbakerulling. Hvis tirsdagens versjon var feil, går du tilbake til
 mandagens. Flere versjoner av dataene. Ikke ett skjema du er redd for å
 røre.
 
-[[CLICK]] Raske iterasjoner. Du venter ikke på den perfekte tabellen. Du
-lander dataene, prøver en transformasjon, beholder rådataene.
+[[CLICK]] Raske endringer. Du venter ikke på den perfekte tabellen. Du
+lagrer dataene, prøver en bearbeiding og beholder rådataene.
 
 Det er datalaget. Der slår et lakehouse allerede en database.
 
-[[CLICK]] Og se så på resten av bygningen. Governance. Auditlogging. Du kan
+[[CLICK]] Og se så på resten av bygningen. Dataforvaltning. Revisjonslogging. Du kan
 finne dataene. Pipelines som kjører. Regnekraft når du trenger det.
-Utviklergrensesnitt. Et sted å kjøre kode. AI. Modeller.
+Utviklergrensesnitt. Et sted å kjøre kode. KI. Modeller.
 
 En database lagrer rader. Den gir deg ikke en katalog, en notebook, en jobb,
 regnekraft eller et modellregister.
@@ -405,7 +404,7 @@ regnekraft eller et modellregister.
 
 ## mer-enn-varehus-katalog – Katalog. Jobber. Spør. Svar.
 
-Pek til venstre. Katalog. Jobber. Compute.
+Pek til venstre. Katalog. Jobber. Regnekraft.
 Discover. SQL. Dashbord. Det er ikke en databasekonsoll.
 
 Lista vi nettopp gikk gjennom? Den ligger i menyen.
@@ -436,7 +435,7 @@ Dette er kartet for resten av kapittelet. Fire ideer. Vi går gjennom hver.
 
 [[CLICK]] Datakatalog. Hvordan du finner det.
 
-[[CLICK]] Governance. Hvorfor vi tør å dele det.
+[[CLICK]] Dataforvaltning. Reglene som gjør at vi kan dele trygt.
 
 Hold på dette bildet. Alt etter dette er å pakke ut disse fire.
 
@@ -456,14 +455,14 @@ pipelines, lagring: alt det er der for at du skal kunne servere data folk
 faktisk kan bruke.
 
 Tenk på et system selskapet ditt leverer til kunder. Det har en eier,
-dokumentasjon, support når det knekker, og noen som følger med på om brukerne
+dokumentasjon, hjelp når noe går galt, og noen som følger med på om brukerne
 er fornøyde. Tenk så på et typisk datasett i samme selskap. Ingen eier. Ingen
 dokumentasjon. Bruk på eget ansvar.
 
 Det er rart, ikke sant? Millionbeslutninger hviler på datasett vi behandler
 som biprodukter.
 
-Sliden sier det: en dataplattform finnes for å servere dataprodukter.
+Sliden sier det: en dataplattform finnes for å levere dataprodukter.
 Lakehouse, pipelines, lagring. Alt det er hvordan du kommer dit.
 
 [[CLICK]] Et produkt har brukere. Og brukere har forventninger. Så behandle
@@ -480,24 +479,24 @@ forbedre det.
 kan bruke dem til.
 
 [[CLICK]] Kvalitetsgarantier. Hvor ferske de er, hvilke tester de har
-passert, hva konsumentene kan forvente. Det er kontrakten. Den kommer vi
+passert, hva brukerne kan forvente. Det er kontrakten. Den kommer vi
 til.
 
-[[CLICK]] Og kjente konsumenter: du vet hvem som faktisk bruker datasettet,
-så du kan varsle dem før en endring knekker noe nedstrøms.
+[[CLICK]] Og kjente brukere: du vet hvem som faktisk bruker datasettet,
+så du kan varsle dem før en endring skaper problemer i systemene som bruker dataene.
 
 Eierskap sier hvem. Kontrakten sier hva. Produkttenking sier hvorfor.
 
 [[CLICK]] Og én ting til, før jeg viser dere bildet. Ikke alle datasett.
-Produktbehandling koster tid. De fleste datasett er arbeidsfiler som aldri
-får eksterne konsumenter. La dem være. Start med den håndfullen folk lener
+Å forvalte et produkt tar tid. De fleste datasett er arbeidsfiler som aldri
+får eksterne brukere. La dem være. Start med den håndfullen folk lener
 seg på.
 
 ## dataprodukt-anatomi – Mer enn en tabell
 
 La meg vise hva jeg mener.
 
-Pek på venstre side. Her er en fil noen har lagt i en bucket. Dataene i den
+Pek på venstre side. Her er en fil noen har lagt i et lagringsområde. Dataene i den
 kan være helt riktige. Men ingen tør bruke dem.
 
 [[CLICK]] Hva betyr feltene?
@@ -505,7 +504,7 @@ kan være helt riktige. Men ingen tør bruke dem.
 [[CLICK]] Hvor ferske er de?
 
 [[CLICK]] Hvem spør jeg når noe ser rart ut? Har dere vært der? Jeg har vært
-der mange ganger. En fil i en bucket er ikke et produkt. Det er en
+der mange ganger. En fil i et lagringsområde er ikke et produkt. Det er en
 gjenstand.
 
 Pek på høyre side. Nøyaktig samme data. Men pakket.
@@ -536,7 +535,7 @@ er det et produkt.
 Og hvordan beskriver du et dataprodukt? Med en datakontrakt.
 
 En kontrakt er en avtale mellom de som endrer et datasett og de som
-konsumerer det. Felles forventninger. Det er hele poenget.
+bruker det. Felles forventninger. Det er hele poenget.
 
 Når data er spredt, dårlig dokumentert, og ingen eier dem, bruker vi tiden
 vår på å lete, inspisere og validere data andre har produsert.
@@ -546,12 +545,12 @@ vår på å lete, inspisere og validere data andre har produsert.
 En datakontrakt er tydelig dokumentasjon av dataene dine.
 
 Kontrakten er et dokument både mennesker og maskiner kan lese. Den avklarer
-forventninger begge veier. Produsenten forplikter seg til noe. Konsumentene
+forventninger begge veier. Produsenten forplikter seg til noe. Brukerne
 vet hva de kan stole på.
 
 [[CLICK]] Og den er mer enn et skjema. Skjemaet sier at fart er et tall.
 Kontrakten sier: null til seksti knop, ferskere enn fem minutter, og her er
-hvem du vekker når det ryker.
+hvem du ringer når noe går galt.
 
 Det er forskjellen mellom «jeg tror den kolonnen er i knop» og «jeg vet
 det».
@@ -560,14 +559,14 @@ det».
 
 Så hva skriver du faktisk ned?
 
-Skjema. Hvilke felter som finnes, hvilke typer, hva som er påkrevd.
+Skjema. Hvilke felt som finnes, hvilke typer, hva som er påkrevd.
 
 [[CLICK]] Betydning. Hva feltene betyr, og hvor de kommer fra.
 
 [[CLICK]] Valideringsregler. Min, maks, relasjoner, tester dataene må
 passere.
 
-[[CLICK]] SLA-er og governance. Hvor ferske de skal være, hvor sensitive de
+[[CLICK]] Krav til oppdatering og ansvar. Hvor ferske de skal være, hvor sensitive de
 er, hvem som eier dem.
 
 [[CLICK]] Og i motsetning til en wikiside blir denne testet. Maskiner kan
@@ -580,10 +579,10 @@ La meg vise hvordan det ser ut.
 Pek på midten. Dette er kontrakten. YAML. Mennesker kan lese den. Maskiner
 kan lese den. Skjema, gyldige verdier, ferskhet, eierskap, vilkår.
 
-Produsenten er til venstre. Konsumentene er til høyre. Kontrakten ligger
+Produsenten er til venstre. Brukerne er til høyre. Kontrakten ligger
 mellom dem. Data slipper bare gjennom hvis de matcher.
 
-Kontrakten går begge veier. Produsenten forplikter seg til noe. Konsumentene
+Kontrakten går begge veier. Produsenten forplikter seg til noe. Brukerne
 vet hva de kan stole på.
 
 ## datakontrakt-brudd – Kontrakten stopper feilen tidlig
@@ -646,42 +645,41 @@ tvers av mange systemer, ikke bare én sky. Er du dypt inne i Microsoft, gjør
 Purview samme jobb. Gevinsten er den samme: en felles oversikt folk faktisk
 bruker.
 
-## governance – Governance: kontrakter og katalog
+## governance – Dataforvaltning: kontrakter og katalog
 
-Så var det ordet alle hater. Governance.
+Så kommer dataforvaltning, ofte kalt governance.
 
-Jeg vet. Det høres ut som byråkrati. Men hør her: governance er det som gjør
-at vi tør å dele data. Det er ikke bremsen. Det er bremsene som gjør at du
-tør å kjøre fort.
+Det høres kanskje byråkratisk ut. Men det handler om noen enkle regler
+som gjør at vi kan dele data trygt.
 
 Eierskap har vi allerede dekket. Det bor i dataproduktet. Det som er igjen
-her er kontrakten og katalogen. [[CLICK]] Og så sentralisert logging, audit
+her er kontrakten og katalogen. [[CLICK]] Og så sentralisert logging, kontroll
 og rapportering. Ett sted, ikke i hvert system.
 
-Spørsmålene governance skal svare på er egentlig enkle. Hvem har tilgang?
+Spørsmålene dataforvaltning skal svare på er egentlig enkle. Hvem har tilgang?
 Hvem hadde tilgang, og når? Hvor ligger dataene? Når slettes de?
 
 Konkret hos oss: fiskefartøy under femten meter og fritidsbåter under
 førtifem meter skal ikke ut i de åpne dataene. Det er personvern. Og det
 filteret ligger ett sted i plattformen, ikke i hvert eneste system som bruker
-dataene. Det er governance i praksis.
+dataene. Det er dataforvaltning i praksis.
 
 [[CLICK]] Og verktøyet vårt for dette heter Unity Catalog. Mer om det senere.
 
 ## roller – Tydelige roller
 
 Når en dataplattform skalerer,
-trenger håndhevingen av slike regler også tydelige roller.
+trenger vi også tydelige roller for å følge opp reglene.
 
 [[CLICK]] Noen må eie og bygge plattformen.
 
-[[CLICK]] Noen må bygge datapipelines og dataprodukter: engineers og
+[[CLICK]] Noen må bygge dataflyter og dataprodukter: utviklere og
 analytikere.
 
-[[CLICK]] Noen må ha ansvar for governance.
+[[CLICK]] Noen må ha ansvar for dataforvaltningen.
 
 [[CLICK]] Og så er det de som faktisk skal bruke det som kommer ut: BI-folk
-og konsumenter.
+og brukere.
 
 [[CLICK]] I praksis sitter de tre første sammen som ett dataplattformteam.
 
@@ -718,9 +716,9 @@ på.
 
 ## effekt-2 – Effekt 2: Etterlevelse
 
-To. Innebygd etterlevelse.
+To. Reglene følges automatisk.
 
-[[CLICK]] Auditlogger. Maskering av personopplysninger.
+[[CLICK]] Logger over bruk. Skjuling av personopplysninger.
 
 Personvernfilteret jeg nevnte. Fiskefartøy under femten meter, fritidsbåter
 under førtifem meter. Det er folks arbeidsplass og folks fritidsbåt, og det
@@ -733,9 +731,9 @@ Samme med loggene. Du skrur dem ikke på etterpå. De er der allerede.
 
 ## effekt-3 – Effekt 3: Selvbetjening
 
-Tre. Selvbetjente data.
+Tre. Hent data selv.
 
-[[CLICK]] Chat med dataene dine. Bestill selv.
+[[CLICK]] Snakk med dataene dine. Bestill selv.
 
 Slik var det før: du sendte en e-post til en analytiker. «Kan jeg få
 AIS-data for Oslofjorden i mars?» Og så ventet du. Analytikeren hadde tjue
@@ -744,23 +742,23 @@ slike i innboksen.
 Slik er det nå: du går til hais.kystverket.no. Du tegner et område i kartet,
 velger tidsrom og skipstype, og trykker bestill. Så leser plattformen gjennom
 historikken og sender deg en Parquet-fil på e-post. Eller du spør dataene
-direkte. Ingen mennesker i loopen. Analytikeren gjør analyse i stedet for
+direkte. Ingen trenger å gjøre uttrekket manuelt. Analytikeren gjør analyse i stedet for
 uttrekk.
 
 ## effekt-4 – Effekt 4: Fremtidsrettet
 
-Fire. Fremtidsrettet. AI der dataene allerede bor.
+Fire. Fremtidsrettet. KI der dataene ligger.
 
-[[CLICK]] Modellen kjører der dataene allerede bor. Integrert i pipelinene
+[[CLICK]] Modellen kjører der dataene allerede ligger. Integrert i pipelinene
 dine.
 
-Alle snakker om AI. Men AI trenger data, og dataene må bo et sted. Hos oss
+Alle snakker om KI. Men KI trenger data, og dataene må ligge et sted. Hos oss
 bruker utslippsmodellen nevrale nett til å fylle hull i skipsregisteret. Og
 det interessante er ikke modellen. Det interessante er hvor den kjører. På
 samme plattform som dataene. I de samme pipelinene. Med samme
 tilgangsstyring. Ingen kopierer data ut til en laptop eller et sideprosjekt.
 
-En god plattform er forutsetningen for å lykkes med AI. Ikke omvendt.
+En god plattform er forutsetningen for å lykkes med KI. Ikke omvendt.
 
 ## prosjekt – Historien om prosjektet
 
@@ -784,7 +782,7 @@ losdata. Bare posisjoner.
 slides.
 
 [[CLICK]] Og én strøm. Som aldri stopper. Ikke i jula. Ikke i kuling.
-Og ikke når vi deployer. Skipene bryr seg ikke om release-planen vår.
+Og ikke når vi tar i bruk en ny versjon. Skipene bryr seg ikke om planen vår.
 Meldingene kommer uansett, hvert tiende sekund, fra hver eneste prikk på
 kartet.
 
@@ -805,7 +803,7 @@ Azure er grunnmuren.
 [[CLICK]] Sikkerhet, tilgangsstyring og kostnadskontroll fra dag én, ikke
 noe vi skrur på etterpå.
 
-[[CLICK]] Og det integrerte godt med resten av organisasjonen. Identitet,
+[[CLICK]] Og det passet godt med resten av organisasjonen. Identitet,
 nettverk, det de allerede hadde. Vi ba dem ikke begynne på nytt.
 
 ## databricks – Databricks: motoren
@@ -818,49 +816,49 @@ lagring av rådata, og samtidig tabeller du kan kjøre SQL mot.
 [[CLICK]] Og den skalerer regnekraften godt. Opp til mange terabyte.
 Historikken er stor. Motoren må vokse med den.
 
-[[CLICK]] Og Unity Catalog. Det er governance-laget fra i sted, i praksis.
-Tilgangsstyring, lineage, katalog. Alt vi snakket om under governance bor
-her.
+[[CLICK]] Og Unity Catalog. Det er dataforvaltningen fra i sted, i praksis.
+Tilgangsstyring, sporing av data og katalog. Her ser vi både hvem som har
+tilgang, og hvor dataene kommer fra.
 
-Så. Hvordan deployer vi det? For det er én ting å velge Azure og Databricks.
+Så. Hvordan setter vi det opp? For det er én ting å velge Azure og Databricks.
 En annen ting er å tørre å endre det.
 
 ## terraform-kode – Én ressurs. Tre miljøer.
 
 Slik ser det ut i repoet.
 
-Én ressurs. Et Databricks-workspace. Og en for_each over tre miljøer. Dev.
+Én ressurs. Et Databricks-arbeidsområde. Og en for_each over tre miljøer. Dev.
 Test. Prod.
 
-Samme blokk. Tre workspaces. Samme navnemønster. Samme region. Samme SKU.
+Samme blokk. Tre arbeidsområder. Samme navnemønster. Samme region. Samme SKU.
 
-Det er hele poenget med infrastruktur som kode. Vi klikker ikke workspacet
-til live tre ganger. Vi beskriver det én gang.
+Det er hele poenget med infrastruktur som kode. Vi oppretter ikke arbeidsområdet
+manuelt tre ganger. Vi beskriver det én gang.
 
 Så hvordan får vi dette fra repoet og inn i Azure?
 
-## terraform – Deploy og versjonskontroller infrastrukturen
+## terraform – Sett opp og versjonskontroller infrastrukturen
 
-Vi klikker ikke rundt i portalen. Vi committer.
+Vi klikker ikke rundt i portalen. Vi lagrer endringene i Git.
 
 Alt er infrastruktur som kode. Hele plattformen kan gjenskapes fra repoet.
 
 [[CLICK]] En endring starter som en pull request. Den ligger i git. [[CLICK]]
 Pipelinen kjører terraform plan. Alle kan se hva som faktisk skjer før det
-skjer. [[CLICK]] Merge, så apply. Da blir det virkelighet.
+skjer. [[CLICK]] Når endringen godkjennes og flettes inn, kjører terraform apply. Da tas den i bruk.
 
 [[CLICK]] Terraform beskriver Azure og Databricks. Ned til kataloger og
-storage-containere. Ikke bare det store. Også bøttene dataene lander i.
+lagringscontainere. Også områdene der rådataene lagres.
 
 Og poenget: hele plattformen kan gjenskapes fra repoet. Også om noen sletter
 den. Det er en forsikring. Ikke et slagord.
 
-## fire-states – Terraform: fire states. Fire pipelines.
+## fire-states – Terraform: fire deler. Fire pipelines.
 
-Vi har ikke én Terraform-state. Vi har fire deployments. Og hver av dem er
-duplisert på tvers av dev, test og prod. Fire ganger tre. Det blir tolv.
+Vi har delt Terraform-oppsettet i fire deler, med hver sin state-fil.
+Hver del finnes i utvikling, test og produksjon. Fire ganger tre. Det blir tolv.
 
-Hvorfor splitte dem? Fordi én stor state er én stor blast radius. En feil i
+Hvorfor splitte dem? Fordi en feil i én stor state kan ramme hele plattformen. En feil i
 lagring skal ikke rive ned katalogen. En endring i workspacet skal ikke røre
 kontonivået.
 
@@ -868,26 +866,26 @@ kontonivået.
 
 [[CLICK]] Storage accounts. Lagring og containere. Inkludert raw. Der dataene
 lander før Databricks ser dem. Husk det ordet. Raw. Vi kommer tilbake til
-det når vi snakker om ingest.
+det når vi snakker om innlesing.
 
-[[CLICK]] Unity Catalog. Katalogene og tilgangsstyringen. Governance som
+[[CLICK]] Unity Catalog. Katalogene og tilgangsstyringen. Dataforvaltning som
 kode.
 
 [[CLICK]] Databricks-kontoen. Kontonivå. Identitet, grupper, alt som ligger
 over workspacet.
 
-[[CLICK]] Fire deployments. Hver av dem i dev, test og prod. En endring i
+[[CLICK]] Fire deler. Hver av dem i utvikling, test og produksjon. En endring i
 lagring river ikke ned katalogen. Og en endring i dev rører ikke prod. Det er
 hele poenget med å splitte.
 
-Og før vi går dypere inn i ingest og pipelinene: hva bygger vi egentlig oppå
+Og før vi går dypere inn i innlesingen og pipelinene: hva bygger vi egentlig oppå
 dette?
 
 ## teknisk-implementasjon – Tekniske implementasjonsdetaljer
 
 [47:00] 2 min. Neste kapittel 49:00.
 
-Kapittelskifte. Tilbake til hvordan det faktisk ble bygget. Ingest. Den
+Kapittelskifte. Tilbake til hvordan det faktisk ble bygget. Innlesing. Den
 daglige jobben. Hvordan pipelinen er koblet sammen.
 
 ## ingest – Innlesingen skjer utenfor Databricks.
@@ -901,14 +899,14 @@ Vi vil frikoble raw-jobbene fra Databricks. Databricks blir sannsynligvis
 byttet ut en dag. Så det er billigere og mer robust å basere raw-innlesingen
 på åpen kildekode.
 
-[[CLICK]] Vi bruker Prefect. Et Python-bibliotek for å orkestrere jobber.
-Ikke Databricks-jobs. Vanlige Python-jobber.
+[[CLICK]] Vi bruker Prefect. Et Python-bibliotek som styrer rekkefølgen på jobbene.
+Vanlige Python-jobber som kjører utenfor Databricks.
 
-[[CLICK]] Jobbene henter data og dumper dem i storage. I raw. Ferdig. I
+[[CLICK]] Jobbene henter data og lagrer dem som rådata i området vi kaller raw. I
 containerne Terraform nettopp laget.
 
 [[CLICK]] Databricks leser derfra. Plattformen begynner når filen ligger der.
-Ikke når skipet sender. Det er et bevisst kutt. Ingest er ett ansvar.
+Ikke når skipet sender. Det er et bevisst kutt. Innlesing er ett ansvar.
 Lakehouse er et annet.
 
 ## ais-pipeline – Jobben som kjører hver dag
@@ -918,11 +916,11 @@ Dette er Databricks-jobben. AIS-orkestrering. Produksjon.
 Ikke les nodenavnene. Publikum kan se dem. Pek på formen.
 
 Til venstre: import. Rå AIS som kommer inn. Så en statussjekk for forrige
-måned, og en månedlig backfill hvis vi trenger det. Så vifter det ut.
+måned, og en månedlig etterfylling av manglende data hvis vi trenger det. Så vifter det ut.
 Kvalitet. Mappinger. Statiske poster. Skipsinfo. Så samles det igjen i
 vasking, og ut til gold.
 
-Det er ingest, slik den faktisk kjører. Én jobb. Hver dag. Hundre millioner
+Det er dataflyten, slik den faktisk kjører. Én jobb. Hver dag. Hundre millioner
 rader.
 
 Og fortsatt: ingen klynger vi må drifte.
@@ -953,9 +951,9 @@ feil vi fant i vaskingen. Da må alle tjue årene regnes om.
 
 Så hvordan kjører du egentlig de jobbene?
 
-Databricks compute. Du starter en klynge. Og en klynge er bare administrerte
+Regnekraft i Databricks. Du starter en klynge. Og en klynge er bare administrerte
 VM-er i Azure. Det er hele trikset. Databricks starter dem, Databricks
-stopper dem. De bor i vår subscription.
+stopper dem. De ligger i Azure-abonnementet vårt.
 
 [[CLICK]] Du skalerer klyngen etter volumet. Mer data, større maskiner. Eller
 flere av dem.
@@ -973,19 +971,19 @@ svaret i dag.
 
 Vi brukte ganske mye tid på å få den skaleringen helt riktig.
 
-## serverless – Serverless vs. manuell tuning
+## serverless – Serverless eller manuell tilpasning?
 
 Serverless.
 
 Se på tegningen. Samme last, samme klokke. Til venstre gjetter vi en
-størrelse, venter på at klyngen våkner, og hopper med slideren når toppen
+størrelse, venter på at klyngen våkner, og justerer kapasiteten når toppen
 allerede har kommet. Til høyre bestemmer jobben. Kapasiteten følger kurven.
 
 Husker dere HAIS? Én uke for ett fartøy, eller alle skip i ett år. Det er
 derfor serverless passer. Jobben bestemmer størrelsen. Ikke vi.
 
 Husker dere det lille teamet som skulle sove om natta? Det er her det kommer
-inn. Ingen klynger å starte, patche eller skalere. Ingen som får en alarm
+inn. Ingen klynger å starte, oppdatere eller skalere. Ingen som får en alarm
 klokka fire fordi en node døde.
 
 [[CLICK]] Autoskalering var billigere enn manuell skalering. For oss. Vi
@@ -995,7 +993,7 @@ dagen enn om natta, mer om sommeren enn om vinteren, og plattformen skalerer
 opp og ned selv. Og vi betaler for det vi bruker. Ikke for det vi frykter vi
 kommer til å trenge.
 
-[[CLICK]] Det sparte tuning-tid. Ingen på teamet som bruker kveldene på
+[[CLICK]] Det sparte tid på manuell tilpasning. Ingen på teamet som bruker kveldene på
 klyngekonfig. Spark-innstillinger. Spot kontra on-demand. Når denne jobben
 skal skaleres og når den andre skal få stå.
 
@@ -1029,8 +1027,8 @@ analyser. For store volumer, fordi det er billig. Og for kilder som uansett
 kommer i bolker, som en nattlig eksport fra et gammelt system.
 
 Klikk gjennom streaming-punktene. Streaming passer når du faktisk må reagere
-nå. Overvåking og varsling. Hendelsesdrevet automatisering. Og når ferskhet
-er viktigere enn kostnad.
+nå. Overvåking og varsling. Hendelsesdrevet automatisering. Og når oppdaterte data
+er viktigere enn lav kostnad.
 
 [[CLICK]] Og i praksis trenger du som regel begge. Mitt råd: start med batch.
 Det er enklere og billigere. Legg til streaming der ferske data faktisk
@@ -1039,18 +1037,18 @@ endrer en beslutning. Ikke fordi det er kult.
 Hos oss kommer AIS-strømmen inn fortløpende. Men mye av det vi bygger oppå
 kjører i batch. Begge deler, i samme plattform.
 
-## stordata-compute – Døgn med kjøretid, eller timer?
+## stordata-compute – Tar jobben døgn eller timer?
 
 Og da blir spørsmålet: hvor lang tid tar det?
 
-Klikk gjennom fast klynge. På klassisk compute bestemmer du størrelsen på
-klyngen før jobben starter. En full reprosessering kan bruke flere døgn. Og
+Klikk gjennom fast klynge. Med en fast klynge bestemmer du størrelsen på
+klyngen før jobben starter. Å behandle hele historikken på nytt kan ta flere døgn. Og
 har du flere slike jobber, står de i kø. Så du sitter der og venter på
 fredag.
 
 Klikk gjennom autoskalering. Med autoskalering følger kapasiteten datamengden
 i jobben. Den skalerer opp der det er mye å gjøre, og ned igjen etterpå.
-Døgn blir timer, fordi vi kan bruke bredden.
+Døgn blir timer fordi flere maskiner jobber samtidig.
 
 [[CLICK]] Og her er nyansen jeg vil at dere skal ta med: regningen blir
 omtrent den samme. Du betaler for arbeidet, ikke for tiden det tar.
@@ -1060,15 +1058,15 @@ venter på tallet, er det hele forskjellen.
 Regnekraft er bare halvparten. Den andre halvparten er spørsmålene vi
 stiller dataene.
 
-## math-opt – Matematiske optimaliseringer
+## math-opt – Slik gjør vi kartanalysene raskere
 
 [52:00] 3 min. Neste kapittel 55:00.
 Hvis totalen allerede har passert 52:00, hopp over dette kapittelet. Gå til
 veien videre.
 
-Mye av det romlige arbeidet er to spørsmål.
+Mye av kartanalysen handler om to spørsmål.
 
-Er dette punktet inne i dette området? Contains within. En havn. Et
+Er dette punktet inne i dette området? En havn. Et
 oppdrettsanlegg. Den økonomiske sonen.
 
 Og hvilke punkter ligger nær hverandre? Nær land. Nær en plattform. Nær
@@ -1079,22 +1077,22 @@ Hvert produkt vi nettopp snakket om stiller de spørsmålene.
 [[CLICK]] Over milliarder av punkter eksploderer den jobben. Hvert punkt mot
 hvert annet punkt. Geometri på hver rad. Det blir ikke ferdig.
 
-[[CLICK]] Så det gjør vi ikke. Vi grupperer punktene i hekser. Ubers H3.
+[[CLICK]] Så det gjør vi ikke. Vi grupperer punktene i sekskanter. Ubers H3.
 
-## h3-hexes – Hekser i hekser
+## h3-hexes – Sekskanter i sekskanter
 
 Dette er H3.
 
-Planeten, delt inn i hekser. Hekser inni hekser. Hver celle har en unik id.
+Planeten, delt inn i sekskanter. Sekskanter inni sekskanter. Hver celle har en unik id.
 Et heltall. Det er det vi lagrer på hvert AIS-punkt.
 
-[[CLICK]] Og det er seksten oppløsninger. Fra hekser på størrelse med land,
-ned til hekser på rundt én meter.
+[[CLICK]] Og det er seksten oppløsninger. Fra sekskanter på størrelse med land,
+ned til sekskanter på rundt én meter.
 
 Du velger oppløsningen som passer spørsmålet. Nær en havn er et
 kilometerspørsmål. Finarbeid kan gå mindre. Samme system.
 
-## hex-join – En join på et tall
+## hex-join – Koble data sammen med ett tall
 
 Og her er hvorfor det skalerer.
 
@@ -1109,38 +1107,38 @@ for hundre millioner.
 [[CLICK]] H3 er en BIGINT. Et heltall. Den joiner og grupperer som enhver
 annen kolonne. En hash join. Geometrien rører vi aldri.
 
-Én hake. Heks-id-en må allerede ligge på tabellen du joiner mot. Regner du
-den ut fra lon-lat mens spørringen kjører, er det ingenting å prune. Motoren
+Én hake. Celle-ID-en må allerede ligge på tabellen du joiner mot. Regner du
+den ut fra lengde- og breddegrad mens spørringen kjører, kan vi ikke hoppe over irrelevante data. Motoren
 må se på hver rad uansett. Vi genererer den én gang, når dataene lander. Så
 er joinen bare et tall.
 
 Det gjør vi på MarTraf, MarU og KystRisk.
 
-Mønsteret, hvis du fortsatt trenger det eksakte svaret: prune med
-heks-joinen. Avgjør restene med geometri etterpå. MarTraf stopper stort sett
-ved heksen.
+Mønsteret, hvis du fortsatt trenger det eksakte svaret: filtrer først med
+koblingen på celle-ID. Avgjør restene med geometri etterpå. MarTraf stopper stort sett
+ved sekskanten.
 
 Ett eksempel. Er dette skipet nær land? Vi regner ikke ut den eksakte
 avstanden til kystkonturen. Vi spør: er det innenfor en k-ring eller to fra
-en land-heks? Hvis ja, er is_close_to_shore lik true.
+en celle med land? Hvis ja, er is_close_to_shore lik true.
 
 Den testen, ganger to milliarder rader, er mye enklere enn geodetisk avstand
 på hver rad.
 
 Fasene bruker samme målestokk. En brønnbåt ved et oppdrettsanlegg er én
-heksagon og under én knop. Avstand er bare hvor mange celler unna.
+sekskant og under én knop. Avstand er bare hvor mange celler unna.
 
-## h3-ship – Ett skip på heksnettet
+## h3-ship – Ett skip på sekskantnettet
 
 Slik ser det ut for ett skip.
 
-Sporet er bare punkter. Hvert punkt lander i en heks.
+Sporet er bare punkter. Hvert punkt lander i en sekskant.
 Avstand blir «hvor mange celler unna». Det er joinen vi nettopp snakket om.
 
-Er skipet vårt i samme heks som en havn, er det i havna.
+Er skipet vårt i samme sekskant som en havn, er det i havna.
 Er det én celle ut, er det i nærheten. Det er hele testen.
 
-Nå er disse cellene veldig store, men heksene skalerer selvsagt helt ned til én meter. Så vi velger oppløsningen som passer for den aktuelle jobben.
+Nå er disse cellene veldig store, men sekskantene skalerer selvsagt helt ned til én meter. Så vi velger oppløsningen som passer for den aktuelle jobben.
 
 ## modeller – Fra posisjoner til utslipp
 
@@ -1174,7 +1172,7 @@ seilasene, et annet spørsmål.
 
 Og her er poenget for dere som bygger systemer. Forgjengeren, Havbase,
 gjorde alt i én modell. Én stor svart boks. Nå har vi én kilde, og mange
-dataprodukter oppå. MarTrafs output er et produkt andre kan bygge på.
+dataprodukter oppå. Resultatet fra MarTraf er et produkt andre kan bygge på.
 
 Kjenner dere igjen det? Det er dataprodukt-tenkingen fra tidligere. I
 praksis.
@@ -1184,7 +1182,7 @@ Kystverkets grep for å eie forutsetningene og beregningene selv.
 
 ## hais – HAIS: historisk uttrekk på bestilling
 
-Ett output til. Enda et produkt. En tjeneste på historikken. HAIS.
+Ett resultat til. Enda et produkt. En tjeneste på historikken. HAIS.
 
 [[CLICK]] Hvem som helst kan gå til hais.kystverket.no og bestille inntil ett
 år med historiske AIS-data. Tidsrom, område som polygon, skipstype eller ett
@@ -1210,7 +1208,7 @@ HVEM ER ASUKA?
 
 Hvem er Asuka?
 
-Hun er en japansk wrestler.
+Hun er en japansk fribryter.
 
 Tre dager godt brukt for et par tusen cruisepassasjerer.
 
@@ -1224,7 +1222,7 @@ sender hvert tredje minutt, for skipet står stille.
 [[CLICK]] Så løsner det og manøvrerer ut Byfjorden. Under tre knop. Nå sender
 det oftere.
 
-[[CLICK]] Og så setter det kursen nordover. Cruising. Ni knop. Og klokka 03:14
+[[CLICK]] Og så setter det kursen nordover. Underveis. Ni knop. Og klokka 03:14
 passerer det Stad, i kuling, og sender meldingen vi startet med. Ett punkt
 av tusenvis.
 
@@ -1280,7 +1278,7 @@ seilaser du faktisk kan se. Det er produktet.
 
 Så, MarU.
 
-Det er veldig viktig for oss, for å ha en ren kyst, at vi følger med på klimagassutslippene fra skipene våre.
+For å holde kysten ren må vi følge med på utslippene fra skipene.
 
 [[CLICK]] To AIS-punkter. Avstand over tid. Det er farten til skipet.
 Skipet vårt utenfor Stad. Ni knop.
@@ -1312,8 +1310,8 @@ mye drivstoff som ble solgt.
 seiler ut. Salgstall beskriver hvor drivstoffet ble kjøpt. Ikke hvor det ble
 brent.
 
-[[CLICK]] MarU snur det. Regn fra observert aktivitet i stedet. Og skill
-innenriks fra til og fra utlandet og gjennomfart. Da vet du hva som faktisk
+[[CLICK]] MarU snur det. Regn fra observert aktivitet i stedet. Og skill mellom
+innenriksfart, utenriksfart og gjennomfart. Da vet du hva som faktisk
 skjedde i norske farvann.
 
 ## maru – Den maritime utslippsmodellen: MarU
@@ -1327,7 +1325,7 @@ per operasjonsfase. Og nå ser dere hvorfor vi trengte fasene fra MarTraf. Et
 skip til kai bruker hjelpemotor til strøm og varme, ikke hovedmotor. Uten
 fase hadde vi regnet feil.
 
-[[CLICK]] Rundt 330 inputvariabler. Utslippsfaktorer, lavlastjusteringer,
+[[CLICK]] Rundt 330 inngangsvariabler. Utslippsfaktorer, lavlastjusteringer,
 svovelgrenser per utslippskontrollsone, GWP-faktorer. Det er mange knapper.
 
 [[CLICK]] Og skipsregisteret. Fem kilder slått sammen, med versjonering av
@@ -1335,7 +1333,7 @@ alt som endrer seg. S&P, ShipInfo, SafeSeaNet, NOR og NIS, og
 fiskefartøyregisteret. For et skip bytter navn, eier og motor i løpet av
 livet.
 
-## maru-hull – Fyller hullene i skipsregisteret med ML
+## maru-hull – Fyller hull i skipsregisteret med maskinlæring
 
 Og nå den ærlige delen.
 
@@ -1355,8 +1353,8 @@ norske farvann i 2022 og 2023 manglet drivstofftype i registrene. Sytti
 prosent. Den fylles etter IMOs metode.
 
 Poenget: her brukes maskinlæring som datakvalitetsverktøy. Ikke som en
-AI-feature å vise på forsiden. Som et verktøy for å fylle hull. Og det er
-kanskje den mest nyttige bruken av ML jeg har sett.
+KI-funksjon å vise på forsiden. Som et verktøy for å fylle hull. Og det er
+kanskje den mest nyttige bruken av maskinlæring jeg har sett.
 
 [[CLICK]] Og alt er åpent. github.com/Kystverket/maru. Dere kan lese hele
 beregningen i pausen.
@@ -1386,7 +1384,7 @@ Og så det store: Miljødirektoratet legger opp til å bruke MarU-tallene i klim
 [55:00] 5 min. Land på takk innen 60:00. Spørsmål hvis du har tid.
 
 Hvor er vi nå, og hvor skal vi?
-Hva er veien videre.
+Hva er veien videre?
 
 ## hvor-vi-er – Hvor vi er: én kilde, én katalogstruktur
 
@@ -1410,7 +1408,7 @@ hvor det var.
 
 [[CLICK]] Intern HR og økonomi. Lønn. Regnskapet. Hva ting koster.
 
-[[CLICK]] Prediktivt vedlikehold av fyrene. Sensorer på lyktene som holder
+[[CLICK]] Vedlikehold av fyrene før de svikter. Sensorer på lyktene som holder
 kysten opplyst. Send ut en båt før en lykt slukner.
 120 fyr langs kysten og over 2000 lykter.
 
@@ -1448,7 +1446,7 @@ kontrakten mot gold-tabellen den peker på.
 
 [[CLICK]] Og så det som gjør at dette skalerer: CI oppretter automatisk et
 view i dataprodukt-katalogen. Ingen kopiering av data. Viewet peker rett på
-domenets gold-tabell. Konsumentene trenger bare å kjenne én katalog, uansett
+domenets gold-tabell. Brukerne trenger bare å kjenne én katalog, uansett
 hvor mange domener som ligger bak.
 
 [[CLICK]] Hvem leser fra den katalogen? Alle utenfor domenene.
@@ -1469,8 +1467,7 @@ fra katalogen.
 ## videre-liste – Dette vil vi få til
 
 Og så det vi vil få til. Tilbake til visjonen vi åpnet med: verdens sikreste
-og reneste kyst. Det er fortsatt hvorfor-et. Dette er noen av de neste
-hvordan-ene. Vi jobber i batch. Ikke sanntid. Så dette handler ikke om
+og reneste kyst. Det er fortsatt målet. Her er noen av de neste stegene. Vi jobber i batch. Ikke sanntid. Så dette handler ikke om
 beredskapsvarsler. Det handler om å få mer av det vi allerede har inn på
 plattformen, og bruke det.
 
@@ -1481,7 +1478,7 @@ plattformen ennå. Neste jobb er å få dem inn.
 [[CLICK]] Tollanalyse. Enda et domene som kommer inn. Deklarasjoner ved siden
 av AIS og seilaser. Hva som faktisk ble fraktet, ikke bare hvor skipet var.
 
-[[CLICK]] Prediktivt vedlikehold av fyrene. De som holder kysten opplyst.
+[[CLICK]] Vedlikehold av fyrene før de svikter. De som holder kysten opplyst.
 Sensorer, historikk, når man skal sende ut en båt. Ikke når en lykt allerede
 har sluknet.
 
@@ -1498,7 +1495,7 @@ Klokka er 03:14.
 
 Et skip er ute på havet.
 
-[[CLICK]] Stadhavet. Februar. Nordvest kuling.
+[[CLICK]] Stadhavet. Februar. Kuling fra nordvest.
 
 [[CLICK]] Et lasteskip på vei nordover i ni knop.
 
@@ -1524,16 +1521,16 @@ QR-koden tar deg til peterbull.no hvis du vil ta kontakt.
 
 Spørsmål?
 
-## kystrisk-tti – Kystrisk: Hva er sannsynligheten for å treffe?
+## kystrisk-tti – KystRisk: Hva er risikoen for en ulykke?
 
-Hvorfor-et vårt igjen. Verdens sikreste og reneste kyst.
+Målet vårt igjen. Verdens sikreste og reneste kyst.
 
 Vi vet hvor hver båt er. Vi har nøyaktige kart over skjærene og landet.
 
-TTI. Time to impact. Fortsetter du på denne kursen, hvor lang tid tar det før du treffer?
+TTI står for time to impact, eller tid til sammenstøt. Fortsetter du på denne kursen, hvor lang tid tar det før du treffer noe?
 
-[[CLICK]] Risiko er et tall fra 0 til 1. Basert på kursen du har nå. Høy TTI,
-og risikoen går mot null.
+[[CLICK]] Risiko er et tall fra 0 til 1. Basert på kursen du har nå. Lang tid til sammenstøt
+gir lav risiko.
 
 ## kystrisk – Den maritime risikomodellen: KystRisk
 
@@ -1541,9 +1538,9 @@ Samme seilaser fra MarTraf. Et annet spørsmål.
 
 Ikke hva skipet brente. Hva skipet kan treffe.
 
-[[CLICK]] Hvert AIS-punkt får en risikoscore.
+[[CLICK]] Hvert AIS-punkt får et risikotall.
 
-[[CLICK]] Så ser vi etter fjordene der den scoren holder seg for høy.
+[[CLICK]] Så ser vi etter fjordene der risikotallet holder seg for høyt.
 
 [[CLICK]] Og det er slik du tegner et kystkart på nytt. Gi skip tillatelse.
 Eller nekte dem.
@@ -1551,5 +1548,5 @@ Eller nekte dem.
 [[CLICK]] Fortsatt under utvikling. Vi regner med å publisere det innen
 utgangen av året.
 
-Har du dårlig tid, holder én setning: samme seilaser, en risikoscore, kart
+Har du dårlig tid, holder én setning: samme seilaser, et risikotall, kart
 som endrer hvem som får seile.

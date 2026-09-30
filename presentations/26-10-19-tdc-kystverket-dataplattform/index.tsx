@@ -176,7 +176,7 @@ const HVEM_LYTTER: SlideDef[] = [
   },
   {
     id: "ais",
-    name: "AIS: laget for å ikke kollidere",
+    name: "AIS: laget for å unngå kollisjoner",
     component: SlideAis,
     steps: 3,
   },
@@ -196,7 +196,7 @@ const HISTORIE = embedAsChapter(historyOfTheDataPlatform, {
 const PLATTFORM: SlideDef[] = [
   {
     id: "hva-er",
-    name: "Hvorfor bygger alle dataplattform?",
+    name: "Hvorfor bygger alle dataplattformer?",
     component: SlideHvaEr,
     steps: 1,
   },
@@ -222,13 +222,13 @@ const HVORDAN: SlideDef[] = [
   },
   {
     id: "dataflyt",
-    name: "Dataflyt: kilder til konsumenter",
+    name: "Dataflyt: fra kilder til brukere",
     component: SlideDataflyt,
     steps: 4,
   },
   {
     id: "arkitektur",
-    name: "Arkitektur: kilde til konsument",
+    name: "Arkitektur: fra kilde til bruker",
     component: SlideArkitektur,
   },
   {
@@ -308,7 +308,7 @@ const HVORDAN: SlideDef[] = [
   },
   {
     id: "governance",
-    name: "Governance",
+    name: "Dataforvaltning",
     component: SlideGovernance,
     steps: 4,
   },
@@ -379,13 +379,13 @@ const PROSJEKTET: SlideDef[] = [
   },
   {
     id: "terraform",
-    name: "Deploy og versjonskontroller infrastrukturen",
+    name: "Sett opp og versjonskontroller infrastrukturen",
     component: SlideTerraform,
     steps: 4,
   },
   {
     id: "fire-states",
-    name: "Terraform: fire states. Fire pipelines.",
+    name: "Terraform: fire deler. Fire pipelines.",
     component: SlideFireStates,
     steps: 5,
   },
@@ -399,7 +399,7 @@ const TEKNISK: SlideDef[] = [
   },
   {
     id: "ingest",
-    name: "Ingest skjer utenfor Databricks.",
+    name: "Innlesingen skjer utenfor Databricks.",
     component: SlideIngest,
     steps: 3,
   },
@@ -419,7 +419,7 @@ const SCALING: SlideDef[] = [
   },
   {
     id: "batch-vs-streaming",
-    name: "Batch vs. streaming",
+    name: "Batch og streaming",
     component: SlideBatchVsStreaming,
   },
   {
@@ -436,13 +436,13 @@ const SCALING: SlideDef[] = [
   },
   {
     id: "serverless",
-    name: "serverless vs manuell tuning",
+    name: "Serverless eller manuell tilpasning?",
     component: SlideServerless,
     steps: 3,
   },
   {
     id: "stordata-compute",
-    name: "Døgn med kjøretid, eller timer?",
+    name: "Tar jobben døgn eller timer?",
     component: SlideStordataCompute,
     steps: 7,
   },
@@ -451,23 +451,23 @@ const SCALING: SlideDef[] = [
 const H3: SlideDef[] = [
   {
     id: "math-opt",
-    name: "Matematiske optimaliseringer",
+    name: "Slik gjør vi kartanalysene raskere",
     component: SlideMathOpt,
     steps: 2,
   },
   {
     id: "h3-hexes",
-    name: "Hexer i hexer",
+    name: "Sekskanter inni sekskanter",
     component: SlideH3Hexes,
     steps: 1,
   },
   {
     id: "hex-join",
-    name: "En join på et tall",
+    name: "Koble data sammen med ett tall",
     component: SlideHexJoin,
     steps: 1,
   },
-  { id: "h3-ship", name: "Ett skip på hex-nettet", component: SlideH3Ship },
+  { id: "h3-ship", name: "Ett skip på sekskantnettet", component: SlideH3Ship },
 ];
 
 const MODELLENE: SlideDef[] = [
@@ -521,7 +521,7 @@ const MODELLENE: SlideDef[] = [
   },
   {
     id: "maru-hull",
-    name: "Fyller hullene i skipsregisteret med ML",
+    name: "Maskinlæring fyller hull i skipsregisteret",
     component: SlideMarUHull,
     steps: 5,
   },

@@ -38,7 +38,7 @@ export function Seilas() {
     </g>
   );
   return (
-    <Figur w={340} h={120} label="Seilas fra havn til havn med manøvrering og cruising">
+    <Figur w={340} h={120} label="Seilas fra havn til havn med manøvrering og fart underveis">
       <path d={ut} strokeDasharray="4 6" strokeWidth={2.2} />
       <path d={cruising} stroke={TEAL} strokeWidth={3} />
       <path d={inn} strokeDasharray="4 6" strokeWidth={2.2} />
@@ -57,7 +57,7 @@ export function Seilas() {
 
       <path d="M 92 110 h 18" stroke={TEAL} strokeWidth={3} />
       <Tekst x={116} y={114} size={10.5} anchor="start">
-        cruising
+        underveis
       </Tekst>
       <path d="M 186 110 h 18" strokeDasharray="4 5" strokeWidth={2.2} />
       <Tekst x={210} y={114} size={10.5} anchor="start">
