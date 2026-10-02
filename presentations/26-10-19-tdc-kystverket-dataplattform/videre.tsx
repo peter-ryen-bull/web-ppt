@@ -176,18 +176,6 @@ export function SlideTakk() {
             color: "var(--burgundy)",
           }}
         />
-        <Copy
-          k="contact"
-          field="org"
-          as="div"
-          style={{
-            marginTop: 4,
-            fontFamily: "var(--font-sans)",
-            fontSize: pt(14),
-            color: "var(--burgundy-2)",
-            opacity: 0.7,
-          }}
-        />
         <img
           src={`${MEDIA}/peterbull-qr.svg`}
           alt="QR-kode til peterbull.no"
@@ -322,18 +310,20 @@ export function SlideFlereDomener() {
                     color: "var(--burgundy-2)",
                   }}
                 />
-                <Copy
-                  k="rows"
-                  i={i}
-                  field="tekst"
-                  as="div"
-                  style={{
-                    marginTop: 6,
-                    fontFamily: "var(--font-sans)",
-                    fontSize: pt(15),
-                    color: "var(--red)",
-                  }}
-                />
+                {i < DOMENE_IKONER.length - 1 && (
+                  <Copy
+                    k="rows"
+                    i={i}
+                    field="tekst"
+                    as="div"
+                    style={{
+                      marginTop: 6,
+                      fontFamily: "var(--font-sans)",
+                      fontSize: pt(15),
+                      color: "var(--red)",
+                    }}
+                  />
+                )}
               </div>
             </div>
             {i < DOMENE_IKONER.length - 1 && (

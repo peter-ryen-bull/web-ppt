@@ -175,7 +175,7 @@ export function SlideHais() {
   const steg = (at: number, x: number, i: number) => (
     <Reveal at={at}>
       <Box
-        box={[x, 500, 280, 118]}
+        box={[x, 540, 280, 118]}
         style={{
           background: "var(--teal)",
           borderRadius: 14,
@@ -214,7 +214,7 @@ export function SlideHais() {
   const pil = (at: number, x: number) => (
     <Reveal at={at}>
       <Box
-        box={[x, 528, 36, 60]}
+        box={[x, 568, 36, 60]}
         style={{
           display: "flex",
           alignItems: "center",
@@ -236,7 +236,7 @@ export function SlideHais() {
 
   return (
     <>
-      <SlideTitle width={760}>
+      <SlideTitle width={760} height={112}>
         <Copy k="title" />
       </SlideTitle>
       <Box
@@ -261,7 +261,7 @@ export function SlideHais() {
         </a>
       </Box>
       <Box
-        box={[66, 156, 1148, 326]}
+        box={[66, 196, 1148, 326]}
         style={{
           overflow: "hidden",
           borderRadius: 12,
@@ -525,7 +525,7 @@ export function SlideMathOpt() {
   const kort = (at: number, x: number, i: number) => (
     <Reveal at={at}>
       <Box
-        box={[x, 196, 520, 220]}
+        box={[x, 196, 520, 288]}
         style={{
           background: "#fff",
           border: "1.5px solid var(--cream-dark)",
@@ -593,7 +593,7 @@ export function SlideMathOpt() {
       {kort(0, 680, 1)}
       <Reveal at={1}>
         <Box
-          box={[72.4, 450, 1136, 70]}
+          box={[72.4, 508, 1136, 56]}
           style={{
             display: "flex",
             alignItems: "center",
@@ -615,7 +615,7 @@ export function SlideMathOpt() {
       </Reveal>
       <Reveal at={2}>
         <Box
-          box={[72.4, 540, 1136, 80]}
+          box={[72.4, 580, 1136, 70]}
           style={{
             display: "flex",
             alignItems: "center",

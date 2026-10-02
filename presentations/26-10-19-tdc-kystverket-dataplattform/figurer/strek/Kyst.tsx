@@ -556,10 +556,11 @@ export function Containerskip() {
     <Figur w={W} h={H} label="Et stort containerskip stablet med containere, som rir på bølgene">
       <Sving grader={0.6} cx={W / 2} cy={VANN} dur={7.5}>
         <Duv dy={4} dur={4.4}>
-          {/* Skrog */}
+          {/* Skrog: grått skrog, strek oppå */}
           <path
             d={`M 62 ${DEKK} L 92 ${VANN + 34} H 1104 L 1232 ${DEKK - 22} Q 1196 ${DEKK} 1150 ${DEKK} Z`}
-            fill={KREM}
+            fill="#8f8880"
+            fillOpacity={0.72}
             strokeWidth={3}
           />
           <path d={`M 84 ${VANN - 9} H 1118`} strokeWidth={1.4} opacity={0.4} />

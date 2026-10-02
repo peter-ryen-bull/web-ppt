@@ -34,7 +34,7 @@ om-peter:
     - "Designer dataplattformer for store organisasjoner"
     - "Tidligere teknisk leder for politiets dataplattform"
     - "Azure, Databricks, Terraform"
-    - "Klatrer og skigåer"
+    - "Klatring, ski og brettspill"
 
 kystverket:
   title: "Hvem lytter?"
@@ -280,11 +280,8 @@ dag-en:
   title: "Dag én"
   rows:
     - label: "Én kilde."
-      value: "AIS"
     - label: "Ett lite team."
-      value: ""
     - label: "Én strøm."
-      value: "Den stopper aldri"
 
 azure-databricks:
   title: "Azure + Databricks + Terraform"
@@ -294,11 +291,11 @@ azure:
   title: "Azure: grunnmuren"
   items:
     - "Lagring, nettverk, identitet"
-    - "Sikkerhet og kostnadskontroll fra dag én"
+    - "Infrastruktur bygget med terraform"
     - "Godt integrert med resten av organisasjonen"
 
 databricks:
-  title: "Databricks: motoren"
+  title: "Databricks: motor og governance"
   items:
     - "Lakehouse: datasjø og datavarehus i ett"
     - "Skalerer regnekraften etter datamengden"
@@ -565,14 +562,13 @@ flere-domener:
   title: "Ikke bare AIS"
   lead: "Vi trenger en arkitektur som kan vokse, med pålitelige data som er lette å finne."
   rows:
-    - label: "customs"
+    - label: "tolldata"
       tekst: "deklarasjoner og last"
-    - label: "internal_hr_finance"
+    - label: "intern hr og finansdata"
       tekst: "lønn og regnskap"
-    - label: "lighthouse_predictive_maintenance"
+    - label: "prediktiv vedlikehold på fyrtårn"
       tekst: "sensorer på lyktene"
     - label: "og mange flere"
-      tekst: ""
 
 videre-liste:
   title: "Dette vil vi få til"
@@ -587,7 +583,7 @@ tilbake-til-stad:
   lines:
     - "Klokka er 03:14."
     - "Havet utenfor Stad. Februar. Kuling fra nordvest."
-    - "Et lasteskip på vei nordover i ni knop."
+    - "Hvem lytter?"
     - "Vi lytter."
 
 takk:
@@ -606,5 +602,4 @@ takk:
       label: "Hele utslippsmodellen"
   contact:
     name: "Peter Bull"
-    org: "Miles"
     url: "peterbull.no"

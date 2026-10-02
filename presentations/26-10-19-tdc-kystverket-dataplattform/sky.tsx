@@ -62,16 +62,6 @@ export function SlideDagEn() {
             >
               <Copy k="rows" i={i} field="label" />
             </div>
-            <div
-              style={{
-                marginTop: 8,
-                fontFamily: "var(--font-sans)",
-                fontSize: pt(20),
-                color: "var(--burgundy-2)",
-              }}
-            >
-              <Copy k="rows" i={i} field="value" />
-            </div>
           </Box>
         </Reveal>
       ))}
@@ -132,11 +122,12 @@ export function SlideAzure() {
 export function SlideDatabricks() {
   return (
     <>
-      <Box box={[66.7, 130, 700, 73.8]}>
+      <Box box={[66.7, 130, 700, 160]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(48),
+            lineHeight: 1.15,
             color: "var(--burgundy-2)",
           }}
         >
@@ -144,12 +135,12 @@ export function SlideDatabricks() {
         </div>
       </Box>
       <Img
-        box={[880, 250, 300.6, 157.8]}
+        box={[880, 340, 300.6, 157.8]}
         src={`${MEDIA}/databricks.png`}
         alt="Databricks"
       />
       <BulletList
-        box={[72.4, 260, 760, 320]}
+        box={[72.4, 350, 760, 320]}
         fromStep={1}
         gap={36}
         items={[
