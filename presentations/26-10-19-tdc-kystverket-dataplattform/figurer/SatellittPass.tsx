@@ -4,8 +4,7 @@ import { useEffect, useRef } from "react";
 
 /*
  * En AIS-satellitt i samme strekstil som båten. Den krysser himmelen
- * og er borte igjen. Hele runden tar ti sekunder, omtrent like ofte
- * som et skip i fart sender AIS.
+ * og er borte igjen, én gang hvert annet minutt.
  *
  * Skålen under kroppen peker alltid mot båten. Båten står i boksen
  * [430, 520, 420, 170] på åpningsscenen, med skroget midt på lerretet.
@@ -25,6 +24,11 @@ function signalbue(r: number) {
   return `M ${-k} ${SIGNAL_Y + k} A ${r} ${r} 0 0 0 ${k} ${SIGNAL_Y + k}`;
 }
 
+/** Én passering hvert annet minutt; passeringen ligger sist i runden. */
+const RUNDE_S = 120;
+const PASSERING_S = 4.5;
+const START = (RUNDE_S - PASSERING_S) / RUNDE_S;
+
 export function SatellittPass() {
   const fart = useRef<SVGGElement>(null);
   const kropp = useRef<SVGGElement>(null);
@@ -42,7 +46,7 @@ export function SatellittPass() {
         const rect = svg.getBoundingClientRect();
         const x = ((m.e - rect.left) / rect.width) * 1280;
         const y = ((m.f - rect.top) / rect.height) * 720;
-        const grader = (Math.atan2(BAAT_X - x, BAAT_Y - y) * 180) / Math.PI;
+        const grader = (Math.atan2(x - BAAT_X, BAAT_Y - y) * 180) / Math.PI;
         kroppNode.setAttribute("transform", `rotate(${grader})`);
       }
       frame = requestAnimationFrame(pek);
@@ -56,15 +60,15 @@ export function SatellittPass() {
       viewBox="0 0 1280 720"
       style={{ width: "100%", height: "100%", display: "block", overflow: "visible" }}
       role="img"
-      aria-label="En satellitt passerer over himmelen omtrent hvert tiende sekund"
+      aria-label="En satellitt passerer over himmelen hvert annet minutt"
     >
       <g ref={fart}>
         <animateMotion
-          dur="10s"
+          dur={`${RUNDE_S}s`}
           repeatCount="indefinite"
           calcMode="linear"
-          keyPoints="0;1;1"
-          keyTimes="0;0.45;1"
+          keyPoints="0;0;1"
+          keyTimes={`0;${START};1`}
           path={STI}
         />
         <g ref={kropp}>
