@@ -1,11 +1,21 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
 /*
  * En AIS-satellitt i samme strekstil som båten. Den krysser himmelen
  * og er borte igjen. Hele runden tar ti sekunder, omtrent like ofte
  * som et skip i fart sender AIS.
+ *
+ * Skålen under kroppen peker alltid mot båten. Båten står i boksen
+ * [430, 520, 420, 170] på åpningsscenen, med skroget midt på lerretet.
  */
 
 /** Buen holder seg i den tomme stripen over teksten på åpningsscenen. */
 const STI = "M -140 72 Q 640 8 1420 80";
+
+const BAAT_X = 640;
+const BAAT_Y = 630;
 
 /** Samme røde buer som båten, bare nedover mot havet. */
 const SIGNAL_Y = 16;
@@ -16,6 +26,31 @@ function signalbue(r: number) {
 }
 
 export function SatellittPass() {
+  const fart = useRef<SVGGElement>(null);
+  const kropp = useRef<SVGGElement>(null);
+
+  useEffect(() => {
+    const node = fart.current;
+    const kroppNode = kropp.current;
+    if (!node || !kroppNode) return;
+
+    let frame = 0;
+    const pek = () => {
+      const svg = node.ownerSVGElement;
+      const m = node.getScreenCTM();
+      if (svg && m) {
+        const rect = svg.getBoundingClientRect();
+        const x = ((m.e - rect.left) / rect.width) * 1280;
+        const y = ((m.f - rect.top) / rect.height) * 720;
+        const grader = (Math.atan2(BAAT_X - x, BAAT_Y - y) * 180) / Math.PI;
+        kroppNode.setAttribute("transform", `rotate(${grader})`);
+      }
+      frame = requestAnimationFrame(pek);
+    };
+    frame = requestAnimationFrame(pek);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
   return (
     <svg
       viewBox="0 0 1280 720"
@@ -23,7 +58,7 @@ export function SatellittPass() {
       role="img"
       aria-label="En satellitt passerer over himmelen omtrent hvert tiende sekund"
     >
-      <g>
+      <g ref={fart}>
         <animateMotion
           dur="10s"
           repeatCount="indefinite"
@@ -33,6 +68,7 @@ export function SatellittPass() {
           path={STI}
         />
         <g
+          ref={kropp}
           fill="none"
           stroke="var(--burgundy)"
           strokeWidth={2.4}
