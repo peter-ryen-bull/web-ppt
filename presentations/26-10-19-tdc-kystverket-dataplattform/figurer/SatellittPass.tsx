@@ -7,6 +7,14 @@
 /** Buen holder seg i den tomme stripen over teksten på åpningsscenen. */
 const STI = "M -140 72 Q 640 8 1420 80";
 
+/** Samme røde buer som båten, bare nedover mot havet. */
+const SIGNAL_Y = 16;
+
+function signalbue(r: number) {
+  const k = r * Math.SQRT1_2;
+  return `M ${-k} ${SIGNAL_Y + k} A ${r} ${r} 0 0 0 ${k} ${SIGNAL_Y + k}`;
+}
+
 export function SatellittPass() {
   return (
     <svg
@@ -38,6 +46,26 @@ export function SatellittPass() {
           <path d="M -50 -9 V 9 M -38 -9 V 9" strokeWidth={1.5} opacity={0.55} />
           <path d="M 38 -9 V 9 M 50 -9 V 9" strokeWidth={1.5} opacity={0.55} />
           <path d="M -9 15 Q 0 24 9 15" />
+          {[10, 17, 24].map((r, i) => (
+            <path
+              key={r}
+              d={signalbue(r)}
+              fill="none"
+              stroke="var(--red)"
+              strokeWidth={2.4}
+              strokeLinecap="round"
+              opacity={0}
+            >
+              <animate
+                attributeName="opacity"
+                values="0; 1; 1; 0; 0"
+                keyTimes="0; 0.15; 0.45; 0.7; 1"
+                dur="2.8s"
+                begin={`${i * 0.35}s`}
+                repeatCount="indefinite"
+              />
+            </path>
+          ))}
           <circle cx={0} cy={0} r={3.4} fill="var(--red)" stroke="none">
             <animate
               attributeName="opacity"
