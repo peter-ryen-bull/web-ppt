@@ -67,14 +67,15 @@ export function SatellittPass() {
           keyTimes="0;0.45;1"
           path={STI}
         />
-        <g
-          ref={kropp}
-          fill="none"
-          stroke="var(--burgundy)"
-          strokeWidth={2.4}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
+        <g ref={kropp}>
+          <g
+            transform="scale(0.5)"
+            fill="none"
+            stroke="var(--burgundy)"
+            strokeWidth={2.4}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
           <rect x={-16} y={-13} width={32} height={26} rx={3} fill="var(--cream)" />
           <path d="M -16 0 H -26 M 16 0 H 26" />
           <rect x={-62} y={-9} width={36} height={18} rx={2} fill="var(--cream)" />
@@ -110,6 +111,7 @@ export function SatellittPass() {
               repeatCount="indefinite"
             />
           </circle>
+          </g>
         </g>
       </g>
     </svg>
