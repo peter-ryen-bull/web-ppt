@@ -2,6 +2,7 @@ import { Box, BulletItem, Img, Reveal, pt, useRevealStyle } from "../parts";
 import { Copy } from "@/components/Copy";
 import { useStep } from "@/components/steps";
 import { BaatSignal } from "./figurer/BaatSignal";
+import { SatellittPass } from "./figurer/SatellittPass";
 import { Meldingsfyll } from "./figurer/strek";
 
 const MEDIA = "/media/26-09-17-ndc-kystverket-dataplatform";
@@ -13,6 +14,9 @@ export function SlideScene() {
   const linje3 = useRevealStyle(3);
   return (
     <>
+      <Box box={[0, 0, 1280, 720]} style={{ pointerEvents: "none" }}>
+        <SatellittPass />
+      </Box>
       <Box
         box={[80, 150, 1120, 360]}
         style={{
