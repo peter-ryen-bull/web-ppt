@@ -19,10 +19,9 @@ export function SatellittPass() {
         <animateMotion
           dur="10s"
           repeatCount="indefinite"
-          calcMode="spline"
+          calcMode="linear"
           keyPoints="0;1;1"
           keyTimes="0;0.45;1"
-          keySplines="0.45 0 0.55 1; 0 0 1 1"
           path={STI}
         />
         <g
