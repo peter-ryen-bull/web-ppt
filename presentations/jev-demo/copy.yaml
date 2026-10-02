@@ -1,0 +1,189 @@
+forside:
+  kicker: "DEMO · TYPESAFE JEV"
+  title: "Jev: en modell som ikke skriver"
+  subtitle: "Klassifisering med typede svar og sannsynligheter – og hva det betyr for tokens, tid og kostnad."
+  byline: "Peter Bull Hove · Miles"
+
+problemet:
+  kicker: "UTGANGSPUNKTET"
+  title: "I dag ber vi en skrivemaskin om å ta beslutninger"
+  lead: "Mange klassifiserer med en chat-modell: beskriv oppgaven, be om JSON, parse svaret."
+  section: "HVA DET KOSTER"
+  items:
+    - "Modellen skriver svaret token for token. Hvert token tar tid og koster penger."
+    - "Resonnering før svaret gir enda flere output-tokens du betaler for."
+    - "Svaret er tekst. Du må parse det, og det kan komme i feil form."
+    - "Du får et svar, men ikke hvor sikker modellen er."
+
+to-modeller:
+  kicker: "FORSKJELLEN"
+  title: "Token for token – eller ett pass"
+  llm_title: "Vanlig LLM"
+  llm_lead: "Genererer tekst. Resonnerer, skriver JSON, ett token om gangen."
+  jev_title: "Jev"
+  jev_lead: "Vurderer alle spørsmålene parallelt og returnerer sannsynligheter direkte."
+  footnote: "Tidsforløpet er en illustrasjon. Jev-svaret er eksempelet fra TypeSafe-dokumentasjonen."
+
+primitiver:
+  kicker: "TRE TYPER SPØRSMÅL"
+  title: "Du definerer svarrommet – Jev velger innenfor det"
+  cards:
+    - navn: "Choice"
+      sporsmal: "Velg ett alternativ fra en liste du definerer. Opptil 255 alternativer."
+      svar: "choice · probabilities · confidence"
+      eksempel: "Hvilket team skal ta saken: billing, technical eller sales?"
+    - navn: "Score"
+      sporsmal: "Plasser teksten på en ordnet skala med beskrevne nivåer. 2–10 nivåer."
+      svar: "score · probabilities · confidence"
+      eksempel: "Hvor frustrert er kunden: rolig, frustrert eller sint?"
+    - navn: "Noul"
+      sporsmal: "Et ja/nei-spørsmål. Svaret er sannsynligheten for ja."
+      svar: "noul (0–1)"
+      eksempel: "Haster henvendelsen?"
+  footer: "Alle tre kan blandes i ett kall. Hvert spørsmål vurderes isolert mot samme state."
+
+kap-tutorial:
+  title: "Prøv selv"
+  subtitle: "Fem steg. Rediger teksten og kjør – eller se de innspilte svarene fra dokumentasjonen."
+
+steg-noul:
+  kicker: "STEG 1 AV 5 · NOUL"
+  title: "Ett ja/nei-spørsmål"
+  lead: "State er teksten som skal vurderes. Spørsmålet får en id du velger selv."
+
+steg-choice:
+  kicker: "STEG 2 AV 5 · CHOICE"
+  title: "Velg blant alternativer – og se hele fordelingen"
+  lead: "Du får ikke bare vinneren, men sannsynligheten for hvert alternativ og en confidence."
+
+steg-score:
+  kicker: "STEG 3 AV 5 · SCORE"
+  title: "En skala med beskrevne nivåer"
+  lead: "Scoren er vektet over nivåene og kan lande mellom dem. Beskriv nivåene – ikke bruk bare 1 til 10."
+
+steg-alle:
+  kicker: "STEG 4 AV 5 · ALT I ETT KALL"
+  title: "Tre spørsmål, ett kall – og samme oppgave med en LLM"
+  lead: "Teksten faktureres én gang. Ekstra spørsmål koster bare tokenene i selve spørsmålet."
+
+steg-confidence:
+  kicker: "STEG 5 AV 5 · CONFIDENCE"
+  title: "Svaret sier hva. Confidence sier om du skal handle."
+  human_rule: "confidence < gulv  ·  eller intent = other"
+  human_action: "Send til en kundebehandler"
+  balance_rule: "check_balance  ·  confidence ≥ gulv"
+  balance_action: "Les opp saldoen"
+  confirm_rule: "approve_transfer  ·  gulv ≤ confidence ≤ auto"
+  confirm_action: "Be kunden bekrefte overføringen"
+  approve_rule: "approve_transfer  ·  confidence > auto"
+  approve_action: "Godkjenn overføringen automatisk"
+  footer: "Mønster fra TypeSafe-dokumentasjonen: høyere risiko krever høyere confidence. Tersklene er dine, ikke modellens."
+
+kap-tokens:
+  title: "Tokens og kostnad"
+  subtitle: "Hvor går tokenene, og hva betyr det i kroner og øre?"
+
+batching:
+  kicker: "MANGE SPØRSMÅL, ETT KALL"
+  title: "Dokumentet betales én gang"
+  lead: "Jev tar betalt per input-token. Output er gratis. Den store posten er teksten du sender med."
+  ratio_text: "flere tokens når hvert spørsmål sendes i eget kall"
+  assumption: "Anslag: ca. 57 tokens per spørsmål, utledet fra kostnadene i TypeSafes GDPR-cookbook ($0,042 per million input-tokens)."
+  facts_label: "MÅLT I TYPESAFE-COOKBOOK: GDPR-ARTIKKELEN, 13 SPØRSMÅL"
+  facts:
+    - tall: "$0.000497 vs $0.006090"
+      tekst: "Ett kall med alle spørsmålene mot 13 kall med ett spørsmål hver"
+    - tall: "0,27 s vs 2,71 s"
+      tekst: "Samlet tid, når de 13 kallene går etter hverandre"
+    - tall: "12,2× og 10,0×"
+      tekst: "Billigere og raskere med ett samlet kall"
+    - tall: "Samme svar"
+      tekst: "Svarene endret seg ikke av at spørsmålene ble sendt sammen"
+
+kalkulator:
+  kicker: "KOSTNADSKALKULATOR"
+  title: "Hva koster det per måned?"
+  lead: "Dra i spakene. Standard LLM-pris er Gemini 3.8 Flash slik den er gjengitt i arXiv-studien."
+  per_question: "LLM-en får ett kall per spørsmål (som i studiens oppsett per kriterium)"
+  assumption: "Antakelser: ca. 260 tokens fast tillegg per Jev-kall og 40 per spørsmål (fra eksemplene i dokumentasjonen). LLM-prompten er anslått. Mål på egen trafikk før du bestemmer deg."
+  ratio_text: "dyrere med LLM-en, med disse antakelsene"
+
+forskning:
+  kicker: "UAVHENGIG MÅLING"
+  title: "Billigere og raskere – og feil på de samme stedene"
+  lead: "Jev mot tre Flash-LLM-er som dommere på ni datasett med menneskelige vurderinger."
+  stats:
+    - tall: "29–325×"
+      tekst: "så dyrt var LLM-dommerne, kalt én gang per kriterium, som Jev over de ni datasettene."
+    - tall: "30–220×"
+      tekst: "så lang tid brukte LLM-ene. Median ventetid per Jev-kall var 0,18–0,20 sekunder."
+    - tall: "8 av 27"
+      tekst: "sammenligninger viste signifikant forskjell i treffsikkerhet. Jev var best på ja/nei-kriterier, svakere på skalaer."
+    - tall: "≈ 96 %"
+      tekst: "av LLM-svarene gjentok Jevs mest selvsikre feil. En kaskade Jev → LLM ga derfor maks 2 poeng bedre treff."
+  takeaway: "Lærdom: Jev kan ofte erstatte en LLM-dommer. Men å sende usikre svar videre til en LLM hjelper lite når begge tar feil på samme sted."
+  source: "Kilde: «Jev vs. LLMs as Rubric Judges: Cheaper, Faster, and Wrong in the Same Places», arXiv 2609.29769 (sept. 2026)."
+
+begrensninger:
+  kicker: "JEV 1.13 · KJENTE SVAKHETER"
+  title: "Hvor Jev bommer – og hva du gjør i stedet"
+  items:
+    - tittel: "Leser bokstavelig"
+      tekst: "Svarer på spørsmålet du skrev, ikke det du mente. Skriv betingelsen presist."
+    - tittel: "Tall og telling"
+      tekst: "Ikke en kalkulator. Regn og tell i koden, spør ett spørsmål per element."
+    - tittel: "Datoer"
+      tekst: "La Jev hente ut dag, måned og år. Sammenlign datoene i koden."
+    - tittel: "Mange ledd"
+      tekst: "Doble negasjoner og flere logiske hopp gir dårligere svar. Del opp."
+    - tittel: "Mye irrelevant tekst"
+      tekst: "Støy i state gir lavere treff. Filtrer først, send bare det som trengs."
+    - tittel: "Manipulerende innhold"
+      tekst: "Ikke en sikkerhetsgrense. Test kanttilfeller før du går i produksjon."
+    - tittel: "Strukturelle regler"
+      tekst: "p(refusjon) og p(ikke refusjon) summerer ikke nødvendigvis til 1."
+    - tittel: "Skriver ikke tekst"
+      tekst: "Trenger du et svar til kunden, bruk en generativ modell. Engelsk gir best treff."
+
+arbeidsdeling:
+  kicker: "ARBEIDSDELING"
+  title: "Jev bestemmer. Koden handler. LLM-en skriver."
+  flow_request: "Henvendelse"
+  flow_request_sub: "state"
+  flow_jev: "Jev"
+  flow_jev_sub: "choice · score · noul"
+  flow_kode: "Din kode"
+  flow_kode_sub: "regler · terskler"
+  flow_ut: "LLM, system eller menneske"
+  flow_ut_sub: "svar · handling · vurdering"
+  roller:
+    - navn: "Jev"
+      label: "korte vurderinger"
+      tekst: "Ruting, filtrering, relevans, alvorlighet, sikkerhetssjekk av verktøykall. Mange små beslutninger, raskt og billig."
+    - navn: "Kode"
+      label: "regler og konsekvenser"
+      tekst: "Terskler, regning, datoer, tilganger og hva som faktisk skjer. Lett å endre uten å skrive om en prompt."
+    - navn: "LLM"
+      label: "språk og resonnering"
+      tekst: "Skrive svar, forklare, oppsummere, løse åpne oppgaver i flere steg."
+
+oppsummering:
+  kicker: "OPPSUMMERING"
+  title: "Bruk riktig modell til riktig jobb"
+  items:
+    - "Jev genererer ikke tekst. Den returnerer typede svar og sannsynligheter."
+    - "Du betaler bare for input. Mange spørsmål i ett kall deler på teksten."
+    - "Confidence gjør det mulig å bestemme i koden når du skal handle og når et menneske skal se på saken."
+    - "Billigere og raskere er ikke det samme som riktigere. Test på egne data."
+  kilder_label: "KILDER"
+  kilder:
+    - navn: "TypeSafe-dokumentasjonen (API, modeller, cookbooks)"
+      url: "docs.typesafe.ai"
+    - navn: "Jev vs. LLMs as Rubric Judges"
+      url: "arxiv.org/abs/2609.29769"
+    - navn: "Jev in the Wild (2 170 GitHub-prosjekter)"
+      url: "arxiv.org/abs/2609.30216"
+    - navn: "LangChain: Building a Harness with Jev"
+      url: "langchain.com/blog/building-a-harness-with-jev"
+    - navn: "Requesty: TypeSafe Jev explained"
+      url: "requesty.ai/blog/typesafe-jev-explained"

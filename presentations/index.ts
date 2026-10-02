@@ -11,6 +11,7 @@ import { ndcKystverketStory } from "./26-09-17-ndc-kystverket-dataplatform";
 import { tdcKystverketDataplattform } from "./26-10-19-tdc-kystverket-dataplattform";
 import { generalDataplattformPitch } from "./general-dataplattform-pitch";
 import { slettMegHvisDuKan } from "./26-11-01-slett-meg-hvis-du-kan";
+import { jevDemo } from "./jev-demo";
 
 export { definePresentation, embedAsChapter } from "./chapters";
 export { eventDateFromId, isInProgress } from "./status";
@@ -35,6 +36,7 @@ export const PRESENTATIONS: PresentationDef[] = [
   tdcKystverketDataplattform,
   generalDataplattformPitch,
   slettMegHvisDuKan,
+  jevDemo,
 ];
 
 export function getPresentation(id: string): PresentationDef | undefined {
