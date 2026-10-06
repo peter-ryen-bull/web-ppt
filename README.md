@@ -17,7 +17,9 @@ npm run dev
 
 | Handling | Tastatur | Knapp |
 | --- | --- | --- |
-| Neste slide | `→`, mellomrom, `PgDn` | «Neste» |
+| Neste steg / slide | `→`, mellomrom, `PgDn` | «Neste» |
+| Neste slide uten mellomsteg | `Shift` + `→` | – |
+| Siste steg på gjeldende slide | `Command` + `→` | – |
 | Forrige slide | `←`, `PgUp` | «Forrige» |
 | Første/siste slide | `Home` / `End` | – |
 | Skjul/vis en slide | – | Øye-knapp i «Oversikt» |

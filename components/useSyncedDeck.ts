@@ -125,7 +125,7 @@ export function useSyncedDeck(presentation: PresentationDef) {
   );
 
   const go = useCallback(
-    (dir: 1 | -1) => {
+    (dir: 1 | -1, skipSteps = false) => {
       if (visibleIndexes.length === 0) return;
       let pos = currentVisiblePos;
       if (pos === -1) {
@@ -140,11 +140,11 @@ export function useSyncedDeck(presentation: PresentationDef) {
       }
       // Gå gjennom klikk-stegene i sliden før slide-bytte
       const maxStep = slides[current].steps ?? 0;
-      if (dir === 1 && step < maxStep) {
+      if (!skipSteps && dir === 1 && step < maxStep) {
         update({ step: step + 1 });
         return;
       }
-      if (dir === -1 && step > 0) {
+      if (!skipSteps && dir === -1 && step > 0) {
         update({ step: step - 1 });
         return;
       }
@@ -160,6 +160,10 @@ export function useSyncedDeck(presentation: PresentationDef) {
     },
     [current, currentVisiblePos, visibleIndexes, slides, step, update]
   );
+
+  const showLastStep = useCallback(() => {
+    update({ step: slides[current].steps ?? 0 });
+  }, [slides, current, update]);
 
   const toggleHidden = useCallback(
     (id: string) => {
@@ -196,6 +200,7 @@ export function useSyncedDeck(presentation: PresentationDef) {
     visibleIndexes,
     currentVisiblePos,
     go,
+    showLastStep,
     goTo,
     toggleHidden,
     goChapter,

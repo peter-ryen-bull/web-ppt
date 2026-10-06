@@ -108,7 +108,7 @@ export default function Deck({ presentationId }: { presentationId: string }) {
   const currentVisiblePos = visibleIndexes.indexOf(current);
 
   const go = useCallback(
-    (dir: 1 | -1) => {
+    (dir: 1 | -1, skipSteps = false) => {
       if (visibleIndexes.length === 0) return;
       let pos = currentVisiblePos;
       if (pos === -1) {
@@ -124,11 +124,11 @@ export default function Deck({ presentationId }: { presentationId: string }) {
       }
       // Gå gjennom klikk-stegene i sliden før slide-bytte
       const maxStep = slides[current].steps ?? 0;
-      if (dir === 1 && step < maxStep) {
+      if (!skipSteps && dir === 1 && step < maxStep) {
         setStep(step + 1);
         return;
       }
-      if (dir === -1 && step > 0) {
+      if (!skipSteps && dir === -1 && step > 0) {
         setStep(step - 1);
         return;
       }
@@ -180,7 +180,11 @@ export default function Deck({ presentationId }: { presentationId: string }) {
       if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
         if (overview || exporting) return;
         e.preventDefault();
-        go(1);
+        if (e.key === "ArrowRight" && e.metaKey) {
+          setStep(slides[current].steps ?? 0);
+        } else {
+          go(1, e.key === "ArrowRight" && e.shiftKey);
+        }
       } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
         if (overview || exporting) return;
         e.preventDefault();
