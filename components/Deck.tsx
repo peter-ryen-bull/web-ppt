@@ -70,7 +70,19 @@ export default function Deck({ presentationId }: { presentationId: string }) {
   }, [storageKey, slides.length]);
 
   useEffect(() => {
-    history.replaceState(null, "", `#${current + 1}`);
+    const hash = `#${current + 1}`;
+    if (window.location.hash === hash) return;
+    // Samle raske slide-bytter i én URL-oppdatering. Safari begrenser
+    // antall history-kall, og klikk-steg endrer ikke slide-URL-en.
+    const timer = window.setTimeout(() => {
+      if (window.location.hash !== hash) {
+        history.replaceState(history.state, "", hash);
+      }
+    }, 250);
+    return () => window.clearTimeout(timer);
+  }, [current]);
+
+  useEffect(() => {
     // Presentatør-/publikumsvisningen starter der du sist var
     localStorage.setItem(`deck-pos:${presentation.id}`, String(current));
     localStorage.setItem(`deck-step:${presentation.id}`, String(step));
