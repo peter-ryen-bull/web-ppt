@@ -744,11 +744,13 @@ export function SlideHexJoin() {
       {kort(1, 680, 1)}
       <Reveal at={1}>
         <Box
-          box={[72.4, 490, 1136, 40]}
+          box={[72.4, 500, 1136, 100]}
           style={{
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "flex-start",
+            gap: 12,
           }}
         >
           <div
@@ -760,6 +762,17 @@ export function SlideHexJoin() {
             }}
           >
             <Copy k="caption" />
+          </div>
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: pt(16),
+              lineHeight: 1.35,
+              color: "var(--burgundy)",
+              textAlign: "center",
+            }}
+          >
+            <Copy k="bunn" />
           </div>
         </Box>
       </Reveal>

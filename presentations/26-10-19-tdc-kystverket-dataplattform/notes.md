@@ -1115,8 +1115,8 @@ er joinen bare et tall.
 Det gjør vi på MarTraf, MarU og KystRisk.
 
 Mønsteret, hvis du fortsatt trenger det eksakte svaret: filtrer først med
-koblingen på celle-ID. Avgjør restene med geometri etterpå. MarTraf stopper stort sett
-ved sekskanten.
+H3, størrelse 8. Det fjerner omtrent 99 %. Resten regnes nøyaktig med
+ST-funksjoner. MarTraf stopper stort sett ved sekskanten.
 
 Ett eksempel. Er dette skipet nær land? Vi regner ikke ut den eksakte
 avstanden til kystkonturen. Vi spør: er det innenfor en k-ring eller to fra
@@ -1445,9 +1445,9 @@ plattformteamet.
 kontrakten mot gold-tabellen den peker på.
 
 [[CLICK]] Og så det som gjør at dette skalerer: CI oppretter automatisk et
-view i dataprodukt-katalogen. Ingen kopiering av data. Viewet peker rett på
-domenets gold-tabell. Brukerne trenger bare å kjenne én katalog, uansett
-hvor mange domener som ligger bak.
+eget skjema per dataprodukt i katalogen. Ingen kopiering av data. Viewet i
+skjemaet peker rett på domenets gold-tabell. Brukerne trenger bare å kjenne
+én katalog, uansett hvor mange domener som ligger bak.
 
 [[CLICK]] Hvem leser fra den katalogen? Alle utenfor domenene.
 Miljødirektoratet og kommunene med klimaregnskapet. Utviklere gjennom
@@ -1456,7 +1456,7 @@ Innenfor eller utenfor, du leser fra samme sted.
 
 [[CLICK]] Og domenene selv. Toll vil ha AIS-tracks ved siden av
 deklarasjonene. De går ikke til hverandres gold-tabeller. De leser fra
-dataprodukt-katalogen, som alle andre. Samme kontrakt, samme view, samme
+dataprodukt-katalogen, som alle andre. Samme kontrakt, samme skjema, samme
 regler.
 
 [[CLICK]] Og explorer.kystverket.no, bygget fra kontraktene i samme repo. Den

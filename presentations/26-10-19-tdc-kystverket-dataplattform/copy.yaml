@@ -554,6 +554,7 @@ hex-join:
         - "Koble på ID. Hopp over irrelevante data"
         - "Greit for hundre millioner"
   caption: "MarTraf, MarU, KystRisk."
+  bunn: "Vi filtrerer med H3, størrelse 8. Det fjerner omtrent 99 %. Så ST-funksjoner for nøyaktig avstand."
 
 veien-videre:
   title: "Veien videre for dataplattformen"
