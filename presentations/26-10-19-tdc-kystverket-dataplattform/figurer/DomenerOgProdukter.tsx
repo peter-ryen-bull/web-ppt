@@ -209,10 +209,15 @@ function ViewRadKompakt({
       </g>
       {kilde ? (
         <>
-          <text x={x + 11 + ikon + 9} y={y + h / 2 - 2} fontFamily={MONO} fontSize={fontSize} fill="var(--cream)">
+          <text x={x + 11 + ikon + 9} y={y + h / 2 - (h >= 60 ? 10 : 2)} fontFamily={MONO} fontSize={fontSize} fill="var(--cream)">
             {navn}
           </text>
-          <text x={x + 11 + ikon + 9} y={y + h / 2 + 12} fontFamily="var(--font-sans)" fontSize={fontSize * 0.78} fill={KREM_DUS}>
+          {h >= 60 && (
+            <text x={x + 11 + ikon + 9} y={y + h / 2 + 6} fontFamily="var(--font-sans)" fontSize={fontSize * 0.78} fontWeight={600} letterSpacing={1.2} fill={KREM_DUS}>
+              SKJEMA
+            </text>
+          )}
+          <text x={x + 11 + ikon + 9} y={y + h / 2 + (h >= 60 ? 22 : 12)} fontFamily="var(--font-sans)" fontSize={fontSize * 0.78} fill={KREM_DUS}>
             {kilde}
           </text>
         </>
@@ -569,7 +574,7 @@ export function ProduktForbruk() {
         y={F_KAT.y}
         w={F_KAT.w}
         h={F_KAT.h}
-        sub="kvalitetsdata, klare til bruk"
+        sub="ett skjema per dataprodukt"
         rader={VIEWS}
         radH={radH}
         radGap={radGap}
@@ -852,7 +857,7 @@ export function HelePlattformen() {
       <Steg at={6}>
         <Pil d={`M ${H_REPO.x + H_REPO.w + 2} ${H_REPO.y + H_REPO.h / 2} H ${H_KAT.x - 4}`} marker="pil-hel" strokeWidth={1.6} />
         <text x={(H_REPO.x + H_REPO.w + H_KAT.x) / 2} y={H_REPO.y + H_REPO.h / 2 - 8} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={9.5} fill="var(--red)">
-          CI → view
+          CI → skjema
         </text>
         <ProduktKatalog
           x={H_KAT.x}
@@ -860,7 +865,7 @@ export function HelePlattformen() {
           w={H_KAT.w}
           h={H_KAT.h}
           tittelSize={26}
-          sub="kvalitetsdata, klare til bruk"
+          sub="ett skjema per dataprodukt"
           rader={VIEWS}
           radH={82}
           radGap={18}

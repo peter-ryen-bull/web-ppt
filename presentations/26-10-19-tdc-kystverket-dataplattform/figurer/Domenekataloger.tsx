@@ -321,12 +321,13 @@ const KONTRAKT_LINJER: [string, string][] = [
   ["  - name:", " speed_knots"],
 ];
 
+// Skjemaene i dataprodukter-katalogen, med views til domenenes gold-tabeller.
 export const VIEWS: { navn: string; kilde: string }[] = [
-  { navn: "ais.tracks", kilde: "view → ais.gold.tracks" },
-  { navn: "ais.emissions", kilde: "view → ais.gold.emissions" },
-  { navn: "customs.declarations", kilde: "view → customs.gold.declarations" },
-  { navn: "hr_and_finance.costs", kilde: "view → hr_and_finance.gold.costs" },
-  { navn: "lighthouses.condition", kilde: "view → lighthouses.gold.condition" },
+  { navn: "ais_tracks", kilde: "view → ais.gold.tracks" },
+  { navn: "ais_emissions", kilde: "view → ais.gold.emissions" },
+  { navn: "customs_declarations", kilde: "view → customs.gold.declarations" },
+  { navn: "hr_and_finance_costs", kilde: "view → hr_and_finance.gold.costs" },
+  { navn: "lighthouses_condition", kilde: "view → lighthouses.gold.condition" },
 ];
 
 const DOMENE_X = 90;
@@ -556,7 +557,7 @@ export function HvorViSkal() {
           fill="var(--red)"
           transform="rotate(-90 806 330)"
         >
-          automatisk – CI oppretter view
+          automatisk – CI oppretter skjema
         </text>
 
         <rect x={860} y={70} width={340} height={482} rx={20} fill="var(--teal)" />
@@ -565,7 +566,7 @@ export function HvorViSkal() {
         </text>
         <rect x={1012} y={131} width={36} height={3} rx={1.5} fill="var(--mint)" />
         <text x={1030} y={158} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={13} fill={KREM_DUS}>
-          kvalitetsdata, klare til bruk
+          ett skjema per dataprodukt
         </text>
         <ViewRad {...VIEWS[0]} y={185} ny />
       </Steg>
@@ -594,7 +595,7 @@ export function HvorViSkal() {
 
       <Steg at={5}>
         <text x={620} y={612} textAnchor="middle" fontFamily="var(--font-sans)" fontSize={15.5} fill="var(--red)">
-          Én kontrakt, én pull request, ett view – domenet deler uten å kopiere data
+          Én kontrakt, én pull request, ett skjema – domenet deler uten å kopiere data
         </text>
       </Steg>
     </svg>
