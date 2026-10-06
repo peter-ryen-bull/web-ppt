@@ -578,7 +578,7 @@ const VEIEN_VIDERE: SlideDef[] = [
 export const tdcKystverketDataplattform = definePresentation({
   id: "26-10-19-tdc-kystverket-dataplattform",
   title:
-    "100 millioner rader om dagen: dataplattformen bak kysten",
+    "100 millioner om dagen - dataplattformen bak kystveien",
   description:
     "Fra ett AIS-signal utenfor Stad til klimaregnskapet i en kommune. Historien om hvordan Kystverket bygde en dataplattform med Azure og Databricks serverless. TDC 2026, 60 minutter.",
   date: "19. oktober 2026",

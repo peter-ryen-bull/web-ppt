@@ -1,4 +1,4 @@
-# Speaker notes: 100 millioner rader om dagen (TDC 2026, 60 min)
+# Speaker notes: 100 millioner om dagen - dataplattformen bak kystveien (TDC 2026, 60 min)
 
 Alt før første `## slide-id`-overskrift ignoreres. Dette området er kladd.
 
