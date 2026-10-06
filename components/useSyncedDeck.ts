@@ -135,7 +135,10 @@ export function useSyncedDeck(presentation: PresentationDef) {
             ? visibleIndexes.findIndex((i) => i > current)
             : visibleIndexes.findLastIndex((i) => i < current);
         if (pos === -1) pos = dir === 1 ? 0 : visibleIndexes.length - 1;
-        update({ current: visibleIndexes[pos], step: 0 });
+        update({
+          current: visibleIndexes[pos],
+          step: skipSteps ? slides[visibleIndexes[pos]].steps ?? 0 : 0,
+        });
         return;
       }
       // Gå gjennom klikk-stegene i sliden før slide-bytte
@@ -154,8 +157,8 @@ export function useSyncedDeck(presentation: PresentationDef) {
       );
       const next = visibleIndexes[nextPos];
       if (next !== current) {
-        // Bakover: land på ferdig avslørt slide
-        update({ current: next, step: dir === 1 ? 0 : slides[next].steps ?? 0 });
+        // Shift og bakover: land på ferdig avslørt slide.
+        update({ current: next, step: skipSteps || dir === -1 ? slides[next].steps ?? 0 : 0 });
       }
     },
     [current, currentVisiblePos, visibleIndexes, slides, step, update]
@@ -164,6 +167,10 @@ export function useSyncedDeck(presentation: PresentationDef) {
   const showLastStep = useCallback(() => {
     update({ step: slides[current].steps ?? 0 });
   }, [slides, current, update]);
+
+  const showFirstStep = useCallback(() => {
+    update({ step: 0 });
+  }, [update]);
 
   const toggleHidden = useCallback(
     (id: string) => {
@@ -201,6 +208,7 @@ export function useSyncedDeck(presentation: PresentationDef) {
     currentVisiblePos,
     go,
     showLastStep,
+    showFirstStep,
     goTo,
     toggleHidden,
     goChapter,

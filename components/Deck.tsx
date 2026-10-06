@@ -119,7 +119,7 @@ export default function Deck({ presentationId }: { presentationId: string }) {
             : visibleIndexes.findLastIndex((i) => i < current);
         if (pos === -1) pos = dir === 1 ? 0 : visibleIndexes.length - 1;
         setCurrent(visibleIndexes[pos]);
-        setStep(0);
+        setStep(skipSteps ? slides[visibleIndexes[pos]].steps ?? 0 : 0);
         return;
       }
       // Gå gjennom klikk-stegene i sliden før slide-bytte
@@ -139,8 +139,8 @@ export default function Deck({ presentationId }: { presentationId: string }) {
       const next = visibleIndexes[nextPos];
       if (next !== current) {
         setCurrent(next);
-        // Bakover: land på ferdig avslørt slide
-        setStep(dir === 1 ? 0 : slides[next].steps ?? 0);
+        // Shift og bakover: land på ferdig avslørt slide.
+        setStep(skipSteps || dir === -1 ? slides[next].steps ?? 0 : 0);
       }
     },
     [current, currentVisiblePos, visibleIndexes, slides, step]
@@ -188,7 +188,11 @@ export default function Deck({ presentationId }: { presentationId: string }) {
       } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
         if (overview || exporting) return;
         e.preventDefault();
-        go(-1);
+        if (e.key === "ArrowLeft" && e.metaKey) {
+          setStep(0);
+        } else {
+          go(-1, e.key === "ArrowLeft" && e.shiftKey);
+        }
       } else if (e.key === "Escape") {
         if (exporting) {
           e.preventDefault();

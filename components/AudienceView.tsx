@@ -22,7 +22,7 @@ export default function AudienceView({
     throw new Error(`Ukjent presentasjon: ${presentationId}`);
   }
 
-  const { slides, current, step, go, showLastStep } = useSyncedDeck(presentation);
+  const { slides, current, step, go, showLastStep, showFirstStep } = useSyncedDeck(presentation);
   const stageRef = useRef<HTMLDivElement>(null);
   const scale = useContainerScale(stageRef);
 
@@ -73,7 +73,11 @@ export default function AudienceView({
         }
       } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
         e.preventDefault();
-        go(-1);
+        if (e.key === "ArrowLeft" && e.metaKey) {
+          showFirstStep();
+        } else {
+          go(-1, e.key === "ArrowLeft" && e.shiftKey);
+        }
       } else if (e.key === "f" || e.key === "F") {
         toggleFullscreen();
       }
@@ -82,7 +86,7 @@ export default function AudienceView({
     return () => {
       window.removeEventListener("keydown", onKey);
     };
-  }, [go, showLastStep]);
+  }, [go, showLastStep, showFirstStep]);
 
   return (
     <div className={`${styles.root} ${cursorIdle ? styles.noCursor : ""}`}>

@@ -38,6 +38,7 @@ export default function PresenterView({
     currentVisiblePos,
     go,
     showLastStep,
+    showFirstStep,
     goTo,
     goChapter,
     toggleHidden,
@@ -259,7 +260,11 @@ export default function PresenterView({
       } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
         if (overview) return;
         e.preventDefault();
-        go(-1);
+        if (e.key === "ArrowLeft" && e.metaKey) {
+          showFirstStep();
+        } else {
+          go(-1, e.key === "ArrowLeft" && e.shiftKey);
+        }
       } else if (e.key === "Escape") {
         if (overview) setOverview(false);
       } else if (e.key === "g" || e.key === "G") {
@@ -276,7 +281,7 @@ export default function PresenterView({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go, showLastStep, goChapter, toggleHidden, current, slides, openAudience, overview, copyEditing]);
+  }, [go, showLastStep, showFirstStep, goChapter, toggleHidden, current, slides, openAudience, overview, copyEditing]);
 
   // Neste synlige slide (den publikum ser etter neste tastetrykk)
   const nextIndex =
