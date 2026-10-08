@@ -1,0 +1,117 @@
+# Speaker notes: Generell dataplattform-pitch
+
+Generell, gjenbrukbar pitch. Ingen kundedato. Tilpass eksemplene
+til rommet – domenekortene er illustrasjon, ikke fasit.
+
+Rød tråd: mye data, for lite innsikt. Målet er ett felles grunnlag
+med dataprodukter du kan stole på – ikke flere uttrekk.
+
+## forside – Forside
+
+Ønsk velkommen. Tittelen er løftet: mer innsikt. Ikke teknologi først.
+
+## pains – Mye data – for lite innsikt
+
+Start i hverdagen. Dataene ligger i flere systemer. Tallene stemmer
+ikke overens. Ingen felles sannhet.
+
+Kapasitet internt til å bygge og forvalte er begrenset. Det er
+poenget, ikke at de er late.
+
+## konsekvenser – Mer tid på dataarbeid enn på analyse
+
+Konsekvensen av forrige slide. Folk vasker data i stedet for å
+bruke den. Selvbetjening er lav. Etterlevelse er manuelt.
+
+## malbilde – Fra ad-hoc uttrekk til dataprodukter
+
+Venstre er i dag. Høyre er dit vi skal.
+
+De fire prinsippene nederst holder du fast i resten av møtet:
+domeneeierskap, data som produkt, selvbetjening, innebygd styring.
+
+## dataflyt – Dataplattformen
+
+Kildene står der når sliden kommer. Bygg videre med klikk:
+plattformen i midten, verdi ut, så bunnen (forvaltning, sikkerhet,
+samhandling).
+
+Si: plattformen er grunnmuren – ikke enda et verktøy.
+
+## arkitektur – Lagring, transformasjon, eksponering
+
+Samme figur, nå med lagene synlige. Rådata inn. Kvalitetssikrede
+og delbare data ut.
+
+## evner – Fire evner og hva de gir
+
+Lagring, prosessering, publisering, styring. Hold deg på gevinsten,
+ikke på produktnavn.
+
+## datakontrakter – Et API for data
+
+Kontrakten står mellom den som lager og den som bruker.
+Lesbar for mennesker, håndhevbar for maskiner.
+
+## kontrakt-brudd – Kontrakten stopper feilen tidlig
+
+La animasjonen gå. Uten kontrakt knekker dashbordet stille.
+Med kontrakt stoppes endringen i pull requesten.
+
+## domener – Domeneoppdeling og eierskap
+
+Domener eier dataene sine. De blokkerer ikke hverandre.
+Kostnad følger domenet.
+
+Kortene er illustrasjon. Bytt navn til deres virksomhet.
+
+## helhet – Hele bildet
+
+Samme figur som mot slutten av NDC. Domenene står der når sliden
+kommer. Bygg videre med klikk.
+
+Domener først. Salg, drift, økonomi, produkt. Hvert med sin egen
+katalog, sitt eget team, sitt eget kostnadssenter.
+
+[[CLICK]] Kilder. Hvert domene leser inn sine egne. CRM og ordre.
+Fagsystem og kapasitet. Lønn og hovedbok. Bruksdata og apper.
+Ikke plattformteamet.
+
+[[CLICK]] Inni hver katalog, samme bronze, silver, gold. Rått som
+det kom. Vasket og beriket. Klart til bruk. Mønsteret gjentas én
+gang per domene.
+
+[[CLICK]] Når et domene vil dele noe, skriver det en datakontrakt.
+Id, eier, skjema, kvalitetskrav. Eid av domenet.
+
+[[CLICK]] Kontrakten pushes til ett sentralt repo. Pull request.
+CI validerer kontrakten mot gold-tabellen den peker på.
+
+[[CLICK]] CI oppretter automatisk et view i dataprodukt-katalogen.
+Ingen kopiering. Konsumentene kjenner én katalog, uansett hvor
+mange domener som ligger bak.
+
+[[CLICK]] Hvem leser? Ledelse, BI, apper, KI-chat, partnere. Én
+katalog. Innenfor eller utenfor – du leser fra samme sted.
+
+[[CLICK]] Og domenene selv. De går ikke til hverandres gold-tabeller.
+De leser fra katalogen, som alle andre.
+
+[[CLICK]] Utforskeren er bygget på kontraktene i samme repo. Søk,
+finn eier, skjema og versjon. Finn det der. Les det fra katalogen.
+
+Bytt domenenavnene til deres virksomhet hvis rommet tåler det.
+
+## gevinster – Hva får du igjen?
+
+Fire gevinster: tillit, etterlevelse, selvbetjening, klar for KI.
+Bouvet: AI forutsetter gode data. Plattformen er grunnarbeidet.
+
+## hvordan – Hvordan begynner man?
+
+Ikke to år med plattform uten verdi. Produkter først.
+Teknologi alene løser ingenting – det feiler organisatorisk.
+
+## avslutning – Tydelige effekter
+
+Tilbake til åpningen. Fire setninger. Åpne for spørsmål.
