@@ -3,7 +3,7 @@
 import { Copy, useCopyCount } from "@/components/Copy";
 import { Box, Img } from "../parts";
 import { AquaPlatformLogo } from "./figurer/AquaPlatformLogo";
-import { Body, Card, Header, Label, MEDIA } from "./ui";
+import { Body, Card, FooterNote, Header, Label, MEDIA } from "./ui";
 
 const KILDE_X = 81.3;
 const KILDE_W = 300;
@@ -165,6 +165,7 @@ export function SlideReferanse() {
           </Body>
         </Box>
       </Card>
+      <FooterNote box={[81.3, 642, 1117.3, 60]} />
     </>
   );
 }
