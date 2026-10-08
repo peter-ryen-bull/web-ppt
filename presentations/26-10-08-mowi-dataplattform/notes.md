@@ -48,6 +48,19 @@ og delbare data ut.
 Lagring, prosessering, publisering, styring. Hold deg på gevinsten,
 ikke på produktnavn.
 
+## ki-chat – Chat med dataene dine
+
+Ett eksempel på publisering: chat rett mot dataene. Skjermbildet er
+Genie One i Databricks. Spørsmålet er skrevet på vanlig språk, svaret
+kommer som tekst og graf.
+
+Chatten leter i katalogen: dataprodukter, nøkkeltall, dashbord. Den
+viser hvilke kilder den brukte, og følger tilgangene i plattformen.
+
+Poenget: chatten er bare så god som dataene under. Uten eier, kvalitet
+og dokumentasjon får du raske svar du ikke kan stole på. Svarene må
+fortsatt kontrolleres – det står også under chatfeltet.
+
 ## datakontrakter – Et API for data
 
 Kontrakten står mellom den som lager og den som bruker.

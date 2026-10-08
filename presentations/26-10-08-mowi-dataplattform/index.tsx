@@ -3,7 +3,12 @@ import copyRaw from "./copy.yaml";
 import notesRaw from "./notes.md";
 import { definePresentation } from "../chapters";
 import { SlideForside, SlideKonsekvenser, SlideMalbilde, SlidePains } from "./intro";
-import { SlideArkitektur, SlideDataflyt, SlideEvner } from "./plattform";
+import {
+  SlideArkitektur,
+  SlideDataflyt,
+  SlideEvner,
+  SlideKiChat,
+} from "./plattform";
 import {
   SlideDatakontrakter,
   SlideDomener,
@@ -51,6 +56,11 @@ const PLATTFORM: SlideDef[] = [
     component: SlideArkitektur,
   },
   { id: "evner", name: "Fire evner – og hva de gir", component: SlideEvner },
+  {
+    id: "ki-chat",
+    name: "KI i plattformen: chat med dataene",
+    component: SlideKiChat,
+  },
 ];
 
 const PRODUKT: SlideDef[] = [

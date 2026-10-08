@@ -69,6 +69,20 @@ evner:
       tekst: "Eier, tilgang, klassifisering og sporbarhet. Hvert datasett har en navngitt eier."
       gevinst: "Tillit til tallene, trygg deling og revisjonsklart grunnlag."
 
+ki-chat:
+  kicker: "KI I PLATTFORMEN"
+  title: "Chat med dataene dine"
+  lead: "KI er innebygd i plattformen. Still spørsmål på vanlig språk – rett mot dataene."
+  punkter:
+    - tittel: "Spør som du snakker"
+      tekst: "Svaret kommer som tekst, tall og graf."
+    - tittel: "Svar fra styrte data"
+      tekst: "Bruker dataproduktene i katalogen. Viser kildene."
+    - tittel: "Samme tilganger"
+      tekst: "Du ser bare data du har lov til å se."
+  bildetekst: "Eksempel: chat i Genie One, Databricks"
+  footer: "KI er bare så god som dataene den leser. Dokumenterte dataprodukter med eier gir svar du kan etterprøve."
+
 domener:
   kicker: "ARKITEKTUR"
   title: "Domeneoppdeling og eierskap"
