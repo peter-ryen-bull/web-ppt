@@ -7,7 +7,6 @@ import { SlideArkitektur, SlideDataflyt, SlideEvner } from "./plattform";
 import {
   SlideDatakontrakter,
   SlideDomener,
-  SlideHelhet,
   SlideKontraktBrudd,
 } from "./produkt";
 import { SlideAvslutning, SlideGevinster, SlideHvordan } from "./verdi";
@@ -17,6 +16,11 @@ import {
   SlideOperasjonsvindu,
 } from "./aquaplatform";
 import { SlideReferanse } from "./referanse";
+import {
+  SlideFemManeder,
+  SlideLeveranse,
+  SlideTolvManeder,
+} from "./tidslinje";
 import { BildeIkon } from "@/components/icons/BildeIkon";
 
 const INTRO: SlideDef[] = [
@@ -65,12 +69,6 @@ const PRODUKT: SlideDef[] = [
     name: "Domeneoppdeling og eierskap",
     component: SlideDomener,
   },
-  {
-    id: "helhet",
-    name: "Hele bildet: domener, kontrakter, produkter",
-    component: SlideHelhet,
-    steps: 8,
-  },
 ];
 
 const VERDI: SlideDef[] = [
@@ -106,6 +104,26 @@ const AQUAPLATFORM: SlideDef[] = [
   },
 ];
 
+const TIDSLINJE: SlideDef[] = [
+  {
+    id: "leveranse",
+    name: "Foreslått første leveranse",
+    component: SlideLeveranse,
+  },
+  {
+    id: "tidslinje-fem",
+    name: "Fem måneder til første analyse",
+    component: SlideFemManeder,
+    steps: 3,
+  },
+  {
+    id: "tidslinje-tolv",
+    name: "Tolv måneder: plattform som skalerer",
+    component: SlideTolvManeder,
+    steps: 3,
+  },
+];
+
 export const mowiDataplattform = definePresentation({
   id: "26-10-08-mowi-dataplattform",
   title: "Mowi dataplattform",
@@ -133,5 +151,6 @@ export const mowiDataplattform = definePresentation({
       title: "KLERI/MILES aquaplatform",
       slides: AQUAPLATFORM,
     },
+    { id: "tidslinje", title: "Forslag og tidslinje", slides: TIDSLINJE },
   ],
 });

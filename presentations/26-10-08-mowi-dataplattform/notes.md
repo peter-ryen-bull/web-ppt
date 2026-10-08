@@ -65,43 +65,6 @@ Kostnad følger domenet.
 
 Kortene er illustrasjon. Bytt navn til deres virksomhet.
 
-## helhet – Hele bildet
-
-Samme figur som mot slutten av NDC. Domenene står der når sliden
-kommer. Bygg videre med klikk.
-
-Domener først. Salg, drift, økonomi, produkt. Hvert med sin egen
-katalog, sitt eget team, sitt eget kostnadssenter.
-
-[[CLICK]] Kilder. Hvert domene leser inn sine egne. CRM og ordre.
-Fagsystem og kapasitet. Lønn og hovedbok. Bruksdata og apper.
-Ikke plattformteamet.
-
-[[CLICK]] Inni hver katalog, samme bronze, silver, gold. Rått som
-det kom. Vasket og beriket. Klart til bruk. Mønsteret gjentas én
-gang per domene.
-
-[[CLICK]] Når et domene vil dele noe, skriver det en datakontrakt.
-Id, eier, skjema, kvalitetskrav. Eid av domenet.
-
-[[CLICK]] Kontrakten pushes til ett sentralt repo. Pull request.
-CI validerer kontrakten mot gold-tabellen den peker på.
-
-[[CLICK]] CI oppretter automatisk et view i dataprodukt-katalogen.
-Ingen kopiering. Konsumentene kjenner én katalog, uansett hvor
-mange domener som ligger bak.
-
-[[CLICK]] Hvem leser? Ledelse, BI, apper, KI-chat, partnere. Én
-katalog. Innenfor eller utenfor – du leser fra samme sted.
-
-[[CLICK]] Og domenene selv. De går ikke til hverandres gold-tabeller.
-De leser fra katalogen, som alle andre.
-
-[[CLICK]] Utforskeren er bygget på kontraktene i samme repo. Søk,
-finn eier, skjema og versjon. Finn det der. Les det fra katalogen.
-
-Bytt domenenavnene til deres virksomhet hvis rommet tåler det.
-
 ## gevinster – Hva får du igjen?
 
 Fire gevinster: tillit, etterlevelse, selvbetjening, klar for KI.
@@ -115,3 +78,28 @@ Teknologi alene løser ingenting – det feiler organisatorisk.
 ## avslutning – Tydelige effekter
 
 Tilbake til åpningen. Fire setninger. Åpne for spørsmål.
+
+## leveranse – Foreslått første leveranse
+
+Start med ett konkret spørsmål, ikke med plattformen. Hvordan henger
+fôrresept sammen med dødelighet, vekst og Superior-kvalitet?
+
+De fire underleveransene er det som trengs for å svare. Plattformen
+bygges fordi analysen trenger den – og den blir stående til neste.
+
+## tidslinje-fem – Fem måneder til første analyse
+
+1,5 FTE. Klikk fram én fase om gangen.
+
+To måneder innsikt og infrastruktur. Så én måned med data og
+kvalitet. Én måned med sammenstilling. Én måned med dashbord.
+
+Poenget: dashbordet er ikke en engangsrapport. Det oppdateres når
+nye data kommer inn.
+
+## tidslinje-tolv – Fra én analyse til en plattform som skalerer
+
+Første analyse står der. [[CLICK]] Måned 6: workshop. Vi velger de
+2–3 analysene som gir mest verdi. [[CLICK]] Måned 7–12 leverer vi
+dem på samme plattform. [[CLICK]] Etter et år: flere analyser i
+drift, og en plattform som tåler hundrevis av datakilder.

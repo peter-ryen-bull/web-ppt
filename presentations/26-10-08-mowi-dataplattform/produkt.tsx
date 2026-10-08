@@ -5,7 +5,6 @@ import { Copy, useCopyCount } from "@/components/Copy";
 import { Box } from "../parts";
 import { DatakontraktApi, DatakontraktBrudd } from "./figurer/Datakontrakt";
 import { DataproduktAnatomi } from "./figurer/Dataprodukt";
-import { HelePlattformen } from "./figurer/HelePlattformen";
 import { Body, Card, FooterNote, Header, Label } from "./ui";
 
 function DarkPanel({
@@ -95,13 +94,5 @@ export function SlideDomener() {
       })}
       <FooterNote />
     </>
-  );
-}
-
-export function SlideHelhet() {
-  return (
-    <Box box={[0, 0, 1280, 720]}>
-      <HelePlattformen />
-    </Box>
   );
 }
