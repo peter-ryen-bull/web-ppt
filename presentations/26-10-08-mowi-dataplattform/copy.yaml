@@ -168,3 +168,68 @@ aquaplatform-referanse:
   aqua_tekst: "Operasjonsvindu, laserplassering og bunnbelastning per lokalitet"
   powerbi_tekst: "Rapporter og analyser på samme data"
   footer: "Data fra mange kilder samles i én plattform – vasket og kvalitetssikret, så de er til å stole på. Da blir det raskt og enkelt å sette sammen data og dele dem videre."
+
+leveranse:
+  kicker: "FORESLÅTT FØRSTE LEVERANSE"
+  title: "Fiskehelse per fôrresept"
+  lead: "Finn sammenhenger mellom fôrresept og dødelighet, vekstfaktor og Superior-kvalitet"
+  sporsmal_tittel: "NØKKELSPØRSMÅL"
+  sporsmal:
+    - "Hvilke fôrresepter henger sammen med lavere dødelighet?"
+    - "Hvordan varierer vekstfaktoren mellom fôrreseptene?"
+    - "Hvilke fôrresepter gir høyest andel Superior-kvalitet?"
+  leveranser_tittel: "UNDERLEVERANSER"
+  leveranser:
+    - tittel: "Infrastruktur og dataplattform"
+      tekst: "Dataplattform på Databricks eller Microsoft Fabric. Grunnmuren for denne og senere analyser."
+    - tittel: "Automatisert datainnhenting"
+      tekst: "Strukturert og automatisert innhenting av de sentrale datasettene analysen trenger."
+    - tittel: "Datakvalitet og datavask"
+      tekst: "Datakvalitetstester og datavask som kvalitetssikrer datagrunnlaget."
+    - tittel: "1–2 dashbord med drilldown"
+      tekst: "Visualiserer resultatene. Fra totalbildet og ned i detaljene."
+  footer: "Dashbordene lever videre og oppdateres automatisk når nye data kommer inn."
+
+tidslinje-fem:
+  kicker: "TIDSLINJE · MÅNED 1–5"
+  title: "Fem måneder til første analyse"
+  lead: "Fiskehelse per fôrresept · Bemanning: 1,5 FTE"
+  fase_tittel: "FASE"
+  maneder:
+    - "MÅNED 1"
+    - "MÅNED 2"
+    - "MÅNED 3"
+    - "MÅNED 4"
+    - "MÅNED 5"
+  faser:
+    - varighet: "2 måneder"
+      tittel: "Innsikt og infrastruktur"
+      tekst: "Avklar nøkkelspørsmål, kilder og behov. Sett opp dataplattformen."
+    - varighet: "1 måned"
+      tittel: "Datainnhenting og datakvalitet"
+      tekst: "Automatisert innhenting, datavask, struktur og datakvalitetstester."
+    - varighet: "1 måned"
+      tittel: "Sammenstilling"
+      tekst: "Kobler fôrdata og fiskehelse per resept."
+    - varighet: "1 måned"
+      tittel: "Rapportering og visualisering"
+      tekst: "Dashbord med drilldown som oppdateres fortløpende."
+  footer: "Etter måned 5: analysen er i drift og oppdateres automatisk når nye data kommer inn."
+
+tidslinje-tolv:
+  kicker: "TIDSLINJE · 12 MÅNEDER"
+  title: "Fra én analyse til en plattform som skalerer"
+  faser:
+    - periode: "MÅNED 1–5 · 1,5 FTE"
+      tittel: "Første analyse: fiskehelse per fôrresept"
+      tekst: "Plattform, datainnhenting, datakvalitet og dashbord i drift."
+    - periode: "MÅNED 6"
+      tittel: "Workshop"
+      tekst: "Finn de 2–3 nye analysene som gir mest verdi."
+    - periode: "MÅNED 7–12"
+      tittel: "2–3 nye analyser"
+      tekst: "Bygget på samme plattform. Infrastrukturen utvides underveis."
+  resultat_tittel: "ETTER 12 MÅNEDER"
+  resultat:
+    - "Første analyse og 2–3 nye analyser levert, og oppdatert automatisk"
+    - "En plattform og infrastruktur som kan skalere til hundrevis av datakilder, datasett og dataprodukter"
