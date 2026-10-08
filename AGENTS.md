@@ -130,9 +130,10 @@ holder også). Når den er holdt: fjern flagget (eller sett
   (sletting, lineage og personvern). Dato og sted er plassholdere i id-en;
   bytt når arrangementet er avklart. Kari Nordmann er et tenkt eksempel.
 
-- `presentations/mowi-dataplattform/` – Dataplattform-pitch for Mowi.
-  Startet som kopi av `general-dataplattform-pitch/`; tilpass her, ikke i
-  den generelle. Media i `public/media/mowi-dataplattform/`.
+- `presentations/26-10-08-mowi-dataplattform/` – Dataplattform-pitch for
+  Mowi, 8. okt 2026. Startet som kopi av `general-dataplattform-pitch/`;
+  tilpass her, ikke i den generelle. Media i
+  `public/media/26-10-08-mowi-dataplattform/`.
 
 **Arkiv** (ikke les eller rediger uten at brukeren peker på akkurat denne):
 

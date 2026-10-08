@@ -88,8 +88,10 @@ const VERDI: SlideDef[] = [
 ];
 
 export const mowiDataplattform = definePresentation({
-  id: "mowi-dataplattform",
+  id: "26-10-08-mowi-dataplattform",
   title: "Mowi dataplattform",
+  date: "8. oktober 2026",
+  place: "Mowi",
   description:
     "Dataplattform-pitch for Mowi – fra spredt data til kvalitetssikrede dataprodukter. Startet som kopi av den generelle pitchen.",
   tags: ["pitch"],

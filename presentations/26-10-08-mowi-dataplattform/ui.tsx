@@ -4,7 +4,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { Copy, useCopyCount, useHasCopy } from "@/components/Copy";
 import { Box, MilesLogo, pt } from "../parts";
 
-export const MEDIA = "/media/mowi-dataplattform";
+export const MEDIA = "/media/26-10-08-mowi-dataplattform";
 export const CREAM_PINK = "#FBE3E0";
 export const MUTED = "#5A4A50";
 
