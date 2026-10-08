@@ -114,6 +114,10 @@ let fontEmbedCss: string | null = null;
 export async function captureSlidePng(el: HTMLElement): Promise<string> {
   copyDocumentTheme(el);
   freezeVisuals(el);
+  // Safari dekoder store bilder asynkront og tegner dem ellers tomme i PDF-en.
+  el.querySelectorAll("img").forEach((img) => {
+    img.decoding = "sync";
+  });
   await document.fonts.ready;
   await waitForImages(el);
   await waitForPaint();
