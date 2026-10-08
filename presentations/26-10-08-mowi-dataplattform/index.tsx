@@ -11,6 +11,11 @@ import {
   SlideKontraktBrudd,
 } from "./produkt";
 import { SlideAvslutning, SlideGevinster, SlideHvordan } from "./verdi";
+import {
+  SlideBunnbelastning,
+  SlideLaserplassering,
+  SlideOperasjonsvindu,
+} from "./aquaplatform";
 import { BildeIkon } from "@/components/icons/BildeIkon";
 
 const INTRO: SlideDef[] = [
@@ -77,6 +82,24 @@ const VERDI: SlideDef[] = [
   },
 ];
 
+const AQUAPLATFORM: SlideDef[] = [
+  {
+    id: "aquaplatform-operasjonsvindu",
+    name: "AquaPlatform: operasjonsvindu",
+    component: SlideOperasjonsvindu,
+  },
+  {
+    id: "aquaplatform-laserplassering",
+    name: "AquaPlatform: laserplassering",
+    component: SlideLaserplassering,
+  },
+  {
+    id: "aquaplatform-bunnbelastning",
+    name: "AquaPlatform: bunnbelastning",
+    component: SlideBunnbelastning,
+  },
+];
+
 export const mowiDataplattform = definePresentation({
   id: "26-10-08-mowi-dataplattform",
   title: "Mowi dataplattform",
@@ -99,5 +122,10 @@ export const mowiDataplattform = definePresentation({
     { id: "plattform", title: "Arkitekturen", slides: PLATTFORM },
     { id: "produkt", title: "Data som produkt", slides: PRODUKT },
     { id: "verdi", title: "Gevinst og veien dit", slides: VERDI },
+    {
+      id: "aquaplatform",
+      title: "KLERI/MILES aquaplatform",
+      slides: AQUAPLATFORM,
+    },
   ],
 });
