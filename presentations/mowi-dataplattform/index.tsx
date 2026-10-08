@@ -89,7 +89,7 @@ const VERDI: SlideDef[] = [
 
 export const mowiDataplattform = definePresentation({
   id: "mowi-dataplattform",
-  title: "Mer innsikt med en moderne dataplattform",
+  title: "Mowi dataplattform",
   description:
     "Dataplattform-pitch for Mowi – fra spredt data til kvalitetssikrede dataprodukter. Startet som kopi av den generelle pitchen.",
   tags: ["pitch"],
