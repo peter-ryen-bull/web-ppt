@@ -11,17 +11,7 @@ import {
   SlideKontraktBrudd,
 } from "./produkt";
 import { SlideAvslutning, SlideGevinster, SlideHvordan } from "./verdi";
-
-function PlattformIkon() {
-  return (
-    <svg viewBox="0 0 48 48" width="42" height="42" aria-hidden>
-      <rect x="8" y="10" width="32" height="28" rx="5" fill="#004047" />
-      <rect x="14" y="16" width="20" height="4" rx="2" fill="#78E8DB" opacity="0.85" />
-      <rect x="14" y="23" width="14" height="4" rx="2" fill="#FBF0E5" opacity="0.7" />
-      <rect x="14" y="30" width="17" height="4" rx="2" fill="#78E8DB" opacity="0.45" />
-    </svg>
-  );
-}
+import { BildeIkon } from "@/components/icons/BildeIkon";
 
 const INTRO: SlideDef[] = [
   { id: "forside", name: "Forside", component: SlideForside },
@@ -96,7 +86,12 @@ export const mowiDataplattform = definePresentation({
     "Dataplattform-pitch for Mowi – fra spredt data til kvalitetssikrede dataprodukter. Startet som kopi av den generelle pitchen.",
   tags: ["pitch"],
   inProgress: true,
-  icon: <PlattformIkon />,
+  icon: (
+    <BildeIkon
+      src="/media/26-10-08-mowi-dataplattform/mowi-logo.svg"
+      alt="Mowi"
+    />
+  ),
   notes: notesRaw,
   copy: copyRaw,
   chapters: [
