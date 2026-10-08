@@ -16,6 +16,7 @@ import {
   SlideLaserplassering,
   SlideOperasjonsvindu,
 } from "./aquaplatform";
+import { SlideReferanse } from "./referanse";
 import { BildeIkon } from "@/components/icons/BildeIkon";
 
 const INTRO: SlideDef[] = [
@@ -83,6 +84,11 @@ const VERDI: SlideDef[] = [
 ];
 
 const AQUAPLATFORM: SlideDef[] = [
+  {
+    id: "aquaplatform-referanse",
+    name: "Referanseprosjekt: AquaPlatform",
+    component: SlideReferanse,
+  },
   {
     id: "aquaplatform-operasjonsvindu",
     name: "AquaPlatform: operasjonsvindu",
