@@ -12,6 +12,8 @@ import {
   SlideStegScore,
 } from "./tutorial";
 import { SlideBatching, SlideForskning, SlideKalkulator } from "./tokens";
+import { SlideFart, SlideKlassifiser } from "./fart";
+import { SlideSammenlign } from "./sammenlign";
 import { SlideArbeidsdeling, SlideBegrensninger, SlideOppsummering } from "./avslutning";
 
 const INTRO: SlideDef[] = [
@@ -28,6 +30,13 @@ const TUTORIAL: SlideDef[] = [
   { id: "steg-score", name: "Steg 3: Score", component: SlideStegScore },
   { id: "steg-alle", name: "Steg 4: alt i ett kall + LLM", component: SlideStegAlle },
   { id: "steg-confidence", name: "Steg 5: confidence-styrt ruting", component: SlideConfidence },
+];
+
+const FART: SlideDef[] = [
+  { id: "kap-fart", name: "Kapittel: fart", component: SlideKapittel },
+  { id: "klassifiser", name: "Klassifiser hva som helst", component: SlideKlassifiser },
+  { id: "fart", name: "Hundrevis på et sekund", component: SlideFart },
+  { id: "sammenlign", name: "Jev mot Claude og GPT", component: SlideSammenlign },
 ];
 
 const TOKENS: SlideDef[] = [
@@ -56,6 +65,7 @@ export const jevDemo = definePresentation({
   chapters: [
     { id: "intro", title: "Hva er Jev", slides: INTRO },
     { id: "tutorial", title: "Prøv selv", slides: TUTORIAL },
+    { id: "fart", title: "Fart", slides: FART },
     { id: "tokens", title: "Tokens og kostnad", slides: TOKENS },
     { id: "avslutning", title: "Begrensninger og bruk", slides: AVSLUTNING },
   ],

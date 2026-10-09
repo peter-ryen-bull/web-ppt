@@ -10,7 +10,7 @@ import {
 } from "react";
 import { Copy, useHasCopy } from "@/components/Copy";
 import { Box, MilesLogo, pt } from "../parts";
-import type { DemoStatus, JevRunResult, LlmRunResult, Questions } from "./jev";
+import type { BatchLine, DemoStatus, JevRunResult, LlmRunResult, Provider, Questions } from "./jev";
 
 export const MUTED = "#5A4A50";
 export const PINK = "#FBE3E0";
@@ -150,6 +150,7 @@ export function Button({
         color,
         cursor: disabled ? "default" : "pointer",
         opacity: disabled ? 0.5 : 1,
+        whiteSpace: "nowrap",
       }}
     >
       {children}
@@ -289,6 +290,49 @@ export function runJev(state: string, questions: Questions) {
 
 export function runLlm(state: string, questions: Questions) {
   return post<LlmRunResult>({ kind: "llm", state, questions });
+}
+
+/**
+ * Sender alle elementene til /api/jev, som kaller Jev parallelt på serveren.
+ * Nettleseren åpner bare noen få samtidige forbindelser per vert, så
+ * parallelliteten må ligge der. `onLines` får hver bit av strømmen.
+ */
+export async function streamBatch(
+  items: string[],
+  questions: Questions,
+  concurrency: number,
+  onLines: (lines: BatchLine[]) => void,
+  signal: AbortSignal,
+  provider: Provider = "jev"
+): Promise<string | null> {
+  try {
+    const res = await fetch("/api/jev", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ kind: "batch", provider, items, questions, concurrency }),
+      signal,
+    });
+    if (!res.headers.get("content-type")?.includes("ndjson") || !res.body) {
+      const body = (await res.json().catch(() => null)) as { error?: string } | null;
+      return body?.error ?? `HTTP ${res.status}`;
+    }
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const parts = buffer.split("\n");
+      buffer = parts.pop() ?? "";
+      const lines = parts.filter(Boolean).map((p) => JSON.parse(p) as BatchLine);
+      if (lines.length) onLines(lines);
+    }
+    return null;
+  } catch (e) {
+    if (signal.aborted) return null;
+    return e instanceof Error ? e.message : String(e);
+  }
 }
 
 /** Liten merkelapp: «LIVE» eller «INNSPILT». */

@@ -3,7 +3,8 @@
 Rød tråd: Jev er ikke en bedre chatbot. Den er en beslutningsmodell. Du
 definerer svarrommet, får sannsynligheter tilbake, og lar koden bestemme.
 
-Oppsett for live-demo (`.env.local` i `web-ppt/`, ikke i git):
+Oppsett for live-demo: Jev-nøkkelen leses fra `API_KEY` i
+`presentations/jev-demo/.env` (ikke i git). Alternativt i `.env.local` i `web-ppt/`:
 
     TYPESAFE_API_KEY=...
     # valgfritt, for «Samme med LLM» på steg 4:
@@ -83,6 +84,74 @@ Poenget: lav risiko (saldo) tåler lavere confidence enn høy risiko
 (overføring). Tersklene ligger i koden, ikke i modellen.
 
 Live: prøv den usikre setningen («the transfer thing, maybe?»).
+
+## kap-fart – Kapittel: fart
+
+## klassifiser – Klassifiser hva som helst
+
+Start med «Hva er det?». Trykk raskt på flere eksempler etter hverandre.
+Hvert klikk er ett kall, og svarene kommer på rundt et kvarter sekund.
+
+Be salen om forslag og skriv dem inn. Bytt til «Kundeservice» eller
+«Meldinger fra sjøen» og vis at det bare er et annet spørsmål, samme modell.
+
+«Hva er det?» sender «Norwegian word: …» som state. Uten prefikset leser
+Jev enkeltord som «Fly», «Tog» og «Rev» som engelske ord. Godt eksempel på
+at den leser bokstavelig.
+
+## fart – Hundrevis på et sekund
+
+Standard: 100 elementer, 50 samtidige kall. Trykk Kjør: hele rutenettet er
+ferdig på under et sekund.
+
+Så: sett «samtidig» til 1 og kjør igjen. Nå går det ett og ett, og det tar
+rundt 25 sekunder. Det er like lenge som «én og én»-tallet viste i forrige
+kjøring. Trykk Nullstill når poenget er tatt.
+
+500 elementer koster rundt en halv cent. 500 går i løkke gjennom eksemplene.
+
+Hold musen over en rute for svar, confidence og ventetid.
+
+Første kjøring etter oppstart er litt tregere (nye forbindelser til
+TypeSafe). Kjør én gang før publikum kommer.
+
+## sammenlign – Jev mot Claude og GPT
+
+Standard: Kundeservice, 25 elementer, 10 samtidige. Trykk «Kjør alle».
+Alle tre banene starter samtidig med samme elementer.
+
+Pek på tre ting: tid totalt, kostnad per 1000 og «enig med Jev». Enighet
+er ikke treffsikkerhet. Ingen av modellene er fasit, men der de er uenige
+er det verdt å se på eksemplet (listet nederst).
+
+Banene uten nøkkel viser «INGEN NØKKEL» og kjører ikke. Ingen tall blir
+anslått der.
+
+Oppsett i `presentations/jev-demo/.env` (eller `.env.local` i `web-ppt/`):
+
+    ANTHROPIC_API_KEY=...
+    OPENAI_API_KEY=...
+    # valgfritt:
+    ANTHROPIC_MODEL=claude-opus-5-5
+    ANTHROPIC_EFFORT=low
+    OPENAI_MODEL=gpt-6.1-sol
+    OPENAI_REASONING_EFFORT=low
+
+Effort står på `low` for begge: laveste nivå begge støtter, og det
+leverandørene anbefaler for enkle, tidskritiske oppgaver. GPT-6.1 Sol
+støtter ikke `none` eller `minimal`. Claude Opus 5.5 har alltid adaptiv
+tenking; på `low` kan den hoppe over tenkingen.
+
+Priser (listepris, $ per million tokens inn / ut), hentet 9. okt 2026:
+
+- Claude Opus 5.5 `claude-opus-5-5`: $4 / $20.
+  docs.anthropic.com/en/docs/about-claude/models/overview
+- GPT-6.1 Sol `gpt-6.1-sol`: $2 / $10. GPT-6 Astra (OpenAIs flaggskip): $10 / $50.
+  platform.openai.com/docs/pricing
+- Jev: $0,042 inn, output gratis (docs.typesafe.ai/models.md).
+
+Bytter du modell til en som ikke står i `MODEL_PRICES` i `jev.ts`, vises
+den uten pris.
 
 ## kap-tokens – Kapittel: tokens og kostnad
 

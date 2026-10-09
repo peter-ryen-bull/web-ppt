@@ -63,7 +63,59 @@ export type LlmRunResult =
     }
   | { ok: false; error: string };
 
-export type DemoStatus = { jev: boolean; llm: { configured: boolean; model: string | null } };
+/* ------------------------------------------------------------------ */
+/* Sammenligning med vanlige LLM-er (samme elementer, samme prompt).   */
+/* ------------------------------------------------------------------ */
+
+export type Provider = "jev" | "anthropic" | "openai";
+export type ProviderStatus = { configured: boolean; model: string; keyEnv: string; effort: string };
+
+export type DemoStatus = {
+  jev: boolean;
+  llm: { configured: boolean; model: string | null };
+  providers?: { anthropic: ProviderStatus; openai: ProviderStatus };
+};
+
+/** Standardmodeller når ANTHROPIC_MODEL / OPENAI_MODEL ikke er satt. */
+export const DEFAULT_MODELS = { anthropic: "claude-opus-5-5", openai: "gpt-6.1-sol" } as const;
+
+/**
+ * Listepris i $ per million tokens (standard, ikke batch/cache).
+ * Hentet 9. okt 2026 fra docs.anthropic.com/en/docs/about-claude/models/overview
+ * og platform.openai.com/docs/pricing. Modeller som mangler her vises uten pris.
+ */
+export const MODEL_PRICES: Record<string, { in: number; out: number }> = {
+  "claude-fable-5-1": { in: 10, out: 50 },
+  "claude-opus-5-5": { in: 4, out: 20 },
+  "claude-sonnet-5-5": { in: 2, out: 10 },
+  "gpt-6-astra": { in: 10, out: 50 },
+  "gpt-6.1-sol": { in: 2, out: 10 },
+  "gpt-6-sol": { in: 2, out: 10 },
+  "gpt-6-luna": { in: 0.1, out: 0.5 },
+  "gpt-5.6-sol": { in: 4, out: 20 },
+  "gpt-5.6-terra": { in: 2, out: 12 },
+  "gpt-5.6-luna": { in: 0.2, out: 1.2 },
+};
+
+/** Svar fra en LLM for ett element. `answers` er JSON-en modellen skrev, om den kunne leses. */
+export type LlmItem = {
+  answers: Record<string, unknown> | null;
+  text: string;
+  input: number;
+  output: number;
+  reasoning: number;
+};
+
+/** Én linje i NDJSON-strømmen fra /api/jev med kind «batch». */
+export type BatchLine =
+  | { i: number; ok: true; data: JevResponse; latencyMs: number }
+  | { i: number; ok: true; llm: LlmItem; latencyMs: number }
+  | { i: number; ok: false; error: string; latencyMs: number }
+  | { done: true; wallMs: number }
+  | { fatal: string };
+
+export const BATCH_MAX_ITEMS = 1000;
+export const BATCH_MAX_CONCURRENCY = 100;
 
 /** $ per million tokens. Jev: kun input. Output er gratis. */
 export const JEV_PRICE_IN = 0.042;
@@ -243,6 +295,224 @@ export const BANK_QUESTIONS: Questions = {
     },
   },
 };
+
+/* ------------------------------------------------------------------ */
+/* Klassifiseringsoppgaver til fart-demoen. Ett kall per element.      */
+/* ------------------------------------------------------------------ */
+
+export type ClassifyTask = {
+  id: string;
+  /** Kort navn på knappen. */
+  name: string;
+  /** Ett choice-spørsmål. Nøklene vises som etiketter på flisene. */
+  question: ChoiceQuestion;
+  /**
+   * Settes foran hvert element i state. Enkeltord som «Fly», «Tog» og «Rev»
+   * leses ellers som engelske ord.
+   */
+  prefix?: string;
+  colors: Record<string, string>;
+  items: string[];
+};
+
+const PALETTE = ["#004047", "#FF303B", "#C98A2B", "#2E8B7F", "#450D20", "#B72318"];
+
+function colorsFor(criteria: Record<string, unknown>): Record<string, string> {
+  return Object.fromEntries(Object.keys(criteria).map((k, i) => [k, PALETTE[i % PALETTE.length]]));
+}
+
+function task(t: Omit<ClassifyTask, "colors">): ClassifyTask {
+  return { ...t, colors: colorsFor(t.question.criteria) };
+}
+
+export const CLASSIFY_TASKS: ClassifyTask[] = [
+  task({
+    id: "ting",
+    name: "Hva er det?",
+    question: {
+      type: "choice",
+      instructions: "What kind of thing is this?",
+      criteria: {
+        frukt: "Fruit or berry",
+        grønnsak: "Vegetable",
+        dyr: "Animal",
+        kjøretøy: "Vehicle, vessel or aircraft",
+        verktøy: "Tool or device",
+      },
+    },
+    prefix: "Norwegian word: ",
+    items: [
+      "Banan", "Gulrot", "Elg", "Traktor", "Hammer", "Jordbær", "Brokkoli", "Laks", "Sparkesykkel", "Drill",
+      "Eple", "Potet", "Hval", "Helikopter", "Skrutrekker", "Blåbær", "Løk", "Ørn", "Hurtigruta", "Sag",
+      "Mango", "Kålrot", "Ku", "Tesla Model Y", "Tang", "Tyttebær", "Purre", "Rein", "Ferje", "Vater",
+      "Ananas", "Spinat", "Sjøstjerne", "Elsparkesykkel", "Skiftenøkkel", "Kiwi", "Blomkål", "Hest", "Snøscooter", "Stikksag",
+      "Appelsin", "Agurk", "Isbjørn", "Seilbåt", "Loddebolt", "Moltebær", "Hvitløk", "Måke", "Trikk", "Høvel",
+      "Plomme", "Paprika", "Torsk", "Gravemaskin", "Meisel", "Rips", "Squash", "Ekorn", "Tankskip", "Multimeter",
+      "Pære", "Selleri", "Lemen", "Fly", "Øks", "Bringebær", "Rødbete", "Krabbe", "Motorsykkel", "Tommestokk",
+      "Sitron", "Asparges", "Gaupe", "Kajakk", "Vinkelsliper", "Druer", "Grønnkål", "Spekkhogger", "Lastebil", "Limpistol",
+      "Fersken", "Pastinakk", "Ulv", "Ubåt", "Hullsag", "Vannmelon", "Reddik", "Lundefugl", "Tog", "Avbiter",
+      "Granateple", "Erter", "Hummer", "Buss", "Skrustikke", "Kirsebær", "Aubergine", "Rev", "Redningsskøyte", "Fil",
+    ],
+  }),
+  task({
+    id: "kundeservice",
+    name: "Kundeservice",
+    question: {
+      type: "choice",
+      instructions: "Which team should handle this customer message?",
+      criteria: {
+        faktura: "Invoices, payments, charges or refunds",
+        teknisk: "Bugs, outages, login or integration problems",
+        salg: "Pricing, upgrades, new products or new customers",
+        oppsigelse: "The customer wants to cancel or leave",
+      },
+    },
+    items: [
+      "Jeg har fått to fakturaer for samme måned.",
+      "Appen krasjer hver gang jeg åpner den.",
+      "Hva koster det å oppgradere til Pro?",
+      "Jeg vil si opp abonnementet mitt fra neste måned.",
+      "Hvorfor ble jeg trukket 499 kr i går?",
+      "Får ikke logget inn, passordet virker ikke.",
+      "Har dere rabatt for organisasjoner med 50 brukere?",
+      "Takk for nå, jeg går over til en konkurrent.",
+      "Kan jeg få refusjon for feil trekk?",
+      "Integrasjonen mot Visma har sluttet å virke.",
+      "Vi vurderer å kjøpe lisenser til hele avdelingen.",
+      "Avslutt kontoen min, takk.",
+      "Fakturaen har feil organisasjonsnummer.",
+      "Siden laster ikke i Safari.",
+      "Finnes det en årsplan som er billigere?",
+      "Jeg ønsker ikke å fornye avtalen.",
+      "Betalingen min ble avvist, men pengene er trukket.",
+      "Eksporten til Excel gir bare tomme rader.",
+      "Kan dere sende et tilbud på 200 lisenser?",
+      "Hvordan sier jeg opp? Finner ikke knappen.",
+      "Kan jeg få fakturaen på e-post i stedet for papir?",
+      "Vi får feilmelding 500 når vi kaller API-et.",
+      "Hva er forskjellen på Basis og Pro?",
+      "Dette fungerer ikke for oss lenger, vi avslutter.",
+      "Momsen på fakturaen ser feil ut.",
+      "Varslene kommer ikke på telefonen lenger.",
+      "Vi vil gjerne ha en demo for ledergruppen.",
+      "Slett meg fra tjenesten.",
+      "Kortet mitt er utløpt, hvordan oppdaterer jeg det?",
+      "SSO mot Entra ID feiler etter siste oppdatering.",
+      "Har dere en prøveperiode?",
+      "Jeg har bestemt meg for å avslutte medlemskapet.",
+      "Purring på en faktura jeg allerede har betalt?!",
+      "Synkroniseringen stopper på 99 %.",
+      "Kan vi legge til ti brukere til på avtalen?",
+      "Ikke forny, vi bytter leverandør.",
+      "Jeg trenger kvittering for mars.",
+      "To-faktor-koden kommer aldri frem.",
+      "Tilbyr dere studentpris?",
+      "Avbestill alt, takk.",
+    ],
+  }),
+  task({
+    id: "anmeldelser",
+    name: "Anmeldelser",
+    question: {
+      type: "choice",
+      instructions: "What is the sentiment of this product review?",
+      criteria: {
+        positiv: "Positive, satisfied",
+        nøytral: "Neutral or mixed",
+        negativ: "Negative, dissatisfied",
+      },
+    },
+    items: [
+      "Helt fantastisk, kjøper igjen!",
+      "Kom i stykker etter to dager.",
+      "Grei nok for prisen.",
+      "Rask levering og god kvalitet.",
+      "Elendig kundeservice, svarte aldri.",
+      "Gjør jobben, verken mer eller mindre.",
+      "Beste kjøpet jeg har gjort i år.",
+      "Fargen var helt annerledes enn på bildet.",
+      "Som forventet.",
+      "Barna elsker den!",
+      "Batteriet holder i to timer. Skuffende.",
+      "Fin, men litt dyr.",
+      "Anbefales på det sterkeste.",
+      "Returnerte den samme dag.",
+      "Helt ok. Ingenting å skrive hjem om.",
+      "Overgikk alle forventninger.",
+      "Luktet rart og føltes billig.",
+      "Leveringen tok tre uker, men produktet er bra.",
+      "Perfekt passform.",
+      "Pengene ut av vinduet.",
+      "Fungerer. Bruksanvisningen er dårlig.",
+      "Kjempefornøyd med alt.",
+      "Sluttet å virke etter en uke.",
+      "Gjennomsnittlig.",
+      "Nydelig design og solid bygget.",
+      "Aldri mer.",
+      "Litt mindre enn jeg trodde, ellers fin.",
+      "Veldig god lyd for prisen!",
+      "Defekt ved levering.",
+      "Kan brukes.",
+      "Fem stjerner fra meg.",
+      "Tok lang tid å få refusjon.",
+      "Middels kvalitet, middels pris.",
+      "Endelig en som holder hele vinteren.",
+      "Ikke verdt pengene.",
+      "Den er grå.",
+      "Gleder meg hver gang jeg bruker den.",
+      "Ødela hele helgen.",
+      "Både bra og dårlig.",
+      "Akkurat det jeg trengte.",
+    ],
+  }),
+  task({
+    id: "sjo",
+    name: "Meldinger fra sjøen",
+    question: {
+      type: "choice",
+      instructions: "What kind of maritime incident does this message report?",
+      criteria: {
+        grunnstøting: "Grounding: the vessel has run aground on rocks, a shoal or the seabed",
+        kollisjon: "Collision with another vessel, a quay, a fish farm or another object",
+        motorstans: "Engine failure, loss of propulsion, or rudder or steering failure",
+        forurensning: "Oil, fuel, hydraulic oil, plastic or other pollution",
+        "person i sjøen": "Person overboard or in the water",
+      },
+    },
+    items: [
+      "Vi har gått på et skjær ved Bremanger, tar inn vann.",
+      "Mann over bord, sørvest for Utsira.",
+      "Motoren har stoppet, vi driver mot land.",
+      "Oljeflak observert ved kaia i Florø.",
+      "Kolliderte med en fritidsbåt i innseilingen.",
+      "Sitter fast på grunna utenfor Ålesund.",
+      "Mistet styringen i stormen.",
+      "Diesel lekker fra tanken ombord.",
+      "Traff kaia under tillegging, skade på baugen.",
+      "En passasjer falt i sjøen fra ferja.",
+      "Vi har grunnstøtt ved fyret, ingen skadde.",
+      "Propellen har fått tau i seg, ingen fremdrift.",
+      "Regnbuefarget film på vannet bak fiskebåten.",
+      "To fartøy har kollidert i tåka.",
+      "Kajakkpadler har kantret og er i vannet.",
+      "Har berørt bunnen, sjekker skrogskader.",
+      "Black-out i maskinrommet, ankrer opp.",
+      "Hydraulikkolje rant ut i havna.",
+      "Seilbåt traff en merd i oppdrettsanlegget.",
+      "Person observert i vannet ved moloen.",
+      "Tråleren står på land ved Hustadvika.",
+      "Hovedmaskin havarert, ber om slep.",
+      "Skipet slipper ut olje etter skade.",
+      "Kontainerskip og slepebåt kolliderte.",
+      "Fisker falt over bord under trekking av garn.",
+      "Rørt bunnen i sundet, ingen lekkasje.",
+      "Roret sitter fast hardt styrbord.",
+      "Store mengder plast og olje i fjæra.",
+      "Rygget inn i en annen båt i gjestehavna.",
+      "Barn falt fra brygga, henter opp nå.",
+    ],
+  }),
+];
 
 /* ------------------------------------------------------------------ */
 /* Samme oppgave som en vanlig LLM-prompt.                             */
