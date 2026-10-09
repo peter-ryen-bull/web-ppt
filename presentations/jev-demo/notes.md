@@ -21,22 +21,51 @@ synkroniserer ikke det du skriver i feltene.
 Jev kom 15. september 2026 fra TypeSafe AI. De kaller den en «System One»-
 modell: raske, avgrensede vurderinger, ikke lang resonnering.
 
-## problemet – Klassifisering med LLM i dag
+## problemet – Utgangspunktet: fritekst fra OpenAI
 
-Dette er slik mange av oss gjør det i dag. Vis prompten. Den er ekte: det er
-samme prompt som «Samme med LLM»-knappen sender senere.
+Alt her er live. Velg en henvendelse (1–4) og trykk «Send til OpenAI».
 
-Poenget: vi bruker en modell trent til å skrive tekst til å ta små
-beslutninger. Det fungerer, men vi betaler for skrivingen.
+Prompten er slik vi ville spurt en kollega: hvilket team, hvor frustrert,
+haster det? Ingen formatkrav.
 
-## to-modeller – Token for token vs. ett pass
+Mens det strømmer: pek på «venter på første token» og at teksten kommer bit
+for bit. Når det er ferdig: les opp svaret. Det er greit for et menneske,
+men prøv å skrive kode som henter ut team, frustrasjon og haster fra det.
+Formen endrer seg fra kall til kall – kjør gjerne samme henvendelse to ganger.
 
-Klikk én gang for å starte animasjonen.
+Tallene under (første token, totalt, output-tokens, kostnad) er fra dette
+kallet. Kostnaden er tokenbruken OpenAI rapporterer × listepris.
 
-Venstre: LLM-en resonnerer (grå ruter) og skriver så JSON-en token for token.
-Høyre: Jev svarer med fordelinger med en gang.
+Valget av henvendelse følger med til de neste to slidene.
 
-Si tydelig at tidslinjen er en illustrasjon. Tallene måler vi live senere.
+## json-forsok – Be om JSON – 100 ganger
+
+Samme henvendelse. Nå står formen i prompten. Ikke JSON-modus i API-et, bare
+instruksjon – slik mange gjør det.
+
+1. «Send én»: råsvaret strømmer inn, og sjekklisten under viser om det
+   parses med JSON.parse og har riktig form (felt og lovlige verdier).
+2. «Kjør 100 parallelt»: samme forespørsel 100 ganger. Grønt = riktig form,
+   rødt = feil (ikke JSON, JSON i ```-blokk, feil felt eller verdi utenfor
+   listen). Klikk en rød rute for råsvaret. Første feil vises automatisk.
+
+Linjen under rutenettet viser feiltypene og hvordan de gyldige svarene
+fordeler seg. Er det mer enn én variant, har vi også vist at samme spørsmål
+gir ulike svar.
+
+Blir alle 100 grønne: si det. Poenget står likevel – du må skrive og
+vedlikeholde sjekken selv, og du betaler for hvert token den skriver. Tid og
+kostnad for alle 100 står øverst.
+
+## to-modeller – OpenAI og Jev på samme tekst
+
+Trykk «Kjør begge samtidig». Begge kall starter samtidig fra nettleseren.
+
+Venstre: OpenAI med JSON-prompten fra forrige slide, strømmet. Høyre: Jev med
+de samme tre spørsmålene (team, frustrasjon, haster) – sannsynligheter
+direkte, ingen tekst å parse.
+
+Tidene er målt her og nå. Kjør gjerne flere henvendelser.
 
 ## primitiver – Choice, Score og Noul
 

@@ -10,7 +10,7 @@ import {
 } from "react";
 import { Copy, useHasCopy } from "@/components/Copy";
 import { Box, MilesLogo, pt } from "../parts";
-import type { BatchLine, DemoStatus, JevRunResult, LlmRunResult, Provider, Questions } from "./jev";
+import type { BatchLine, DemoStatus, JevRunResult, LlmRunResult, PromptMode, Provider, Questions } from "./jev";
 
 export const MUTED = "#5A4A50";
 export const PINK = "#FBE3E0";
@@ -303,13 +303,14 @@ export async function streamBatch(
   concurrency: number,
   onLines: (lines: BatchLine[]) => void,
   signal: AbortSignal,
-  provider: Provider = "jev"
+  provider: Provider = "jev",
+  promptMode?: PromptMode
 ): Promise<string | null> {
   try {
     const res = await fetch("/api/jev", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ kind: "batch", provider, items, questions, concurrency }),
+      body: JSON.stringify({ kind: "batch", provider, items, questions, concurrency, promptMode }),
       signal,
     });
     if (!res.headers.get("content-type")?.includes("ndjson") || !res.body) {

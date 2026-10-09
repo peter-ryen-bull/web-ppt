@@ -4,12 +4,14 @@ import { NextResponse } from "next/server";
 import {
   BATCH_MAX_CONCURRENCY,
   BATCH_MAX_ITEMS,
+  buildLiveMessages,
   buildLlmMessages,
   DEFAULT_OPENAI_MODEL,
   type BatchLine,
   type JevResponse,
   type LlmItem,
   type Questions,
+  type StreamLine,
 } from "@/presentations/jev-demo/jev";
 
 /*
@@ -90,6 +92,7 @@ type Body = {
   model?: unknown;
   concurrency?: unknown;
   provider?: unknown;
+  promptMode?: unknown;
 };
 
 function errorText(status: number, body: string): string {
@@ -155,29 +158,40 @@ function parseAnswers(text: string): Record<string, unknown> | null {
   }
 }
 
-/** Samme klassifiseringsprompt som «Samme med LLM» i steg 4, sendt til OpenAI Responses API. */
+type OpenaiMessage = { role: "developer" | "system" | "user"; content: string };
+
+function openaiBody(cfg: { model: string; effort: string }, input: OpenaiMessage[], jsonMode: boolean, stream = false) {
+  return JSON.stringify({
+    model: cfg.model,
+    input,
+    reasoning: { effort: cfg.effort },
+    ...(jsonMode ? { text: { format: { type: "json_object" } } } : {}),
+    ...(stream ? { stream: true } : {}),
+  });
+}
+
+/** Klassifiseringsprompten fra steg 4 med JSON-modus. */
+function classifierMessages(state: string, questions: Questions): OpenaiMessage[] {
+  // json_object krever ordet «JSON» i input-meldingene; `instructions` teller ikke.
+  const [system, user] = buildLlmMessages(state, questions);
+  return [
+    { role: "developer", content: system.content },
+    { role: "user", content: user.content },
+  ];
+}
+
 async function callOpenai(
   cfg: { key: string; model: string; effort: string },
-  state: string,
-  questions: Questions,
+  input: OpenaiMessage[],
+  jsonMode: boolean,
   signal?: AbortSignal
 ): Promise<LlmCall> {
-  const [system, user] = buildLlmMessages(state, questions);
   const started = performance.now();
   try {
-    // json_object krever ordet «JSON» i input-meldingene; `instructions` teller ikke.
     const res = await fetch(OPENAI_URL, {
       method: "POST",
       headers: { Authorization: `Bearer ${cfg.key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: cfg.model,
-        input: [
-          { role: "developer", content: system.content },
-          { role: "user", content: user.content },
-        ],
-        reasoning: { effort: cfg.effort },
-        text: { format: { type: "json_object" } },
-      }),
+      body: openaiBody(cfg, input, jsonMode),
       signal,
     });
     const raw = await res.text();
@@ -207,6 +221,83 @@ async function callOpenai(
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : String(e), latencyMs: performance.now() - started };
   }
+}
+
+/** Videresender OpenAIs SSE-strøm som NDJSON: tekstbiter, så tokenbruk og tider fra svaret. */
+function streamOpenai(req: Request, cfg: { key: string; model: string; effort: string }, input: OpenaiMessage[]): Response {
+  const encoder = new TextEncoder();
+  const stream = new ReadableStream<Uint8Array>({
+    async start(controller) {
+      const send = (line: StreamLine) => controller.enqueue(encoder.encode(`${JSON.stringify(line)}\n`));
+      const started = performance.now();
+      let firstMs: number | null = null;
+      try {
+        const res = await fetch(OPENAI_URL, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${cfg.key}`, "Content-Type": "application/json" },
+          body: openaiBody(cfg, input, false, true),
+          signal: req.signal,
+        });
+        if (!res.ok || !res.body) {
+          send({ t: "error", error: errorText(res.status, await res.text()) });
+          controller.close();
+          return;
+        }
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+        let finished = false;
+        while (!finished) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const events = buffer.split("\n\n");
+          buffer = events.pop() ?? "";
+          for (const ev of events) {
+            const data = ev
+              .split("\n")
+              .filter((l) => l.startsWith("data:"))
+              .map((l) => l.slice(5).trim())
+              .join("");
+            if (!data || data === "[DONE]") continue;
+            const msg = JSON.parse(data) as {
+              type?: string;
+              delta?: string;
+              message?: string;
+              response?: {
+                model?: string;
+                error?: { message?: string } | null;
+                usage?: { input_tokens?: number; output_tokens?: number; output_tokens_details?: { reasoning_tokens?: number } };
+              };
+            };
+            if (msg.type === "response.output_text.delta" && msg.delta) {
+              firstMs ??= performance.now() - started;
+              send({ t: "delta", text: msg.delta });
+            } else if (msg.type === "response.completed") {
+              const u = msg.response?.usage;
+              send({
+                t: "done",
+                model: msg.response?.model ?? cfg.model,
+                usage: { input: u?.input_tokens ?? 0, output: u?.output_tokens ?? 0, reasoning: u?.output_tokens_details?.reasoning_tokens ?? 0 },
+                latencyMs: performance.now() - started,
+                firstMs,
+              });
+              finished = true;
+            } else if (msg.type === "response.failed" || msg.type === "error") {
+              send({ t: "error", error: msg.response?.error?.message ?? msg.message ?? "OpenAI-feil" });
+              finished = true;
+            }
+          }
+        }
+      } catch (e) {
+        if (!req.signal.aborted) send({ t: "error", error: e instanceof Error ? e.message : String(e) });
+      }
+      controller.close();
+    },
+  });
+  return new Response(stream, {
+    headers: { "Content-Type": "application/x-ndjson; charset=utf-8", "Cache-Control": "no-cache, no-transform" },
+  });
 }
 
 /** Ett kall per element, med begrenset parallellitet. Svarene strømmes som NDJSON. */
@@ -255,6 +346,18 @@ export async function POST(req: Request) {
   const questions = body.questions;
   const model = typeof body.model === "string" ? body.model : "jev-latest";
 
+  if (body.kind === "openai-stream") {
+    const mode = body.promptMode === "json" ? "json" : "fritekst";
+    const input = body.state;
+    if (typeof input !== "string" || !input.trim() || input.length > MAX_ITEM_CHARS) {
+      return NextResponse.json({ ok: false, error: "Mangler gyldig tekst." }, { status: 400 });
+    }
+    const cfg = openaiConfig();
+    const key = cfg.key;
+    if (!key) return NextResponse.json({ ok: false, error: `Ingen nøkkel: ${cfg.keyEnv} er ikke satt.` });
+    return streamOpenai(req, { ...cfg, key }, buildLiveMessages(mode, input));
+  }
+
   if (body.kind === "batch") {
     const items = body.items;
     if (
@@ -262,7 +365,7 @@ export async function POST(req: Request) {
       items.length === 0 ||
       items.length > BATCH_MAX_ITEMS ||
       !items.every((s) => typeof s === "string" && s.length > 0 && s.length <= MAX_ITEM_CHARS) ||
-      !validQuestions(questions)
+      (!validQuestions(questions) && !(body.provider === "openai" && body.promptMode))
     ) {
       return NextResponse.json({ ok: false, error: "Mangler gyldige items eller questions." }, { status: 400 });
     }
@@ -272,11 +375,23 @@ export async function POST(req: Request) {
       const cfg = openaiConfig();
       const key = cfg.key;
       if (!key) return NextResponse.json({ ok: false, error: `Ingen nøkkel: ${cfg.keyEnv} er ikke satt.` });
-      return runBatch(req, (state, signal) => callOpenai({ ...cfg, key }, state, questions, signal), items as string[], concurrency);
+      const live = body.promptMode === "json" || body.promptMode === "fritekst" ? body.promptMode : null;
+      return runBatch(
+        req,
+        (state, signal) =>
+          live
+            ? callOpenai({ ...cfg, key }, buildLiveMessages(live, state), false, signal)
+            : callOpenai({ ...cfg, key }, classifierMessages(state, questions as Questions), true, signal),
+        items as string[],
+        concurrency
+      );
     }
     const key = jevKey();
     if (!key) {
       return NextResponse.json({ ok: false, error: "Mangler Jev-nøkkel (API_KEY i presentations/jev-demo/.env)." });
+    }
+    if (!validQuestions(questions)) {
+      return NextResponse.json({ ok: false, error: "Mangler gyldige questions." }, { status: 400 });
     }
     return runBatch(req, (state, signal) => callJev(key, state, questions, model, signal), items as string[], concurrency);
   }

@@ -2,7 +2,8 @@ import type { SlideDef } from "../types";
 import copyRaw from "./copy.yaml";
 import notesRaw from "./notes.md";
 import { definePresentation } from "../chapters";
-import { SlideForside, SlidePrimitiver, SlideProblemet, SlideToModeller } from "./intro";
+import { SlideForside, SlidePrimitiver } from "./intro";
+import { SlideJsonForsok, SlideProblemet, SlideToModeller } from "./utgangspunkt";
 import {
   SlideConfidence,
   SlideKapittel,
@@ -18,8 +19,9 @@ import { SlideArbeidsdeling, SlideBegrensninger, SlideOppsummering } from "./avs
 
 const INTRO: SlideDef[] = [
   { id: "forside", name: "Forside", component: SlideForside },
-  { id: "problemet", name: "Klassifisering med LLM i dag", component: SlideProblemet },
-  { id: "to-modeller", name: "Token for token vs. ett pass", component: SlideToModeller, steps: 1 },
+  { id: "problemet", name: "Utgangspunktet: fritekst fra OpenAI", component: SlideProblemet },
+  { id: "json-forsok", name: "Be om JSON – 100 ganger", component: SlideJsonForsok },
+  { id: "to-modeller", name: "OpenAI og Jev på samme tekst", component: SlideToModeller },
   { id: "primitiver", name: "Choice, Score og Noul", component: SlidePrimitiver },
 ];
 

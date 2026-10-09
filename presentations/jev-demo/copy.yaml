@@ -6,23 +6,32 @@ forside:
 
 problemet:
   kicker: "UTGANGSPUNKTET"
-  title: "I dag ber vi en skrivemaskin om å ta beslutninger"
-  lead: "Mange klassifiserer med en chat-modell: beskriv oppgaven, be om JSON, parse svaret."
-  section: "HVA DET KOSTER"
-  items:
-    - "Modellen skriver svaret token for token. Hvert token tar tid og koster penger."
-    - "Resonnering før svaret gir enda flere output-tokens du betaler for."
-    - "Svaret er tekst. Du må parse det, og det kan komme i feil form."
-    - "Du får et svar, men ikke hvor sikker modellen er."
+  title: "Vi spør en chat-modell, slik vi ville spurt en kollega"
+  lead: "Vanlig prompt, ingen formatkrav. Svaret strømmer rett fra OpenAI."
+  input_label: "HENVENDELSE"
+  prompt_label: "PROMPT"
+  answer_label: "RÅSVAR, SLIK DET KOMMER"
+
+json-forsok:
+  kicker: "FORSØK PÅ Å FIKSE DET"
+  title: "Be om JSON – og sjekk hva som faktisk kommer tilbake"
+  lead: "Samme henvendelser. Formen står i prompten, og koden parser svaret."
+  input_label: "HENVENDELSE"
+  prompt_label: "PROMPT MED JSON-FORMAT"
+  answer_label: "RÅSVAR"
+  batch_label: "SAMME FORESPØRSEL, 100 KALL I PARALLELL"
+  batch_lead: "Hvert svar parses og sjekkes mot formen: gyldig JSON, riktige felt og lovlige verdier."
+  detail_hint: "Klikk en rute for å se råsvaret fra det kallet."
 
 to-modeller:
   kicker: "FORSKJELLEN"
-  title: "Token for token – eller ett pass"
-  llm_title: "Vanlig LLM"
-  llm_lead: "Genererer tekst. Resonnerer, skriver JSON, ett token om gangen."
+  title: "Samme tekst: én modell skriver, den andre svarer"
+  input_label: "HENVENDELSE"
+  llm_title: "OpenAI"
+  llm_lead: "Samme JSON-prompt som forrige slide. Skriver svaret token for token."
   jev_title: "Jev"
-  jev_lead: "Vurderer alle spørsmålene parallelt og returnerer sannsynligheter direkte."
-  footnote: "Tidsforløpet er en illustrasjon. Jev-svaret er eksempelet fra TypeSafe-dokumentasjonen."
+  jev_lead: "Samme tre spørsmål. Sannsynligheter i ett pass, ingen tekst å parse."
+  footnote: "Begge startes samtidig fra denne maskinen. Tidene måles i nettleseren."
 
 primitiver:
   kicker: "TRE TYPER SPØRSMÅL"

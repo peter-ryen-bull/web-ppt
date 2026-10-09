@@ -512,6 +512,125 @@ export const CLASSIFY_TASKS: ClassifyTask[] = [
 ];
 
 /* ------------------------------------------------------------------ */
+/* Utgangspunktet: samme henvendelser til OpenAI, først fritekst, så    */
+/* JSON bestilt i prompten, så Jev på samme tekst.                      */
+/* ------------------------------------------------------------------ */
+
+export const LIVE_INPUTS = [
+  "Hei, jeg har prøvd å koble til Stripe-kontoen min i tre dager, og integrasjonen feiler hele tiden. Jeg taper salg. Hjelp ASAP!",
+  "Hvorfor er jeg trukket to ganger for oktober? Vil ha pengene tilbake.",
+  "Hei! Vi vurderer å oppgradere til Pro for hele avdelingen. Hva koster det for 40 brukere?",
+  "Appen har vært nede siden i morges, og ingen av oss får logget inn. Dette er helt uakseptabelt.",
+];
+
+export type PromptMode = "fritekst" | "json";
+
+export const LIVE_TEAMS = ["faktura", "teknisk", "salg"] as const;
+
+export function buildLiveMessages(mode: PromptMode, input: string) {
+  const ticket = `Kundehenvendelse:\n"""\n${input}\n"""`;
+  if (mode === "fritekst") {
+    return [
+      {
+        role: "user" as const,
+        content: `${ticket}\n\nHvilket team bør ta denne: faktura, teknisk eller salg? Hvor frustrert er kunden, og haster det?`,
+      },
+    ];
+  }
+  return [
+    { role: "developer" as const, content: "Du er en klassifiserer. Svar bare med ett JSON-objekt og ingenting annet." },
+    {
+      role: "user" as const,
+      content:
+        `${ticket}\n\nSvar med JSON på denne formen:\n` +
+        `{"team": "faktura" | "teknisk" | "salg", "frustrasjon": 0 | 1 | 2, "haster": true | false}\n\n` +
+        `frustrasjon: 0 = rolig, 1 = frustrert men høflig, 2 = svært sint.`,
+    },
+  ];
+}
+
+export type ShapeCheck = { label: string; short: string; ok: boolean; detail?: string };
+
+/** Sjekker svaret slik koden din måtte gjort før den kan bruke det. */
+export function checkJsonShape(raw: string): { parsed: Record<string, unknown> | null; checks: ShapeCheck[] } {
+  const checks: ShapeCheck[] = [];
+  let parsed: unknown = null;
+  let strict = true;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    strict = false;
+    const stripped = raw.replace(/^\s*```(?:json)?\s*/i, "").replace(/\s*```\s*$/, "");
+    try {
+      parsed = JSON.parse(stripped);
+    } catch {
+      parsed = null;
+    }
+  }
+  checks.push({
+    label: "JSON.parse på råsvaret",
+    short: "parser",
+    ok: strict,
+    detail: strict ? undefined : parsed ? "gikk først etter at ``` ble fjernet" : "ikke gyldig JSON",
+  });
+  const obj = parsed && typeof parsed === "object" && !Array.isArray(parsed) ? (parsed as Record<string, unknown>) : null;
+  const keys = obj ? Object.keys(obj).sort().join(", ") : "";
+  checks.push({
+    label: "nøkler: frustrasjon, haster, team",
+    short: "felt",
+    ok: keys === "frustrasjon, haster, team",
+    detail: obj && keys !== "frustrasjon, haster, team" ? `fikk: ${keys || "ingen"}` : undefined,
+  });
+  const team = obj?.team;
+  checks.push({
+    label: "team er faktura | teknisk | salg",
+    short: "team",
+    ok: typeof team === "string" && (LIVE_TEAMS as readonly string[]).includes(team),
+    detail: obj && team !== undefined ? `fikk: ${JSON.stringify(team)}` : undefined,
+  });
+  const f = obj?.frustrasjon;
+  checks.push({
+    label: "frustrasjon er 0, 1 eller 2",
+    short: "frustrasjon",
+    ok: f === 0 || f === 1 || f === 2,
+    detail: obj && f !== undefined ? `fikk: ${JSON.stringify(f)}` : undefined,
+  });
+  const h = obj?.haster;
+  checks.push({
+    label: "haster er true eller false",
+    short: "haster",
+    ok: typeof h === "boolean",
+    detail: obj && h !== undefined ? `fikk: ${JSON.stringify(h)}` : undefined,
+  });
+  return { parsed: obj, checks };
+}
+
+/** Jev-spørsmålene til samme henvendelser. Nøklene matcher JSON-formen over. */
+export const LIVE_QUESTIONS: Questions = {
+  team: {
+    type: "choice",
+    instructions: "Which team should handle this customer message?",
+    criteria: {
+      faktura: "Invoices, payments, charges or refunds",
+      teknisk: "Bugs, outages, login or integration problems",
+      salg: "Pricing, upgrades or new customers",
+    },
+  },
+  frustrasjon: {
+    type: "score",
+    instructions: "How frustrated is the customer?",
+    criteria: ["Calm, just stating facts", "Frustrated but civil", "Very angry, strong language"],
+  },
+  haster: { type: "noul", instructions: "The message conveys urgency or time-sensitivity" },
+};
+
+/** Linjer fra /api/jev med kind «openai-stream». */
+export type StreamLine =
+  | { t: "delta"; text: string }
+  | { t: "done"; model: string; usage: { input: number; output: number; reasoning: number }; latencyMs: number; firstMs: number | null }
+  | { t: "error"; error: string };
+
+/* ------------------------------------------------------------------ */
 /* Samme oppgave som en vanlig LLM-prompt.                             */
 /* ------------------------------------------------------------------ */
 
