@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Copy } from "@/components/Copy";
 import { Box, ChapterSlide, pt } from "../parts";
-import { BANK_QUESTIONS } from "./jev";
+import { QUESTION_ID, questionsFor, shortLabel, stateFor, taskById } from "./cases";
 import { Playground } from "./playground";
 import {
   Body,
@@ -12,7 +12,7 @@ import {
   fieldStyle,
   Header,
   Label,
-  ModeBadge,
+  LiveBadge,
   MONO,
   MUTED,
   ProbBar,
@@ -57,40 +57,31 @@ export function SlideStegAlle() {
   return (
     <>
       <Header />
-      <Playground presetId="alle" compare questionsHeight={300} />
+      <Playground presetId="alle" compare questionsHeight={270} />
     </>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/* Confidence-gated routing (bank-eksempelet fra TypeSafe-docs)         */
+/* Confidence-gated routing på nye brukere (spam/bot-casen)             */
 /* ------------------------------------------------------------------ */
 
-const INTENTS = ["check_balance", "approve_transfer", "other"] as const;
-type Intent = (typeof INTENTS)[number];
+const SPAM = taskById("spam");
+const REAL = "ekte";
+const SPAM_LABEL = "spam/bot";
 
-const UTTERANCES = [
-  "What's my balance right now?",
-  "Yes, please approve the transfer to my landlord.",
-  "Uh, the transfer thing, maybe? I'm not really sure.",
-];
+type Branch = "human" | "allow" | "verify" | "block";
 
-type Branch = "human" | "balance" | "confirm" | "approve";
-
-function route(intent: Intent, confidence: number, floor: number, high: number): Branch {
+function route(choice: string, confidence: number, floor: number, high: number): Branch {
   if (confidence < floor) return "human";
-  if (intent === "check_balance") return "balance";
-  if (intent === "approve_transfer") return confidence > high ? "approve" : "confirm";
-  return "human";
+  if (choice === REAL) return "allow";
+  return confidence > high ? "block" : "verify";
 }
 
 export function SlideConfidence() {
   const status = useDemoStatus();
-  const [text, setText] = useState(UTTERANCES[1]);
-  const [intent, setIntent] = useState<Intent>("approve_transfer");
-  const [confidence, setConfidence] = useState(0.72);
-  const [probs, setProbs] = useState<Record<string, number> | null>(null);
-  const [live, setLive] = useState(false);
+  const [text, setText] = useState(SPAM.examples[3]);
+  const [answer, setAnswer] = useState<{ choice: string; confidence: number; probs: Record<string, number>; ms: number } | null>(null);
   const [floor, setFloor] = useState(0.6);
   const [high, setHigh] = useState(0.85);
   const [note, setNote] = useState<string | null>(null);
@@ -99,97 +90,85 @@ export function SlideConfidence() {
   const ask = async () => {
     setNote(null);
     if (!status?.jev) {
-      setNote("Ikke live – juster svar og confidence for hånd under.");
+      setNote("Ingen Jev-nøkkel: legg API_KEY i presentations/jev-demo/.env.");
       return;
     }
     setBusy(true);
-    const res = await runJev(text, BANK_QUESTIONS);
+    const res = await runJev(stateFor(SPAM, text), questionsFor(SPAM));
     setBusy(false);
     if (!res.ok) {
       setNote(res.error);
       return;
     }
-    const a = res.data.answers.intent;
-    if (a?.type === "choice" && (INTENTS as readonly string[]).includes(a.choice)) {
-      setIntent(a.choice as Intent);
-      setConfidence(a.confidence);
-      setProbs(a.probabilities);
-      setLive(true);
+    const a = res.data.answers[QUESTION_ID];
+    if (a?.type === "choice" && (a.choice === REAL || a.choice === SPAM_LABEL)) {
+      setAnswer({ choice: a.choice, confidence: a.confidence, probs: a.probabilities, ms: res.latencyMs });
+    } else {
+      setNote("Uventet svar fra Jev.");
     }
   };
 
-  const branch = route(intent, confidence, floor, high);
-  const branches: { id: Branch; k: string }[] = [
-    { id: "human", k: "human" },
-    { id: "balance", k: "balance" },
-    { id: "confirm", k: "confirm" },
-    { id: "approve", k: "approve" },
-  ];
+  const branch = answer ? route(answer.choice, answer.confidence, floor, high) : null;
+  const branches: Branch[] = ["human", "allow", "verify", "block"];
 
   return (
     <>
       <Header />
       <Box box={[81, 170, 540, 500]}>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }} {...interactive}>
-          <Label>kunden sier (state)</Label>
-          <div style={{ height: 58 }}>
-            <textarea value={text} onChange={(e) => setText(e.target.value)} spellCheck={false} style={{ ...fieldStyle, ...sans, fontSize: pt(13) }} />
+          <Label>ny bruker (state)</Label>
+          <div style={{ height: 70 }}>
+            <textarea value={text} onChange={(e) => {
+                setText(e.target.value);
+                setAnswer(null);
+              }} spellCheck={false} style={{ ...fieldStyle, fontFamily: MONO, fontSize: pt(10.5), lineHeight: 1.4 }} />
           </div>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-            {UTTERANCES.map((u) => (
+            {SPAM.examples.map((u) => (
               <button
                 key={u}
                 type="button"
                 onClick={(e) => {
                   e.currentTarget.blur();
                   setText(u);
+                  setAnswer(null);
                 }}
                 style={{ ...sans, fontSize: pt(10), border: "1px solid var(--divider)", background: text === u ? "var(--cream)" : "#fff", color: "var(--burgundy)", padding: "3px 8px", cursor: "pointer" }}
               >
-                {u}
+                {shortLabel(u)}
               </button>
             ))}
           </div>
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <Button onClick={ask} disabled={busy}>
-              {busy ? "Spør Jev …" : "Spør Jev om intent"}
+              {busy ? "Spør Jev …" : "Spør Jev"}
             </Button>
-            <ModeBadge live={live} offline="MANUELT" />
+            {answer && <LiveBadge />}
+            {answer && <span style={{ fontFamily: MONO, fontSize: pt(10.5), color: MUTED }}>{(answer.ms / 1000).toFixed(2)} s</span>}
           </div>
           {note && <Body size={11} color="var(--red-deep)">{note}</Body>}
 
-          <div style={{ marginTop: 6 }}>
-            <Label>svar: choice</Label>
-            <div style={{ display: "flex", gap: 6, marginTop: 6 }}>
-              {INTENTS.map((i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={(e) => {
-                    e.currentTarget.blur();
-                    setIntent(i);
-                    setLive(false);
-                    setProbs(null);
-                  }}
-                  style={{ fontFamily: MONO, fontSize: pt(10.5), padding: "4px 8px", cursor: "pointer", border: "none", background: intent === i ? "var(--teal)" : "#fff", color: intent === i ? "#fff" : "var(--burgundy)" }}
-                >
-                  {i}
-                </button>
-              ))}
-            </div>
+          <div style={{ marginTop: 6, minHeight: 110 }}>
+            <Label>svar fra jev: {SPAM.column} · choice</Label>
+            {answer ? (
+              <div style={{ display: "flex", flexDirection: "column", gap: 3, marginTop: 6 }}>
+                {Object.entries(answer.probs).map(([k, v]) => (
+                  <ProbBar key={k} label={k} value={v} highlight={k === answer.choice} color={SPAM.colors[k]} />
+                ))}
+                <div style={{ fontFamily: MONO, fontSize: pt(12), color: "var(--teal)", marginTop: 4 }}>
+                  confidence {answer.confidence.toFixed(2)}
+                </div>
+              </div>
+            ) : (
+              <Body size={11.5} color={MUTED} style={{ marginTop: 6 }}>
+                Ingen svar ennå. Velg en bruker og spør Jev.
+              </Body>
+            )}
           </div>
-          {probs && (
-            <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              {Object.entries(probs).map(([k, v]) => (
-                <ProbBar key={k} label={k} value={v} highlight={k === intent} />
-              ))}
-            </div>
-          )}
-          <Slider label="confidence" value={confidence} onChange={(v) => { setConfidence(v); setLive(false); }} color="var(--teal)" />
           <div style={{ borderTop: "1px solid var(--divider)", paddingTop: 8, display: "flex", flexDirection: "column", gap: 6 }}>
             <Label>terskler i koden din</Label>
             <Slider label="gulv (alt)" value={floor} onChange={setFloor} color="var(--red-deep)" />
-            <Slider label="overføring auto" value={high} onChange={setHigh} color="var(--red-deep)" />
+            <Slider label="blokker auto" value={high} onChange={setHigh} color="var(--red-deep)" />
           </div>
         </div>
       </Box>
@@ -198,17 +177,17 @@ export function SlideConfidence() {
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           <Label>kode bestemmer – modellen gir svar og sikkerhet</Label>
           {branches.map((b) => {
-            const active = b.id === branch;
+            const active = b === branch;
             return (
               <Card
-                key={b.id}
+                key={b}
                 box={[0, 0, 555, 78]}
                 bg={active ? "var(--teal)" : "#fff"}
                 style={{ position: "relative", transition: "background 200ms" }}
               >
                 <Box box={[18, 12, 520, 60]}>
-                  <Copy k={`${b.k}_rule`} as="div" style={{ fontFamily: MONO, fontSize: pt(11), color: active ? "var(--mint)" : MUTED }} />
-                  <Copy k={`${b.k}_action`} as="div" style={{ ...sans, fontSize: pt(17), fontWeight: 700, color: active ? "#fff" : "var(--burgundy)", marginTop: 4 }} />
+                  <Copy k={`${b}_rule`} as="div" style={{ fontFamily: MONO, fontSize: pt(11), color: active ? "var(--mint)" : MUTED }} />
+                  <Copy k={`${b}_action`} as="div" style={{ ...sans, fontSize: pt(17), fontWeight: 700, color: active ? "#fff" : "var(--burgundy)", marginTop: 4 }} />
                 </Box>
               </Card>
             );

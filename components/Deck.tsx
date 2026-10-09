@@ -247,11 +247,16 @@ export default function Deck({ presentationId }: { presentationId: string }) {
   const isCurrentHidden = hidden.has(slides[current]?.id);
   const currentChapter = chapterOf(presentation, slides[current]?.chapterId);
 
+  const visibleIds = useCallback(
+    () => slides.filter((s) => !hidden.has(s.id)).map((s) => s.id),
+    [slides, hidden]
+  );
+
   const startExportMode = useCallback(() => {
-    setSelected(new Set(slides.map((s) => s.id)));
+    setSelected(new Set(visibleIds()));
     setExportError(null);
     setExportMode(true);
-  }, [slides]);
+  }, [visibleIds]);
 
   const toggleSelected = useCallback((id: string) => {
     setSelected((prev) => {
@@ -266,7 +271,10 @@ export default function Deck({ presentationId }: { presentationId: string }) {
     (chapterId: string) => {
       const chapter = chapterOf(presentation, chapterId);
       if (!chapter) return;
-      const ids = chapter.slides.map((s) => s.id);
+      const ids = chapter.slides
+        .map((s) => s.id)
+        .filter((id) => !hidden.has(id));
+      if (!ids.length) return;
       setSelected((prev) => {
         const allOn = ids.every((id) => prev.has(id));
         const next = new Set(prev);
@@ -275,11 +283,13 @@ export default function Deck({ presentationId }: { presentationId: string }) {
         return next;
       });
     },
-    [presentation]
+    [presentation, hidden]
   );
 
   const runExport = useCallback(async (quality: PdfQuality = "full") => {
-    const chosen = slides.filter((s) => selected.has(s.id));
+    const chosen = slides.filter(
+      (s) => selected.has(s.id) && !hidden.has(s.id)
+    );
     if (!chosen.length) return;
     setExportError(null);
     try {
@@ -296,7 +306,7 @@ export default function Deck({ presentationId }: { presentationId: string }) {
         err instanceof Error ? err.message : "Kunne ikke lage PDF."
       );
     }
-  }, [slides, selected, exportSlides, presentation.title, presentation.id]);
+  }, [slides, selected, hidden, exportSlides, presentation.title, presentation.id]);
 
   const closeOverview = useCallback(() => {
     if (exporting) return;
@@ -310,7 +320,8 @@ export default function Deck({ presentationId }: { presentationId: string }) {
         className={styles.stage}
         ref={stageRef}
         onClick={() => {
-          if (!copyEditing) go(1);
+          if (presentation.clickToProceed === false || copyEditing) return;
+          go(1);
         }}
       >
         <SlideCanvas
@@ -426,7 +437,7 @@ export default function Deck({ presentationId }: { presentationId: string }) {
             onStart: startExportMode,
             onToggleSelected: toggleSelected,
             onToggleChapter: toggleChapterSelected,
-            onSelectAll: () => setSelected(new Set(slides.map((s) => s.id))),
+            onSelectAll: () => setSelected(new Set(visibleIds())),
             onSelectNone: () => setSelected(new Set()),
             onRun: runExport,
             onCancel: () => setExportMode(false),

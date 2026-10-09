@@ -71,4 +71,10 @@ export interface PresentationDef {
    * kan redigeres i dev (høyreklikk). PNG-import har ikke dette.
    */
   hasCopy?: boolean;
+  /**
+   * Klikk på sliden går til neste steg/slide. Standard `true`. Sett `false`
+   * for decks med klikkbart innhold (demoer); tastatur og fjernkontroll
+   * virker fortsatt.
+   */
+  clickToProceed?: boolean;
 }

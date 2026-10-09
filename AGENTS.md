@@ -9,7 +9,7 @@ Forsiden (`/`) lister alt i `PRESENTATIONS`. Hver deck har tre URL-er:
 | `/<id>/presenter` | Presentatør: gjeldende + neste, notes, tidtakere |
 | `/<id>/vis` | Publikum: kun sliden |
 
-Brukeren øver og holder ofte live mot `http://localhost:3000`. Endringer skal
+Brukeren øver og holder ofte live mot `http://localhost:5010`. Endringer skal
 hot-reloades der – ikke start en ny Next-prosess.
 
 Detaljer for mennesker (tastatur, to skjermer, PDF) står i `README.md`.
@@ -17,20 +17,21 @@ Denne filen er for agenten: struktur, regler og hvordan du lager slides.
 
 ## Dev-server: aldri start en ekstra
 
-Brukeren kjører normalt allerede `npm run dev` på port 3000.
+Brukeren kjører normalt allerede `npm run dev` på port 5010 (`-p 5010` i
+`package.json`; port 3000 tilhører et annet prosjekt).
 
 - **Ikke kjør `npm run dev` / `next dev` i denne mappen** uten å først sjekke
-  om en server allerede lytter, og aldri hvis 3000 er opptatt:
+  om en server allerede lytter, og aldri hvis 5010 er opptatt:
 
   ```bash
-  lsof -nP -iTCP:3000 -sTCP:LISTEN
+  lsof -nP -iTCP:5010 -sTCP:LISTEN
   ```
 
-  Bruk den som kjører (`http://localhost:3000`) til å verifisere endringer.
+  Bruk den som kjører (`http://localhost:5010`) til å verifisere endringer.
 
 - Hvorfor: `next dev` sletter og gjenoppretter `.next/static`, `.next/server`
-  og manifestene ved oppstart – også når den ender på port 3001 fordi 3000 er
-  opptatt. Serveren som allerede kjører mister da filene sine, men webpack tror
+  og manifestene ved oppstart – også når den ender på en annen port fordi 5010
+  er opptatt. Serveren som allerede kjører mister da filene sine, men webpack tror
   de fortsatt er skrevet og skriver dem ikke på nytt. Resultat: CSS-chunks
   (typisk `/_next/static/css/app/[presentation]/presenter/page.css`) gir 404
   og presentatørvisningen blir ustylet til brukeren restarter serveren.
@@ -169,6 +170,10 @@ ber om det.
 7. Sett `inProgress: true`, `tags` (`conference` | `presentation` | `pitch` | `private`),
    `date`, `place` og ev. `icon`
    (`<FyrIkon />` eller `<BildeIkon src="…/ikon.png" />`).
+8. Valgfritt `clickToProceed: false` når slidene har klikkbart innhold
+ (demoer, skjema). Standard `true`: klikk på sliden i øvingsvisningen går
+ til neste steg/slide. Piltaster, mellomrom, fjernkontroll og
+ Neste/Forrige-knappene virker uansett.
 
 ```tsx
 import type { SlideDef } from "../types";

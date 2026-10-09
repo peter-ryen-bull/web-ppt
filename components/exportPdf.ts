@@ -1,6 +1,6 @@
 "use client";
 
-import { getFontEmbedCSS, toJpeg, toPng } from "html-to-image";
+import { getFontEmbedCSS, toJpeg } from "html-to-image";
 import { PDFDocument } from "pdf-lib";
 import { SLIDE_H, SLIDE_W } from "./SlideCanvas";
 
@@ -112,19 +112,25 @@ function downloadBytes(bytes: Uint8Array, filename: string) {
 let fontEmbedCss: string | null = null;
 
 /**
- * `full`: PNG i dobbel oppløsning (skarp, men bilder gjør filen stor).
- * `compact`: JPEG i 1280×720 – typisk en brøkdel av størrelsen.
+ * `full`: dobbel oppløsning. `compact`: 1280×720 og lavere JPEG-kvalitet –
+ * typisk en brøkdel av størrelsen.
  */
 export type PdfQuality = "full" | "compact";
 
-export type SlideCapture = { dataUrl: string; format: "png" | "jpg" };
+const CAPTURE = {
+  full: { ratio: 2, quality: 0.92 },
+  compact: { ratio: 1, quality: 0.75 },
+} as const;
 
-const COMPACT_JPEG_QUALITY = 0.75;
-
-export async function captureSlide(
+/**
+ * JPEG, ikke PNG: pdf-lib legger JPEG rett inn, men må pakke ut og
+ * komprimere hver PNG på nytt i `save()`. Med mange fotoslides frøs det
+ * nettleseren i over et minutt.
+ */
+export async function captureSlideJpeg(
   el: HTMLElement,
   quality: PdfQuality = "full"
-): Promise<SlideCapture> {
+): Promise<string> {
   copyDocumentTheme(el);
   freezeVisuals(el);
   // Safari dekoder store bilder asynkront og tegner dem ellers tomme i PDF-en.
@@ -138,8 +144,9 @@ export async function captureSlide(
   if (fontEmbedCss === null) {
     fontEmbedCss = await getFontEmbedCSS(el);
   }
-  const ratio = quality === "compact" ? 1 : 2;
-  const options = {
+  const { ratio, quality: jpegQuality } = CAPTURE[quality];
+  return toJpeg(el, {
+    quality: jpegQuality,
     width: SLIDE_W,
     height: SLIDE_H,
     canvasWidth: SLIDE_W * ratio,
@@ -155,14 +162,7 @@ export async function captureSlide(
       top: "0",
       margin: "0",
     },
-  };
-  if (quality === "compact") {
-    return {
-      dataUrl: await toJpeg(el, { ...options, quality: COMPACT_JPEG_QUALITY }),
-      format: "jpg",
-    };
-  }
-  return { dataUrl: await toPng(el, options), format: "png" };
+  });
 }
 
 export async function createPdfWriter(title: string) {
@@ -170,10 +170,8 @@ export async function createPdfWriter(title: string) {
   pdf.setTitle(title);
 
   return {
-    async addImage({ dataUrl, format }: SlideCapture) {
-      const bytes = dataUrlToBytes(dataUrl);
-      const image =
-        format === "jpg" ? await pdf.embedJpg(bytes) : await pdf.embedPng(bytes);
+    async addImage(dataUrl: string) {
+      const image = await pdf.embedJpg(dataUrlToBytes(dataUrl));
       const page = pdf.addPage([PDF_PAGE_W_PT, PDF_PAGE_H_PT]);
       page.drawImage(image, {
         x: 0,

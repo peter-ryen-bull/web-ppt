@@ -4,7 +4,7 @@ import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import type { SlideDef } from "@/presentations";
 import { lastStepOf, SlideSurface } from "./SlideCanvas";
 import {
-  captureSlide,
+  captureSlideJpeg,
   createPdfWriter,
   waitForPaint,
   type PdfQuality,
@@ -52,7 +52,7 @@ export function usePdfExport() {
           await waitForPaint();
           const node = frameRef.current;
           if (!node) throw new Error("Fant ikke sliden som skulle eksporteres.");
-          await pdf.addImage(await captureSlide(node, opts.quality));
+          await pdf.addImage(await captureSlideJpeg(node, opts.quality));
         }
         await pdf.save(opts.filename);
       } finally {

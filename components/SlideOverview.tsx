@@ -59,7 +59,7 @@ export default function SlideOverview({
           <h2 className={styles.title}>{presentation.title}</h2>
           <p className={styles.meta}>
             {exportMode
-              ? "Huk av slidene som skal med i PDF-en. Hver slide tas med én gang, på siste steg."
+              ? "Huk av slidene som skal med i PDF-en. Skjulte slides tas ikke med. Hver slide tas med én gang, på siste steg."
               : "Klikk for å gå til en slide. Bruk øye-knappen for å skjule eller vise den. Kapitler er bare synlige her – ikke for publikum."}
           </p>
         </div>
@@ -114,7 +114,7 @@ export default function SlideOverview({
                   className={`${styles.btn} ${styles.btnPrimary}`}
                   disabled={exportState.selected.size === 0}
                   onClick={() => exportState.onRun("full")}
-                  title="Skarp, men kan bli svært stor med mange bilder"
+                  title="Full oppløsning – skarpest, men størst fil"
                 >
                   Last ned PDF ({exportState.selected.size})
                 </button>
@@ -145,11 +145,13 @@ export default function SlideOverview({
         {chapters?.length ? (
           chapters.map((ch) => {
             const chapterHidden = isChapterFullyHidden(ch, hidden);
-            const chapterIds = ch.slides.map((s) => s.id);
+            const visibleIds = ch.slides
+              .map((s) => s.id)
+              .filter((id) => !hidden.has(id));
             const chapterSelected =
               !!selection &&
-              chapterIds.length > 0 &&
-              chapterIds.every((id) => selection.selected.has(id));
+              visibleIds.length > 0 &&
+              visibleIds.every((id) => selection.selected.has(id));
             return (
               <section key={ch.id} className={styles.chapter}>
                 <div className={styles.chapterHeader}>
@@ -169,7 +171,7 @@ export default function SlideOverview({
                         type="button"
                         className={styles.btn}
                         onClick={() => selection.toggleChapter(ch.id)}
-                        disabled={exporting}
+                        disabled={exporting || visibleIds.length === 0}
                       >
                         {chapterSelected ? "Fjern kapittel" : "Velg kapittel"}
                       </button>
@@ -279,7 +281,19 @@ function OverviewThumb({
   onToggleHidden: () => void;
   onToggleSelected: () => void;
 }) {
-  const selectTitle = selected ? "Fjern fra PDF" : "Velg til PDF";
+  const selectTitle = isHidden
+    ? "Skjult – tas ikke med i PDF"
+    : selected
+      ? "Fjern fra PDF"
+      : "Velg til PDF";
+  const activate = () => {
+    if (exporting) return;
+    if (selecting) {
+      if (!isHidden) onToggleSelected();
+      return;
+    }
+    onGo();
+  };
   return (
     <div
       className={`${styles.thumb} ${
@@ -288,28 +302,34 @@ function OverviewThumb({
         selecting && selected ? styles.thumbSelected : ""
       }`}
     >
-      <button
-        type="button"
+      {/* Ikke <button>: slides kan selv inneholde knapper, og <button> i <button> er ugyldig HTML. */}
+      <div
+        role="button"
+        tabIndex={exporting ? -1 : 0}
+        aria-disabled={exporting || undefined}
+        aria-label={selecting ? `${selectTitle}: ${slide.name}` : slide.name}
         className={styles.thumbCanvasWrap}
-        onClick={() => {
-          if (selecting) onToggleSelected();
-          else onGo();
+        onClick={activate}
+        onKeyDown={(e) => {
+          if (e.key !== "Enter" && e.key !== " ") return;
+          e.preventDefault();
+          e.stopPropagation();
+          activate();
         }}
-        disabled={exporting}
         title={selecting ? selectTitle : slide.name}
       >
-        <div className={styles.thumbCanvas}>
+        <div className={styles.thumbCanvas} inert aria-hidden>
           <SlideCanvas slide={slide} scale={200 / SLIDE_W} />
         </div>
-      </button>
+      </div>
       <div className={styles.thumbFooter}>
         {selecting && (
           <input
             type="checkbox"
             className={styles.thumbCheckbox}
-            checked={selected}
+            checked={selected && !isHidden}
             onChange={onToggleSelected}
-            disabled={exporting}
+            disabled={exporting || isHidden}
             aria-label={`Velg ${slide.name}`}
           />
         )}

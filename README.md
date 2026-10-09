@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Åpne <http://localhost:3000>, velg en presentasjon og start.
+Åpne <http://localhost:5010>, velg en presentasjon og start.
 
 ## Bruk
 
@@ -38,14 +38,14 @@ presentasjon.
 
 Fra slideoversikten i øvingsvisningen (`G`) kan du laste ned presentasjonen
 som PDF. Knappen vises bare der – ikke i visnings- eller presentatørmodus.
-Du kan ta med
-alle slides eller et utvalg. Hver slide blir én side, alltid på **siste
-klikk-steg** (mellomsteg tas ikke med).
+Skjulte slides tas ikke med. Du kan ta med de synlige slidene eller et
+utvalg av dem. Hver slide blir én side, alltid på **siste klikk-steg**
+(mellomsteg tas ikke med).
 
-«Last ned PDF» gir full kvalitet (PNG i dobbel oppløsning) – skarpt, men
-decks med mange bilder kan bli over 100 MB. «Komprimert PDF» lagrer hver
-slide som JPEG i 1280×720 (`<id>-komprimert.pdf`) og blir typisk en
-brøkdel av størrelsen; bilder og tekst blir litt mindre skarpe.
+«Last ned PDF» gir full kvalitet (JPEG i dobbel oppløsning). «Komprimert
+PDF» lagrer hver slide i 1280×720 med lavere JPEG-kvalitet
+(`<id>-komprimert.pdf`) og blir typisk en brøkdel av størrelsen; bilder og
+tekst blir litt mindre skarpe.
 
 ## Presentere med to skjermer (HDMI/prosjektor)
 

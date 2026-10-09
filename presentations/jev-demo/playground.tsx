@@ -1,29 +1,28 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Box, pt } from "../parts";
 import {
-  buildLlmMessages,
-  FLASH_PRICE_IN,
-  FLASH_PRICE_OUT,
   formatInt,
   formatUsd,
   jevCostUsd,
-  JEV_MEDIAN_LATENCY_S,
   llmCostUsd,
-  PRESETS,
-  roughTokens,
+  modelPrice,
   type Answer,
   type JevResponse,
   type Questions,
 } from "./jev";
+import { stateFor, STEP_QUESTIONS, type StepId } from "./cases";
+import { useCase } from "./case-choice";
 import {
   Body,
   Button,
   Card,
+  CaseTabs,
+  ExamplePicker,
   fieldStyle,
   Label,
-  ModeBadge,
+  LiveBadge,
   MONO,
   MUTED,
   ProbBar,
@@ -35,15 +34,14 @@ import {
   useDemoStatus,
 } from "./ui";
 
-type Shown = { data: JevResponse; live: boolean; latencyMs?: number };
+type Shown = { data: JevResponse; latencyMs: number };
 type LlmShown = {
-  live: boolean;
   model: string;
   input: number;
   output: number;
   reasoning: number;
-  latencyMs?: number;
-  text?: string;
+  latencyMs: number;
+  text: string;
 };
 
 function AnswerView({ id, answer }: { id: string; answer: Answer }) {
@@ -99,17 +97,18 @@ export function Playground({
   compare = false,
   questionsHeight = 230,
 }: {
-  presetId: keyof typeof PRESETS;
+  presetId: StepId;
   /** Vis knapp for å kjøre samme oppgave mot en vanlig LLM. */
   compare?: boolean;
   questionsHeight?: number;
 }) {
-  const preset = PRESETS[presetId];
-  const initialQuestions = useMemo(() => JSON.stringify(preset.questions, null, 2), [preset]);
+  const { task, example, item } = useCase();
+  const initialState = stateFor(task, item);
+  const initialQuestions = useMemo(() => JSON.stringify(STEP_QUESTIONS[presetId][task.id], null, 2), [presetId, task]);
   const status = useDemoStatus();
-  const [state, setState] = useState(preset.state);
+  const [state, setState] = useState(initialState);
   const [questionsText, setQuestionsText] = useState(initialQuestions);
-  const [shown, setShown] = useState<Shown>({ data: preset.recorded, live: false });
+  const [shown, setShown] = useState<Shown | null>(null);
   const [llm, setLlm] = useState<LlmShown | null>(null);
   const [busy, setBusy] = useState<"jev" | "llm" | null>(null);
   const [note, setNote] = useState<string | null>(null);
@@ -126,25 +125,19 @@ export function Playground({
     }
   };
 
-  const dirty = state !== preset.state || questionsText !== initialQuestions;
 
   const onRun = async () => {
     setNote(null);
     const q = parseQuestions();
     if (!q) return;
     if (!status?.jev) {
-      setShown({ data: preset.recorded, live: false });
-      setNote(
-        dirty
-          ? "Ikke live: legg TYPESAFE_API_KEY i .env.local for å kjøre egen tekst. Viser svaret fra docs."
-          : "Ikke live: legg TYPESAFE_API_KEY i .env.local. Viser svaret fra docs."
-      );
+      setNote("Ingen Jev-nøkkel: legg API_KEY i presentations/jev-demo/.env.");
       return;
     }
     setBusy("jev");
     const res = await runJev(state, q);
     setBusy(null);
-    if (res.ok) setShown({ data: res.data, live: true, latencyMs: res.latencyMs });
+    if (res.ok) setShown({ data: res.data, latencyMs: res.latencyMs });
     else setNote(res.error);
   };
 
@@ -152,33 +145,40 @@ export function Playground({
     setNote(null);
     const q = parseQuestions();
     if (!q) return;
-    if (!status?.llm.configured) {
-      const prompt = buildLlmMessages(state, q)
-        .map((m) => m.content)
-        .join("\n");
-      const exampleJson = JSON.stringify(
-        Object.fromEntries(Object.keys(q).map((k) => [k, q[k].type === "choice" ? "technical" : 0.95]))
-      );
-      setLlm({ live: false, model: "anslag", input: roughTokens(prompt) + 8, output: roughTokens(exampleJson), reasoning: 0 });
+    if (!status?.openai?.configured) {
+      setNote(`Ingen OpenAI-nøkkel: legg ${status?.openai?.keyEnv ?? "OPENAI_API_KEY"} i presentations/jev-demo/.env.`);
       return;
     }
     setBusy("llm");
     const res = await runLlm(state, q);
     setBusy(null);
-    if (res.ok) setLlm({ live: true, model: res.model, ...res.usage, latencyMs: res.latencyMs, text: res.text });
+    if (res.ok) setLlm({ model: res.model, ...res.usage, latencyMs: res.latencyMs, text: res.text });
     else setNote(res.error);
   };
 
   const reset = () => {
-    setState(preset.state);
+    setState(initialState);
     setQuestionsText(initialQuestions);
-    setShown({ data: preset.recorded, live: false });
+    setShown(null);
     setLlm(null);
     setNote(null);
   };
 
-  const usage = shown.data.usage;
-  const jevCost = jevCostUsd(usage.input_tokens);
+  const shownCase = useRef(`${task.id}:${example}`);
+  useEffect(() => {
+    const key = `${task.id}:${example}`;
+    if (shownCase.current === key) return;
+    shownCase.current = key;
+    setState(initialState);
+    setQuestionsText(initialQuestions);
+    setShown(null);
+    setLlm(null);
+    setNote(null);
+  }, [task, example, initialState, initialQuestions]);
+
+  const usage = shown?.data.usage;
+  const jevCost = usage ? jevCostUsd(usage.input_tokens) : null;
+  const llmPrice = modelPrice(llm?.model);
   const stateHeight = 74;
   const leftH = 500;
 
@@ -187,6 +187,10 @@ export function Playground({
       {/* Venstre: request */}
       <Box box={[81, 170, 540, leftH]}>
         <div style={{ display: "flex", flexDirection: "column", gap: 6, height: "100%" }} {...interactive}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+            <CaseTabs disabled={busy !== null} />
+            <ExamplePicker disabled={busy !== null} />
+          </div>
           <Label>state</Label>
           <div style={{ height: stateHeight }}>
             <textarea
@@ -211,7 +215,7 @@ export function Playground({
             </Button>
             {compare && (
               <Button tone="teal" onClick={onLlm} disabled={busy !== null}>
-                {busy === "llm" ? "Spør LLM …" : "Samme med LLM"}
+                {busy === "llm" ? "Spør OpenAI …" : "Samme med OpenAI"}
               </Button>
             )}
             <Button tone="ghost" onClick={reset} disabled={busy !== null}>
@@ -228,7 +232,7 @@ export function Playground({
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
             <Label>answers</Label>
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-              <ModeBadge live={shown.live} />
+              {shown && <LiveBadge />}
               <button
                 type="button"
                 onClick={(e) => {
@@ -242,7 +246,11 @@ export function Playground({
               </button>
             </div>
           </div>
-          {raw ? (
+          {!shown ? (
+            <Body size={12} color={MUTED}>
+              Ingen svar ennå. Trykk «Kjør Jev» – svaret og forbruket kommer rett fra API-et.
+            </Body>
+          ) : raw ? (
             <pre
               {...interactive}
               style={{ margin: 0, fontFamily: MONO, fontSize: pt(9.5), lineHeight: 1.3, color: "var(--burgundy)", overflow: "auto", height: compare ? 225 : 285 }}
@@ -263,13 +271,13 @@ export function Playground({
       <Card box={[645, compare ? 482 : 542, 555, compare ? 188 : 128]} bg="var(--burgundy)">
         <Box box={[18, 14, 519, 100]}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 12 }}>
-            <Stat label={<span style={{ color: "var(--mint)" }}>input tokens</span>} value={<span style={{ color: "#fff" }}>{formatInt(usage.input_tokens)}</span>} sub={<span style={{ color: "var(--cream-dark)" }}>faktureres</span>} />
-            <Stat label={<span style={{ color: "var(--mint)" }}>output tokens</span>} value={<span style={{ color: "#fff" }}>{formatInt(usage.output_tokens)}</span>} sub={<span style={{ color: "var(--cream-dark)" }}>gratis</span>} />
-            <Stat label={<span style={{ color: "var(--mint)" }}>kostnad</span>} value={<span style={{ color: "#fff" }}>{formatUsd(jevCost)}</span>} sub={<span style={{ color: "var(--cream-dark)" }}>{formatUsd(jevCost * 1e6)} / mill. kall</span>} />
+            <Stat label={<span style={{ color: "var(--mint)" }}>input tokens</span>} value={<span style={{ color: "#fff" }}>{usage ? formatInt(usage.input_tokens) : "–"}</span>} sub={<span style={{ color: "var(--cream-dark)" }}>faktureres</span>} />
+            <Stat label={<span style={{ color: "var(--mint)" }}>output tokens</span>} value={<span style={{ color: "#fff" }}>{usage ? formatInt(usage.output_tokens) : "–"}</span>} sub={<span style={{ color: "var(--cream-dark)" }}>gratis</span>} />
+            <Stat label={<span style={{ color: "var(--mint)" }}>kostnad</span>} value={<span style={{ color: "#fff" }}>{jevCost !== null ? formatUsd(jevCost) : "–"}</span>} sub={<span style={{ color: "var(--cream-dark)" }}>dette kallet</span>} />
             <Stat
               label={<span style={{ color: "var(--mint)" }}>ventetid</span>}
-              value={<span style={{ color: "#fff" }}>{shown.latencyMs != null ? `${(shown.latencyMs / 1000).toFixed(2)} s` : "–"}</span>}
-              sub={<span style={{ color: "var(--cream-dark)" }}>{shown.latencyMs != null ? "via proxy" : `median ${JEV_MEDIAN_LATENCY_S} s i studie`}</span>}
+              value={<span style={{ color: "#fff" }}>{shown ? `${(shown.latencyMs / 1000).toFixed(2)} s` : "–"}</span>}
+              sub={<span style={{ color: "var(--cream-dark)" }}>målt på serveren</span>}
             />
           </div>
         </Box>
@@ -278,14 +286,14 @@ export function Playground({
             <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 10 }}>
               {llm ? (
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 12 }}>
-                  <Stat label={<span style={{ color: "var(--red)" }}>LLM input</span>} value={<span style={{ color: "#fff" }}>{llm.live ? "" : "≈"}{formatInt(llm.input)}</span>} sub={<span style={{ color: "var(--cream-dark)" }}>{llm.model}</span>} />
-                  <Stat label={<span style={{ color: "var(--red)" }}>LLM output</span>} value={<span style={{ color: "#fff" }}>{llm.live ? "" : "≈"}{formatInt(llm.output)}</span>} sub={<span style={{ color: "var(--cream-dark)" }}>{llm.reasoning ? `${formatInt(llm.reasoning)} resonnering` : "betales"}</span>} />
-                  <Stat label={<span style={{ color: "var(--red)" }}>kostnad</span>} value={<span style={{ color: "#fff" }}>{llm.live ? "" : "≈"}{formatUsd(llmCostUsd(llm.input, llm.output))}</span>} sub={<span style={{ color: "var(--cream-dark)" }}>Flash-pris {FLASH_PRICE_IN}/{FLASH_PRICE_OUT}</span>} />
-                  <Stat label={<span style={{ color: "var(--red)" }}>ventetid</span>} value={<span style={{ color: "#fff" }}>{llm.latencyMs != null ? `${(llm.latencyMs / 1000).toFixed(2)} s` : "–"}</span>} sub={<span style={{ color: "var(--cream-dark)" }}>{llm.live ? "via proxy" : "kjør live for tall"}</span>} />
+                  <Stat label={<span style={{ color: "var(--red)" }}>OpenAI input</span>} value={<span style={{ color: "#fff" }}>{formatInt(llm.input)}</span>} sub={<span style={{ color: "var(--cream-dark)" }}>{llm.model}</span>} />
+                  <Stat label={<span style={{ color: "var(--red)" }}>OpenAI output</span>} value={<span style={{ color: "#fff" }}>{formatInt(llm.output)}</span>} sub={<span style={{ color: "var(--cream-dark)" }}>{llm.reasoning ? `${formatInt(llm.reasoning)} resonnering` : "betales"}</span>} />
+                  <Stat label={<span style={{ color: "var(--red)" }}>kostnad</span>} value={<span style={{ color: "#fff" }}>{llmPrice ? formatUsd(llmCostUsd(llm.input, llm.output, llmPrice.in, llmPrice.out)) : "–"}</span>} sub={<span style={{ color: "var(--cream-dark)" }}>{llmPrice ? `listepris ${llmPrice.in}/${llmPrice.out}` : "ukjent pris"}</span>} />
+                  <Stat label={<span style={{ color: "var(--red)" }}>ventetid</span>} value={<span style={{ color: "#fff" }}>{`${(llm.latencyMs / 1000).toFixed(2)} s`}</span>} sub={<span style={{ color: "var(--cream-dark)" }}>målt på serveren</span>} />
                 </div>
               ) : (
                 <Body size={11.5} color="var(--cream-dark)">
-                  Trykk «Samme med LLM» for å sende samme oppgave som en vanlig prompt og se tokenene side om side.
+                  Trykk «Samme med OpenAI» for å sende samme oppgave som en vanlig prompt og se tokenene side om side.
                 </Body>
               )}
             </div>

@@ -1,11 +1,10 @@
 /*
- * Delte typer, priser og forhåndsoppsett for Jev-demoen.
+ * Delte typer, priser og batching-teksten for Jev-demoen. Casene ligger i cases.ts.
  * Brukes både av slidene (klient) og av app/api/jev (server).
  *
  * Kilder (hentet 2. okt 2026):
  * - API og eksempelsvar: https://docs.typesafe.ai/api.md og /introduction/quickstart.md
  * - Pris og grenser: https://docs.typesafe.ai/models.md
- * - LLM-priser og ventetid: arXiv 2609.29769 (Jev vs. LLMs as Rubric Judges)
  */
 
 export type NoulQuestion = {
@@ -63,26 +62,93 @@ export type LlmRunResult =
     }
   | { ok: false; error: string };
 
-export type DemoStatus = { jev: boolean; llm: { configured: boolean; model: string | null } };
+/* ------------------------------------------------------------------ */
+/* Sammenligning med OpenAI (samme elementer, samme prompt).           */
+/* ------------------------------------------------------------------ */
+
+export type Provider = "jev" | "openai";
+export type ProviderStatus = { configured: boolean; model: string; keyEnv: string; effort: string };
+
+export type DemoStatus = {
+  jev: boolean;
+  openai?: ProviderStatus;
+};
+
+/** Når verken presentatøren eller OPENAI_MODEL har valgt noe. */
+export const DEFAULT_OPENAI_MODEL = "gpt-6.1-sol";
+export const DEFAULT_OPENAI_EFFORT = "low";
+
+export type OpenaiModel = { id: string; name: string; efforts: string[]; price: { in: number; out: number } };
+
+/*
+ * Modeller og listepris ($ per million tokens, standard) fra
+ * platform.openai.com/docs/models og /docs/pricing, hentet 9. okt 2026.
+ * Effort-nivåene er de API-et godtar per modell (testet 9. okt 2026);
+ * ingen av dem godtar «minimal».
+ */
+const FULL = ["none", "low", "medium", "high", "xhigh", "max"];
+export const OPENAI_MODELS: OpenaiModel[] = [
+  { id: "gpt-6-astra", name: "GPT-6 Astra", efforts: FULL.slice(1), price: { in: 10, out: 50 } },
+  { id: "gpt-6.1-sol", name: "GPT-6.1 Sol", efforts: FULL.slice(1), price: { in: 2, out: 10 } },
+  { id: "gpt-6-luna", name: "GPT-6 Luna", efforts: FULL, price: { in: 0.1, out: 0.5 } },
+  { id: "gpt-6-sol", name: "GPT-6 Sol", efforts: FULL, price: { in: 2, out: 10 } },
+  { id: "gpt-5.6-sol", name: "GPT-5.6 Sol", efforts: FULL, price: { in: 4, out: 20 } },
+  { id: "gpt-5.6-terra", name: "GPT-5.6 Terra", efforts: FULL, price: { in: 2, out: 12 } },
+  { id: "gpt-5.6-luna", name: "GPT-5.6 Luna", efforts: FULL, price: { in: 0.2, out: 1.2 } },
+  { id: "gpt-5.5", name: "GPT-5.5", efforts: FULL.slice(0, -1), price: { in: 5, out: 30 } },
+];
+
+export const MODEL_PRICES: Record<string, { in: number; out: number }> = Object.fromEntries(
+  OPENAI_MODELS.map((m) => [m.id, m.price])
+);
+
+export type OpenaiChoice = { model: string; effort: string };
+
+/** Gyldig modell og effort. Ukjent modell gir standard; effort faller til «low» eller laveste nivå modellen har. */
+export function normalizeOpenaiChoice(c: Partial<OpenaiChoice> | null | undefined): OpenaiChoice {
+  const m = OPENAI_MODELS.find((x) => x.id === c?.model) ?? OPENAI_MODELS.find((x) => x.id === DEFAULT_OPENAI_MODEL)!;
+  const effort = c?.effort && m.efforts.includes(c.effort) ? c.effort : m.efforts.includes(DEFAULT_OPENAI_EFFORT) ? DEFAULT_OPENAI_EFFORT : m.efforts[0];
+  return { model: m.id, effort };
+}
+
+/** Svar fra en LLM for ett element. `answers` er JSON-en modellen skrev, om den kunne leses. */
+export type LlmItem = {
+  answers: Record<string, unknown> | null;
+  text: string;
+  input: number;
+  output: number;
+  reasoning: number;
+};
+
+/** Én linje i NDJSON-strømmen fra /api/jev med kind «batch». */
+export type BatchLine =
+  | { i: number; ok: true; data: JevResponse; latencyMs: number }
+  | { i: number; ok: true; llm: LlmItem; latencyMs: number }
+  | { i: number; ok: false; error: string; latencyMs: number }
+  | { done: true; wallMs: number }
+  | { fatal: string };
+
+export const BATCH_MAX_ITEMS = 1000;
+export const BATCH_MAX_CONCURRENCY = 100;
 
 /** $ per million tokens. Jev: kun input. Output er gratis. */
 export const JEV_PRICE_IN = 0.042;
-/** Gemini 3.8 Flash slik prisen ble gjengitt i arXiv 2609.29769 (tabell B1). */
-export const FLASH_PRICE_IN = 0.75;
-export const FLASH_PRICE_OUT = 3.75;
-/** Median ventetid per Jev-kall i arXiv 2609.29769, vedlegg A. */
-export const JEV_MEDIAN_LATENCY_S = 0.19;
+
+/** Listepris for modellen, også når API-et svarer med en datert variant (gpt-6.1-sol-2026-…). */
+export function modelPrice(model: string | null | undefined): { in: number; out: number } | null {
+  if (!model) return null;
+  if (MODEL_PRICES[model]) return MODEL_PRICES[model];
+  const key = Object.keys(MODEL_PRICES)
+    .filter((k) => model.startsWith(k))
+    .sort((a, b) => b.length - a.length)[0];
+  return key ? MODEL_PRICES[key] : null;
+}
 
 export function jevCostUsd(inputTokens: number): number {
   return (inputTokens / 1e6) * JEV_PRICE_IN;
 }
 
-export function llmCostUsd(
-  inputTokens: number,
-  outputTokens: number,
-  priceIn = FLASH_PRICE_IN,
-  priceOut = FLASH_PRICE_OUT
-): number {
+export function llmCostUsd(inputTokens: number, outputTokens: number, priceIn: number, priceOut: number): number {
   return (inputTokens / 1e6) * priceIn + (outputTokens / 1e6) * priceOut;
 }
 
@@ -97,152 +163,45 @@ export function formatInt(v: number): string {
   return Math.round(v).toLocaleString("nb-NO");
 }
 
-/* ------------------------------------------------------------------ */
-/* Forhåndsoppsett. Innspilte svar er eksemplene fra TypeSafe-docs.    */
-/* ------------------------------------------------------------------ */
+/** Oppdiktet vilkårstekst til batching-sliden. Spørsmålene under har blandede svar. */
+export const TERMS_DOC = `Nordlys Cloud AS – Terms of Service (excerpt)
 
-export type Preset = {
-  id: string;
-  state: string;
-  questions: Questions;
-  /** Svar slik de står i dokumentasjonen – vises når vi ikke kjører live. */
-  recorded: JevResponse;
+1. Term and renewal. The subscription runs for twelve months from the start date and renews automatically for another twelve months unless either party cancels in writing at least 60 days before the renewal date.
+
+2. Fees. Fees are invoiced annually in advance. Nordlys Cloud may adjust prices once per year by giving the customer at least 90 days written notice. Prepaid fees are non-refundable, including for unused time, except where required by law.
+
+3. Customer data. Customer data is stored in data centres in Norway and Sweden and is not transferred outside the EU/EEA. Nordlys Cloud processes customer data only to provide the service and does not sell or share it with third parties for marketing purposes. Customer data is not used to train machine learning models.
+
+4. Availability. Nordlys Cloud targets 99.9% monthly uptime. If the target is missed, the customer receives service credits of 5% of the monthly fee for each full 0.1% below target, up to 30% of the monthly fee.
+
+5. Liability. Each party's total liability under this agreement is limited to the fees paid in the twelve months before the claim. Neither party is liable for indirect or consequential losses.
+
+6. Termination. The customer may terminate for convenience at the end of the current term. Either party may terminate immediately if the other party materially breaches the agreement and fails to remedy the breach within 30 days of notice.
+
+7. Governing law. This agreement is governed by Norwegian law. Disputes shall be resolved by the Oslo District Court.`;
+
+export const TERMS_QUESTIONS: Questions = {
+  auto_renewal: { type: "noul", instructions: "The subscription renews automatically unless cancelled" },
+  refund_unused: { type: "noul", instructions: "The customer can get a refund for unused prepaid time" },
+  eu_only: { type: "noul", instructions: "Customer data stays within the EU/EEA" },
+  short_price_notice: { type: "noul", instructions: "Prices can be changed with less than 30 days notice" },
+  liability_cap: { type: "noul", instructions: "The provider's liability is capped" },
+  marketing_sharing: { type: "noul", instructions: "Customer data may be shared with third parties for marketing" },
+  sla_credits: { type: "noul", instructions: "The customer gets compensation if uptime targets are missed" },
+  norwegian_law: { type: "noul", instructions: "Disputes are governed by Norwegian law" },
+  ai_training: { type: "noul", instructions: "Customer data may be used to train AI models" },
+  quick_exit: { type: "noul", instructions: "The customer can cancel at any time with 30 days notice or less" },
 };
 
-const PAYOUTS = "Help! My payouts have been failing for 3 days.";
-const STRIPE =
-  "Hi, I've been trying to connect my Stripe account for 3 days and the integration keeps failing. I'm losing sales. Please help ASAP.";
+export type PromptMode = "fritekst" | "json";
 
-export const PRESETS: Record<string, Preset> = {
-  noul: {
-    id: "noul",
-    state: PAYOUTS,
-    questions: {
-      is_urgent: { type: "noul", instructions: "Does this convey urgency?" },
-    },
-    recorded: {
-      model: "jev-1.13.0",
-      answers: { is_urgent: { type: "noul", noul: 0.95 } },
-      usage: { input_tokens: 296, output_tokens: 20 },
-    },
-  },
-  choice: {
-    id: "choice",
-    state: PAYOUTS,
-    questions: {
-      department: {
-        type: "choice",
-        instructions: "Which team should handle this?",
-        criteria: {
-          billing: "Payments, invoicing, refunds",
-          technical: "Bugs, outages, integrations",
-          sales: "Pricing, upgrades, new accounts",
-        },
-      },
-    },
-    recorded: {
-      model: "jev-1.13.0",
-      answers: {
-        department: {
-          type: "choice",
-          choice: "billing",
-          probabilities: { billing: 0.88, technical: 0.12, sales: 0.0 },
-          confidence: 0.81,
-        },
-      },
-      usage: { input_tokens: 318, output_tokens: 34 },
-    },
-  },
-  score: {
-    id: "score",
-    state: PAYOUTS,
-    questions: {
-      frustration: {
-        type: "score",
-        instructions: "How frustrated is the customer?",
-        criteria: ["Calm", "Frustrated", "Very angry"],
-      },
-    },
-    recorded: {
-      model: "jev-1.13.0",
-      answers: {
-        frustration: {
-          type: "score",
-          score: 1.05,
-          legend: { "0": "Calm", "1": "Frustrated", "2": "Very angry" },
-          probabilities: { "0": 0.0, "1": 0.95, "2": 0.05 },
-          confidence: 0.92,
-        },
-      },
-      usage: { input_tokens: 304, output_tokens: 18 },
-    },
-  },
-  alle: {
-    id: "alle",
-    state: STRIPE,
-    questions: {
-      department: {
-        type: "choice",
-        instructions: "Which team should handle this",
-        criteria: {
-          billing: "Payment or subscription issues",
-          technical: "Bugs or integration problems",
-          sales: "Pricing or account questions",
-        },
-      },
-      frustration: {
-        type: "score",
-        instructions: "How frustrated the customer appears",
-        criteria: [
-          "Calm, just stating facts",
-          "Frustrated but civil",
-          "Very angry, strong language",
-        ],
-      },
-      is_urgent: {
-        type: "noul",
-        instructions: "The message conveys urgency or time-sensitivity",
-      },
-    },
-    recorded: {
-      model: "jev-1.13.0",
-      answers: {
-        department: {
-          type: "choice",
-          choice: "technical",
-          confidence: 0.78,
-          probabilities: { technical: 0.85, sales: 0.0, billing: 0.15 },
-        },
-        frustration: {
-          type: "score",
-          score: 1.0,
-          confidence: 1.0,
-          legend: {
-            "0": "Calm, just stating facts",
-            "1": "Frustrated but civil",
-            "2": "Very angry, strong language",
-          },
-          probabilities: { "0": 0.0, "1": 1.0, "2": 0.0 },
-        },
-        is_urgent: { type: "noul", noul: 1.0 },
-      },
-      usage: { input_tokens: 392, output_tokens: 65 },
-    },
-  },
-};
+export type ShapeCheck = { label: string; short: string; ok: boolean; detail?: string };
 
-/** Spørsmålet til bank-eksempelet (confidence-gated routing i TypeSafe-docs). */
-export const BANK_QUESTIONS: Questions = {
-  intent: {
-    type: "choice",
-    instructions: "What does the customer want to do?",
-    criteria: {
-      check_balance: "Hear the current account balance",
-      approve_transfer: "Approve a pending money transfer",
-      other: "Anything else, or unclear",
-    },
-  },
-};
+/** Linjer fra /api/jev med kind «openai-stream». */
+export type StreamLine =
+  | { t: "delta"; text: string }
+  | { t: "done"; model: string; usage: { input: number; output: number; reasoning: number }; latencyMs: number; firstMs: number | null }
+  | { t: "error"; error: string };
 
 /* ------------------------------------------------------------------ */
 /* Samme oppgave som en vanlig LLM-prompt.                             */
@@ -280,9 +239,4 @@ export function buildLlmMessages(state: string, questions: Questions) {
     { role: "system" as const, content: system },
     { role: "user" as const, content: user },
   ];
-}
-
-/** Grovt anslag: ~4 tegn per token for engelsk tekst. */
-export function roughTokens(text: string): number {
-  return Math.max(1, Math.round(text.length / 4));
 }

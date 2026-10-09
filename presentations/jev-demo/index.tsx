@@ -2,7 +2,8 @@ import type { SlideDef } from "../types";
 import copyRaw from "./copy.yaml";
 import notesRaw from "./notes.md";
 import { definePresentation } from "../chapters";
-import { SlideForside, SlidePrimitiver, SlideProblemet, SlideToModeller } from "./intro";
+import { SlideCasene, SlideForside, SlidePrimitiver } from "./intro";
+import { SlideJsonForsok, SlideProblemet, SlideToModeller } from "./utgangspunkt";
 import {
   SlideConfidence,
   SlideKapittel,
@@ -11,13 +12,17 @@ import {
   SlideStegNoul,
   SlideStegScore,
 } from "./tutorial";
-import { SlideBatching, SlideForskning, SlideKalkulator } from "./tokens";
-import { SlideArbeidsdeling, SlideBegrensninger, SlideOppsummering } from "./avslutning";
+import { SlideBatching, SlideForskning, SlideForskningJaNei, SlideKalkulator } from "./tokens";
+import { SlideFart, SlideKlassifiser } from "./fart";
+import { SlideSammenlign } from "./sammenlign";
+import { SlideArbeidsdeling, SlideBegrensninger, SlideKonklusjon } from "./avslutning";
 
 const INTRO: SlideDef[] = [
   { id: "forside", name: "Forside", component: SlideForside },
-  { id: "problemet", name: "Klassifisering med LLM i dag", component: SlideProblemet },
-  { id: "to-modeller", name: "Token for token vs. ett pass", component: SlideToModeller, steps: 1 },
+  { id: "casene", name: "De tre casene", component: SlideCasene },
+  { id: "problemet", name: "Utgangspunktet: fritekst fra OpenAI", component: SlideProblemet },
+  { id: "json-forsok", name: "Be om JSON – 100 ganger", component: SlideJsonForsok },
+  { id: "to-modeller", name: "OpenAI og Jev på samme tekst", component: SlideToModeller },
   { id: "primitiver", name: "Choice, Score og Noul", component: SlidePrimitiver },
 ];
 
@@ -30,17 +35,25 @@ const TUTORIAL: SlideDef[] = [
   { id: "steg-confidence", name: "Steg 5: confidence-styrt ruting", component: SlideConfidence },
 ];
 
+const FART: SlideDef[] = [
+  { id: "kap-fart", name: "Kapittel: fart", component: SlideKapittel },
+  { id: "klassifiser", name: "Klassifiser hva som helst", component: SlideKlassifiser },
+  { id: "fart", name: "Hundrevis på et sekund", component: SlideFart },
+  { id: "sammenlign", name: "Jev mot OpenAI", component: SlideSammenlign },
+];
+
 const TOKENS: SlideDef[] = [
   { id: "kap-tokens", name: "Kapittel: tokens og kostnad", component: SlideKapittel },
   { id: "batching", name: "Mange spørsmål, ett kall", component: SlideBatching },
   { id: "kalkulator", name: "Kostnadskalkulator", component: SlideKalkulator },
   { id: "forskning", name: "Hva sier forskningen", component: SlideForskning },
+  { id: "forskning-janei", name: "Studien: ja/nei mot skala", component: SlideForskningJaNei },
 ];
 
 const AVSLUTNING: SlideDef[] = [
   { id: "begrensninger", name: "Hvor Jev bommer", component: SlideBegrensninger },
   { id: "arbeidsdeling", name: "Jev, kode og LLM", component: SlideArbeidsdeling },
-  { id: "oppsummering", name: "Oppsummering og kilder", component: SlideOppsummering },
+  { id: "konklusjon", name: "Konklusjon: ikke bedre, men raskere og billigere", component: SlideKonklusjon },
 ];
 
 export const jevDemo = definePresentation({
@@ -51,11 +64,13 @@ export const jevDemo = definePresentation({
   date: "Oktober 2026",
   place: "Demo",
   inProgress: true,
+  clickToProceed: false,
   notes: notesRaw,
   copy: copyRaw,
   chapters: [
     { id: "intro", title: "Hva er Jev", slides: INTRO },
     { id: "tutorial", title: "Prøv selv", slides: TUTORIAL },
+    { id: "fart", title: "Fart", slides: FART },
     { id: "tokens", title: "Tokens og kostnad", slides: TOKENS },
     { id: "avslutning", title: "Begrensninger og bruk", slides: AVSLUTNING },
   ],

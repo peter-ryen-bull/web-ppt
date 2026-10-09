@@ -11,7 +11,17 @@ export const MUTED = "#5A4A50";
 const sans: CSSProperties = { fontFamily: "var(--font-sans)" };
 const serif: CSSProperties = { fontFamily: "var(--font-serif)" };
 
-export function Header({ titleSize = 30 }: { titleSize?: number }) {
+export function Header({
+  titleSize = 30,
+  leadWidth = 880,
+  leadHeight = 32,
+}: {
+  titleSize?: number;
+  /** Bredde på undertittelen. Standard er smalere enn tittelen. */
+  leadWidth?: number;
+  /** Høyde på undertittelen. Øk den når leaden går over to linjer. */
+  leadHeight?: number;
+}) {
   const hasLead = useHasCopy("lead");
   return (
     <>
@@ -41,13 +51,14 @@ export function Header({ titleSize = 30 }: { titleSize?: number }) {
         />
       </Box>
       {hasLead && (
-        <Box box={[81.3, 138.7, 880, 32]}>
+        <Box box={[81.3, 138.7, leadWidth, leadHeight]}>
           <Copy
             k="lead"
             as="div"
             style={{
               ...sans,
               fontSize: pt(14),
+              lineHeight: 1.35,
               color: "var(--burgundy)",
             }}
           />
