@@ -1,6 +1,6 @@
 forside:
   kicker: "DEMO · TYPESAFE JEV"
-  title: "Jev: en modell som ikke skriver"
+  title: "Jev: en ny type llm"
   subtitle: "Klassifisering med typede svar og sannsynligheter – og hva det betyr for tokens, tid og kostnad."
   byline: "Peter Bull Hove · Miles"
 
@@ -53,7 +53,7 @@ primitiver:
 
 kap-tutorial:
   title: "Prøv selv"
-  subtitle: "Fem steg. Rediger teksten og kjør – eller se de innspilte svarene fra dokumentasjonen."
+  subtitle: "Fem steg. Rediger teksten og kjør – hvert svar kommer live fra Jev."
 
 steg-noul:
   kicker: "STEG 1 AV 5 · NOUL"
@@ -72,7 +72,7 @@ steg-score:
 
 steg-alle:
   kicker: "STEG 4 AV 5 · ALT I ETT KALL"
-  title: "Tre spørsmål, ett kall – og samme oppgave med en LLM"
+  title: "Tre spørsmål, ett kall – og samme oppgave med OpenAI"
   lead: "Teksten faktureres én gang. Ekstra spørsmål koster bare tokenene i selve spørsmålet."
 
 steg-confidence:
@@ -121,24 +121,17 @@ batching:
   kicker: "MANGE SPØRSMÅL, ETT KALL"
   title: "Dokumentet betales én gang"
   lead: "Jev tar betalt per input-token. Output er gratis. Den store posten er teksten du sender med."
-  ratio_text: "flere tokens når hvert spørsmål sendes i eget kall"
-  assumption: "Anslag: ca. 57 tokens per spørsmål, utledet fra kostnadene i TypeSafes GDPR-cookbook ($0,042 per million input-tokens)."
-  facts_label: "MÅLT I TYPESAFE-COOKBOOK: GDPR-ARTIKKELEN, 13 SPØRSMÅL"
-  facts:
-    - tall: "$0.000497 vs $0.006090"
-      tekst: "Ett kall med alle spørsmålene mot 13 kall med ett spørsmål hver"
-    - tall: "0,27 s vs 2,71 s"
-      tekst: "Samlet tid, når de 13 kallene går etter hverandre"
-    - tall: "12,2× og 10,0×"
-      tekst: "Billigere og raskere med ett samlet kall"
-    - tall: "Samme svar"
-      tekst: "Svarene endret seg ikke av at spørsmålene ble sendt sammen"
+  doc_label: "DOKUMENT (STATE)"
+  count_label: "SPØRSMÅL"
+  ratio_text: "flere input-tokens når hvert spørsmål sendes i eget kall"
+  table_label: "P(JA) PER SPØRSMÅL"
+  table_hint: "Trykk «Kjør begge». Begge variantene kjøres live samtidig, og svarene sammenlignes her."
 
 kalkulator:
   kicker: "KOSTNADSKALKULATOR"
   title: "Hva koster det per måned?"
-  lead: "Dra i spakene. Standard LLM-pris er Gemini 3.8 Flash slik den er gjengitt i arXiv-studien."
-  per_question: "LLM-en får ett kall per spørsmål (som i studiens oppsett per kriterium)"
+  lead: "Dra i spakene. Standard LLM-pris er listeprisen for gpt-6.1-sol."
+  per_question: "LLM-en får ett kall per spørsmål"
   assumption: "Antakelser: ca. 260 tokens fast tillegg per Jev-kall og 40 per spørsmål (fra eksemplene i dokumentasjonen). LLM-prompten er anslått. Mål på egen trafikk før du bestemmer deg."
   ratio_text: "dyrere med LLM-en, med disse antakelsene"
 

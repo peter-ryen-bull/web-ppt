@@ -12,7 +12,7 @@ import {
   fieldStyle,
   Header,
   Label,
-  ModeBadge,
+  LiveBadge,
   MONO,
   MUTED,
   ProbBar,
@@ -87,10 +87,7 @@ function route(intent: Intent, confidence: number, floor: number, high: number):
 export function SlideConfidence() {
   const status = useDemoStatus();
   const [text, setText] = useState(UTTERANCES[1]);
-  const [intent, setIntent] = useState<Intent>("approve_transfer");
-  const [confidence, setConfidence] = useState(0.72);
-  const [probs, setProbs] = useState<Record<string, number> | null>(null);
-  const [live, setLive] = useState(false);
+  const [answer, setAnswer] = useState<{ intent: Intent; confidence: number; probs: Record<string, number>; ms: number } | null>(null);
   const [floor, setFloor] = useState(0.6);
   const [high, setHigh] = useState(0.85);
   const [note, setNote] = useState<string | null>(null);
@@ -99,7 +96,7 @@ export function SlideConfidence() {
   const ask = async () => {
     setNote(null);
     if (!status?.jev) {
-      setNote("Ikke live – juster svar og confidence for hånd under.");
+      setNote("Ingen Jev-nøkkel: legg API_KEY i presentations/jev-demo/.env.");
       return;
     }
     setBusy(true);
@@ -111,14 +108,13 @@ export function SlideConfidence() {
     }
     const a = res.data.answers.intent;
     if (a?.type === "choice" && (INTENTS as readonly string[]).includes(a.choice)) {
-      setIntent(a.choice as Intent);
-      setConfidence(a.confidence);
-      setProbs(a.probabilities);
-      setLive(true);
+      setAnswer({ intent: a.choice as Intent, confidence: a.confidence, probs: a.probabilities, ms: res.latencyMs });
+    } else {
+      setNote("Uventet svar fra Jev.");
     }
   };
 
-  const branch = route(intent, confidence, floor, high);
+  const branch = answer ? route(answer.intent, answer.confidence, floor, high) : null;
   const branches: { id: Branch; k: string }[] = [
     { id: "human", k: "human" },
     { id: "balance", k: "balance" },
@@ -133,7 +129,10 @@ export function SlideConfidence() {
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }} {...interactive}>
           <Label>kunden sier (state)</Label>
           <div style={{ height: 58 }}>
-            <textarea value={text} onChange={(e) => setText(e.target.value)} spellCheck={false} style={{ ...fieldStyle, ...sans, fontSize: pt(13) }} />
+            <textarea value={text} onChange={(e) => {
+                setText(e.target.value);
+                setAnswer(null);
+              }} spellCheck={false} style={{ ...fieldStyle, ...sans, fontSize: pt(13) }} />
           </div>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
             {UTTERANCES.map((u) => (
@@ -143,6 +142,7 @@ export function SlideConfidence() {
                 onClick={(e) => {
                   e.currentTarget.blur();
                   setText(u);
+                  setAnswer(null);
                 }}
                 style={{ ...sans, fontSize: pt(10), border: "1px solid var(--divider)", background: text === u ? "var(--cream)" : "#fff", color: "var(--burgundy)", padding: "3px 8px", cursor: "pointer" }}
               >
@@ -154,38 +154,28 @@ export function SlideConfidence() {
             <Button onClick={ask} disabled={busy}>
               {busy ? "Spør Jev …" : "Spør Jev om intent"}
             </Button>
-            <ModeBadge live={live} offline="MANUELT" />
+            {answer && <LiveBadge />}
+            {answer && <span style={{ fontFamily: MONO, fontSize: pt(10.5), color: MUTED }}>{(answer.ms / 1000).toFixed(2)} s</span>}
           </div>
           {note && <Body size={11} color="var(--red-deep)">{note}</Body>}
 
-          <div style={{ marginTop: 6 }}>
-            <Label>svar: choice</Label>
-            <div style={{ display: "flex", gap: 6, marginTop: 6 }}>
-              {INTENTS.map((i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={(e) => {
-                    e.currentTarget.blur();
-                    setIntent(i);
-                    setLive(false);
-                    setProbs(null);
-                  }}
-                  style={{ fontFamily: MONO, fontSize: pt(10.5), padding: "4px 8px", cursor: "pointer", border: "none", background: intent === i ? "var(--teal)" : "#fff", color: intent === i ? "#fff" : "var(--burgundy)" }}
-                >
-                  {i}
-                </button>
-              ))}
-            </div>
+          <div style={{ marginTop: 6, minHeight: 110 }}>
+            <Label>svar fra jev: choice</Label>
+            {answer ? (
+              <div style={{ display: "flex", flexDirection: "column", gap: 3, marginTop: 6 }}>
+                {Object.entries(answer.probs).map(([k, v]) => (
+                  <ProbBar key={k} label={k} value={v} highlight={k === answer.intent} />
+                ))}
+                <div style={{ fontFamily: MONO, fontSize: pt(12), color: "var(--teal)", marginTop: 4 }}>
+                  confidence {answer.confidence.toFixed(2)}
+                </div>
+              </div>
+            ) : (
+              <Body size={11.5} color={MUTED} style={{ marginTop: 6 }}>
+                Ingen svar ennå. Velg en setning og spør Jev.
+              </Body>
+            )}
           </div>
-          {probs && (
-            <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              {Object.entries(probs).map(([k, v]) => (
-                <ProbBar key={k} label={k} value={v} highlight={k === intent} />
-              ))}
-            </div>
-          )}
-          <Slider label="confidence" value={confidence} onChange={(v) => { setConfidence(v); setLive(false); }} color="var(--teal)" />
           <div style={{ borderTop: "1px solid var(--divider)", paddingTop: 8, display: "flex", flexDirection: "column", gap: 6 }}>
             <Label>terskler i koden din</Label>
             <Slider label="gulv (alt)" value={floor} onChange={setFloor} color="var(--red-deep)" />

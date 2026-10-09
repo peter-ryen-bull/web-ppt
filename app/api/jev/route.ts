@@ -7,6 +7,7 @@ import {
   buildLiveMessages,
   buildLlmMessages,
   DEFAULT_OPENAI_MODEL,
+  normalizeOpenaiChoice,
   type BatchLine,
   type JevResponse,
   type LlmItem,
@@ -20,11 +21,9 @@ import {
  * presentations/jev-demo/.env (ikke i git, leses ved hvert kall).
  *
  *   API_KEY / TYPESAFE_API_KEY   live Jev-kall
- *   OPENAI_API_KEY               valgfri: sammenligning med GPT
+ *   OPENAI_API_KEY               alle OpenAI-kall (utgangspunktet, steg 4, sammenligning)
  *   OPENAI_MODEL                 standard gpt-6.1-sol
  *   OPENAI_REASONING_EFFORT      standard low
- *   LLM_API_KEY / LLM_MODEL / LLM_BASE_URL
- *                                valgfri: «Samme med LLM» i steg 4
  */
 
 const TYPESAFE_URL = "https://api.typesafe.ai/v1/systemone";
@@ -56,30 +55,22 @@ function jevKey(): string | null {
   return envValue("TYPESAFE_API_KEY", local) ?? envValue("API_KEY", local);
 }
 
-function openaiConfig() {
+/** Modell og effort fra forespørselen (presentatørens valg), ellers fra miljøet. Bare modeller i OPENAI_MODELS slipper gjennom. */
+function openaiConfig(requested?: unknown) {
   const local = deckEnv();
-  return {
-    keyEnv: "OPENAI_API_KEY",
-    key: envValue("OPENAI_API_KEY", local),
-    model: envValue("OPENAI_MODEL", local) ?? DEFAULT_OPENAI_MODEL,
-    effort: envValue("OPENAI_REASONING_EFFORT", local) ?? "low",
-  };
-}
-
-function llmConfig() {
-  const key = process.env.LLM_API_KEY;
-  const model = process.env.LLM_MODEL;
-  if (!key || !model) return null;
-  const base = (process.env.LLM_BASE_URL ?? "https://api.openai.com/v1").replace(/\/$/, "");
-  return { key, model, base };
+  const r = requested && typeof requested === "object" ? (requested as Record<string, unknown>) : null;
+  const choice = normalizeOpenaiChoice(
+    r
+      ? { model: typeof r.model === "string" ? r.model : undefined, effort: typeof r.effort === "string" ? r.effort : undefined }
+      : { model: envValue("OPENAI_MODEL", local) ?? DEFAULT_OPENAI_MODEL, effort: envValue("OPENAI_REASONING_EFFORT", local) ?? undefined }
+  );
+  return { keyEnv: "OPENAI_API_KEY", key: envValue("OPENAI_API_KEY", local), ...choice };
 }
 
 export async function GET() {
-  const llm = llmConfig();
   const openai = openaiConfig();
   return NextResponse.json({
     jev: Boolean(jevKey()),
-    llm: { configured: Boolean(llm), model: llm?.model ?? null },
     openai: { configured: Boolean(openai.key), model: openai.model, keyEnv: openai.keyEnv, effort: openai.effort },
   });
 }
@@ -93,6 +84,7 @@ type Body = {
   concurrency?: unknown;
   provider?: unknown;
   promptMode?: unknown;
+  openai?: unknown;
 };
 
 function errorText(status: number, body: string): string {
@@ -352,7 +344,7 @@ export async function POST(req: Request) {
     if (typeof input !== "string" || !input.trim() || input.length > MAX_ITEM_CHARS) {
       return NextResponse.json({ ok: false, error: "Mangler gyldig tekst." }, { status: 400 });
     }
-    const cfg = openaiConfig();
+    const cfg = openaiConfig(body.openai);
     const key = cfg.key;
     if (!key) return NextResponse.json({ ok: false, error: `Ingen nøkkel: ${cfg.keyEnv} er ikke satt.` });
     return streamOpenai(req, { ...cfg, key }, buildLiveMessages(mode, input));
@@ -372,7 +364,7 @@ export async function POST(req: Request) {
     const requested = typeof body.concurrency === "number" ? Math.floor(body.concurrency) : 50;
     const concurrency = Math.max(1, Math.min(BATCH_MAX_CONCURRENCY, requested));
     if (body.provider === "openai") {
-      const cfg = openaiConfig();
+      const cfg = openaiConfig(body.openai);
       const key = cfg.key;
       if (!key) return NextResponse.json({ ok: false, error: `Ingen nøkkel: ${cfg.keyEnv} er ikke satt.` });
       const live = body.promptMode === "json" || body.promptMode === "fritekst" ? body.promptMode : null;
@@ -405,53 +397,27 @@ export async function POST(req: Request) {
   }
 
   if (body.kind === "llm") {
-    const llm = llmConfig();
-    if (!llm) {
-      return NextResponse.json({
-        ok: false,
-        error: "LLM-sammenligning er ikke satt opp (LLM_API_KEY og LLM_MODEL).",
-      });
-    }
-    const started = performance.now();
-    const res = await fetch(`${llm.base}/chat/completions`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${llm.key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: llm.model,
-        messages: buildLlmMessages(state, questions),
-        response_format: { type: "json_object" },
-      }),
-    });
-    const latencyMs = performance.now() - started;
-    const text = await res.text();
-    if (!res.ok) return NextResponse.json({ ok: false, error: errorText(res.status, text) });
-    const data = JSON.parse(text) as {
-      model?: string;
-      choices?: { message?: { content?: string } }[];
-      usage?: {
-        prompt_tokens?: number;
-        completion_tokens?: number;
-        completion_tokens_details?: { reasoning_tokens?: number };
-      };
-    };
-    return NextResponse.json({
-      ok: true,
-      model: data.model ?? llm.model,
-      text: data.choices?.[0]?.message?.content ?? "",
-      usage: {
-        input: data.usage?.prompt_tokens ?? 0,
-        output: data.usage?.completion_tokens ?? 0,
-        reasoning: data.usage?.completion_tokens_details?.reasoning_tokens ?? 0,
-      },
-      latencyMs,
-    });
+    const cfg = openaiConfig(body.openai);
+    const key = cfg.key;
+    if (!key) return NextResponse.json({ ok: false, error: `Ingen nøkkel: ${cfg.keyEnv} er ikke satt.` });
+    const res = await callOpenai({ ...cfg, key }, classifierMessages(state, questions), true);
+    if (!res.ok) return NextResponse.json({ ok: false, error: res.error });
+    const { text, input, output, reasoning } = res.llm;
+    return NextResponse.json({ ok: true, model: cfg.model, text, usage: { input, output, reasoning }, latencyMs: res.latencyMs });
+  }
+
+  if (body.kind === "split") {
+    const key = jevKey();
+    if (!key) return NextResponse.json({ ok: false, error: "Mangler Jev-nøkkel (API_KEY i presentations/jev-demo/.env)." });
+    const ids = Object.keys(questions);
+    return runBatch(req, (id, signal) => callJev(key, state, { [id]: questions[id] }, model, signal), ids, ids.length);
   }
 
   const key = jevKey();
   if (!key) {
     return NextResponse.json({
       ok: false,
-      error: "Mangler Jev-nøkkel (API_KEY i presentations/jev-demo/.env) – viser innspilt svar.",
+      error: "Mangler Jev-nøkkel (API_KEY i presentations/jev-demo/.env).",
     });
   }
   const res = await callJev(key, state, questions, model);

@@ -3,16 +3,18 @@
 Rød tråd: Jev er ikke en bedre chatbot. Den er en beslutningsmodell. Du
 definerer svarrommet, får sannsynligheter tilbake, og lar koden bestemme.
 
-Oppsett for live-demo: Jev-nøkkelen leses fra `API_KEY` i
-`presentations/jev-demo/.env` (ikke i git). Alternativt i `.env.local` i `web-ppt/`:
+Regel for decken: alt som står på skjermen av tall kommer fra et live kall i
+rommet. Ingen innspilte svar, ingen tall fra studier, ingen anslag. Kostnad er
+alltid målte tokens × listepris. Si tallene slik de står på skjermen – de
+endrer seg fra kjøring til kjøring.
 
-    TYPESAFE_API_KEY=...
-    # valgfritt, for «Samme med LLM» på steg 4:
-    LLM_API_KEY=...
-    LLM_MODEL=...
-    LLM_BASE_URL=https://api.openai.com/v1
+Oppsett for live-demo i `presentations/jev-demo/.env` (ikke i git), eller i
+`.env.local` i `web-ppt/`:
 
-Uten nøkkel viser alle steg de innspilte svarene fra TypeSafe-docs.
+    API_KEY=...            # Jev (TYPESAFE_API_KEY virker også)
+    OPENAI_API_KEY=...     # utgangspunktet, steg 4 og sammenligningen
+
+Uten nøkkel viser knappene en feilmelding og ingen tall.
 Kjør demoen i øvingsvisningen eller publikumsvisningen. Presentatørvisningen
 synkroniserer ikke det du skriver i feltene.
 
@@ -77,49 +79,53 @@ Choice og Score gir confidence. Noul gir bare sannsynligheten for ja.
 
 ## steg-noul – Steg 1: Noul
 
-Kjør. Peker på forbruksfeltet nederst: input-tokens faktureres, output er
-gratis. 296 tokens for en setning: det meste er fast tillegg i kallet.
+Kjør. Pek på forbruksfeltet nederst: input-tokens faktureres, output er
+gratis. Selv en kort setning gir et par hundre tokens: det meste er fast
+tillegg i kallet.
 
 Bytt gjerne teksten til noe rolig («Just wondering about my invoice») og kjør
 igjen. Sannsynligheten bør falle.
 
 ## steg-choice – Steg 2: Choice
 
-Hele fordelingen kommer tilbake, ikke bare vinneren. 0,88 billing, 0,12
-technical.
+Hele fordelingen kommer tilbake, ikke bare vinneren. Les opp fordelingen
+fra skjermen.
 
 Confidence er utledet fra fordelingen. Det er ikke sannsynligheten for at
 svaret er riktig.
 
 ## steg-score – Steg 3: Score
 
-Score 1,05: litt over «Frustrated». Den kan lande mellom nivåene.
+Scoren er vektet over nivåene og kan lande mellom dem (f.eks. litt over 1).
 
 Docs advarer: ikke regn ut eksakte tall ved å interpolere mellom nivåene.
 
-## steg-alle – Steg 4: alt i ett kall + LLM
+## steg-alle – Steg 4: alt i ett kall + OpenAI
 
-Tre spørsmål, ett kall, 392 input-tokens. Teksten betales én gang.
+Tre spørsmål, ett kall. Teksten betales én gang.
 
-Trykk «Samme med LLM». Uten LLM-nøkkel viser den et anslag (≈). Med nøkkel:
-pek på output-tokens og resonnering. Det er der LLM-regningen ligger.
+Trykk «Samme med OpenAI»: samme oppgave som vanlig prompt med JSON-modus.
+Pek på output-tokens og resonnering. Det er der LLM-regningen ligger.
+Kostnaden er målte tokens × listepris for modellen.
 
 ## steg-confidence – Steg 5: confidence-styrt ruting
 
-Bank-eksempelet fra TypeSafe-docs. Dra confidence-spaken og vis hvilken
-gren som lyser.
+Bank-eksempelet fra TypeSafe-docs. Velg en setning og trykk «Spør Jev om
+intent». Grenen lyser ut fra Jevs svar og confidence – ingen gren lyser før
+det finnes et svar.
+
+Dra så i tersklene (gulv og overføring auto) for å vise at det er koden din
+som bestemmer. Confidence kan ikke settes for hånd; den kommer fra kallet.
 
 Poenget: lav risiko (saldo) tåler lavere confidence enn høy risiko
-(overføring). Tersklene ligger i koden, ikke i modellen.
-
-Live: prøv den usikre setningen («the transfer thing, maybe?»).
+(overføring). Prøv den usikre setningen («the transfer thing, maybe?»).
 
 ## kap-fart – Kapittel: fart
 
 ## klassifiser – Klassifiser hva som helst
 
 Start med «Hva er det?». Trykk raskt på flere eksempler etter hverandre.
-Hvert klikk er ett kall, og svarene kommer på rundt et kvarter sekund.
+Hvert klikk er ett kall. Les ventetiden fra skjermen.
 
 Be salen om forslag og skriv dem inn. Bytt til «Kundeservice» eller
 «Meldinger fra sjøen» og vis at det bare er et annet spørsmål, samme modell.
@@ -130,14 +136,13 @@ at den leser bokstavelig.
 
 ## fart – Hundrevis på et sekund
 
-Standard: 100 elementer, 50 samtidige kall. Trykk Kjør: hele rutenettet er
-ferdig på under et sekund.
+Standard: 100 elementer, 50 samtidige kall. Trykk Kjør og les tiden.
 
-Så: sett «samtidig» til 1 og kjør igjen. Nå går det ett og ett, og det tar
-rundt 25 sekunder. Det er like lenge som «én og én»-tallet viste i forrige
-kjøring. Trykk Nullstill når poenget er tatt.
+Så: sett «samtidig» til 1 og kjør igjen. Nå går det ett og ett. Sammenlign
+med «sum ventetid» fra forrige kjøring. Trykk Nullstill når poenget er tatt.
 
-500 elementer koster rundt en halv cent. 500 går i løkke gjennom eksemplene.
+500 går i løkke gjennom eksemplene. Kostnaden for hele kjøringen står til
+høyre.
 
 Hold musen over en rute for svar, confidence og ventetid.
 
@@ -179,10 +184,17 @@ den uten pris.
 
 ## batching – Mange spørsmål, ett kall
 
-Dra antall spørsmål opp. Dokumentet dominerer. Ett kall betaler det én gang.
+Live. Velg antall spørsmål (standard 10) og trykk «Kjør begge». Samme
+vilkårstekst sendes på to måter samtidig: ett kall med alle spørsmålene, og
+ett kall per spørsmål.
 
-Fasiten til høyre er målt av TypeSafe selv i en cookbook. Leverandørens tall,
-men svarene var de samme begge veier.
+Pek på tokens og kostnad: dokumentet betales én gang i det samlede kallet,
+men én gang per spørsmål ellers. Forholdet (×) er målt, ikke regnet ut.
+
+Tabellen til høyre viser p(ja) per spørsmål begge veier. Spørsmål der ja/nei
+er ulikt blir røde. Si hvor mange som var like.
+
+Vilkårsteksten er oppdiktet for demoen (Nordlys Cloud).
 
 ## kalkulator – Kostnadskalkulator
 
@@ -192,14 +204,17 @@ Vis hvordan forholdet endrer seg når output per spørsmål går ned (ingen
 resonnering) eller teksten blir lang. Med lang tekst og lite output går
 forskjellen ned mot input-prisforskjellen (~18×).
 
-Det er anslag. Den riktige sammenligningen er samme oppgave, samme
-kvalitetskrav, målt på egen trafikk.
+Det er anslag – bryter regelen om bare live tall. Forslag: skjul sliden,
+eller erstatt med en «kvittering» som summerer alle live kall i foredraget.
 
 ## forskning – Hva sier forskningen
 
 Uavhengig studie fra arXiv. Viktigste funn er det siste: feilene er
 korrelert. En kaskade der Jev sender usikre saker videre til en LLM sparer
 penger, men gir nesten ikke bedre treff.
+
+Studietall – bryter regelen om bare live tall. Forslag: skjul sliden, eller
+erstatt med vår egen live måling (enighet Jev/OpenAI fra «sammenlign»).
 
 ## begrensninger – Hvor Jev bommer
 

@@ -11,16 +11,16 @@ import {
   LIVE_INPUTS,
   LIVE_QUESTIONS,
   llmCostUsd,
-  MODEL_PRICES,
+  modelPrice,
   type Answer,
   type BatchLine,
-  type DemoStatus,
   type JevResponse,
   type PromptMode,
   type ShapeCheck,
   type StreamLine,
 } from "./jev";
-import { Body, Button, Card, Header, interactive, Label, MONO, MUTED, PINK, ProbBar, runJev, sans, serif, Stat, streamBatch, useDemoStatus } from "./ui";
+import { getOpenaiChoice } from "./openai-choice";
+import { apiBody, Body, Button, Card, Header, interactive, Label, MONO, MUTED, OpenaiPicker, PINK, ProbBar, runJev, sans, serif, Stat, streamBatch, useDemoStatus } from "./ui";
 
 /*
  * Utgangspunktet: tre slides på de samme henvendelsene. Valget deles mellom
@@ -144,7 +144,7 @@ function useOpenaiStream() {
       const res = await fetch("/api/jev", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind: "openai-stream", promptMode: mode, state: input }),
+        body: apiBody({ kind: "openai-stream", promptMode: mode, state: input }),
         signal: ac.signal,
       });
       if (!res.headers.get("content-type")?.includes("ndjson") || !res.body) {
@@ -215,17 +215,8 @@ function secs(ms: number | null): string {
   return ms === null ? "–" : `${(ms / 1000).toFixed(2)} s`;
 }
 
-function priceFor(model: string | null) {
-  if (!model) return null;
-  if (MODEL_PRICES[model]) return MODEL_PRICES[model];
-  const key = Object.keys(MODEL_PRICES)
-    .filter((k) => model.startsWith(k))
-    .sort((a, b) => b.length - a.length)[0];
-  return key ? MODEL_PRICES[key] : null;
-}
-
 function openaiCost(model: string | null, input: number, output: number): string {
-  const p = priceFor(model);
+  const p = modelPrice(model);
   return p ? formatUsd(llmCostUsd(input, output, p.in, p.out)) : "–";
 }
 
@@ -279,12 +270,6 @@ function StreamStats({ s, color = "var(--burgundy)" }: { s: Stream; color?: stri
   );
 }
 
-function ModelLine({ status }: { status: DemoStatus | null }) {
-  const p = status?.openai;
-  const text = !status ? "" : p?.configured ? `${p.model} · effort ${p.effort}` : `ingen nøkkel (${p?.keyEnv ?? "OPENAI_API_KEY"})`;
-  return <span style={{ fontFamily: MONO, fontSize: pt(10.5), color: MUTED }}>{text}</span>;
-}
-
 /* ------------------------------------------------------------------ */
 /* 1. Fritekst                                                          */
 /* ------------------------------------------------------------------ */
@@ -306,7 +291,7 @@ export function SlideProblemet() {
             <Button onClick={() => start("fritekst", LIVE_INPUTS[i])} disabled={running || !status?.openai?.configured}>
               Send til OpenAI
             </Button>
-            <ModelLine status={status} />
+            <OpenaiPicker disabled={running} />
           </div>
         </Box>
       </Card>
@@ -398,6 +383,7 @@ export function SlideJsonForsok() {
   const [batchT0, setBatchT0] = useState(0);
   const [batchRunning, setBatchRunning] = useState(false);
   const [batchError, setBatchError] = useState<string | null>(null);
+  const [batchModel, setBatchModel] = useState<string | null>(null);
   const [picked, setPicked] = useState<number | null>(null);
   const abort = useRef<AbortController | null>(null);
   useEffect(() => () => abort.current?.abort(), []);
@@ -412,6 +398,7 @@ export function SlideJsonForsok() {
     setResults(new Array(BATCH_N).fill(undefined));
     setWallMs(null);
     setBatchT0(t0);
+    setBatchModel(getOpenaiChoice().model);
     setBatchError(null);
     setPicked(null);
     setBatchRunning(true);
@@ -473,12 +460,17 @@ export function SlideJsonForsok() {
           <PromptView mode="json" input={LIVE_INPUTS[i]} size={9} />
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginTop: 10 }}>
             <SectionLabel k="answer_label" />
-            <span style={{ fontFamily: MONO, fontSize: pt(10), color: MUTED }}>
-              {s.status === "done" ? `${secs(s.totalMs)} · ${s.usage?.output ?? 0} output-tokens` : <ModelLine status={status} />}
-            </span>
+            <OpenaiPicker disabled={isRunning(s) || batchRunning} />
           </div>
           <RawBox s={s} height={44} size={10.5} />
-          {single && <CheckChips checks={single.checks} />}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            {single ? <CheckChips checks={single.checks} /> : <span />}
+            {s.status === "done" && (
+              <span style={{ fontFamily: MONO, fontSize: pt(10), color: MUTED, marginTop: 8 }}>
+                {secs(s.totalMs)} · {s.usage?.output ?? 0} ut · {s.usage ? openaiCost(s.model, s.usage.input, s.usage.output) : ""}
+              </span>
+            )}
+          </div>
         </Box>
       </Card>
 
@@ -486,13 +478,16 @@ export function SlideJsonForsok() {
         <Box box={[20, 16, 555, 465]}>
           <SectionLabel k="batch_label" />
           <div {...interactive} style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginTop: 10 }}>
-            <Button onClick={runBatch} disabled={batchRunning || !live}>
-              Kjør {BATCH_N} parallelt
-            </Button>
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              <Button onClick={runBatch} disabled={batchRunning || !live}>
+                Kjør {BATCH_N} parallelt
+              </Button>
+              <span style={{ fontFamily: MONO, fontSize: pt(9.5), color: MUTED }}>{batchModel ?? " "}</span>
+            </div>
             <Stat label="riktig form" value={`${okCount}/${BATCH_N}`} color="var(--teal)" />
             <Stat label="feil form" value={`${fails.length}`} color={fails.length ? "var(--red)" : "var(--burgundy)"} />
             <Stat label="tid" value={secs(elapsed)} />
-            <Stat label="kostnad" value={done.length ? openaiCost(status?.openai?.model ?? null, inTok, outTok) : "–"} />
+            <Stat label="kostnad" value={done.length ? openaiCost(batchModel, inTok, outTok) : "–"} />
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(20, 1fr)", gap: 4, marginTop: 14 }}>
             {Array.from({ length: BATCH_N }, (_, n) => {
@@ -649,7 +644,10 @@ export function SlideToModeller() {
       <Card box={[81, 175, 545, 440]} bar="var(--red-deep)">
         <Box box={[22, 20, 501, 405]}>
           <BigTimer value={s.status === "idle" ? null : elapsedMs(s, now)} color="var(--red-deep)" />
-          <Copy k="llm_title" as="div" style={{ ...serif, fontSize: pt(22), color: "var(--burgundy)" }} />
+          <div style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
+            <Copy k="llm_title" as="div" style={{ ...serif, fontSize: pt(22), color: "var(--burgundy)" }} />
+            <OpenaiPicker disabled={busy} />
+          </div>
           <Body size={12} color={MUTED} style={{ marginTop: 2, width: 330 }}>
             <Copy k="llm_lead" />
           </Body>

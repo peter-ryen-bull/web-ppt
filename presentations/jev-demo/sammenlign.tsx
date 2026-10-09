@@ -12,10 +12,12 @@ import {
   type BatchLine,
   type ClassifyTask,
   type DemoStatus,
+  type OpenaiChoice,
   type Provider,
 } from "./jev";
 import { light, median, Pill, QUESTION_ID, questionsFor, seconds, Segmented, stateFor, TaskTabs, taskById } from "./fart";
-import { Body, Button, Card, Header, interactive, Label, MONO, MUTED, sans, serif, Stat, streamBatch, useDemoStatus } from "./ui";
+import { useOpenaiChoice } from "./openai-choice";
+import { Body, Button, Card, Header, interactive, Label, MONO, MUTED, OpenaiPicker, sans, serif, Stat, streamBatch, useDemoStatus } from "./ui";
 
 type ItemResult =
   | { ok: true; choice: string | null; input: number; output: number; latencyMs: number }
@@ -36,13 +38,12 @@ function emptyLanes(n: number): Record<Provider, Lane> {
   return { jev: lane(), openai: lane() };
 }
 
-function laneInfo(provider: Provider, status: DemoStatus | null) {
+function laneInfo(provider: Provider, status: DemoStatus | null, choice: OpenaiChoice) {
   if (provider === "jev") {
     return { live: Boolean(status?.jev), model: "jev-latest", keyEnv: "API_KEY", effort: null, price: { in: JEV_PRICE_IN, out: 0 } };
   }
   const p = status?.openai;
-  const model = p?.model ?? "–";
-  return { live: Boolean(p?.configured), model, keyEnv: p?.keyEnv ?? "", effort: p?.effort ?? null, price: MODEL_PRICES[model] ?? null };
+  return { live: Boolean(p?.configured), model: choice.model, keyEnv: p?.keyEnv ?? "", effort: choice.effort, price: MODEL_PRICES[choice.model] ?? null };
 }
 
 /** LLM-en skriver svaret som tekst. Godta det bare hvis det er ett av alternativene. */
@@ -70,6 +71,7 @@ function toResult(line: Extract<BatchLine, { i: number }>, task: ClassifyTask): 
 
 export function SlideSammenlign() {
   const status = useDemoStatus();
+  const choice = useOpenaiChoice();
   const [taskId, setTaskId] = useState(CLASSIFY_TASKS[1].id);
   const task = taskById(taskId);
   const [size, setSize] = useState(25);
@@ -102,6 +104,14 @@ export function SlideSammenlign() {
     setLanes(emptyLanes(0));
   };
 
+  // Tallene skal alltid høre til modellen som står i banen.
+  useEffect(() => {
+    abortRef.current?.abort();
+    setRunning(false);
+    setItems([]);
+    setLanes(emptyLanes(0));
+  }, [choice.model, choice.effort]);
+
   const run = async () => {
     abortRef.current?.abort();
     const ac = new AbortController();
@@ -116,7 +126,7 @@ export function SlideSammenlign() {
     setNow(t0);
     setRunning(true);
 
-    const live = LANES.filter((l) => laneInfo(l.provider, status).live);
+    const live = LANES.filter((l) => laneInfo(l.provider, status, choice).live);
     await Promise.all(
       live.map(async ({ provider }) => {
         let lastAt = 0;
@@ -183,7 +193,7 @@ export function SlideSammenlign() {
           x={81 + idx * 570}
           name={l.name}
           bar={l.bar}
-          info={laneInfo(l.provider, status)}
+          info={laneInfo(l.provider, status, choice)}
           lane={lanes[l.provider]}
           items={items}
           task={runTask}
@@ -276,10 +286,13 @@ function LaneCard({
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
           <div style={{ minWidth: 0 }}>
             <div style={{ ...serif, fontSize: pt(20), color: "var(--burgundy)", lineHeight: 1.1 }}>{name}</div>
-            <div style={{ fontFamily: MONO, fontSize: pt(8.5), color: MUTED, marginTop: 2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-              {info.model}
-              {info.effort ? ` · effort ${info.effort}` : ""}
-            </div>
+            {info.effort ? (
+              <div style={{ marginTop: 2 }}>
+                <OpenaiPicker disabled={running} />
+              </div>
+            ) : (
+              <div style={{ fontFamily: MONO, fontSize: pt(8.5), color: MUTED, marginTop: 2, whiteSpace: "nowrap" }}>{info.model}</div>
+            )}
           </div>
           <span
             style={{

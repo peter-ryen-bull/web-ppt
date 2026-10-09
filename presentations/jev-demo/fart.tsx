@@ -20,7 +20,7 @@ import {
   Header,
   interactive,
   Label,
-  ModeBadge,
+  LiveBadge,
   MONO,
   MUTED,
   ProbBar,
@@ -292,9 +292,9 @@ export function SlideKlassifiser() {
             <Stat label={light("snitt ventetid", "var(--mint)")} value={light(history.length ? seconds(avgLatency) : "–")} sub={light(`${formatInt(history.length)} kall`, "var(--cream-dark)")} />
             <Stat label={light("tokens per kall", "var(--mint)")} value={light(history.length ? formatInt(avgTokens) : "–")} sub={light("bare input faktureres", "var(--cream-dark)")} />
             <Stat label={light("kostnad per kall", "var(--mint)")} value={light(history.length ? formatUsd(perCall) : "–")} sub={light("$0,042 per mill. tokens", "var(--cream-dark)")} />
-            <Stat label={light("per million kall", "var(--mint)")} value={light(history.length ? formatUsd(perCall * 1e6) : "–")} sub={light("samme oppgave", "var(--cream-dark)")} />
+            <Stat label={light("kostnad så langt", "var(--mint)")} value={light(history.length ? formatUsd(perCall * history.length) : "–")} sub={light(`${formatInt(history.length)} kall i dag`, "var(--cream-dark)")} />
             <div style={{ alignSelf: "end" }}>
-              <ModeBadge live={Boolean(status?.jev)} offline="IKKE LIVE" />
+              {last && <LiveBadge />}
             </div>
           </div>
         </Box>
@@ -591,10 +591,10 @@ export function SlideFart() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", rowGap: 14, columnGap: 10 }}>
               <Stat label={light("per sekund", "var(--mint)")} value={light(perSecond ? formatInt(perSecond) : "–")} sub={light(`${formatInt(concurrency)} samtidige kall`, "var(--cream-dark)")} />
               <Stat label={light("median per kall", "var(--mint)")} value={light(done.length ? seconds(median(done.map((t) => t.latencyMs))) : "–")} sub={light("server → Jev", "var(--cream-dark)")} />
-              <Stat label={light("én og én", "var(--mint)")} value={light(done.length ? seconds(sequential, 1) : "–")} sub={light("summen av alle kall", "var(--cream-dark)")} />
+              <Stat label={light("sum ventetid", "var(--mint)")} value={light(done.length ? seconds(sequential, 1) : "–")} sub={light("alle kall lagt sammen", "var(--cream-dark)")} />
               <Stat label={light("input-tokens", "var(--mint)")} value={light(tokens ? formatInt(tokens) : "–")} sub={light(ok.length ? `${formatInt(tokens / ok.length)} per element` : "output er gratis", "var(--cream-dark)")} />
               <Stat label={light("kostnad", "var(--mint)")} value={light(tokens ? formatUsd(cost) : "–")} sub={light("for hele kjøringen", "var(--cream-dark)")} />
-              <Stat label={light("per million", "var(--mint)")} value={light(ok.length ? formatUsd((cost / ok.length) * 1e6) : "–")} sub={light("elementer", "var(--cream-dark)")} />
+              <Stat label={light("per element", "var(--mint)")} value={light(ok.length ? formatUsd(cost / ok.length) : "–")} sub={light("snitt i denne kjøringen", "var(--cream-dark)")} />
             </div>
             <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 10, display: "flex", flexWrap: "wrap", gap: "6px 12px" }}>
               {counts.map(([k, n]) => (

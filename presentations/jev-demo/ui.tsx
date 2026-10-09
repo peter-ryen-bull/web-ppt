@@ -2,6 +2,7 @@
 
 import {
   useEffect,
+  useRef,
   useState,
   type CSSProperties,
   type KeyboardEvent,
@@ -10,7 +11,8 @@ import {
 } from "react";
 import { Copy, useHasCopy } from "@/components/Copy";
 import { Box, MilesLogo, pt } from "../parts";
-import type { BatchLine, DemoStatus, JevRunResult, LlmRunResult, PromptMode, Provider, Questions } from "./jev";
+import { OPENAI_MODELS, type BatchLine, type DemoStatus, type JevRunResult, type LlmRunResult, type PromptMode, type Provider, type Questions } from "./jev";
+import { getOpenaiChoice, setOpenaiChoice, useOpenaiChoice } from "./openai-choice";
 
 export const MUTED = "#5A4A50";
 export const PINK = "#FBE3E0";
@@ -254,7 +256,7 @@ let statusPromise: Promise<DemoStatus> | null = null;
 function fetchStatus(): Promise<DemoStatus> {
   statusPromise ??= fetch("/api/jev")
     .then((r) => (r.ok ? (r.json() as Promise<DemoStatus>) : Promise.reject()))
-    .catch(() => ({ jev: false, llm: { configured: false, model: null } }));
+    .catch(() => ({ jev: false }));
   return statusPromise;
 }
 
@@ -271,12 +273,17 @@ export function useDemoStatus(): DemoStatus | null {
   return status;
 }
 
-async function post<T>(payload: unknown): Promise<T> {
+/** Alle kall til /api/jev tar med presentatørens OpenAI-valg. Jev-kall ignorerer det. */
+export function apiBody(payload: Record<string, unknown>): string {
+  return JSON.stringify({ ...payload, openai: getOpenaiChoice() });
+}
+
+async function post<T>(payload: Record<string, unknown>): Promise<T> {
   try {
     const res = await fetch("/api/jev", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      body: apiBody(payload),
     });
     return (await res.json()) as T;
   } catch (e) {
@@ -292,25 +299,12 @@ export function runLlm(state: string, questions: Questions) {
   return post<LlmRunResult>({ kind: "llm", state, questions });
 }
 
-/**
- * Sender alle elementene til /api/jev, som kaller Jev parallelt på serveren.
- * Nettleseren åpner bare noen få samtidige forbindelser per vert, så
- * parallelliteten må ligge der. `onLines` får hver bit av strømmen.
- */
-export async function streamBatch(
-  items: string[],
-  questions: Questions,
-  concurrency: number,
-  onLines: (lines: BatchLine[]) => void,
-  signal: AbortSignal,
-  provider: Provider = "jev",
-  promptMode?: PromptMode
-): Promise<string | null> {
+async function streamLines(payload: Record<string, unknown>, onLines: (lines: BatchLine[]) => void, signal: AbortSignal): Promise<string | null> {
   try {
     const res = await fetch("/api/jev", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ kind: "batch", provider, items, questions, concurrency, promptMode }),
+      body: apiBody(payload),
       signal,
     });
     if (!res.headers.get("content-type")?.includes("ndjson") || !res.body) {
@@ -336,8 +330,30 @@ export async function streamBatch(
   }
 }
 
-/** Liten merkelapp: «LIVE» eller «INNSPILT». */
-export function ModeBadge({ live, offline = "INNSPILT FRA DOCS" }: { live: boolean; offline?: string }) {
+/**
+ * Sender alle elementene til /api/jev, som kaller Jev parallelt på serveren.
+ * Nettleseren åpner bare noen få samtidige forbindelser per vert, så
+ * parallelliteten må ligge der. `onLines` får hver bit av strømmen.
+ */
+export function streamBatch(
+  items: string[],
+  questions: Questions,
+  concurrency: number,
+  onLines: (lines: BatchLine[]) => void,
+  signal: AbortSignal,
+  provider: Provider = "jev",
+  promptMode?: PromptMode
+): Promise<string | null> {
+  return streamLines({ kind: "batch", provider, items, questions, concurrency, promptMode }, onLines, signal);
+}
+
+/** Samme tekst, ett Jev-kall per spørsmål, alle samtidig. Linjenes `i` følger rekkefølgen i `questions`. */
+export function streamSplit(state: string, questions: Questions, onLines: (lines: BatchLine[]) => void, signal: AbortSignal) {
+  return streamLines({ kind: "split", state, questions }, onLines, signal);
+}
+
+/** Merkelapp på svar som kom fra et live kall. */
+export function LiveBadge() {
   return (
     <span
       style={{
@@ -346,11 +362,138 @@ export function ModeBadge({ live, offline = "INNSPILT FRA DOCS" }: { live: boole
         fontWeight: 700,
         letterSpacing: 1,
         padding: "3px 8px",
-        background: live ? "var(--teal)" : "var(--cream-dark)",
-        color: live ? "var(--mint)" : "var(--burgundy)",
+        background: "var(--teal)",
+        color: "var(--mint)",
       }}
     >
-      {live ? "LIVE" : offline}
+      LIVE
+    </span>
+  );
+}
+
+/**
+ * Lerretet er skalert med transform, så `position: fixed` inni det regnes fra
+ * lerretet og klippes ikke av kort med overflow: hidden. Åpner mot midten.
+ */
+function popoverPosition(button: HTMLElement): CSSProperties {
+  let canvas: HTMLElement | null = button.parentElement;
+  while (canvas && getComputedStyle(canvas).transform === "none") canvas = canvas.parentElement;
+  const b = button.getBoundingClientRect();
+  if (!canvas) return { top: b.bottom + 6, left: b.left };
+  const c = canvas.getBoundingClientRect();
+  const scale = c.width / canvas.offsetWidth || 1;
+  const x = (b.left - c.left) / scale;
+  const y = (b.top - c.top) / scale;
+  const vertical = y > canvas.offsetHeight / 2 ? { bottom: (c.bottom - b.top) / scale + 6 } : { top: (b.bottom - c.top) / scale + 6 };
+  const horizontal = x > canvas.offsetWidth / 2 ? { right: (c.right - b.right) / scale } : { left: x };
+  return { ...vertical, ...horizontal };
+}
+
+/**
+ * Diskret velger for OpenAI-modell og effort. Ser ut som en linje med
+ * modellnavnet; klikk åpner listen. Valget deles av alle slidene.
+ */
+export function OpenaiPicker({ disabled }: { disabled?: boolean }) {
+  const choice = useOpenaiChoice();
+  const [open, setOpen] = useState<CSSProperties | null>(null);
+  const ref = useRef<HTMLSpanElement>(null);
+  const model = OPENAI_MODELS.find((m) => m.id === choice.model) ?? OPENAI_MODELS[0];
+
+  useEffect(() => {
+    if (!open) return;
+    const close = (e: PointerEvent) => {
+      if (!ref.current?.contains(e.target as Node)) setOpen(null);
+    };
+    const esc = (e: globalThis.KeyboardEvent) => e.key === "Escape" && setOpen(null);
+    document.addEventListener("pointerdown", close);
+    document.addEventListener("keydown", esc);
+    return () => {
+      document.removeEventListener("pointerdown", close);
+      document.removeEventListener("keydown", esc);
+    };
+  }, [open]);
+
+  const option = (active: boolean): CSSProperties => ({
+    ...sans,
+    border: "none",
+    cursor: "pointer",
+    background: active ? "var(--burgundy)" : "transparent",
+    color: active ? "#fff" : "var(--burgundy)",
+  });
+
+  return (
+    <span ref={ref} {...interactive} style={{ position: "relative", display: "inline-block" }}>
+      <button
+        type="button"
+        disabled={disabled}
+        title="Velg OpenAI-modell og effort"
+        onClick={(e) => {
+          e.currentTarget.blur();
+          setOpen(open ? null : popoverPosition(e.currentTarget));
+        }}
+        style={{
+          fontFamily: MONO,
+          fontSize: pt(10.5),
+          color: MUTED,
+          background: "none",
+          border: "none",
+          borderBottom: "1px dotted currentColor",
+          padding: 0,
+          cursor: disabled ? "default" : "pointer",
+          whiteSpace: "nowrap",
+        }}
+      >
+        {choice.model} · effort {choice.effort} ▾
+      </button>
+      {open && (
+        <div
+          style={{
+            position: "fixed",
+            zIndex: 50,
+            ...open,
+            width: 330,
+            background: "#fff",
+            border: "1.5px solid var(--burgundy)",
+            boxShadow: "0 8px 24px rgba(69, 13, 32, 0.18)",
+            padding: 10,
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+          }}
+        >
+          <Label size={9}>modell · listepris inn / ut per Mtok</Label>
+          {OPENAI_MODELS.map((m) => (
+            <button
+              key={m.id}
+              type="button"
+              onClick={() => setOpenaiChoice({ model: m.id })}
+              style={{ ...option(m.id === choice.model), display: "flex", justifyContent: "space-between", padding: "4px 8px", fontSize: pt(11) }}
+            >
+              <span>
+                {m.name} <span style={{ fontFamily: MONO, fontSize: pt(9.5), opacity: 0.7 }}>{m.id}</span>
+              </span>
+              <span style={{ fontFamily: MONO, fontSize: pt(9.5) }}>
+                ${m.price.in} / ${m.price.out}
+              </span>
+            </button>
+          ))}
+          <div style={{ marginTop: 8 }}>
+            <Label size={9}>effort</Label>
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+            {model.efforts.map((e) => (
+              <button
+                key={e}
+                type="button"
+                onClick={() => setOpenaiChoice({ effort: e })}
+                style={{ ...option(e === choice.effort), fontFamily: MONO, fontSize: pt(10), padding: "3px 8px", outline: "1px solid var(--divider)" }}
+              >
+                {e}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </span>
   );
 }
