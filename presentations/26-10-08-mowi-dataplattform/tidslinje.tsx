@@ -191,12 +191,12 @@ export function SlideFemManeder() {
   );
 }
 
-const TOLV = 12;
+const SEKS = 6;
 const RAD_H = 100;
 const RADER = [
-  { y: 228, start: 0, lengde: 5, farge: "var(--burgundy)", tekstInni: true },
-  { y: 340, start: 5, lengde: 1, farge: "var(--red)", tekstInni: false },
-  { y: 452, start: 6, lengde: 6, farge: "var(--teal)", tekstInni: true },
+  { y: 228, start: 0, lengde: 2, farge: "var(--burgundy)", tekstInni: true },
+  { y: 340, start: 2, lengde: 1, farge: "var(--red)", tekstInni: false },
+  { y: 452, start: 3, lengde: 3, farge: "var(--teal)", tekstInni: true },
 ];
 
 function Fasetekst({
@@ -234,12 +234,12 @@ function Fasetekst({
 export function SlideTolvManeder() {
   const faser = Math.min(useCopyCount("faser"), RADER.length);
   const resultat = useCopyCount("resultat");
-  const mw = W / TOLV;
+  const mw = W / SEKS;
   return (
     <>
       <Header titleSize={30} />
 
-      {Array.from({ length: TOLV }, (_, m) => (
+      {Array.from({ length: SEKS }, (_, m) => (
         <Box key={m} box={[X0 + m * mw, 192, mw, 20]}>
           <div style={{ ...kolonnetittel, color: "var(--teal)", textAlign: "center" }}>
             {m + 1}
@@ -247,7 +247,7 @@ export function SlideTolvManeder() {
         </Box>
       ))}
       <Box box={[X0, 216, W, 2]} style={{ background: "var(--divider)" }} />
-      {Array.from({ length: TOLV - 1 }, (_, m) => (
+      {Array.from({ length: SEKS - 1 }, (_, m) => (
         <Box
           key={m}
           box={[X0 + (m + 1) * mw, 218, 1, RADER[2].y + RAD_H - 218]}
@@ -257,7 +257,7 @@ export function SlideTolvManeder() {
 
       {Array.from({ length: faser }, (_, i) => {
         const rad = RADER[i];
-        const [x, w] = spenn(rad.start, rad.lengde, TOLV);
+        const [x, w] = spenn(rad.start, rad.lengde, SEKS);
         return (
           <Reveal key={i} at={i}>
             <Box box={[x, rad.y, w, RAD_H]} style={{ background: rad.farge }}>

@@ -219,22 +219,23 @@ tidslinje-fem:
     Data er kvalitetssikret og kan spores tilbake til kilden. "
 
 tidslinje-tolv:
-  kicker: "TIDSLINJE · 12 MÅNEDER"
-  title: "Fra én analyse til en plattform som skalerer"
+  kicker: "TIDSLINJE · 6 MÅNEDER"
+  title: "Fra MVP til tre analyser på seks måneder"
+  lead: "Involvert med 100–150 % FTE"
   faser:
-    - periode: "MÅNED 1–5"
-      tittel: "Første analyse: fiskehelse per fôrresept"
-      tekst: "Plattform, datainnhenting, datakvalitet og dashbord i drift."
-    - periode: "MÅNED 6"
-      tittel: "Videre innsikt og utforske mulighetsrom"
-      tekst: "Finn de 2–3 neste analysene som gir mest verdi."
-    - periode: "MÅNED 7–12"
-      tittel: "2-3 nye analyser"
-      tekst: "Bygget på samme plattform. Infrastrukturen utvides underveis."
-  resultat_tittel: "ETTER 12 MÅNEDER"
+    - periode: "MÅNED 1–2"
+      tittel: "MVP av første analyse"
+      tekst: "Etter to måneder."
+    - periode: "MÅNED 3"
+      tittel: "Første analyse ferdig levert"
+      tekst: "Med dashbord, innen tre måneder."
+    - periode: "MÅNED 4–6"
+      tittel: "To nye analyser"
+      tekst: "De følgende tre månedene."
+  resultat_tittel: "ETTER 6 MÅNEDER"
   resultat:
-    - "3-4 analyser levert på dashbord som lever videre og oppdateres automatisk med ferske data"
-    - "En plattform og infrastruktur som tåler å skalere til hundrevis av datakilder, datasett og dashboards"
+    - "Første analyse ferdig levert med dashbord"
+    - "To nye analyser i de følgende tre månedene"
 
 team:
   kicker: "MOWI: FORESLÅTT TEAM"

@@ -27,6 +27,7 @@ import {
   SlideTolvManeder,
 } from "./tidslinje";
 import { SlideTeam } from "./team";
+import { REFERANSER } from "./referanser";
 import { BildeIkon } from "@/components/icons/BildeIkon";
 
 const INTRO: SlideDef[] = [
@@ -129,7 +130,7 @@ const TIDSLINJE: SlideDef[] = [
   },
   {
     id: "tidslinje-tolv",
-    name: "Tolv måneder: plattform som skalerer",
+    name: "Seks måneder: fra MVP til tre analyser",
     component: SlideTolvManeder,
     steps: 3,
   },
@@ -163,6 +164,7 @@ export const mowiDataplattform = definePresentation({
       title: "KLERI/MILES aquaplatform",
       slides: AQUAPLATFORM,
     },
+    { id: "referanser", title: "Miles-referanser", slides: REFERANSER },
     { id: "tidslinje", title: "Forslag og tidslinje", slides: TIDSLINJE },
   ],
 });
