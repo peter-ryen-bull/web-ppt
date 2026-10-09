@@ -42,6 +42,11 @@ Du kan ta med
 alle slides eller et utvalg. Hver slide blir én side, alltid på **siste
 klikk-steg** (mellomsteg tas ikke med).
 
+«Last ned PDF» gir full kvalitet (PNG i dobbel oppløsning) – skarpt, men
+decks med mange bilder kan bli over 100 MB. «Komprimert PDF» lagrer hver
+slide som JPEG i 1280×720 (`<id>-komprimert.pdf`) og blir typisk en
+brøkdel av størrelsen; bilder og tekst blir litt mindre skarpe.
+
 ## Presentere med to skjermer (HDMI/prosjektor)
 
 Hver presentasjon har tre visninger:

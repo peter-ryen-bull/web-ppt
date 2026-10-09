@@ -12,6 +12,7 @@ import { getPresentation } from "@/presentations";
 import { presentationHasCopy } from "@/presentations/copy";
 import { chapterOf } from "@/presentations/chapters";
 import { SlideCanvas, useContainerScale } from "./SlideCanvas";
+import type { PdfQuality } from "./exportPdf";
 import { usePdfExport } from "./PdfExport";
 import SlideOverview from "./SlideOverview";
 import styles from "./Deck.module.css";
@@ -277,14 +278,18 @@ export default function Deck({ presentationId }: { presentationId: string }) {
     [presentation]
   );
 
-  const runExport = useCallback(async () => {
+  const runExport = useCallback(async (quality: PdfQuality = "full") => {
     const chosen = slides.filter((s) => selected.has(s.id));
     if (!chosen.length) return;
     setExportError(null);
     try {
       await exportSlides(chosen, {
         title: presentation.title,
-        filename: `${presentation.id}.pdf`,
+        filename:
+          quality === "compact"
+            ? `${presentation.id}-komprimert.pdf`
+            : `${presentation.id}.pdf`,
+        quality,
       });
     } catch (err) {
       setExportError(

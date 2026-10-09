@@ -1,6 +1,6 @@
 "use client";
 
-import { getFontEmbedCSS, toPng } from "html-to-image";
+import { getFontEmbedCSS, toJpeg, toPng } from "html-to-image";
 import { PDFDocument } from "pdf-lib";
 import { SLIDE_H, SLIDE_W } from "./SlideCanvas";
 
@@ -111,7 +111,20 @@ function downloadBytes(bytes: Uint8Array, filename: string) {
 
 let fontEmbedCss: string | null = null;
 
-export async function captureSlidePng(el: HTMLElement): Promise<string> {
+/**
+ * `full`: PNG i dobbel oppløsning (skarp, men bilder gjør filen stor).
+ * `compact`: JPEG i 1280×720 – typisk en brøkdel av størrelsen.
+ */
+export type PdfQuality = "full" | "compact";
+
+export type SlideCapture = { dataUrl: string; format: "png" | "jpg" };
+
+const COMPACT_JPEG_QUALITY = 0.75;
+
+export async function captureSlide(
+  el: HTMLElement,
+  quality: PdfQuality = "full"
+): Promise<SlideCapture> {
   copyDocumentTheme(el);
   freezeVisuals(el);
   // Safari dekoder store bilder asynkront og tegner dem ellers tomme i PDF-en.
@@ -125,12 +138,13 @@ export async function captureSlidePng(el: HTMLElement): Promise<string> {
   if (fontEmbedCss === null) {
     fontEmbedCss = await getFontEmbedCSS(el);
   }
-  return toPng(el, {
+  const ratio = quality === "compact" ? 1 : 2;
+  const options = {
     width: SLIDE_W,
     height: SLIDE_H,
-    canvasWidth: SLIDE_W * 2,
-    canvasHeight: SLIDE_H * 2,
-    pixelRatio: 2,
+    canvasWidth: SLIDE_W * ratio,
+    canvasHeight: SLIDE_H * ratio,
+    pixelRatio: ratio,
     backgroundColor: SLIDE_CREAM,
     cacheBust: true,
     fontEmbedCSS: fontEmbedCss,
@@ -141,7 +155,14 @@ export async function captureSlidePng(el: HTMLElement): Promise<string> {
       top: "0",
       margin: "0",
     },
-  });
+  };
+  if (quality === "compact") {
+    return {
+      dataUrl: await toJpeg(el, { ...options, quality: COMPACT_JPEG_QUALITY }),
+      format: "jpg",
+    };
+  }
+  return { dataUrl: await toPng(el, options), format: "png" };
 }
 
 export async function createPdfWriter(title: string) {
@@ -149,10 +170,12 @@ export async function createPdfWriter(title: string) {
   pdf.setTitle(title);
 
   return {
-    async addImage(dataUrl: string) {
-      const png = await pdf.embedPng(dataUrlToBytes(dataUrl));
+    async addImage({ dataUrl, format }: SlideCapture) {
+      const bytes = dataUrlToBytes(dataUrl);
+      const image =
+        format === "jpg" ? await pdf.embedJpg(bytes) : await pdf.embedPng(bytes);
       const page = pdf.addPage([PDF_PAGE_W_PT, PDF_PAGE_H_PT]);
-      page.drawImage(png, {
+      page.drawImage(image, {
         x: 0,
         y: 0,
         width: PDF_PAGE_W_PT,
