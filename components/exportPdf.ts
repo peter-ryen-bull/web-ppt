@@ -1,6 +1,6 @@
 "use client";
 
-import { getFontEmbedCSS, toPng } from "html-to-image";
+import { getFontEmbedCSS, toJpeg } from "html-to-image";
 import { PDFDocument } from "pdf-lib";
 import { SLIDE_H, SLIDE_W } from "./SlideCanvas";
 
@@ -111,7 +111,12 @@ function downloadBytes(bytes: Uint8Array, filename: string) {
 
 let fontEmbedCss: string | null = null;
 
-export async function captureSlidePng(el: HTMLElement): Promise<string> {
+/**
+ * JPEG, ikke PNG: pdf-lib legger JPEG rett inn, men må pakke ut og
+ * komprimere hver PNG på nytt i `save()`. Med mange fotoslides frøs det
+ * nettleseren i over et minutt.
+ */
+export async function captureSlideJpeg(el: HTMLElement): Promise<string> {
   copyDocumentTheme(el);
   freezeVisuals(el);
   // Safari dekoder store bilder asynkront og tegner dem ellers tomme i PDF-en.
@@ -125,7 +130,8 @@ export async function captureSlidePng(el: HTMLElement): Promise<string> {
   if (fontEmbedCss === null) {
     fontEmbedCss = await getFontEmbedCSS(el);
   }
-  return toPng(el, {
+  return toJpeg(el, {
+    quality: 0.92,
     width: SLIDE_W,
     height: SLIDE_H,
     canvasWidth: SLIDE_W * 2,
@@ -150,9 +156,9 @@ export async function createPdfWriter(title: string) {
 
   return {
     async addImage(dataUrl: string) {
-      const png = await pdf.embedPng(dataUrlToBytes(dataUrl));
+      const image = await pdf.embedJpg(dataUrlToBytes(dataUrl));
       const page = pdf.addPage([PDF_PAGE_W_PT, PDF_PAGE_H_PT]);
-      page.drawImage(png, {
+      page.drawImage(image, {
         x: 0,
         y: 0,
         width: PDF_PAGE_W_PT,
