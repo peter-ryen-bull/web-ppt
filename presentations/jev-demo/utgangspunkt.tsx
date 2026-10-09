@@ -1,86 +1,33 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { Copy } from "@/components/Copy";
 import { Box, pt } from "../parts";
-import {
-  buildLiveMessages,
-  checkJsonShape,
-  formatUsd,
-  jevCostUsd,
-  LIVE_INPUTS,
-  LIVE_QUESTIONS,
-  llmCostUsd,
-  modelPrice,
-  type Answer,
-  type BatchLine,
-  type JevResponse,
-  type PromptMode,
-  type ShapeCheck,
-  type StreamLine,
-} from "./jev";
+import { formatUsd, jevCostUsd, llmCostUsd, modelPrice, type Answer, type BatchLine, type JevResponse, type PromptMode, type ShapeCheck, type StreamLine } from "./jev";
+import { buildLiveMessages, checkJsonShape, QUESTION_ID, questionsFor, stateFor, type ClassifyTask } from "./cases";
+import { useCase } from "./case-choice";
 import { getOpenaiChoice } from "./openai-choice";
-import { apiBody, Body, Button, Card, Header, interactive, Label, MONO, MUTED, OpenaiPicker, PINK, ProbBar, runJev, sans, serif, Stat, streamBatch, useDemoStatus } from "./ui";
+import { apiBody, Body, Button, Card, CaseTabs, ExamplePicker, Header, interactive, Label, MONO, MUTED, OpenaiPicker, PINK, ProbBar, runJev, sans, serif, Stat, streamBatch, useDemoStatus } from "./ui";
 
 /*
- * Utgangspunktet: tre slides på de samme henvendelsene. Valget deles mellom
- * slidene, så neste slide starter på samme tekst.
+ * Utgangspunktet: tre slides på samme case og samme eksempel. Valget deles
+ * med resten av live-slidene.
  */
 
-let selectedInput = 0;
-const inputListeners = new Set<() => void>();
-
-function subscribeInput(fn: () => void) {
-  inputListeners.add(fn);
-  return () => {
-    inputListeners.delete(fn);
-  };
-}
-
-function useLiveInput(): [number, (i: number) => void] {
-  const i = useSyncExternalStore(subscribeInput, () => selectedInput, () => 0);
-  const set = useCallback((n: number) => {
-    selectedInput = n;
-    inputListeners.forEach((l) => l());
-  }, []);
-  return [i, set];
-}
-
-function InputPicker({ disabled }: { disabled?: boolean }) {
-  const [i, setI] = useLiveInput();
+/** Case-faner og eksempel 1–4. */
+function CasePicker({ disabled }: { disabled?: boolean }) {
   return (
-    <div {...interactive} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-      <Copy k="input_label" as="span" style={{ ...sans, fontSize: pt(10.5), fontWeight: 700, letterSpacing: 1, color: MUTED, marginRight: 6 }} />
-      {LIVE_INPUTS.map((_, n) => (
-        <button
-          key={n}
-          type="button"
-          disabled={disabled}
-          onClick={(e) => {
-            e.currentTarget.blur();
-            setI(n);
-          }}
-          style={{
-            ...sans,
-            width: 30,
-            height: 26,
-            fontSize: pt(12),
-            fontWeight: 700,
-            border: "1.5px solid var(--burgundy)",
-            background: n === i ? "var(--burgundy)" : "transparent",
-            color: n === i ? "#fff" : "var(--burgundy)",
-            cursor: disabled ? "default" : "pointer",
-            opacity: disabled && n !== i ? 0.4 : 1,
-          }}
-        >
-          {n + 1}
-        </button>
-      ))}
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      <CaseTabs disabled={disabled} />
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <Copy k="input_label" as="span" style={{ ...sans, fontSize: pt(10.5), fontWeight: 700, letterSpacing: 1, color: MUTED }} />
+        <ExamplePicker disabled={disabled} />
+      </div>
     </div>
   );
 }
 
-function PromptView({ mode, input, size = 10 }: { mode: PromptMode; input: string; size?: number }) {
+function PromptView({ mode, task, item, size = 10 }: { mode: PromptMode; task: ClassifyTask; item: string; size?: number }) {
   return (
     <pre
       style={{
@@ -92,7 +39,7 @@ function PromptView({ mode, input, size = 10 }: { mode: PromptMode; input: strin
         color: "var(--burgundy)",
       }}
     >
-      {buildLiveMessages(mode, input).map((m, i) => (
+      {buildLiveMessages(mode, task, item).map((m, i) => (
         <span key={i}>
           {i > 0 && "\n\n"}
           <span style={{ color: MUTED }}>{m.role}: </span>
@@ -185,7 +132,24 @@ function useOpenaiStream() {
     }
   }, []);
 
-  return { s, start };
+  const reset = useCallback(() => {
+    abort.current?.abort();
+    setS(IDLE);
+  }, []);
+
+  return { s, start, reset };
+}
+
+/** Nullstiller når presentatøren bytter case eller eksempel, så svaret alltid hører til teksten som vises. */
+function useResetOn(key: string, reset: () => void) {
+  const first = useRef(true);
+  useEffect(() => {
+    if (first.current) {
+      first.current = false;
+      return;
+    }
+    reset();
+  }, [key, reset]);
 }
 
 function useNow(running: boolean): number {
@@ -275,8 +239,9 @@ function StreamStats({ s, color = "var(--burgundy)" }: { s: Stream; color?: stri
 /* ------------------------------------------------------------------ */
 
 export function SlideProblemet() {
-  const [i] = useLiveInput();
-  const { s, start } = useOpenaiStream();
+  const { task, example, item } = useCase();
+  const { s, start, reset } = useOpenaiStream();
+  useResetOn(`${task.id}:${example}`, reset);
   const status = useDemoStatus();
   const running = isRunning(s);
   return (
@@ -284,11 +249,11 @@ export function SlideProblemet() {
       <Header />
       <Card box={[81, 175, 520, 495]} bar="var(--red-deep)">
         <Box box={[20, 20, 480, 455]}>
-          <InputPicker disabled={running} />
+          <CasePicker disabled={running} />
           <SectionLabel k="prompt_label" style={{ marginTop: 18 }} />
-          <PromptView mode="fritekst" input={LIVE_INPUTS[i]} size={11} />
+          <PromptView mode="fritekst" task={task} item={item} size={11} />
           <div {...interactive} style={{ marginTop: 18, display: "flex", gap: 14, alignItems: "center" }}>
-            <Button onClick={() => start("fritekst", LIVE_INPUTS[i])} disabled={running || !status?.openai?.configured}>
+            <Button onClick={() => start("fritekst", item)} disabled={running || !status?.openai?.configured}>
               Send til OpenAI
             </Button>
             <OpenaiPicker disabled={running} />
@@ -322,14 +287,14 @@ function failReason(checks: ShapeCheck[], parsed: Record<string, unknown> | null
   return "verdi utenfor listen";
 }
 
-function toFormatResult(line: Extract<BatchLine, { i: number }>): FormatResult {
+function toFormatResult(line: Extract<BatchLine, { i: number }>, task: ClassifyTask): FormatResult {
   if (!line.ok) return { ok: false, reason: "API-feil", text: line.error, failed: [], latencyMs: line.latencyMs, input: 0, output: 0 };
   if (!("llm" in line)) return { ok: false, reason: "API-feil", text: "uventet svar", failed: [], latencyMs: line.latencyMs, input: 0, output: 0 };
   const { text, input, output } = line.llm;
-  const { parsed, checks } = checkJsonShape(text);
+  const { parsed, checks } = checkJsonShape(text, task);
   const failed = checks.filter((c) => !c.ok);
   if (failed.length === 0 && parsed) {
-    return { ok: true, text, latencyMs: line.latencyMs, answer: `${parsed.team} · ${parsed.frustrasjon} · ${parsed.haster}`, input, output };
+    return { ok: true, text, latencyMs: line.latencyMs, answer: String(parsed[task.column]), input, output };
   }
   return { ok: false, reason: failReason(checks, parsed), text, failed, latencyMs: line.latencyMs, input, output };
 }
@@ -372,10 +337,10 @@ function CheckChips({ checks }: { checks: ShapeCheck[] }) {
 }
 
 export function SlideJsonForsok() {
-  const [i] = useLiveInput();
-  const { s, start } = useOpenaiStream();
+  const { task, example, item } = useCase();
+  const { s, start, reset } = useOpenaiStream();
   const status = useDemoStatus();
-  const single = s.status === "done" ? checkJsonShape(s.text) : null;
+  const single = s.status === "done" ? checkJsonShape(s.text, task) : null;
   const live = Boolean(status?.openai?.configured);
 
   const [results, setResults] = useState<(FormatResult | undefined)[]>([]);
@@ -388,12 +353,22 @@ export function SlideJsonForsok() {
   const abort = useRef<AbortController | null>(null);
   useEffect(() => () => abort.current?.abort(), []);
   const now = useNow(batchRunning);
+  const resetAll = useCallback(() => {
+    reset();
+    abort.current?.abort();
+    setResults([]);
+    setWallMs(null);
+    setBatchRunning(false);
+    setBatchError(null);
+    setPicked(null);
+  }, [reset]);
+  useResetOn(`${task.id}:${example}`, resetAll);
 
   const runBatch = async () => {
     abort.current?.abort();
     const ac = new AbortController();
     abort.current = ac;
-    const input = LIVE_INPUTS[i];
+    const runTask = task;
     const t0 = performance.now();
     setResults(new Array(BATCH_N).fill(undefined));
     setWallMs(null);
@@ -403,14 +378,14 @@ export function SlideJsonForsok() {
     setPicked(null);
     setBatchRunning(true);
     const err = await streamBatch(
-      new Array(BATCH_N).fill(input),
-      LIVE_QUESTIONS,
+      new Array(BATCH_N).fill(item),
+      questionsFor(runTask),
       BATCH_N,
       (lines) => {
         setResults((prev) => {
           const next = prev.slice();
           for (const line of lines) {
-            if ("i" in line) next[line.i] = toFormatResult(line);
+            if ("i" in line) next[line.i] = toFormatResult(line, runTask);
           }
           return next;
         });
@@ -448,16 +423,18 @@ export function SlideJsonForsok() {
       <Header />
       <Card box={[81, 175, 500, 495]} bar="var(--red-deep)">
         <Box box={[18, 16, 464, 465]}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <InputPicker disabled={isRunning(s) || batchRunning} />
-            <div {...interactive}>
-              <Button onClick={() => start("json", LIVE_INPUTS[i])} disabled={isRunning(s) || !live}>
+          <CaseTabs disabled={isRunning(s) || batchRunning} />
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 8 }}>
+            <Copy k="input_label" as="span" style={{ ...sans, fontSize: pt(10.5), fontWeight: 700, letterSpacing: 1, color: MUTED }} />
+            <ExamplePicker disabled={isRunning(s) || batchRunning} />
+            <div {...interactive} style={{ marginLeft: "auto" }}>
+              <Button onClick={() => start("json", item)} disabled={isRunning(s) || !live}>
                 Send én
               </Button>
             </div>
           </div>
           <SectionLabel k="prompt_label" style={{ marginTop: 12 }} />
-          <PromptView mode="json" input={LIVE_INPUTS[i]} size={9} />
+          <PromptView mode="json" task={task} item={item} size={9} />
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginTop: 10 }}>
             <SectionLabel k="answer_label" />
             <OpenaiPicker disabled={isRunning(s) || batchRunning} />
@@ -616,21 +593,29 @@ function BigTimer({ value, color }: { value: number | null; color: string }) {
 }
 
 export function SlideToModeller() {
-  const [i] = useLiveInput();
-  const { s, start } = useOpenaiStream();
+  const { task, example, item } = useCase();
+  const { s, start, reset } = useOpenaiStream();
   const status = useDemoStatus();
   const [jev, setJev] = useState<JevState>({ status: "idle" });
+  const jevSeq = useRef(0);
+  const resetBoth = useCallback(() => {
+    reset();
+    jevSeq.current++;
+    setJev({ status: "idle" });
+  }, [reset]);
+  useResetOn(`${task.id}:${example}`, resetBoth);
   const now = useNow(isRunning(s) || jev.status === "running");
   const busy = isRunning(s) || jev.status === "running";
   const ready = Boolean(status?.openai?.configured && status?.jev);
-  const single = s.status === "done" ? checkJsonShape(s.text) : null;
+  const single = s.status === "done" ? checkJsonShape(s.text, task) : null;
 
   const race = () => {
-    const input = LIVE_INPUTS[i];
-    start("json", input);
+    start("json", item);
     const t0 = performance.now();
+    const seq = ++jevSeq.current;
     setJev({ status: "running", t0 });
-    runJev(input, LIVE_QUESTIONS).then((r) => {
+    runJev(stateFor(task, item), questionsFor(task)).then((r) => {
+      if (seq !== jevSeq.current) return;
       setJev(r.ok ? { status: "done", ms: performance.now() - t0, data: r.data } : { status: "error", error: r.error });
     });
   };
@@ -671,7 +656,7 @@ export function SlideToModeller() {
           </Body>
           <div style={{ height: 238, marginTop: 8, display: "flex", flexDirection: "column", gap: 2, overflow: "hidden" }}>
             {jev.status === "done" ? (
-              Object.keys(LIVE_QUESTIONS).map((id) => <JevAnswer key={id} id={id} answer={jev.data.answers[id]} />)
+              <JevAnswer id={task.column} answer={jev.data.answers[QUESTION_ID]} />
             ) : jev.status === "error" ? (
               <Body size={11} color="var(--red-deep)">
                 {jev.error}
@@ -694,7 +679,8 @@ export function SlideToModeller() {
         </Box>
       </Card>
       <Box box={[81, 630, 1117, 40]} style={{ display: "flex", alignItems: "center", gap: 18 }}>
-        <InputPicker disabled={busy} />
+        <CaseTabs disabled={busy} />
+        <ExamplePicker disabled={busy} />
         <div {...interactive}>
           <Button onClick={race} disabled={busy || !ready}>
             Kjør begge samtidig

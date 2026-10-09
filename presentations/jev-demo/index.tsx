@@ -2,7 +2,7 @@ import type { SlideDef } from "../types";
 import copyRaw from "./copy.yaml";
 import notesRaw from "./notes.md";
 import { definePresentation } from "../chapters";
-import { SlideForside, SlidePrimitiver } from "./intro";
+import { SlideCasene, SlideForside, SlidePrimitiver } from "./intro";
 import { SlideJsonForsok, SlideProblemet, SlideToModeller } from "./utgangspunkt";
 import {
   SlideConfidence,
@@ -12,13 +12,14 @@ import {
   SlideStegNoul,
   SlideStegScore,
 } from "./tutorial";
-import { SlideBatching, SlideForskning, SlideKalkulator } from "./tokens";
+import { SlideBatching, SlideForskning, SlideForskningJaNei, SlideKalkulator } from "./tokens";
 import { SlideFart, SlideKlassifiser } from "./fart";
 import { SlideSammenlign } from "./sammenlign";
-import { SlideArbeidsdeling, SlideBegrensninger, SlideOppsummering } from "./avslutning";
+import { SlideArbeidsdeling, SlideBegrensninger, SlideKonklusjon } from "./avslutning";
 
 const INTRO: SlideDef[] = [
   { id: "forside", name: "Forside", component: SlideForside },
+  { id: "casene", name: "De tre casene", component: SlideCasene },
   { id: "problemet", name: "Utgangspunktet: fritekst fra OpenAI", component: SlideProblemet },
   { id: "json-forsok", name: "Be om JSON – 100 ganger", component: SlideJsonForsok },
   { id: "to-modeller", name: "OpenAI og Jev på samme tekst", component: SlideToModeller },
@@ -46,12 +47,13 @@ const TOKENS: SlideDef[] = [
   { id: "batching", name: "Mange spørsmål, ett kall", component: SlideBatching },
   { id: "kalkulator", name: "Kostnadskalkulator", component: SlideKalkulator },
   { id: "forskning", name: "Hva sier forskningen", component: SlideForskning },
+  { id: "forskning-janei", name: "Studien: ja/nei mot skala", component: SlideForskningJaNei },
 ];
 
 const AVSLUTNING: SlideDef[] = [
   { id: "begrensninger", name: "Hvor Jev bommer", component: SlideBegrensninger },
   { id: "arbeidsdeling", name: "Jev, kode og LLM", component: SlideArbeidsdeling },
-  { id: "oppsummering", name: "Oppsummering og kilder", component: SlideOppsummering },
+  { id: "konklusjon", name: "Konklusjon: ikke bedre, men raskere og billigere", component: SlideKonklusjon },
 ];
 
 export const jevDemo = definePresentation({

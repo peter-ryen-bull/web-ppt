@@ -13,6 +13,8 @@ import { Copy, useHasCopy } from "@/components/Copy";
 import { Box, MilesLogo, pt } from "../parts";
 import { OPENAI_MODELS, type BatchLine, type DemoStatus, type JevRunResult, type LlmRunResult, type PromptMode, type Provider, type Questions } from "./jev";
 import { getOpenaiChoice, setOpenaiChoice, useOpenaiChoice } from "./openai-choice";
+import { getCaseChoice, setCaseChoice, useCaseChoice } from "./case-choice";
+import { CLASSIFY_TASKS } from "./cases";
 
 export const MUTED = "#5A4A50";
 export const PINK = "#FBE3E0";
@@ -273,9 +275,9 @@ export function useDemoStatus(): DemoStatus | null {
   return status;
 }
 
-/** Alle kall til /api/jev tar med presentatørens OpenAI-valg. Jev-kall ignorerer det. */
+/** Alle kall til /api/jev tar med presentatørens OpenAI-valg og case. Kall som ikke trenger dem, ignorerer dem. */
 export function apiBody(payload: Record<string, unknown>): string {
-  return JSON.stringify({ ...payload, openai: getOpenaiChoice() });
+  return JSON.stringify({ caseId: getCaseChoice().id, ...payload, openai: getOpenaiChoice() });
 }
 
 async function post<T>(payload: Record<string, unknown>): Promise<T> {
@@ -495,5 +497,74 @@ export function OpenaiPicker({ disabled }: { disabled?: boolean }) {
         </div>
       )}
     </span>
+  );
+}
+
+export function Chip({
+  active,
+  onClick,
+  disabled,
+  mono,
+  children,
+}: {
+  active?: boolean;
+  onClick: () => void;
+  disabled?: boolean;
+  mono?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      onClick={(e) => {
+        e.currentTarget.blur();
+        e.stopPropagation();
+        onClick();
+      }}
+      style={{
+        ...(mono ? { fontFamily: MONO } : sans),
+        fontSize: pt(10.5),
+        fontWeight: active ? 700 : 400,
+        padding: "4px 9px",
+        border: active ? "1px solid var(--teal)" : "1px solid var(--divider)",
+        background: active ? "var(--teal)" : "#fff",
+        color: active ? "#fff" : "var(--burgundy)",
+        cursor: disabled ? "default" : "pointer",
+        opacity: disabled && !active ? 0.5 : 1,
+        whiteSpace: "nowrap",
+      }}
+    >
+      {children}
+    </button>
+  );
+}
+
+/** De tre casene. Valget deles av alle live-slidene. */
+export function CaseTabs({ disabled }: { disabled?: boolean }) {
+  const c = useCaseChoice();
+  return (
+    <div {...interactive} style={{ display: "flex", gap: 6 }}>
+      {CLASSIFY_TASKS.map((t) => (
+        <Chip key={t.id} active={t.id === c.id} onClick={() => setCaseChoice({ id: t.id })} disabled={disabled}>
+          {t.name}
+        </Chip>
+      ))}
+    </div>
+  );
+}
+
+/** Eksempel 1–4 i valgt case. */
+export function ExamplePicker({ disabled }: { disabled?: boolean }) {
+  const c = useCaseChoice();
+  const task = CLASSIFY_TASKS.find((t) => t.id === c.id) ?? CLASSIFY_TASKS[0];
+  return (
+    <div {...interactive} style={{ display: "flex", alignItems: "center", gap: 4 }}>
+      {task.examples.map((_, n) => (
+        <Chip key={n} mono active={n === c.example} onClick={() => setCaseChoice({ example: n })} disabled={disabled}>
+          {n + 1}
+        </Chip>
+      ))}
+    </div>
   );
 }

@@ -4,20 +4,21 @@ import { useEffect, useRef, useState } from "react";
 import { Copy } from "@/components/Copy";
 import { Box, pt } from "../parts";
 import {
-  CLASSIFY_TASKS,
   formatInt,
   formatUsd,
   JEV_PRICE_IN,
   MODEL_PRICES,
   type BatchLine,
-  type ClassifyTask,
   type DemoStatus,
   type OpenaiChoice,
   type Provider,
 } from "./jev";
-import { light, median, Pill, QUESTION_ID, questionsFor, seconds, Segmented, stateFor, TaskTabs, taskById } from "./fart";
+import { QUESTION_ID, questionsFor, shortLabel, stateFor, type ClassifyTask } from "./cases";
+import { useCase } from "./case-choice";
+import { light, median, Pill, seconds, Segmented } from "./fart";
 import { useOpenaiChoice } from "./openai-choice";
-import { Body, Button, Card, Header, interactive, Label, MONO, MUTED, OpenaiPicker, sans, serif, Stat, streamBatch, useDemoStatus } from "./ui";
+import { recordComparison, type EngineRun } from "./results";
+import { Body, Button, Card, CaseTabs, Header, interactive, Label, MONO, MUTED, OpenaiPicker, sans, serif, Stat, streamBatch, useDemoStatus } from "./ui";
 
 type ItemResult =
   | { ok: true; choice: string | null; input: number; output: number; latencyMs: number }
@@ -72,8 +73,7 @@ function toResult(line: Extract<BatchLine, { i: number }>, task: ClassifyTask): 
 export function SlideSammenlign() {
   const status = useDemoStatus();
   const choice = useOpenaiChoice();
-  const [taskId, setTaskId] = useState(CLASSIFY_TASKS[1].id);
-  const task = taskById(taskId);
+  const { task } = useCase();
   const [size, setSize] = useState(25);
   const [concurrency, setConcurrency] = useState(10);
   const [items, setItems] = useState<string[]>([]);
@@ -104,13 +104,13 @@ export function SlideSammenlign() {
     setLanes(emptyLanes(0));
   };
 
-  // Tallene skal alltid høre til modellen som står i banen.
+  // Tallene skal alltid høre til modellen og casen som vises.
   useEffect(() => {
     abortRef.current?.abort();
     setRunning(false);
     setItems([]);
     setLanes(emptyLanes(0));
-  }, [choice.model, choice.effort]);
+  }, [choice.model, choice.effort, task]);
 
   const run = async () => {
     abortRef.current?.abort();
@@ -127,6 +127,8 @@ export function SlideSammenlign() {
     setRunning(true);
 
     const live = LANES.filter((l) => laneInfo(l.provider, status, choice).live);
+    const acc: Record<Provider, (ItemResult | undefined)[]> = { jev: new Array(size).fill(undefined), openai: new Array(size).fill(undefined) };
+    const ends: Record<Provider, number> = { jev: 0, openai: 0 };
     await Promise.all(
       live.map(async ({ provider }) => {
         let lastAt = 0;
@@ -136,6 +138,7 @@ export function SlideSammenlign() {
           concurrency,
           (lines) => {
             lastAt = performance.now();
+            for (const line of lines) if ("i" in line) acc[provider][line.i] = toResult(line, task);
             setLanes((prev) => {
               const results = [...prev[provider].results];
               let error = prev[provider].error;
@@ -150,13 +153,37 @@ export function SlideSammenlign() {
           provider
         );
         if (ac.signal.aborted) return;
+        ends[provider] = lastAt || performance.now();
         setLanes((prev) => ({
           ...prev,
           [provider]: { ...prev[provider], end: lastAt || performance.now(), error: error ?? prev[provider].error },
         }));
       })
     );
-    if (!ac.signal.aborted) setRunning(false);
+    if (ac.signal.aborted) return;
+    setRunning(false);
+    if (live.length === LANES.length) {
+      const engineRun = (provider: Provider): EngineRun => {
+        const info = laneInfo(provider, status, choice);
+        const results = acc[provider];
+        const done = results.filter((r): r is ItemResult => r !== undefined);
+        const ok = done.filter((r): r is Extract<ItemResult, { ok: true }> => r.ok);
+        const price = info.price;
+        const cost = price ? ok.reduce((sum, r) => sum + (r.input * price.in + r.output * price.out) / 1e6, 0) : null;
+        return {
+          provider,
+          model: info.model,
+          effort: info.effort,
+          n: size,
+          errors: done.length - ok.length,
+          wallMs: ends[provider] - t0,
+          medianMs: median(done.map((r) => r.latencyMs)),
+          costPerItem: cost !== null && ok.length ? cost / ok.length : null,
+          choices: results.map((r) => (r?.ok ? r.choice : null)),
+        };
+      };
+      recordComparison({ source: "sammenlign", at: Date.now(), taskId: task.id, n: size, concurrency, jev: engineRun("jev"), openai: engineRun("openai") });
+    }
   };
 
   const jevChoices = lanes.jev.results.map((r) => (r?.ok ? r.choice : null));
@@ -173,7 +200,7 @@ export function SlideSammenlign() {
       <Header />
       <Box box={[81, 166, 1119, 34]}>
         <div {...interactive} style={{ display: "flex", alignItems: "center", gap: 18, height: "100%" }}>
-          <TaskTabs value={taskId} onChange={setTaskId} disabled={running} />
+          <CaseTabs disabled={running} />
           <Segmented label="antall" options={SIZES} value={size} onChange={setSize} disabled={running} />
           <Segmented label="samtidig" options={CONCURRENCY} value={concurrency} onChange={setConcurrency} disabled={running} />
           <div style={{ display: "flex", gap: 8, marginLeft: "auto" }}>
@@ -211,7 +238,7 @@ export function SlideSammenlign() {
               <Label size={9.5}>uenige med jev ({formatInt(disagreements.length)})</Label>
               {disagreements.slice(0, 2).map((d, i) => (
                 <div key={i} style={{ display: "flex", gap: 10, alignItems: "center", ...sans, fontSize: pt(11), color: "var(--burgundy)" }}>
-                  <span style={{ flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{d.item}</span>
+                  <span style={{ flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{shortLabel(d.item)}</span>
                   <span style={{ color: MUTED }}>Jev</span>
                   <Pill label={d.jev ?? "–"} color={runTask.colors[d.jev ?? ""] ?? MUTED} size={9.5} />
                   {d.openai?.ok && (
@@ -321,7 +348,7 @@ function LaneCard({
                 return (
                   <div
                     key={i}
-                    title={r ? (r.ok ? `${item} → ${r.choice} · ${Math.round(r.latencyMs)} ms` : `${item} → ${r.error}`) : item}
+                    title={r ? (r.ok ? `${shortLabel(item)} → ${r.choice} · ${Math.round(r.latencyMs)} ms` : `${shortLabel(item)} → ${r.error}`) : shortLabel(item)}
                     style={{
                       background: !r ? "var(--cream)" : r.ok ? task.colors[r.choice ?? ""] ?? MUTED : "#fff",
                       border: r && !r.ok ? "1.5px solid var(--red)" : differs ? "2px solid var(--burgundy)" : "none",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Box, pt } from "../parts";
 import {
   formatInt,
@@ -8,15 +8,18 @@ import {
   jevCostUsd,
   llmCostUsd,
   modelPrice,
-  PRESETS,
   type Answer,
   type JevResponse,
   type Questions,
 } from "./jev";
+import { stateFor, STEP_QUESTIONS, type StepId } from "./cases";
+import { useCase } from "./case-choice";
 import {
   Body,
   Button,
   Card,
+  CaseTabs,
+  ExamplePicker,
   fieldStyle,
   Label,
   LiveBadge,
@@ -94,15 +97,16 @@ export function Playground({
   compare = false,
   questionsHeight = 230,
 }: {
-  presetId: keyof typeof PRESETS;
+  presetId: StepId;
   /** Vis knapp for å kjøre samme oppgave mot en vanlig LLM. */
   compare?: boolean;
   questionsHeight?: number;
 }) {
-  const preset = PRESETS[presetId];
-  const initialQuestions = useMemo(() => JSON.stringify(preset.questions, null, 2), [preset]);
+  const { task, example, item } = useCase();
+  const initialState = stateFor(task, item);
+  const initialQuestions = useMemo(() => JSON.stringify(STEP_QUESTIONS[presetId][task.id], null, 2), [presetId, task]);
   const status = useDemoStatus();
-  const [state, setState] = useState(preset.state);
+  const [state, setState] = useState(initialState);
   const [questionsText, setQuestionsText] = useState(initialQuestions);
   const [shown, setShown] = useState<Shown | null>(null);
   const [llm, setLlm] = useState<LlmShown | null>(null);
@@ -153,12 +157,24 @@ export function Playground({
   };
 
   const reset = () => {
-    setState(preset.state);
+    setState(initialState);
     setQuestionsText(initialQuestions);
     setShown(null);
     setLlm(null);
     setNote(null);
   };
+
+  const shownCase = useRef(`${task.id}:${example}`);
+  useEffect(() => {
+    const key = `${task.id}:${example}`;
+    if (shownCase.current === key) return;
+    shownCase.current = key;
+    setState(initialState);
+    setQuestionsText(initialQuestions);
+    setShown(null);
+    setLlm(null);
+    setNote(null);
+  }, [task, example, initialState, initialQuestions]);
 
   const usage = shown?.data.usage;
   const jevCost = usage ? jevCostUsd(usage.input_tokens) : null;
@@ -171,6 +187,10 @@ export function Playground({
       {/* Venstre: request */}
       <Box box={[81, 170, 540, leftH]}>
         <div style={{ display: "flex", flexDirection: "column", gap: 6, height: "100%" }} {...interactive}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+            <CaseTabs disabled={busy !== null} />
+            <ExamplePicker disabled={busy !== null} />
+          </div>
           <Label>state</Label>
           <div style={{ height: stateHeight }}>
             <textarea

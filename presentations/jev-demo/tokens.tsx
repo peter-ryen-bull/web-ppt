@@ -344,3 +344,113 @@ export function SlideForskning() {
     </>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/* Studien: ja/nei mot skala                                            */
+/* ------------------------------------------------------------------ */
+
+/*
+ * Treffsikkerhet (%) på de to ja/nei-panelene, per-kriterium-oppsett.
+ * Rao og Callison-Burch, arXiv 2609.29769, tabell 2. `sig`: signifikant
+ * forskjellig fra Jev (95 %-intervall uten null).
+ */
+const BINARY_PANELS: { name: string; info: string; scores: { judge: string; value: number; sig?: boolean }[] }[] = [
+  {
+    name: "RiceChem",
+    info: "kjemisvar · 27 kriterier · 819 vurderinger",
+    scores: [
+      { judge: "Jev", value: 81.0 },
+      { judge: "GPT-5.6 Luna", value: 77.8, sig: true },
+      { judge: "Gemini 3.8 Flash", value: 76.1, sig: true },
+      { judge: "DeepSeek V4.1 Flash", value: 79.2 },
+    ],
+  },
+  {
+    name: "HealthBench",
+    info: "chatbot-svar · 34 kriterier · 406 vurderinger",
+    scores: [
+      { judge: "Jev", value: 77.1 },
+      { judge: "GPT-5.6 Luna", value: 70.4, sig: true },
+      { judge: "Gemini 3.8 Flash", value: 79.6 },
+      { judge: "DeepSeek V4.1 Flash", value: 76.4 },
+    ],
+  },
+];
+const AXIS_MIN = 60;
+const AXIS_MAX = 85;
+
+function pct(v: number): string {
+  return v.toLocaleString("nb-NO", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+}
+
+export function SlideForskningJaNei() {
+  const scaleItems = useCopyCount("scale_items");
+  return (
+    <>
+      <Header />
+      <Card box={[81, 175, 640, 375]} bar="var(--teal)">
+        <Box box={[22, 22, 596, 340]}>
+          <Label size={10}>
+            <Copy k="binary_label" />
+          </Label>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 12 }}>
+            {BINARY_PANELS.map((p) => {
+              const jev = p.scores[0].value;
+              return (
+                <div key={p.name}>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
+                    <span style={{ ...serif, fontSize: pt(17), color: "var(--burgundy)" }}>{p.name}</span>
+                    <span style={{ ...sans, fontSize: pt(10.5), color: MUTED }}>{p.info}</span>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 4, marginTop: 6 }}>
+                    {p.scores.map((s, i) => {
+                      const w = ((s.value - AXIS_MIN) / (AXIS_MAX - AXIS_MIN)) * 100;
+                      const diff = jev - s.value;
+                      return (
+                        <div key={s.judge} style={{ display: "grid", gridTemplateColumns: "150px 1fr 54px 82px", alignItems: "center", gap: 10 }}>
+                          <span style={{ ...sans, fontSize: pt(11), fontWeight: i === 0 ? 700 : 400, color: "var(--burgundy)" }}>{s.judge}</span>
+                          <div style={{ height: 14, background: "var(--cream)" }}>
+                            <div style={{ width: `${w}%`, height: "100%", background: i === 0 ? "var(--teal)" : "var(--cream-dark)" }} />
+                          </div>
+                          <span style={{ fontFamily: MONO, fontSize: pt(11), fontWeight: i === 0 ? 700 : 400, color: "var(--burgundy)", textAlign: "right" }}>{pct(s.value)}</span>
+                          <span style={{ fontFamily: MONO, fontSize: pt(10), color: i === 0 ? MUTED : diff > 0 ? "var(--teal)" : "var(--red-deep)" }}>
+                            {i === 0 ? "" : `Jev ${diff > 0 ? "+" : "−"}${pct(Math.abs(diff))}${s.sig ? " *" : ""}`}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <Copy k="binary_note" as="div" style={{ ...sans, fontSize: pt(10), color: MUTED, marginTop: 12 }} />
+        </Box>
+      </Card>
+
+      <Card box={[745, 175, 455, 375]} bar="var(--red-deep)">
+        <Box box={[22, 22, 411, 340]}>
+          <Label size={10}>
+            <Copy k="scale_label" />
+          </Label>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 12 }}>
+            {Array.from({ length: scaleItems }, (_, i) => (
+              <div key={i} style={{ display: "grid", gridTemplateColumns: "92px 1fr", alignItems: "baseline", gap: 10 }}>
+                <Copy k="scale_items" i={i} field="tall" as="span" style={{ ...serif, fontSize: pt(i === 0 ? 28 : 24), color: i === 1 ? "var(--red-deep)" : "var(--teal)" }} />
+                <Copy k="scale_items" i={i} field="tekst" as="span" style={{ ...sans, fontSize: pt(12.5), lineHeight: 1.3, color: "var(--burgundy)" }} />
+              </div>
+            ))}
+          </div>
+          <Copy k="scale_tip" as="div" style={{ ...sans, fontSize: pt(12), lineHeight: 1.35, color: MUTED, marginTop: 14, borderTop: "1px solid var(--divider)", paddingTop: 10 }} />
+        </Box>
+      </Card>
+
+      <Box box={[81, 565, 1117, 60]} style={{ background: PINK, display: "flex", alignItems: "center", padding: "0 24px", boxSizing: "border-box" }}>
+        <Copy k="takeaway" as="div" style={{ ...sans, fontSize: pt(14), color: "var(--burgundy)" }} />
+      </Box>
+      <Box box={[81, 635, 1117, 40]}>
+        <Copy k="source" as="div" style={{ ...sans, fontSize: pt(10.5), lineHeight: 1.3, color: MUTED }} />
+      </Box>
+    </>
+  );
+}

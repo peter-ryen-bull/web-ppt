@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 import {
   BATCH_MAX_CONCURRENCY,
   BATCH_MAX_ITEMS,
-  buildLiveMessages,
   buildLlmMessages,
   DEFAULT_OPENAI_MODEL,
   normalizeOpenaiChoice,
@@ -14,6 +13,7 @@ import {
   type Questions,
   type StreamLine,
 } from "@/presentations/jev-demo/jev";
+import { buildLiveMessages, taskById } from "@/presentations/jev-demo/cases";
 
 /*
  * Proxy for Jev-demoen. Nøklene blir på serveren. Hver variabel leses fra
@@ -85,6 +85,7 @@ type Body = {
   provider?: unknown;
   promptMode?: unknown;
   openai?: unknown;
+  caseId?: unknown;
 };
 
 function errorText(status: number, body: string): string {
@@ -337,6 +338,7 @@ export async function POST(req: Request) {
 
   const questions = body.questions;
   const model = typeof body.model === "string" ? body.model : "jev-latest";
+  const task = taskById(typeof body.caseId === "string" ? body.caseId : null);
 
   if (body.kind === "openai-stream") {
     const mode = body.promptMode === "json" ? "json" : "fritekst";
@@ -347,7 +349,7 @@ export async function POST(req: Request) {
     const cfg = openaiConfig(body.openai);
     const key = cfg.key;
     if (!key) return NextResponse.json({ ok: false, error: `Ingen nøkkel: ${cfg.keyEnv} er ikke satt.` });
-    return streamOpenai(req, { ...cfg, key }, buildLiveMessages(mode, input));
+    return streamOpenai(req, { ...cfg, key }, buildLiveMessages(mode, task, input));
   }
 
   if (body.kind === "batch") {
@@ -372,7 +374,7 @@ export async function POST(req: Request) {
         req,
         (state, signal) =>
           live
-            ? callOpenai({ ...cfg, key }, buildLiveMessages(live, state), false, signal)
+            ? callOpenai({ ...cfg, key }, buildLiveMessages(live, task, state), false, signal)
             : callOpenai({ ...cfg, key }, classifierMessages(state, questions as Questions), true, signal),
         items as string[],
         concurrency
