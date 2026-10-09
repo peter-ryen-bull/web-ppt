@@ -62,6 +62,7 @@ export const jevDemo = definePresentation({
   date: "Oktober 2026",
   place: "Demo",
   inProgress: true,
+  clickToProceed: false,
   notes: notesRaw,
   copy: copyRaw,
   chapters: [

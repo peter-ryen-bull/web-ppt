@@ -305,7 +305,8 @@ export default function Deck({ presentationId }: { presentationId: string }) {
         className={styles.stage}
         ref={stageRef}
         onClick={() => {
-          if (!copyEditing) go(1);
+          if (presentation.clickToProceed === false || copyEditing) return;
+          go(1);
         }}
       >
         <SlideCanvas

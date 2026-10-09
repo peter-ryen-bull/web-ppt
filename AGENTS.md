@@ -170,6 +170,10 @@ ber om det.
 7. Sett `inProgress: true`, `tags` (`conference` | `presentation` | `pitch` | `private`),
    `date`, `place` og ev. `icon`
    (`<FyrIkon />` eller `<BildeIkon src="…/ikon.png" />`).
+8. Valgfritt `clickToProceed: false` når slidene har klikkbart innhold
+ (demoer, skjema). Standard `true`: klikk på sliden i øvingsvisningen går
+ til neste steg/slide. Piltaster, mellomrom, fjernkontroll og
+ Neste/Forrige-knappene virker uansett.
 
 ```tsx
 import type { SlideDef } from "../types";
