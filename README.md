@@ -38,9 +38,9 @@ presentasjon.
 
 Fra slideoversikten i øvingsvisningen (`G`) kan du laste ned presentasjonen
 som PDF. Knappen vises bare der – ikke i visnings- eller presentatørmodus.
-Du kan ta med
-alle slides eller et utvalg. Hver slide blir én side, alltid på **siste
-klikk-steg** (mellomsteg tas ikke med).
+Skjulte slides tas ikke med. Du kan ta med de synlige slidene eller et
+utvalg av dem. Hver slide blir én side, alltid på **siste klikk-steg**
+(mellomsteg tas ikke med).
 
 ## Presentere med to skjermer (HDMI/prosjektor)
 

@@ -58,7 +58,7 @@ export default function SlideOverview({
           <h2 className={styles.title}>{presentation.title}</h2>
           <p className={styles.meta}>
             {exportMode
-              ? "Huk av slidene som skal med i PDF-en. Hver slide tas med én gang, på siste steg."
+              ? "Huk av slidene som skal med i PDF-en. Skjulte slides tas ikke med. Hver slide tas med én gang, på siste steg."
               : "Klikk for å gå til en slide. Bruk øye-knappen for å skjule eller vise den. Kapitler er bare synlige her – ikke for publikum."}
           </p>
         </div>
@@ -134,11 +134,13 @@ export default function SlideOverview({
         {chapters?.length ? (
           chapters.map((ch) => {
             const chapterHidden = isChapterFullyHidden(ch, hidden);
-            const chapterIds = ch.slides.map((s) => s.id);
+            const visibleIds = ch.slides
+              .map((s) => s.id)
+              .filter((id) => !hidden.has(id));
             const chapterSelected =
               !!selection &&
-              chapterIds.length > 0 &&
-              chapterIds.every((id) => selection.selected.has(id));
+              visibleIds.length > 0 &&
+              visibleIds.every((id) => selection.selected.has(id));
             return (
               <section key={ch.id} className={styles.chapter}>
                 <div className={styles.chapterHeader}>
@@ -158,7 +160,7 @@ export default function SlideOverview({
                         type="button"
                         className={styles.btn}
                         onClick={() => selection.toggleChapter(ch.id)}
-                        disabled={exporting}
+                        disabled={exporting || visibleIds.length === 0}
                       >
                         {chapterSelected ? "Fjern kapittel" : "Velg kapittel"}
                       </button>
@@ -268,11 +270,18 @@ function OverviewThumb({
   onToggleHidden: () => void;
   onToggleSelected: () => void;
 }) {
-  const selectTitle = selected ? "Fjern fra PDF" : "Velg til PDF";
+  const selectTitle = isHidden
+    ? "Skjult – tas ikke med i PDF"
+    : selected
+      ? "Fjern fra PDF"
+      : "Velg til PDF";
   const activate = () => {
     if (exporting) return;
-    if (selecting) onToggleSelected();
-    else onGo();
+    if (selecting) {
+      if (!isHidden) onToggleSelected();
+      return;
+    }
+    onGo();
   };
   return (
     <div
@@ -307,9 +316,9 @@ function OverviewThumb({
           <input
             type="checkbox"
             className={styles.thumbCheckbox}
-            checked={selected}
+            checked={selected && !isHidden}
             onChange={onToggleSelected}
-            disabled={exporting}
+            disabled={exporting || isHidden}
             aria-label={`Velg ${slide.name}`}
           />
         )}
