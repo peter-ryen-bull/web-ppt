@@ -215,15 +215,13 @@ fôrresept sammen med dødelighet, vekst og Superior-kvalitet?
 De fire underleveransene er det som trengs for å svare. Plattformen
 bygges fordi analysen trenger den – og den blir stående til neste.
 
-## tidslinje-fem – Fem måneder til første analyse
+## tidslinje-fem – Seks måneder: tre analyser
 
-1,5 FTE. Klikk fram én fase om gangen.
+Involvert med 100–150 % FTE. Klikk fram én milepæl om gangen.
 
-To måneder innsikt og infrastruktur. Så én måned med data og
-kvalitet. Én måned med sammenstilling. Én måned med dashbord.
-
-Poenget: dashbordet er ikke en engangsrapport. Det oppdateres når
-nye data kommer inn.
+Etter to måneder: MVP av første analyse. [[CLICK]] Innen tre
+måneder er første analyse ferdig levert, med dashbord. [[CLICK]]
+De følgende tre månedene: to nye analyser.
 
 ## tidslinje-tolv – Seks måneder: fra MVP til tre analyser
 
@@ -236,7 +234,7 @@ måneder står tre analyser.
 
 ## team – Foreslått team
 
-Samlet kapasitet er 1,5–2 FTE. Tre personer, ikke tre fulle stillinger.
+Samlet kapasitet er 100–150 % FTE. Tre personer, ikke tre fulle stillinger.
 
 Peter er leveranseansvarlig og har bygget plattformer for Kleri,
 Politiet, Kystverket og andre i havbruk. Kestutis er tech lead, med

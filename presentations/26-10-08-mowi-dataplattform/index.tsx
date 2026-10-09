@@ -124,9 +124,9 @@ const TIDSLINJE: SlideDef[] = [
   },
   {
     id: "tidslinje-fem",
-    name: "Fem måneder til første analyse",
+    name: "Seks måneder: tre analyser",
     component: SlideFemManeder,
-    steps: 3,
+    steps: 2,
   },
   {
     id: "tidslinje-tolv",

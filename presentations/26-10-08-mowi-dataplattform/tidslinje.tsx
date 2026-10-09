@@ -100,16 +100,10 @@ export function SlideLeveranse() {
 const FASER: [number, number][] = [
   [0, 2],
   [2, 1],
-  [3, 1],
-  [4, 1],
+  [3, 3],
 ];
-const FASE_FARGER = [
-  "var(--burgundy)",
-  "var(--teal)",
-  "var(--teal)",
-  "var(--red-deep)",
-];
-const FEM = 5;
+const FASE_FARGER = ["var(--burgundy)", "var(--red-deep)", "var(--teal)"];
+const MANEDER = 6;
 const FASE_W = 420;
 const GRID_X = X0 + FASE_W + 20;
 const GRID_W = X0 + W - GRID_X;
@@ -119,8 +113,8 @@ const FASE_GAP = 12;
 
 export function SlideFemManeder() {
   const faser = Math.min(useCopyCount("faser"), FASER.length);
-  const maneder = Math.min(useCopyCount("maneder"), FEM);
-  const mw = GRID_W / FEM;
+  const maneder = Math.min(useCopyCount("maneder"), MANEDER);
+  const mw = GRID_W / MANEDER;
   const bunn = FASE_Y + FASER.length * (FASE_H + FASE_GAP) - FASE_GAP;
   return (
     <>
@@ -140,7 +134,7 @@ export function SlideFemManeder() {
         </Box>
       ))}
       <Box box={[X0, 222, W, 2]} style={{ background: "var(--divider)" }} />
-      {Array.from({ length: FEM - 1 }, (_, m) => (
+      {Array.from({ length: MANEDER - 1 }, (_, m) => (
         <Box
           key={m}
           box={[GRID_X + (m + 1) * mw, 224, 1, bunn - 224]}
@@ -150,7 +144,7 @@ export function SlideFemManeder() {
 
       {Array.from({ length: faser }, (_, i) => {
         const [start, lengde] = FASER[i];
-        const [x, w] = spenn(start, lengde, FEM, GRID_X, GRID_W);
+        const [x, w] = spenn(start, lengde, MANEDER, GRID_X, GRID_W);
         const y = FASE_Y + i * (FASE_H + FASE_GAP);
         return (
           <Reveal key={i} at={i}>
@@ -173,11 +167,13 @@ export function SlideFemManeder() {
                 background: FASE_FARGER[i],
                 display: "flex",
                 alignItems: "center",
-                padding: "0 16px",
+                padding: "0 8px",
               }}
             >
               <Label size={13} color="var(--cream)">
-                <Copy k="faser" i={i} field="varighet" />
+                <span style={{ whiteSpace: "nowrap" }}>
+                  <Copy k="faser" i={i} field="varighet" />
+                </span>
               </Label>
             </Box>
           </Reveal>

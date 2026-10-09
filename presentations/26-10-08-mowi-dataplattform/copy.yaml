@@ -191,9 +191,9 @@ leveranse:
   footer: "Dashbordene lever videre og oppdateres automatisk når nye data kommer inn."
 
 tidslinje-fem:
-  kicker: "TIDSLINJE · MÅNED 1–5"
-  title: "Plattform, infrastruktur og første analyse"
-  lead: "Fiskehelse per fôrresept"
+  kicker: "TIDSLINJE · 6 MÅNEDER"
+  title: "Fra MVP til tre analyser på seks måneder"
+  lead: "Involvert med 100–150 % FTE"
   fase_tittel: "FASE"
   maneder:
     - "MÅNED 1"
@@ -201,22 +201,18 @@ tidslinje-fem:
     - "MÅNED 3"
     - "MÅNED 4"
     - "MÅNED 5"
+    - "MÅNED 6"
   faser:
     - varighet: "2 måneder"
-      tittel: "Innsikt og infrastruktur"
-      tekst: "Avklar nøkkelspørsmål, kilder og behov. Sett opp infrastrukturen til dataplattformen."
+      tittel: "MVP av første analyse"
+      tekst: "Etter to måneder."
     - varighet: "1 måned"
-      tittel: "Datainnhenting og datakvalitet"
-      tekst: "Automatisert innhenting, datavask, struktur og datakvalitetstester."
-    - varighet: "1 måned"
-      tittel: "Sammenstilling"
-      tekst: "Kobler fôrdata og fiskehelse per resept."
-    - varighet: "1 måned"
-      tittel: "Rapportering og visualisering"
-      tekst: "Dashbord med drilldown, som oppdateres automatisk med ferske data."
-  footer: "Etter måned 5: analysen er i drift og oppdateres automatisk når nye data kommer inn.
-
-    Data er kvalitetssikret og kan spores tilbake til kilden. "
+      tittel: "Første analyse ferdig levert"
+      tekst: "Med dashbord, innen tre måneder."
+    - varighet: "3 måneder"
+      tittel: "To nye analyser"
+      tekst: "De følgende tre månedene."
+  footer: "Etter seks måneder står tre analyser: første med dashbord innen tre måneder, to nye i de følgende tre."
 
 tidslinje-tolv:
   kicker: "TIDSLINJE · 6 MÅNEDER"
@@ -240,7 +236,7 @@ tidslinje-tolv:
 team:
   kicker: "MOWI: FORESLÅTT TEAM"
   title: "Et seniortungt datateam med faglig autoritet og varme"
-  lead: "1,5–2 FTE"
+  lead: "Involvert med 100–150 % FTE"
   personer:
     - navn: "Peter Ryen Bull"
       tittel: "Senior Data Platform Engineer"
