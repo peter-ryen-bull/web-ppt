@@ -205,15 +205,15 @@ tidslinje-fem:
       tekst: "Grunnmur og innhenting av dataene analysen trenger."
     - varighet: "1 måned"
       tittel: "Dataanalyse"
-      tekst: "Selve analysen, på datagrunnlaget fra måned 1."
+      tekst: "Analyse, sammenstilling, datakvalitetstester"
     - varighet: "1 måned"
       tittel: "Rapportering og visualisering, produksjonssetting"
-      tekst: "I produksjon ved slutten av måned 3."
+      tekst: "I produksjon, med automatiske oppdateringer og fersk data"
   footer: "Ved slutten av måned 3 er første analyse i produksjon."
 
 tidslinje-tolv:
   kicker: "TIDSLINJE · 6 MÅNEDER"
-  title: "Fra første analyse til to nye på samme plattform"
+  title: "Videre skalering etter første prosjekt"
   lead: "Involvert med 100–150 % FTE"
   faser:
     - periode: "MÅNED 1–3"
@@ -224,8 +224,8 @@ tidslinje-tolv:
       tekst: "Levert på samme plattform, med nye datakilder og sammenstillinger."
   resultat_tittel: "ETTER 6 MÅNEDER"
   resultat:
-    - "Første analyse i produksjon fra slutten av måned 3"
-    - "To nye analyser på samme plattform, med nye datakilder og sammenstillinger"
+    - "Infrastruktur og skalerbar plattform på plass"
+    - "Tre analyser på samme plattform, som danner grunnlag for en felles datamodell og videre analyser"
 
 team:
   kicker: "MOWI: FORESLÅTT TEAM"
