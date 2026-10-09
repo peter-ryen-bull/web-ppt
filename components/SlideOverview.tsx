@@ -269,6 +269,11 @@ function OverviewThumb({
   onToggleSelected: () => void;
 }) {
   const selectTitle = selected ? "Fjern fra PDF" : "Velg til PDF";
+  const activate = () => {
+    if (exporting) return;
+    if (selecting) onToggleSelected();
+    else onGo();
+  };
   return (
     <div
       className={`${styles.thumb} ${
@@ -277,20 +282,26 @@ function OverviewThumb({
         selecting && selected ? styles.thumbSelected : ""
       }`}
     >
-      <button
-        type="button"
+      {/* Ikke <button>: slides kan selv inneholde knapper, og <button> i <button> er ugyldig HTML. */}
+      <div
+        role="button"
+        tabIndex={exporting ? -1 : 0}
+        aria-disabled={exporting || undefined}
+        aria-label={selecting ? `${selectTitle}: ${slide.name}` : slide.name}
         className={styles.thumbCanvasWrap}
-        onClick={() => {
-          if (selecting) onToggleSelected();
-          else onGo();
+        onClick={activate}
+        onKeyDown={(e) => {
+          if (e.key !== "Enter" && e.key !== " ") return;
+          e.preventDefault();
+          e.stopPropagation();
+          activate();
         }}
-        disabled={exporting}
         title={selecting ? selectTitle : slide.name}
       >
-        <div className={styles.thumbCanvas}>
+        <div className={styles.thumbCanvas} inert aria-hidden>
           <SlideCanvas slide={slide} scale={200 / SLIDE_W} />
         </div>
-      </button>
+      </div>
       <div className={styles.thumbFooter}>
         {selecting && (
           <input

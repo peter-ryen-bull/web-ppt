@@ -286,7 +286,7 @@
   box-shadow: inset 0 0 0 2px var(--ring);
 }
 
-.thumbCanvasWrap:disabled {
+.thumbCanvasWrap[aria-disabled="true"] {
   cursor: default;
 }
 
