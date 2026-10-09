@@ -5,11 +5,10 @@ import {
   BATCH_MAX_CONCURRENCY,
   BATCH_MAX_ITEMS,
   buildLlmMessages,
-  DEFAULT_MODELS,
+  DEFAULT_OPENAI_MODEL,
   type BatchLine,
   type JevResponse,
   type LlmItem,
-  type Provider,
   type Questions,
 } from "@/presentations/jev-demo/jev";
 
@@ -19,9 +18,6 @@ import {
  * presentations/jev-demo/.env (ikke i git, leses ved hvert kall).
  *
  *   API_KEY / TYPESAFE_API_KEY   live Jev-kall
- *   ANTHROPIC_API_KEY            valgfri: sammenligning med Claude
- *   ANTHROPIC_MODEL              standard claude-opus-5-5
- *   ANTHROPIC_EFFORT             standard low
  *   OPENAI_API_KEY               valgfri: sammenligning med GPT
  *   OPENAI_MODEL                 standard gpt-6.1-sol
  *   OPENAI_REASONING_EFFORT      standard low
@@ -30,7 +26,6 @@ import {
  */
 
 const TYPESAFE_URL = "https://api.typesafe.ai/v1/systemone";
-const ANTHROPIC_URL = "https://api.anthropic.com/v1/messages";
 const OPENAI_URL = "https://api.openai.com/v1/responses";
 const MAX_STATE_CHARS = 60_000;
 const MAX_ITEM_CHARS = 2_000;
@@ -59,15 +54,13 @@ function jevKey(): string | null {
   return envValue("TYPESAFE_API_KEY", local) ?? envValue("API_KEY", local);
 }
 
-function providerConfig(provider: Exclude<Provider, "jev">) {
+function openaiConfig() {
   const local = deckEnv();
-  const prefix = provider === "anthropic" ? "ANTHROPIC" : "OPENAI";
-  const effortEnv = provider === "anthropic" ? "ANTHROPIC_EFFORT" : "OPENAI_REASONING_EFFORT";
   return {
-    keyEnv: `${prefix}_API_KEY`,
-    key: envValue(`${prefix}_API_KEY`, local),
-    model: envValue(`${prefix}_MODEL`, local) ?? DEFAULT_MODELS[provider],
-    effort: envValue(effortEnv, local) ?? "low",
+    keyEnv: "OPENAI_API_KEY",
+    key: envValue("OPENAI_API_KEY", local),
+    model: envValue("OPENAI_MODEL", local) ?? DEFAULT_OPENAI_MODEL,
+    effort: envValue("OPENAI_REASONING_EFFORT", local) ?? "low",
   };
 }
 
@@ -81,14 +74,11 @@ function llmConfig() {
 
 export async function GET() {
   const llm = llmConfig();
-  const status = (p: "anthropic" | "openai") => {
-    const c = providerConfig(p);
-    return { configured: Boolean(c.key), model: c.model, keyEnv: c.keyEnv, effort: c.effort };
-  };
+  const openai = openaiConfig();
   return NextResponse.json({
     jev: Boolean(jevKey()),
     llm: { configured: Boolean(llm), model: llm?.model ?? null },
-    providers: { anthropic: status("anthropic"), openai: status("openai") },
+    openai: { configured: Boolean(openai.key), model: openai.model, keyEnv: openai.keyEnv, effort: openai.effort },
   });
 }
 
@@ -165,9 +155,8 @@ function parseAnswers(text: string): Record<string, unknown> | null {
   }
 }
 
-/** Samme klassifiseringsprompt som «Samme med LLM» i steg 4, sendt til Claude eller GPT. */
-async function callProvider(
-  provider: Exclude<Provider, "jev">,
+/** Samme klassifiseringsprompt som «Samme med LLM» i steg 4, sendt til OpenAI Responses API. */
+async function callOpenai(
   cfg: { key: string; model: string; effort: string },
   state: string,
   questions: Questions,
@@ -176,63 +165,45 @@ async function callProvider(
   const [system, user] = buildLlmMessages(state, questions);
   const started = performance.now();
   try {
-    const res =
-      provider === "anthropic"
-        ? await fetch(ANTHROPIC_URL, {
-            method: "POST",
-            headers: { "x-api-key": cfg.key, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-            body: JSON.stringify({
-              model: cfg.model,
-              max_tokens: 2048,
-              system: system.content,
-              messages: [{ role: "user", content: user.content }],
-              output_config: { effort: cfg.effort },
-            }),
-            signal,
-          })
-        : await fetch(OPENAI_URL, {
-            method: "POST",
-            headers: { Authorization: `Bearer ${cfg.key}`, "Content-Type": "application/json" },
-            body: JSON.stringify({
-              model: cfg.model,
-              instructions: system.content,
-              input: user.content,
-              reasoning: { effort: cfg.effort },
-              text: { format: { type: "json_object" } },
-            }),
-            signal,
-          });
+    // json_object krever ordet «JSON» i input-meldingene; `instructions` teller ikke.
+    const res = await fetch(OPENAI_URL, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${cfg.key}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: cfg.model,
+        input: [
+          { role: "developer", content: system.content },
+          { role: "user", content: user.content },
+        ],
+        reasoning: { effort: cfg.effort },
+        text: { format: { type: "json_object" } },
+      }),
+      signal,
+    });
     const raw = await res.text();
     const latencyMs = performance.now() - started;
     if (!res.ok) return { ok: false, error: errorText(res.status, raw), latencyMs };
-    let text = "";
-    let input = 0;
-    let output = 0;
-    let reasoning = 0;
-    if (provider === "anthropic") {
-      const data = JSON.parse(raw) as {
-        content?: { type: string; text?: string }[];
-        usage?: { input_tokens?: number; output_tokens?: number };
-      };
-      text = (data.content ?? []).filter((b) => b.type === "text").map((b) => b.text ?? "").join("");
-      input = data.usage?.input_tokens ?? 0;
-      output = data.usage?.output_tokens ?? 0;
-    } else {
-      const data = JSON.parse(raw) as {
-        output?: { type: string; content?: { type: string; text?: string }[] }[];
-        usage?: { input_tokens?: number; output_tokens?: number; output_tokens_details?: { reasoning_tokens?: number } };
-      };
-      text = (data.output ?? [])
-        .filter((o) => o.type === "message")
-        .flatMap((o) => o.content ?? [])
-        .filter((c) => c.type === "output_text")
-        .map((c) => c.text ?? "")
-        .join("");
-      input = data.usage?.input_tokens ?? 0;
-      output = data.usage?.output_tokens ?? 0;
-      reasoning = data.usage?.output_tokens_details?.reasoning_tokens ?? 0;
-    }
-    return { ok: true, llm: { answers: parseAnswers(text), text, input, output, reasoning }, latencyMs };
+    const data = JSON.parse(raw) as {
+      output?: { type: string; content?: { type: string; text?: string }[] }[];
+      usage?: { input_tokens?: number; output_tokens?: number; output_tokens_details?: { reasoning_tokens?: number } };
+    };
+    const text = (data.output ?? [])
+      .filter((o) => o.type === "message")
+      .flatMap((o) => o.content ?? [])
+      .filter((c) => c.type === "output_text")
+      .map((c) => c.text ?? "")
+      .join("");
+    return {
+      ok: true,
+      llm: {
+        answers: parseAnswers(text),
+        text,
+        input: data.usage?.input_tokens ?? 0,
+        output: data.usage?.output_tokens ?? 0,
+        reasoning: data.usage?.output_tokens_details?.reasoning_tokens ?? 0,
+      },
+      latencyMs,
+    };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : String(e), latencyMs: performance.now() - started };
   }
@@ -297,23 +268,17 @@ export async function POST(req: Request) {
     }
     const requested = typeof body.concurrency === "number" ? Math.floor(body.concurrency) : 50;
     const concurrency = Math.max(1, Math.min(BATCH_MAX_CONCURRENCY, requested));
-    const provider = body.provider === "anthropic" || body.provider === "openai" ? body.provider : "jev";
-    if (provider === "jev") {
-      const key = jevKey();
-      if (!key) {
-        return NextResponse.json({ ok: false, error: "Mangler Jev-nøkkel (API_KEY i presentations/jev-demo/.env)." });
-      }
-      return runBatch(req, (state, signal) => callJev(key, state, questions, model, signal), items as string[], concurrency);
+    if (body.provider === "openai") {
+      const cfg = openaiConfig();
+      const key = cfg.key;
+      if (!key) return NextResponse.json({ ok: false, error: `Ingen nøkkel: ${cfg.keyEnv} er ikke satt.` });
+      return runBatch(req, (state, signal) => callOpenai({ ...cfg, key }, state, questions, signal), items as string[], concurrency);
     }
-    const cfg = providerConfig(provider);
-    const key = cfg.key;
-    if (!key) return NextResponse.json({ ok: false, error: `Ingen nøkkel: ${cfg.keyEnv} er ikke satt.` });
-    return runBatch(
-      req,
-      (state, signal) => callProvider(provider, { ...cfg, key }, state, questions, signal),
-      items as string[],
-      concurrency
-    );
+    const key = jevKey();
+    if (!key) {
+      return NextResponse.json({ ok: false, error: "Mangler Jev-nøkkel (API_KEY i presentations/jev-demo/.env)." });
+    }
+    return runBatch(req, (state, signal) => callJev(key, state, questions, model, signal), items as string[], concurrency);
   }
 
   const state = body.state;

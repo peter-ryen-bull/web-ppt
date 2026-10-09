@@ -115,37 +115,30 @@ Hold musen over en rute for svar, confidence og ventetid.
 Første kjøring etter oppstart er litt tregere (nye forbindelser til
 TypeSafe). Kjør én gang før publikum kommer.
 
-## sammenlign – Jev mot Claude og GPT
+## sammenlign – Jev mot OpenAI
 
 Standard: Kundeservice, 25 elementer, 10 samtidige. Trykk «Kjør alle».
-Alle tre banene starter samtidig med samme elementer.
+Begge banene starter samtidig med samme elementer.
 
 Pek på tre ting: tid totalt, kostnad per 1000 og «enig med Jev». Enighet
 er ikke treffsikkerhet. Ingen av modellene er fasit, men der de er uenige
 er det verdt å se på eksemplet (listet nederst).
 
-Banene uten nøkkel viser «INGEN NØKKEL» og kjører ikke. Ingen tall blir
-anslått der.
+Uten nøkkel viser OpenAI-banen «INGEN NØKKEL» og kjører ikke.
 
 Oppsett i `presentations/jev-demo/.env` (eller `.env.local` i `web-ppt/`):
 
-    ANTHROPIC_API_KEY=...
     OPENAI_API_KEY=...
     # valgfritt:
-    ANTHROPIC_MODEL=claude-opus-5-5
-    ANTHROPIC_EFFORT=low
     OPENAI_MODEL=gpt-6.1-sol
     OPENAI_REASONING_EFFORT=low
 
-Effort står på `low` for begge: laveste nivå begge støtter, og det
-leverandørene anbefaler for enkle, tidskritiske oppgaver. GPT-6.1 Sol
-støtter ikke `none` eller `minimal`. Claude Opus 5.5 har alltid adaptiv
-tenking; på `low` kan den hoppe over tenkingen.
+GPT-6.1 Sol kjører med reasoning effort `low`, det laveste den støtter
+(`none` og `minimal` gir feil). Kostnaden er tokenene OpenAI rapporterer
+for hvert kall × listeprisen.
 
 Priser (listepris, $ per million tokens inn / ut), hentet 9. okt 2026:
 
-- Claude Opus 5.5 `claude-opus-5-5`: $4 / $20.
-  docs.anthropic.com/en/docs/about-claude/models/overview
 - GPT-6.1 Sol `gpt-6.1-sol`: $2 / $10. GPT-6 Astra (OpenAIs flaggskip): $10 / $50.
   platform.openai.com/docs/pricing
 - Jev: $0,042 inn, output gratis (docs.typesafe.ai/models.md).

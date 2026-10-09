@@ -64,30 +64,27 @@ export type LlmRunResult =
   | { ok: false; error: string };
 
 /* ------------------------------------------------------------------ */
-/* Sammenligning med vanlige LLM-er (samme elementer, samme prompt).   */
+/* Sammenligning med OpenAI (samme elementer, samme prompt).           */
 /* ------------------------------------------------------------------ */
 
-export type Provider = "jev" | "anthropic" | "openai";
+export type Provider = "jev" | "openai";
 export type ProviderStatus = { configured: boolean; model: string; keyEnv: string; effort: string };
 
 export type DemoStatus = {
   jev: boolean;
   llm: { configured: boolean; model: string | null };
-  providers?: { anthropic: ProviderStatus; openai: ProviderStatus };
+  openai?: ProviderStatus;
 };
 
-/** Standardmodeller når ANTHROPIC_MODEL / OPENAI_MODEL ikke er satt. */
-export const DEFAULT_MODELS = { anthropic: "claude-opus-5-5", openai: "gpt-6.1-sol" } as const;
+/** Når OPENAI_MODEL ikke er satt. */
+export const DEFAULT_OPENAI_MODEL = "gpt-6.1-sol";
 
 /**
  * Listepris i $ per million tokens (standard, ikke batch/cache).
- * Hentet 9. okt 2026 fra docs.anthropic.com/en/docs/about-claude/models/overview
- * og platform.openai.com/docs/pricing. Modeller som mangler her vises uten pris.
+ * Hentet 9. okt 2026 fra platform.openai.com/docs/pricing.
+ * Modeller som mangler her vises uten pris.
  */
 export const MODEL_PRICES: Record<string, { in: number; out: number }> = {
-  "claude-fable-5-1": { in: 10, out: 50 },
-  "claude-opus-5-5": { in: 4, out: 20 },
-  "claude-sonnet-5-5": { in: 2, out: 10 },
   "gpt-6-astra": { in: 10, out: 50 },
   "gpt-6.1-sol": { in: 2, out: 10 },
   "gpt-6-sol": { in: 2, out: 10 },

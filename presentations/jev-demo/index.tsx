@@ -36,7 +36,7 @@ const FART: SlideDef[] = [
   { id: "kap-fart", name: "Kapittel: fart", component: SlideKapittel },
   { id: "klassifiser", name: "Klassifiser hva som helst", component: SlideKlassifiser },
   { id: "fart", name: "Hundrevis på et sekund", component: SlideFart },
-  { id: "sammenlign", name: "Jev mot Claude og GPT", component: SlideSammenlign },
+  { id: "sammenlign", name: "Jev mot OpenAI", component: SlideSammenlign },
 ];
 
 const TOKENS: SlideDef[] = [

@@ -98,11 +98,11 @@ fart:
 
 sammenlign:
   kicker: "LIVE · SAMME ELEMENTER"
-  title: "Jev mot Claude og GPT"
+  title: "Jev mot OpenAI"
   lead: "Samme elementer, samme alternativer, samme antall samtidige kall. Hver bane måler sin egen tid og sine egne tokens."
-  hint: "Trykk «Kjør alle». Elementer der en LLM svarer noe annet enn Jev, listes her."
+  hint: "Trykk «Kjør alle». Elementer der OpenAI svarer noe annet enn Jev, listes her."
   nokey: "Ingen nøkkel for denne modellen. Legg den i presentations/jev-demo/.env, så kjører banen live:"
-  footnote: "LLM-ene får samme klassifiseringsprompt som i steg 4 og svarer med JSON. Kostnad er listepris × målte tokens (output inkluderer resonnering). Priser fra docs.anthropic.com og platform.openai.com/docs/pricing, 9. okt 2026."
+  footnote: "OpenAI får samme klassifiseringsprompt som i steg 4 og svarer med JSON. Kostnad er listepris × målte tokens (output inkluderer resonnering). Pris fra platform.openai.com/docs/pricing, 9. okt 2026."
 
 kap-tokens:
   title: "Tokens og kostnad"

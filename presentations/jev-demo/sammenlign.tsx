@@ -25,7 +25,6 @@ type Lane = { results: (ItemResult | undefined)[]; end: number | null; error: st
 
 const LANES: { provider: Provider; name: string; bar: string }[] = [
   { provider: "jev", name: "Jev", bar: "var(--teal)" },
-  { provider: "anthropic", name: "Claude", bar: "var(--red-deep)" },
   { provider: "openai", name: "OpenAI", bar: "var(--burgundy)" },
 ];
 
@@ -34,14 +33,14 @@ const CONCURRENCY = [1, 10, 25];
 
 function emptyLanes(n: number): Record<Provider, Lane> {
   const lane = (): Lane => ({ results: new Array(n).fill(undefined), end: null, error: null });
-  return { jev: lane(), anthropic: lane(), openai: lane() };
+  return { jev: lane(), openai: lane() };
 }
 
 function laneInfo(provider: Provider, status: DemoStatus | null) {
   if (provider === "jev") {
     return { live: Boolean(status?.jev), model: "jev-latest", keyEnv: "API_KEY", effort: null, price: { in: JEV_PRICE_IN, out: 0 } };
   }
-  const p = status?.providers?.[provider];
+  const p = status?.openai;
   const model = p?.model ?? "–";
   return { live: Boolean(p?.configured), model, keyEnv: p?.keyEnv ?? "", effort: p?.effort ?? null, price: MODEL_PRICES[model] ?? null };
 }
@@ -155,14 +154,9 @@ export function SlideSammenlign() {
     .map((item, i) => ({
       item,
       jev: jevChoices[i],
-      anthropic: lanes.anthropic.results[i],
       openai: lanes.openai.results[i],
     }))
-    .filter(
-      (d) =>
-        d.jev &&
-        [d.anthropic, d.openai].some((r) => r?.ok && r.choice !== d.jev)
-    );
+    .filter((d) => d.jev && d.openai?.ok && d.openai.choice !== d.jev);
 
   return (
     <>
@@ -186,7 +180,7 @@ export function SlideSammenlign() {
       {LANES.map((l, idx) => (
         <LaneCard
           key={l.provider}
-          x={81 + idx * 380}
+          x={81 + idx * 570}
           name={l.name}
           bar={l.bar}
           info={laneInfo(l.provider, status)}
@@ -210,12 +204,6 @@ export function SlideSammenlign() {
                   <span style={{ flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{d.item}</span>
                   <span style={{ color: MUTED }}>Jev</span>
                   <Pill label={d.jev ?? "–"} color={runTask.colors[d.jev ?? ""] ?? MUTED} size={9.5} />
-                  {d.anthropic?.ok && (
-                    <>
-                      <span style={{ color: MUTED }}>Claude</span>
-                      <Pill label={d.anthropic.choice ?? "?"} color={runTask.colors[d.anthropic.choice ?? ""] ?? MUTED} size={9.5} />
-                    </>
-                  )}
                   {d.openai?.ok && (
                     <>
                       <span style={{ color: MUTED }}>OpenAI</span>
@@ -265,7 +253,7 @@ function LaneCard({
   /** Jevs svar per element. Null for Jev-banen selv. */
   reference: (string | null)[] | null;
 }) {
-  const W = 323;
+  const W = 513;
   const done = lane.results.filter(Boolean) as ItemResult[];
   const ok = done.filter((r): r is Extract<ItemResult, { ok: true }> => r.ok);
   const errors = done.filter((r): r is Extract<ItemResult, { ok: false }> => !r.ok);
@@ -277,13 +265,13 @@ function LaneCard({
   const compared = reference ? lane.results.filter((r, i) => r?.ok && reference[i]) : [];
   const agree = reference ? lane.results.filter((r, i) => r?.ok && reference[i] && r.choice === reference[i]).length : 0;
 
-  const cols = 10;
+  const cols = Math.min(25, Math.max(10, Math.ceil(items.length / 2)));
   const rows = Math.max(1, Math.ceil(items.length / cols));
   const tileW = Math.floor((W - 3 * (cols - 1)) / cols);
   const tileH = Math.min(22, Math.floor((80 - 3 * (rows - 1)) / rows));
 
   return (
-    <Card box={[x, 215, 359, 355]} bar={bar}>
+    <Card box={[x, 215, 549, 355]} bar={bar}>
       <Box box={[18, 20, W, 44]}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
           <div style={{ minWidth: 0 }}>
@@ -333,15 +321,17 @@ function LaneCard({
             </div>
           </Box>
           <Box box={[18, 166, W, 180]}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", rowGap: 10, columnGap: 10 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", rowGap: 12, columnGap: 12 }}>
               <Stat label="tid totalt" value={elapsed != null ? seconds(elapsed) : "–"} sub={`${formatInt(done.length)}/${formatInt(items.length)} ferdig`} />
-              <Stat label="per sekund" value={perSecond ? perSecond.toLocaleString("nb-NO", { maximumFractionDigits: 1 }) : "–"} sub={`median ${done.length ? seconds(median(done.map((r) => r.latencyMs))) : "–"}`} />
+              <Stat label="per sekund" value={perSecond ? perSecond.toLocaleString("nb-NO", { maximumFractionDigits: 1 }) : "–"} sub="elementer" />
+              <Stat label="median per kall" value={done.length ? seconds(median(done.map((r) => r.latencyMs))) : "–"} sub="server → modell" />
               <Stat
                 label="tokens per element"
                 value={ok.length ? `${formatInt(avgIn)} / ${formatInt(avgOut)}` : "–"}
                 sub={info.price ? `inn / ut · $${info.price.in} / $${info.price.out} per Mtok` : "ukjent pris for modellen"}
               />
-              <Stat label="per element" value={perItem != null && ok.length ? formatUsd(perItem) : "–"} sub={perItem != null && ok.length ? `${formatUsd(perItem * 1000)} per 1000` : "\u00a0"} />
+              <Stat label="per element" value={perItem != null && ok.length ? formatUsd(perItem) : "–"} sub="listepris × tokens" />
+              <Stat label="per 1000 elementer" value={perItem != null && ok.length ? formatUsd(perItem * 1000) : "–"} sub={"\u00a0"} />
             </div>
             <div style={{ marginTop: 10, ...sans, fontSize: pt(11.5), color: "var(--burgundy)" }}>
               {reference ? (
