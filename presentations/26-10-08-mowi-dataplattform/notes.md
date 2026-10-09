@@ -204,8 +204,8 @@ dataprodukter, katalog, styringsmodell og opplæring.
 
 ## ref-takk – Takk for oss
 
-Kontakt: Jørgen Drønnen, Ålesund. Ikke avslutt møtet her – forslaget
-og tidslinjen kommer etterpå.
+Kontakt: Jørgen Drønnen, Ålesund. Siste slide. Forslaget og
+tidslinjen er allerede vist.
 
 ## leveranse – Foreslått første leveranse
 
@@ -215,22 +215,24 @@ fôrresept sammen med dødelighet, vekst og Superior-kvalitet?
 De fire underleveransene er det som trengs for å svare. Plattformen
 bygges fordi analysen trenger den – og den blir stående til neste.
 
-## tidslinje-fem – Seks måneder: tre analyser
+## tidslinje-fem – Tre måneder: første analyse
 
-Involvert med 100–150 % FTE. Klikk fram én milepæl om gangen.
+Involvert med 100–150 % FTE. Klikk fram én måned om gangen.
 
-Etter to måneder: MVP av første analyse. [[CLICK]] Innen tre
-måneder er første analyse ferdig levert, med dashbord. [[CLICK]]
-De følgende tre månedene: to nye analyser.
+Måned 1: infrastruktur og datainnhenting. [[CLICK]] Måned 2:
+dataanalyse. [[CLICK]] Måned 3: rapportering, visualisering og
+produksjonssetting. Første analyse er i produksjon ved slutten av
+måned 3.
 
-## tidslinje-tolv – Seks måneder: fra MVP til tre analyser
+## tidslinje-tolv – Seks måneder: to analyser til
 
-Involvert med 100–150 % FTE. Klikk fram én milepæl om gangen.
+Involvert med 100–150 % FTE.
 
-Etter to måneder: MVP av første analyse. [[CLICK]] Innen tre
-måneder er første analyse ferdig levert, med dashbord. [[CLICK]]
-De følgende tre månedene: to nye analyser. [[CLICK]] Etter seks
-måneder står tre analyser.
+Måned 1–3 er infrastruktur og første analyseprosjekt, i produksjon
+ved slutten av måned 3. [[CLICK]] Måned 4–6 leverer vi to nye
+analyser på samme plattform, med nye datakilder og sammenstillinger.
+[[CLICK]] Etter seks måneder står første analyse i produksjon, pluss
+to nye.
 
 ## team – Foreslått team
 

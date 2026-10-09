@@ -124,15 +124,15 @@ const TIDSLINJE: SlideDef[] = [
   },
   {
     id: "tidslinje-fem",
-    name: "Seks måneder: tre analyser",
+    name: "Tre måneder: første analyse",
     component: SlideFemManeder,
     steps: 2,
   },
   {
     id: "tidslinje-tolv",
-    name: "Seks måneder: fra MVP til tre analyser",
+    name: "Seks måneder: to analyser til",
     component: SlideTolvManeder,
-    steps: 3,
+    steps: 2,
   },
   { id: "team", name: "Foreslått team", component: SlideTeam },
 ];
@@ -159,12 +159,12 @@ export const mowiDataplattform = definePresentation({
     { id: "plattform", title: "Arkitekturen", slides: PLATTFORM },
     { id: "produkt", title: "Data som produkt", slides: PRODUKT },
     { id: "verdi", title: "Gevinst og veien dit", slides: VERDI },
+    { id: "tidslinje", title: "Forslag og tidslinje", slides: TIDSLINJE },
     {
       id: "aquaplatform",
       title: "KLERI/MILES aquaplatform",
       slides: AQUAPLATFORM,
     },
     { id: "referanser", title: "Miles-referanser", slides: REFERANSER },
-    { id: "tidslinje", title: "Forslag og tidslinje", slides: TIDSLINJE },
   ],
 });

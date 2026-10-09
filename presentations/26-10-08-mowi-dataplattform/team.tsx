@@ -7,8 +7,8 @@ import { Body, Card, Header, Label, MEDIA, MUTED } from "./ui";
 const X0 = 81.3;
 const W = 1117.3;
 const GAP = 24;
-const Y = 180;
-const H = 512;
+const Y = 220;
+const H = 476;
 const FOTO_D = 104;
 
 /** Bilde og fokuspunkt per person, i samme rekkefølge som `personer`. */
@@ -87,7 +87,7 @@ export function SlideTeam() {
   const cw = (W - GAP * (antall - 1)) / Math.max(antall, 1);
   return (
     <>
-      <Header titleSize={30} />
+      <Header titleSize={30} leadWidth={W} leadHeight={68} />
       {Array.from({ length: antall }, (_, i) => (
         <Person key={i} i={i} box={[X0 + i * (cw + GAP), Y, cw, H]} />
       ))}

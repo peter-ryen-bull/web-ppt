@@ -96,14 +96,14 @@ export function SlideLeveranse() {
   );
 }
 
-/** Måned-start og varighet for hver fase i `faser`. */
+/** Måned-start og varighet for hver fase i `faser`. Tre måneder, én fase per måned. */
 const FASER: [number, number][] = [
-  [0, 2],
+  [0, 1],
+  [1, 1],
   [2, 1],
-  [3, 3],
 ];
-const FASE_FARGER = ["var(--burgundy)", "var(--red-deep)", "var(--teal)"];
-const MANEDER = 6;
+const FASE_FARGER = ["var(--burgundy)", "var(--teal)", "var(--red-deep)"];
+const MANEDER = 3;
 const FASE_W = 420;
 const GRID_X = X0 + FASE_W + 20;
 const GRID_W = X0 + W - GRID_X;
@@ -188,11 +188,10 @@ export function SlideFemManeder() {
 }
 
 const SEKS = 6;
-const RAD_H = 100;
+const RAD_H = 110;
 const RADER = [
-  { y: 228, start: 0, lengde: 2, farge: "var(--burgundy)", tekstInni: true },
-  { y: 340, start: 2, lengde: 1, farge: "var(--red)", tekstInni: false },
-  { y: 452, start: 3, lengde: 3, farge: "var(--teal)", tekstInni: true },
+  { y: 248, start: 0, lengde: 3, farge: "var(--burgundy)", tekstInni: true },
+  { y: 400, start: 3, lengde: 3, farge: "var(--teal)", tekstInni: true },
 ];
 
 function Fasetekst({
@@ -246,7 +245,12 @@ export function SlideTolvManeder() {
       {Array.from({ length: SEKS - 1 }, (_, m) => (
         <Box
           key={m}
-          box={[X0 + (m + 1) * mw, 218, 1, RADER[2].y + RAD_H - 218]}
+          box={[
+            X0 + (m + 1) * mw,
+            218,
+            1,
+            RADER[RADER.length - 1].y + RAD_H - 218,
+          ]}
           style={{ background: "var(--divider)", opacity: 0.6 }}
         />
       ))}
