@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Åpne <http://localhost:3000>, velg en presentasjon og start.
+Åpne <http://localhost:5010>, velg en presentasjon og start.
 
 ## Bruk
 
