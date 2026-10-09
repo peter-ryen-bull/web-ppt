@@ -166,7 +166,7 @@ ber om det.
 5. Registrer eksporten i `presentations/index.ts` (`PRESENTATIONS`).
    Uten dette vises den ikke.
 6. Media i `public/media/<id>/`. Referer som `/media/<id>/fil.png`.
-7. Sett `inProgress: true`, `tags` (`conference` | `pitch` | `private`),
+7. Sett `inProgress: true`, `tags` (`conference` | `presentation` | `pitch` | `private`),
    `date`, `place` og ev. `icon`
    (`<FyrIkon />` eller `<BildeIkon src="…/ikon.png" />`).
 

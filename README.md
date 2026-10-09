@@ -122,7 +122,8 @@ public/media/
    aldri i publikumsvisningen. En annen presentasjon kan legges inn som ett
    kapittel med `embedAsChapter(annenPresentasjon, { id: "historie" })`.
 
-   `tags` er `conference` (offentlig foredrag), `pitch` (kundemøte/salg)
+   `tags` er `conference` (offentlig foredrag), `presentation` (presentasjon,
+   f.eks. på kundeevent), `pitch` (kundemøte/salg)
    eller `private` (internt). De vises som merkelapper på forsiden og kan
    søkes på.
 

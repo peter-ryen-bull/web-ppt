@@ -26,6 +26,7 @@ import {
   SlideLeveranse,
   SlideTolvManeder,
 } from "./tidslinje";
+import { SlideTeam } from "./team";
 import { BildeIkon } from "@/components/icons/BildeIkon";
 
 const INTRO: SlideDef[] = [
@@ -132,6 +133,7 @@ const TIDSLINJE: SlideDef[] = [
     component: SlideTolvManeder,
     steps: 3,
   },
+  { id: "team", name: "Foreslått team", component: SlideTeam },
 ];
 
 export const mowiDataplattform = definePresentation({

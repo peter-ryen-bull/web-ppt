@@ -50,7 +50,6 @@ export const jevDemo = definePresentation({
     "Interaktiv demo av TypeSafe Jev for klassifisering: hvordan den skiller seg fra vanlige LLM-er, live kall med tokenforbruk og kostnad.",
   date: "Oktober 2026",
   place: "Demo",
-  tags: ["private"],
   inProgress: true,
   notes: notesRaw,
   copy: copyRaw,

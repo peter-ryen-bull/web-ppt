@@ -27,6 +27,9 @@
   --tone-conference-bg: rgba(14, 92, 99, 0.1);
   --tone-conference-fg: #0b545b;
   --tone-conference-dot: #0e5c63;
+  --tone-presentation-bg: rgba(37, 79, 140, 0.1);
+  --tone-presentation-fg: #234a80;
+  --tone-presentation-dot: #2f5d9e;
   --tone-pitch-bg: rgba(183, 35, 24, 0.09);
   --tone-pitch-fg: #9a2a1c;
   --tone-pitch-dot: #c5382a;
@@ -313,6 +316,12 @@
   --tone-bg: var(--tone-conference-bg);
   --tone-fg: var(--tone-conference-fg);
   --tone-dot: var(--tone-conference-dot);
+}
+
+.tonePresentation {
+  --tone-bg: var(--tone-presentation-bg);
+  --tone-fg: var(--tone-presentation-fg);
+  --tone-dot: var(--tone-presentation-dot);
 }
 
 .tonePitch {

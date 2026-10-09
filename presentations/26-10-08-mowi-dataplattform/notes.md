@@ -116,3 +116,12 @@ Første analyse står der. [[CLICK]] Måned 6: workshop. Vi velger de
 2–3 analysene som gir mest verdi. [[CLICK]] Måned 7–12 leverer vi
 dem på samme plattform. [[CLICK]] Etter et år: flere analyser i
 drift, og en plattform som tåler hundrevis av datakilder.
+
+## team – Foreslått team
+
+Samlet kapasitet er 1,5–2 FTE. Tre personer, ikke tre fulle stillinger.
+
+Peter er leveranseansvarlig og har bygget plattformer for Kleri,
+Politiet, Kystverket og andre i havbruk. Kestutis er tech lead, med
+16 år fra energi og blant annet Equinors Production Data Mart. Iver
+er data platform engineer med sju Databricks-sertifiseringer.

@@ -34,7 +34,7 @@ export interface ChapterDef {
   slides: SlideDef[];
 }
 
-export const PRESENTATION_TAGS = ["conference", "pitch", "private"] as const;
+export const PRESENTATION_TAGS = ["conference", "presentation", "pitch", "private"] as const;
 export type PresentationTag = (typeof PRESENTATION_TAGS)[number];
 
 export interface PresentationDef {
@@ -46,7 +46,7 @@ export interface PresentationDef {
   date?: string;
   /** Sted eller arrangement, f.eks. "TDC" */
   place?: string;
-  /** conference = offentlig foredrag, pitch = kundemøte/salg, private = internt */
+  /** conference = offentlig foredrag, presentation = presentasjon for kunder/eget arrangement, pitch = kundemøte/salg, private = internt */
   tags?: PresentationTag[];
   /**
    * Under arbeid. Sett `true` mens du importerer eller redigerer, også etter

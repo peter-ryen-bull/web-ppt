@@ -22,6 +22,7 @@ export type HomeListItem = {
 
 const TAG_LABELS: Record<PresentationTag, string> = {
   conference: "Konferanse",
+  presentation: "Presentasjon",
   pitch: "Pitch",
   private: "Internt",
 };
@@ -114,6 +115,7 @@ function PageIcon() {
 
 function toneClass(tag: PresentationTag | undefined): string {
   if (tag === "conference") return styles.toneConference;
+  if (tag === "presentation") return styles.tonePresentation;
   if (tag === "pitch") return styles.tonePitch;
   if (tag === "private") return styles.tonePrivate;
   return styles.toneNeutral;

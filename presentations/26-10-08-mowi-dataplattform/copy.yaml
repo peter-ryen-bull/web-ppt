@@ -1,6 +1,6 @@
 forside:
-  title: "Mer innsikt med en moderne dataplattform"
-  lead: "Fra spredt data til kvalitetssikrede dataprodukter"
+  title: "Sammenstilt data med en moderne dataplattform"
+  lead: "Fra spredt data til kvalitetssikrede analyser"
 
 pains:
   kicker: "UTFORDRINGEN"
@@ -18,15 +18,15 @@ konsekvenser:
   title: "Mer tid på dataarbeid enn på analyse"
   section: "DETTE KOSTER"
   items:
-    - "Folk vasker data i stedet for å bruke den"
+    - "Tid brukt på å finne og hente data i stedet for å bruke den"
     - "Lav selvbetjening gir personavhengighet og lang ledetid"
     - "Innsikt er ikke løpende tilgjengelig"
-    - "Hver ny problemstilling krever en ny modell"
-    - "Etterlevelse, GDPR og logging blir manuelt og tungt"
+    - "Hver ny problemstilling krever en ny modell og nytt uttrekk"
+    - "Datasikkerhet blir ikke ivaretatt, og sensitiv data ligger spredt i ulike systemer"
 
 malbilde:
   kicker: "MÅLBILDE"
-  title: "Fra ad-hoc uttrekk til dataprodukter du kan stole på"
+  title: "Fra ad-hoc uttrekk til datasett du kan stole på"
   idag_tittel: "I DAG"
   idag:
     - "Manuelle uttrekk og datavask"
@@ -36,11 +36,11 @@ malbilde:
     - "Tilgang gis ad hoc, per person"
   malbilde_tittel: "DIT VI SKAL"
   malbilde:
-    - "Dokumenterte dataprodukter med navngitt eier"
-    - "Felles KPI-lag med versjonert historikk"
+    - "Kvalitetssikrede datasett med navngitt eier"
+    - "Felles datagrunnlag med versjonert historikk"
     - "Samme tall i rapporter, API og KI-chat"
     - "Sporbarhet og auditlogger i alle transaksjoner"
-    - "Tilgang styrt av policy og roller"
+    - "Enkelt å bygge nye analyser og finne sammenhenger"
   prinsipper_label: "BÆRENDE PRINSIPPER"
   prinsipper:
     - tittel: "Domeneeierskap"
@@ -48,7 +48,7 @@ malbilde:
     - tittel: "Data som produkt"
       tekst: "Kvalitetssikret, dokumentert og gjenbrukbart"
     - tittel: "Selvbetjening"
-      tekst: "Plattformen fjerner flaskehalser, den lager dem ikke"
+      tekst: "Plattformen fjerner flaskehalser og muliggjør selvbetjening"
     - tittel: "Innebygd styring"
       tekst: "Sikkerhet, logging og etterlevelse er en del av flyten"
 
@@ -127,10 +127,10 @@ hvordan:
   steps:
     - tittel: "Start med behovet, ikke verktøyet"
       tekst: "Hvilke beslutninger skal bli bedre? Teknologi alene løser ingenting."
-    - tittel: "Bygg dataprodukter først"
+    - tittel: "Bygg verdifulle analyser først"
       tekst: "Lever verdi underveis. Infrastruktur kommer etter behov – ikke to år med plattform uten brukere."
-    - tittel: "Sett eierskap og kontrakter tidlig"
-      tekst: "Navngitt eier, maskinlesbar avtale, katalog. Da tåler plattformen vekst."
+    - tittel: "Sett eierskap på data og kvalitetstester tidlig"
+      tekst: "Navngitt eier, maskinlesbar avtale, katalog. Da tåler plattformen vekst og inneholder data du kan stole på"
     - tittel: "Skalér og fjern flaskehalser"
       tekst: "Desentraliser der det er trygt. Plattformen skal gjøre teamene raskere, ikke stå i veien."
 
@@ -138,7 +138,7 @@ avslutning:
   title: "Tydelige effekter – når det gjøres riktig"
   items:
     - "Ett felles datagrunnlag i stedet for flere sannheter"
-    - "Dataprodukter med eier, kvalitet og kontrakt"
+    - "Datasett og analyser med eier, kvalitet og kontrakt"
     - "Arkitektur som skalerer uten å bli en flaskehals"
     - "Gevinst i tillit, etterlevelse, selvbetjening og KI"
   footer: "Vi elsker å løse utfordringer. La oss ta en prat."
@@ -170,7 +170,7 @@ aquaplatform-referanse:
   footer: "Data fra mange kilder samles i én plattform – vasket og kvalitetssikret, så de er til å stole på. Da blir det raskt og enkelt å sette sammen data og dele dem videre."
 
 leveranse:
-  kicker: "FORESLÅTT FØRSTE LEVERANSE"
+  kicker: "MOWI: FORESLÅTT FØRSTE LEVERANSE"
   title: "Fiskehelse per fôrresept"
   lead: "Finn sammenhenger mellom fôrresept og dødelighet, vekstfaktor og Superior-kvalitet"
   sporsmal_tittel: "NØKKELSPØRSMÅL"
@@ -192,8 +192,8 @@ leveranse:
 
 tidslinje-fem:
   kicker: "TIDSLINJE · MÅNED 1–5"
-  title: "Fem måneder til første analyse"
-  lead: "Fiskehelse per fôrresept · Bemanning: 1,5 FTE"
+  title: "Plattform, infrastruktur og første analyse"
+  lead: "Fiskehelse per fôrresept"
   fase_tittel: "FASE"
   maneder:
     - "MÅNED 1"
@@ -204,7 +204,7 @@ tidslinje-fem:
   faser:
     - varighet: "2 måneder"
       tittel: "Innsikt og infrastruktur"
-      tekst: "Avklar nøkkelspørsmål, kilder og behov. Sett opp dataplattformen."
+      tekst: "Avklar nøkkelspørsmål, kilder og behov. Sett opp infrastrukturen til dataplattformen."
     - varighet: "1 måned"
       tittel: "Datainnhenting og datakvalitet"
       tekst: "Automatisert innhenting, datavask, struktur og datakvalitetstester."
@@ -213,23 +213,56 @@ tidslinje-fem:
       tekst: "Kobler fôrdata og fiskehelse per resept."
     - varighet: "1 måned"
       tittel: "Rapportering og visualisering"
-      tekst: "Dashbord med drilldown som oppdateres fortløpende."
-  footer: "Etter måned 5: analysen er i drift og oppdateres automatisk når nye data kommer inn."
+      tekst: "Dashbord med drilldown, som oppdateres automatisk med ferske data."
+  footer: "Etter måned 5: analysen er i drift og oppdateres automatisk når nye data kommer inn.
+
+    Data er kvalitetssikret og kan spores tilbake til kilden. "
 
 tidslinje-tolv:
   kicker: "TIDSLINJE · 12 MÅNEDER"
   title: "Fra én analyse til en plattform som skalerer"
   faser:
-    - periode: "MÅNED 1–5 · 1,5 FTE"
+    - periode: "MÅNED 1–5"
       tittel: "Første analyse: fiskehelse per fôrresept"
       tekst: "Plattform, datainnhenting, datakvalitet og dashbord i drift."
     - periode: "MÅNED 6"
-      tittel: "Workshop"
-      tekst: "Finn de 2–3 nye analysene som gir mest verdi."
+      tittel: "Videre innsikt og utforske mulighetsrom"
+      tekst: "Finn de 2–3 neste analysene som gir mest verdi."
     - periode: "MÅNED 7–12"
-      tittel: "2–3 nye analyser"
+      tittel: "2-3 nye analyser"
       tekst: "Bygget på samme plattform. Infrastrukturen utvides underveis."
   resultat_tittel: "ETTER 12 MÅNEDER"
   resultat:
-    - "Første analyse og 2–3 nye analyser levert, og oppdatert automatisk"
-    - "En plattform og infrastruktur som kan skalere til hundrevis av datakilder, datasett og dataprodukter"
+    - "3-4 analyser levert på dashbord som lever videre og oppdateres automatisk med ferske data"
+    - "En plattform og infrastruktur som tåler å skalere til hundrevis av datakilder, datasett og dashboards"
+
+team:
+  kicker: "MOWI: FORESLÅTT TEAM"
+  title: "Et seniortungt datateam med faglig autoritet og varme"
+  lead: "1,5–2 FTE"
+  personer:
+    - navn: "Peter Ryen Bull"
+      tittel: "Senior Data Platform Engineer"
+      rolle: "LEVERANSEANSVARLIG "
+      tekst: "Lang erfaring med å bygge og skalere dataplattformer og databaser innen offentlig sektor, havbruk og offshore - erfaring som tech lead og teamleder"
+      punkter:
+        - "KLERI: AquaPlatform for havbruk"
+        - "Politiet: tech lead for data- og analyseplattform brukt i etterretning"
+        - "Kystverket: prosesserer over 100 millioner rader skipsdata daglig, strukturerer og skalerer plattform til flere domener"
+    - navn: "Kestutis"
+      tittel: "Senior Data Engineer"
+      rolle: "TECH LEAD - DATA ENGINEER\n"
+      tekst: "Over 16 års erfaring med dataplattformer, integrasjoner og skyløsninger i forretningskritiske miljøer."
+      punkter:
+        - "Tech lead og dataingeniør for Equinors Production Data Mart – Azure-plattform for norsk sokkel"
+        - "Teknisk retning og leveransekvalitet for Equinor, Aker BP og Lyse"
+        - "Tung erfaring fra energi, olje og gass"
+    - navn: "Iver"
+      tittel: "Sivilingeniør (UiT)"
+      rolle: "DATA ENGINEER - FULLSTACK UTVIKLER"
+      tekst: "Data- og KI-utvikler med fordypning i maskinlæring med erfaring fra offshore- og energi. "
+      punkter:
+        - "Equinor: assisterende tech lead og data engineer i Databricks"
+        - "Pions: arkitekt og backend-utvikler for KI-agenter innen boring"
+        - "Sju Databricks-sertifiseringer – særlig tyngde på Databricks og Spark"
+        - "Streaming og batch, datakvalitet og drift av dataprodukter i produksjon"

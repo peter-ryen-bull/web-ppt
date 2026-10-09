@@ -87,7 +87,7 @@ export const stoeDataplattform = definePresentation({
     "Hvorfor og hvordan bygge en moderne dataplattform – presentert for Stø.",
   date: "27. august 2026",
   place: "Miles kundeevent, Stø",
-  tags: ["pitch"],
+  tags: ["presentation"],
   icon: (
     <BildeIkon
       src="/media/26-08-26-stoe-miles-kundeevent-dataplattform-pitch/stoe-logo.svg"
