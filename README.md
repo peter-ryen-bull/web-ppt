@@ -42,10 +42,10 @@ Skjulte slides tas ikke med. Du kan ta med de synlige slidene eller et
 utvalg av dem. Hver slide blir én side, alltid på **siste klikk-steg**
 (mellomsteg tas ikke med).
 
-«Last ned PDF» gir full kvalitet (JPEG i dobbel oppløsning). «Komprimert
-PDF» lagrer hver slide i 1280×720 med lavere JPEG-kvalitet
+«Last ned PDF» gir full kvalitet (JPEG i dobbel oppløsning, kvalitet 0,92).
+«Komprimert PDF» lagrer hver slide i 1280×720 med JPEG-kvalitet 0,86
 (`<id>-komprimert.pdf`) og blir typisk en brøkdel av størrelsen; bilder og
-tekst blir litt mindre skarpe.
+tekst blir litt mindre skarpe enn i fullversjonen.
 
 ## Presentere med to skjermer (HDMI/prosjektor)
 

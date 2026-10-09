@@ -119,7 +119,7 @@ export type PdfQuality = "full" | "compact";
 
 const CAPTURE = {
   full: { ratio: 2, quality: 0.92 },
-  compact: { ratio: 1, quality: 0.75 },
+  compact: { ratio: 1, quality: 0.86 },
 } as const;
 
 /**
