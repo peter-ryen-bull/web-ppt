@@ -3,7 +3,12 @@
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import type { SlideDef } from "@/presentations";
 import { lastStepOf, SlideSurface } from "./SlideCanvas";
-import { captureSlideJpeg, createPdfWriter, waitForPaint } from "./exportPdf";
+import {
+  captureSlideJpeg,
+  createPdfWriter,
+  waitForPaint,
+  type PdfQuality,
+} from "./exportPdf";
 import styles from "./PdfExport.module.css";
 
 export type PdfProgress = { current: number; total: number };
@@ -21,7 +26,10 @@ export function usePdfExport() {
   }, [slide, tick]);
 
   const exportSlides = useCallback(
-    async (slides: SlideDef[], opts: { title: string; filename: string }) => {
+    async (
+      slides: SlideDef[],
+      opts: { title: string; filename: string; quality?: PdfQuality }
+    ) => {
       if (slides.length === 0) return;
       setProgress({ current: 0, total: slides.length });
       const pdf = await createPdfWriter(opts.title);
@@ -44,7 +52,7 @@ export function usePdfExport() {
           await waitForPaint();
           const node = frameRef.current;
           if (!node) throw new Error("Fant ikke sliden som skulle eksporteres.");
-          await pdf.addImage(await captureSlideJpeg(node));
+          await pdf.addImage(await captureSlideJpeg(node, opts.quality));
         }
         await pdf.save(opts.filename);
       } finally {

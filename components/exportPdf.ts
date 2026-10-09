@@ -112,11 +112,25 @@ function downloadBytes(bytes: Uint8Array, filename: string) {
 let fontEmbedCss: string | null = null;
 
 /**
+ * `full`: dobbel oppløsning. `compact`: 1280×720 og lavere JPEG-kvalitet –
+ * typisk en brøkdel av størrelsen.
+ */
+export type PdfQuality = "full" | "compact";
+
+const CAPTURE = {
+  full: { ratio: 2, quality: 0.92 },
+  compact: { ratio: 1, quality: 0.75 },
+} as const;
+
+/**
  * JPEG, ikke PNG: pdf-lib legger JPEG rett inn, men må pakke ut og
  * komprimere hver PNG på nytt i `save()`. Med mange fotoslides frøs det
  * nettleseren i over et minutt.
  */
-export async function captureSlideJpeg(el: HTMLElement): Promise<string> {
+export async function captureSlideJpeg(
+  el: HTMLElement,
+  quality: PdfQuality = "full"
+): Promise<string> {
   copyDocumentTheme(el);
   freezeVisuals(el);
   // Safari dekoder store bilder asynkront og tegner dem ellers tomme i PDF-en.
@@ -130,13 +144,14 @@ export async function captureSlideJpeg(el: HTMLElement): Promise<string> {
   if (fontEmbedCss === null) {
     fontEmbedCss = await getFontEmbedCSS(el);
   }
+  const { ratio, quality: jpegQuality } = CAPTURE[quality];
   return toJpeg(el, {
-    quality: 0.92,
+    quality: jpegQuality,
     width: SLIDE_W,
     height: SLIDE_H,
-    canvasWidth: SLIDE_W * 2,
-    canvasHeight: SLIDE_H * 2,
-    pixelRatio: 2,
+    canvasWidth: SLIDE_W * ratio,
+    canvasHeight: SLIDE_H * ratio,
+    pixelRatio: ratio,
     backgroundColor: SLIDE_CREAM,
     cacheBust: true,
     fontEmbedCSS: fontEmbedCss,

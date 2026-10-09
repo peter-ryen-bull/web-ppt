@@ -2,6 +2,7 @@
 
 import type { PresentationDef, SlideDef } from "@/presentations";
 import { isChapterFullyHidden } from "@/presentations/chapters";
+import type { PdfQuality } from "./exportPdf";
 import { SLIDE_W, SlideCanvas } from "./SlideCanvas";
 import styles from "./SlideOverview.module.css";
 
@@ -16,7 +17,7 @@ export type SlideOverviewExport = {
   onToggleChapter: (chapterId: string) => void;
   onSelectAll: () => void;
   onSelectNone: () => void;
-  onRun: () => void;
+  onRun: (quality: PdfQuality) => void;
   onCancel: () => void;
 };
 
@@ -112,9 +113,19 @@ export default function SlideOverview({
                   type="button"
                   className={`${styles.btn} ${styles.btnPrimary}`}
                   disabled={exportState.selected.size === 0}
-                  onClick={exportState.onRun}
+                  onClick={() => exportState.onRun("full")}
+                  title="Full oppløsning – skarpest, men størst fil"
                 >
                   Last ned PDF ({exportState.selected.size})
+                </button>
+                <button
+                  type="button"
+                  className={styles.btn}
+                  disabled={exportState.selected.size === 0}
+                  onClick={() => exportState.onRun("compact")}
+                  title="Lavere oppløsning og JPEG – mye mindre fil, egnet til e-post"
+                >
+                  Komprimert PDF
                 </button>
                 <button
                   type="button"
