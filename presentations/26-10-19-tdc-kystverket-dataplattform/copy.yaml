@@ -316,20 +316,6 @@ fire-states:
       value: "identitet på kontonivå"
   punchline: "En endring i lagring river ikke ned katalogen."
 
-teknisk-implementasjon:
-  title: "Slik gjør vi det"
-  subtitle: "Innlesing og jobber"
-
-ingest:
-  title: "Innlesingen skjer utenfor Databricks."
-  rows:
-    - label: "Prefect."
-      value: "Python-jobber, utenfor Databricks"
-    - label: "Lagrer rådata."
-      value: "Så er innlesingen ferdig"
-    - label: "Databricks leser derfra."
-      value: "Plattformen begynner når filen ligger der"
-
 serverless:
   title: "Serverless eller manuell tilpasning?"
   kicker: "DATABRICKS SERVERLESS"

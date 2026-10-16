@@ -62,9 +62,7 @@ import {
   SlideDatabricks,
   SlideTerraform,
   SlideTerraformKode,
-  SlideTekniskImplementasjon,
   SlideFireStates,
-  SlideIngest,
   SlideAisPipeline,
   SlideServerless,
 } from "./sky";
@@ -110,8 +108,7 @@ import {
  *  Hva får du igjen         31:00   4 min   fire effekter
  *  Prosjektet               35:00   4 min   dag én, verktøykassa, terraform
  *  Produktene               39:00   8 min   HAIS, Asuka, MarTraf, MarU, KystRisk
- *  Teknisk                  47:00   2 min   ingest, den daglige jobben
- *  Scaling                  49:00   3 min   historikk, batch vs streaming
+ *  Skalering                47:00   5 min   historikk, batch vs streaming, den daglige jobben
  *  H3                       52:00   3 min   hexer. Hopp over hvis du lander etter 52
  *  Veien videre             55:00   5 min   domener, tilbake til Stad, takk
  */
@@ -379,25 +376,6 @@ const PROSJEKTET: SlideDef[] = [
   },
 ];
 
-const TEKNISK: SlideDef[] = [
-  {
-    id: "teknisk-implementasjon",
-    name: "Slik gjør vi det",
-    component: SlideTekniskImplementasjon,
-  },
-  {
-    id: "ingest",
-    name: "Innlesingen skjer utenfor Databricks.",
-    component: SlideIngest,
-    steps: 3,
-  },
-  {
-    id: "ais-pipeline",
-    name: "Jobben som kjører hver dag",
-    component: SlideAisPipeline,
-  },
-];
-
 const SCALING: SlideDef[] = [
   {
     id: "stordata-volum",
@@ -421,6 +399,11 @@ const SCALING: SlideDef[] = [
     name: "Serverless eller manuell tilpasning?",
     component: SlideServerless,
     steps: 3,
+  },
+  {
+    id: "ais-pipeline",
+    name: "Jobben som kjører hver dag",
+    component: SlideAisPipeline,
   },
 ];
 
@@ -573,11 +556,6 @@ export const tdcKystverketDataplattform = definePresentation({
     { id: "effekter", title: "Hva får du igjen", slides: EFFEKTER },
     { id: "prosjektet", title: "Historien om prosjektet", slides: PROSJEKTET },
     { id: "modellene", title: "Produktene", slides: MODELLENE },
-    {
-      id: "teknisk",
-      title: "Slik gjør vi det",
-      slides: TEKNISK,
-    },
     { id: "scaling", title: "Skalering", slides: SCALING },
     { id: "h3", title: "H3", slides: H3 },
     { id: "veien-videre", title: "Veien videre", slides: VEIEN_VIDERE },

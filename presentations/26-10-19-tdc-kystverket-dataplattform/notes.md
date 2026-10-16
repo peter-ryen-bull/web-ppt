@@ -864,34 +864,6 @@ hele poenget med å splitte.
 Og før vi går dypere inn i innlesingen og pipelinene: hva bygger vi egentlig oppå
 dette?
 
-## teknisk-implementasjon – Tekniske implementasjonsdetaljer
-
-[47:00] 2 min. Neste kapittel 49:00.
-
-Kapittelskifte. Tilbake til hvordan det faktisk ble bygget. Innlesing. Den
-daglige jobben. Hvordan pipelinen er koblet sammen.
-
-## ingest – Innlesingen skjer utenfor Databricks.
-
-Så. Dataene. Hvor kommer de inn?
-
-Innlesingen skjer utenfor Databricks. Databricks eier ikke antennen. Den
-eier det som kommer etter raw.
-
-Vi vil frikoble raw-jobbene fra Databricks. Databricks blir sannsynligvis
-byttet ut en dag. Så det er billigere og mer robust å basere raw-innlesingen
-på åpen kildekode.
-
-[[CLICK]] Vi bruker Prefect. Et Python-bibliotek som styrer rekkefølgen på jobbene.
-Vanlige Python-jobber som kjører utenfor Databricks.
-
-[[CLICK]] Jobbene henter data og lagrer dem som rådata i området vi kaller raw. I
-containerne Terraform nettopp laget.
-
-[[CLICK]] Databricks leser derfra. Plattformen begynner når filen ligger der.
-Ikke når skipet sender. Det er et bevisst kutt. Innlesing er ett ansvar.
-Lakehouse er et annet.
-
 ## ais-pipeline – Jobben som kjører hver dag
 
 Dette er Databricks-jobben. AIS-orkestrering. Produksjon.
@@ -910,7 +882,7 @@ Og fortsatt: ingen klynger vi må drifte.
 
 ## stordata-volum – Strømmen er liten, historikken er stor
 
-[49:00] 3 min. Neste kapittel 52:00.
+[47:00] 5 min. Neste kapittel 52:00.
 Ligger du etter, kutt de to batch/streaming-slidene og behold volum pluss
 serverless.
 
