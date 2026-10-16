@@ -87,14 +87,11 @@ export function SlideAzureDatabricks() {
           }}
         />
       </Box>
-      <Box
-        box={[82, 214, 670, 352]}
-        style={{ display: "flex", flexDirection: "column", gap: 30 }}
-      >
-        {verktøy.map((verktoy, i) => (
-          <div
-            key={verktoy.alt}
-            style={{ display: "flex", alignItems: "center", gap: 24, height: 88 }}
+      {verktøy.map((verktoy, i) => (
+        <Reveal key={verktoy.alt} at={i + 1}>
+          <Box
+            box={[82, 214 + i * 110, 670, 88]}
+            style={{ display: "flex", alignItems: "center", gap: 24 }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -113,9 +110,9 @@ export function SlideAzureDatabricks() {
                 color: "var(--burgundy-2)",
               }}
             />
-          </div>
-        ))}
-      </Box>
+          </Box>
+        </Reveal>
+      ))}
       <Box box={[800, 260, 420, 150]}>
         <SkyMedKlosser />
       </Box>

@@ -641,16 +641,6 @@ relevante. Og, viktigst av alt, faktisk brukt.
 Verdien oppstår når teknologi, organisering og ansvar trekker i samme retning.
 Det er slutten på teoridelen. Nå skal vi se hva du får igjen.
 
-## effekter – Hva får du igjen?
-
-[31:00] 4 min. Neste kapittel 35:00.
-
-Kapittelskifte. Hva får du egentlig igjen for alt dette?
-
-Jeg skal gi dere fire effekter. Og jeg skal ikke gi dere dem som
-PowerPoint-punkter. Jeg skal gi dere ett konkret eksempel fra sjøveien for
-hver.
-
 ## effekt-1 – Effekt 1: Datakvalitet
 
 Én. Datakvalitet. Data du kan stole på.

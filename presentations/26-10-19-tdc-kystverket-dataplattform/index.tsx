@@ -47,7 +47,6 @@ import {
   SlideBatchVsStreaming,
 } from "./batch-streaming";
 import {
-  SlideEffekter,
   SlideEffektKvalitet,
   SlideEffektEtterlevelse,
   SlideEffektEffektivitet,
@@ -294,11 +293,6 @@ const HVORDAN: SlideDef[] = [
 
 const EFFEKTER: SlideDef[] = [
   {
-    id: "effekter",
-    name: "Hva får du igjen?",
-    component: SlideEffekter,
-  },
-  {
     id: "effekt-1",
     name: "Effekt 1: Datakvalitet",
     component: SlideEffektKvalitet,
@@ -335,6 +329,7 @@ const PROSJEKTET: SlideDef[] = [
     id: "azure-databricks",
     name: "Azure + Databricks + Terraform",
     component: SlideAzureDatabricks,
+    steps: 3,
   },
   {
     id: "azure",

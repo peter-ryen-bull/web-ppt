@@ -215,10 +215,6 @@ batch-streaming:
 batch-vs-streaming:
   title: "Batch og streaming"
 
-effekter:
-  title: "Hva får du igjen?"
-  subtitle: "Fire gevinster, med eksempler fra kysten"
-
 effekt-1:
   nummer: "1"
   etikett: "Datakvalitet"
