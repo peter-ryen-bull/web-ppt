@@ -188,6 +188,7 @@ function ViewRadKompakt({
   navn,
   kilde,
   fontSize = 13,
+  visSkjema = true,
 }: {
   x: number;
   y: number;
@@ -196,6 +197,7 @@ function ViewRadKompakt({
   navn: string;
   kilde?: string;
   fontSize?: number;
+  visSkjema?: boolean;
 }) {
   const ikon = Math.min(20, h - 14);
   return (
@@ -216,7 +218,7 @@ function ViewRadKompakt({
           <text x={x + 11 + ikon + 9} y={y + h / 2 - (h >= 60 ? 10 : 2)} fontFamily={MONO} fontSize={fontSize} fill="var(--cream)">
             {navn}
           </text>
-          {h >= 60 && (
+          {h >= 60 && visSkjema && (
             <text x={x + 11 + ikon + 9} y={y + h / 2 + 6} fontFamily="var(--font-sans)" fontSize={fontSize * 0.78} fontWeight={600} letterSpacing={1.2} fill={KREM_DUS}>
               SKJEMA
             </text>
@@ -247,6 +249,7 @@ function ProduktKatalog({
   radGap,
   radStart,
   visKilde = true,
+  visSkjema = true,
   radFont = 13,
 }: {
   x: number;
@@ -260,6 +263,7 @@ function ProduktKatalog({
   radGap: number;
   radStart: number;
   visKilde?: boolean;
+  visSkjema?: boolean;
   radFont?: number;
 }) {
   const cx = x + w / 2;
@@ -283,6 +287,7 @@ function ProduktKatalog({
           navn={v.navn}
           kilde={visKilde ? v.kilde : undefined}
           fontSize={radFont}
+          visSkjema={visSkjema}
         />
       ))}
     </g>
@@ -875,6 +880,7 @@ export function HelePlattformen() {
           radGap={18}
           radStart={100}
           visKilde
+          visSkjema={false}
           radFont={12}
         />
       </Steg>
