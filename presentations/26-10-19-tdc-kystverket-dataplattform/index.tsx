@@ -198,7 +198,7 @@ const PLATTFORM: SlideDef[] = [
     id: "hva-er",
     name: "Hvorfor bygger alle dataplattformer?",
     component: SlideHvaEr,
-    steps: 1,
+    steps: 2,
   },
   {
     id: "reid-hoffman",

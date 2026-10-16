@@ -25,7 +25,8 @@ const MEDIA = "/media/26-09-17-ndc-kystverket-dataplatform";
 
 /* Kapittel: Hvorfor bygger alle dataplattform? */
 export function SlideHvaEr() {
-  const sitat = useRevealStyle(1);
+  const step = useStep();
+  const title = useRevealStyle(1);
   return (
     <>
       <Box
@@ -37,7 +38,7 @@ export function SlideHvaEr() {
         }}
       >
         <Copy
-          k="title"
+          k={step === 1 ? "keyword" : "title"}
           as="div"
           style={{
             fontFamily: "var(--font-serif)",
@@ -46,28 +47,7 @@ export function SlideHvaEr() {
             color: "var(--burgundy)",
             textAlign: "center",
             width: "100%",
-          }}
-        />
-      </Box>
-      <Box
-        box={[120, 500, 1040, 90]}
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "center",
-        }}
-      >
-        <Copy
-          k="lead"
-          as="div"
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontWeight: 500,
-            fontSize: pt(22),
-            lineHeight: 1.35,
-            color: "var(--red)",
-            textAlign: "center",
-            ...sitat,
+            ...title,
           }}
         />
       </Box>
