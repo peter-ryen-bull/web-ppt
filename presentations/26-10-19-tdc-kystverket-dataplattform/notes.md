@@ -1199,25 +1199,6 @@ brent.
 innenriksfart, utenriksfart og gjennomfart. Da vet du hva som faktisk
 skjedde i norske farvann.
 
-## maru – Den maritime utslippsmodellen: MarU
-
-Det er metoden. Nå modellen selv.
-
-[[CLICK]] Python og PySpark. Beregnet på Databricks.
-
-[[CLICK]] Hovedmotoren regnes fra propellloven. Hjelpemotorer og kjeler regnes
-per operasjonsfase. Og nå ser dere hvorfor vi trengte fasene fra MarTraf. Et
-skip til kai bruker hjelpemotor til strøm og varme, ikke hovedmotor. Uten
-fase hadde vi regnet feil.
-
-[[CLICK]] Rundt 330 inngangsvariabler. Utslippsfaktorer, lavlastjusteringer,
-svovelgrenser per utslippskontrollsone, GWP-faktorer. Det er mange knapper.
-
-[[CLICK]] Og skipsregisteret. Fem kilder slått sammen, med versjonering av
-alt som endrer seg. S&P, ShipInfo, SafeSeaNet, NOR og NIS, og
-fiskefartøyregisteret. For et skip bytter navn, eier og motor i løpet av
-livet.
-
 ## maru-hull – Fyller hull i skipsregisteret med maskinlæring
 
 Og nå den ærlige delen.

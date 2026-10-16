@@ -79,7 +79,6 @@ import {
   SlideH3Ship,
   SlideMarTrafVideo,
   SlidePropellloven,
-  SlideMarU,
   SlideMarUHull,
   SlideMarUUt,
   SlideMarUHvorfor,
@@ -463,12 +462,6 @@ const MODELLENE: SlideDef[] = [
     name: "Hvordan gjorde man det før?",
     component: SlideMarUHvorfor,
     steps: 3,
-  },
-  {
-    id: "maru",
-    name: "Maritim utslippsmodell: MarU",
-    component: SlideMarU,
-    steps: 4,
   },
   {
     id: "maru-hull",
