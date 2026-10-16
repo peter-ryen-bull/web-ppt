@@ -203,6 +203,7 @@ export function SlideHundreMillioner() {
             fontFamily: "var(--font-serif)",
             fontSize: pt(105),
             color: "var(--red)",
+            textAlign: "center",
             whiteSpace: "nowrap",
           }}
         />
