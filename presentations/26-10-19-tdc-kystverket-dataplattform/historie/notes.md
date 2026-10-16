@@ -16,6 +16,8 @@ Det er bare det foreløpig siste svaret på et 50 år gammelt problem.
 
 ## tidslinje – Seks faser, ett problem
 
+Hva er problemet de seks fasene prøvde å løse?
+
 1970 relasjonsdatabasen,
 1988 datavarehuset,
 2006 stordata,
