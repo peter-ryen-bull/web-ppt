@@ -874,7 +874,7 @@ export function HelePlattformen() {
           w={H_KAT.w}
           h={H_KAT.h}
           tittelSize={26}
-          sub="ett skjema per dataprodukt"
+          sub="1..N tabeller per dataprodukt"
           rader={VIEWS}
           radH={82}
           radGap={18}
