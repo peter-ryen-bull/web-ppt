@@ -156,6 +156,7 @@ export function Copy({
   path: pathProp,
   style,
   as: Tag = "span",
+  renderText,
 }: {
   k?: string;
   i?: number;
@@ -164,6 +165,7 @@ export function Copy({
   path?: string;
   style?: CSSProperties;
   as?: "span" | "div";
+  renderText?: (text: string) => ReactNode;
 }) {
   const ctx = useContext(CopyContext);
   const path = pathProp ?? copyPathFromParts(k ?? "text", i, field);
@@ -198,7 +200,13 @@ export function Copy({
         }}
         onContextMenu={onContextMenu}
       >
-        {text || (editable ? `[${path}]` : "")}
+        {text ? (
+          renderText ? renderText(text) : text
+        ) : editable ? (
+          `[${path}]`
+        ) : (
+          ""
+        )}
       </Tag>
       {editable && ctx?.activePath === path && ctx.presentationId && (
         <CopyEditor

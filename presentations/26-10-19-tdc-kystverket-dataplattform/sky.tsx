@@ -324,28 +324,41 @@ export function SlideTerraform() {
 
 const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
+function highlightTerraform(source: string): ReactNode {
+  const tokenPattern = /(\#.*$|"(?:\\.|[^"\\])*"|\b(?:resource|for_each|toset)\b|\b(?:true|false|null)\b|\b[a-zA-Z_][\w-]*(?=\s*=)|[{}()[\]=])/gm;
+  const tokens: ReactNode[] = [];
+  let cursor = 0;
+  for (const match of source.matchAll(tokenPattern)) {
+    const index = match.index ?? 0;
+    if (index > cursor) tokens.push(source.slice(cursor, index));
+    const value = match[0];
+    const color = value.startsWith("#")
+      ? "#9bb8b5"
+      : value.startsWith('"')
+        ? "var(--mint)"
+        : /^(resource|for_each|toset|true|false|null)$/.test(value)
+          ? "#ff9b8e"
+          : /^[{}()[\]=]$/.test(value)
+            ? "#f5c66b"
+            : "#9ed9ff";
+    tokens.push(<span key={`${index}-${value}`} style={{ color }}>{value}</span>);
+    cursor = index + value.length;
+  }
+  if (cursor < source.length) tokens.push(source.slice(cursor));
+  return tokens;
+}
+
 /* Ett utdrag: workspace-ressursen, tre miljøer */
 export function SlideTerraformKode() {
   return (
     <>
-      <Box box={[66, 40, 1040, 70]}>
-        <div
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: pt(36),
-            color: "var(--burgundy)",
-          }}
-        >
-          <Copy k="title" />
-        </div>
-      </Box>
       <Img
-        box={[1160, 28, 72, 82]}
+        box={[1160, 18, 72, 82]}
         src={`${MEDIA}/terraform.svg`}
         alt="Terraform"
       />
       <Box
-        box={[66, 128, 1148, 460]}
+        box={[66, 48, 1148, 540]}
         style={{
           background: "var(--teal)",
           borderRadius: 16,
@@ -363,6 +376,7 @@ export function SlideTerraformKode() {
           k="code"
           as="div"
           style={{ whiteSpace: "pre", color: "var(--cream)" }}
+          renderText={highlightTerraform}
         />
       </Box>
       <Punchline
