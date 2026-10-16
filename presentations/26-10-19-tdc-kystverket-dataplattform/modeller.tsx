@@ -172,10 +172,10 @@ export function SlideModellFlyt() {
 
 /* HAIS – historisk uttrekk på bestilling */
 export function SlideHais() {
-  const steg = (at: number, x: number, i: number) => (
+  const steg = (at: number, y: number, i: number) => (
     <Reveal at={at}>
       <Box
-        box={[x, 540, 280, 118]}
+        box={[72, y, 610, 118]}
         style={{
           background: "var(--teal)",
           borderRadius: 14,
@@ -211,10 +211,10 @@ export function SlideHais() {
     </Reveal>
   );
 
-  const pil = (at: number, x: number) => (
+  const pil = (at: number, y: number) => (
     <Reveal at={at}>
       <Box
-        box={[x, 568, 36, 60]}
+        box={[353, y, 48, 38]}
         style={{
           display: "flex",
           alignItems: "center",
@@ -224,11 +224,11 @@ export function SlideHais() {
         <div
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: pt(28),
+            fontSize: pt(25),
             color: "var(--red)",
           }}
         >
-          →
+          ↓
         </div>
       </Box>
     </Reveal>
@@ -261,7 +261,7 @@ export function SlideHais() {
         </a>
       </Box>
       <Box
-        box={[66, 196, 1148, 326]}
+        box={[780, 132, 432, 544]}
         style={{
           overflow: "hidden",
           borderRadius: 12,
@@ -271,21 +271,20 @@ export function SlideHais() {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={`${MEDIA}/hais.png`}
+          src="/media/26-10-19-tdc-kystverket-dataplattform/hais-full.png"
           alt="HAIS – bestill historiske AIS-uttrekk på hais.kystverket.no"
           style={{
             width: "100%",
             height: "100%",
-            objectFit: "cover",
-            objectPosition: "top center",
+            objectFit: "contain",
           }}
         />
       </Box>
-      {steg(1, 90, 0)}
-      {pil(2, 384)}
-      {steg(2, 434, 1)}
-      {pil(3, 728)}
-      {steg(3, 778, 2)}
+      {steg(1, 188, 0)}
+      {pil(2, 310)}
+      {steg(2, 354, 1)}
+      {pil(3, 476)}
+      {steg(3, 520, 2)}
     </>
   );
 }
