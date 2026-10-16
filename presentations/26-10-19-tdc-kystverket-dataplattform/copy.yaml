@@ -81,8 +81,9 @@ sporsmalet:
   line2: "Hvordan får du behandlet alle sammen?"
 
 hva-er:
+  prefix: "Hvorfor bygger alle "
   keyword: "dataplattformer"
-  title: "Hvorfor bygger alle dataplattformer?"
+  suffix: "?"
   lead: "Data blir mer og mer verdifulle."
 
 reid-hoffman:

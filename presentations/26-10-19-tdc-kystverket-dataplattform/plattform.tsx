@@ -37,9 +37,7 @@ export function SlideHvaEr() {
           justifyContent: "center",
         }}
       >
-        <Copy
-          k={step === 1 ? "keyword" : "title"}
-          as="div"
+        <div
           style={{
             fontFamily: "var(--font-serif)",
             fontSize: pt(54),
@@ -49,7 +47,11 @@ export function SlideHvaEr() {
             width: "100%",
             ...title,
           }}
-        />
+        >
+          <Copy k="prefix" style={{ visibility: step >= 2 ? "visible" : "hidden" }} />
+          <Copy k="keyword" />
+          <Copy k="suffix" style={{ visibility: step >= 2 ? "visible" : "hidden" }} />
+        </div>
       </Box>
     </>
   );
