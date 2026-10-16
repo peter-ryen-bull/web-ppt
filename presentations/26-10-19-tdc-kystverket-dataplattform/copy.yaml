@@ -208,7 +208,6 @@ roller:
         databrukere
       tekst: "bruker det som kommer ut"
   team_label: "Dataplattformteam"
-  footer: "Hvert fagområde tar ansvar for sine egne data."
 
 batch-streaming:
   title: "Slik fungerer en dataplattform"
