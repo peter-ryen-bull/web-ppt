@@ -492,39 +492,6 @@ Eierskap sier hvem. Kontrakten sier hva. Produkttenking sier hvorfor.
 får eksterne brukere. La dem være. Start med den håndfullen folk lener
 seg på.
 
-## dataprodukt-anatomi – Mer enn en tabell
-
-La meg vise hva jeg mener.
-
-Pek på venstre side. Her er en fil noen har lagt i et lagringsområde. Dataene i den
-kan være helt riktige. Men ingen tør bruke dem.
-
-[[CLICK]] Hva betyr feltene?
-
-[[CLICK]] Hvor ferske er de?
-
-[[CLICK]] Hvem spør jeg når noe ser rart ut? Har dere vært der? Jeg har vært
-der mange ganger. En fil i et lagringsområde er ikke et produkt. Det er en
-gjenstand.
-
-Pek på høyre side. Nøyaktig samme data. Men pakket.
-
-[[CLICK]] Dokumentasjon: hva feltene betyr.
-
-[[CLICK]] En tydelig eier. Noen som svarer.
-
-[[CLICK]] En datakontrakt. En maskinlesbar avtale.
-
-[[CLICK]] Og tilgang. API, SQL eller BI.
-
-[[CLICK]] Kvalitetstester som kjører på hver rad.
-
-[[CLICK]] Og ferskhet. En SLA: ferskere enn fem minutter. Nå tør folk bruke
-det.
-
-Tenk på forskjellen mellom løse ingredienser og en måltidskasse. Tabellen er
-ingrediensen. Dataproduktet er retten, med oppskrift og alt.
-
 Og så én advarsel. Ikke alt skal være produkt. Når alt er produkt, er
 ingenting produkt. Filteret jeg bruker: deles det utenfor teamet? Og er en
 feil dyr nok til at det er verdt å forvalte det over tid? Hvis ja på begge, da

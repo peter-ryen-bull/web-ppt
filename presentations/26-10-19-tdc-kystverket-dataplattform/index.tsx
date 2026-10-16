@@ -32,7 +32,6 @@ import {
   SlideStrukturereData,
   SlideDataprodukt,
   SlideDataproduktKjennetegn,
-  SlideDataproduktAnatomi,
   SlideDatakontraktKapittel,
   SlideDatakontraktHva,
   SlideDatakontrakt,
@@ -245,12 +244,6 @@ const HVORDAN: SlideDef[] = [
     name: "Hva gjør det til et produkt",
     component: SlideDataproduktKjennetegn,
     steps: 4,
-  },
-  {
-    id: "dataprodukt-anatomi",
-    name: "Mer enn en tabell",
-    component: SlideDataproduktAnatomi,
-    steps: 9,
   },
   {
     id: "datakontrakt-kapittel",
