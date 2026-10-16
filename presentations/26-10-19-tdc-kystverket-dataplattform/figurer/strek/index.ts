@@ -54,6 +54,7 @@ export {
   Kompass,
   TreKataloger,
   Registerhull,
-  Bunkring,
   RisikoSektorer,
 } from "./Modeller";
+
+export { Bunkring } from "./Bunkring";

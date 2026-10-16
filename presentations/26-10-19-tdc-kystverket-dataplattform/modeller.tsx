@@ -996,12 +996,12 @@ export function SlideMarUHvorfor() {
         <Copy k="title" />
       </SlideTitle>
       <Reveal at={2}>
-        <Box box={[880, 210, 360, 260]}>
+        <Box box={[790, 170, 440, 470]}>
           <Bunkring />
         </Box>
       </Reveal>
       <BulletList
-        box={[72.4, 200, 760, 380]}
+        box={[72.4, 200, 680, 380]}
         fromStep={1}
         size={20}
         gap={32}
