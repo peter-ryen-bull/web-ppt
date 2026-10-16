@@ -1334,10 +1334,10 @@ eget skjema per dataprodukt i katalogen. Ingen kopiering av data. Viewet i
 skjemaet peker rett på domenets gold-tabell. Brukerne trenger bare å kjenne
 én katalog, uansett hvor mange domener som ligger bak.
 
-[[CLICK]] Hvem leser fra den katalogen? Alle utenfor domenene.
-Miljødirektoratet og kommunene med klimaregnskapet. Utviklere gjennom
-BarentsWatch. Analytikere med dashbord. Forskere. Andre etater. Én katalog.
-Innenfor eller utenfor, du leser fra samme sted.
+[[CLICK]] Hvem leser fra den katalogen? Interne i Kystverket som drifter,
+vedlikeholder og administrerer plattformen. Andre etater. Forskere.
+Analytikere med dashbord og BI. Miljødirektoratet og kommunene med
+klimaregnskapet. Én katalog. Innenfor eller utenfor, du leser fra samme sted.
 
 [[CLICK]] Og domenene selv. Toll vil ha AIS-tracks ved siden av
 deklarasjonene. De går ikke til hverandres gold-tabeller. De leser fra
