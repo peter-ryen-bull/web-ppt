@@ -69,19 +69,31 @@ export function SlideDagEn() {
   );
 }
 
-/* Kapittel: Azure + Databricks + Terraform */
+/* Infrastrukturen: de tre verktøyene */
 export function SlideAzureDatabricks() {
   return (
     <>
-      <Box box={[430, 60, 420, 150]}>
+      <Box box={[66, 70, 1100, 70]}>
+        <Copy
+          k="title"
+          as="div"
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(36),
+            lineHeight: 1.15,
+            color: "var(--burgundy)",
+          }}
+        />
+      </Box>
+      <BulletList
+        box={[72, 220, 650, 340]}
+        itemsKey="items"
+        size={28}
+        gap={36}
+      />
+      <Box box={[800, 260, 420, 150]}>
         <SkyMedKlosser />
       </Box>
-      <ChapterSlide
-        title={<Copy k="title" />}
-        subtitle={<Copy k="subtitle" />}
-        titleSize={52}
-        showLogo={false}
-      />
     </>
   );
 }

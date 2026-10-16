@@ -286,8 +286,11 @@ dag-en:
     - label: "Én strøm."
 
 azure-databricks:
-  title: "Azure + Databricks + Terraform"
-  subtitle: "Verktøykassa vi valgte"
+  title: "Infrastrukturen"
+  items:
+    - "Azure"
+    - "Databricks"
+    - "Terraform"
 
 azure:
   title: "Azure: grunnmuren"
