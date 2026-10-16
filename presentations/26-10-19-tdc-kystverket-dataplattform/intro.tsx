@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, BulletItem, Img, Reveal, pt, useRevealStyle } from "../parts";
 import { Copy } from "@/components/Copy";
 import { useStep } from "@/components/steps";
@@ -143,9 +145,14 @@ export function SlideSignal() {
 
 /* Slide 3 – Noen lytter: NAIS, sanntidsbildet av norskekysten */
 export function SlideNais() {
+  const showCaption = useStep() >= 1;
+
   return (
     <>
-      <Box box={[0, 0, 1280, 720]} style={{ overflow: "hidden" }}>
+      <Box
+        box={[0, 0, 1280, 720]}
+        style={{ overflow: "hidden", background: "var(--teal)" }}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={`${MEDIA}/nais.png`}
@@ -155,16 +162,24 @@ export function SlideNais() {
             height: "100%",
             objectFit: "cover",
             objectPosition: "top center",
+            opacity: showCaption ? 0.55 : 1,
+            filter: showCaption ? "blur(3px)" : "blur(0px)",
+            transform: "scale(1.01)",
+            transition: "opacity 350ms ease, filter 350ms ease",
           }}
         />
       </Box>
       <Reveal at={1}>
         <Box
-          box={[0, 656, 1280, 44]}
+          box={[160, 286, 960, 148]}
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            background: "var(--cream)",
+            borderRadius: 16,
+            boxShadow: "0 16px 56px rgba(0, 0, 0, 0.3)",
+            padding: "24px 36px",
           }}
         >
           <Copy
@@ -172,10 +187,11 @@ export function SlideNais() {
             as="div"
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: pt(14),
-              color: "var(--red)",
-              background: "var(--cream)",
-              padding: "6px 16px",
+              fontSize: pt(30),
+              fontWeight: 600,
+              lineHeight: 1.3,
+              textAlign: "center",
+              color: "#000",
             }}
           />
         </Box>
