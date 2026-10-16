@@ -6,11 +6,6 @@ import { TIDSLINJE_STEG } from "./figurer";
 import {
   SlideForside,
   SlideTidslinje,
-  SlideRelasjonsmodellen,
-  SlideVarehuset,
-  SlideRegnestykket,
-  SlideDatasjoen,
-  SlideSkyen,
   SlideLakehouse,
   SlideAvslutning,
 } from "./slides";
@@ -18,11 +13,6 @@ import {
 const SLIDES: SlideDef[] = [
   { id: "forside", name: "Historien om dataplattformen", component: SlideForside },
   { id: "tidslinje", name: "Seks faser, ett problem", component: SlideTidslinje, steps: TIDSLINJE_STEG },
-  { id: "relasjonsmodellen", name: "1970 · Databasen", component: SlideRelasjonsmodellen },
-  { id: "varehuset", name: "1988 · Datavarehuset", component: SlideVarehuset },
-  { id: "regnestykket", name: "2006 · Stordata", component: SlideRegnestykket },
-  { id: "datasjoen", name: "2010 · Datasjøen", component: SlideDatasjoen },
-  { id: "skyen", name: "2012 · Skyen", component: SlideSkyen },
   { id: "lakehouse", name: "2020 · Lakehouse", component: SlideLakehouse },
   { id: "avslutning", name: "Data varer lenger enn systemene", component: SlideAvslutning, steps: 1 },
 ];

@@ -5,26 +5,6 @@ forside:
 tidslinje:
   title: "Seks faser – ett problem"
 
-relasjonsmodellen:
-  kicker: "1970 · Databasen"
-  title: "Codd: skill spørsmålet fra lagringen"
-
-varehuset:
-  kicker: "1988 · Datavarehuset"
-  title: "Ett felles datavarehus – atskilt fra driften"
-
-regnestykket:
-  kicker: "2006 · Stordata"
-  title: "Googles svar: la mange maskiner dele arbeidet"
-
-datasjoen:
-  kicker: "2010 · Datasjøen"
-  title: "Lagre alt – rått"
-
-skyen:
-  kicker: "2012 · Skyen"
-  title: "Skill lagring fra regnekraft"
-
 lakehouse:
   kicker: "2020 · Lakehouse"
   title: "To spor møtes – og blir dataplattformen"
