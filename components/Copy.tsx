@@ -169,10 +169,12 @@ export function Copy({
 }) {
   const ctx = useContext(CopyContext);
   const path = pathProp ?? copyPathFromParts(k ?? "text", i, field);
-  const fromYaml = getCopyString(ctx?.copy, path);
-  const text =
-    (ctx ? ctx.overrides[overrideKey(ctx.slideId, path)] : undefined) ??
-    fromYaml;
+  const copyValue = getCopyValue(ctx?.copy, path);
+  const fromYaml = typeof copyValue === "string" ? copyValue : "";
+  const override = ctx?.overrides[overrideKey(ctx.slideId, path)];
+  const text = override ?? fromYaml;
+  const explicitlyEmpty =
+    override === "" || (override === undefined && copyValue === "");
   const editable = Boolean(ctx?.editable);
   const heading = k === "title" || k === "kicker" || k === "subtitle";
 
@@ -197,11 +199,23 @@ export function Copy({
                 pointerEvents: "auto",
               }
             : null),
+          ...(explicitlyEmpty
+            ? editable
+              ? {
+                  display: heading ? "block" : "inline-block",
+                  minWidth: 8,
+                  minHeight: "1em",
+                  color: "transparent",
+                }
+              : { display: "none" }
+            : null),
         }}
         onContextMenu={onContextMenu}
       >
         {text ? (
           renderText ? renderText(text) : text
+        ) : explicitlyEmpty ? (
+          ""
         ) : editable ? (
           `[${path}]`
         ) : (
