@@ -40,11 +40,12 @@ const TEAL_LINJE = "rgba(0, 64, 71, 0.55)";
 
 /** `kort` er navnet i det utzoomede bildet, der det er lite plass */
 type Kilde = { navn: string; kort: string; ikon: IkonNavn };
-type Domene = { navn: string; ikon: IkonNavn; kilder: Kilde[] };
+type Domene = { navn: string; visningsnavn: string; ikon: IkonNavn; kilder: Kilde[] };
 
 const DOMENER_MED_KILDER: Domene[] = [
   {
     navn: "customs",
+    visningsnavn: "toll",
     ikon: "skjema",
     kilder: [
       { navn: "deklarasjoner", kort: "deklarasjoner", ikon: "skjema" },
@@ -53,6 +54,7 @@ const DOMENER_MED_KILDER: Domene[] = [
   },
   {
     navn: "ais",
+    visningsnavn: "AIS",
     ikon: "antenne",
     kilder: [
       { navn: "AIS-strøm", kort: "AIS-strøm", ikon: "antenne" },
@@ -61,6 +63,7 @@ const DOMENER_MED_KILDER: Domene[] = [
   },
   {
     navn: "hr_and_finance",
+    visningsnavn: "personal_og_okonomi",
     ikon: "mynt",
     kilder: [
       { navn: "lønn", kort: "lønn", ikon: "person" },
@@ -69,6 +72,7 @@ const DOMENER_MED_KILDER: Domene[] = [
   },
   {
     navn: "lighthouses",
+    visningsnavn: "fyr",
     ikon: "verktoy",
     kilder: [
       { navn: "sensorer", kort: "sensorer", ikon: "puls" },
@@ -463,7 +467,7 @@ export function DomenerKilder() {
                 <IkonI navn={d.ikon} x={K_SYL_X + 26} y={top + 26} size={26} strokeWidth={1.7} />
               </g>
               <text x={K_SYL_X + 66} y={top + 46} fontFamily={MONO} fontSize={18} fill="var(--cream)">
-                {d.navn}
+                {d.visningsnavn}
               </text>
               <text x={K_SYL_X + 66} y={top + 68} fontFamily="var(--font-sans)" fontSize={11.5} fill={KREM_DUS}>
                 eget team · eget kostnadssenter · eget ansvar
@@ -559,7 +563,7 @@ export function ProduktForbruk() {
               <IkonI navn={d.ikon} x={F_DOM_X + 20} y={top + 20} size={22} strokeWidth={1.7} />
             </g>
             <text x={F_DOM_X + 54} y={top + 36} fontFamily={MONO} fontSize={15} fill="var(--cream)">
-              {d.navn}
+              {d.visningsnavn}
             </text>
             <text x={F_DOM_X + 54} y={top + 54} fontFamily="var(--font-sans)" fontSize={10.5} fill={KREM_DUS}>
               egen katalog · bronze / silver / gold
@@ -737,7 +741,7 @@ export function HelePlattformen() {
                 <IkonI navn={d.ikon} x={H_DOM_X + 20} y={top + 16} size={22} strokeWidth={1.7} />
               </g>
               <text x={H_DOM_X + 52} y={top + 33} fontFamily={MONO} fontSize={15} fill="var(--cream)">
-                {d.navn}
+                {d.visningsnavn}
               </text>
             </Sylinder>
           );
