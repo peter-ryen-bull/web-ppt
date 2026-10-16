@@ -23,10 +23,23 @@ import { IkonI, type IkonNavn } from "./Ikoner";
  */
 
 /** Gruppe som fades inn når klikk-steget `at` er nådd */
-function Steg({ at, children }: { at: number; children: ReactNode }) {
+function Steg({
+  at,
+  alwaysVisible = false,
+  children,
+}: {
+  at: number;
+  alwaysVisible?: boolean;
+  children: ReactNode;
+}) {
   const steg = useStep();
   return (
-    <g style={{ opacity: steg >= at ? 1 : 0, transition: "opacity 0.5s ease" }}>
+    <g
+      style={{
+        opacity: alwaysVisible || steg >= at ? 1 : 0,
+        transition: "opacity 0.5s ease",
+      }}
+    >
       {children}
     </g>
   );
@@ -167,7 +180,7 @@ export function Innlesing() {
   return (
     <Figur w={W} h={H} label="Prefect dumper filer i raw-lagring; lakehouset leser derfra">
       {/* Prefect: jobben utenfor Databricks */}
-      <Steg at={1}>
+      <Steg at={1} alwaysVisible>
         <Ror d="M 16 92 H 36" />
         <rect x={36} y={52} width={120} height={80} rx={10} fill={KREM} />
         <path d="M 62 78 L 80 92 L 62 106 Z" fill={ROD} stroke="none">
@@ -180,7 +193,7 @@ export function Innlesing() {
       </Steg>
 
       {/* Røret ned i raw, og containeren filene lander i */}
-      <Steg at={2}>
+      <Steg at={2} alwaysVisible>
         <Ror d="M 156 92 H 200 V 176" />
         <circle cx={200} cy={92} r={5} fill={KREM} stroke={TEAL} strokeWidth={2} />
         <path d="M 148 176 V 248 H 252 V 176" fill={KREM} />
@@ -194,7 +207,7 @@ export function Innlesing() {
       </Steg>
 
       {/* Røret videre inn i taket på lakehuset */}
-      <Steg at={3}>
+      <Steg at={3} alwaysVisible>
         <Ror d="M 252 212 H 308 V 258" />
         <circle cx={308} cy={212} r={5} fill={KREM} stroke={TEAL} strokeWidth={2} />
         <rect x={250} y={300} width={116} height={58} fill={KREM} />

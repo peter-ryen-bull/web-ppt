@@ -49,22 +49,15 @@ export function SlideDagEn() {
       <Box box={[800, 170, 400, 400]}>
         <DagEn />
       </Box>
-      {[0, 1, 2].map((i) => (
-        <Reveal key={i} at={i + 1}>
-          <Box box={[90, 180 + i * 140, 680, 110]}>
-            <div
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: pt(40),
-                lineHeight: 1.1,
-                color: i === 2 ? "var(--red)" : "var(--burgundy)",
-              }}
-            >
-              <Copy k="rows" i={i} field="label" />
-            </div>
-          </Box>
-        </Reveal>
-      ))}
+      <BulletList
+        box={[90, 190, 660, 390]}
+        fromStep={1}
+        size={22}
+        gap={34}
+        items={[0, 1, 2].map((i) => (
+          <Copy key={i} k="rows" i={i} field="label" />
+        ))}
+      />
     </>
   );
 }
