@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getPresentation } from "@/presentations";
 import { SlideCanvas, useContainerScale } from "./SlideCanvas";
+import { SlidePreload } from "./SlidePreload";
 import { useSyncedDeck } from "./useSyncedDeck";
 import styles from "./AudienceView.module.css";
 
@@ -22,7 +23,7 @@ export default function AudienceView({
     throw new Error(`Ukjent presentasjon: ${presentationId}`);
   }
 
-  const { slides, current, step, go, showLastStep, showFirstStep } = useSyncedDeck(presentation);
+  const { slides, current, step, visibleIndexes, go, showLastStep, showFirstStep } = useSyncedDeck(presentation);
   const stageRef = useRef<HTMLDivElement>(null);
   const scale = useContainerScale(stageRef);
 
@@ -90,6 +91,7 @@ export default function AudienceView({
 
   return (
     <div className={`${styles.root} ${cursorIdle ? styles.noCursor : ""}`}>
+      <SlidePreload slide={slides[visibleIndexes.find((i) => i > current) ?? -1]} />
       <div className={styles.stage} ref={stageRef}>
         <SlideCanvas slide={slides[current]} scale={scale} step={step} />
       </div>

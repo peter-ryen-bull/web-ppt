@@ -319,7 +319,7 @@ function OverviewThumb({
         title={selecting ? selectTitle : slide.name}
       >
         <div className={styles.thumbCanvas} inert aria-hidden>
-          <SlideCanvas slide={slide} scale={200 / SLIDE_W} />
+          <SlideCanvas slide={slide} scale={200 / SLIDE_W} scaling="transform" />
         </div>
       </div>
       <div className={styles.thumbFooter}>

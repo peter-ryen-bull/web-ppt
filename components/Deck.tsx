@@ -12,6 +12,7 @@ import { getPresentation } from "@/presentations";
 import { presentationHasCopy } from "@/presentations/copy";
 import { chapterOf } from "@/presentations/chapters";
 import { SlideCanvas, useContainerScale } from "./SlideCanvas";
+import { SlidePreload } from "./SlidePreload";
 import type { PdfQuality } from "./exportPdf";
 import { usePdfExport } from "./PdfExport";
 import SlideOverview from "./SlideOverview";
@@ -316,6 +317,7 @@ export default function Deck({ presentationId }: { presentationId: string }) {
 
   return (
     <div className={styles.root}>
+      <SlidePreload slide={slides[visibleIndexes.find((i) => i > current) ?? -1]} />
       <div
         className={styles.stage}
         ref={stageRef}

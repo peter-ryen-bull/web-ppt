@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import type { SlideDef } from "@/presentations";
 import { CopyProvider, type CopyEditProps } from "./Copy";
 import { StepContext } from "./steps";
@@ -12,7 +12,7 @@ export const SLIDE_H = 720;
 /** Skalerer 1280x720-lerretet til å fylle containeren (letterboxed). */
 export function useContainerScale(ref: React.RefObject<HTMLDivElement | null>) {
   const [scale, setScale] = useState(0.5);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
     const update = () => {
@@ -58,12 +58,15 @@ export function SlideCanvas({
   scale,
   step,
   copyEdit,
+  scaling = "zoom",
 }: {
   slide: SlideDef;
   scale: number;
   /** Gjeldende klikk-steg. Utelatt = vis alt (miniatyrer o.l.) */
   step?: number;
   copyEdit?: CopyEditProps;
+  /** Miniatyrer bruker den opprinnelige skaleringen for svært liten tekst. */
+  scaling?: "zoom" | "transform";
 }) {
   return (
     <div
@@ -71,7 +74,9 @@ export function SlideCanvas({
       style={{
         width: SLIDE_W,
         height: SLIDE_H,
-        transform: `scale(${scale})`,
+        // CSS zoom tegner teksten i riktig størrelse uten et skalert bildelag.
+        zoom: scaling === "zoom" ? scale : undefined,
+        transform: scaling === "transform" ? `scale(${scale})` : undefined,
       }}
     >
       <SlideSurface slide={slide} step={step} copyEdit={copyEdit} />

@@ -16,17 +16,14 @@ const SLIDE_W = 1280;
 const SLIDE_H = 720;
 
 /**
- * Stil som fader innholdet inn når klikk-steget `at` er nådd. Brukes på
+ * Viser innholdet direkte når klikk-steget `at` er nådd. Brukes på
  * elementer som ligger i vanlig flyt, der en wrapper ville brutt layouten.
- * NB: setter `transform` – kombiner manuelt hvis elementet roteres.
  */
 export function useRevealStyle(at: number): CSSProperties {
   const step = useStep();
   const shown = step >= at;
   return {
     opacity: shown ? 1 : 0,
-    transform: shown ? "none" : "translateY(14px)",
-    transition: "opacity 260ms ease, transform 260ms ease",
   };
 }
 
@@ -54,8 +51,6 @@ export function Reveal({
         width: SLIDE_W,
         height: SLIDE_H,
         opacity: shown ? 1 : 0,
-        transform: shown ? "none" : "translateY(14px)",
-        transition: "opacity 260ms ease, transform 260ms ease",
         /* Wrapperen dekker hele lerretet – ikke stjel klikk fra titler under. */
         pointerEvents: "none",
       }}

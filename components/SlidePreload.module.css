@@ -1,0 +1,13 @@
+.preload {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1280px;
+  height: 720px;
+  visibility: hidden;
+  pointer-events: none;
+  /* Null størrelse på skjermen hindrer Video i å starte avspilling. */
+  transform: scale(0);
+  contain: strict;
+  overflow: hidden;
+}

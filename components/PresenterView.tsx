@@ -5,6 +5,7 @@ import Link from "next/link";
 import { getPresentation } from "@/presentations";
 import { presentationHasCopy } from "@/presentations/copy";
 import { SlideCanvas, useContainerScale } from "./SlideCanvas";
+import { SlidePreload } from "./SlidePreload";
 import SlideOverview from "./SlideOverview";
 import { useSyncedDeck } from "./useSyncedDeck";
 import styles from "./PresenterView.module.css";
@@ -308,6 +309,7 @@ export default function PresenterView({
 
   return (
     <div className={styles.root}>
+      <SlidePreload slide={nextIndex === null ? undefined : slides[nextIndex]} />
       <header className={styles.header}>
         <div className={styles.headerGroup}>
           <Link href={`/${presentationId}`} className={styles.btn}>
