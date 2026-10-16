@@ -373,7 +373,7 @@ function Utforsker({
         fontSize={kompakt ? 9.5 : 11}
         fill={SUB_FARGE}
       >
-        {kompakt ? "explorer.kystverket.no" : "data-explorer.kystverket.no"}
+        datakatalog
       </text>
 
       {/* Søkefelt */}
