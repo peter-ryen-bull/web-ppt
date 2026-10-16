@@ -659,21 +659,8 @@ export function DatakontraktBrudd() {
         >
           <IkonBjelle />
         </g>
-        <text x={592} y={533} fontFamily="var(--font-sans)" fontSize={13} fill="var(--red)">
-          varsel til produsenten – før noe når produksjon
-        </text>
       </g>
 
-      <text
-        x={620}
-        y={618}
-        textAnchor="middle"
-        fontFamily="var(--font-sans)"
-        fontSize={15.5}
-        fill="var(--red)"
-      >
-        Et stille brudd nedstrøms blir en høylytt og tidlig feil
-      </text>
     </svg>
   );
 }
