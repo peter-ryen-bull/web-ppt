@@ -334,7 +334,14 @@ export function SlideSporsmalet() {
           <Copy
             k="line2"
             as="div"
-            style={{ color: "var(--red)", marginTop: 20, ...linje2 }}
+            style={{
+              color: "var(--red)",
+              marginTop: 20,
+              fontFamily: "var(--font-sans)",
+              fontWeight: 500,
+              fontSize: pt(22),
+              ...linje2,
+            }}
           />
         </div>
       </Box>
