@@ -132,15 +132,13 @@ Og da blir det ikke bare et logikkproblem, men et skaleringsproblem også.
 
 ## forside – Forside
 
-Dette er historien om dataplattformen bak sjøveien.
+Dette er historien om dataplattformen som driver kysten.
 
 Det er en historie om hvorfor en etat som driver med fyr og lykter og los
 plutselig sto med en av de største datastrømmene i norsk offentlig sektor,
 og hva vi gjorde med den.
 
 ## om-peter – Peter Bull
-
-Nitti sekunder. Ikke en CV. Navn, Miles, Kystverket, så ski og videre.
 
 Jeg heter Peter.
 

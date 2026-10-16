@@ -18,11 +18,11 @@ signal:
       value: "Underveis med motor"
 
 nais:
-  caption: "nais.kystverket.no. Åpent for alle."
+  caption: "nais.kystverket.no"
 
 hundre-millioner:
   number: "100 000 000"
-  caption: "slike meldinger. Hver eneste dag."
+  caption: "meldinger - hver eneste dag"
 
 forside:
   title: "100 millioner om dagen"
@@ -41,7 +41,7 @@ kystverket:
 
 visjon:
   title: "Verdens sikreste og reneste kyst"
-  subtitle: "Det er målet. Alt annet er veien dit."
+  subtitle: "Det er målet."
 
 oppdrag:
   title: "Om oss"
@@ -73,26 +73,26 @@ ais:
   title: "AIS: laget for å unngå kollisjoner"
   items:
     - "Identitet, posisjon, fart, kurs"
-    - "Med sekunder eller minutter mellom meldingene"
-    - "Laget for sikker seilas. Ble en viktig datakilde."
+    - "Flere meldinger i minuttet"
+    - "Har blitt en viktig datakilde"
 
 sporsmalet:
-  line1: "Så du har 100 millioner meldinger om dagen."
-  line2: "Hvordan får du behandlet alle sammen?"
+  line1: "Så vi får inn 100 millioner meldinger om dagen..."
+  line2: "Hvordan behandler vi dem? "
 
 hva-er:
   prefix: "Hvorfor bygger alle "
   keyword: "dataplattformer"
   suffix: "?"
-  lead: "Data blir mer og mer verdifulle."
+  lead: ""
 
 reid-hoffman:
-  quote: "«I dataenes verden er alt målbart, og alt kan vites.»"
+  quote: "«In the world of data, everything is measurable, and everything is knowable»."
   attribution: "— Reid Hoffman"
-  caption: "Reid Hoffman. Medgründer av LinkedIn."
+  caption: "Reid Hoffman. Co-founder av LinkedIn."
   lead: |-
     Du får enormt mye data.
-    Og det blir et skikkelig rot hvis du ikke håndterer det ordentlig.
+    Og det blir et skikkelig rot.
 
 hvorfor:
   title: "Dataplattformer er overalt"
@@ -109,7 +109,7 @@ mer-enn-varehus:
     - "Strukturerte og ustrukturerte data"
     - "Tilbakerulling"
     - "Raske endringer"
-  section_label: "RESTEN AV BYGNINGEN"
+  section_label: "RESTEN AV SYSTEMET"
   platform_items:
     - "Dataforvaltning"
     - "Revisjonslogging"
@@ -119,7 +119,7 @@ mer-enn-varehus:
     - "Kodekjøring"
     - "Regnekraft"
     - "KI-modeller"
-  closing: "Det er en plattform."
+  closing: "-> Det er en plattform."
 
 mer-enn-varehus-katalog:
   captions:
@@ -143,7 +143,7 @@ dataprodukt:
   lead: |-
     En dataplattform finnes
     for å levere dataprodukter.
-  body: "Et produkt har brukere. Brukere har forventninger."
+  body: ""
 
 dataprodukt-kjennetegn:
   title: "Hva gjør det til et produkt?"
@@ -171,17 +171,17 @@ datakontrakt-hva:
 
 datakatalog:
   title: "Datakatalog"
-  subtitle: "Kartet organisasjonen din mangler."
+  subtitle: "Et kart over dataen"
 
 datakatalog-hva:
   title: "Hva en katalog er"
   lead: "En oversikt over datasettene i en organisasjon."
   body:
-    - "Søk opp, forstå og vurder et datasett uten å spørre rundt eller lete i databaser på egen hånd."
-    - "Dataene blir i kildesystemene. Katalogen beskriver dem og peker på hvor de ligger."
+    - "Søk opp, les dokumentasjon, og forstå et datasett"
+    - "Dataene blir i kildesystemene, og refereres til i katalogen"
 
 datakatalog-datahub:
-  caption: "DataHub. Åpen kildekode. Søk på tvers av mange systemer, ikke bare én sky."
+  caption: "DataHub. Open-source (freemium)"
 
 governance:
   title: "Dataforvaltning"
@@ -231,7 +231,7 @@ effekt-3:
   nummer: "3"
   etikett: "Selvbetjening"
   paastand: "Hent data selv"
-  eksempel: "Snakk med dataene dine. Bestill dem selv."
+  eksempel: "Chat med dataene dine. Hent uttrekk selv. "
 
 effekt-4:
   nummer: "4"
@@ -283,7 +283,7 @@ terraform-kode:
       location            = "norwayeast"
       sku                 = "premium"
     }
-  punchline: "Samme blokk. Tre Databricks-arbeidsområder."
+  punchline: ""
 
 terraform:
   title: |-
@@ -321,7 +321,7 @@ serverless:
     - "Kortere oppstartstid"
 
 stordata-volum:
-  title: "Strømmen er liten. Historikken er stor."
+  title: "Skalering"
   stats:
     - value: "~5 GB"
       label: "rådata i døgnet"
@@ -329,11 +329,13 @@ stordata-volum:
       label: "i året"
     - value: "~40 TB"
       label: "AIS-historikk tilbake til 2005"
-  lead: "Dagens data er enkle å behandle. Det tunge er å kjøre gjennom tjueett år på nytt."
+  lead: "Dagens data er enkle å behandle.\ 
+
+    Det tunge er å kjøre hele historikken"
 
 databricks-compute:
-  title: "Regnekraft i Databricks"
-  lead: "Klynger er administrerte VM-er i Azure"
+  title: "Compute i Databricks"
+  lead: "Clusters er VM-er i Azure"
   items:
     - "Du skalerer klyngen etter volumet"
     - "1 TB som skal behandles? Da trenger du en ganske stor VM"
@@ -375,7 +377,7 @@ asuka-hvem:
 
 folg-ett-skip:
   title: "MarTraf – maritim trafikkmodell"
-  lead: "Følg ett skip. 3 800 AIS-punkter blir én seilas fra havn til havn"
+  lead: ""
   faser:
     - fase: "Ved kai"
       sted: "Bergen, 22:40"
@@ -397,7 +399,7 @@ folg-ett-skip:
 propellloven:
   title: "MarU – maritim utslippsmodell"
   cards:
-    - tittel: "To AIS-punkter gir oss farten"
+    - tittel: "Regner ut farten basert på AIS-punkter"
       tekst: "Avstand delt på tid. Så fort går skipet."
     - tittel: "Vi vet hva slags skip det er"
       tekst: "Registeret. Type, størrelse, hvordan det er bygd for å seile."
@@ -409,7 +411,7 @@ maru-hvorfor:
   title: "Hvordan ble det gjort før?"
   items:
     - "Før: beregninger basert på drivstoff solgt i Norge"
-    - "Skip fyller drivstoff i utlandet og seiler her. Salgstallene gir ikke hele bildet."
+    - "Skip fyller drivstoff i utlandet og seiler her. Salgstallene gir derfor ikke hele bildet."
     - "MarU bruker data om hvor skipene faktisk seiler."
 
 maru:
@@ -417,9 +419,9 @@ maru:
   lead: "Her møter volumet metoden"
   items:
     - "Python og PySpark, beregnet på Databricks"
-    - "Hovedmotorens effekt beregnes med propellloven"
-    - "Rundt 330 inngangsvariabler"
-    - "Ett skipsregister"
+    - "Hovedmotorens effekt beregnes med propelloven, basert på AIS-fart"
+    - "Rundt 330 parametere"
+    - "Skipsinfo fra skipsregisteret"
   source: "https://www.kystverket.no/klima-og-barekraft/maru/"
 
 maru-hull:
@@ -428,8 +430,8 @@ maru-hull:
     - "Skipsregisteret vi trenger for å anslå utslipp er fullt av hull"
     - "Medianverdier dekker det enkleste"
     - "Nevrale nett for servicefart, turtall og slagtype"
-    - "70 % mangler drivstofftype. Vi anslår den."
-  footer: "Modellen er åpen. github.com/Kystverket/maru"
+    - "70 % mangler drivstofftype. Vi anslår den med LLM. "
+  footer: ""
 
 maru-ut:
   title: "Hva kommer ut?"
@@ -461,18 +463,18 @@ kystrisk:
     - "Hvert skip får et risikotall ved hvert AIS-punkt"
     - "Så finner vi fjordene der risikoen blir for høy"
     - "Bedre grunnlag for sjøkart og seilingstillatelser."
-  footer: "Fortsatt under utvikling. Vi regner med å publisere den før nyttår."
+  footer: "Fortsatt under utvikling."
 
 math-opt:
   title: "Slik gjør vi kartanalysene raskere"
-  lead: "Kartanalysene våre bygger på to spørsmål."
+  lead: "Kartanalysene våre bygger ofte på noen grunnspørsmål"
   cards:
     - label: "INNENFOR"
       tittel: "Er dette punktet inni dette området?"
       tekst: "En havn. Et oppdrettsanlegg. En økonomisk sone."
     - label: "NÆR"
       tittel: "Hvilke punkter ligger nær hverandre?"
-      tekst: "Nær land. Nær en plattform. Nær vårt skip."
+      tekst: "Nær land. Nær en plattform. Nær et annet skip."
   body:
     - "Milliarder av punkter gir svært mange sammenligninger."
     - "Så vi grupperer punktene i sekskanter. Ubers H3."
@@ -489,14 +491,14 @@ hex-join:
       tittel: "Punkt i polygon"
       items:
         - "Matematikk på hver rad"
-        - "Greit for tusen punkter"
+        - "Skalerer ikke til millarder av rader"
     - label: "H3"
       tittel: "En celle-ID som er lagret i tabellen"
       items:
         - "Koble på ID. Hopp over irrelevante data"
-        - "Greit for hundre millioner"
-  caption: "MarTraf, MarU, KystRisk."
-  bunn: "Vi filtrerer med H3, størrelse 8. Det fjerner omtrent 99 %. Så ST-funksjoner for nøyaktig avstand."
+        - "Greit for millarder av rader"
+  caption: "KystRisk."
+  bunn: "Vi filtrerer med H3, størrelse 8. Det fjerner >99 %. Så ST-funksjoner for nøyaktig avstand."
 
 veien-videre:
   title: "Veien videre for dataplattformen"
@@ -522,7 +524,7 @@ tilbake-til-stad:
 
 takk:
   title: "Takk."
-  lead: "Alt dette er åpent. Prøv selv i pausen."
+  lead: "Alt dette er åpent:"
   links:
     - url: "nais.kystverket.no"
       label: "Sanntidskartet"
