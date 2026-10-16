@@ -169,19 +169,6 @@ datakontrakt-hva:
     som avklarer forventninger begge veier.
   body: "Skjemaet sier at fart er et tall. Kontrakten sier 0–60 knop, data under fem minutter gamle, og hvem du ringer når noe går galt."
 
-datakontrakt-innhold:
-  title: "Hva en kontrakt inneholder"
-  cards:
-    - tittel: "Skjema"
-      tekst: "felt, datatyper og påkrevde verdier"
-    - tittel: "Betydning"
-      tekst: "hva feltene betyr, hvor de kommer fra"
-    - tittel: "Valideringsregler"
-      tekst: "grenser, sammenhenger og tester"
-    - tittel: "Krav og ansvar"
-      tekst: "oppdatering, personvern og eierskap"
-  footer: "I motsetning til en wikiside blir denne testet."
-
 datakatalog:
   title: "Datakatalog"
   subtitle: "Kartet organisasjonen din mangler."
@@ -228,23 +215,6 @@ batch-streaming:
 
 batch-vs-streaming:
   title: "Batch og streaming"
-
-batch-streaming-valg:
-  title: "Når velger du hva?"
-  passer: "passer når …"
-  batch:
-    tittel: BATCH
-    punkter:
-      - "rapporter og historiske analyser"
-      - "store volumer til lav kostnad"
-      - "kilder som uansett leverer i bolker, som nattlige eksporter"
-  streaming:
-    tittel: STREAMING
-    punkter:
-      - "sanntidsbehov: overvåkning og varsling"
-      - "hendelsesdrevet automatisering"
-      - "du trenger oppdaterte data raskt"
-  footer: "I praksis trenger du som regel begge. Start med batch, og legg til streaming der ferske data faktisk endrer noe."
 
 effekter:
   title: "Hva får du igjen?"
@@ -387,21 +357,6 @@ databricks-compute:
     - "1 TB som skal behandles? Da trenger du en ganske stor VM"
     - "Dataene deles opp. Alt trenger ikke å få plass i minnet."
     - "VM-størrelsen bestemmer hvor lang tid jobben tar"
-
-stordata-compute:
-  title: "Tar jobben døgn eller timer?"
-  cards:
-    - label: "FAST KLYNGE"
-      items:
-        - "størrelsen er bestemt før jobben starter"
-        - "å behandle hele historikken på nytt kan ta flere døgn"
-        - "flere slike jobber samtidig, og de står i kø"
-    - label: "AUTOSKALERING"
-      items:
-        - "kapasiteten følger datamengden i jobben"
-        - "flere maskiner samtidig gjør døgn til timer"
-        - "og alt skrus ned igjen når jobben er ferdig"
-  punchline: "Samme regning. Svaret i dag, ikke på fredag."
 
 modeller:
   title: |-

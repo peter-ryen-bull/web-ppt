@@ -555,23 +555,6 @@ hvem du ringer når noe går galt.
 Det er forskjellen mellom «jeg tror den kolonnen er i knop» og «jeg vet
 det».
 
-## datakontrakt-innhold – Hva står i en kontrakt
-
-Så hva skriver du faktisk ned?
-
-Skjema. Hvilke felt som finnes, hvilke typer, hva som er påkrevd.
-
-[[CLICK]] Betydning. Hva feltene betyr, og hvor de kommer fra.
-
-[[CLICK]] Valideringsregler. Min, maks, relasjoner, tester dataene må
-passere.
-
-[[CLICK]] Krav til oppdatering og ansvar. Hvor ferske de skal være, hvor sensitive de
-er, hvem som eier dem.
-
-[[CLICK]] Og i motsetning til en wikiside blir denne testet. Maskiner kan
-sjekke den. Det er derfor den holder seg sann.
-
 ## datakontrakt – Datakontrakt: et API for data
 
 La meg vise hvordan det ser ut.
@@ -1017,43 +1000,6 @@ Og her er poenget mange bommer på: forskjellen handler ikke om teknologi.
 Den handler om hvor ferske dataene må være. Trenger sjøtrafikksentralen å
 vite hvor skipet er nå? Ja, det er streaming. Trenger klimaregnskapet å vite
 hvor skipet var i fjor? Det kan gjerne kjøre om natta.
-
-## batch-streaming-valg – Når velger du hva?
-
-Så når velger du hva?
-
-Klikk gjennom batch-punktene. Batch passer for rapporter og historiske
-analyser. For store volumer, fordi det er billig. Og for kilder som uansett
-kommer i bolker, som en nattlig eksport fra et gammelt system.
-
-Klikk gjennom streaming-punktene. Streaming passer når du faktisk må reagere
-nå. Overvåking og varsling. Hendelsesdrevet automatisering. Og når oppdaterte data
-er viktigere enn lav kostnad.
-
-[[CLICK]] Og i praksis trenger du som regel begge. Mitt råd: start med batch.
-Det er enklere og billigere. Legg til streaming der ferske data faktisk
-endrer en beslutning. Ikke fordi det er kult.
-
-Hos oss kommer AIS-strømmen inn fortløpende. Men mye av det vi bygger oppå
-kjører i batch. Begge deler, i samme plattform.
-
-## stordata-compute – Tar jobben døgn eller timer?
-
-Og da blir spørsmålet: hvor lang tid tar det?
-
-Klikk gjennom fast klynge. Med en fast klynge bestemmer du størrelsen på
-klyngen før jobben starter. Å behandle hele historikken på nytt kan ta flere døgn. Og
-har du flere slike jobber, står de i kø. Så du sitter der og venter på
-fredag.
-
-Klikk gjennom autoskalering. Med autoskalering følger kapasiteten datamengden
-i jobben. Den skalerer opp der det er mye å gjøre, og ned igjen etterpå.
-Døgn blir timer fordi flere maskiner jobber samtidig.
-
-[[CLICK]] Og her er nyansen jeg vil at dere skal ta med: regningen blir
-omtrent den samme. Du betaler for arbeidet, ikke for tiden det tar.
-Forskjellen er at du får svaret i dag i stedet for på fredag. Og for den som
-venter på tallet, er det hele forskjellen.
 
 Regnekraft er bare halvparten. Den andre halvparten er spørsmålene vi
 stiller dataene.

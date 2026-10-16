@@ -35,7 +35,6 @@ import {
   SlideDataproduktAnatomi,
   SlideDatakontraktKapittel,
   SlideDatakontraktHva,
-  SlideDatakontraktInnhold,
   SlideDatakontrakt,
   SlideDatakontraktBrudd,
   SlideDatakatalog,
@@ -47,7 +46,6 @@ import {
 import {
   SlideBatchStreamingKapittel,
   SlideBatchVsStreaming,
-  SlideBatchStreamingValg,
 } from "./batch-streaming";
 import {
   SlideEffekter,
@@ -70,11 +68,7 @@ import {
   SlideAisPipeline,
   SlideServerless,
 } from "./sky";
-import {
-  SlideStordataVolum,
-  SlideDatabricksCompute,
-  SlideStordataCompute,
-} from "./stordata";
+import { SlideStordataVolum, SlideDatabricksCompute } from "./stordata";
 import {
   SlideModeller,
   SlideModellFlyt,
@@ -274,12 +268,6 @@ const HVORDAN: SlideDef[] = [
     steps: 1,
   },
   {
-    id: "datakontrakt-innhold",
-    name: "Hva står i en kontrakt",
-    component: SlideDatakontraktInnhold,
-    steps: 4,
-  },
-  {
     id: "datakontrakt",
     name: "Datakontrakt: et API for data",
     component: SlideDatakontrakt,
@@ -423,12 +411,6 @@ const SCALING: SlideDef[] = [
     component: SlideBatchVsStreaming,
   },
   {
-    id: "batch-streaming-valg",
-    name: "Når velger du hva?",
-    component: SlideBatchStreamingValg,
-    steps: 7,
-  },
-  {
     id: "databricks-compute",
     name: "Klynger er administrerte VM-er i Azure",
     component: SlideDatabricksCompute,
@@ -439,12 +421,6 @@ const SCALING: SlideDef[] = [
     name: "Serverless eller manuell tilpasning?",
     component: SlideServerless,
     steps: 3,
-  },
-  {
-    id: "stordata-compute",
-    name: "Tar jobben døgn eller timer?",
-    component: SlideStordataCompute,
-    steps: 7,
   },
 ];
 
