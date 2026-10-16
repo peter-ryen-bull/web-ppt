@@ -322,12 +322,12 @@ const KONTRAKT_LINJER: [string, string][] = [
 ];
 
 // Skjemaene i dataprodukter-katalogen, med views til domenenes gold-tabeller.
-export const VIEWS: { navn: string; kilde: string }[] = [
-  { navn: "ais_tracks", kilde: "view → ais.gold.tracks" },
-  { navn: "ais_emissions", kilde: "view → ais.gold.emissions" },
-  { navn: "customs_declarations", kilde: "view → customs.gold.declarations" },
-  { navn: "hr_and_finance_costs", kilde: "view → hr_and_finance.gold.costs" },
-  { navn: "lighthouses_condition", kilde: "view → lighthouses.gold.condition" },
+export const VIEWS: { navn: string; kilde: string; ikon: IkonNavn }[] = [
+  { navn: "ais_tracks", kilde: "view → ais.gold.tracks", ikon: "rute" },
+  { navn: "ais_emissions", kilde: "view → ais.gold.emissions", ikon: "royk" },
+  { navn: "customs_declarations", kilde: "view → customs.gold.declarations", ikon: "skjema" },
+  { navn: "hr_and_finance_costs", kilde: "view → hr_and_finance.gold.costs", ikon: "mynt" },
+  { navn: "lighthouses_condition", kilde: "view → lighthouses.gold.condition", ikon: "puls" },
 ];
 
 const DOMENE_X = 90;

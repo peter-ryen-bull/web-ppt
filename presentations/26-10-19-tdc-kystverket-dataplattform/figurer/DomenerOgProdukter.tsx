@@ -187,6 +187,7 @@ function ViewRadKompakt({
   h,
   navn,
   kilde,
+  produktIkon,
   fontSize = 13,
   visSkjema = true,
 }: {
@@ -196,6 +197,7 @@ function ViewRadKompakt({
   h: number;
   navn: string;
   kilde?: string;
+  produktIkon: IkonNavn;
   fontSize?: number;
   visSkjema?: boolean;
 }) {
@@ -203,15 +205,14 @@ function ViewRadKompakt({
   return (
     <g>
       <rect x={x} y={y} width={w} height={h} rx={10} fill="rgba(251, 240, 229, 0.08)" stroke={MINT_DUS} strokeWidth={1} />
-      <g
-        transform={`translate(${x + 11} ${y + (h - ikon) / 2}) scale(${ikon / 24})`}
-        fill="none"
-        stroke="var(--mint)"
-        strokeWidth={1.8 * (24 / ikon)}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <IkonView />
+      <g fill="none" stroke="var(--mint)" strokeLinecap="round" strokeLinejoin="round">
+        <IkonI
+          navn={produktIkon}
+          x={x + 11}
+          y={y + (h - ikon) / 2}
+          size={ikon}
+          strokeWidth={1.8}
+        />
       </g>
       {kilde ? (
         <>
@@ -286,6 +287,7 @@ function ProduktKatalog({
           h={radH}
           navn={v.navn}
           kilde={visKilde ? v.kilde : undefined}
+          produktIkon={v.ikon}
           fontSize={radFont}
           visSkjema={visSkjema}
         />

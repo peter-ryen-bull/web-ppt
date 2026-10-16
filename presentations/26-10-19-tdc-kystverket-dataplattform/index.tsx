@@ -92,7 +92,6 @@ import {
   SlideHvorViEr,
   SlideFlereDomener,
   SlideHvorViSkalHelhet,
-  SlideVidereListe,
   SlideTilbakeTilStad,
   SlideTakk,
 } from "./videre";
@@ -518,12 +517,6 @@ const VEIEN_VIDERE: SlideDef[] = [
     name: "Hvor vi skal: helheten",
     component: SlideHvorViSkalHelhet,
     steps: 9,
-  },
-  {
-    id: "videre-liste",
-    name: "Dette vil vi få til",
-    component: SlideVidereListe,
-    steps: 4,
   },
   {
     id: "tilbake-til-stad",

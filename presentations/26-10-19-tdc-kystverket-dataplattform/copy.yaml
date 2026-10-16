@@ -517,15 +517,6 @@ flere-domener:
       tekst: "sensorer på lyktene"
     - label: "og mange flere"
 
-videre-liste:
-  title: "Dette vil vi få til"
-  subtitle: "Verdens sikreste og reneste kyst"
-  items:
-    - "Mer av Kystverkets egne data inn i dataplattformen"
-    - "Tollanalyse"
-    - "Vedlikehold av lykter før de svikter"
-    - "Bedre samarbeid og mindre venting"
-
 tilbake-til-stad:
   lines:
     - "Klokka er 03:14."

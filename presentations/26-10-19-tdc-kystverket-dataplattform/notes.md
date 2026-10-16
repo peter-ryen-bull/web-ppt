@@ -1382,29 +1382,6 @@ kjenner hvert produkt, hvem som eier det, skjemaet, kvalitetssjekkene,
 versjonen. Søk på «ais» og du får produktene. Finn det i exploreren. Les det
 fra katalogen.
 
-## videre-liste – Dette vil vi få til
-
-Og så det vi vil få til. Tilbake til visjonen vi åpnet med: verdens sikreste
-og reneste kyst. Det er fortsatt målet. Her er noen av de neste stegene. Vi jobber i batch. Ikke sanntid. Så dette handler ikke om
-beredskapsvarsler. Det handler om å få mer av det vi allerede har inn på
-plattformen, og bruke det.
-
-[[CLICK]] Mer av Kystverkets egne data i dataplattformen. Kystdatahuset har
-rundt 130 datasett. Seilaser. Ting vi allerede samler inn, som ikke er på
-plattformen ennå. Neste jobb er å få dem inn.
-
-[[CLICK]] Tollanalyse. Enda et domene som kommer inn. Deklarasjoner ved siden
-av AIS og seilaser. Hva som faktisk ble fraktet, ikke bare hvor skipet var.
-
-[[CLICK]] Vedlikehold av fyrene før de svikter. De som holder kysten opplyst.
-Sensorer, historikk, når man skal sende ut en båt. Ikke når en lykt allerede
-har sluknet.
-
-[[CLICK]] Og raskere, bedre organisering. Tydeligere eierskap. Mindre venting.
-Plattformen som en måte å jobbe på, ikke bare et sted å legge tabeller.
-
-Men før vi avslutter, skal vi tilbake til skipet vårt.
-
 ## tilbake-til-stad – Tilbake til Stad
 
 Rolig tempo. Dette er slutten. La det lande.
