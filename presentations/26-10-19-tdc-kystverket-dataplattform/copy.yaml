@@ -276,6 +276,11 @@ databricks:
     - "Skalerer regnekraften etter datamengden"
     - "Unity Catalog: tilgang, sporing av data og oversikt"
 
+terraform-intro:
+  title: |-
+    Terraform:
+    Infrastruktur som kode
+
 terraform-kode:
   title: "Én ressurs. Tre miljøer."
   code: |-

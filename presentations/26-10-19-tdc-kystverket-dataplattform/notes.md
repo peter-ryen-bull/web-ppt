@@ -773,6 +773,11 @@ tilgang, og hvor dataene kommer fra.
 Så. Hvordan setter vi det opp? For det er én ting å velge Azure og Databricks.
 En annen ting er å tørre å endre det.
 
+## terraform-intro – Terraform: infrastruktur som kode
+
+Det tredje verktøyet er Terraform. Infrastruktur som kode.
+La oss se på hvordan vi setter opp de samme ressursene i flere miljøer.
+
 ## terraform-kode – Én ressurs. Tre miljøer.
 
 Slik ser det ut i repoet.

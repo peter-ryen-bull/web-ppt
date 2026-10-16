@@ -190,6 +190,25 @@ export function SlideDatabricks() {
   );
 }
 
+/* Overgang fra plattformverktøyene til infrastruktur som kode */
+export function SlideTerraformIntro() {
+  return (
+    <>
+      <Img
+        box={[520, 88, 240, 116]}
+        src={`${MEDIA}/terraform.svg`}
+        alt="Terraform"
+        fit="contain"
+      />
+      <ChapterSlide
+        title={<Copy k="title" as="div" style={{ whiteSpace: "pre-line" }} />}
+        titleSize={56}
+        showLogo={false}
+      />
+    </>
+  );
+}
+
 function FlytBoks({
   at,
   x,

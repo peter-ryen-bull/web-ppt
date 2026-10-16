@@ -60,6 +60,7 @@ import {
   SlideAzure,
   SlideDatabricks,
   SlideTerraform,
+  SlideTerraformIntro,
   SlideTerraformKode,
   SlideFireStates,
   SlideAisPipeline,
@@ -346,6 +347,11 @@ const PROSJEKTET: SlideDef[] = [
     name: "Databricks: motoren",
     component: SlideDatabricks,
     steps: 3,
+  },
+  {
+    id: "terraform-intro",
+    name: "Terraform: infrastruktur som kode",
+    component: SlideTerraformIntro,
   },
   {
     id: "terraform-kode",
