@@ -468,7 +468,7 @@ const MODELLENE: SlideDef[] = [
     id: "kystrisk-tti",
     name: "KystRisk: hva er sannsynligheten for en ulykke?",
     component: SlideKystRiskTti,
-    steps: 1,
+    steps: 2,
   },
   {
     id: "kystrisk",

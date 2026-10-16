@@ -1365,6 +1365,8 @@ Vi vet hvor hver båt er. Vi har nøyaktige kart over skjærene og landet.
 
 TTI står for time to impact, eller tid til sammenstøt. Fortsetter du på denne kursen, hvor lang tid tar det før du treffer noe?
 
+[[CLICK]] Båten og skjærene kommer frem i sektorbildet.
+
 [[CLICK]] Risiko er et tall fra 0 til 1. Basert på kursen du har nå. Lang tid til sammenstøt
 gir lav risiko.
 

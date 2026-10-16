@@ -1089,10 +1089,12 @@ export function SlideKystRiskTti() {
           <Copy k="lead" />
         </div>
       </Box>
-      <Box box={[40, 250, 700, 430]}>
-        <RisikoSektorer />
-      </Box>
       <Reveal at={1}>
+        <Box box={[40, 250, 700, 430]}>
+          <RisikoSektorer />
+        </Box>
+      </Reveal>
+      <Reveal at={2}>
         <Box box={[760, 280, 460, 320]}>
           <Copy
             k="body"
