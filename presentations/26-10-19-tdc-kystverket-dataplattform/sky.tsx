@@ -64,6 +64,15 @@ export function SlideDagEn() {
 
 /* Infrastrukturen: de tre verktøyene */
 export function SlideAzureDatabricks() {
+  const verktøy = [
+    {
+      alt: "Microsoft Azure",
+      src: "/media/26-10-08-mowi-dataplattform/azure.png",
+    },
+    { alt: "Databricks", src: `${MEDIA}/databricks.png` },
+    { alt: "Terraform", src: `${MEDIA}/terraform.svg` },
+  ];
+
   return (
     <>
       <Box box={[66, 70, 1100, 70]}>
@@ -78,12 +87,35 @@ export function SlideAzureDatabricks() {
           }}
         />
       </Box>
-      <BulletList
-        box={[72, 220, 650, 340]}
-        itemsKey="items"
-        size={28}
-        gap={36}
-      />
+      <Box
+        box={[82, 214, 670, 352]}
+        style={{ display: "flex", flexDirection: "column", gap: 30 }}
+      >
+        {verktøy.map((verktoy, i) => (
+          <div
+            key={verktoy.alt}
+            style={{ display: "flex", alignItems: "center", gap: 24, height: 88 }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={verktoy.src}
+              alt={verktoy.alt}
+              style={{ width: 126, height: 68, objectFit: "contain", flexShrink: 0 }}
+            />
+            <Copy
+              k="items"
+              i={i}
+              as="div"
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: pt(28),
+                lineHeight: 1.3,
+                color: "var(--burgundy-2)",
+              }}
+            />
+          </div>
+        ))}
+      </Box>
       <Box box={[800, 260, 420, 150]}>
         <SkyMedKlosser />
       </Box>
