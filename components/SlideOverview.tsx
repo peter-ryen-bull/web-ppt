@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import type { PresentationDef, SlideDef } from "@/presentations";
 import { isChapterFullyHidden } from "@/presentations/chapters";
 import type { PdfQuality } from "./exportPdf";
@@ -40,6 +41,7 @@ export default function SlideOverview({
 }) {
   const slides = presentation.slides;
   const chapters = presentation.chapters;
+  const overviewRef = useRef<HTMLDivElement>(null);
   const exportMode = exportState?.mode ?? false;
   const exporting = exportState?.exporting ?? false;
   const selection =
@@ -51,8 +53,15 @@ export default function SlideOverview({
         }
       : null;
 
+  useEffect(() => {
+    const currentThumb = overviewRef.current?.querySelector<HTMLElement>(
+      '[data-current-slide="true"]'
+    );
+    currentThumb?.scrollIntoView({ block: "center" });
+  }, [current]);
+
   return (
-    <div className={styles.overview}>
+    <div ref={overviewRef} className={styles.overview}>
       <header className={styles.header}>
         <div className={styles.headerText}>
           <p className={styles.eyebrow}>Oversikt</p>
@@ -301,6 +310,7 @@ function OverviewThumb({
       } ${isHidden ? styles.thumbHidden : ""} ${
         selecting && selected ? styles.thumbSelected : ""
       }`}
+      data-current-slide={isCurrent ? "true" : undefined}
     >
       {/* Ikke <button>: slides kan selv inneholde knapper, og <button> i <button> er ugyldig HTML. */}
       <div
