@@ -40,18 +40,6 @@ Det radikale: skill HVA du spør om fra HVOR
 det ligger. SQL: si hva du vil ha, la databasen finne ut hvordan.
 
 Du spør ikke en fil direkte, du sier bare: gi meg denne informasjonen fra tabellen som heter kunder.
-==
-
-Databasen ga driften ett delt minne.
-
-Men den var bygget for drift, mange små transaksjoner, ikke analyse.
-Kjør en tung rapport mot kassasystemet og køen vokser.
-Og med ett system per funksjon spredte sannheten seg igjen.
-
-«Hukommelse er ikke det samme som innsikt.»
-
-## databasen-speil – Databasen: løst, og et nytt problem
-
 Databasen ga driften ett delt minne.
 
 Men den var bygget for drift, mange små transaksjoner, ikke analyse.
@@ -73,16 +61,6 @@ OLTP mot OLAP.
 Bankene var først, fordi penger er data. Risiko, svindel, lønnsomhet
 og regulering krever alle et blikk på tvers av systemene. De hadde også
 råd til det svært dyre.
-
-==
-
-Løst: én sannhet, historikk, beslutninger på fakta.
-Nytt: dyrt, tregt (skjema først, en ny kilde tok måneder),
-og det forsto bare rader og kolonner.
-
-Overgang: «Og så kom internett.»
-
-## varehuset-speil – Varehuset: løst, og et nytt problem
 
 Løst: én sannhet, historikk, beslutninger på fakta.
 Nytt: dyrt, tregt (skjema først, en ny kilde tok måneder),
@@ -109,8 +87,6 @@ Datasjøen er vannet i sin naturlige tilstand.
 
 Varehuset forhåndsaggregerer og BEGRENSER dermed spørsmålene.
 Du lagrer rådata fordi du ikke kjenner morgendagens spørsmål.
-
-## sjoen-speil – Sjøen: løst, og et nytt problem
 
 Løst: skala, alle formater, ML fikk rådataene sine.
 Nytt: datasumpa. Vi lagrer alt og tenker at vi skal rydde senere. Men senere kommer aldri.
