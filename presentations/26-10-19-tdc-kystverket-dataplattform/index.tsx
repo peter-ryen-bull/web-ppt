@@ -59,7 +59,6 @@ import {
   SlideAzure,
   SlideDatabricks,
   SlideTerraform,
-  SlideTerraformIntro,
   SlideTerraformKode,
   SlideFireStates,
   SlideAisPipeline,
@@ -344,15 +343,9 @@ const PROSJEKTET: SlideDef[] = [
     steps: 3,
   },
   {
-    id: "terraform-intro",
-    name: "Terraform: infrastruktur som kode",
-    component: SlideTerraformIntro,
-  },
-  {
     id: "terraform-kode",
     name: "Én ressurs. Tre miljøer.",
     component: SlideTerraformKode,
-    steps: 1,
   },
   {
     id: "terraform",

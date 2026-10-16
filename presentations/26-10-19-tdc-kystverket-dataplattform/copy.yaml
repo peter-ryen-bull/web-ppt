@@ -271,12 +271,8 @@ databricks:
     - "Skalerer regnekraften etter datamengden"
     - "Unity Catalog: tilgang, sporing av data og oversikt"
 
-terraform-intro:
-  title: |-
-    Terraform:
-    Infrastruktur som kode
-
 terraform-kode:
+  kicker: "Terraform: Infrastruktur som kode"
   title: "Én ressurs. Tre miljøer."
   code: |-
     resource "azurerm_databricks_workspace" "this" {

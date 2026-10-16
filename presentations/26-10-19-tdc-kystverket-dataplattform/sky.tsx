@@ -187,25 +187,6 @@ export function SlideDatabricks() {
   );
 }
 
-/* Overgang fra plattformverktøyene til infrastruktur som kode */
-export function SlideTerraformIntro() {
-  return (
-    <>
-      <Img
-        box={[520, 88, 240, 116]}
-        src={`${MEDIA}/terraform.svg`}
-        alt="Terraform"
-        fit="contain"
-      />
-      <ChapterSlide
-        title={<Copy k="title" as="div" style={{ whiteSpace: "pre-line" }} />}
-        titleSize={56}
-        showLogo={false}
-      />
-    </>
-  );
-}
-
 function FlytBoks({
   at,
   x,
@@ -405,18 +386,42 @@ function highlightTerraform(source: string): ReactNode {
 export function SlideTerraformKode() {
   return (
     <>
+      <Box box={[66, 22, 1020, 30]}>
+        <Copy
+          k="kicker"
+          as="div"
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(15),
+            lineHeight: 1.2,
+            color: "var(--red)",
+          }}
+        />
+      </Box>
+      <Box box={[66, 54, 1060, 58]}>
+        <Copy
+          k="title"
+          as="div"
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: pt(34),
+            lineHeight: 1.1,
+            color: "var(--burgundy)",
+          }}
+        />
+      </Box>
       <Img
-        box={[1160, 18, 72, 82]}
+        box={[1160, 28, 72, 82]}
         src={`${MEDIA}/terraform.svg`}
         alt="Terraform"
       />
       <Box
-        box={[66, 48, 1148, 540]}
+        box={[66, 128, 1148, 472]}
         style={{
           background: "var(--teal)",
           borderRadius: 16,
           boxShadow: "0 12px 28px rgba(28, 12, 20, 0.18), 0 28px 56px rgba(28, 12, 20, 0.22)",
-          padding: "36px 52px",
+          padding: "24px 52px",
           fontFamily: MONO,
           fontSize: pt(20),
           lineHeight: 1.62,
@@ -432,11 +437,6 @@ export function SlideTerraformKode() {
           renderText={highlightTerraform}
         />
       </Box>
-      <Punchline
-        at={1}
-        y={620}
-        text={<Copy k="punchline" />}
-      />
     </>
   );
 }
