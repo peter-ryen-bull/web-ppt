@@ -91,10 +91,10 @@ const LAG: { navn: string; farge: string; sub: string }[] = [
 
 const KONSUMENTER: { navn: string; sub: string; ikon: IkonNavn }[] = [
   { navn: "Klimaregnskap", sub: "Miljødirektoratet · kommuner", ikon: "royk" },
-  { navn: "Interne i Kystverket", sub: "drift · vedlikehold · admin", ikon: "person" },
+  { navn: "Dashbord og BI", sub: "analytikere i hele Kystverket", ikon: "soyler" },
   { navn: "Andre etater", sub: "toll, politi, redningstjeneste", ikon: "deling" },
   { navn: "Forskere", sub: "notebooks og HAIS-uttrekk", ikon: "bok" },
-  { navn: "Dashbord og BI", sub: "analytikere i hele Kystverket", ikon: "soyler" },
+  { navn: "Interne i Kystverket", sub: "drift · vedlikehold · admin", ikon: "person" },
 ];
 
 /* =====================================================================
