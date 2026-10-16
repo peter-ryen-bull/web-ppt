@@ -1160,7 +1160,7 @@ export function KonvergensFigur() {
         Varehus-sporet: orden og forvaltning
       </text>
       <text x={90} y={480} fontFamily="var(--font-serif)" fontSize={21} fill="var(--burgundy)">
-        Sjø-sporet: skala og rådata
+        Datasjø: skala og rådata
       </text>
 
       <Flyt
