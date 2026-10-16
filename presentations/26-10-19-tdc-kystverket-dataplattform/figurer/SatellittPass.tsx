@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 /*
  * En AIS-satellitt i samme strekstil som båten. Den krysser himmelen
- * og er borte igjen, én gang hvert annet minutt.
+ * og er borte igjen, med 30 sekunders pause mellom passeringene.
  *
  * Skålen under kroppen peker alltid mot båten. Båten står i boksen
  * [430, 520, 420, 170] på åpningsscenen, med skroget midt på lerretet.
@@ -24,10 +24,11 @@ function signalbue(r: number) {
   return `M ${-k} ${SIGNAL_Y + k} A ${r} ${r} 0 0 0 ${k} ${SIGNAL_Y + k}`;
 }
 
-/** Én passering hvert annet minutt; passeringen ligger sist i runden. */
-const RUNDE_S = 120;
+/** Vent 30 sekunder før første passering og mellom hver passering. */
+const VENTETID_S = 30;
 const PASSERING_S = 4.5;
-const START = (RUNDE_S - PASSERING_S) / RUNDE_S;
+const RUNDE_S = VENTETID_S + PASSERING_S;
+const START = VENTETID_S / RUNDE_S;
 
 export function SatellittPass() {
   const fart = useRef<SVGGElement>(null);
@@ -60,7 +61,7 @@ export function SatellittPass() {
       viewBox="0 0 1280 720"
       style={{ width: "100%", height: "100%", display: "block", overflow: "visible" }}
       role="img"
-      aria-label="En satellitt passerer over himmelen hvert annet minutt"
+      aria-label="En satellitt passerer over himmelen med 30 sekunders pause mellom passeringene"
     >
       <g ref={fart}>
         <animateMotion
