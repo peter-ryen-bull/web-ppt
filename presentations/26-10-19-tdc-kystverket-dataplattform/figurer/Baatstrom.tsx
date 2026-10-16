@@ -47,7 +47,7 @@ export function Baatstrom() {
         <g id={boatId} transform="scale(-1 1)" fill="none" stroke={STREK} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
           <Skute x={0} y={0} s={0.78} signal={false} />
           <path d="M 42 3 L 50 8" strokeWidth={2.2} />
-          <g transform="translate(52 9)">
+          <g transform="translate(52 9) scale(0.5)">
             <g className="tdc-boat-propeller">
               {[0, 120, 240].map((angle) => (
                 <path key={angle} d={PROPELLER_BLADE} transform={`rotate(${angle})`} fill="rgba(0, 64, 71, 0.16)" strokeWidth={2.2} />
