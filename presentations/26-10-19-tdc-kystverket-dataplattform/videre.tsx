@@ -115,8 +115,12 @@ export function SlideTakk() {
         />
       </Box>
       <Box
-        box={[80, 272, 720, 240]}
+        box={[52, 248, 776, 264]}
         style={{
+          background: "#fff",
+          borderRadius: 14,
+          padding: "24px 28px",
+          boxSizing: "border-box",
           display: "grid",
           gridTemplateColumns: "370px 1fr",
           alignContent: "start",
