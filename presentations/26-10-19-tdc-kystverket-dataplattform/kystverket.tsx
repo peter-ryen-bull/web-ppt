@@ -285,7 +285,7 @@ export function SlideLyttepostene() {
 export function SlideAis() {
   return (
     <>
-      <Box box={[66.7, 48, 720, 80]}>
+      <Box box={[66.7, 40, 720, 130]}>
         <div
           style={{
             fontFamily: "var(--font-serif)",
@@ -300,7 +300,7 @@ export function SlideAis() {
         <Skipsradar />
       </Box>
       <BulletList
-        box={[72.4, 160, 700, 280]}
+        box={[72.4, 200, 700, 250]}
         fromStep={1}
         gap={36}
         items={[
