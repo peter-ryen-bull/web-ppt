@@ -9,9 +9,9 @@ import {
   useRevealStyle,
 } from "../parts";
 import { BaatSignal } from "./figurer/BaatSignal";
-import { Baatstrom } from "./figurer/Baatstrom";
 import {
   AisKjede,
+  Bolgestripe,
   Fyr,
   Lyttepost,
   Skipsradar,
@@ -321,7 +321,6 @@ export function SlideSporsmalet() {
   const linje2 = useRevealStyle(1);
   return (
     <>
-      <Baatstrom />
       <Box box={[48.4, 240, 1183.1, 260]}>
         <div
           style={{
@@ -345,6 +344,9 @@ export function SlideSporsmalet() {
             }}
           />
         </div>
+      </Box>
+      <Box box={[0, 600, 1280, 100]}>
+        <Bolgestripe />
       </Box>
     </>
   );
