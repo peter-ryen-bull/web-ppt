@@ -153,18 +153,16 @@ export function SlideNais() {
         box={[0, 0, 1280, 720]}
         style={{ overflow: "hidden", background: "var(--teal)" }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={`${MEDIA}/nais.png`}
-          alt="NAIS – sanntidskart over skipstrafikken langs norskekysten"
+        <iframe
+          src="https://nais.kystverket.no/"
+          title="NAIS – sanntidskart over skipstrafikken langs norskekysten"
+          loading="eager"
           style={{
             width: "100%",
             height: "100%",
-            objectFit: "cover",
-            objectPosition: "top center",
+            border: 0,
             opacity: showCaption ? 0.55 : 1,
             filter: showCaption ? "blur(3px)" : "blur(0px)",
-            transform: "scale(1.01)",
             transition: "opacity 350ms ease, filter 350ms ease",
           }}
         />
