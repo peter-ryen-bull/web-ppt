@@ -62,18 +62,16 @@ tankestreker. Si det slik du ville sagt det til en kollega over en kaffe.
 
 ## scene – Klokka er 03:14
 
-[00:00] 5 min. Neste kapittel 05:00. Rolig. La scenen lande.
-
 [[CLICK]] Klokka er 03:14.
 
-[[CLICK]] Vi er på Stadhavet. Det er februar. Det blåser kuling fra nordvest, og det
-er helt mørkt.
+[[CLICK]] Vi er på Havet utenfor Stad. Det er februar. Det blåser kuling fra nordvest, og det er helt mørkt.
 
-[[CLICK]] Der ute går det et stort lasteskip nordover. Ni knop. Tjue mennesker er om bord. De fleste sover. Én står på brua med en kaffekopp og ser på
+[[CLICK]] Der ute går det et stort lasteskip nordover. 
+Ni knop. 
+Det er 20 mennesker er om bord. De fleste sover. Én står på brua med en kaffekopp og ser på
 radaren.
 
-Og mens han står der, skjer det noe han ikke tenker på. Noe skipet gjør
-helt av seg selv.
+Og mens han står der, skjer det noe han ikke tenker på. Noe skipet gjør helt av seg selv.
 
 ## signal – Hvert tiende sekund sier skipet
 
@@ -81,12 +79,13 @@ Hvert tiende sekund sender skipet en liten melding ut i mørket.
 
 [[CLICK]] Og meldingen er egentlig ganske enkel. Den sier: hvem jeg er. Hvor jeg
 er. Hvor fort jeg går. Hvilken kurs jeg holder. Og hva jeg holder på med akkurat nå.
-Fem ting. Det er alt.
 
-Ingen om bord tenker på det. Det er ingen som trykker på en knapp. Meldingen
-bare går. Over VHF, ut i kulingen, i alle retninger.
+Ingen om bord tenker på det. Det er ingen som trykker på en knapp. 
 
-Og så er spørsmålet: hvem lytter?
+Meldingen bare går. 
+Ut i kulingen, i alle retninger.
+
+Og vi samler opp disse meldingene, og samler dem
 
 ## nais – Noen lytter: NAIS
 
@@ -1058,24 +1057,21 @@ Kystverkets grep for å eie forutsetningene og beregningene selv.
 
 ## hais – HAIS: historisk uttrekk på bestilling
 
-Ett resultat til. Enda et produkt. En tjeneste på historikken. HAIS.
+HAIS.
 
-[[CLICK]] Hvem som helst kan gå til hais.kystverket.no og bestille inntil ett
-år med historiske AIS-data. Tidsrom, område som polygon, skipstype eller ett
-enkelt fartøy. [[CLICK]] Det starter en jobb som leser gjennom historikken og
-filtrerer. [[CLICK]] Og resultatet kommer som GeoParquet eller CSV på e-post.
+[[CLICK]] Hvem som helst kan gå til hais.kystverket.no og bestille historiske AIS-data. Tidsrom, område som polygon, skipstype eller ett enkelt fartøy. 
 
-Og her er poenget: vi vet ikke på forhånd hva neste bestilling er. Er det
-ett fartøy i én uke? Eller alle skip i ett helt år? Den første tar sekunder.
-Den andre er en skikkelig jobb. Jobben bestemmer størrelsen. Ikke vi. Vi
-slipper å gjette.
+[[CLICK]] Det starter en jobb som leser gjennom historikken og filtrerer. 
 
-Det er også derfor vi kan hente ett ekte skip ut av tjueett år og se det
-bevege seg.
+[[CLICK]] Og resultatet kommer som GeoParquet eller CSV på e-post.
+
+Det brukes i dag aktivt av næringsliv, universiteter, hobbyister, og
 
 ## asuka-hais – Asuka, fra HAIS
 
 Et ekte skip. Hentet ut av HAIS.
+Et stort japansk cruiseskip som brukte tre dager på å gjennomføre denne manueveren. 
+Hvor de skrev "asuka 3"
 
 Og så det åpenbare spørsmålet.
 HVEM ER ASUKA?
@@ -1147,14 +1143,31 @@ bruker nesten ingenting. Begge står stille. Uten fase ser de like ut.
 
 Dette er MarTraf langs kysten.
 
-Ikke fortell om hver celle. La det kjøre. Så: hundre millioner punkter ble
-seilaser du faktisk kan se. Det er produktet.
+Så: hundre millioner punkter om dagen - blir i stedet ble seilaser du faktisk kan se, og tegne og søke i. 
 
-## propellloven – MarU: maritim utslippsmodell
+Her utenfor stavanger, så kan en se en del seilaser som går igjen, de tykkeste strekene her er rutebåter.
+
+## maru-hvorfor – MarU: maritim utslippsmodell
 
 Så, MarU.
 
-For å holde kysten ren må vi følge med på utslippene fra skipene.
+For å holde kysten ren må vi følge med på utslippene fra skipene. MarU regner
+ut hvor mye skipstrafikken i norske farvann slipper ut.
+
+Så hvordan ble det gjort før?
+
+[[CLICK]] Salgstall. SSB regner utslipp fra innenriks sjøfart ut fra hvor
+mye drivstoff som ble solgt.
+
+[[CLICK]] Men fartøy bunkrer i utlandet og seiler her. Og de bunkrer her og
+seiler ut. Salgstall beskriver hvor drivstoffet ble kjøpt. Ikke hvor det ble
+brent.
+
+Så hvordan gjør vi det nå?
+
+## propellloven – Nå: utslipp fra hvert AIS-punkt
+
+Vi snur det. Vi regner fra det skipene faktisk gjør. Og det vet vi fra AIS.
 
 [[CLICK]] To AIS-punkter. Avstand over tid. Det er farten til skipet.
 Skipet vårt utenfor Stad. Ni knop.
@@ -1173,20 +1186,7 @@ hvert AIS-punkt blir en utslippsberegning.
 
 Det er derfor hundre millioner rader om dagen ikke er skryt. Det er en
 konsekvens av metoden. Skal du regne utslipp per punkt, trenger du hvert
-punkt.
-
-## maru-hvorfor – Hvordan ble det gjort før?
-
-Så hvordan ble det gjort før?
-
-[[CLICK]] Salgstall. SSB regner utslipp fra innenriks sjøfart ut fra hvor
-mye drivstoff som ble solgt.
-
-[[CLICK]] Men fartøy bunkrer i utlandet og seiler her. Og de bunkrer her og
-seiler ut. Salgstall beskriver hvor drivstoffet ble kjøpt. Ikke hvor det ble
-brent.
-
-[[CLICK]] MarU snur det. Regn fra observert aktivitet i stedet. Og skill mellom
+punkt. Og fordi vi vet hvor hvert punkt er, kan vi skille mellom
 innenriksfart, utenriksfart og gjennomfart. Da vet du hva som faktisk
 skjedde i norske farvann.
 
@@ -1222,10 +1222,6 @@ Så hva kommer ut i andre enden?
 
 [[CLICK]] Utslipp. CO2 og CO2-ekvivalenter, metan, NOx, SOx, svevestøv. Pluss
 energibehov, drivstofforbruk, distanse og driftstimer.
-
-[[CLICK]] Fordelt på fjorten skipstyper og ni størrelser.
-Bruttotonnasjen er splittet finere enn før, fordi norske farvann har veldig
-mange små fartøy.
 
 [[CLICK]] Geografisk: kommune, fylke, havområde.
 

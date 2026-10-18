@@ -937,7 +937,6 @@ export function SlideMarUUt() {
     { box: [628, 176, 590, 112] },
     { box: [628, 288, 590, 78] },
     { box: [628, 366, 590, 78] },
-    { box: [628, 444, 590, 78] },
   ];
   return (
     <>
@@ -988,27 +987,37 @@ export function SlideMarUUt() {
   );
 }
 
-/* Hvorfor observert aktivitet slår salgstall */
+/* MarU: hva det er, og hvorfor salgstall ikke holdt */
 export function SlideMarUHvorfor() {
   return (
     <>
       <SlideTitle>
         <Copy k="title" />
       </SlideTitle>
+      <Box box={[72.4, 196, 680, 40]}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: pt(17),
+            color: "var(--red)",
+          }}
+        >
+          <Copy k="lead" />
+        </div>
+      </Box>
       <Reveal at={2}>
         <Box box={[790, 170, 440, 470]}>
           <Bunkring />
         </Box>
       </Reveal>
       <BulletList
-        box={[72.4, 200, 680, 380]}
+        box={[72.4, 260, 680, 320]}
         fromStep={1}
         size={20}
         gap={32}
         items={[
           <Copy k="items" i={0} />,
           <Copy k="items" i={1} />,
-          <Copy k="items" i={2} />,
         ]}
       />
     </>

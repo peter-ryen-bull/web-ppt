@@ -446,16 +446,16 @@ const MODELLENE: SlideDef[] = [
     component: SlideMarTrafVideo,
   },
   {
-    id: "propellloven",
+    id: "maru-hvorfor",
     name: "MarU – maritim utslippsmodell",
-    component: SlidePropellloven,
-    steps: 4,
+    component: SlideMarUHvorfor,
+    steps: 2,
   },
   {
-    id: "maru-hvorfor",
-    name: "Hvordan gjorde man det før?",
-    component: SlideMarUHvorfor,
-    steps: 3,
+    id: "propellloven",
+    name: "Nå: utslipp fra hvert AIS-punkt",
+    component: SlidePropellloven,
+    steps: 4,
   },
   {
     id: "maru-hull",
@@ -463,7 +463,7 @@ const MODELLENE: SlideDef[] = [
     component: SlideMarUHull,
     steps: 5,
   },
-  { id: "maru-ut", name: "Hva kommer ut?", component: SlideMarUUt, steps: 4 },
+  { id: "maru-ut", name: "Hva kommer ut?", component: SlideMarUUt, steps: 3 },
   {
     id: "kystrisk-tti",
     name: "KystRisk: hva er sannsynligheten for en ulykke?",

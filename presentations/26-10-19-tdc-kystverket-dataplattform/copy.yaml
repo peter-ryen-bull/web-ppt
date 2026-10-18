@@ -268,8 +268,8 @@ databricks:
   title: "Databricks: motor og governance"
   items:
     - "Lakehouse: datasjø og datavarehus i ett"
-    - "Skalerer regnekraften etter datamengden"
-    - "Unity Catalog: tilgang, sporing av data og oversikt"
+    - "Skalerer godt til svært store datamengder"
+    - "Unity Catalog: tilgang, sporing, oversikt"
 
 terraform-kode:
   kicker: "Terraform: Infrastruktur som kode"
@@ -287,9 +287,8 @@ terraform-kode:
 
 terraform:
   title: |-
-    Sett opp og versjonskontroller
-    infrastrukturen din
-  lead: "Infrastruktur som kode. Terraform. Gjennom CI/CD."
+    Versjonskontroll på infrastruktur
+  lead: "Infrastruktur som koder. Deployes gjennom CI/CD"
   cards:
     - tittel: "Pull request"
       tekst: "endringen ligger i Git"
@@ -397,7 +396,7 @@ folg-ett-skip:
   footer: "Fasene gjør støy til kunnskap."
 
 propellloven:
-  title: "MarU – maritim utslippsmodell"
+  title: "Nå: utslipp beregnet fra AIS"
   cards:
     - tittel: "Regner ut farten basert på AIS-punkter"
       tekst: "Avstand delt på tid. Så fort går skipet."
@@ -408,11 +407,11 @@ propellloven:
   footer: "Hvert AIS-punkt blir en utslippsberegning."
 
 maru-hvorfor:
-  title: "Hvordan ble det gjort før?"
+  title: "MarU – maritim utslippsmodell"
+  lead: "Regner ut utslippene fra skipstrafikken i norske farvann"
   items:
     - "Før: beregninger basert på drivstoff solgt i Norge"
-    - "Skip fyller drivstoff i utlandet og seiler her. Salgstallene gir derfor ikke hele bildet."
-    - "MarU bruker data om hvor skipene faktisk seiler."
+    - "Skip fyller drivstoff i utlandet og seiler her. Salgstallene viser hvor drivstoffet ble kjøpt, ikke hvor det ble brent."
 
 maru:
   title: "Maritim utslippsmodell – MarU"
@@ -427,8 +426,8 @@ maru:
 maru-hull:
   title: "Maskinlæring fyller hull i skipsregisteret"
   items:
-    - "Skipsregisteret vi trenger for å anslå utslipp er fullt av hull"
-    - "Medianverdier dekker det enkleste"
+    - "Vi bruker skipsregisteret for å få skipsinfo"
+    - "Medianverdier dekker det enkleste hull"
     - "Nevrale nett for servicefart, turtall og slagtype"
     - "70 % mangler drivstofftype. Vi anslår den med LLM. "
   footer: ""
@@ -440,14 +439,12 @@ maru-ut:
     - |-
       CO₂, metan, NOx, SOx,
       svevestøv
-    - "14 skipstyper, 9 størrelser"
     - "Kommune, fylke, havområde"
     - "Innenriks, utenriks, gjennomfart"
 
 kystrisk-tti:
   title: |-
     KystRisk: Hva er risikoen for en ulykke?
-    Samme kurs. Hvor lenge til sammenstøt?
   lead: "TTI: tid til sammenstøt. Ett tall per sektor."
   body:
     - "Risiko uttrykkes som et tall fra 0 til 1."
