@@ -269,14 +269,14 @@ export function SlideHais() {
           boxShadow: "0 8px 28px rgba(45, 20, 30, 0.12)",
         }}
       >
-        <iframe
-          src="https://hais.kystverket.no/"
-          title="HAIS – bestill historiske AIS-uttrekk på hais.kystverket.no"
-          loading="eager"
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/media/26-10-19-tdc-kystverket-dataplattform/hais-full.png"
+          alt="HAIS – bestill historiske AIS-uttrekk på hais.kystverket.no"
           style={{
             width: "100%",
             height: "100%",
-            border: 0,
+            objectFit: "contain",
           }}
         />
       </Box>
