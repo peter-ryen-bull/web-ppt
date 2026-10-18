@@ -29,7 +29,7 @@ import {
  * blendingen tar over. Andre halvdel peker den fra oss: bak tårnet,
  * dusere, smalere og litt hevet.
  */
-export function Fyr() {
+export function Fyr({ framOgTilbakeMedVannet = false }: { framOgTilbakeMedVannet?: boolean }) {
   const W = 420;
   const H = 200;
   const lx = 210;
@@ -167,7 +167,14 @@ export function Fyr() {
         <Skute x={72} y={172} s={0.5} signal={false} />
       </Duv>
 
-      <Bolger y={172} w={W} h={H} amp={9} dur={9} />
+      <Bolger
+        y={172}
+        w={W}
+        h={H}
+        amp={9}
+        dur={9}
+        framOgTilbake={framOgTilbakeMedVannet}
+      />
 
       {/* Holmen */}
       <path d="M 108 178 Q 160 136 210 140 Q 262 136 312 178 Z" fill={KREM} />

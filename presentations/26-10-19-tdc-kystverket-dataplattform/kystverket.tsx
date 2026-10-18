@@ -45,7 +45,7 @@ export function SlideVisjon() {
   return (
     <>
       <Box box={[430, 30, 420, 200]}>
-        <Fyr />
+        <Fyr framOgTilbakeMedVannet />
       </Box>
       <Box box={[48.4, 250, 1183.1, 260]}>
         <div

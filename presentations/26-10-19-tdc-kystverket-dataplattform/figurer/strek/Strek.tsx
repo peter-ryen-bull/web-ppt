@@ -187,6 +187,7 @@ export function Bolger({
   h,
   amp = 12,
   dur = 8,
+  framOgTilbake = false,
 }: {
   /** Vannlinjen (fremre bølge) */
   y: number;
@@ -195,7 +196,16 @@ export function Bolger({
   h: number;
   amp?: number;
   dur?: number;
+  /** La vannet gli fram og tilbake uten å hoppe tilbake til start. */
+  framOgTilbake?: boolean;
 }) {
+  const bevegelse = framOgTilbake
+    ? { values: `0 0; ${-BLG} 0; 0 0` }
+    : {
+        from: "0 0",
+        to: `${-BLG} 0`,
+        dur: `${dur}s`,
+      };
   return (
     <>
       <path
@@ -207,9 +217,8 @@ export function Bolger({
         <animateTransform
           attributeName="transform"
           type="translate"
-          from="0 0"
-          to={`${-BLG} 0`}
-          dur={`${dur * 1.6}s`}
+          {...bevegelse}
+          dur={framOgTilbake ? `${dur * 3.2}s` : `${dur * 1.6}s`}
           repeatCount="indefinite"
         />
       </path>
@@ -222,9 +231,7 @@ export function Bolger({
         <animateTransform
           attributeName="transform"
           type="translate"
-          from="0 0"
-          to={`${-BLG} 0`}
-          dur={`${dur}s`}
+          {...bevegelse}
           repeatCount="indefinite"
         />
       </path>
