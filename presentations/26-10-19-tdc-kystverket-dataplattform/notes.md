@@ -424,17 +424,16 @@ Det er hele argumentet på én skjerm.
 
 ## strukturere-data – Hvordan strukturerer vi dataene for å holde orden?
 
-Dette er kartet for resten av kapittelet. Fire ideer. Vi går gjennom hver.
+Etablerer fire konsepter for storskala dataforvaltning
 
-[[CLICK]] Dataprodukt. Datasettet noen faktisk kan bruke.
 
-[[CLICK]] Datakontrakt. Avtalen rundt det.
+[[CLICK]] Dataprodukt. 
 
-[[CLICK]] Datakatalog. Hvordan du finner det.
+[[CLICK]] Datakontrakt. 
 
-[[CLICK]] Dataforvaltning. Reglene som gjør at vi kan dele trygt.
+[[CLICK]] Datakatalog. 
 
-Hold på dette bildet. Alt etter dette er å pakke ut disse fire.
+[[CLICK]] Dataforvaltning.
 
 ## dataprodukt – Dataprodukt
 
